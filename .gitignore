@@ -1,2 +1,64 @@
-nul
+# Dependencies
 node_modules/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# Backups
+*.backup
+*.bak
+
+# OS artifacts
+nul
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Environment
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+.nyc_output/
+coverage/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Data directory (for local databases)
+data/
+
+# Lock files that shouldn't be committed
+# Note: uv.lock IS committed for reproducibility

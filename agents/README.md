@@ -1,8 +1,13 @@
 # Agents Directory
 
-**Status:** 203 agents organised into ten functional categories  
-**Last reorganised:** 2025-11-02  
+**Status:** 206 agents organised into ten functional categories
+**Last reorganised:** 2025-11-26
 **Common format:** Every agent uses Markdown with YAML front matter (name, type, phase, category, capabilities, tools, MCP servers, hooks, quality gates, artifact contracts).
+
+**Recent additions (2025-11-26):**
+- `specialists/finance/quant-analyst.md` - Quantitative trading and signal calibration
+- `specialists/finance/risk-manager.md` - Risk quantification and compliance
+- `specialists/finance/market-data-specialist.md` - Real-time market data integration
 
 ---
 
@@ -18,7 +23,7 @@
 | quality | Analysis, audit, testing, and verification agents | 18 | `quality/analysis/code-analyzer.md`, `quality/testing/test-orchestrator.md` |
 | research | Research, reasoning, emerging tech, and discovery agents | 11 | `research/archivist.md`, `research/emerging/arvr/ar-vr-developer.md` |
 | security | Compliance, pentest, container, and cloud security specialists | 5 | `security/compliance/soc-compliance-auditor.md`, `security/pentest/penetration-testing-agent.md` |
-| specialists | Domain specialists for business, industry, and vertical workflows | 15 | `specialists/business/business-analyst.md`, `specialists/supply-chain/logistics-optimizer.md` |
+| specialists | Domain specialists for business, industry, finance, and vertical workflows | 18 | `specialists/business/business-analyst.md`, `specialists/finance/quant-analyst.md`, `specialists/supply-chain/logistics-optimizer.md` |
 | tooling | Documentation, GitHub, and knowledge tooling agents | 24 | `tooling/documentation/api-docs/docs-api-openapi.md`, `tooling/github/pr-manager.md` |
 
 Totals include nested directories; for example `platforms/ai-ml/*` contributes to the platforms count.
@@ -37,7 +42,10 @@ agents/
   quality/                  # Analysis, audits, testing specialists
   research/                 # Research cores, reasoning, emerging technology scouts
   security/                 # Compliance, security, penetration testing
-  specialists/              # Business, industry, and other domain experts
+  specialists/              # Business, industry, finance, and other domain experts
+    business/               # Business analyst, marketing, sales, product management
+    finance/                # Quant analyst, risk manager, market data specialist
+    supply-chain/           # Logistics, inventory, procurement
   tooling/                  # Documentation, GitHub, productivity tooling
   registry/                 # (moved to foundry/registry)
 ```
