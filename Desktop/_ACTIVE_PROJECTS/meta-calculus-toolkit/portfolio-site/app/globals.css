@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import KaTeX CSS for math rendering */
+@import 'katex/dist/katex.min.css';
+
+@layer base {
+  :root {
+    --background: 10 14 26;
+    --foreground: 229 231 235;
+  }
+
+  * {
+    @apply border-dark-border;
+  }
+
+  body {
+    @apply bg-dark-bg text-dark-text;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  /* Math typography */
+  .katex {
+    font-size: 1.1em;
+  }
+
+  .katex-display {
+    @apply my-6 overflow-x-auto;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-surface;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary-600 rounded;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-500;
+  }
+}
+
+@layer components {
+  /* Card component */
+  .card {
+    @apply bg-dark-surface border border-dark-border rounded-lg p-6 shadow-lg;
+    @apply hover:border-primary-600 transition-colors duration-200;
+  }
+
+  /* Section container */
+  .section {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent;
+  }
+
+  /* Code block container */
+  .code-container {
+    @apply bg-dark-surface border border-dark-border rounded-lg overflow-hidden;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg;
+    @apply transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-surface hover:bg-dark-border text-dark-text font-medium py-2 px-4 rounded-lg;
+    @apply border border-dark-border transition-colors duration-200;
+  }
+
+  /* Link styling */
+  .link {
+    @apply text-primary-400 hover:text-primary-300 transition-colors duration-200;
+    @apply underline decoration-primary-600 underline-offset-2;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animation utilities */
+  .animate-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out;
+  }
+}
+
+/* Prism theme overrides for code syntax highlighting */
+.prism-code {
+  @apply bg-dark-surface text-sm;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  line-height: 1.5;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  @apply text-gray-500;
+}
+
+.token.punctuation {
+  @apply text-gray-400;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  @apply text-accent-400;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  @apply text-primary-400;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  @apply text-primary-300;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  @apply text-accent-300;
+}
+
+.token.function,
+.token.class-name {
+  @apply text-primary-500;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  @apply text-accent-500;
+}
