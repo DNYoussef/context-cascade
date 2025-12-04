@@ -1,8 +1,8 @@
 # Enhanced Playbook System - Complete Skill Sequences
 
-**Generated**: 2025-11-14
-**Total Skills**: 122
-**Total Playbooks**: 25+
+**Generated**: 2025-12-03
+**Total Skills**: 126
+**Total Playbooks**: 30
 **Categories**: 10
 
 ---
@@ -464,6 +464,70 @@ User Request
 **Skills Used**: 2 skills
 **Time**: 1-2 weeks
 **Complexity**: Medium
+
+---
+
+### 13b. Rapid Research Pipeline
+
+**When**: "Quick research paper draft", "Generate research ideas fast", "Need visual assets for manuscript"
+
+**Sequence**:
+```yaml
+# PHASE 1: RAPID IDEATION (5 minutes)
+1. rapid-idea-generator
+   - Topic-to-ideas in <5 min
+   - 5-Whys causal analysis
+   - MECE component decomposition
+   - Root cause identification
+   - 5-10 ranked research ideas
+   - Literature search keywords
+
+# PHASE 2: GAP VISUALIZATION (5-10 minutes)
+2. literature-synthesis (quick mode)
+   - Fast literature scan
+   - Key papers identification
+   - Gap detection
+
+3. research-gap-visualizer
+   - Gap matrix generation
+   - Research landscape map
+   - Opportunity quadrant
+   - Prioritized gap list
+
+# PHASE 3: VISUAL ASSETS (5-10 minutes)
+4. visual-asset-generator
+   - PRISMA flow diagrams
+   - Methodology flowcharts
+   - Comparison tables
+   - Architecture diagrams
+   - Results placeholders
+
+# PHASE 4: MANUSCRIPT DRAFTING (10-15 minutes)
+5. rapid-manuscript-drafter
+   - IMRaD structure
+   - Section scaffolding
+   - Placeholder insertion
+   - Writing tips
+   - Completion checklist
+
+# PHASE 5: REFINEMENT (optional, adds rigor)
+6. gate-validation --gate 1 (if academic submission)
+   - Quality gate for academic standards
+   - Reproducibility check
+   - Ethics review
+```
+
+**Skills Used**: 5-6 skills (rapid-idea-generator, literature-synthesis, research-gap-visualizer, visual-asset-generator, rapid-manuscript-drafter, gate-validation)
+**Time**: 30-45 minutes (vs 2-4 weeks for Deep Research SOP)
+**Complexity**: Low-Medium
+**Output**: Scaffolded manuscript draft with placeholders (NOT fabricated content)
+
+**Key Design Principles**:
+- NEVER fabricate data or results
+- All outputs use clear [YOUR_DATA] placeholders
+- Full transparency in reasoning
+- Integrates with quality gates for academic rigor
+- Ethical by design
 
 ---
 

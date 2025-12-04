@@ -7,10 +7,10 @@
 ## The Context Cascade Architecture
 
 ```
-PLAYBOOKS (29)     <-- Only these are loaded initially (~2k tokens)
+PLAYBOOKS (30)     <-- Only these are loaded initially (~2k tokens)
     |
     v
-SKILLS (122)       <-- Loaded when playbook invokes them
+SKILLS (126)       <-- Loaded when playbook invokes them
     |
     v
 AGENTS (203)       <-- Loaded when skill needs them
@@ -348,14 +348,55 @@ claude mcp add memory-mcp /path/to/memory-mcp/venv/Scripts/python.exe -u -m src.
 **ACM Compliance**: Supports ACM Artifact Evaluation badges (Available, Functional, Reproduced, Reusable)
 
 **Use Cases**:
-- 📚 Academic ML research (NeurIPS, ICML, CVPR submissions)
-- 🔬 Systematic experimentation with reproducibility
-- 📊 Baseline replication and comparative studies
-- 🎯 Production ML deployment with rigorous validation
+- Academic ML research (NeurIPS, ICML, CVPR submissions)
+- Systematic experimentation with reproducibility
+- Baseline replication and comparative studies
+- Production ML deployment with rigorous validation
 
 ---
 
-## 📦 Available Plugins
+### Rapid Research Pipeline (NEW - December 2025)
+
+**4 NEW Skills** for rapid research with academic integrity:
+
+**1. rapid-idea-generator** - Generate research ideas in <5 minutes
+- 5-Whys causal analysis
+- MECE component decomposition
+- Root cause identification
+- 5-10 ranked ideas with literature pointers
+
+**2. research-gap-visualizer** - Visual gap maps from literature
+- Gap matrices (methods vs domains)
+- Research landscape diagrams
+- Opportunity quadrants
+- Prioritized gap lists with evidence
+
+**3. visual-asset-generator** - Auto diagrams, charts, tables
+- PRISMA flow diagrams
+- Methodology flowcharts
+- Comparison tables
+- Model architecture diagrams
+- NEVER fabricates data (uses [YOUR_DATA] placeholders)
+
+**4. rapid-manuscript-drafter** - Quick manuscript scaffolding
+- IMRaD structure (Introduction, Methods, Results, Discussion)
+- Section templates with writing tips
+- Placeholder insertion for your data
+- Completion checklists
+
+**Key Design Principles**:
+- NEVER fabricate data or results
+- All outputs use clear [YOUR_DATA] placeholders
+- Full transparency in reasoning
+- Integrates with quality gates for academic rigor
+- Ethical by design
+
+**Time**: 30-45 minutes (vs 2-4 weeks for Deep Research SOP)
+**Use When**: Quick first drafts, grant proposals, thesis outlines
+
+---
+
+## Available Plugins
 
 ### 1. 12fa-core - Core System ⭐ START HERE
 **Essential tools for production-grade AI development**
@@ -751,7 +792,7 @@ MIT - See [LICENSE](LICENSE)
 
 ---
 
-**Version**: 3.0.0 | **Author**: DNYoussef | **Last Updated**: November 1, 2025
+**Version**: 3.1.0 | **Author**: DNYoussef | **Last Updated**: December 3, 2025
 
 **⭐ If this helped you, please star the repository!**
 

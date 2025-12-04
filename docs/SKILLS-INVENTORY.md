@@ -1,7 +1,7 @@
-# Complete Skill Inventory (122 skills)
+# Complete Skill Inventory (126 skills)
 
-**Generated**: 2025-11-14
-**Total Skills**: 122
+**Generated**: 2025-12-03
+**Total Skills**: 126
 **Categories**: 33
 
 ---
@@ -167,7 +167,7 @@
 
 - `verification-and-quality-assurance`
 
-## Research (10 skills)
+## Research (14 skills)
 
 - `baseline-replication`
 - `deep-research-orchestrator`
@@ -175,9 +175,13 @@
 - `interactive-planner`
 - `literature-synthesis`
 - `method-development`
+- `rapid-idea-generator` (NEW - rapid idea generation in <5 min)
+- `rapid-manuscript-drafter` (NEW - Quick manuscript scaffolding with placeholders)
 - `research-driven-planning`
+- `research-gap-visualizer` (NEW - Visual gap maps from literature)
 - `research-publication`
 - `researcher`
+- `visual-asset-generator` (NEW - Auto diagrams, charts, tables)
 - `when-gathering-requirements-use-interactive-planner`
 
 ## Security (8 skills)
