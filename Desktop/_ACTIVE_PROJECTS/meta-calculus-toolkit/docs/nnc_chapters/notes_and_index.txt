@@ -1,0 +1,934 @@
+
+--- Page 84 ---
+74 Heuristics
+As a final example, consider a fixed light source radi
+ating light uniformly in all directions. Since the intensity
+of illumination is inversely proportional to the square of
+the distance from the source, the relationship of intensity
+to distance is describable by a bigeometrically-uniform func
+tion, whose bigeometric slope is independent of the units of
+distance and intensity.
+--- Page 85 ---
+Chapter lo
+COLLATERAL ISSUES
+10.1 INTRODUCTION
+This last chapter contains, among other things, brief
+discussions of some ideas that we have entertained but not
+investigated in depth.
+As before, * is an ordered pair of arbitrarily selected
+arithmetics, (A,4,-,3,7,8) and (B,*,+,×,7,8), having genera
+tors o and 8. The isomorphism from a-arithmetic to 3-arith
+metic is denoted by l, which was discussed in Section 6.l.
+The o-absolute value of a number a in A is denoted by
+iai a(la"(a) |)
+and equals similarly, the 3-absolute value
+|b| 8(IBT"(b) |),
+of a number b in B is denoted by and equals
+(Section 5.3).
+The 8-square of a number b in B is bºb, which will be
+denoted by b? at a slight risk that it might be incorrectly
+interpreted as b to the power 8(2). For each 3-nonnegative
+number t, the symbol “Vt will be used to denote
+8(VAT"(t)},
+which is the unique 3-nonnegative number whose 3-square equals
+t. For each number b in B,
+*/3 - is
+For each integer n, the symbolsh and fi denote the a
+integer o (n) and the 8-integer 8(n), respectively.
+Henceforth a point is a 4-point, that is an ordered pair
+of numbers in A and B, in that order. The symbol Pi repre
+sents the point (ai,bi).
+10.2 k-SPACE
+By *-space we mean the system consisting of all points
+and the following method of computing the k-distance,
+d*(P1,P2), between poi-nts Pl and P2:
+º, -º/-a.
+à(p - a, 1% + 8, a b.1%
+1**2 l 2 l 2
+75
+--- Page 86 ---
+76 Collateral Issues
+(ſº )
+- a (a,)1° 4 (8” (b1) - 37° (b2)1%
+-
+This k-distance formula gives the same results infor
+mally explained in Section 6.ll and was initially designed
+to facilitate the graphic interpretation presented there.
+(When o' = B = I, k-distance is obviously the usual Euclid
+ean distance.) Observe that
+d+(P1,P2)
+is in B, as are the
+values of all the operators of the k-calculus. Of course,
+one could easily redefine *-distance so that it is in A,
+but that would be less useful for our purposes.
+If a1 = az, then ä+(P1,P2) = -|-bi + bal--; and if b1 = b,.
+then ä+(P1,P2) = -|- (a1 + a2)-l- = t (- al - a21- ).
++
+Although d is not a metric in the usual sense, it is a
+*-metric in the sense that the following proposition is true.
+For any points P1, P2, and P3,
+d+ (P1,P2) S. Ö,
+d+ (P1,P2) Ö if and only if Pl = P2,
++ +
+d(P1,P2) d(P2,P1),
+-
++ .. k. ... k.
+d(P1,P2) + d(P2,P3) > d(P1,P3).
+The points Pl, P2, and P3 are *-collinear provided that
+at least one of the following holds:
++ ... k. *
+d(P2,P1) + d(P1,P3) = d(P2,P3),
+* ... k. +
+d(P1,P2) d(P2,P3) d(P1,P3),
++ -
++ •* * +
+d(P1,P3) d(P3,P2) d(P1,P2).
++ -
+If a1 = a2 = a3 or b1 - b2 - b3, then Pl, P2, and P3 are
+*-collinear, but those are not the only circumstances that
+engender k-collinearity, as we shall see shortly.
+A *-line (or *-geodesic) is a set L of at least two dis
+tinct points such that for any distinct points Pl and P2 in
+--- Page 87 ---
+10.2 *-Space 77
+L., a point P2 is in L if and only if Pl, P2, and P3 are k
+*
+collinear. *-line is vertical provided all its points
+have the same first member.
+When o = 8 = I, the k-lines are the straight lines of
+Euclidean analytic geometry in two dimensions. If o = I
+and 8(x) = x", for example, then each nonvertical *-line is
+the union of two parabolic parts. (The parabolic family of
+calculi is defined in Note 6.)
+Theorem
+The class of nonvertical k-lines is identical
+with the class of k-uniform functions.
+Two º-lines are *-parallel provided they are identical
+or have no common point. It turns out that two nonvertical
+*-lines are *-parallel if and only if they have the same *
+slope.
+A k-line Pl is *-perpendicular to a *-line P2 provided
+they have a common point P and for any points Pl on Ll and
+P2 on L2, distinct from P, d(P1,P) < d(P1,P2). If L1 and L
+2
+are *-perpendicular, then for any points Pl On L1 and P2 on
+L
+2”
+-- --
+[*d(P,P1)12 * +* [+d(P,P2) 12 -= [+d(P1,P2)1"2 .
+Furthermore, two nonvertical *-lines are *-perpendicular if
+and only if the 8-product of their +-slopes is +1, that is,
+8(-1).
+The *-arc length of a suitably behaved arc can be de
+fined in an obvious way by partitioning the arc and using the
+*-distance between the successive points. If f has a k-con
+tinuous *-derivative on ir,si, the k-arc length of f on [r,s]
+turns out to be
+ſ:s
+º/i-- -:- [5f]*--.
+r
+As expected, the *-distance between two points Pl and P2 is
+equal to the *-arc length of the *-segment connecting Pl and
+P2.
+With the k-metric one can define all the k-conics, the
+study of which may be facilitated by using the *-vectors de
+--- Page 88 ---
+78 Collateral Issues
+fined in the next section. (It would be interesting to know
+whether one can select o and 8 so that every +-circle is an
+ellipse.)
+Since +-space is, in fact, a model of plane Euclidean
+geometry, all the theorems of the latter have counterparts
+in the former. Nevertheless, we believe that it is just as
+profitable to distinguish these spaces as it is to distin
+guish the calculi.
+Clearly the foregoing developments can be extended to
+n dimensions.
+In Note 7 we show how to convert the set of all points
+into a system of *-complex numbers.
+10.3 k-VECTORS
+For any numbers a in A and b in B, the transformation
+that maps each point (x,y) into (x+a, yºb) is a k-vector and
+r r +
+is here denoted by v[a;b) . The sum of v[a;b) and v[c;d) is
+v+ [a--c, b---d] .
+Theorem
+*
+For any point (x,y) and *-vector v [a;b) , the
+point (x,y), its image (x+a, yºb), and the
+latter's image (x+a+a, yºbºb), are *-collinear.
+Stabl
+We say that the vector is rectilinear provided
+that for EVERY point (x,y), the points (x,y), (x+a, yºb) ,
+and (x+a+a, yºbºb) are classically collinear; otherwise the
+vector is curvilinear.
+If O. = B = I, then all #-vectors are rectilinear. But,
+for instance, if o = I and 8 = exp, then most k-vectors are
+$17,2]
+curvilinear; e.g., is curvilinear since it maps (l,3)
+into (8,6), which is mapped into (15,12), three k-collinear
+points that are not classically collinear.
+Various types of scalar multiplications and norms can
+be defined for k-vectors.
+10.4 THE *-METHOD OF LEAST SQUARES
+The *-method of least squares is the same kind of exten
+sion of the classical method of least squares as the *-calcu
+lus is of the classical calculus.
+--- Page 89 ---
+10.4 The *-Method of Least Squares 79
+Let f be a discrete function with arguments a1,. . . .an
+in A and values in B, and let S be a set of functions whose
+values are in B and whose arguments are in A and include
+a-l'- - - - *,a“n•
+If there exists a member g of S such that for every mem
+ber h of S distinct from g,
+[g(a) = f(a) 1 3 ... + [g(an) = f(a) I’
+< Th(a1) = f(a1) 1 + ... + [h(aa) = f(aa) 1",
+then g, which is obviously unique, is said to be the member
+of S that is best fitted to f by the *-method and is denoted
+by f(s;f).
+When O. = 8 = I, the k-method is identical with the clas
+sical method and the notation L(S;f) will be used instead of
+£(s; f).
+Please note that L(S;f) is not necessarily a linear
+function.
+For each function 6 with arguments in A and values in B,
+let 5 be the function consisting of all ordered pairs
+(a" (x), 87°(y)) for which (x,y) is in 9. Let S be the set
+of all functions à for which 6 is in s. Then itsºf) and
+L(5;f, coexist, and if they do exist,
+£(s;f = 3(L(5;F)).
+The pattern of that relationship is already quite familiar
+in view of the results given in Section 6.8.
+£(s;f,
+Thus, if exists, it can be found by using the
+classical method to select the member of S that best fits f
+and then applying 8 to the result.
+Any statistical justification for the classical method
+can probably be converted into a justification for the *
+method.
+If S is the set of all k-uniform functions, then we have
+the following results.
++
+l. L(S;f) exists (and is unique).
+2. Ifx(s;f)J (a1) =- f(a1)} -+- ...
+{[f (s;f l (aa) f(an)}
+-+- + t = -0-.
+--- Page 90 ---
+80 Collateral Issues
+f(s;f,
+3. contains the *-centroid of f, which we
+define to be the point whose members are the
+o-average of the ai and the 8-average of the
+f(ai),
+in that order.
+£(s;f)
+In this situation, the *-slope of may be useful for
+indicating the "overall k-direction" of the discrete func
+tion f.
+Consider now the problem of fitting a function of the
+f:{(a1,b1),
+form exp(mx + c) to a positive discrete function
+. . . . (an,bn) }. Since the classical method is extremely diffi
+cult to apply here, scientists use the following "lineari
+zation" technique.
+{(alln(b1)), ... , (an,ln(bm))},
+First f is transformed into
+and the functions exp(mx + c) are transformed into ln[exp(mx+
+c) ) , that is, into the linear functions mx + c. Then the
+classical method is used to fit a linear function to the
+transformation of f, and finally exp is applied to that lin
+ear function. The result, which we have not seen explained
+heretofore, is identical with that provided by the *-method
+for which o = I and 8 = exp.
+The idea for the *-method arose from the following ana
+logue of a well-known theorem concerning the arithmetic aver
+age.
+If b is the 3-average of n numbers b1, . . . ,bn in B,
+then
+(b - bi) + ... + (b = bn) = 3,
+and for any number x in B distinct from b,
+(b - bi)” + ... ; (b = bn)?
+* (x + bi) * + ... + (x = ba)*.
+Perhaps other statistical concepts can be developed in
+the context of *-calculus. For example, since the *-graph
+(section 6.11) of the function 8(exp(-(a"(x))”
+J} is a nor
+mal distribution curve, we may call that function *-normal.
+If a function is not classically normal, it may be *-normal
+for suitable choices of 0 and 8, in which case the tools of
+the *-calculus would be available for analytic purposes.
+--- Page 91 ---
+lC).5 Trends 81
+10.5 TRENDS
+Although least squares methods provide interesting ways
+of determining various "overall directions" of a discrete
+function, there are other methods that are easier to calcu
+late and may prove to be more useful. For simplicity we be
+gin with functions defined on (closed) intervals, rather than
+with discrete functions.
+By a trend of a function on an interval we mean an aver
+age of a derivative of the function on the interval. (It may
+be helpful to conceive of a trend as a kind of global deriva
+tive.)
+For example, one could compute the quadratic average of
+the classical derivative of g on [r,s] :
+| l ſsº# ) l/2
+S - r *r -
+Or one could compute the biquadratic average of the anageo
+metric derivative of g on a positive interval.
+Trends that do not depend on all the points of the func
+tion are trivial. For example, the arithmetic average of Dg
+on [r,s] is a trivial trend, since it equals
+[g(s) – g(r))/(s - r),
+which depends solely on the points (r,g(r)) and (s,g(s)).
+Similarly, the *-average of 5g on ir,si is a trivial trend.
+Nontrivial trends are obtained only by applying an average
+from one calculus to a derivative from another calculus.
+One can compute trends of a discrete function f by aver
+aging the slopes of the uniform functions joining successive
+points of f, assuming, of course, that the arguments of f are
+equispaced relative to the arithmetic used for the arguments.
+For instance, one could compute the quadratic average of the
+classical slopes of the linear functions connecting the suc
+cessive points. (The resulting trend is related to the root
+mean-square-successive-difference used by some statisticians.)
+We would like to know whether there is a trend operator
+that assigns to each discrete function with equispaced argu
+ments the classical slope of the linear function that can be
+fitted to f by the classical method of least squares.
+--- Page 92 ---
+82 Collateral Issues
+lo.6 CALCULUS IN BANACH SPACES
+Each arithmetic can be converted into a Banach space.
+For example, a-arithmetic is so converted by defining the
+|a" (u)
+norm of each number u in A to be and by defining
+the scalar product of a number r and u to be a(r) × u.
+Shortly after completing our development of the non
+Newtonian calculi in August of 1970, we had occasion to con
+sult the first edition of Jean Dieudonné's Foundations of
+Modern Analysis. There we found a definition of the deriva
+tive of a function with arguments in a Banach space and val
+ues in a Banach space. If those Banach spaces are taken to
+be converted o-arithmetic and converted 3-arithmetic, re
+spectively, then that derivative is the k-derivative. For
+the integral, Dieudonné apparently restricted his attention
+to functions with arguments in R and values in a Banach space.
+If the Banach space is taken to be converted 8-arithmetic,
+then that integral is the special *-integral for which o = I.
+However, since we have nowhere seen a discussion of even
+one specific non-Newtonian calculus, and since we have not
+found a notion that encompasses the *-average, we are in
+clined to the view that the non-Newtonian calculi have not
+been known and recognized heretofore. But only the mathemat
+ical community can decide that.
+10.7 CONCLUSION
+We trust that the basic ideas of the non-Newtonian cal
+culi have been presented in sufficient detail to enable in
+terested persons to develop the theory in various directions.
+For example, one could study *-differential equations, inves
+tigate Taylor series in the context of *-calculus, or con
+struct non-Newtonian calculi of functions of two or more real
+variables by choosing an arithmetic for each axis. It might
+even be profitable to seek deeper connections among the cor
+responding operators of the calculi. One well-known theorem
+about averages comes to mind:
+--- Page 93 ---
+10.7 Conclusion 83
+Let Q = I. For each positive integer n, let
+º
+if x > 0
+Bn(x)
+- r
+x if x < 0
+and let *n be (d-arithmetic, Ba-arithmetic). Then
+for any positive continuous function f on [r,s],
+lieſ;
+= M*f.
+n+oo r r
+If the corresponding propositions for *n-derivatives and
+integrals were true, then one could say that the geometric
+calculus is the "limit" of an infinite sequence of calculi.
+But, alas, those propositions are false. Nevertheless, it
+is not unreasonable to speculate that there are nontrivial
+sequences of calculi which do converge in some well-defined
+sense-
+Some years ago we encountered a remark by N.J. Lennes
+that has become for us a constant reminder of the hazards of
+premature judgment:
+"Christiaan Huygens, one of the world's great
+mathematicians and physicists, ... never became en
+thusiastic about the calculus, and urged to the end
+of his life that all problems solved by means of it
+could be solved equally well by the older methods."
+--- Page 94 ---
+N. O. T E S
+Note l (to page 12)
+Those who prefer percents to ratios may find the follow
+ing concepts more appealing than the corresponding concepts
+of the geometric calculus. However, the relative derivative
+is not a non-Newtonian derivative according to our use of the
+term and there is no integral that is the 'inverse' of the
+relative derivative. It should also be mentioned that the
+relative derivative is not the so-called logarithmic deriva
+tive, which also fails to be a non-Newtonian derivative.
+The relative change of a 'positive function f over [r,s]
+is [f(s) – f(r) 1/f(r), which equals l less than the geometric
+change of f over [r,s] . The relative slope of a geometrical
+ly-uniform function is its relative change over any interval
+of classical extent l. The relative gradient of a positive
+function f over [r,s] is the relative slope of the geometri
+cally-uniform function containing (r.,f(r)) and (s,f(s)), and
+turns out to be
+l
+#f(s!) )"sº-r - i.
+f(r)
+or l less than the geometric gradient of f over [r,s] .
+In securities analysis and other applications the rela
+tive gradient is often called the compound growth rate. For
+example, suppose that one paid $64 for a share of stock.
+Three years later the price of the share is $216. The com
+pound (annual) growth rate of the price over the time inter
+val [0,3] is given by
+1/(3-0)
+[216/64] - l,
+which equals 0.5 or 50%. The significance of that figure
+stems from the fact that if an original investment of $64
+increased 50% in each of three successive years, the final
+value would be $216.
+The relative derivative of a positive function f at an
+argument a is the following limit, if it exists and is great
+er than -l:
+84
+--- Page 95 ---
+N O t e S 85
+[[ )+ i].
+f(x)\x-a
+lim
+-
+x-a f(a)
+The relative derivative of f at a coexists with, and equals
+l less than, the geometric derivative of f at a.
+Note 2 (to page 13)
+We shall explain here how a simple algebraic identity
+led us to construct the geometric calculus. First we re
+express thediscrete analogue of the Basic Theorem of Classi
+cal Calculus(p.6) in a slightly different manner.
+Consider any n points (a1,V1) . . . . , (an,Vn), where a1 <
+1 = a3 - a.2 = .. . = an - an-1. Let
+a... <... < a. and a~ - a k
+2 n 2
+be the common value of the at - a1–1, so that k(n-1) = an—a
+l"
+Connect the n points by line segments, of which there are
+n - l. Then the arithmetic average of their classical slopes
+equals the classical slope of the line segment containing the
+endpoints (a1,V1) and (an,Vn) ; that is
+Now assume that the vi are positive. Then the following
+identity is obvious:
+is #1 ====
+l, 1.
+[...]".[...]"... […]*}” -[...]”
+Vl V2 Yn-l Vl
+The left side of that equation is the geometric average of
+(v/v, 1)",
+the n-1 numbers which, we imagined, must be
+slopes of a new kind. We conjectured that the preceding
+equation must be the discrete analogue of the Basic Theorem
+of a new system of calculus, the geometric calculus.
+Note 3 (to page 19)
+Here we explain why, in the definition of anageometric
+slope, we use positive intervals of geometric extent equal to
+e, rather than to some other number greater than l. (Geomet
+--- Page 96 ---
+86 N O tº e s
+ric extent is necessarily greater than 1.)
+Let w > 1, and assume we had defined the anageometric
+slope of an anageometrically-uniform function to be its clas
+sical change over any positive interval of geometric extent
+w. Then the anageometric slope of ln(cx"), the typical ana
+geometrically-uniform function, would equal m.ln(w). Accord
+ingly, it is convenient to stipulate that ln(w) = 1, or w =
+e. The choice of w = e is no more arbitrary here than the
+choice of intervals of classical extent l in the definition
+of classical slope (Section l.2). In Section 6.10 we make
+another comment on the choice w = e.
+Note 4 (to page 49)
+Many 'growth' calculi can be constructed by taking o =
+I and choosing 8 from the growth curves, which include or
+are related to the logistic curves, cumulative normal curves,
+and the sigmoidal curves that occur in the study of popula
+tion and biological growth.
+For example, let o(x) = (e” - 1)/(e” + 1). (Note that
+o(2x) = tanh(x).} The function o is of the sigmoid type (S
+shaped) and generates sigmoidal arithmetic, whose realm con
+sists of all numbers strictly between -l and l. The sigmoid
+al sum and difference of numbers u and v in the realm turn
+out to be (u + v), (l 4 uv) and (u - v)/(1 - uv), respectively.
+The sigmoidal calculus is the *-calculus for which o = I and
+8 = 0. By choosing G = 0 and 8 = I we get the anasigmoidal
+calculus; for a = 8 = q we obtain the bisigmoidal calculus.
+It is entertaining to extend sigmoidal arithmetic by
+appending -l and 1 to the realm and defining the sum of num
+bers u and v to be
+(u + v), (l + uv) if uv # -l
+u ž v =
+-
+0 if uv = -l
+Then l 4 (–1) = 0; if u ž -l, then u + 1 = 1; and if u ž 1,
+then u + (-1) = -1. Thus, -l and 1 behave as negative and
+positive infinity in the extended sigmoidal system.
+If units are chosen so that the speed of light is l,
+then the extended sigmoidal sum of two speeds equals the
+relativistic composition of the speeds, even if one or both
+--- Page 97 ---
+N O tº e s 87
+of the speeds is l.
+Note 5 (to pages 53 and 60)
+In this Note we show how to generate the infinitely
+many power arithmetics, of which the quadratic and harmonic
+arithmetics are special instances. Let p be an arbitrary
+pth-power
+nonzero number. The function is the function that
+assigns to each number x the number
+xP if x > 0
+p
+x -- 0 if x 0 .
+-(-x)P if x <
+Note that x* is positive when x is positive, and negative
+when x is negative.
+For any numbers y and z,
+(yz)P yP. zP,
+- and
+P,17P = y = (y175,p
+(y
+If p = 1/2, the pth-power function is the function x:1/2,
+which generates the quadratic arithmetic (Section 7.1); if
+p = -l, the pth-power function is the function 1/x, which
+generates the harmonic arithmetic (Section 8.1); if p = 2,
+the pth-power function is the function x”, which generates
+the parabolic arithmetic (Note 6).
+The pth-power function is one-to-one, is on R and onto
+R, has the 17pth-power function as its inverse, and gener
+pth-power
+ates the arithmetic. In that arithmetic the nat
+ural average of n numbers u1,. . . ,un turns out to be
+{6,7F º,7F/A)
+F,
++ . . . --
+which reduces to the well-known pth-power average when the
+ui are positive.
+Note 6 (to page 77)
+The function p(x) = x” generates the parabolic arithme
+tic, which is one of the power arithmetics discussed in Note
+5 above. The realm of parabolic arithmetic is R. The para
+bolic calculus is the *-calculus for which 0 = I and 8 = p;
+--- Page 98 ---
+88 N O t e s
+the parabolically-uniform functions are expressible in the
+c)*.
+form (mx + By choosing o = p and 3 = I we get the
+anaparabolic calculus; for G = 8 = p we obtain the bipara
+bolic calculus.
+Note 7 (to page 78)
+The system of *-complex numbers consists of all 4
+points and two operations defined thus: the sum of (a1,b1)
+and (a2,b2) ls (al + a2. bl + b2) and their product is
+(a(a1a2 - 5152}, 3(a152 + 51a2}),
+*(al), *(b1),
+where a -1 = a- a-2 = a-l(a2), b -1 = 6- and b -2 -
+For this system, which is a field, one can define sub
+traction and division that are 'inverses' of addition and
+multiplication. Furthermore, O-arithmetic (and hence every
+arithmetic) is embedded in the system.
+Since the product of (0,i) with itself equals (-1,0),
+* - --
+we may define i to be (0,1) . Of course, the product of
+(ó,-1) with itself also equals (-1,0).
+Various types of moduli can be defined for the *-complex
+numbers.
+--- Page 99 ---
+LIST OF SYMBOLS
+Single-dotted notations, such as +, 3, and [r,s] ,
+pertain to o-arithmetic; double-dotted notations
+pertain to 3-arithmetic.
+A, 32,38; Ā, 45
+B, 38; B, 45
+-
+D, 4, -5, 11-12, D, 19-20, -5, 26; 5*, 40, 5, 46;
+O o D D
+D, 53; D, 55; D, 5.7; D, 61; D, 63; D, 64
+o o O D
+G, 16: G, 16; g, 24, 3, 31, 3, 45; 3, 46
+I, l
++
+L(S;f), 79; L(S;f), 79
+M, 5; M- , 13; M., 20; M-, 27; M* , 41; M* ., 46
+P1, P P 75
+2* *3*
+R, l; R+, l
+O., 33-34, 38
+a" is the inverse of a (Page 1)
+8, 38
+8-1 is the inverse of 8. (Page l)
+l, 39
++
+v, 78
+- - D D
+[r,s], l; [r,s] , 35; [r,s] , 59
+e, l
+exp, l
+ln, l-2
++, 32-34; +, 38; © , 52; , 59
++, 32-34; *, 38; 6) , 52; E , 59
+x, 32-34; X, 38
+7, 32-34; 7, 38
+89
+--- Page 100 ---
+List of Symbols
+<, 32-34; 2, 38; Kl, 59
+Ö, 33, 34; 6, 39, 75
+i, 33, 34; i, 39, 75
+h, 34; h, 39, 75
+ixi, |x|,
+34, 75; 75
+*, 38; *, 45
+*-lim, 38; *-lim, 46
+*
+d(F1,P2),
+49, 75–76
+2
+x", 52
+x:1/2,
+52
+:
+, l/x, 59
+b°, 75
+‘VT, 75
+ſº ſi-t-is, ſzz, ſz-º, ſ+ º ſr º, ſo º
+ſ36, ſ.o sa. ſeD l, ſº ſeO s
+o o D O
+--- Page 101 ---
+I N D E X
+Most items are listed according to their qualifying
+prefixes (o.,8,*) or qualifying adjectives (anageo
+metric, anaharmonic, anaquadratic, bigeometric, bi
+harmonic, biquadratic, classical, geometric, harmon
+ic, quadratic).
+o-Absolute value, 34,75 Anasigmoidal calculus,86
+o-Arithmetic,33-34 Arguments,l
+Banach space,82 Arithmetic,32-33
+o–Average,35,70-71,80 Arithmetic average,5,70-72
+o-Convergence,36 characterization,5-6
+O.-Extent,35 Arithmetic partition,5
+o-Integers,34
+O-Interior,35 (For 8-items not listed here,
+o-Intervals,35 see like entries under O.
+o-Limit,36 Also see comment on p.38.)
+o-Negative numbers,34
+3-Absolute value,75
+o-One,34
+3-Additive,40
+o-Partitions,35
+3-Arithmetic,38
+Q-Positive numbers,34
+8-Change,39
+o-Progressions,35
+3-Homogeneous,40
+O-Similitudes,67-68
+8-Similitudes,67-68
+o,-Translations,67-68
+8-Square,75
+o-Zero,34
+8-Square root,75
+Additive,4 8-Translations,67-68
+Anageometric average,20
+Basic Problem:
+characterization,21
+Anageometric Calculus,22
+Anageometric calculus,18-24,
+Bigeometric Calculus,29
+47-48
+Classical Calculus,7
+Anageometric derivative,19
+Geometric Calculus,lá
+Anageometric gradient,l9
+*-Calculus,43
+Anageometric integral,22
+characterization,23 Basic Theorem:
+Anageometric slope,l8-19, Anageometric Calculus,21
+48, 85-86 Anaharmonic Calculus,63
+Anageometrically-uniform Anaquadratic Calculus,56
+functions,18 Bigeometric Calculus,29
+Anaharmonic average,63 Biharmonic Calculus,65
+Anaharmonic calculus,62-63 Biquadratic Calculus,58
+Anaharmonic derivative,63 Classical Calculus,6
+Anaharmonic gradient,62 Geometric Calculus,l.2-lº
+Anaharmonic integral,63 Harmonic Calculus,62
+Anaharmonic slope,62 Quadratic Calculus,54
+Anaharmonically-uniform *-Calculus,42
+functions,62
+Bigeometric average,27-28
+Anaparabolic calculus,88
+characterization,28
+Anaquadratic average,56
+Bigeometric calculus,25-31,
+Anaquadratic calculus,55-57
+47-48
+Anaquadratic derivative,55
+Bigeometric derivative,26,48
+Anaquadratic gradient,55
+Bigeometric gradient,25-26,66
+Anaquadratic integral,56
+Bigeometric integral,29-30
+Anaquadratic slope,55
+characterization,30
+Anaquadratically-uniform
+Bigeometric slope,25,48,7.4
+functions,55
+91
+--- Page 102 ---
+92 I n d e x
+Bigeometrically-uniform Biharmonic Calculus,65
+functions,25,74 Biquadratic Calculus,58
+Biharmonic average,64-65 Classical Calculus,8
+Biharmonic calculus,64-65 Geometric Calculus,l0
+Biharmonic derivative,64 Harmonic Calculus,62
+Biharmonic gradient,64 Quadratic Calculus,55
+Biharmonic integral,65 *-Calculus,44
+Biharmonic slope,64
+Function,l
+Biharmonically-uniform
+functions,64
+Galileo, G., 9,18,73
+Biparabolic calculus,88
+'Generates, ' 34
+Biquadratic average,58
+Generator,33
+Biquadratic calculus,57-58
+Geometric arithmetic,36-37
+Biquadratic derivative,57
+applications,47-49
+Biquadratic gradient,57
+Geometric average,12-13,71,83
+Biquadratic integral,58
+characterization,13
+Biquadratic slope,57
+Geometric calculus,9-17,47-48,
+Biquadratically-uniform
+85
+functions,57
+Geometric change,10
+Bisigmoidal calculus,86
+Geometric derivative,ll,48
+Geometric extent,18
+Calculus in Banach spaces,82
+Geometric gradient,ll,66,67
+Campbell, N.R. ,33
+invariance,68
+Cartesian paper,5l
+Geometric integral,14-15,70
+C-graphs,51
+characterization,15
+Classical arithmetic,33
+Geometric partition,20
+Classical calculus,3-8,47
+Geometric slope,ll,73
+Classical change,3
+Geometrically-uniform
+Classical derivative,4
+functions, l0,73
+Classical extent,l
+'Gradient, ' 3
+Classical gradient,3,66,67
+Graphical interpretations
+invariance,68
+of k-calculus,49-51
+Classical integral,7,69
+Graphs
+characterization,8
+C-, 51
+Classical method of least
+*-, 49
+squares,79
+Classical slope,3
+Harmonic arithmetic,59-60,87
+Classical tangents,4-5
+Harmonic average,60,61,71
+Classically tangent func
+Harmonic calculus,60-62
+tions,5
+Harmonic derivative,61
+Classically-uniform func
+Harmonic gradient,60-61,67
+tions,3
+Harmonic integral,6l
+Complete ordered field,32
+Harmonic progressions,60
+Compound growth rate,84
+Harmonic slope,60,73
+Harmonically-uniform
+Dieudonné, J., 82
+functions,60,73
+Discrete analogue,6
+Heuristics,66-74
+Discrete function,1
+averages,70-72
+Domain,l
+constants and scientific
+concepts,72-74
+Ellis, B. , 71
+gradients and derivatives,
+Exp, l
+66-68
+integrals,68-70
+First Fundamental Theorem:
+Homogeneous,4
+Anageometric Calculus,23
+Huygens, C. , 83
+Anaharmonic Calculus,63
+Anaquadratic Calculus,56
+1 (iota) , 39
+Bigeometric Calculus,30
+--- Page 103 ---
+I n d e x 93
+Identity function,l Relationships between calculi:
+Invariance,68,71 anageometric to classical,24
+Inverse of a function,l any two calculi,45-47
+Interior,l bigeometric to classical,31
+Interval,l geometric to classical,l0-17
+Isomorphism (l), 39 # to classical,44-45
+Relative change,84
+Relative derivative,84-85
+Relative gradient,84
+Least squares methods,78-80 Relative slope,84
+Lennes, N.J., 83 Resiliency,27
+Linear function, l,3 Rockland, C. , 5
+'Linear operator, ' 4 Root mean square,53,54
+Ln, 1
+Logarithmic derivative,l.2 *, 38
+*—Arc length,77
+Mean value theorem *—Area,50
+of geometric calculus,l7 *-Average,41,70,82
+of k-calculus,47 characterization,41-42
+Measurement,33,66,71 *—Calculus,38–51
+graphical interpretations,
+Natural average,35 49-51
+Natural progression,35 *–Centroid,80
+Newton, I., 18,6.7 *–Collinear,76
+n-Fold,5,20,35 *-Complex numbers,88
+Non-Newtonian calculi, *–Continuity,39
+see k-calculus *-Derivative,40,50,82
+Number,l invariance,68
+*-Differential equations,
+'On, ' l 68-69
+One-to-one,1 *-Distance,49,5l
+'Onto,' l formulas,75–76
+*-Gradient,40,67-68,73
+Parabolic arithmetic,87 invariance,68
+Parabolic calculus,87 *—Graphs,49
+Point,l *—Integral,43,50-51,70,82
+Positive function,l characterization,43-44
+Positive interval,l8 *—Limit,38
+Power arithmetics,87 *—Lines,76-77
+pth-Power average,87 *-Method of least squares,
+pth-Power arithmetic,87 78-80
+*—Metric,76
+Quadratic arithmetic,52-53,87 *-Normal function,80
+Quadratic average,53,54 *-Paper,49
+Quadratic calculus,53-55 *—Parallel,77
+Quadratic derivative,53-54 *—Perpendicular,77
+Quadratic gradient,53 *—Points,49
+Quadratic integral,54 *—Slope,40,50,51,73,80
+Quadratic partitions,53 *—Space,75–78
+Quadratic progressions,53 *-Tangent,4l
+Quadratic slope,53 *-Tangent functions,41
+Quadratically-uniform *-Uniform functions,39,73,77
+functions,53 *—Vectors,78
+Range,l Second Fundamental Theorem:
+Realm,32 Anageometric Calculus,23
+Real number system,32 Anaharmonic Calculus,63
+--- Page 104 ---
+94 I n d e x
+Anaquadratic Calculus,57
+Bigeometric Calculus,31
+Biharmonic Calculus,65
+Biquadratic Calculus,58
+Classical Calculus,8
+Geometric Calculus,l0
+Harmonic Calculus,62
+Quadratic Calculus,55
+*-Calculus,44
+Sigmoidal arithmetic,86
+Sigmoidal calculus,86
+Sigmoidal gradient,67
+Similitudes,67-68
+Speed,72–73
+Stevens, S.S., 66,71
+Stieltjes integral,22,43,56
+Translations,67–68
+Trends,81
+Values,l
+Vertical k-line,77
+--- Page 105 ---
+BIBLIOGRAPHY
+Grossman, M. The First Wonlinear System of Differenttal
+and Integral Calculus. Rockport, MA: Mathco, l979.
+This book contains a detailed account of the geometric calcu
+lus, which was the first of the non-Newtonian calculi. Also
+included are discussions of the analogy that led to the dis
+covery of that calculus, and some heuristic guides for its ap
+plication.
+Meginniss,“J. R. "Non-Newtonian Calculus Applied to Prob
+ability, Utility, and Bayesian Analysis." Proceedings of the
+American Statistical Association: Business and Economics Sta
+tistics Section (1980), pp. 405-4lo.
+This paper presents a new theory of probability suitable for
+the analysis of human behavior and decision making. The theo
+ry is based on the idea that subjective probability is govern
+cd by tho laws of a non-Newtonian calculus and one of its cor
+responding arithmetics.
+Grossman, J., Grossman, M., and Katz, R. The First Sys
+tems of Weighted Differential and Integral Calculus. Rock
+port, MA: Archimedes Foundation, 1980.
+This monograph reveals how weighted averages, Stieltjes inte
+grals, and derivatives of one function with respect to another
+can be linked to form systems of calculus, which are called
+weighted calculi because in each such system a weight function
+plays a central role.
+Grossman, J. Meta-Calculus ; Differential and Integral.
+Rockport, MA: Archimedes Foundation, 1981.
+This monograph contains a development of systems of calculus-,
+called meta-calculi, that transcend the classical calculus,
+for example in the following manner. In each meta-calculus
+the gradient, or average rate of change, of a function f on an
+interval [r,s] depends on all the points (x,f(x)) for which
+r 3 x < s, whereas the classical gradient (f(s) - f(r) J/(s - r)
+depends only on the endpoints (r,f(r)) and .(s,f(s)) . . The meta
+calculi arose from the problem of measuring stock-price per
+formance when taking all intermediate prices into account.
+Grossman, M. Bigsometric Calculus: A System with a Scale
+Frea Derivative. Rockport, MA: Archimedes Foundation, l983.
+This book contains a detailed treatment of the bigeometric
+calculus, which has a derivative that is scale-free, i.e.,
+invariant under all changes of scales (or units) in function
+arguments and values. Also included are heuristic guides for
+the application of that calculus, and various related matters
+such as the bigeometric method of least squares.
+Grossman, J., Grossman, M., and Katz, R. Average•* 4 New
+Approach. Rockport, MA: Archimedes Foundation, l?83.
+This monograph is primarily concerned with a comprehensive- -
+family of averages (unweighted and weighted) of functions
+that arose naturally in the development of non-Newtonian
+calculus and weighted,non-Newtonian calculus. The monograph
+also contains discussions of some heuristic guides for the
+appropriate use of averages and an interesting family of
+means"of two positive numbers.
+--- Page 106 ---
+
+--- Page 107 ---
+
+--- Page 108 ---
+L E E P R E S S
+Pigeon Cove, Massachusetts 01966

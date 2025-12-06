@@ -1,0 +1,549 @@
+
+--- Page 38 ---
+28 The Bigeometric Calculus
+whose nth term is the geometric average of f(a1) ,. . . .f(an),
+where a1,. . . .an is the n-fold geometric partition of [r,s] .
+The geometric and bigeometric averages are not identi
+cal; for example, if f(x) = x” for x > 0, then
+#if = exp(2/(e - 1) },
+whereas
+Mºf
+= e
+*1
+- - #:
+Nevertheless, the operator is multiplicative:
+M~.s(f
+g)
+=– MººsfF.MM.Sg.
+Also,
+§:(Fº) (ºf)",
+- c constant.
+The bigeometric average of a bigeometrically-uniform
+function on [r,s] is equal to the geometric average of its
+values at r and s, and is equal to its value at the geomet
+ric average of r and s.
+The bigeometric average is the only operator that has
+the following three properties.
+l. For any positive interval [r,s] and any positive
+constant function h(x) = b on [r,s],
+M•e.sh
+-= b.
+2. For any positive interval [r,s] and any positive
+functions f and g that are continuous on [r,s],if
+f(x) < g(x) for every number x in Ir,s], then
+M~.sf
+S.
+~Ms.g
+-
+3. For any numbers r,s,t such that 0 < r < s < t, and
+any positive function f continuous on [r,t) ,
+[ln(s)-ln(r)) [ln(t)-ln(s))
+[-ºSf] . (º 3t fl
+[ln(t)-ln(r) J
+– rººt
+= [ºf]
+-
+4.5 THE BASIC THEOREM OF BIGEOMETRIC CALCULUS
+In view of the following theorem we say that the bigeo
+metric average fits naturally into the scheme of bigeometric
+calculus. (We forego the discrete analogue.)
+--- Page 39 ---
+4.6 The Bigeometric Integral 29
+The Basic Theorem of Bigeometric Calculus
+If Éh is continuous on a positive interval [r,s],
+then its bigeometric average on [r,s] equals the
+bigeometric gradient of h over [r,s] , that is,
+~s h(s) l/[ln(s)-ln(r) J
+§:(ºh) =
+h(r)
+The preceding theorem provides an immediate solution to
+the following problem, which will motivate our definition of
+the bigeometric integral.
+The Basic Problem of Bigeometric Calculus
+Suppose that the value of a positive function h
+is known at a positive argument r, and suppose
+that f, the bigeometric derivative of h, is con
+tinuous and known at each number in [r,s] . Find
+h(s).
+Solution
+. Fºsen [ln(s)-ln(r) J
+h(s) = h(r) : [ºf]
+-
+-
+4.6 THE BIGEOMETRIC INTEGRAL
+The bigeometric integral of a continuous positive func
+tion f on a positive interval [r,s] is the positive number
+tºse,ſin(s)-in(r))
+~r
+ſaws ſ7r
+and is denoted by f. We set f = l.
+~r ~r
+The bigeometric integral is a weighted bigeometric aver
+age, since
+ſ". gºtiatº-inº).
+~r - r
+ſ-s
+Furthermore, f equals the positive limit of the convergent
+a lº
+sequence whose nth term is the product
+ln(k_) ln(k_) ln(k_)
+If(a1) n • If(az) n ' ' ' If(an-1) | n
+r
+--- Page 40 ---
+30 The Bigeometric Calculus
+where a1,. . . .an is the n-fold geometric partition of [r,s],
+kn a2/a1, a3/a2. . . . .an/an-l.
+and is the common value of
+ſ-s
+The operator is multiplicative:
+~r
+ſ2’s ſ2’s 'ſ7s
+(f-g) - f 9-
+A.r ~r ~r
+Also,
+ſ2’s c (ſ 2’s ) c
+(fºr) = f , C constant.
+~r ~r
+The bigeometric integral is the only operator that has
+the following three properties.
+l. For any positive interval [r,s] and any positive
+constant function h(x) = b on [r,s],
+ſ",
+- bln(s)-ln(r).
+~r"
+2. For any positive interval [r,s] and any positive
+functions f and g that are continuous on [r,s], if
+f(x) < g(x) for every number x in Ir,s], then
+ſsf < ſ2’qs.
+…r ~lº
+3. For any numbers r,s,t such that 0 < r < s < t, and
+any positive function f continuous on [r,t),
+ſ7's ſ7t ſº t.
+f : f =
+~r ~s -r
+4.7 THE FUNDAMENTAL THEOREMS OF BIGEOMETRIC CALCULUS
+The bigeometric derivative and integral are 'inversely'
+related in the sense indicated by the following two theorems.
+First Fundamental Theorem
+If f is positive and continuous on a positive inter
+val [r,s] , and
+ſ7x
+g(x) = f, for every number x in [r,s] ,
+~r
+then -
+pg. = f', on [r,s] .
+--- Page 41 ---
+4.8 Relationships to the Classical Calculus 31
+Second Fundamental Theorem
+If ſh is continuous on a positive interval [r,s], then
+ſaw"S(gh) = h(s)/h(r).
+A.r
+The preceding theorem is useful for evaluating bigeo
+metric integrals.
+4.8 RELATIONSHIPS TO THE CLASSICAL CALCULUS
+gºf
+Let be the bigeometric gradient of a positive func
+tion f over a positive interval [r,s], and set f(x) =
+ln(f(e”)), r = ln(r) , s = ln(s), and a = ln(a). (Of course,
+gif
+is the classical gradient of f over [f,s].) Then we have
+the following uniform relationships between the corresponding
+operators of the bigeometric and classical calculi.
+§:f exp(G;f}
+(l)
+-
+(2) [-[f] (a) = expſ [Df] (ā) }
+g
+exp(Méf)
+(3)
+-
+ſ". exp(ſ":
+(4)
+-
+[fff) (a)
+Remark. For (2) we assume that exists; for (3) and
+(4), that f is continuous on [r,s] .
+The preceding observations clearly indicate that for
+each theorem in classical calculus there is a corresponding
+theorem in bigeometric calculus, and conversely.
+--- Page 42 ---
+Chapter 5
+SYSTEMS OF ARITHMETIC
+5.1 INTRODUCTION
+In this chapter we discuss the general concept of an
+arithmetic, without which it would be impractical to con
+struct the non-Newtonian calculi in Chapter 6. We also
+present here one specific arithmetic, the geometric arith
+metic, which will be used in Section 6.10. In Chapter 7
+we shall discuss and use the quadratic arithmetic, and in
+Chapter 8, the harmonic arithmetic.
+5.2 ARITHMETICS
+The concept of a complete ordered field evolved from
+the axiomatization of the real number system, whose basic
+ideas are assumed known to the reader." Informally, a
+complete ordered field is a system consisting of a set A,
+four (binary) operations, +, +, x, 7 for A, and an order
+ing relation * for A, all of which behave with respect to
+A exactly as +, −, x, /, & behave with respect to the set
+of all numbers. We call A the realm of the complete or
+dered field.
+There are infinitely-many complete ordered fields,
+all of which are structurally equivalent (isomorphic).
+The real number system is nowadays conceived as an arbi
+trarily selected complete ordered field whose realm is
+denoted by R and whose operations and ordering relation
+are denoted by +, −, x, /, and <.
+By an arithmetic we mean a complete ordered field
+whose realm is a subset of R. (Although the term "arith
+metic" is commonly used for referring to the system or
+study of the positive integers, we have taken the liberty
+of using the term in the sense just indicated.) There are
+infinitely-many arithmetics, one of which is the real num
+* Complete ordered fields are discussed in many textbooks
+on modern algebra and in some works on analysis. A detailed,
+new axiomatic treatment of the real number system is pre
+sented in the authors' Axiomatic Analysis, obtainable from
+Lee Press.
+32
+--- Page 43 ---
+5.3 q-Arithmetic 33
+ber system, henceforth called the classical arithmetic.
+The rules for handling any arithmetic (A,4,-,3,7,8)
+are exactly the same as the rules for handling classical
+arithmetic. For example, + and x are commutative and as
+sociative; x is distributive with respect to +; & is tran
+sitive; and there are two unique numbers Ó and i in A such
+that y + 6 = y and y x i = y, for every number y in A. The
+notation "y & z" is, of course, an abbreviation of "y < z
+or y = z."
+Although all arithmetics are structurally equivalent,
+only by distinguishing among them do we obtain suitable
+tools for constructing all the non-Newtonian calculi. But
+the usefulness of arithmetics is not limited to the con
+struction of calculi; we believe there is a more fundamen
+tal reason for considering alternative arithmetics: they
+may also be helpful in developing and understanding new sys
+tems of measurement that could yield simpler physical laws.
+In his Foundations of Science (formerly titled, Physics:
+The Elements), Norman Robert Campbell, a pioneer in the the
+ory of measurement, clearly recognized that alternative arith
+metics might be useful in science, for he wrote, "we must rec
+ognize the possibility that a system of measurement may be ar
+bitrary otherwise than in the choice of unit; there may be ar
+bitrariness in the choice of the process of addition."
+5.3 O-ARITHMETIC
+A generator is a one-to-one function whose domain is R
+and whose range is a subset of R. For example, the following
+are generators: the identity function I, the function exp,
+x°.
+and the function
+Consider any generator Q with range A. By cº-arithmetic
+we mean the arithmetic whose realm is A and whose operations
+and ordering relation are defined as follows.
+--- Page 44 ---
+34 Systems of Arithmetic
+a-addition. .. ... .. ... y + 2 ata" (y) + 2*(z) }
+aſa" (y) a"(z) }
+o-subtraction. . . . . . . . y = z =
+-
+o-multiplication. . . . . y x z aſa" (y) x 2"(z) }
+0-division (z ž ô) ... y / 2 a(a^*(y) / a" (z) }
+o-order.. . . . . . . . . . . .. y < z if and only if
+o-l(y) < o-l (z)
+We say that a generates a-arithmetic; for example, the
+identity function generates classical arithmetic, and the
+function exp generates geometric arithmetic, which is dis
+cussed in Section 5.4. Each generator generates exactly one
+arithmetic, and, conversely, each arithmetic is generated by
+exactly one generator.
+All concepts in classical arithmetic have natural coun
+terparts in a-arithmetic, some of which we now discuss.
+The Q-positive numbers are the numbers x in A such that
+Ö & x; the g-negative numbers are those for which x & 6. The
+Q-zero, ô, and the o-one, i, turn out to be o (0) and o (l).
+The 2-integers consist of Ö and all the numbers that result
+by successive a-addition of i to 5 and by successive a-sub
+traction of i from 5. Thus the o-integers turn out to be the
+following:
+. . . , o,(-2), o (-1), O (0), o (l), G(2) , . . .
+For each integer n, we set h = a(n). of course, if n
+is an o-positive integer, then
+n = i + ... + i.
+-
+n terms
+The q-absolute value of a number x in A is
+|
+x if x > ü
+- -
+X - Ö if x = 0
+ô-x if x < ū
+--- Page 45 ---
+5.3 o-Arithmetic 35
+The Q-average of n numbers u1, . . . .un in A is the unique
+number u in A such that
+u + ... + u = u + ... + u .
+l n
+*
+n terms
+It turns out that u equals
+(ul un)/n,
++ . . . H
+which equals
+a(ta" (u,) + ... + 2*(u-)1/n}.
+We shall occasionally refer to the a-average as the nat
+ural average in a-arithmetic. The natural average in clas
+sical arithmetic is the arithmetic average; the natural aver
+age in geometric arithmetic is the geometric average.
+Although the o-average is widely known, we have seen no
+reference to it as the natural counterpart in o-arithmetic of
+the arithmetic average in classical arithmetic. Indeed, the
+o-average has the same properties in the context of Q-arith
+metic as the arithmetic average has in the context of classi
+cal arithmetic. (An important example will be given in Sec
+tion 10.4.)
+An a-progression (or natural progression in a-arithmetic)
+is a finite sequence of numbers ul. . . . .un in A such that
+*111°
+ui is the same for every integer i from 1 to n-l. In
+classical arithmetic the natural progressions are the arith
+metic progressions; in geometric arithmetic they are the geo
+metric progressions.
+For any numbers r and s in A, if r 3 s, then the set of
+& &
+all numbers x in A such that r X s is called an o-inter
+val, is denoted by tr,sj, has a-extent of s - r, and has an
+o-interior consisting of all numbers x in A such that r 3.
+x < s.
+An o-partition of an o-interval tr,sj is any o-progres
+sion whose first and last terms are r and s. An o-partition
+is n-fold if it has n terms.
+{un)
+Let be an infinite sequence of numbers in A. Then
+there is at most one number u in A such that every o-interval
+with u in its o-interior contains all but finitely-many terms
+--- Page 46 ---
+36 Systems of Arithmetic
+of {un] . If there is such a number u, then {un) is said to
+be g-convergent to u, which is called the 2-limit of {un].
+For o = I, O-convergence reduces to classical conver
+gence.
+5.4 GEOMETRIC ARITHMETIC
+The arithmetic generated by the function exp will be
+called geometric arithmetic rather than exp-arithmetic. Sim
+ilarly, the notions in geometric arithmetic will be indicated
+by the adjective "geometric" rather than by the prefix "exp."
+For example, the natural average will be referred to as the
+geometric average, a usage that is consistent with generally
+accepted terminology.
+In Section 6.10 we shall show that by apt use of geomet
+ric arithmetic one can readily obtain the geometric calculus,
+the anageometric calculus, and the bigeometric calculus.
+Geometric arithmetic has the following features. (The
+letters y and z represent arbitrary positive numbers.)
+Generator. . . . . . . . . . . . . . . . . exp
+Realm. . . . . . . . . . . . . . . . . . . . . R
++
+Geometric zero. . .. . . . . . . . . 1 [ = exp(0)}
+Geometric one. . . . . . . . . . . . . e [ = exp(l) )
+Geometric sum exp(ln(y) + ln(z) }
+of y and z = y:z
+Geometric difference exp[ln(y) - ln(z) }
+between y and z = y/z
+Geometric product exp[ln(y) -ln(z) }
+of y and z yin(2) zln(y)
+- -
+Geometric quotient exp(ln(y)/ln(z) }
+1) y1/ln(z)
+of y and z, (z ž
+-
+Geometric order.. . . . .. . . . . Identical with classical order
+Geometric positive numbers Numbers greater than l
+Geometric negative numbers Positive numbers less than l
+Geometric intervals. . . . . . . Identical with
+positive intervals
+--- Page 47 ---
+5.4 Geometric Arithmetic 37
+Geometric extent of [y,z) . . . . . z/y
+Natural average. . . . . . . . . . . . . . . Geometric average
+Natural progressions. . . . . . . . . . Geometric progressions
+Geometric partition of [y,z) . . Any geometric progression
+whose first and last
+terms are y and z
+Geometric convergence is equivalent to classical conver
+(Pn)
+gence in the sense that a sequence of positive numbers
+geometrically converges to a positive number p if and only
+{Pn}
+if classically converges to p.
+Geometric arithmetic should be especially useful in sit
+uations where products and ratios provide the natural methods
+of combining and comparing magnitudes. Of course, geometric
+arithmetic applies only to positive numbers, since the range
+of exp is R+. But it is a simple matter to construct a geo
+metric-type arithmetic that applies to negative numbers: one
+simply uses the generator -exp, which assigns to each number
+x the negative number —e”.
+--- Page 48 ---
+Chapter 6
+THE *-CALCULUS
+6.1 INTRODUCTION
+For the remainder of this book, o and 8 are arbitrarily
+selected generators and * ("star") is the ordered pair of
+arithmetics (a-arithmetic, 8-arithmetic). The following
+notations will be used.
+o-Arithmetic 3-Arithmetic
+Realm. . . . . . . . . . . . A B
+Addition. . . . . . . . . +
+--
+Subtraction. . . . . . + :
+Multiplication. . . x
+x
+/ Ž
+Division. . . . . . . . .
+Order. . . . . . . . . . . . & <
+It should be understood that all the definitions in
+Chapter 5 apply equally well to 3-arithmetic. For example,
+3-convergence is defined by means of 8-intervals and their
+8-interiors.
+In the *-calculus, O-arithmetic is used on arguments
+and 8-arithmetic is used on values; in particular, changes
+in arguments and values are measured by 0-differences and
+8-differences, respectively. The operators of the *-calcu
+lus are applied only to functions with arguments in A and
+values in B. Accordingly, unless indicated or implied oth
+erwise, all functions are assumed to be of that character.
+Heuristic guides for selecting appropriate gradients,
+derivatives, integrals, and averages are discussed in Chap
+ter 9.
+The *-limit of a function f at a number a in A is, if
+it exists, the unique number b in B such that for every in
+finite sequence {an} of arguments of f distinct from a, if
+{an} {f(an) }
+cº-converges to a, then 3-converges to b. We
+write
+*-lim f(x) = b.
+x-oa
+38
+--- Page 49 ---
+6.2 The *-Gradient 39
+A function f is "-continuous at a number a in A if and
+only if a is an argument of f and
+*-lim f(x) = f(a).
+x->a
+When Q and 8 are the identity function I, the concepts
+of *-limit and *-continuity are identical with those of clas
+sical limit and classical continuity, but that is possible
+even when o and 8 do not equal I.
+The isomorphism from Q-arithmetic to 3-arithmetic is
+the unique function l (iota) that possesses the following
+three properties.
+l. 1 is one-to-one.
+2. l is on A and onto B.
+3. For any numbers u and v in A,
+1 (u + v) = 1(u) + 1 (v),
+1 (u + v) = 1(u) + 1(v),
+1 (u × v) = 1 (u) × 1(v),
+1 (u / v) = 1(u) 7 (v), v # 5,
+u < v if and only if
+1(u) < 1(v).
+8(a^*(x)}
+It turns out that l(x) = for every number x
+in A, and that 1(h) = fi for every integer n.
+Since, for example, u + v = 1"(1 (u) + 1 (v)}, it should
+be clear that any statement in o-arithmetic can readily be
+transformed into a statement in 8-arithmetic.
+6.2 THE *-GRADIENT
+The 8-change of a function f over an o-interval ir,si
+is the number f(s) + f(r) in B.
+A *-uniform function is a function that is on A, is "
+continuous, and has the same 8-change over any two o-inter
+vals of equal o-extent. Clearly every constant function on
+A is "-uniform.
+The *-uniform functions are those expressible in the
+form 1{(m x x) + c\, where m and c are constants in A and
+--- Page 50 ---
+40 The *-Calculus
+x is unrestricted in A. By choosing m = 1 and c = 0, we see
+that l is "-uniform.
+It is characteristic of a *-uniform function that for
+each Cº-progression of arguments, the corresponding sequence
+of values is a 3-progression.
+The *-slope of a *-uniform function is its 8-change
+over any o-interval of o-extent i. For example, the *-slope
+of the function 1{(m x x) + c) turns out to be 1(m). In par
+ticular, the *-slope of l equals i, and the *-slope of a con
+stant function on A equals Ö.
+The *-gradient of a function f over ir,si is the *-slope
+of the *-uniform function containing (r.,f(r)) and (s,f(s)),
+and turns out to be
+If(s) = f(r) 17Il (s) = i(r)J.
+The preceding expression yields the indeterminate form
+ô76
+when r = s.
+6.3 THE *-DERIVATIVE
+Throughout this section, f is assumed to be a function
+defined at least on an O-interval containing the number a in
+its o-interior.
+If the following *-limit exists, we denote it by [Bf (a),
+call it the *-derivative of f at a, and say that f is "-dif
+ferentiable at a:
+*-lin{f(x) (a)]).
+= f(a)17Il(x) =
+x+a
+(5f] (a)
+If it exists, is necessarily in B.
+5f,
+The *-derivative of f, denoted by is the function
+(551 (t),
+that assigns to each number t in A the number if it
+exists.
+The operator 5 is 8-additive and 8-homogeneous, that is
+D+ (f -+- g) = D+ f . +..• D* g,
+D+ (c x- f) = c X D* f, c constant i-n B.
+ºr
+If f is "-uniform, then Df has a constant value equal
+to the *-slope of f. Indeed, only *-uniform functions have
+*-derivatives that are constant on A.
+--- Page 51 ---
+6.4 The *-Average 4l
+Now we generalize the concept of classical tangent de
+fined in Section l.3.
+The *-tangent to a function f at the point (a,f(a)) is
+the unique *-uniform function g, if it exists, which possess
+es the following two properties:
+l. g contains (a,f(a)).
+2. For each *-uniform function h containing (a,f(a))
+and distinct from g, there is an o-positive number
+p such that for every number x in ia + p, a + pi
+but distinct from a,
+|g(x) = f(x)'ſ gTh(x) = f(x)'
+[Bf (a)
+It can be proved that exists if and only if f
+[Bf (a)
+has a *-tangent at (a,f(a)), and that if does exist,
+it equals the *-slope of that *-tangent.
+We say that two functions are *-tangent at a common
+point if and only if they have the same *-tangent there.
+[Bf (a)
+The derivatives [DfJ (a) and do not necessarily
+coexist and are seldom equal; however, if the following
+exist,
+ID(a") (a) , [Dal (a" (a)), ID(87%)l (f(a)), IDBI (87"(f(a)) },
+r
+then [Df] (a) and [Df) (a) do coexist, and the *-tangent to f
+at (a,f(a)) is, if it exists, classically tangent there.
+6.4 THE *-AVERAGE
+The *-average of a *-continuous function f on ir,si is
+**::
+denoted by and defined to be the 3-limit of the 3-conver
+gent sequence whose nth term is the 3-average of f(a1) . . . . .
+f(an), where a1,. . . ,a is the n-fold o-partition of ir,si.
+n
+#:
+The operator is 8-additive and 8-homogeneous (Section
+6.3).
+The *-average of a *-uniform function on ir,si is equal
+to the 3-average of its values at r and s, and is equal to
+its value at the O-average of r and s.
+The *-average is the only operator that has the follow
+ing three properties.

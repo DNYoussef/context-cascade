@@ -1,0 +1,297 @@
+
+--- Page 52 ---
+42 The *-Calculus
+l. For any o-interval Ír,si and any constant function
+h(x) = b on Ir,sj,
+M*ºsh
+= b.
+2. For any o-interval {r,s} and any functions f and g
+that are *-continuous on Ir,sj, if f(x) 2 g(x) for
+every number x in ir,sj, then
+*s- -- *s
+Mºf S. M.g.
+3. For any numbers r,s,t in A such that r < s & t,
+and any function f *-continuous on [r,t)j,
+*::
+[l (s) + 1 (r) J ;: M**f + [l (t) + 1 (s) ) ;:
+r
+It (t) = 1 (r) x 8.tf.
+6.5 THE BASIC THEOREM OF *-CALCULUS
+We begin with the discrete analogue.
+The Discrete Analogue of the
+Basic Theorem of *-Calculus
+Let h be a discrete function whose arguments a1, . . . .an
+are an o-partition of fr,sj. Then the 3-average of
+the following n-l *-gradients is equal to the *-gradi
+Ír,sj :
+ent of h over
+ſh(airi) * h(ai)) / ſi (airi) * 1 (ai) 1,
+i = 1, . . . ,n-l.
+In view of the following theorem we say that the *-aver
+age fits naturally into the scheme of *-calculus.
+The Basic Theorem of *-Calculus
+If D* h is "-continuous on [- r,s]-, then its *-average on
+ir,si equals the *-gradient of h over [r,s], that is,
+*:(Bh) = (h(s) = h(r)17 (its) = i (r)1.
+The preceding theorem provides an immediate solution to
+the following problem, which will motivate our definition of
+the *-integral.
+--- Page 53 ---
+6.6 The *-Integral 43
+The Basic Problem of *-Calculus
+Suppose that the value of a function h is known at
+an argument r, and suppose that f, the *-derivative
+of h, is "-continuous and known at each number in
+ir,si. Find h(s).
+Solution
+h(s) = h(r) + 3 (1 (s) = (r) 3 ºf .
+6.6 THE *-INTEGRAL
+The *-integral of a *-continuous function f on ir,sj,
+by ſ*
+s
+denoted f, is the following number in B:
+r
+... ºs
+[l (s) -+- 1 (r) J x M.f.
+* r
+ſ
+r --
+We set f = 0.
+r
+The *-integral is a weighted *-average, since
+ſr
+sf = **{I, (s) = i (r)) & f{.
+*
+ſs
+Furthermore, f equals the 3-limit of the 3-convergent
+r
+sequence whose nth term is
+[l (km) < f(a1) 1 + ... + [l (km) < f(an-1) 1,
+where a1,. . . .an is the n-fold o-partition of ir,si, and kn
+is the common value of a2 + al, a3 + a2 . . . . .an + *n-1"
+(If o is classically continuous and 8 = I, then the
+*-integral is a Stieltjes integral.)
+The *-integral is 8-additive and 8-homogeneous (Section
+6.3) and is the only operator that has the following three
+properties.
+l. For any o-interval ir,si and any constant function
+h(x) = b on ir,si,
++
+ſs
+h = [t(s) + 1 (r)J X b.
+r
+--- Page 54 ---
+44 The *-Calculus
+2. For any o-interval ir,si and any functions f and g
+that are *-continuous on ir,sj, if f(x) 3. g(x) for
+every number x in ir,sj, then
++ +
+ſ"s: 3... ſſtsa.
+r r
+3. For any numbers r,s,t in A such that r & s & t,
+and any function f *-continuous on ir,ti,
++ x º:
+ſ"s; -;- ſtº - ſºt.
+r s r
+6.7 THE FUNDAMENTAL THEOREMS OF *-CALCULUS
+The *-derivative and *-integral are 'inversely' related
+in the sense indicated by the following two theorems.
+First Fundamental Theorem
+ir,sj,
+If f is "-continuous on and
++
+ſX
+- -
+g(x) = f, for everynumber x in [r,s],
+r
+then
++ - -
+Dg = f, on [r,s] .
+Second Fundamental Theorem
++ - -
+If Dh is "-continuous on [r,s] , then
+ſ+
+S +
+(Dh) = h(s) + h(r).
+r
+6.8 RELATIONSHIPS TO THE CLASSICAL CALCULUS
+In this section we indicate the uniform relationships
+between the corresponding notions of the *-calculus and clas
+sical calculus.
+For each number a in A, let à = 2 * (a). Let f be a
+function with arguments in A and values in B, and set f(t) =
+BT"(f(a(t))}.
+Then *-lim f(x) and lim f(t) coexist, and if they do
+x->a t->a.
+exist,
+*-lim f(x) = 841im f(t)}.
+x->a t-Pai
+--- Page 55 ---
+6.9 Relationships Between Any Two Calculi 45
+Furthermore, f is "-continuous at a if and only if f is clas
+sically continuous at a.
+&f
+If + is the *-gradient of f over -[r,s]-, then
+G* ºS f -- 3(g5 F},
+where G;sf is the classical gradient of f over [f,5] .
+The derivatives [Bf (a) and [Df] (ā) coexist, and if
+they do exist,
+[Bf (a) = 8* IDFI (a)}.
+And if f is "-continuous on [r,s], then
+B(ºf),
+f = and
+f'.
+*{ſº}.
+f
+The following facts are also worth noting. Let a e A
+a"(a)
+and b c B. If q and 8 are classically continuous at
+87°(b),
+and respectively, then
+*-lim f(x) = b if and only if lim f(x) = b.
+x+a x+a
+a" (a)
+If o and 8 are classically continuous at and
+87°(f(a)),
+respectively, then f is "-continuous at a if and
+only if f is classically continuous at a.
+6.9 RELATIONSHIPS BETWEEN ANY TWO CALCULI
+In this section we indicate the uniform relationships
+between the corresponding notions of any two given calculi,
+the *-calculus and the *-calculus.
+For the *-calculus there are two generators, o and 8,
+which generate arithmetics with realms A and B. For the *
+calculus there are two generators, G and 3, which generate
+arithmetics with realms Ā and B.
+Since all arithmetics are isomorphic, there is a unique
+isomorphism Tl from a-arithmetic to G-arithmetic and a unique
+isomorphism T2 from 8-arithmetic to 3-arithmetic. For each
+number x in A let x be the number T1(x) in Å, and for each
+number y in B let y be the number T2(y) in B. For each func
+tion f with arguments in A and values in B, let f be the
+--- Page 56 ---
+46 The *-Calculus
+function consisting of all ordered pairs (x,y), where (x,y)
+is an arbitrary ordered pair in f. Clearly f has arguments
+in Å and values in B.
+B
+(x,y) = (T1(x) ,T2(y))
+y
+o
+7
+B /
+/NA z
+/
+T2/
+f/ / 7. A-
+/ / z
+/ Z z
+/ / z
+2%
+f / Tl
+y e z
+(x,y) /
+2^
+x: > A
+The following notations will also be used.
+*-Calculus *-Calculus
+Limits. . . . . . . . . *-lim *-lim
++ *
+Gradi-ents. . . . . . G G
+Deri-vati-ves. . . . Dºr D*
+r *
+Averages. . . . . . . M M
+* r
+ſ ſ
+Integrals. . . . . .
+Let f be a function with arguments in A and values in B,
+and let the number a be in A. Then the following coexist:
+*-lim f(x), *-lim f(t);
+x+)a t-ºa
+and if they do exist, then
+*-lim f(x) = *-lim f(t).
+x--a t-pa
+Furthermore, f is “-continuous at a if and only if f is *
+continuous at a.
+--- Page 57 ---
+6.10 Applications of Geometric Arithmetic 47
+If r and s are numbers in A such that r < s, then
+*s ºs
+Gºf Gºf.
+The derivatives (Bf (a) and IBF) (5) coexist, and if they
+do exist, –F– *— —
+[Df) (a) = [Dſ) (a).
+Finally, if f is "-continuous on [r,s], then
+*s..ef - Mšºsfz,
+and
+-
+* * s_
+ſ"s - ſºf.
+r f
+The preceding observations clearly indicate that each
+theorem in any given calculus has an analogue, or correspon
+dent, in every other calculus. In particular, each theorem
+in classical calculus has an analogue in *-calculus, and con
+versely. As an illustration we state the following theorem.
+First Mean Value Theorem of *-Calculus
+ir,si
+Let f be *-continuous on and *-differentiable
+at each number x in A for which r < x < s. Then
+there exists a number c in A such that r < c < s
+[5] (c)
+and such that equals the *-gradient of f
+ir,si.
+over
+6.10 APPLICATIONS OF GEOMETRIC ARITHMETIC
+By appropriately specifying O. and 8 one can obtain from
+the *-calculus the calculi developed in Chapters l-4:
+Calculus –3– —É–
+classical. . . . . I I
+geometric. . .. . I exp
+anageometric. .exp I
+bigeometric. . .exp exp
+Thus, one uses geometric arithmetic on function values
+in the geometric calculus, on function arguments in the ana
+geometric calculus, and on both arguments and values in the
+bigeometric calculus.
+--- Page 58 ---
+48 The *-Calculus
+In defining anageometric slope (Section 3.2), we used
+geometric intervals of geometric extent e, one reason for
+which appears in Note 3. But the fundamental reason stems
+from our desire that the anageometric calculus be the *-cal
+culus for which o = exp and 8 = I, since there the *-slope
+is defined by means of o-intervals of o-extent i. which
+equals e.
+Similarly, geometric intervals of geometric extent e
+were used in defining bigeometric slope (Section 4.2) to
+assure that the bigeometric calculus be the *-calculus for
+which O. = 8 = exp.
+Our definition of the geometric derivative (Section 2.3)
+required that it be positive. The fundamental reason for the
+restriction rests upon our desire that the geometric calculus
+be the *-calculus for which o = I and 8 = exp, since there
+the *-derivative,if it exists, must necessarily be in the
+realm of 8-arithmetic, that is, in R+. A similar reason un
+derlies the stipulation that the bigeometric derivative be
+positive (Section 4.3).
+The operators of the geometric calculus are applied only
+to functions with positive values. However, a geometric-type
+calculus for negative (valued) functions can easily be ob
+tained by choosing Q = I and 8 = -exp.
+By choosing O = -exp and 8 = I, one obtains an anageo
+metric-type calculus for functions with negative arguments.
+By choosing o = -exp and 8 = -exp, one gets a bigeometric
+type calculus for functions with negative arguments and val
+ues. Or one could, for example, choose o = -exp and 8 = exp,
+thereby obtaining a bigeometric-type calculus for functions
+with negative arguments and positive values.
+Our emphasis, thus far, on the geometric family of cal
+culi may be explained by the fact that these calculi possess
+gradients and derivatives which are independent of the units
+used in measuring certain magnitudes. The invariance of gra
+dients and derivatives is discussed more generally in Section
+9.2.
+Of course an endless variety of calculi can be obtained
+by using geometric arithmetic in tandem with other arithmetics.
+For instance, one could choose O = exp and 8 = tanh. Other

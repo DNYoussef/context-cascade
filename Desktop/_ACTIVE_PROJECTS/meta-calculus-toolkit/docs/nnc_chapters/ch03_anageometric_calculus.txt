@@ -1,0 +1,287 @@
+
+--- Page 18 ---
+8 The Classical Calculus
+ſs
+The operator is additive and homogeneous:
+r
+ſ (c.f) 'ſ
+s s
+= C f, c constant.
+r r
+The classical integral is the only operator that has
+the following three properties.
+l. For any interval [r,s] and any constant function
+h(x) = b on [r,s],
+ſ"h
+= (s - r)•b.
+2. For any interval [r,s] and any functions f and g
+that are continuous on [r,s], if f(x) < g(x) for
+every number x in Ir,s], then
+ſst 3 ſqs.
+r r
+3. For any numbers r, s, t such that r < s < t, and
+any function f continuous on [r,t),
+ſ
+s
+ſt ſt
+f + f = f.
+r s r
+1.7 THE FUNDAMENTAL THEOREMS OF CLASSICAL CALCULUS
+The classical derivative and integral are 'inversely'
+related in the sense indicated by the following two theorems.
+First Fundamental Theorem
+If f is continuous on [r,s], and
+ſX
+g(x) = f, for every number x in [r,s],
+r
+then
+Dg = f, on [r,s].
+Second Fundamental Theorem
+If Dh is continuous on [r,s], then
+ſs(Dh) = h(s) - her).
+r
+--- Page 19 ---
+Chapter 2
+THE GEOMETRIC CALCULUS
+2.1 INTRODUCTION
+During the Renaissance many scholars, including Galileo,
+discussed the following problem:
+Two estimates, l0 and 1000, are proposed as
+the value of a horse. Which estimate, if any,
+deviates more from the true value of loO2
+The scholars who maintained that the deviations should
+be measured by differences concluded that the estimate of 10
+was closer to the true value. However, Galileo eventually
+maintained that the deviations should be measured by ratios,
+and he concluded that the two estimates deviated equally from
+the true value.
+-
+Now let us consider a more sophisticated problem. At
+time r, a man invests f(r) dollars with a promoter who guar
+antees that at a certain subsequent time s, the value of the
+investment would be f(s) dollars. In event that the investor
+should desire to withdraw at any other time t, it was agreed
+that the value of the investment increases continuously and
+uniformly. The problem is this: How much, f(t), would the
+investor be entitled to at time t? We shall give two reason
+able solutions; there is no unique solution.
+Solution 1. Since it was agreed that the value of the invest
+ment increases uniformly, we may reasonably assume that it in
+creases by equal amounts in equal times. Since it was agreed,
+furthermore, that the value of the investment increases con
+tinuously, it can be proved that the growth must be linear
+and, in fact, that
+f(s) – f(r)
+f(t) = f(r) + | — (t - r).
+s - r
+Notice that the expression within the brackets represents the
+classical gradient of f over [r,s] .
+Solution 2. Since it was agreed that the value of the invest
+ment increases uniformly, we may reasonably assume that it in
+--- Page 20 ---
+10 The Geometric Calculus
+creases by equal percents in equal times. Since, furthermore,
+the value of the investment increases continuously, it can be
+proved that the growth must be exponential and, in fact, that
+1 |t-r
+f(s) s-r
+f(t) = f(r)-
+-
+f(r)
+We shall see that the expression within the brackets is of
+fundamental importance in geometric calculus.
+In the geometric calculus, changes in function arguments
+and values are measured by differences and ratios, respec
+tively, and the operators are applied only to positive func
+tions. Therefore, every function in this chapter is positive,
+except for the natural logarithm function, ln, which is used
+for special purposes. Lest the reader be disappointed by
+such a restriction, we hasten to say that a geometric-type
+calculus for negative (valued) functions is discussed briefly
+in Section 6.10.
+Heuristic guides for selecting appropriate gradients,
+derivatives, averages, and integrals are discussed in Chapter
+9.
+2.2 THE GEOMETRIC GRADIENT
+The geometric change of a positive function f over [r,s]
+is the number f(s)/f(r).
+A geometrically-uniform function is a positive function
+that is on R, is continuous, and has the same geometric change
+over any two intervals of equal classical extent. Clearly
+every positive constant function on R is geometrically-uniform.
+The geometrically-uniform functions are those expressible
+in the form exp(mx + c), where m and c are constants and x is
+unrestricted in R. If p is a positive constant, then the func
+tions pºk** are also geometrically-uniform, for they are ex
+pressible in the form indicated.
+It is characteristic of a geometrically-uniform function
+that for each arithmetic progression of arguments, the corre
+sponding sequence of values is a geometric progression. That
+fact provides one reason for the name "geometric calculus";
+another reason will appear in Section 2.4.
+--- Page 21 ---
+2.3 The Geometric Derivative ll
+The geometric slope of a geometrically-uniform function
+is its geometric change over any interval of classical extent
+l. For example, the geometric slopes of the functions
+exp(mx + c) and p*** turn out to be e" and p", respectively.
+If one plots a geometrically-uniform function h on semi
+log paper that is logarithmically scaled on the y-axis, the
+result is a straight line whose classical slope equals the
+natural logarithm of the geometric slope of h. Other aspects
+of graphical interpretation will be discussed more fully in
+Section 6.ll.
+The geometric gradient of a positive function f over
+[r,s] is the geometric slope of the geometrically-uniform
+function containing (r,f(r)) and (s,f(s)), and turns out to
+be
+l
+[...]"
+f(r)
+Clearly the geometric gradient is independent of the
+origin and unit used for measuring the magnitudes that the
+arguments and values may represent, respectively.
+The foregoing expression for the geometric gradient
+yields the indeterminate form 1" when r = s, in contrast to
+the indeterminate form 0/0 yielded by the expression for the
+classical gradient.
+2.3 THE GEOMETRIC DERIVATIVE
+Throughout this section, f is assumed to be a positive
+function defined at least on an interval containing the num
+ber a in its interior.
+If the following limit exists and is positive, we de
+note it by [Bf1 (a), call it the geometric derivative of f at
+a, and say that f is geometrically differentiable at a:
+l
+f(x) x-a
+lim
+-
+x+a |f(a)
+It is possible for the preceding limit to be 0 (this
+l/3
+happens, for example, if f(x) = exp(-x ) and a = 0). Our
+--- Page 22 ---
+l2 The Geometric Calculus
+reason for requiring [5f] (a) to be positive will be given in
+Section 6.10.
+It can be proved that (DfI (a) and [5f] (a) coexist; that
+is, if either exists then so does the other. Moreover, if
+they do exist, then [5f] (a) equals expſ (Df) (a)/f(a) } and
+equals the geometric slope of the unique geometrically-uni
+form function that is classically tangent to f at (a,f(a)).
+(Incidentally, the expression [Df] (a)/f(a) represents the
+so-called logarithmic derivative of f at a, which is not a
+non-Newtonian derivative according to our use of the term.)
+The geometric derivative of f, denoted by fif, is the
+function that assigns to each number t the number [5f] (t),
+if it exists.
+If f is geometrically-uniform, then 5f has a constant
+value equal to the geometric slope of f. Indeed, only geo
+metrically-uniform functions have geometric derivatives that
+are constant on R. In particular, if f is a positive con
+stant function on R, then if is everywhere equal to l.
+Since 5(1 + 1) # B(1) + f(1), the operator 5 is not
+additive; however 5 is multiplicative:
+5(f.g) = 5f.5g.
+Furthermore,
+fi(fºy (5f)*,
+- C COnstant.
+Recalling that the function exp equals its classical de
+rivative, we point out that the function exp[exp(x) | equals
+its geometric derivative.
+In Note l we define the relative gradient, which is in
+timately related to the geometric gradient, is often called
+the compound growth rate,and gives rise to the relative de
+rivative.
+2.4 THE GEOMETRIC AVERAGE
+The geometric calculus was so named principally because
+the geometric average fits naturally thereinto, a fact that
+will be explained in the next section.
+The geometric average of n positive numbers V1, . . . ,Vn
+is the positive number
+)1/n.
+(viv.2•-- v
+n
+--- Page 23 ---
+2.5 The Basic Theorem of Geometric Calculus 13
+The geometric average of a continuous positive function
+§:
+f on [r,s] is denoted by and defined to be the positive
+limit of the convergent sequence whose nth term is the geo
+metric average of f(a1) . . . . ,f(an), where a1, . . . .an is the
+n-fold arithmetic partition of [r,s] .
+*
+The operator is multiplicative:
+Ş.s(f.g) == M\{ .S fE . : MNi ºs g.
+Also,
+*(**) (ºf)*,
+- C COnstant.
+The geometric average of a geometrically-uniform func
+tion on [r,s] is equal to the geometric average of its val
+ues at r and s, and is equal to its value at the arithmetic
+average of r and s.
+The geometric average is the only operator that has the
+following three properties.
+1. For any interval [r,s] and any positive constant func
+tion h(x) = b on [r,s],
+Kºh - b.
+2. For any interval [r,s] and any positive functions f
+and g that are continuous on [r,s], if f(x) < g(x)
+for every number x in [r,s] , then
+~Msºf
+S.
+~M.sg.
+3. For any numbers r, s, t such that r < s < t, and any
+positive function f continuous on [r,t),
+[ºsf—],*s--*r. (ºf ºt fent-s =— [r Mº ºt fe ]1t ‘-r
+‘.
+2.5 THE BASIC THEOREM OF GEOMETRIC CALCULUS
+Our investigation of non-Newtonian calculi began with
+an observation of the simple identity indicated in the fol
+lowing proposition. (In Note 2 we explain how this identity
+provided the original insight into the constructibility of
+the geometric calculus.)
+The Discrete Analogue of the
+Basic Theorem of Geometric Calculus
+Let h be a discrete positive function whose arguments
+--- Page 24 ---
+l4 The Geometric Calculus
+a1,. . . .an are an arithmetic partition of [r,s] .
+Then the geometric average of the following n-l
+geometric gradients is equal to the geometric
+gradient of h over [r,s] :
+l
+h(a.i.41) a. - a.
+i4-l l
+r i = l, . . . .n-l.
+h(ai)
+The Basic Theorem of Geometric Calculus
+If 5h is continuous on Ir,s], then its geometric
+average on [r,s] equals the geometric gradient
+of h over [r,s], that is
+l
+| |
+h(s) S-r
+N:(Bh) =
+h(r) -
+In view of the preceding theorem we say that the geo
+metric average fits naturally into the scheme of geometric
+calculus.
+The Basic Theorem of Geometric Calculus provides an
+immediate solution to the following problem.
+The Basic Problem of Geometric Calculus
+Suppose that the value of a positive function h
+is known at an argument r, and suppose that f,
+the geometric derivative of h, is continuous and
+known at each number in [r,s] . Find h(s).
+Solution
+h(r) ſºlº-.
+h(s) =
+geº-
+The number in the foregoing solution arises
+with sufficient frequency to warrant a special name, which
+is introduced in the next section.
+2.6 THE GEOMETRIC INTEGRAL
+The geometric integral of a continuous positive func=
+ſºciº-
+tion f on [r,s] is the positive number and is de

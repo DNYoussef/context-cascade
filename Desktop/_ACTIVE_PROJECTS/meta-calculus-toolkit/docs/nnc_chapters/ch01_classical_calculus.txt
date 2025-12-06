@@ -1,0 +1,143 @@
+
+--- Page 3 ---
+Non-Newtonian Calculus
+ºk
+Michael Grossman
+(Lowell Technological Institute)
+Robert Katz
+1972
+Lee Press
+Pigeon Cove, Massachusetts 01966
+--- Page 4 ---
+Non-Newtonian calculus [by] Michael Grossman (and,
+Robert Katz. Pigeon Cove, Mass., Lee Press, 1972.
+viii, 94 p. 23 cm.
+1. Calculus. I. Katz, Robert, 1922– joint author.
+II. Title.
+QA303.G88 515 72–76466
+ISBN0-912938–01–3 MARC
+Library of Congress 72 [4]
+Fourth Printing, July 1978
+(C)
+Copyright l972 by Michael Grossman and Robert Katz
+All rights reserved
+Manufactured in the United States of America
+--- Page 5 ---
+F o r e w o r d
+We are pleased to present here the
+results of our investigations into the
+non-Newtonian calculi, which are mark
+edly different from the classical cal
+culus developed by Newton and Leibniz
+three centuries ago.
+Robert Katz
+Michael Grossman
+84 Main Street
+Rockport, Massachusetts
+December 14, 1971
+This one
+||||||||||||
+RE-ND9
+--- Page 6 ---
+In the classical calculus the line is used as a stan
+dard against which other curves are compared. In the
+following remarks, Roger Joseph Boscovich (1711 - 1787)
+may have been the only person to anticipate a fundamen
+tal idea in non-Newtonian calculus: a nonlinear curve
+may be used as a standard against which other curves
+(including lines) can be compared.
+“Butifsomemindverydifferentfromoursweretolookuponsome
+property ofsome curved line aswe do on the evenness ofa straight
+line, he would not recognize as such the evenness ofa straight line;
+norwouldhearrangetheelementsofhisgeometryaccordingtothat
+verydifferentsystem,andwouldinvestigatequiteotherrelationships
+as I havesuggestedin my notes.
+“We fashion our geometry on the properties of a straight line
+because thatseemsto us to be the simplest ofall. But reallyall lines
+that are continuous and of a uniform nature are just as simple as
+one another. Another kind of mind which might form an equally
+clearmentalperceptionofsomepropertyofanyoneofthesecurves,
+as we do ofthe congruence ofa straight line, might believe these
+curves to be the simplest of all, and from that property of these
+curves build up the elements ofa very different geometry, referring
+all other curves to that one,just as we compare them to a straight
+line. Indeed, these minds, if they noticed and formed an extremely
+clear perception ofsome property of, say, the parabola, would not
+seek,asourgeometersdo,to rectifytheparabola,theywouldendea
+vour,ifonemaycoin theexpression, toparabolifythestraight line.’
+The quotation above appears in Dr. J. F. Scott's ar
+ticle "Boscovich's Mathematics," which is one of nine
+articles in Roger Joseph Boscovich, edited by Lancelot
+Law Whyte and first published by George Allen & Unwin
+in 1961.
+--- Page 7 ---
+P R E F A C E
+In August of 1970 we constructed a comprehensive family
+of calculi, which includes the classical calculus as well as
+an infinite subfamily of non-Newtonian calculi that we had
+constructed three years earlier.
+Each calculus possesses the following:
+a distinctive method of measuring changes in
+function arguments;
+a distinctive method of measuring changes in
+function values;
+four operators: a gradient (i.e., an average
+rate of change), a derivative, a natural
+average, and an integral;
+a characteristic class of functions having a
+constant derivative;
+a Basic Theorem involving the gradient, deriv
+ative, and natural average;
+a Basic Problem whose solution motivates a sim
+ple definition of the integral in terms of
+the natural average;
+and two Fundamental Theorems which reveal that
+the derivative and integral are 'inversely'
+related in an appropriate sense.
+A popular method of creating a new mathematical system
+is to vary the axioms of a known system. Although it may be
+possible to axiomatize the classical calculus, we did not and
+shall not pursue that course. Instead, in Chapter l we for
+mulate the classical calculus in a novel manner that leads
+naturally to the subsequent construction of the non-Newtonian
+calculi.
+In Chapters 2 - 4, we construct three specific non-New
+tonian calculi: the geometric, anageometric, and bigeometric.
+Chapter 5 is devoted to arithmetics (slightly specialized com—
+plete ordered fields), which are used in subsequent chapters.
+In Chapter 6 we simultaneously construct all the calculi, in
+dicate the uniform relationships between the corresponding
+operators of any two calculi, and provide suitable graphic
+--- Page 8 ---
+vi P r e f a c e
+interpretations. Chapters 7 and 8 contain brief developments
+of the quadratic, anaquadratic, biquadratic, harmonic, anahar
+monic, and biharmonic calculi. (The harmonic calculus is not
+to be confused with harmonic analysis.) Chapter 9 includes
+a variety of heuristic guides for selecting gradients, deriv
+atives, averages, and integrals. In Chapter 10 we discuss
+certain generalized spaces, vectors, and least squares methods,
+which were suggested by our work with the non-Newtonian calcu
+li; we introduce a trend concept that may be considered as a
+kind of global derivative; and we indicate some connections
+between the non-Newtonian calculi and calculus in Banach
+spaces. Sundry digressions and comments have been placed in
+the Notes at the rear of the book; for example, in Note 2 we
+explain how a simple algebraic identity suggested the possi
+bility of constructing the geometric calculus.
+Since this book is intended for a wide audience, includ
+ing students, engineers, scientists, as well as mathematicians,
+we have presented many details that would not appear in a re
+search report and we have excluded all proofs. (All stated
+results can be proved in a straightforward way.) It is as
+sumed, of course, that the reader has a working knowledge of
+the rudiments of classical calculus.
+Finally we wish to express our gratitude to Professor
+Dirk J. Struik for his interest and encouragement, and to
+Messrs. Charles Rockland, Charles K. Wilkinson, and David J.
+Liben for their helpful comments and assistance. However,
+we alone are responsible for the form and content of this
+book.
+Criticism and suggestions are cordially invited.
+M.G.
+R.K.

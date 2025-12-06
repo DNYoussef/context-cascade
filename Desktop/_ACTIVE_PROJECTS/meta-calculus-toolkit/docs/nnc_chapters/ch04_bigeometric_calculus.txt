@@ -1,0 +1,275 @@
+
+--- Page 25 ---
+2.6 The Geometric Integral 15
+ſº's ſºr
+noted by f. We set f = 1.
+r r
+The geometric integral is a weighted geometric average,
+since 7s
+ſ
+f = g(fº-º).
+r
+ſs
+Furthermore, f equals the positive limit of the conver
+r
+gent sequence whose nth term is the product
+k k k
+If(a1) | *. If(aa)) "... If(aa-1) | n*,
+where a1~a2. . . . .an is the n-fold arithmetic partition of
+[r,s] , and kn is the common value of a2 - al., a3 - a2, . . ..
+*n T *n-1:
+ſº
+The operator is multiplicative:
+rſ ſ ſ
+2’s 2’s TF's
+(f-g) = f 9•
+Also, ſ”ge, (ſ".)
+s.
+- c constant.
+r r
+The geometric integral is the only operator that has
+the following three properties.
+l. For any interval [r,s] and any positive constant
+function h(x) = b on [r,s],
+ſ7'hs - bsº-r.
+r
+2. For any interval [r,s] and any positive functions
+f and g that are continuous on [r,s], if f(x) < g(x)
+for every number x in [r,s] , then
+2’s 2's
+ſ"; a ſig.
+r r
+3. For any numbers r,s,t such that r < s < t, and any
+positive function f continuous on [r,t),
+2’s 7't 7t
+ſ": . ſº - ſº.
+r s r
+--- Page 26 ---
+l6 The Geometric Calculus
+2.7 THE FUNDAMENTAL THEOREMS OF GEOMETRIC CALCULUS
+The geometric derivative and integral are 'inversely'
+related in the sense indicated by the following two theorems.
+First Fundamental Theorem
+If f is positive and continuous on [r,s] , and
+ſ-x
+g(x) = f, for every number x in [r,s],
+r
+then
+Dg = f', on [r,s].
+Second Fundamental Theorem
+If 5h is continuous on [r,s] , then
+ſ-"Gº - hø/h(r).
+r
+Just as the Second Fundamental Theorem of Classical Cal
+culus is useful for evaluating classical integrals, so is the
+Second Fundamental Theorem of Geometric Calculus useful for
+evaluating geometric integrals. For example, let f(x) =
+exp(1/x) and h(x) = x, for x > 0. Then f = ſh, and so
+ſ75 ſ 5
+(Öh) = h(5)/h(3) = 5/3.
+f =
+3 3
+2.8 RELATIONSHIPS TO THE CLASSICAL CALCULUS
+Our presentation of the geometric calculus was indepen
+dent of the classical calculus, for the operators of the for
+mer were not defined in terms of the operators of the latter.
+However, the corresponding operators of the two calculi are
+uniformly related.
+Let f be a positive function and set f(x) = ln(f(x)).
+gif
+be the classical gradient of f over [r,s], and let
+Let
+&:
+be the geometric gradient of f over [r,s] . Then we have
+the following uniform relationships.
+(1) º7-Sfc -– exp}g:sf:}
+(2) [5f] (a) = exp}[Df] (a)}
+iſ: exp}M:f;
+(3)
+-
+ſ". *(ſ-)
+(4)
+-
+--- Page 27 ---
+2.8 Relationships to the Classical Calculus 17
+Remark. For (2) we assume that [Öf] (a) exists; for (3) and
+(4), that f is continuous on [r,s] .
+The preceding observations clearly indicate that for
+each theorem in classical calculus there is a corresponding
+theorem in geometric calculus, and conversely. For example,
+we have the following mean value theorem of geometric calcu
+lus.
+If a positive function f is continuous on [r,s]
+and geometrically differentiable everywhere be
+tween r and s, then between r and s there is a
+number at which the geometric derivative of f
+equals the geometric gradient of f over [r,s] .
+The relationship of the nth-geometric derivative to the
+nth-classical derivative follows the familiar pattern:
+ſå"f] (a) = exp([D"f] (a) },
+where f(x) = ln(f(x)).
+exp(-x*)
+The second geometric derivative of the function
+1/e”,
+turns out to be the constant a fact that may provide
+additional insight into that important function.
+--- Page 28 ---
+Chapter 3
+THE ANAGEOMETRIC CALCULUS
+3,1 INTRODUCTION
+In the anageometric calculus, changes in function argu
+ments and values are measured by ratios and differences, re
+spectively, and the operators are applied only to functions
+whose arguments are positive. However, an anageometric-type
+calculus for functions with negative arguments is discussed
+briefly in Section 6.10.
+A positive interval is an interval [r,s] for which
+0 < r < s. The geometric extent of a positive interval
+[r,s] is the number s/r.
+We were interested to learn that in his Principia, New
+ton expressed Galileo's law of descent of freely falling bod
+ies as follows: "When a body is falling,...the spaces de
+scribed in proportional times are as. . .the squares of the
+times." (Scholium to Corollary VI in "Axioms, or Laws of
+Motion.") That is, in time intervals of equal geometric ex
+tent, the distances traversed are proportional to the squares
+of the times elapsed.
+Heuristic guides for selecting appropriate gradients,
+derivatives, averages, and integrals are discussed in Chap
+ter 9.
+3.2 THE ANAGEOMETRIC GRADIENT
+An anageometrically-uniform function is a function that
+is on R+, is continuous, and has the same classical change
+over any two positive intervals of equal geometric extent.
+Clearly every constant function on R+ is anageometrically
+uniform.
+The anageometrically-uniform functions are those express
+ible in the form ln(cx"), where c and m are constants, c > 0,
+and x is unrestricted in R+.
+It is characteristic of an anageometrically-uniform func
+tion that for each geometric progression of arguments, the
+corresponding sequence of values is an arithmetic progression.
+The anageometric slope of an anageometrically-uniform
+18
+--- Page 29 ---
+3.3 The Anageometric Derivative 19
+function is its classical change over any positive interval
+of geometric extent e. (In Note 3 and Section 6.10 we ex
+plain why e was chosen here.) The anageometric slope of the
+function ln(cx") turns out to be m.
+If one plots an anageometrically-uniform function h on
+semi-log paper that is logarithmically scaled on the x-axis,
+the result is a straight line whose classical slope equals
+the anageometric slope of h. Other aspects of graphical in
+terpretation will be discussed more fully in Section 6.ll.
+The anageometric gradient of a function f over a posi
+tive interval [r,s] is the anageometric slope of the anageo
+metrically-uniform function containing (r.,f(r)) and (s,f(s)),
+and turns out to be
+f(s) – f(r)
+in(s) - ln(r)
+It is easy to verify that the anageometric gradient is
+independent of the unit and origin used for measuring the
+magnitudes which the arguments and values may represent, re
+spectively.
+The foregoing expression for the anageometric gradient
+yields the indeterminate form 0/0 when r = s.
+3.3 THE ANAGEOMETRIC DERIVATIVE
+Throughout this section, f is assumed to be a function
+defined at least on a positive interval containing the num
+ber a in its interior.
+If the following limit exists, we denote it by [Bf1 (a) ,
+call it the anageometric derivative of f at a, and say that
+f is anageometrically differentiable at a.
+f(x) – f(a)
+lim — .
+x+a ln(x) - ln(a)
+It can be proved that [Df] (a) and [pf] (a) coexist; that
+if they do exist, then
+[Df] (a) = [Df] (a)/ID(ln) 1 (a) = a- [Diſ] (a);
+and that [Bf1 (a) equals the anageometric slope of the unique
+--- Page 30 ---
+20 The Anageometric Calculus
+anageometrically-uniform function which is classically tan
+gent to f at (a,f(a)).
+Observe that [pfl (a) equals the classical derivative of
+f with respect to ln at a.
+The anageometric derivative of f, denoted by Df, is the
+function that assigns to each number t the number [Df] (t),
+if it exists.
+The operator B is additive and homogeneous:
+D(f + g) = Df + P9,
+B(c.f) = c-pf, c constant.
+If f is anageometrically-uniform, then Df has a constant
+value equal to the anageometric slope of f. Indeed, only ana
+geometrically-uniform functions have anageometric derivatives
+R+.
+that are constant on
+It is worth noting that if h(x) = mx, where m is a con
+stant and x > 0, then Dh = h.
+3.4 THE ANAGEOMETRIC AVERAGE
+Since changes in function arguments are measured by ra
+tios in the anageometric calculus, one should not be surprised
+that the definition of the anageometric average requires the
+use of partitions in which the successive points form a geo
+metric progression.
+A geometric partition of a positive interval [r,s] is
+any geometric progression whose first and last terms are r
+and s, respectively. A geometric partition is n-fold if it
+has n terms.
+The anageometric average of a continuous function f on
+Mºf
+a positive interval [r,s] is denoted by and defined to
+be the limit of the convergent sequence whose nth term is
+the arithmetic average of f(a1) .. . . ,f(an) , where a1, . . . .an
+is the n-fold geometric partition of [r,s] .
+The arithmetic and anageometric averages are NOT iden
+tical; for example, if f(x) = x, for x > 0, then
+Mºf
+= (s – r)/[ln(s) - ln(r)J ,
+whereas
+Mºf
+= (s + r)/2.
+--- Page 31 ---
+3.5 The Basic Theorem of Anageometric Calculus 2l
+M.
+Nevertheless, the operator is additive and homoge
+neCuS:
+M.s(f
++ g)
+=— Mwa.sf
++
+M.sg.,
+M.s(c.f) == c~. MM .* f, c constant.
+The anageometric average of an anageometrically-uniform
+function on [r,s] is equal to the arithmetic average of its
+values at r and s, and is equal to its value at the geomet
+ric average of r and s.
+The anageometric average is the only operator that has
+the following three properties.
+l. For any positive interval [r,s] and any constant
+function h(x) = b on [r,s],
+M*h = b.
+~r
+2. For any positive interval [r,s] and any functions
+f and g that are continuous on [r,s] , if f(x) < g(x)
+for every number x in [r,s], then
+M.sf
+S.
+M.sg.
+3. For any numbers r,s,t such that 0 < r < s < t, and
+any function f continuous on [r,t),
+Iln(s) - ln(r) J. ºf + [in(t) - ln(s) ). Mºf
+= [in(t) - ln(r)J. M.f.
+3.5 THE BASIC THEOREM OF ANAGEOMETRIC CALCULUS
+In view of the following theorem we say that the anageo
+metric average fits naturally into the scheme of anageometric
+calculus. (We forego the discrete analogue.)
+The Basic Theorem of Anageometric Calculus
+If ph is continuous on a positive interval [r,s],
+then its anageometric average on [r,s] equals the
+anageometric gradient of h over [r,s] , that is,
+h(s) – h(r)
+Mí(ph) = — .
+r ln(s) - ln(r)
+The preceding theorem provides an immediate solution to

@@ -1,0 +1,337 @@
+
+--- Page 9 ---
+C O N T E N T S
+Preliminaries, l
+Chapter l; THE CLASSICAL CALCULUS
+l.l Introduction, 3
+2 The Classical Gradient, 3
+3 The Classical Derivative, 4
+4 The Arithmetic Average, 5
+5 The Basic Theorem of Classical Calculus, 6
+6 The Classical Integral, 7
+7 The Fundamental Theorems of Classical Calculus, 8
+Chapter 2: THE GEOMETRIC CALCULUS
+2.l Introduction, 9
+2 The Geometric Gradient, l0
+3 The Geometric Derivative, ll
+4 The Geometric Average, l2
+.5 The Basic Theorem of Geometric Calculus, l:3
+6 The Geometric Integral, lá
+7 The Fundamental Theorems of Geometric Calculus, 16
+8 Relationships to the Classical Calculus, l0
+Chapter 3: THE ANAGEOMETRIC CALCULUS
+3.l Introduction, 18
+3.2 The Anageometric Gradient, l8
+3.3 The Anageometric Derivative, l9
+3.4 The Anageometric Average, 20
+3.5 The Basic Theorem of Anageometric Calculus, 21
+3.6 The Anageometric Integral, 22
+3.7 The Fundamental Theorems of Anageometric Calculus, 23
+3.8 Relationships to the Classical Calculus, 24
+Chapter 4: THE BIGEOMETRIC CALCULUS
+4.1 Introduction, 25
+2 The Bigeometric Gradient, 25
+3 The Bigeometric Derivative, 26
+4 The Bigeometric Average, 27
+.5 The Basic Theorem of Bigeometric Calculus, 28
+6 The Bigeometric Integral, 29
+7 The Fundamental Theorems of Bigeometric Calculus, 30
+8 Relationships to the Classical Calculus, 31
+Chapter 5: SYSTEMS OF ARITHMETIC
+5.l Introduction, 32
+5.2 Arithmetics, 32
+5.3 O-Arithmetic, 33
+5.4 Geometric Arithmetic, 36
+Chapter 6: THE *-CALCULUS
+6.l Introduction, 38
+6.2 The *-Gradient, 39
+6.3 The *-Derivative, 40
+6.4 The *-Average, 41
+vii
+--- Page 10 ---
+viii C O n tº e n tº S
+6.5 The Basic Theorem of k-Calculus, 42
+6.6 The *-Integral, 43
+6.7 The Fundamental Theorems of k-Calculus, 44
+6.8 Relationships to the Classical Calculus,44
+6.9 Relationships Between Any Two Calculi, 45
+6.lo Applications of Geometric Arithmetic, 47
+6.ll Graphical Interpretations, 49
+Chapter 7: THE QUADRATIC FAMILY OF CALCULI
+7.l. The Quadratic Arithmetic, 52
+7.2 The Quadratic Calculus, 53
+7.3 The Anaquadratic Calculus, 55
+7.4 The Biquadratic Calculus, 57
+Chapter 8: THE HARMONIC FAMILY OF CALCULI
+8.l. The Harmonic Arithmetic, 59
+8.2 The Harmonic Calculus, 60
+8.3 The Anaharmonic Calculus, 62
+8.4 The Biharmonic Calculus, 64
+Chapter 9: HEURISTICS
+9.l Introduction, 66
+9.2 Choosing Gradients and Derivatives, 66
+9.3 Choosing Integrals, 68
+9.4 Choosing Averages, 70
+9.5 Constants and Scientific Concepts, 72
+Chapter 10: COLLATERAL ISSUES
+lC).l Introduction, 75
+10.2 *-Space, 75
+10.3 k-Vectors, 78
+10.4 The *-Method of Least Squares, 78
+10.5 Trends, 81
+lo.6 Calculus in Banach Spaces, 82
+10.7 Conclusion, 82
+NOTES, 84
+LIST OF SYMBOLS, 89
+INDEX, 91
+--- Page 11 ---
+PRELIMINARIES
+Since complex numbers are not used in this book, the
+word "number" will mean real number. Except for f, g, and
+h, lower-case Roman letters are used for referring to num
+bers. The letter R denotes the set of all numbers, and the
+symbol R+ denotes the set of all positive numbers.
+If r < s, then the interval [r,s] is the set of all
+numbers x such that r < x < s. (We do not use open inter
+vals in this book.) The interior of [r,s] is obtained by
+deleting r and s therefrom. The classical extent of [r,s]
+is s - r. (Although the number s - r is usually called the
+length of [r,s], we use the term "classical extent" in order
+to achieve a uniform terminology for all the calculi.)
+By a point we mean an ordered pair of numbers; by a
+function we mean a set of points, each distinct two of which
+have distinct first members. We use the letters f, g, h,
+and occasionally others, for referring to functions, and we
+usually identify a function with its graph, thereby avoid
+ing undesirable circumlocution.
+The domain of a function is the set of all its argu
+ments (first members of the points); the range of a function
+is the set of all its values (second members of the points).
+A function is said to be on its domain, to be onto its range,
+and to be defined at each of its arguments.
+If every two distinct points of a function f have dis
+‘inst
+second members, then f is one-to-one and its inverse,
+f , is the one-to-one function consisting of all points
+(y,x) for which (x,y) is a point of f. Please bear in mind
+that fºl is not the reciprocal of f.
+A positive function is a function whose values are all
+positive; a discrete function is a function that has only a
+finite number of arguments.
+A linear function is a function of the form mx + c,
+where m and c are constants and x is unrestricted in R. An
+especially important linear function is the identity func
+tion, I, for which I(x) = x. (All linear functions are on
+R.) The function exp assigns to each number x the number e”,
+where e is the base of the natural logarithm function, ln,
+l
+--- Page 12 ---
+2 Preliminaries
+which is the inverse of exp.
+In the sequel we shall introduce some new terms and
+symbols, which, however, we have endeavored to keep to a
+minimum.
+--- Page 13 ---
+Chapter l
+THE CLASSICAL CALCULUS
+1.1 INTRODUCTION
+In this chapter we present some of the basic ideas of
+the classical calculus in a novel manner that leads naturally
+to the subsequent construction of the non-Newtonian calculi.
+In the classical calculus, changes in function arguments
+and values are measured by differences.
+l.2 THE CLASSICAL GRADIENT
+The classical change of a function f over [r,s] (or from
+r to s) is the number f(s) - f(r).
+A classically-uniform function is a function that is on
+R, is continuous, and has the same classical change over any
+two intervals of equal classical extent. Clearly every con
+stant function on R is classically-uniform.
+Since the classically-uniform functions turn out to be
+the linear functions, we shall henceforth use the term "lin
+ear function."
+It is characteristic of a linear function that for each
+arithmetic progression of arguments, the corresponding se
+quence of values is also an arithmetic progression.
+The classical slope of a linear function is its classi
+cal change over any interval of classical extent l. Of
+course, the classical slope of the function mx + c turns out
+to be m.
+The classical gradient of a function f over [r,s] is
+the classical slope of the linear function containing the
+points (r,f(r)) and (s,f(s)), and turns out to be
+f(s) – f(r)
+s - r -
+There are several reasons why we decided to use the
+British term "gradient" instead of "average rate of change"
+or "rate of change": the first term is the shortest; the
+second leaves us wondering of what it is the average; the
+third is often taken to mean "instantaneous rate of change."
+--- Page 14 ---
+4 The Classical Calculus
+There will be no confusion with the gradient concept in vec
+tor analysis, since vector analysis is not treated in this
+book.
+Clearly the classical gradient is independent of the
+origins used for measuring the magnitudes that the function
+arguments and values may represent.
+l.3 THE CLASSICAL DERIVATIVE
+Throughout this section, f is assumed to be a function
+defined at least on an interval containing the number a in
+its interior.
+If the following limit exists, we denote it by [Df] (a),
+call it the classical derivative of f at a, and say that f
+is classically differentiable at a:
+f(x) – f(a)
+1.im —
+x+a x - a
+The classical derivative of f, denoted by Df, is the
+function that assigns to each number t the number [Df1 (t),
+if it exists.
+The operator D is additive and homogeneous:
+D(f + g) = Df + Dg,
+D(c. f.) = c-Df, c constant.
+(We are intentionally avoiding the term "linear operator.")
+In the classical calculus a distinctive role is played
+by the linear functions, for only they possess classical de
+rivatives that are constant on R.
+Next we define a familiar concept in a special way that
+will permit a suitable generalization in Section 6.3.
+The classical tangent to a function f at the point
+(a,f(a)) is the unique linear function g, if it exists,
+which possesses the following two properties.
+l. The linear function g contains (a,f(a)).
+2. For each linear function h containing (a,f(a))
+and distinct from g, there is a positive number
+p such that for every number x in [a - p, a + pl
+but distinct from a,
+--- Page 15 ---
+l.4 The Arithmetic Average 5
+|g(x) - f(x)|| < |h(x) – f(x)|| .
+Mr. Charles Rockland of Princeton University has proved
+that [Df) (a) exists if and only if f has a classical tangent
+at (a,f(a)), and that if [Df] (a) does exist, it equals the
+classical slope of that classical tangent.
+We say that two functions are classically tangent at a
+common point if and only if they have the same classical tan
+gent there.
+1.4 THE ARITHMETIC AVERAGE
+The arithmetic average of n numbers V1, . . . ,Vn is the
+(v1 va)/n.
+number + . . . *
+In our treatment of classical calculus an important role
+is played by the arithmetic average of a continuous function
+on an interval, the definition of which will be simplified by
+introducing the concept of an arithmetic partition of an in
+terval.
+An arithmetic partition of an interval [r,s] is any
+arithmetic progression whose first and last terms are r and
+s, respectively. An arithmetic partition is n-fold if it
+has n terms.
+The arithmetic average of a continuous function f on
+[r,s] is denoted by
+Mºf
+and defined to be the limit of the convergent sequence whose
+nth term is the arithmetic average of f(a1) . . . . ,f'(an), where
+a1,. . . .a is the n-fold arithmetic partition of [r,s] .
+n M.
+The operator is additive and homogeneous:
+M.s(f
++ g)
+=— Mwaºsf
++
+M.sg.,
+M.s(c.f) c.Mºsf,
+- C COnStant.
+The arithmetic average of a linear function on [r,s] is
+equal to the arithmetic average of its values at r and s, and
+is equal to its value at the arithmetic average of r and s.
+The arithmetic average is the only operator that has the
+following three properties.
+--- Page 16 ---
+6 The Classical Calculus
+l. For any interval [r,s] and any constant function
+h(x) = b on [r,s],
+Mºsh
+-= b.
+2. For any interval [r,s] and any functions f and g
+that are continuous on [r,s], if f(x) < g(x) for
+every number x in [r,s] , then
+Mºsf
+S.
+M.sg.
+3. For any numbers r,s,t such that r < s < t, and
+any function f continuous on [r,t),
+(s - r). Mºsf + (t s): Mºtf =- (t - r). MMt .. f.
+1.5 THE BASIC THEOREM OF CLASSICAL CALCULUS
+Our discussion of the Basic Theorem of Classical Cal
+culus begins with its discrete analogue, which is a propo
+sition that concerns discrete functions and appropriately
+conveys the spirit of the theorem.
+The Discrete Analogue of the
+Basic Theorem of C1assical Calculus
+Let h be a discrete function whose arguments
+a1, .. . .an are an arithmetic partition of [r,s] .
+Then the arithmetic average of the following
+n – l classical gradients is equal to the
+classical gradient of h over [r,s] :
+h(ai)
+h(*i-1)
+-
+i = 1, . . . ,n-l.
+r
+The Basic Theorem of C1assical Calculus
+If Dh is continuous on [r,s], then its arithmetic
+average on [r,s] equals the classical gradient of
+h over [r,s] , that is
+s h(s) – h(r)
+M. (Dh)
+= -.
+s - r
+In view of the preceding theorem we say that the arith
+--- Page 17 ---
+l.6 The Classical Integral 7
+metic average fits naturally into the scheme of classical
+calculus.
+The Basic Theorem of Classical Calculus provides an
+immediate solution to the following problem.
+The Basic Problem of Classical Calculus
+Suppose that the value of a function h is known at
+an argument r, and suppose that f, the classical
+derivative of h, is continuous and known at each
+number in [r,s] . Find h(s).
+Solution
+By the Basic Theorem of Classical Calculus we have
+h(s) – h(r)
+Młf = Mº(Dh) = —.
+r r
+s - r
+Solving for h(s), we get
+h(s) = h(r) + (s = r). Mºf.
+r). Mºf
+The number (s - in the foregoing solution arises
+with sufficient frequency to warrant a special name, which
+is introduced in the next section and is justified by the en
+suing discussion.
+1.6 THE CLASSICAL INTEGRAL
+The classical integral of a continuous function f on
+by ſ
+r). Mºf, s
+[r,s] is the number (s - and is denoted f.
+we set ſrf = 0. r
+r
+The classical integral is a weighted arithmetic average,
+since
+ſ" - ºtte
+r) • f] .
+r r
+ſ
+s
+Furthermore, f equals the limit of the convergent sequence
+r
+kn' f(a1) kn' f(an-1),
+whose nth term is the sum + . . . H where
+a1, . . . .an is the n-fold arithmetic partition of [r,s] , and kn
+is the common value of
+a2 al, a3 a2. an *n-l
+- - • * * * -

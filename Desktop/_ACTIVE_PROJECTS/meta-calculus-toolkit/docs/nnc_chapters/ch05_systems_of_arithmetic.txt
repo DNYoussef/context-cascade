@@ -1,0 +1,229 @@
+
+--- Page 32 ---
+22 The Anageometric Calculus
+the following problem, which will motivate our definition of
+the anageometric integral.
+The Basic Problem of Anageometric Calculus
+Suppose that the value of a function h is known
+at a positive argument r, and suppose that f,
+the anageometric derivative of h, is continuous
+and known at each number in [r,s] . Find h(s).
+Solution
+h(s) = h(r) + (ln(s) - ln(r)J.M.f.
+3.6 THE ANAGEOMETRIC INTEGRAL
+The anageometric integral of a continuous function f on
+ln(r)]-Mºf
+a positive interval [r,s] is the number [ln(s) -
+ſ ſ
+s r
+and is denoted by f. We set f = 0.
+~r ~r
+The anageometric integral is a weighted anageometric
+average, since
+ſ
+s M: [ln(s)
+f = - ln(r) J. f.) .
+~r
+ſs
+Furthermore, f equals the limit of the convergent se
+~r
+quence whose nth term is the sum
+[ln(km) f(a1) [ln(kn)1 f(an-1),
++ . . . -H
+where a1,. . . ,a is the n-fold geometric partition of [r,s] ,
+kn ºommon a2/al, a3/a2. . . . . *n/an-1.
+and is the value of
+The reader who is familiar with Stieltjes integrals
+will notice that the preceding result justifies the asser
+tion that s
+f
+~r
+is the Stieltjes integral of f with respect to ln on [r,s] .
+ſs
+The operator is additive and homogeneous:
+~r
+ſ"(; ; 3) - ſº ſ”g,
+~r ~r ~r
+--- Page 33 ---
+3.7 Fundamental Theorems of Anageometric Calculus 23
+ſs e'ſs
+(c.f.) = f, c constant.
+~r ~r
+The anageometric integral is the only operator that has
+the following three properties.
+l. For any positive interval [r,s] and any constant
+function h(x) = b on [r,s],
+ſs
+h = [ln(s) - ln(r) J. b.
+~r
+2. For any positive interval [r,s] and any functions
+f and g that are continuous on [r,s], if f(x) < g(x)
+for every number x in [r,s] , then
+ſ"s: 3 ſqs.
+•r ~r
+3. For any numbers r,s,t such that 0 < r < s < t, and
+any function f continuous on [r,t) ,
+ſ
+s
+ſt ſt
+f + f = f.
+~r ~.S -r
+3.7 THE FUNDAMENTAL THEOREMS OF ANAGEOMETRIC CALCULUS
+The anageometric derivative and integral are 'inversely'
+related in the sense indicated by the following two theorems.
+First Fundamental Theorem
+If f is continuous on a positive interval [r,s] , and
+ſ X
+g(x) = f, for every number x in [r,s] ,
+~r
+then
+Bg = f', on Ir,s] .
+Second Fundamental Theorem
+If Bh is continuous on a positive interval [r,s], then
+ſs(gh) = h(s) - hºr).
+~r
+The preceding theorem is useful, of course, for evalu
+ating anageometric integrals.
+--- Page 34 ---
+24 The Anageometric Calculus
+3.8 RELATIONSHIPS TO THE CLASSICAL CALCULUS
+gif
+Let be the anageometric gradient of f over a posi
+tive interval [r,s], and set f(x) = f(e”), F = ln(r), s =
+gif
+ln(s), and a = ln(a). (Of course, is the classical gra
+dient of f over [r,s] .) Then we have the following uniform
+relationships between the corresponding operators of the ana
+geometric and classical calculi.
+s — asa
+(1) gif = Gºf
+[Bf1 (a) = [Df] (ā)
+(2)
+(3) Mºs fe —= M,5ºf
+~r
+J's - ſº
+(4)
+Remark. For (2), we assume that [Bf1 (a) exists; for (3) and
+(4), that f is continuous on [r,s] .
+The preceding observations clearly indicate that for
+each theorem in classical calculus there is a corresponding
+theorem in anageometric calculus, and conversely.
+--- Page 35 ---
+Chapter 4
+THE BIGEOMETRIC CALCULUS
+4.1 INTRODUCTION
+In the bigeometric calculus, changes in function argu
+ments and values are measured by ratios, and the operators
+are applied only to functions with positive arguments and
+positive values. However, bigeometric-type calculi for oth
+er functions can be constructed (Section 6.10).
+Heuristic guides for selecting appropriate gradients,
+derivatives, averages, and integrals are discussed in Chap
+ter 9.
+4.2 THE BIGEOMETRIC GRADIENT
+A bigeometrically-uniform function is a positive func=
+tion that is on R+, is continuous, and has the same geomet
+ric change over any two positive intervals of equal geomet
+ric extent. Clearly every positive constant function on R+
+is bigeometrically-uniform.
+The bigeometrically-uniform functions are those express
+cx",
+ible in the form where c and m are constants, c > 0, and
+x is unrestricted in R+.
+It is characteristic of a bigeometrically-uniform func
+tion that for each geometric progression of arguments, the
+corresponding sequence of values is also a geometric progres
+sion.
+The bigeometric slope of a bigeometrically-uniform func=
+tion is its geometric change over any positive interval of
+geometric extent e. (Our reason for choosing e here is sim
+ilar to the reason for using e in defining anageometric slope,
+as explained in Note 3 and Section 6.10.) The bigeometric
+slope of the function cx" turns out to be e".
+If one plots a bigeometrically-uniform function h on
+log-log paper, the result is a straight line whose classical
+slope equals the natural logarithm of the bigeometric slope
+of h. Other aspects of graphical interpretation will be dis
+cussed more fully in Section 6.ll.
+The bigeometric gradient of a positive function f over a
+25
+--- Page 36 ---
+26 The Bigeometric Calculus
+positive interval [r,s] is the bigeometric slope of the bi
+geometrically-uniform function containing (r.,f(r)) and
+(s,f(s)), and turns out to be
+ſº
+f(r)
+It is easy to verify that the bigeometric gradient is
+independent of the units used for measuring the magnitudes
+which the arguments and values may represent.
+The foregoing expression for the bigeometric gradient
+yields the indeterminate form 1” when r = s.
+4.3 THE BIGEOMETRIC DERIVATIVE
+Throughout this section, f is assumed to be a positive
+function defined at least on a positive interval containing
+the number a in its interior.
+If the following limit exists and is positive, we de
+note it by [ſif] (a), call it the bigeometric derivative of f
+|##!"
+at a, and say that f is bigeometrically differentiable at a:
+[ln(x)-ln(a)]
+lim
+x+a f(a)
+Our reason for requiring [[f] (a) to be positive will be in
+dicated in Section 6.10.
+It can be proved that [Df1 (a) and [ºf] (a) coexist; that
+if they do exist, then
+[ºf] (a) = expſa. [Df] (a)/f(a) };
+and that [ºf] (a) equals the bigeometric slope of the unique
+bigeometrically-uniform function which is classically tan
+gent to f at (a,f(a)).
+The bigeometric derivative of f, denoted by ºf, is the
+function that assigns to each number t the number [ºf] (t),
+if it exists.
+The operator 5 is multiplicative:
+Í (f-g) = \f. §g.
+Furthermore,
+E(fº = (ºf)‘’, c constant.
+--- Page 37 ---
+4.4 The Bigeometric Average 27
+£f
+If f is bigeometrically-uniform, then has a constant
+value equal to the bigeometric slope of f. Indeed, only bi
+geometrically-uniform functions have bigeometric derivatives
+R+.
+that are constant on
+It is also worth noting that if h(x) = exp(x) for x > 0,
+then ºh = h.
+We noted above that
+[[f] (a) exp[a• [Df1 (a)/f(a) }.
+Since economists refer to the expression within the braces as
+the elasticity of f at a, we call [f] (a) the resiliency of f
+at a. We believe that resiliency will prove to be more use
+ful than elasticity because the former is the derivative in a
+complete system of calculus (the naturalness of which is ex
+hibited in this chapter), whereas it appears to be impossible
+to construct a complete, natural system of calculus in which
+the derivative is the elasticity.
+Perhaps the psychophysicists will find some interest in
+the bigeometric calculus, for one of their basic laws may be
+stated thus: The resiliency of the stimulus-sensation func
+tion is constant. (That constant is determined by the nature
+of the stimulus.)
+The bigeometric calculus may also prove to be useful in
+biology, for a fundamental law of growth is the following:
+If f is the function relating the size of one organ to the
+size of any other given organ in the same body at the same
+instant, then, within certain time limits, the resiliency of
+f is constant.
+A physicist who preferred not to settle on specific units
+of time and distance could, nevertheless, assert that the bi
+geometric speed of an object falling freely to the earth is
+COnStant.
+Heuristic guides for selecting appropriate derivatives
+are discussed more fully in Section 9.2.
+4.4 THE BIGEOMETRIC AVERAGE
+The bigeometric average of a continuous positive func
+iſ:
+tion f on a positive interval [r,s] is denoted by and de
+fined to be the positive limit of the convergent sequence

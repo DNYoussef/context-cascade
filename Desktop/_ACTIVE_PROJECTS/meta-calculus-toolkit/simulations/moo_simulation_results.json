@@ -1,0 +1,1819 @@
+{
+  "timestamp": "2025-12-06T14:02:25.473554",
+  "n_evaluations": 950,
+  "pymoo_used": true,
+  "globalmoo_used": true,
+  "breaking_candidates": [
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1e-06
+      },
+      "scheme_disagreement": 785908.4476050303,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.1233240329780266e-06
+      },
+      "scheme_disagreement": 643202.7032559089,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.261856883066021e-06
+      },
+      "scheme_disagreement": 556672.7367129325,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.4174741629268049e-06
+      },
+      "scheme_disagreement": 487056.40265540744,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.592282793341094e-06
+      },
+      "scheme_disagreement": 428459.5112390554,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.788649529057435e-06
+      },
+      "scheme_disagreement": 378138.04030358227,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.0092330025650458e-06
+      },
+      "scheme_disagreement": 334439.2367784872,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.2570197196339214e-06
+      },
+      "scheme_disagreement": 296227.74265890947,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.5353644939701112e-06
+      },
+      "scheme_disagreement": 262659.9906563449,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.848035868435799e-06
+      },
+      "scheme_disagreement": 233076.6744444259,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 3.1992671377973847e-06
+      },
+      "scheme_disagreement": 206944.5115384722,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 3.5938136638046257e-06
+      },
+      "scheme_disagreement": 183821.63933161108,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 4.037017258596558e-06
+      },
+      "scheme_disagreement": 163335.53698367922,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 4.534878508128582e-06
+      },
+      "scheme_disagreement": 145168.1157800513,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 5.0941380148163755e-06
+      },
+      "scheme_disagreement": 129045.17078227398,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 5.72236765935022e-06
+      },
+      "scheme_disagreement": 114728.62295133492,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 6.4280731172843194e-06
+      },
+      "scheme_disagreement": 102010.62440187322,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 7.220809018385457e-06
+      },
+      "scheme_disagreement": 90708.95434065009,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 8.111308307896873e-06
+      },
+      "scheme_disagreement": 80663.33864571882,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 9.111627561154887e-06
+      },
+      "scheme_disagreement": 71732.4498579866,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.023531021899027e-05
+      },
+      "scheme_disagreement": 63791.42162762282,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.1497569953977357e-05
+      },
+      "scheme_disagreement": 56729.761349066546,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.2915496650148827e-05
+      },
+      "scheme_disagreement": 50449.57752466869,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.4508287784959402e-05
+      },
+      "scheme_disagreement": 44864.060568945795,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.6297508346206434e-05
+      },
+      "scheme_disagreement": 39896.17107255317,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 1.8307382802953696e-05
+      },
+      "scheme_disagreement": 35477.50032391371,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.0565123083486515e-05
+      },
+      "scheme_disagreement": 31547.27562029933,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.310129700083158e-05
+      },
+      "scheme_disagreement": 28051.488550721937,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.5950242113997373e-05
+      },
+      "scheme_disagreement": 24942.128635279863,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 2.9150530628251757e-05
+      },
+      "scheme_disagreement": 22176.50788578833,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 3.274549162877732e-05
+      },
+      "scheme_disagreement": 19716.664300742003,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 3.678379771828634e-05
+      },
+      "scheme_disagreement": 17528.834224077887,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 4.1320124001153344e-05
+      },
+      "scheme_disagreement": 15582.985021558976,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 4.641588833612782e-05
+      },
+      "scheme_disagreement": 13852.400759601678,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 5.2140082879996844e-05
+      },
+      "scheme_disagreement": 12313.31457953577,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 5.8570208180566735e-05
+      },
+      "scheme_disagreement": 10944.582296577544,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 6.579332246575683e-05
+      },
+      "scheme_disagreement": 9727.392454478186,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 7.390722033525775e-05
+      },
+      "scheme_disagreement": 8645.00866147602,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 8.302175681319735e-05
+      },
+      "scheme_disagreement": 7682.540541521766,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 9.326033468832199e-05
+      },
+      "scheme_disagreement": 6826.740072507025,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00010476157527896651
+      },
+      "scheme_disagreement": 6065.820462534852,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0001176811952434998
+      },
+      "scheme_disagreement": 5389.295045625171,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00013219411484660288
+      },
+      "scheme_disagreement": 4787.833967193088,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0001484968262254465
+      },
+      "scheme_disagreement": 4253.136683223927,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0001668100537200059
+      },
+      "scheme_disagreement": 3777.818520263286,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0001873817422860383
+      },
+      "scheme_disagreement": 3355.3097402276203,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00021049041445120198
+      },
+      "scheme_disagreement": 2979.765728029705,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00023644894126454073
+      },
+      "scheme_disagreement": 2645.987074011053,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00026560877829466864
+      },
+      "scheme_disagreement": 2349.3484596189346,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00029836472402833405
+      },
+      "scheme_disagreement": 2085.7353757834917,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0003351602650938841
+      },
+      "scheme_disagreement": 1851.487810860223,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00037649358067924675
+      },
+      "scheme_disagreement": 1643.3501403958423,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0004229242874389499
+      },
+      "scheme_disagreement": 1458.4265357282372,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00047508101621027984
+      },
+      "scheme_disagreement": 1294.141283767957,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0005336699231206307
+      },
+      "scheme_disagreement": 1148.2034772875854,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0005994842503189409
+      },
+      "scheme_disagreement": 1018.5755946115423,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0006734150657750821
+      },
+      "scheme_disagreement": 903.4455405824857,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.000756463327554629
+      },
+      "scheme_disagreement": 801.2017678121789,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0008497534359086438
+      },
+      "scheme_disagreement": 710.411139162466,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0009545484566618337
+      },
+      "scheme_disagreement": 629.7992297131316,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0010722672220103231
+      },
+      "scheme_disagreement": 558.2327996760491,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0012045035402587824
+      },
+      "scheme_disagreement": 494.7041992660384,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0013530477745798061
+      },
+      "scheme_disagreement": 438.31749282680175,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0015199110829529332
+      },
+      "scheme_disagreement": 388.2761129203802,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0017073526474706904
+      },
+      "scheme_disagreement": 343.8718759084101,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0019179102616724887
+      },
+      "scheme_disagreement": 304.4752090916615,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0021544346900318843
+      },
+      "scheme_disagreement": 269.5264559735152,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.002420128264794381
+      },
+      "scheme_disagreement": 238.52814089100838,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.00271858824273294
+      },
+      "scheme_disagreement": 211.03808732937927,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0030538555088334154
+      },
+      "scheme_disagreement": 186.66329586291926,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.003430469286314919
+      },
+      "scheme_disagreement": 165.0544980182425,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0038535285937105275
+      },
+      "scheme_disagreement": 145.90131156894333,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.004328761281083057
+      },
+      "scheme_disagreement": 128.92793096869374,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.004862601580065354
+      },
+      "scheme_disagreement": 113.88929392951452,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0054622772176843425
+      },
+      "scheme_disagreement": 100.56767164621971,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.006135907273413169
+      },
+      "scheme_disagreement": 88.76963594698769,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.006892612104349695
+      },
+      "scheme_disagreement": 78.32336179777869,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.007742636826811269
+      },
+      "scheme_disagreement": 69.07622816384651,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.008697490026177835
+      },
+      "scheme_disagreement": 60.89268430943431,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.009770099572992247
+      },
+      "scheme_disagreement": 53.65235223979888,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.010974987654930568
+      },
+      "scheme_disagreement": 47.2483392209696,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.012328467394420659
+      },
+      "scheme_disagreement": 41.58573718155514,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.013848863713938717
+      },
+      "scheme_disagreement": 36.58028835999382,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.015556761439304723
+      },
+      "scheme_disagreement": 32.157198832427824,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.017475284000076828
+      },
+      "scheme_disagreement": 28.250083583775044,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.019630406500402726
+      },
+      "scheme_disagreement": 24.800028583554777,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.022051307399030457
+      },
+      "scheme_disagreement": 21.7547569328794,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.02477076355991709
+      },
+      "scheme_disagreement": 19.067887575110163,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.02782559402207126
+      },
+      "scheme_disagreement": 16.69827633117244,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.031257158496882355
+      },
+      "scheme_disagreement": 14.609430151951138,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.03511191734215127
+      },
+      "scheme_disagreement": 12.768986484841454,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.03944206059437656
+      },
+      "scheme_disagreement": 11.148250543828654,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.044306214575838776
+      },
+      "scheme_disagreement": 9.72178407330627,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.049770235643321135
+      },
+      "scheme_disagreement": 8.467039897605297,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.05590810182512223
+      },
+      "scheme_disagreement": 7.364037184585141,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.06280291441834246
+      },
+      "scheme_disagreement": 6.395072907853828,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.07054802310718646
+      },
+      "scheme_disagreement": 5.544465492537566,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.0792482898353917
+      },
+      "scheme_disagreement": 4.798327074520633,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.08902150854450393
+      },
+      "scheme_disagreement": 4.144361196379863,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_singular",
+      "parameters": {
+        "t": 0.1
+      },
+      "scheme_disagreement": 3.5716831142830943,
+      "classification": "singular_regime",
+      "confidence": 0.8,
+      "is_physical": false,
+      "notes": "Expected breaking in singular regime"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 7.739562745999148,
+        "u_amp": 0.9338690355288993,
+        "u_freq": 4.292989599556912
+      },
+      "scheme_disagreement": 0.3473410523887421,
+      "classification": "numerical",
+      "confidence": 0.9360515843867198,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 6.973683316913348,
+        "u_amp": 0.2789369609865341,
+        "u_freq": 4.878111758183779
+      },
+      "scheme_disagreement": 0.3289433952864652,
+      "classification": "numerical",
+      "confidence": 0.9321024890482756,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 7.61139940850651,
+        "u_amp": 1.5935221800262123,
+        "u_freq": 0.6405681633777294
+      },
+      "scheme_disagreement": 0.3443923176696747,
+      "classification": "numerical",
+      "confidence": 0.9354321543071996,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 4.503864875096292,
+        "u_amp": 0.8045162460419043,
+        "u_freq": 4.633824944243009
+      },
+      "scheme_disagreement": 0.2520398120748342,
+      "classification": "numerical",
+      "confidence": 0.9132617383826503,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 6.438654762155444,
+        "u_amp": 1.663247065214577,
+        "u_freq": 2.2170709941366558
+      },
+      "scheme_disagreement": 0.31485926135440695,
+      "classification": "numerical",
+      "confidence": 0.9289404057245338,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 2.272394945460551,
+        "u_amp": 1.1537110953300862,
+        "u_freq": 0.3190862805208766
+      },
+      "scheme_disagreement": 0.13412904436933587,
+      "classification": "numerical",
+      "confidence": 0.8758887774571708,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 8.2763134436141,
+        "u_amp": 1.3001623583319233,
+        "u_freq": 3.7904387004268694
+      },
+      "scheme_disagreement": 0.3591823838999544,
+      "classification": "numerical",
+      "confidence": 0.9384882661461851,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 3.5452661360390025,
+        "u_amp": 1.9443262463503161,
+        "u_freq": 4.465605606610988
+      },
+      "scheme_disagreement": 0.21034367426919467,
+      "classification": "numerical",
+      "confidence": 0.9013104252583841,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 7.783837186902648,
+        "u_amp": 0.4698135449187384,
+        "u_freq": 2.333605018635171
+      },
+      "scheme_disagreement": 0.3483483905762489,
+      "classification": "numerical",
+      "confidence": 0.9362620269771342,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    },
+    {
+      "domain": "frw_optimized",
+      "parameters": {
+        "t": 0.4380472198346299,
+        "u_amp": 0.3931500349283409,
+        "u_freq": 3.415244766212273
+      },
+      "scheme_disagreement": 0.1231574537482481,
+      "classification": "numerical",
+      "confidence": 0.7133380406516073,
+      "is_physical": "False",
+      "notes": "Found via PyMOO NSGA-II"
+    }
+  ],
+  "pareto_front": [
+    {
+      "id": 0,
+      "t": 1.0001649635193141e-05,
+      "u_amplitude": 1.4794613051892478,
+      "u_frequency": 1.659064494997705,
+      "disagreement": 0.6844118543114048,
+      "dist_singular": -4.999924020955614,
+      "stability": 0.17169200489809974
+    },
+    {
+      "id": 1,
+      "t": 1.0001649635193141e-05,
+      "u_amplitude": 1.7247853405336562,
+      "u_frequency": 1.6365024989234658,
+      "disagreement": 0.6844118543114048,
+      "dist_singular": -4.999924020955614,
+      "stability": 0.17169200489809974
+    },
+    {
+      "id": 24,
+      "t": 1.5812998641745548e-05,
+      "u_amplitude": 0.18389481341627448,
+      "u_frequency": 1.7993062647285325,
+      "disagreement": 0.680718464923992,
+      "dist_singular": -4.800983019937943,
+      "stability": 0.17776985896861464
+    },
+    {
+      "id": 23,
+      "t": 2.708364596686234e-05,
+      "u_amplitude": 0.18234395755278754,
+      "u_frequency": 2.4950322698634704,
+      "disagreement": 0.6756167920406406,
+      "dist_singular": -4.567291268338921,
+      "stability": 0.18547782243510358
+    },
+    {
+      "id": 11,
+      "t": 4.1901149124915545e-05,
+      "u_amplitude": 0.3094171565678876,
+      "u_frequency": 2.5835146926430173,
+      "disagreement": 0.6707759679984845,
+      "dist_singular": -4.3777730300176705,
+      "stability": 0.1922357708144382
+    },
+    {
+      "id": 20,
+      "t": 0.00010128706971395014,
+      "u_amplitude": 1.613934125957859,
+      "u_frequency": 1.3017098222689096,
+      "disagreement": 0.6586461136887597,
+      "dist_singular": -3.994445564267901,
+      "stability": 0.20752739623373478
+    },
+    {
+      "id": 27,
+      "t": 0.00010128706971395014,
+      "u_amplitude": 1.5767208934485564,
+      "u_frequency": 1.3017098222689096,
+      "disagreement": 0.6586461136887597,
+      "dist_singular": -3.994445564267901,
+      "stability": 0.20752739623373478
+    },
+    {
+      "id": 18,
+      "t": 0.00018690851607846044,
+      "u_amplitude": 1.4856819405118245,
+      "u_frequency": 1.7542168147196744,
+      "disagreement": 0.6479842772735775,
+      "dist_singular": -3.7283706781338344,
+      "stability": 0.21965376940299913
+    },
+    {
+      "id": 8,
+      "t": 0.0002533213717180352,
+      "u_amplitude": 1.3812467699425723,
+      "u_frequency": 1.8519912014277948,
+      "disagreement": 0.641878595227689,
+      "dist_singular": -3.596327997523114,
+      "stability": 0.22621264271253066
+    },
+    {
+      "id": 10,
+      "t": 0.00043334920723203836,
+      "u_amplitude": 1.4893821023087048,
+      "u_frequency": 0.9966058627361835,
+      "disagreement": 0.6295761586696422,
+      "dist_singular": -3.363161893378519,
+      "stability": 0.23880197438352008
+    },
+    {
+      "id": 16,
+      "t": 0.000671506389927874,
+      "u_amplitude": 0.21956680898222525,
+      "u_frequency": 1.755768486651489,
+      "disagreement": 0.6179142037537773,
+      "dist_singular": -3.17294978563675,
+      "stability": 0.2501555489635214
+    },
+    {
+      "id": 9,
+      "t": 0.0009140967243932693,
+      "u_amplitude": 0.5174280484351915,
+      "u_frequency": 3.617060337706635,
+      "disagreement": 0.6087145430839146,
+      "dist_singular": -3.0390077998103995,
+      "stability": 0.2588173576921211
+    },
+    {
+      "id": 12,
+      "t": 0.0013744124001526612,
+      "u_amplitude": 1.7291983221679024,
+      "u_frequency": 1.7987054035778964,
+      "disagreement": 0.5951570553463724,
+      "dist_singular": -2.861882903627329,
+      "stability": 0.271230369516437
+    },
+    {
+      "id": 17,
+      "t": 0.0019135784581616722,
+      "u_amplitude": 0.21430955868168747,
+      "u_frequency": 3.903626913644939,
+      "disagreement": 0.582877847634816,
+      "dist_singular": -2.718153703977343,
+      "stability": 0.282204966385433
+    },
+    {
+      "id": 29,
+      "t": 0.0019327665722093479,
+      "u_amplitude": 0.10681308767659167,
+      "u_frequency": 2.4419552904746067,
+      "disagreement": 0.582488700927302,
+      "dist_singular": -2.713820571780178,
+      "stability": 0.28254948346131886
+    },
+    {
+      "id": 5,
+      "t": 0.003135470782905221,
+      "u_amplitude": 0.40614685135643114,
+      "u_frequency": 0.8683521896034555,
+      "disagreement": 0.562191314522381,
+      "dist_singular": -2.50369722788251,
+      "stability": 0.3003129395006697
+    },
+    {
+      "id": 26,
+      "t": 0.003927632462630327,
+      "u_amplitude": 1.5480618954250214,
+      "u_frequency": 1.8644166409446488,
+      "disagreement": 0.5517298341612358,
+      "dist_singular": -2.4058691480455203,
+      "stability": 0.30935379073937525
+    },
+    {
+      "id": 14,
+      "t": 0.005031023451347271,
+      "u_amplitude": 0.18075144956157116,
+      "u_frequency": 1.284950045748536,
+      "disagreement": 0.5394321446877892,
+      "dist_singular": -2.298343649639821,
+      "stability": 0.3199249602750935
+    },
+    {
+      "id": 15,
+      "t": 0.005652528201234151,
+      "u_amplitude": 0.32073149899324227,
+      "u_frequency": 1.7661906082092527,
+      "disagreement": 0.5333438605952703,
+      "dist_singular": -2.2477572545396036,
+      "stability": 0.3251453029899212
+    },
+    {
+      "id": 19,
+      "t": 0.006744664017447914,
+      "u_amplitude": 0.16827900982771216,
+      "u_frequency": 1.4476551960566588,
+      "disagreement": 0.5237259223324447,
+      "dist_singular": -2.171039673207951,
+      "stability": 0.33338500589884085
+    },
+    {
+      "id": 28,
+      "t": 0.006744664017447914,
+      "u_amplitude": 0.10410319178152372,
+      "u_frequency": 1.9647073626455982,
+      "disagreement": 0.5237259223324447,
+      "dist_singular": -2.171039673207951,
+      "stability": 0.33338500589884085
+    },
+    {
+      "id": 6,
+      "t": 0.00896977762056252,
+      "u_amplitude": 0.10433187860167381,
+      "u_frequency": 1.9615872472509828,
+      "disagreement": 0.5071834775103877,
+      "dist_singular": -2.0472183190438944,
+      "stability": 0.3475666990175371
+    },
+    {
+      "id": 13,
+      "t": 0.011731913725101635,
+      "u_amplitude": 1.4910203542574572,
+      "u_frequency": 1.656621256224919,
+      "disagreement": 0.4903981156728932,
+      "dist_singular": -1.9306311357204906,
+      "stability": 0.36201330532563425
+    },
+    {
+      "id": 22,
+      "t": 0.015236709413227821,
+      "u_amplitude": 0.11651973751127177,
+      "u_frequency": 1.479011562641902,
+      "disagreement": 0.47286577338254226,
+      "dist_singular": -1.8171088121659094,
+      "stability": 0.37720989845895714
+    },
+    {
+      "id": 25,
+      "t": 0.017439551377432104,
+      "u_amplitude": 1.7247853405336562,
+      "u_frequency": 1.6243793376090738,
+      "disagreement": 0.4633305236361859,
+      "dist_singular": -1.7584646887486985,
+      "stability": 0.3855347679973089
+    },
+    {
+      "id": 21,
+      "t": 0.018456033421816537,
+      "u_amplitude": 0.18207278011242262,
+      "u_frequency": 1.6583051602998813,
+      "disagreement": 0.45923058099518105,
+      "dist_singular": -1.7338616296742881,
+      "stability": 0.38912909721922395
+    },
+    {
+      "id": 7,
+      "t": 0.02424705253102626,
+      "u_amplitude": 1.5986269790680465,
+      "u_frequency": 1.8778888414844652,
+      "disagreement": 0.4386335332303577,
+      "dist_singular": -1.6153410448504,
+      "stability": 0.4073362332300736
+    },
+    {
+      "id": 4,
+      "t": 0.03186607686006146,
+      "u_amplitude": 0.3381117784748018,
+      "u_frequency": 1.6643642730336667,
+      "disagreement": 0.41656173691411236,
+      "dist_singular": -1.4966713993272744,
+      "stability": 0.4271559507412795
+    },
+    {
+      "id": 2,
+      "t": 9.999999729316746,
+      "u_amplitude": 0.3310074484774914,
+      "u_frequency": 3.6388928633670954,
+      "disagreement": 0.3925753020551828,
+      "dist_singular": 0.9999999882487185,
+      "stability": 0.9449379410749872
+    },
+    {
+      "id": 3,
+      "t": 9.999999729316746,
+      "u_amplitude": 0.3337398537534104,
+      "u_frequency": 2.4287930952699606,
+      "disagreement": 0.3925753020551828,
+      "dist_singular": 0.9999999882487185,
+      "stability": 0.9449379410749872
+    },
+    {
+      "params": {
+        "n": 1.5,
+        "s": 0.03939529643680906,
+        "k": 0.017060195018214153,
+        "w": 0.45900173850006576
+      },
+      "objectives": {
+        "chi2_total": 809.4305405350954,
+        "spectral_gap_mixed": 0.9999984564868573,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9747177499663351,
+        "fragility": 1.5328184088054717
+      }
+    },
+    {
+      "params": {
+        "n": 1.488475506232028,
+        "s": 0.039798833101777294,
+        "k": 0.015821730261385124,
+        "w": 0.45130160334478603
+      },
+      "objectives": {
+        "chi2_total": 696.1763273595417,
+        "spectral_gap_mixed": 0.9999948787915511,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9607309248420263,
+        "fragility": 1.6814521674069198
+      }
+    },
+    {
+      "params": {
+        "n": 1.4738186055000413,
+        "s": 0.03785685285576852,
+        "k": 0.0105324923107863,
+        "w": 0.42935880503276547
+      },
+      "objectives": {
+        "chi2_total": 308.51217376164385,
+        "spectral_gap_mixed": 0.9999948787915511,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9607309248420263,
+        "fragility": 2.8257464160330694
+      }
+    },
+    {
+      "params": {
+        "n": 1.3370589042409122,
+        "s": 0.024128985208929556,
+        "k": 0.007453288142530276,
+        "w": 0.2899207101502679
+      },
+      "objectives": {
+        "chi2_total": 154.491673477602,
+        "spectral_gap_mixed": 0.9999979399984935,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9504565682667062,
+        "fragility": 4.520098017744017
+      }
+    },
+    {
+      "params": {
+        "n": 1.3182707884231804,
+        "s": 0.02650653202577455,
+        "k": 0.007541723951240328,
+        "w": 0.22574926635499837
+      },
+      "objectives": {
+        "chi2_total": 158.17962452725476,
+        "spectral_gap_mixed": 0.9999979399984935,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9504565682667062,
+        "fragility": 4.446174814667967
+      }
+    },
+    {
+      "params": {
+        "n": 1.3317365326747335,
+        "s": 0.026885912814742813,
+        "k": 0.007827451535806208,
+        "w": 0.17622463276452843
+      },
+      "objectives": {
+        "chi2_total": 170.3923609450485,
+        "spectral_gap_mixed": 0.9999979399984935,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9504565682667062,
+        "fragility": 4.221877792231101
+      }
+    },
+    {
+      "params": {
+        "n": 1.3106368048632362,
+        "s": 0.03163905438883714,
+        "k": 0.007918786789633994,
+        "w": 0.15597472679047203
+      },
+      "objectives": {
+        "chi2_total": 174.39204396048936,
+        "spectral_gap_mixed": 0.9999979399984935,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9504565682667062,
+        "fragility": 4.154529890002182
+      }
+    },
+    {
+      "params": {
+        "n": 1.2959152756600296,
+        "s": 0.03485254467837446,
+        "k": 0.00833819859539214,
+        "w": 0.15374645832920444
+      },
+      "objectives": {
+        "chi2_total": 193.35434660355395,
+        "spectral_gap_mixed": 0.9999926728872225,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9088782027223654,
+        "fragility": 3.8692154463918436
+      }
+    },
+    {
+      "params": {
+        "n": 1.2738354307192377,
+        "s": 0.03691595010210628,
+        "k": 0.009288028782217959,
+        "w": 0.09517668820336837
+      },
+      "objectives": {
+        "chi2_total": 239.91467092584747,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.3413107822755377
+      }
+    },
+    {
+      "params": {
+        "n": 1.1796033491419524,
+        "s": 0.032118068506964845,
+        "k": 0.007616341377495407,
+        "w": 0.08880803165745463
+      },
+      "objectives": {
+        "chi2_total": 161.3251575241645,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 4.385513255234689
+      }
+    },
+    {
+      "params": {
+        "n": 1.0925878678742744,
+        "s": 0.03643831018111848,
+        "k": 0.007902864064983263,
+        "w": 0.002608903023905068
+      },
+      "objectives": {
+        "chi2_total": 173.69142883568895,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 4.166127572396648
+      }
+    },
+    {
+      "params": {
+        "n": 1.0774240816865055,
+        "s": 0.041177485326945394,
+        "k": 0.008196971103563853,
+        "w": -0.028030446955746337
+      },
+      "objectives": {
+        "chi2_total": 186.85995667641123,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.961136735364826
+      }
+    },
+    {
+      "params": {
+        "n": 1.0579084222078068,
+        "s": 0.03973528121025928,
+        "k": 0.00927388626699892,
+        "w": -0.08228356422193553
+      },
+      "objectives": {
+        "chi2_total": 239.18460805047636,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.34817797220037
+      }
+    },
+    {
+      "params": {
+        "n": 0.9935479978343424,
+        "s": 0.03065354052566864,
+        "k": 0.007994829290473576,
+        "w": -0.0752604994050701
+      },
+      "objectives": {
+        "chi2_total": 177.7574356009616,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 4.099955707525514
+      }
+    },
+    {
+      "params": {
+        "n": 0.9592700381590231,
+        "s": 0.03599632396402742,
+        "k": 0.008303165510763133,
+        "w": -0.12838558980134138
+      },
+      "objectives": {
+        "chi2_total": 191.7329928614897,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.8916464574739966
+      }
+    },
+    {
+      "params": {
+        "n": 0.9444365701189165,
+        "s": 0.03728557750651789,
+        "k": 0.009382108699500255,
+        "w": -0.19122162609642912
+      },
+      "objectives": {
+        "chi2_total": 244.79956658667675,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.296290466041118
+      }
+    },
+    {
+      "params": {
+        "n": 0.8457893652713387,
+        "s": 0.03076988220941158,
+        "k": 0.008700707613923539,
+        "w": -0.20449752900190915
+      },
+      "objectives": {
+        "chi2_total": 210.5322864745719,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.650481035497379
+      }
+    },
+    {
+      "params": {
+        "n": 0.9056588888071284,
+        "s": 0.026471259284123957,
+        "k": 0.007894006305594895,
+        "w": -0.2621098996440803
+      },
+      "objectives": {
+        "chi2_total": 173.30228939002384,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 4.172605244045202
+      }
+    },
+    {
+      "params": {
+        "n": 0.8750091899166155,
+        "s": 0.031173756944404878,
+        "k": 0.008332102524798723,
+        "w": -0.291710808570832
+      },
+      "objectives": {
+        "chi2_total": 193.07172593807485,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.8731013930937133
+      }
+    },
+    {
+      "params": {
+        "n": 0.8354929414620207,
+        "s": 0.03245467144366431,
+        "k": 0.009350547075812793,
+        "w": -0.3424652889790446
+      },
+      "objectives": {
+        "chi2_total": 243.1553101504344,
+        "spectral_gap_mixed": 0.9999935968606906,
+        "invariance_score": 1.0,
+        "min_individual_gap": 0.9024777138632633,
+        "fragility": 3.3112666824631525
+      }
+    }
+  ],
+  "summary": {
+    "total_candidates": 110,
+    "physical_candidates": 0,
+    "numerical_artifacts": 10,
+    "singular_breaking": 100,
+    "quantum_control": "CONFIRMED: CQT == RNQT exactly (no breaking)",
+    "max_disagreement_found": 785908.4476050303,
+    "pareto_front_size": 80
+  }
+}

@@ -1,0 +1,360 @@
+
+--- Page 75 ---
+8.4 The Biharmonic Calculus 65
+D D
+average of f on [r,s] equals
+l
+- *
+−l ſ.s"_
+s - r r D
+D O ſ s
+and the biharmonic integral of f on [r,s] , denoted by f,
+equals Dr
+l
+ſ"s;_
+r
+All the operators of the biharmonic calculus are homo
+geneous and harmonically additive.
+The Basic Theorem of Biharmonic Calculus
+BOf D D
+If is biharmonically continuous on [r,s], then
+oneD(r.5)D
+its biharmonic average equals the bihar
+monic gradient of f over [r,s] .
+The First Fundamental Theorem of Biharmonic Calculus
+D D
+If f is biharmonically continuous on [r,s] , and
+ſO
+x G D
+g(x) = f, for every number x in [r,s] ,
+Dr
+then
+D D D
+Dg = f', on [r,s] .
+D
+The Second Fundamental Theorem of Biharmonic Calculus
+If D Dh is biharmoni-cally conti-nuous on O [r,sD ], then
+D
+ſO
+s D
+(gh) = h(s) E. h(r).
+Gr
+--- Page 76 ---
+Chapter 9
+H E U R I S T I C S
+9.1 INTRODUCTION
+Since it is not unreasonable to suppose that there are
+situations where a non-Newtonian calculus might be useful,
+we shall propose some guides that may be helpful in selec
+ting appropriate gradients, derivatives, integrals, and av
+erages. Of course, one is always free to use any operator
+that is meaningful in a given context.
+We continue to let # be an ordered pair of arbitrarily
+chosen arithmetics, (A,4,-,8,7,8) and (B,*,*,3,7,8), with
+generators o and 8, respectively.
+9.2 CHOOSING GRADIENTS AND DERIVATIVES
+Since the choice of a derivative tacitly involves a
+choice of the related gradient, we shall restrict our atten
+tion to gradients, for which three heuristic principles will
+be offered.
+Principle I
+If the natural methods of measuring changes in
+arguments and values are provided by o-differ
+ences and 8-differences, respectively, then the
+*-gradient may be appropriate.
+For example, the classical gradient is appropriate for
+analyzing motion because changes in time and position are
+naturally measured by differences. The geometric gradient
+is appropriate for analyzing stock-price movements because
+changes in time and price are usually measured by differ
+ences and geometric differences (i.e., ratios). The bigeo
+metric gradient may be useful in psychophysics because
+changes in stimulus and sensation are often measured by geo
+metric differences. ("Equal stimulus ratios produce equal
+sensation ratios," according to S.S. Stevens.)
+Principle II
+If the functional relationship between two magnitudes
+would be, or is assumed to be, *-uniform under normal
+66
+--- Page 77 ---
+9.2 Choosing Gradients and Derivatives 67
+or ideal conditions, then the *-gradient may be
+appropriate.
+For example, the geometric gradient may be appropriate
+for analyzing radioactive decay because the relationship of
+mass to time is assumed to be geometrically-uniform (i.e.,
+exponential) under ideal conditions. Similarly, the sigmoi—
+dal gradient may be useful in the study of growth that is
+normally sigmoidally-uniform (Note 4). The harmonic gradient
+may be appropriate for analyzing the relationship between two
+magnitudes that would normally be inversely proportional.
+Finally we observe that another reason for using the classi
+cal gradient in the study of motion is the assumption that
+under ideal conditions, i.e., the absence of forces, the re
+lationship of position to time would be linear (Newton's
+First Law).
+It is worth noting that each one-to-one function f on R
+is *-uniform if one chooses o = I and 3 = f'. This implies
+that each such function has a derivative that is constant
+On R.
+The statement of the third principle requires some pre
+liminary definitions.
+An a-translation is a function of the form x + k, where
+k is a constant in A and x is unrestricted in A. For example,
+the classical translations have the form x + k, and the qua
+dratic translations have the form
+t;2 2,172.
+Each a-translation x + k transforms 3 to k and preserves
+o-differences, that is, for any numbers u and v in A, the o
+difference between u and v equals the o-difference between
+the transforms of u and v. Therefore one may say that each
+o-translation effects a shift in origin.
+An O-similitude is a function of the form p 3 x, where
+p is an o-positive constant and x is an arbitrary o-positive
+number. Since each a-similitude p ≤ x transforms i to p and
+preserves o-quotients, one may say that o-similitudes effect
+a change in unit.
+Of course, 8-translations and 8-similitudes are defined
+--- Page 78 ---
+68 Heuristics
+similarly.
+The classical similitudes are exp-translations, that is,
+geometric translations. Indeed, every similitude is a trans
+lation (each o-similitude is a Y-translation, where Y(x) =
+a(e”)).
+It is an important fact that the *-gradient (and *-de
+rivative) is invariant under all o-translations of the argu
+ments and all 8-translations of the values. For example, the
+classical gradient is invariant under all classical transla
+tions of arguments and of values, and the geometric gradient
+is invariant under all classical translations of arguments
+and all geometric translations of values.
+Principle III
+If one desires a gradient that is invariant under
+all o-translations of arguments and all 8-transla
+tions of values, then one should consider using
+the *-gradient.
+It is an interesting fact that the mixed second deriv
+ative 5(D) is invariant under all classical translations and
+classical similitudes of values, and 5(D) is invariant under
+classical
+all classical translations and similitudes of argu
+ments and of values.
+9.3 CHOOSING INTEGRALS
+Suppose that a scientific proposition has been expressed
+by a k-differential equation, that is, a differential equa
+tion involving *-derivatives and perhaps related arithmetic
+operations. To solve the equation one would certainly try
+to use *-integration. If obtained, the solutions would at
+first be expressed by means of *-integrals with variable up
+per limits, which in turn would be evaluated in terms of
+known functions or new functions defined for the purpose.
+(Many functions were originally defined as classical inte
+grals.) It is even conceivable that solutions in closed form
+could be obtained for certain intractable classical differen
+tial equations by re-expressing them with appropriate non
+Newtonian derivatives and related arithmetic operations.
+--- Page 79 ---
+9.3 Choosing Integrals 69
+A differential equation containing several types of de
+rivatives can readily be transformed into an equation involv
+ing only classical derivatives or only non-Newtonian deriva
+tives of the same type. (See Sections 6.8 and 6.9.)
+Integrals are also used for defining scientific concepts.
+Consider, for example, the physicists' concept of work. If
+the force f is constant, the work on the position interval
+[r,s] is defined to be (s - r) •f, which we denote here by
+w:f.
+When f is constant the following conditions are clearly
+satisfied.
+1. Wººf = (s = r). f.
+r
+2. Work is monotonic increasing with respect to force.
+3. Work is additive with respect to displacement; that
+is, for any positions r,s,t such that r < s < t,
+wºf + wif = wif.
+Desiring to extend the concept of work to the case where
+the force f is continuously variable, the physicist stipulates
+that the extended work concept should satisfy Condition l when
+f is constant and should satisfy Conditions 2 and 3 in general.
+The solution is now uniquely determined; for according to Sec
+tion l.6, the operator W satisfies those three conditions if
+and only if W is the classical integral. Thus, the physicist
+must adopt the following definition:
+w; - ſºsf.
+s
+-
+r
+The foregoing well-known example illustrates the fact
+that the characterization of the classical integral in Sec
+tion l.6 is a heuristic guide for its appropriate use.
+Now suppose that a scientist is concerned with a posi
+tive magnitude g, called 'gorce, ' which may be continuously
+variable with respect to time. If g is constant, he defines
+the 'toil' on the time interval [r,s] to be gs-r, denoted by
+Tºg.
+(Somewhere we have seen such a concept, perhaps in eco
+nomics.) When g is constant, the following conditions are
+clearly satisfied.
+--- Page 80 ---
+70 Heuristics
+l. T.sg = gs-r
+-
+2. Toil is monotonic increasing with respect to gorce.
+3. Toil is multiplicative with respect to time; that
+is, for any instants r,s,t such that r < s < t,
+s t. — mt
+T.g. Tºg T.g.
+-
+To extend the toil concept to the case where the gorce
+g is continuously variable, we stipulate that the extended
+toil concept should satisfy Condition 1 when g is constant
+and should satisfy Conditions 2 and 3 in general. The solu
+tion is now uniquely determined; for, according to Section
+2.6, the operator T satisfies those three conditions if and
+only if T is the geometric integral. Thus, we must adopt
+the following definition:
+ſ7’s
+s
+T.g
+- r 9-
+It should now be clear that the characterization of the
+*-integral in Section 6.6 is a heuristic guide for the use
+of integrals.
+9.4 CHOOSING AVERAGES
+Most of this section is devoted to 3-averages rather
+than *-averages, since the choice of the latter depends pri
+marily on how one would average finite sequences of values,
+although the method of partitioning the argument intervals
+is certainly a factor. (In contrast to the *-integral, the
+*-average is not independent of the type of partitions used
+for the domain.)
+First let it be noted that our definition of the 8
+average corresponds to a definition of the arithmetic aver
+age of ul, . . . ,un as the number u such that
+u + . . . F u - ul + . . . H *n -
+-
+n terms
+Accordingly, the 3-average has the same properties relative
+to 3-arithmetic as the arithmetic average has relative to
+classical arithmetic. (One important illustration of that
+--- Page 81 ---
+9.4 Choosing Averages 71
+fact is given near the end of Section 10.4.)
+The predominant use of the arithmetic average may be
+attributed, perhaps, to the custom of measuring deviations
+by differences rather than by ratios or some other 8-differ
+ence. However, any statistical justification for the use
+of the arithmetic average relative to classical arithmetic
+can be matched by a justification for the use of the 3-aver
+age relative to 3-arithmetic.
+Scientists often invoke a kind of "normalcy" principle
+in choosing averages. For instance, it is commonly stated
+that the geometric average is appropriate in the study of
+those populations which normally increase in geometric pro
+gression. This idea can be extended as follows: If under
+normal or ideal conditions the measurements would be in 3
+progression, then the 3-average may be appropriate.
+Some scientists, notably the psychophysicist S.S.Ste
+vens, favor the use of invariance principles for choosing av
+erages. An interesting discussion may be found in the book
+Basic Concepts of Measurement by Brian Ellis.
+Now consider n measurements un ,. . . ,u, of magnitudes that
+i. the measure
+naturally combine by 8-sums; that of a com
+bination of two or more magnitudes equals the 8-sum of their
+individual measures. Surely, then, the 3-average of the ui
+would be physically meaningful, though the arithmetic aver
+age of the ui might well be physically meaningless. For in
+stance, since the total resistance of n resistors connected
+in parallel equals the harmonic sum of the individual resist
+ances, one would expect their harmonic average to be physi
+cally meaningful.
+-
+The intended use of an average is, of course, a basic
+factor in its choice. Suppose, for example, that ul. . . . .un
+are the measurements of one side of a square whose area is
+to be estimated. The standard procedure is to square the
+arithmetic average of the ui. But a different estimate of
+the area is usually obtained if one computes the arithmetic
+average of the squares of the ui. Although some consider
+that to be no serious objection, it should be noted that the
+geometric average always yields identical answers both ways.
+--- Page 82 ---
+72 Heuristics
+The point here is that since the area is the square of a
+side, one should seriously consider using a multiplicative
+average rather than an additive average.
+As is the case for integrals, a fundamental heuristic
+guide for choosing averages is provided by the three charac
+terizing properties stated at the end of Section 6.4.
+In many situations, averages are intuitively more sat
+isfying than integrals. Consider, for instance, a particle
+moving rectilinearly with positive velocity v at time t. The
+distance s traveled in the time interval [a,b] is given by
+s - ſºbv.
+a
+Although the derivation of this result may be clear to a stu
+dent, he may nevertheless find that the following formula
+conveys a more immediate meaning:
+a). Mºv;
+s = (b -
+a
+that is, the distance traveled equals the product of the time
+elapsed and the arithmetic average of the velocity. This
+version is a direct extension of the case where v is constant.
+Other examples will readily occur to the reader. (For the
+last example of the preceding section, we may write
+Msg)s—r
+s
+r r
+a formula that is a direct extension of the case where g is
+constant.)
+9.5 CONSTANTS AND SCIENTIFIC CONCEPTS
+In this section we illustrate the thesis that the inven
+tion of a scientific concept may depend on the isolation or
+discovery of a suitable constant. We also suggest that new
+scientific concepts may arise from the constants provided by
+the slopes of uniform functions.
+Consider the concept of average speed. The definition
+"distance traveled per unit time" is incomplete because it
+fails to provide a method of determining the average speed
+--- Page 83 ---
+9.5 Constants and Scientific Concepts 73
+of an accelerated particle. The definition "distance divided
+by time," though not incorrect, is a gross oversimplification
+that fails to reveal the underlying issues. Fortunately
+there is a completely satisfactory definition, which was un
+doubtedly known to Galileo.
+Let us begin with Galileo's definition of uniform motion
+as "one in which the distances traversed...during ANY equal
+intervals of time are themselves equal." (Continuity of the
+motion is tacitly intended here.) Then we isolate a constant
+in each given uniform motion by defining speed to be the dis
+tance traveled in any unit time interval. Finally, for a
+particle that moves non-uniformly a distance d in time t, we
+define the average speed to be the speed that a particle in
+uniform motion must have in order to travel a distance d in
+time t. In our opinion, neither the simplicity nor the obvi
+ousness of the answer, d/t, justifies its use as the defini
+tion of average speed.
+The critical first step in defining average speed is the
+isolation of the constant (speed) in the phenomenon of uniform
+motion. Similarly, the critical step in defining the *-gra
+dient is the identification of the constant (*-slope) in a
+*-uniform function.
+Wherever a scientific phenomenon (or idealized version
+thereof) is describable by a k-uniform function, one automat
+ically has a fundamental constant, the *-slope, which may
+prove to be useful.
+For example, in the idealized model of radioactive decay,
+the relationship of mass to time is describable by a geomet
+rically-uniform function whose geometric slope provides a
+constant that is independent of the unit of mass and equals
+l more than the percent change of the mass over any unit time
+interval.
+In the idealized model of the behavior of a gas, the re
+lationship of pressure to volume, assuming temperature con
+stant, is describable by a harmonically-uniform function
+whose harmonic slope is a constant that equals the harmonic
+change in pressure corresponding to a unit change in volume.
