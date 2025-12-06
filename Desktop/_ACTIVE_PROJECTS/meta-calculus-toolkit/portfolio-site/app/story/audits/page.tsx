@@ -308,10 +308,10 @@ export default function AIJourneyPage() {
 
         {/* Navigation */}
         <div className="flex justify-between items-center mt-12">
-          <Link href="/exploration" className="text-gray-400 hover:text-white transition-colors">
+          <Link href="/story/hunch" className="text-gray-400 hover:text-white transition-colors">
             &larr; Back to The Hunch
           </Link>
-          <Link href="/validation" className="btn-primary">
+          <Link href="/story/quantum" className="btn-primary">
             Next: Rigorous Validation &rarr;
           </Link>
         </div>

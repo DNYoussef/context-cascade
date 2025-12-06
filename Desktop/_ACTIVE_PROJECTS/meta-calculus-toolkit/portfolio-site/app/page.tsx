@@ -19,10 +19,10 @@ export default function HomePage() {
           scheme-robust observables in cosmology.
         </p>
         <div className="flex flex-wrap justify-center gap-4 mb-12">
-          <Link href="/exploration" className="btn-primary">
+          <Link href="/story" className="btn-primary">
             Start the Journey
           </Link>
-          <Link href="/textbook" className="btn-secondary">
+          <Link href="/learn/textbook" className="btn-secondary">
             Read the Textbook
           </Link>
           <Link href="/results" className="btn-secondary">

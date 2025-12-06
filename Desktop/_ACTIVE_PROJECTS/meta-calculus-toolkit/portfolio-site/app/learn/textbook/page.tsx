@@ -277,7 +277,7 @@ export default function TextbookPage() {
               </svg>
               Download Markdown
             </a>
-            <Link href="/code" className="btn-secondary">
+            <Link href="/tools/code" className="btn-secondary">
               View Source Code
             </Link>
           </div>

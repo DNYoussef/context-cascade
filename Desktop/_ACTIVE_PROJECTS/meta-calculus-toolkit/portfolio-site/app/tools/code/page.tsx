@@ -402,8 +402,8 @@ module.exports = {
 
         {/* Navigation */}
         <div className="flex justify-between items-center mt-12">
-          <Link href="/results" className="text-gray-400 hover:text-white transition-colors">
-            &larr; Back to Results
+          <Link href="/geometry" className="text-gray-400 hover:text-white transition-colors">
+            &larr; Back to Multi-Geometry
           </Link>
           <Link href="/" className="btn-primary">
             Back to Home

@@ -242,11 +242,11 @@ class MetaDerivative:
 
         {/* Navigation */}
         <div className="flex justify-between items-center mt-12">
-          <Link href="/" className="text-gray-400 hover:text-white transition-colors">
-            &larr; Back to Home
+          <Link href="/story" className="text-gray-400 hover:text-white transition-colors">
+            &larr; Back to Story
           </Link>
-          <Link href="/ai-journey" className="btn-primary">
-            Next: AI Hype & Audits &rarr;
+          <Link href="/story/audits" className="btn-primary">
+            Next: AI & Audits &rarr;
           </Link>
         </div>
       </div>

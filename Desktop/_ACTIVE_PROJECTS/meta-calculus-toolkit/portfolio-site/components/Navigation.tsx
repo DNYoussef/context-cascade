@@ -12,40 +12,51 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
-  { href: '/exploration', label: 'Exploration' },
-  { href: '/ai-journey', label: 'AI Journey' },
-  { href: '/validation', label: 'Validation' },
-  { href: '/simulator', label: 'Simulator' },
-  { href: '/results', label: 'Results' },
-  { href: '/quantum', label: 'Meta-Quantum' },
-  { href: '/geometry', label: 'Multi-Geometry' },
   {
-    href: '/math-history',
-    label: 'Progress',
+    href: '/story',
+    label: 'Story',
     children: [
-      { href: '/math-history', label: 'Overview' },
-      { href: '/math-history/timeline', label: 'Timeline' },
-      { href: '/math-history/derivations', label: 'Derivations' },
-      { href: '/math-history/failures', label: 'Failures & Pivots' },
-      { href: '/math-history/experiments', label: 'Experiments' },
+      { href: '/story', label: 'Overview' },
+      { href: '/story/hunch', label: 'The Hunch' },
+      { href: '/story/audits', label: 'AI & Audits' },
+      { href: '/story/quantum', label: 'Quantum Tests' },
+      { href: '/story/geometry', label: 'Multi-Geometry' },
     ]
   },
-  { href: '/textbook', label: 'Textbook' },
-  { href: '/code', label: 'Code' },
+  { href: '/results', label: 'Results' },
+  {
+    href: '/learn',
+    label: 'Learn',
+    children: [
+      { href: '/learn', label: 'Overview' },
+      { href: '/learn/textbook', label: 'Textbook' },
+      { href: '/learn/proofs', label: 'Proofs' },
+      { href: '/learn/lessons', label: 'Lessons Learned' },
+    ]
+  },
+  {
+    href: '/tools',
+    label: 'Tools',
+    children: [
+      { href: '/tools', label: 'Overview' },
+      { href: '/tools/simulator', label: 'Simulator' },
+      { href: '/tools/code', label: 'Source Code' },
+    ]
+  },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileProgressOpen, setMobileProgressOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [mobileOpenDropdown, setMobileOpenDropdown] = useState<string | null>(null);
+  const navRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setDropdownOpen(false);
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
@@ -58,6 +69,22 @@ export default function Navigation() {
       return pathname.startsWith(item.href);
     }
     return pathname === item.href;
+  };
+
+  const handleDropdownToggle = (href: string) => {
+    setOpenDropdown(openDropdown === href ? null : href);
+  };
+
+  const handleDropdownEnter = (href: string) => {
+    setOpenDropdown(href);
+  };
+
+  const handleDropdownLeave = () => {
+    setOpenDropdown(null);
+  };
+
+  const handleMobileDropdownToggle = (href: string) => {
+    setMobileOpenDropdown(mobileOpenDropdown === href ? null : href);
   };
 
   return (
@@ -76,19 +103,20 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1" role="menubar">
+          <div className="hidden md:flex items-center space-x-1" role="menubar" ref={navRef}>
             {navItems.map((item) => {
               const isActive = isInSection(item);
+              const isOpen = openDropdown === item.href;
 
               // Handle dropdown items
               if (item.children) {
                 return (
-                  <div key={item.href} className="relative" ref={dropdownRef}>
+                  <div key={item.href} className="relative">
                     <button
-                      onClick={() => setDropdownOpen(!dropdownOpen)}
-                      onMouseEnter={() => setDropdownOpen(true)}
+                      onClick={() => handleDropdownToggle(item.href)}
+                      onMouseEnter={() => handleDropdownEnter(item.href)}
                       role="menuitem"
-                      aria-expanded={dropdownOpen}
+                      aria-expanded={isOpen}
                       aria-haspopup="true"
                       className={`
                         px-4 py-2 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-1
@@ -102,7 +130,7 @@ export default function Navigation() {
                     >
                       {item.label}
                       <svg
-                        className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                        className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -116,9 +144,9 @@ export default function Navigation() {
                       className={`
                         absolute top-full left-0 mt-1 w-48 py-2 bg-dark-surface border border-dark-border rounded-lg shadow-xl
                         transition-all duration-200 origin-top-left
-                        ${dropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
+                        ${isOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
                       `}
-                      onMouseLeave={() => setDropdownOpen(false)}
+                      onMouseLeave={handleDropdownLeave}
                       role="menu"
                     >
                       {item.children.map((child) => {
@@ -128,7 +156,7 @@ export default function Navigation() {
                             key={child.href}
                             href={child.href}
                             role="menuitem"
-                            onClick={() => setDropdownOpen(false)}
+                            onClick={() => setOpenDropdown(null)}
                             className={`
                               block px-4 py-2 text-sm transition-colors
                               ${
@@ -207,13 +235,14 @@ export default function Navigation() {
           <div className="flex flex-col space-y-2">
             {navItems.map((item) => {
               const isActive = isInSection(item);
+              const isMobileOpen = mobileOpenDropdown === item.href;
 
               // Handle items with children (expandable section)
               if (item.children) {
                 return (
                   <div key={item.href}>
                     <button
-                      onClick={() => setMobileProgressOpen(!mobileProgressOpen)}
+                      onClick={() => handleMobileDropdownToggle(item.href)}
                       className={`
                         w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors
                         flex items-center justify-between
@@ -227,7 +256,7 @@ export default function Navigation() {
                     >
                       {item.label}
                       <svg
-                        className={`w-4 h-4 transition-transform ${mobileProgressOpen ? 'rotate-180' : ''}`}
+                        className={`w-4 h-4 transition-transform ${isMobileOpen ? 'rotate-180' : ''}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -240,7 +269,7 @@ export default function Navigation() {
                     <div
                       className={`
                         overflow-hidden transition-all duration-200
-                        ${mobileProgressOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+                        ${isMobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
                       `}
                     >
                       <div className="pl-4 mt-2 space-y-1 border-l-2 border-dark-border ml-4">

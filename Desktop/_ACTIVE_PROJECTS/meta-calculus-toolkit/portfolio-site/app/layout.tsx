@@ -35,16 +35,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen bg-dark-bg text-dark-text antialiased">
+        {/* Skip Navigation Link - WCAG 2.4.1 */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-400"
+        >
+          Skip to main content
+        </a>
         <div className="relative flex min-h-screen flex-col">
           {/* Background gradient */}
-          <div className="fixed inset-0 -z-10 overflow-hidden">
+          <div className="fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
             <div className="absolute -top-1/2 left-1/4 h-96 w-96 rounded-full bg-primary-600/20 blur-3xl" />
             <div className="absolute top-1/3 right-1/4 h-96 w-96 rounded-full bg-accent-600/20 blur-3xl" />
           </div>
 
           <Navigation />
 
-          <main className="flex-1">
+          <main id="main-content" className="flex-1" role="main">
             {children}
           </main>
 

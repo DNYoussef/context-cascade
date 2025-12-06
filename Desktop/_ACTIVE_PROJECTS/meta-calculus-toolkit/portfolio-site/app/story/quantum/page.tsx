@@ -559,10 +559,10 @@ def meta_schrodinger_test(dim=4, epsilon=0.3, t_max=10.0):
 
         {/* Navigation */}
         <div className="flex justify-between items-center mt-12">
-          <Link href="/results" className="text-gray-400 hover:text-white transition-colors">
+          <Link href="/story/geometry" className="text-gray-400 hover:text-white transition-colors">
             &larr; Back to Results
           </Link>
-          <Link href="/geometry" className="btn-primary">
+          <Link href="/story/geometry" className="btn-primary">
             Next: Many Calculi, Many Geometries &rarr;
           </Link>
         </div>

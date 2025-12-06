@@ -32,7 +32,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Call GlobalMoo API
-    const response = await fetch('https://api.globalmoo.com/v1/agents', {
+    // CORRECT URL per https://globalmoo.gitbook.io/globalmoo-documentation
+    const response = await fetch('https://app.globalmoo.com/api/v1/agents', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
