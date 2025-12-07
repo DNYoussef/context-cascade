@@ -1,25 +1,12 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "RAILPACK",
-    "buildCommand": "export NODE_ENV=production && npm run build"
+    "builder": "NIXPACKS",
+    "buildCommand": "npm install && npm run build"
   },
   "deploy": {
-    "startCommand": "npm start",
-    "numReplicas": 1,
-    "healthcheckPath": "/api/health",
-    "healthcheckTimeout": 300,
+    "startCommand": "npm run start",
     "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 3
-  },
-  "environments": {
-    "production": {
-      "variables": {
-        "NODE_ENV": "production"
-      }
-    }
-  },
-  "regions": [
-    "us-west1"
-  ]
+    "restartPolicyMaxRetries": 10
+  }
 }
