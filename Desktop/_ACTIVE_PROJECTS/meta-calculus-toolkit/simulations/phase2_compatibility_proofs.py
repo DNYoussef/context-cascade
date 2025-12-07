@@ -121,7 +121,24 @@ class SchemeMorphism:
     def check_action_equivalence(self, theory: PhysicalTheory,
                                  phi: np.ndarray, x: np.ndarray,
                                  tol: float = 1e-6) -> Dict[str, Any]:
-        """Check if actions agree up to boundary terms."""
+        """
+        Check if actions agree up to boundary terms.
+
+        relative_diff Definition:
+        =========================
+        relative_diff = |S_source - S_target| / |S_source|
+
+        This measures the fractional difference in action values when the
+        same field configuration is evaluated in two different schemes.
+
+        Interpretation:
+        - < 1e-6: Numerically equivalent (within tolerance)
+        - ~ 1: Actions differ by O(1) factor
+        - >> 1: Actions fundamentally different (e.g., different scaling)
+
+        A large relative_diff (like 3179) indicates the schemes compute
+        genuinely different action functionals, not just numerical noise.
+        """
         S_source, S_target = self.transform_action(theory, phi, x)
         diff = abs(S_source - S_target)
 

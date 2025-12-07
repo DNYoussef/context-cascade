@@ -214,14 +214,22 @@ def multi_calculus_diffusion_triangle(
     peak_idx = np.argmax(final_density)
     peak_location = pts[peak_idx]
 
+    # NOTE on entropy: Computed over full M-point discretization where M = (N+1)*(N+2)/2.
+    # For N=10, M=66 points. Max entropy = log(66) ~ 4.19. The value 3.78 indicates
+    # significant but not complete spreading. peak_location is barycentric coords
+    # of the grid point with highest density, NOT the full distribution.
+
     return {
         'pts': pts.tolist(),
         'snapshots': snapshots.tolist(),
         'schedule': schedule_used,
         'entropies': entropies,
-        'final_peak_location': peak_location.tolist(),
+        'final_peak_barycentric': peak_location.tolist(),  # Renamed for clarity
         'final_peak_value': float(final_density[peak_idx]),
+        'distribution_entropy': entropies[-1],  # Shannon entropy over M grid points
+        'max_possible_entropy': float(np.log(len(pts))),  # log(M) for uniform
         'mass_conserved': all(abs(s.sum() - 1.0) < 1e-10 for s in snapshots),
+        'n_grid_points': len(pts),  # M = (N+1)(N+2)/2
         'parameters': {'T': T, 'dt': dt, 'N': N, 'eps': eps}
     }
 
@@ -539,6 +547,15 @@ def compare_calculus_schedules(space: str = "triangle",
     Compare final distributions across different calculus schedules.
 
     Scheme-robust features = same under all schedules.
+
+    Robustness Score Definition:
+    robustness = 1 / (variance of peak locations across schedules + epsilon)
+
+    Interpretation:
+    - > 1e6: Extremely robust (peak variance < 1e-6)
+    - > 1000: Robust (peak variance ~ 1e-3)
+    - > 10: Moderate robustness
+    - < 10: Fragile (peak location depends on schedule)
     """
     if schedules is None:
         if space == "triangle":

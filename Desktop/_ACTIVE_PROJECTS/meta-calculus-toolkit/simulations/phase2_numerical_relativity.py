@@ -122,8 +122,14 @@ def run_nr_simulation(config: NRConfig,
     """
     Run numerical relativity simulation.
 
-    NOTE: This is a STRUCTURAL PLACEHOLDER.
-    Real implementation would integrate Einstein equations.
+    WARNING: STRUCTURAL PLACEHOLDER ONLY!
+    ===========================================
+    This does NOT integrate Einstein equations.
+    The "evolution" returns static/random data.
+    Convergence tests will NOT show expected order.
+    Use only to verify interface/invariance structure.
+
+    For real NR, integrate with external codes (SpEC, Einstein Toolkit, etc.).
 
     Args:
         config: NR configuration
@@ -401,6 +407,15 @@ def convergence_test(formulation: str = 'BSSN',
     Test convergence of a formulation as resolution increases.
 
     Expect: error ~ dx^p where p is the convergence order.
+
+    WARNING: DIAGNOSTIC ONLY
+    ========================
+    Since run_nr_simulation is a PLACEHOLDER (no actual Einstein evolution),
+    the "errors" are random noise, NOT convergent numerical solutions.
+    The extracted convergence order will be ~0, NOT the expected ~2.
+
+    This test structure is correct; the physics is missing.
+    A real implementation would show p ~ 2 for BSSN with standard finite differences.
     """
     results = []
 
