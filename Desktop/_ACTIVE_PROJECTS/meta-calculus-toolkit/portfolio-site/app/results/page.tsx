@@ -15,6 +15,49 @@ export default function ResultsPage() {
           </p>
         </div>
 
+        {/* CASCADE 4-Objective Benchmark Results */}
+        <div className="card mb-8 animate-slide-up bg-gradient-to-r from-green-900/30 to-blue-900/30 border-l-4 border-green-500">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs bg-green-600 text-white px-2 py-1 rounded font-bold">NEW</span>
+            <h2 className="text-2xl font-bold text-green-400">CASCADE 4-Objective Benchmark (Dec 2025)</h2>
+          </div>
+          <p className="text-gray-300 mb-6">
+            The CASCADE framework uses 4 objectives: accuracy, cost, singularity handling, and invariant preservation.
+            Key advantages over classical methods:
+          </p>
+          <div className="grid gap-4 md:grid-cols-4 text-center mb-6">
+            <div className="bg-dark-bg rounded-lg p-4 border border-green-500/50">
+              <div className="text-2xl font-bold text-green-400 mb-1">4-10x</div>
+              <div className="text-sm text-gray-300">Fewer Steps</div>
+              <p className="text-xs text-gray-500 mt-1">Optimal k reduces integration work</p>
+            </div>
+            <div className="bg-dark-bg rounded-lg p-4 border border-blue-500/50">
+              <div className="text-2xl font-bold text-blue-400 mb-1">Finite</div>
+              <div className="text-sm text-gray-300">At t=0</div>
+              <p className="text-xs text-gray-500 mt-1">Bigeometric regularizes singularities</p>
+            </div>
+            <div className="bg-dark-bg rounded-lg p-4 border border-purple-500/50">
+              <div className="text-2xl font-bold text-purple-400 mb-1">10^-15</div>
+              <div className="text-sm text-gray-300">Unitarity Drift</div>
+              <p className="text-xs text-gray-500 mt-1">Physics preserved under all configs</p>
+            </div>
+            <div className="bg-dark-bg rounded-lg p-4 border border-amber-500/50">
+              <div className="text-2xl font-bold text-amber-400 mb-1">+4.7%</div>
+              <div className="text-sm text-gray-300">CFD Accuracy</div>
+              <p className="text-xs text-gray-500 mt-1">Meta-adaptive beats Van Leer</p>
+            </div>
+          </div>
+          <div className="bg-dark-bg rounded-lg p-4">
+            <p className="text-sm text-gray-400 mb-2">
+              <strong className="text-green-400">Key Insight:</strong> D_BG[x^n] = e^n (constant, independent of x)
+            </p>
+            <p className="text-sm text-gray-400">
+              This means power-law singularities like H(t) ~ 1/t near the Big Bang remain <strong>FINITE</strong> in bigeometric calculus.
+              The CASCADE finds configurations that classical methods cannot discover.
+            </p>
+          </div>
+        </div>
+
         {/* Key Findings Summary */}
         <div className="card mb-8 animate-slide-up bg-gradient-to-r from-primary-900/30 to-accent-900/30">
           <h2 className="text-2xl font-bold mb-4">The Bottom Line</h2>

@@ -585,10 +585,12 @@ def compare_calculus_schedules(space: str = "triangle",
                 T=len(schedule), schedule=schedule
             )
 
+        # Handle different key names: triangle returns 'final_peak_barycentric', params returns 'final_peak_location'
+        peak_key = 'final_peak_barycentric' if space == "triangle" else 'final_peak_location'
         results.append({
             'schedule_name': ''.join(schedule[:3]) + '...',
             'final_entropy': res['entropies'][-1],
-            'final_peak': res['final_peak_location']
+            'final_peak': res[peak_key]
         })
 
     # Compute robustness score (inverse of variance in peak locations)
@@ -626,12 +628,12 @@ def run_phase2_diffusion_demo() -> Dict[str, Any]:
         T=50, dt=0.1, N=10, eps=0.05
     )
     results['triangle'] = {
-        'final_peak': triangle_result['final_peak_location'],
+        'final_peak': triangle_result['final_peak_barycentric'],
         'final_entropy': triangle_result['entropies'][-1],
         'mass_conserved': triangle_result['mass_conserved']
     }
 
-    print(f"   Final peak location: {triangle_result['final_peak_location']}")
+    print(f"   Final peak location: {triangle_result['final_peak_barycentric']}")
     print(f"   Final entropy: {triangle_result['entropies'][-1]:.4f}")
     print(f"   Mass conserved: {triangle_result['mass_conserved']}")
 

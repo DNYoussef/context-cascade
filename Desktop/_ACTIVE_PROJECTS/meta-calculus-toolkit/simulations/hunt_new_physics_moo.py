@@ -238,8 +238,16 @@ def hunt_quantum_breaking(n_dimensions: List[int] = [2, 3, 4, 5],
             H_complex = np.random.randn(dim, dim) + 1j * np.random.randn(dim, dim)
             H_complex = (H_complex + H_complex.conj().T) / 2  # Make Hermitian
 
-            # Transform to RNQT using gamma map
-            H_rnqt = gamma_map(H_complex)
+            # Transform to RNQT representation (real block form)
+            # Complex Hermitian H -> Real symmetric block matrix
+            # [Re(H)  -Im(H)]
+            # [Im(H)   Re(H)]
+            H_real = np.real(H_complex)
+            H_imag = np.imag(H_complex)
+            H_rnqt = np.block([
+                [H_real, -H_imag],
+                [H_imag, H_real]
+            ])
 
             # Compare eigenvalues
             # CQT eigenvalues
