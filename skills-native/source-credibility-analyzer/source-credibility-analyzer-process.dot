@@ -1,0 +1,212 @@
+digraph SourceCredibilityAnalyzer {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+    edge [fontname="Arial"];
+
+    // Start and end
+    start [shape=ellipse, label="Start:\nSource Metadata", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nScored + Stored", fillcolor=green, fontcolor=white];
+
+    // Step 0: Validate Inputs
+    subgraph cluster_step0 {
+        label="Step 0: Validate Input Metadata (30 sec)";
+        fillcolor=lightyellow;
+        style=filled;
+
+        check_required [label="Check ✅ Required:\ntitle, author, year, venue, type"];
+        check_optional [label="Note ⚠️ Optional:\ncitations, DOI, institution"];
+        validate_types [label="Validate Types:\nyear 1500-2025"];
+        gate0 [shape=octagon, label="GATE 0:\nAll Required Present?", fillcolor=lightblue];
+        gate0_fail [shape=octagon, label="Return Error:\nMissing Field", fillcolor=red, fontcolor=white];
+
+        check_required -> validate_types;
+        validate_types -> check_optional;
+        check_optional -> gate0;
+        gate0 -> gate0_fail [label="no", color=red];
+    }
+
+    // Step 0.5: Classify Source Type
+    subgraph cluster_step05 {
+        label="Step 0.5: Classify Source Type (1 min)";
+        fillcolor=lightcyan;
+        style=filled;
+
+        peer_reviewed [shape=diamond, label="Peer-Reviewed?", fillcolor=yellow];
+        institution [shape=diamond, label="Recognized\nInstitution?", fillcolor=yellow];
+        verifiable [shape=diamond, label="Verifiable/\nDocumented?", fillcolor=yellow];
+        preprint_check [shape=diamond, label="Preprint\n(arXiv, bioRxiv)?", fillcolor=yellow];
+
+        academic [label="ACADEMIC\n(Baseline: 4)", fillcolor=lightgreen];
+        institutional [label="INSTITUTIONAL\n(Baseline: 3)", fillcolor=lightyellow];
+        general [label="GENERAL\n(Baseline: 3)", fillcolor=lightyellow];
+        preprints [label="PREPRINTS\n(Baseline: 3)", fillcolor=lightyellow];
+        unverified [label="UNVERIFIED\n(Baseline: 2)", fillcolor=orange];
+
+        gate05 [shape=octagon, label="GATE 0.5:\nCategory Assigned?", fillcolor=lightblue];
+
+        peer_reviewed -> academic [label="yes", color=green];
+        peer_reviewed -> institution [label="no"];
+        institution -> institutional [label="yes", color=green];
+        institution -> verifiable [label="no"];
+        verifiable -> preprint_check [label="yes"];
+        preprint_check -> preprints [label="yes", color=green];
+        preprint_check -> general [label="no", color=green];
+        verifiable -> unverified [label="no", color=orange];
+
+        academic -> gate05;
+        institutional -> gate05;
+        general -> gate05;
+        preprints -> gate05;
+        unverified -> gate05;
+    }
+
+    // Step 1: Calculate Credibility
+    subgraph cluster_step1 {
+        label="Step 1: Calculate Credibility Score (2-5 min)";
+        fillcolor=lightblue;
+        style=filled;
+
+        baseline_cred [label="Baseline from Step 0.5:\nACADEMIC=4, others=3/2"];
+        apply_cred_plus [label="Apply +1 Rules:\npeer-review, PhD, citations,\ntop-tier, DOI"];
+        apply_cred_minus [label="Apply -1 Rules:\nself-pub, no credentials,\nconflicts, retracted"];
+        sum_cred [label="Sum:\nBaseline + Adjustments"];
+        borderline_cred [shape=diamond, label="Score\nEnds in .5?", fillcolor=yellow];
+        round_down [label="Round DOWN\n(Conservative)", fillcolor=lightyellow];
+        cap_cred [label="Cap at [1, 5]"];
+        explain_cred [label="Generate Explanation:\nBaseline + Rules + Final"];
+        gate1 [shape=octagon, label="GATE 1:\nScore 1-5 + Explanation?", fillcolor=lightblue];
+
+        baseline_cred -> apply_cred_plus;
+        apply_cred_plus -> apply_cred_minus;
+        apply_cred_minus -> sum_cred;
+        sum_cred -> borderline_cred;
+        borderline_cred -> round_down [label="yes"];
+        borderline_cred -> cap_cred [label="no"];
+        round_down -> cap_cred;
+        cap_cred -> explain_cred;
+        explain_cred -> gate1;
+    }
+
+    // Step 2: Calculate Bias
+    subgraph cluster_step2 {
+        label="Step 2: Calculate Bias Score (2-5 min)";
+        fillcolor=lightgreen;
+        style=filled;
+
+        baseline_bias [label="Baseline:\nStandard=3,\nPrimary=5, Opinion=2"];
+        apply_bias_plus [label="Apply +1 Rules:\npeer-review, multiple perspectives,\nfact/opinion distinction,\ntransparent, no conflicts"];
+        apply_bias_minus [label="Apply -1 Rules:\nadvocacy, funded by interested party,\none-sided, sensationalist"];
+        sum_bias [label="Sum:\nBaseline + Adjustments"];
+        borderline_bias [shape=diamond, label="Score\nEnds in .5?", fillcolor=yellow];
+        round_up_bias [label="Round UP\n(Benefit of Doubt)", fillcolor=lightyellow];
+        cap_bias [label="Cap at [1, 5]"];
+        explain_bias [label="Generate Explanation:\nBaseline + Rules + Final"];
+        gate2 [shape=octagon, label="GATE 2:\nScore 1-5 + Explanation?", fillcolor=lightblue];
+
+        baseline_bias -> apply_bias_plus;
+        apply_bias_plus -> apply_bias_minus;
+        apply_bias_minus -> sum_bias;
+        sum_bias -> borderline_bias;
+        borderline_bias -> round_up_bias [label="yes"];
+        borderline_bias -> cap_bias [label="no"];
+        round_up_bias -> cap_bias;
+        cap_bias -> explain_bias;
+        explain_bias -> gate2;
+    }
+
+    // Step 3: Calculate Priority
+    subgraph cluster_step3 {
+        label="Step 3: Calculate Priority Score (1-3 min)";
+        fillcolor=lightyellow;
+        style=filled;
+
+        baseline_priority [label="Baseline: 3"];
+        apply_priority_plus [label="Apply +1 Rules:\nrecent, directly relevant,\nhighly cited, primary/seminal,\nrecommended, comprehensive"];
+        apply_priority_minus [label="Apply -1 Rules:\noutdated, tangential,\nredundant, too narrow"];
+        check_cred_bias [label="Auto-Check:\nCredibility <3 OR Bias <3?\n→ -1"];
+        sum_priority [label="Sum:\nBaseline + Adjustments + Check"];
+        borderline_priority [shape=diamond, label="Score\nEnds in .5?", fillcolor=yellow];
+        round_up_priority [label="Round UP\n(Favor Reading)", fillcolor=lightyellow];
+        cap_priority [label="Cap at [1, 5]"];
+        explain_priority [label="Generate Explanation:\nBaseline + Rules + Cred/Bias Check + Final"];
+        gate3 [shape=octagon, label="GATE 3:\nScore 1-5 + Explanation?", fillcolor=lightblue];
+
+        baseline_priority -> apply_priority_plus;
+        apply_priority_plus -> apply_priority_minus;
+        apply_priority_minus -> check_cred_bias;
+        check_cred_bias -> sum_priority;
+        sum_priority -> borderline_priority;
+        borderline_priority -> round_up_priority [label="yes"];
+        borderline_priority -> cap_priority [label="no"];
+        round_up_priority -> cap_priority;
+        cap_priority -> explain_priority;
+        explain_priority -> gate3;
+    }
+
+    // Step 4: Resolve Conflicts
+    subgraph cluster_step4 {
+        label="Step 4: Resolve Conflicting Scores (1 min)";
+        fillcolor=lightcoral;
+        style=filled;
+
+        apply_matrix [label="Apply Decision Matrix:\nCredibility + Bias + Priority"];
+        conflict_check [shape=diamond, label="Conflicting\nScores?", fillcolor=yellow];
+        resolve_conflict [label="Apply Conflict Resolution:\nType 1-4 Handlers", fillcolor=lightyellow];
+        recommend [label="Generate Recommendation:\nREAD_FIRST | READ_LATER |\nVERIFY_CLAIMS | SKIP"];
+        gate4 [shape=octagon, label="GATE 4:\nRecommendation Matches Matrix?", fillcolor=lightblue];
+
+        apply_matrix -> conflict_check;
+        conflict_check -> resolve_conflict [label="yes"];
+        conflict_check -> recommend [label="no"];
+        resolve_conflict -> recommend;
+        recommend -> gate4;
+    }
+
+    // Step 5: Generate Output
+    subgraph cluster_step5 {
+        label="Step 5: Generate Structured Output (1 min)";
+        fillcolor=lightgray;
+        style=filled;
+
+        create_json [label="Create JSON:\nSource + Scores + Recommendation"];
+        store_memory [label="Store in Memory MCP:\nTags: WHO, WHEN, PROJECT,\nCREDIBILITY, BIAS, PRIORITY"];
+        storage_check [shape=diamond, label="Storage\nSuccessful?", fillcolor=yellow];
+        retry_storage [label="Retry Storage\n(Max 3x)", fillcolor=lightyellow];
+        fallback_local [label="Fallback:\nExport JSON Locally", fillcolor=orange];
+        gate5 [shape=octagon, label="GATE 5:\nComplete JSON + Stored?", fillcolor=lightblue];
+
+        create_json -> store_memory;
+        store_memory -> storage_check;
+        storage_check -> gate5 [label="yes", color=green];
+        storage_check -> retry_storage [label="no (1st/2nd fail)"];
+        retry_storage -> storage_check [style=dashed];
+        storage_check -> fallback_local [label="no (3rd fail)", color=orange];
+        fallback_local -> gate5;
+    }
+
+    // External references
+    memory_mcp [shape=cylinder, label="Memory MCP\n(Persistent Storage)", fillcolor=lightcoral];
+    general_research [shape=folder, label="general-research-workflow\nStep 3 (Source Classification)", fillcolor=lightsalmon];
+    examples [shape=folder, label="Examples:\n5 Complete Scoring Scenarios", fillcolor=lightsalmon];
+
+    // Main flow
+    start -> check_required [lhead=cluster_step0];
+    gate0 -> peer_reviewed [lhead=cluster_step05, label="pass", color=green];
+    gate05 -> baseline_cred [lhead=cluster_step1, label="pass", color=green];
+    gate1 -> baseline_bias [lhead=cluster_step2, label="pass", color=green];
+    gate2 -> baseline_priority [lhead=cluster_step3, label="pass", color=green];
+    gate3 -> apply_matrix [lhead=cluster_step4, label="pass", color=green];
+    gate4 -> create_json [lhead=cluster_step5, label="pass", color=green];
+    gate5 -> end [label="pass", color=green];
+
+    // External connections
+    store_memory -> memory_mcp [style=dashed, label="stores"];
+    end -> general_research [style=dashed, label="feeds to", color=blue];
+    start -> examples [style=dashed, label="see examples", color=gray];
+
+    labelloc="t";
+    label="Source Credibility Analyzer - Program-of-Thought Scoring Tool\n5 Quality Gates | 1 Agent (analyst) | 5-15 min | Transparent + Auditable";
+    fontsize=16;
+    fontname="Arial Bold";
+}

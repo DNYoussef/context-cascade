@@ -531,3 +531,113 @@ The Kubernetes Specialist skill empowers you to build production-grade container
 Key takeaways: Always define resource limits, implement comprehensive health checks, and apply security contexts. Use Helm charts for reusability and GitOps for automated deployments. The anti-patterns table serves as a checklist to avoid common pitfalls that plague Kubernetes deployments. When combined with the troubleshooting section, you have a complete toolkit for diagnosing and resolving production issues.
 
 This skill is particularly valuable when deploying microservices architectures, implementing auto-scaling strategies, or migrating legacy applications to cloud-native platforms. Whether you're setting up a new EKS cluster on AWS or optimizing an existing GKE deployment on Google Cloud, the patterns and best practices documented here will accelerate your journey to production-ready Kubernetes deployments.
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### Load Balancer Algorithm Selector for K8s Ingress/Services
+
+```
+Are pods identical + requests similar?
++-- Round robin (default for K8s Services)
+
+Are sessions variable length (long polls, WebSocket, uploads)?
++-- Least connections (requires Ingress controller config)
+
+Do pods have different resource limits?
++-- Weighted routing (use Istio DestinationRule weights)
+
+Need stickiness without shared session store?
++-- Session affinity (sessionAffinity: ClientIP on Service)
+    Warning: Breaks horizontal scaling - prefer stateless
+
+Global users across regions?
++-- Multi-cluster with geo-routing (ExternalDNS + GLB)
+```
+
+**What I'm Thinking**:
+- K8s Service default (iptables DNAT) is pseudo-random, NOT round-robin
+- For true load balancing algorithms, use Ingress controller or service mesh
+- The LB forces the real question: "Where do sessions live?"
+- If you need stickiness, you probably shouldn't be using K8s
+
+### Scaling Decision Tree for Kubernetes
+
+```
+Need to handle more load?
+|
++-- Pod-level scaling (most common)?
+|   +-- HPA (Horizontal Pod Autoscaler)
+|       +-- Scale on CPU/memory: Use for compute-bound apps
+|       +-- Scale on custom metrics: Use for queue-depth, connections
+|       +-- Set minReplicas >= 2 for HA
+|
++-- Vertical scaling (rare, requires VPA)?
+|   +-- VPA adjusts resource requests/limits
+|   +-- WARNING: Pod restarts required
+|
++-- Cluster-level scaling?
+    +-- Cluster Autoscaler
+        +-- Adds/removes NODES based on pending pods
+        +-- Configure max nodes to control costs
+```
+
+**System-Designer Thought**:
+- HPA is reactive (responds to load), not predictive
+- For spiky traffic, use HPA + Cluster Autoscaler + PodDisruptionBudget
+- Set `behavior.scaleDown.stabilizationWindowSeconds: 300` to prevent thrashing
+
+### SPOF Identification for Kubernetes Deployments
+
+| Component | SPOF Risk | Mitigation in K8s |
+|-----------|-----------|-------------------|
+| **Single Pod** | Pod crash = downtime | `replicas: 3` minimum |
+| **Single Node** | Node failure takes all pods | `podAntiAffinity` to spread pods |
+| **Single AZ** | AZ outage = full downtime | `topologySpreadConstraints` across zones |
+| **Ingress Controller** | Single point for all traffic | Run multiple replicas + PDB |
+| **etcd** | Control plane failure | Use managed K8s (EKS/GKE/AKS) |
+| **DNS (CoreDNS)** | DNS failure breaks service discovery | Multiple CoreDNS replicas |
+
+**What I'm Thinking**: "How does this fail at 2am during traffic spike?"
+- Always run 3+ replicas
+- Always use podAntiAffinity
+- Always test node failure with chaos engineering
+
+### Master Design Flow for Kubernetes Deployments
+
+```
+K8s DESIGN FLOW
+1) Define pod resources + limits
+   +-- Profile app to find actual needs
+   +-- Set requests = avg usage, limits = peak
+2) Configure health checks
+   +-- livenessProbe: restart if unhealthy
+   +-- readinessProbe: remove from service if not ready
+   +-- startupProbe: for slow-starting apps
+3) Set up HPA for elastic scaling
+   +-- target CPU: 70% (leave headroom)
+   +-- minReplicas: 3 (HA)
+4) Add podAntiAffinity
+   +-- Spread pods across nodes
+   +-- Spread across AZs if multi-zone
+5) Configure PodDisruptionBudget
+   +-- minAvailable: 2 (survive node drain)
+6) Apply NetworkPolicies
+   +-- Default deny all
+   +-- Explicit allow for needed traffic
+7) Enable observability
+   +-- Prometheus ServiceMonitor
+   +-- Structured logging to stdout
+```
+
+### The 90-Second Interview Narrative for K8s Architecture
+
+1. **Clarify** application type, traffic patterns, SLOs
+2. **Pod design** resources, probes, security context
+3. **Scaling** HPA on CPU/memory, Cluster Autoscaler for nodes
+4. **Reliability** 3+ replicas, anti-affinity, PDB
+5. **Networking** Services, Ingress, NetworkPolicies
+6. **Observability** Prometheus metrics, structured logs
+7. **Security** RBAC, NetworkPolicies, securityContext
+8. **Trade-offs** cost vs reliability, managed vs self-hosted

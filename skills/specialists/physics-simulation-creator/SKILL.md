@@ -692,6 +692,149 @@ Simulations must be independently verifiable. The k-selection process, transform
 | **Hardcoding k values** | Violates scale-dependence, uses wrong k for problem, cannot adapt to different physics | Use ai_simulation_helper.py for every problem. Never hardcode k without CLI verification. Store k-selection rationale. |
 | **Missing inverse transforms** | Forward-only transforms prevent coordinate recovery, breaks visualization and boundary conditions | Implement BOTH forward (u -> v) AND inverse (v -> u) transforms. Test roundtrip error < 1e-10. |
 | **No physics validation** | Numerically stable but physically wrong (negative energies, unbounded solutions, violation of conservation laws) | Verify physical constraints: energy conservation, boundedness at singularities, correct asymptotic behavior. Use domain experts. |
+| **Hardcoded speedup values (THEATER)** | Fake metrics like `speedupFactor: 2.0` without measurement deceive users and prevent real optimization | ALWAYS measure speedups with real timing (performance.now()). Never hardcode multipliers. Use PerformanceTracker class. |
+| **Lookup tables for Math.*functions** | Modern JS engines compile Math.sqrt/exp/log to CPU instructions. Lookup tables with interpolation are SLOWER (0.18x measured). | Use native Math.* functions. Lookup tables only help on very old browsers. Benchmark before assuming optimization works. |
+
+---
+
+## Lessons Learned: Meta-Calculus Portfolio Project (2025-12)
+
+### CRITICAL FINDINGS FROM PRODUCTION IMPLEMENTATION
+
+These findings come from implementing NNC optimizations in a real 12-simulator portfolio site with honest benchmarking.
+
+### 1. What Actually Speeds Up Simulations
+
+| Optimization | Measured Speedup | Status |
+|-------------|------------------|--------|
+| **Object Pooling (ArrayPool)** | **6.62x** | REAL WIN - eliminates GC pauses |
+| **Fast Math Lookup Tables** | **0.18x (SLOWER)** | REMOVED - native Math.* is faster |
+| **In-place Operations** | ~1x (neutral) | JS JIT optimizes allocations well |
+
+**Key Insight**: Modern JavaScript engines (V8, SpiderMonkey) compile `Math.sqrt`, `Math.exp`, etc. to direct CPU instructions. Pre-computed lookup tables with linear interpolation add overhead and are actually SLOWER.
+
+### 2. Object Pooling: The Real Win
+
+```typescript
+// BAD: Allocates 10 new Float32Arrays per RK4 step
+function rk4Step(...) {
+  const k1 = new Float32Array(n);  // GC pressure
+  const k2 = new Float32Array(n);
+  // ... 8 more allocations
+}
+
+// GOOD: Reuses pooled arrays (6.62x faster)
+const arrayPool = new ArrayPool();
+function rk4StepPooled(...) {
+  const k1 = arrayPool.acquire(n);  // From pool, no GC
+  // ... use k1
+  arrayPool.release(k1);  // Return to pool
+}
+```
+
+**Implementation**: See `lib/physics/real-performance.ts` in meta-calculus-portfolio.
+
+### 3. NNC Benefit is NUMERICAL STABILITY, Not Raw Speed
+
+NNC with k=-1 does NOT make Math.sqrt faster. It allows:
+
+| Metric | Classical (k=0) | NNC (k=-1) | Improvement |
+|--------|-----------------|------------|-------------|
+| Timestep size | dt = 0.0002 | dt = 0.0012 | **5.91x larger** |
+| Steps to simulate 10s | ~50,000 | ~8,300 | **6x fewer** |
+| Stability near singularity | Stalls/NaN | Stable | **Robust** |
+
+**Key Insight**: The speedup comes from needing FEWER INTEGRATION STEPS because larger timesteps remain stable, not from faster individual calculations.
+
+### 4. Avoid "Theater" Code
+
+**WRONG (Fake speedup):**
+```typescript
+// This is THEATER - hardcoded fake metrics
+const speedupFactor = controls.nncEnabled ? 2.0 : 1.0;  // LIE
+const dt = 0.002 * (nncEnabled ? 1.5 : 1);  // FAKE
+```
+
+**RIGHT (Real measurement):**
+```typescript
+// Measure actual physics time
+const physicsStart = performance.now();
+// ... do physics
+const physicsTime = performance.now() - physicsStart;
+
+// Track real speedup vs baseline
+performanceTracker.endPhysics(physicsStart, dt);
+const realSpeedup = performanceTracker.getRealSpeedup();
+```
+
+### 5. Separate ORTHOGONAL vs NNC Speedups
+
+When displaying metrics, separate:
+
+1. **Orthogonal Optimizations** (benefit BOTH Classical and NNC modes):
+   - Object pooling (~6x)
+   - Algorithmic improvements (spatial hash, Barnes-Hut)
+   - Memory layout optimization
+
+2. **NNC Mathematical Benefits** (only benefit NNC mode):
+   - Larger stable timesteps (~6x)
+   - Better energy conservation
+   - Avoids stalls near singularities
+
+```typescript
+interface Metrics3D {
+  // NNC math speedup (only for NNC mode)
+  speedupFactor: number;
+
+  // Orthogonal infrastructure speedup (benefits both modes)
+  infraSpeedup?: number;
+  pooledArrays?: number;
+  gcAvoided?: number;
+}
+```
+
+### 6. When Spatial Hashing Helps vs Hurts
+
+| Scenario | Use Spatial Hash? | Reason |
+|----------|-------------------|--------|
+| LJ with cutoff (short-range) | YES | O(n) vs O(n^2) for neighbors |
+| Biot-Savart (long-range 1/r) | NO | Cutoff introduces physics errors |
+| <50 particles | NO | Hash overhead exceeds benefit |
+| >1000 particles | YES | O(n^2) becomes prohibitive |
+
+### 7. Benchmark Template
+
+Always run honest benchmarks before claiming optimization:
+
+```javascript
+// Warmup
+for (let i = 0; i < 1000; i++) { optimizedFn(data); classicalFn(data); }
+
+// Measure classical
+const startClassical = performance.now();
+for (let i = 0; i < N; i++) { classicalFn(data); }
+const timeClassical = performance.now() - startClassical;
+
+// Measure optimized
+const startOptimized = performance.now();
+for (let i = 0; i < N; i++) { optimizedFn(data); }
+const timeOptimized = performance.now() - startOptimized;
+
+// Real speedup
+const speedup = timeClassical / timeOptimized;
+console.log(`Speedup: ${speedup.toFixed(2)}x`);  // May be < 1 !
+```
+
+### Summary: What Actually Works
+
+| Technique | Expected | Actual | Use? |
+|-----------|----------|--------|------|
+| Object pooling | 2-5x | 6.62x | YES |
+| Lookup tables | 2x | 0.18x | NO (slower) |
+| In-place ops | 1.5x | 1x | Neutral |
+| NNC k=-1 timestep | 2-6x | 5.91x | YES |
+| Spatial hash (>1000 particles) | 10-100x | ~50x | YES |
+| Spatial hash (<50 particles) | 2x | 0.5x | NO (overhead)
 
 ---
 

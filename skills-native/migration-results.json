@@ -1,0 +1,1094 @@
+[
+  {
+    "category": "delivery",
+    "skill": "api-docs",
+    "status": "migrated",
+    "name": "api-docs"
+  },
+  {
+    "category": "delivery",
+    "skill": "debugging",
+    "status": "migrated",
+    "name": "debugging"
+  },
+  {
+    "category": "delivery",
+    "skill": "dependencies",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "delivery",
+    "skill": "documentation",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "delivery",
+    "skill": "feature-dev-complete",
+    "status": "migrated",
+    "name": "feature-dev-complete"
+  },
+  {
+    "category": "delivery",
+    "skill": "i18n-automation",
+    "status": "migrated",
+    "name": "i18n-automation"
+  },
+  {
+    "category": "delivery",
+    "skill": "landing-page-generator",
+    "status": "migrated",
+    "name": "landing-page-generator"
+  },
+  {
+    "category": "delivery",
+    "skill": "pair-programming",
+    "status": "migrated",
+    "name": "pair-programming"
+  },
+  {
+    "category": "delivery",
+    "skill": "smart-bug-fix",
+    "status": "migrated",
+    "name": "smart-bug-fix"
+  },
+  {
+    "category": "delivery",
+    "skill": "sop-api-development",
+    "status": "migrated",
+    "name": "sop-api-development"
+  },
+  {
+    "category": "delivery",
+    "skill": "sparc-methodology",
+    "status": "migrated",
+    "name": "sparc-methodology"
+  },
+  {
+    "category": "delivery",
+    "skill": "when-collaborative-coding-use-pair-programming",
+    "status": "migrated",
+    "name": "when-collaborative-coding-use-pair-programming"
+  },
+  {
+    "category": "delivery",
+    "skill": "when-debugging-code-use-debugging-assistant",
+    "status": "migrated",
+    "name": "when-debugging-code-use-debugging-assistant"
+  },
+  {
+    "category": "delivery",
+    "skill": "when-developing-complete-feature-use-feature-dev-complete",
+    "status": "migrated",
+    "name": "when-developing-complete-feature-use-feature-dev-complete"
+  },
+  {
+    "category": "delivery",
+    "skill": "when-fixing-complex-bug-use-smart-bug-fix",
+    "status": "migrated",
+    "name": "when-fixing-complex-bug-use-smart-bug-fix"
+  },
+  {
+    "category": "delivery",
+    "skill": "when-internationalizing-app-use-i18n-automation",
+    "status": "migrated",
+    "name": "when-internationalizing-app-use-i18n-automation"
+  },
+  {
+    "category": "foundry",
+    "skill": "agent-creation",
+    "status": "migrated",
+    "name": "agent-creation"
+  },
+  {
+    "category": "foundry",
+    "skill": "agent-creator",
+    "status": "migrated",
+    "name": "agent-creator"
+  },
+  {
+    "category": "foundry",
+    "skill": "agent-selector",
+    "status": "migrated",
+    "name": "agent-selector"
+  },
+  {
+    "category": "foundry",
+    "skill": "base-template-generator",
+    "status": "migrated",
+    "name": "base-template-generator"
+  },
+  {
+    "category": "foundry",
+    "skill": "cognitive-lensing",
+    "status": "migrated",
+    "name": "cognitive-lensing"
+  },
+  {
+    "category": "foundry",
+    "skill": "meta-tools",
+    "status": "migrated",
+    "name": "meta-tools"
+  },
+  {
+    "category": "foundry",
+    "skill": "micro-skill-creator",
+    "status": "migrated",
+    "name": "micro-skill-creator"
+  },
+  {
+    "category": "foundry",
+    "skill": "playbook-architect",
+    "status": "migrated",
+    "name": "playbook-architect"
+  },
+  {
+    "category": "foundry",
+    "skill": "prompt-architect",
+    "status": "migrated",
+    "name": "prompt-architect"
+  },
+  {
+    "category": "foundry",
+    "skill": "prompt-forge",
+    "status": "migrated",
+    "name": "prompt-forge"
+  },
+  {
+    "category": "foundry",
+    "skill": "recursive-improvement",
+    "status": "migrated",
+    "name": "recursive-improvement"
+  },
+  {
+    "category": "foundry",
+    "skill": "skill-builder",
+    "status": "migrated",
+    "name": "skill-builder"
+  },
+  {
+    "category": "foundry",
+    "skill": "skill-creator-agent",
+    "status": "migrated",
+    "name": "skill-creator-agent"
+  },
+  {
+    "category": "foundry",
+    "skill": "skill-forge",
+    "status": "migrated",
+    "name": "skill-forge"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-building-semantic-search-use-agentdb-vector-search",
+    "status": "migrated",
+    "name": "AgentDB Semantic Vector Search"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-creating-skill-template-use-skill-builder",
+    "status": "migrated",
+    "name": "when-creating-skill-template-use-skill-builder"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-implementing-adaptive-learning-use-reasoningbank-agentdb",
+    "status": "migrated",
+    "name": "ReasoningBank Adaptive Learning with AgentDB"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-implementing-persistent-memory-use-agentdb-memory",
+    "status": "migrated",
+    "name": "AgentDB Persistent Memory Patterns"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-optimizing-vector-search-use-agentdb-optimization",
+    "status": "migrated",
+    "name": "AgentDB Vector Search Optimization"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-training-rl-agents-use-agentdb-learning",
+    "status": "migrated",
+    "name": "AgentDB Reinforcement Learning Training"
+  },
+  {
+    "category": "foundry",
+    "skill": "when-using-advanced-vector-search-use-agentdb-advanced",
+    "status": "migrated",
+    "name": "Advanced AgentDB Vector Search Implementation"
+  },
+  {
+    "category": "operations",
+    "skill": "cicd-intelligent-recovery",
+    "status": "migrated",
+    "name": "cicd-intelligent-recovery"
+  },
+  {
+    "category": "operations",
+    "skill": "cloud-platforms",
+    "status": "migrated",
+    "name": "cloud-platforms"
+  },
+  {
+    "category": "operations",
+    "skill": "deployment-readiness",
+    "status": "migrated",
+    "name": "deployment-readiness"
+  },
+  {
+    "category": "operations",
+    "skill": "github-integration",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "operations",
+    "skill": "github-multi-repo",
+    "status": "migrated",
+    "name": "github-multi-repo"
+  },
+  {
+    "category": "operations",
+    "skill": "github-project-management",
+    "status": "migrated",
+    "name": "github-project-management"
+  },
+  {
+    "category": "operations",
+    "skill": "github-release-management",
+    "status": "migrated",
+    "name": "github-release-management"
+  },
+  {
+    "category": "operations",
+    "skill": "github-workflow-automation",
+    "status": "migrated",
+    "name": "github-workflow-automation"
+  },
+  {
+    "category": "operations",
+    "skill": "hooks-automation",
+    "status": "migrated",
+    "name": "hooks-automation"
+  },
+  {
+    "category": "operations",
+    "skill": "infrastructure",
+    "status": "migrated",
+    "name": "infrastructure"
+  },
+  {
+    "category": "operations",
+    "skill": "observability",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "operations",
+    "skill": "performance-analysis",
+    "status": "migrated",
+    "name": "performance-analysis"
+  },
+  {
+    "category": "operations",
+    "skill": "platform-integration",
+    "status": "migrated",
+    "name": "platform-integration"
+  },
+  {
+    "category": "operations",
+    "skill": "production-readiness",
+    "status": "migrated",
+    "name": "production-readiness"
+  },
+  {
+    "category": "operations",
+    "skill": "sop-product-launch",
+    "status": "migrated",
+    "name": "sop-product-launch"
+  },
+  {
+    "category": "operations",
+    "skill": "when-analyzing-performance-use-performance-analysis",
+    "status": "migrated",
+    "name": "when-analyzing-performance-use-performance-analysis"
+  },
+  {
+    "category": "operations",
+    "skill": "when-managing-github-projects-use-github-project-management",
+    "status": "migrated",
+    "name": "when-managing-github-projects-use-github-project-management"
+  },
+  {
+    "category": "operations",
+    "skill": "when-managing-multiple-repos-use-github-multi-repo",
+    "status": "migrated",
+    "name": "when-managing-multiple-repos-use-github-multi-repo"
+  },
+  {
+    "category": "operations",
+    "skill": "when-profiling-performance-use-performance-profiler",
+    "status": "migrated",
+    "name": "when-profiling-performance-use-performance-profiler"
+  },
+  {
+    "category": "operations",
+    "skill": "when-releasing-software-use-github-release-management",
+    "status": "migrated",
+    "name": "when-releasing-software-use-github-release-management"
+  },
+  {
+    "category": "orchestration",
+    "skill": "advanced-coordination",
+    "status": "migrated",
+    "name": "advanced-coordination"
+  },
+  {
+    "category": "orchestration",
+    "skill": "ai-dev-orchestration",
+    "status": "migrated",
+    "name": "ai-dev-orchestration"
+  },
+  {
+    "category": "orchestration",
+    "skill": "cascade-orchestrator",
+    "status": "migrated",
+    "name": "cascade-orchestrator"
+  },
+  {
+    "category": "orchestration",
+    "skill": "coordination",
+    "status": "migrated",
+    "name": "coordination"
+  },
+  {
+    "category": "orchestration",
+    "skill": "flow-nexus-swarm",
+    "status": "migrated",
+    "name": "flow-nexus-swarm"
+  },
+  {
+    "category": "orchestration",
+    "skill": "hive-mind-advanced",
+    "status": "migrated",
+    "name": "hive-mind-advanced"
+  },
+  {
+    "category": "orchestration",
+    "skill": "parallel-swarm-implementation",
+    "status": "migrated",
+    "name": "parallel-swarm-implementation"
+  },
+  {
+    "category": "orchestration",
+    "skill": "safe-task-spawn",
+    "status": "migrated",
+    "name": "safe-task-spawn"
+  },
+  {
+    "category": "orchestration",
+    "skill": "slash-command-encoder",
+    "status": "migrated",
+    "name": "slash-command-encoder"
+  },
+  {
+    "category": "orchestration",
+    "skill": "stream-chain",
+    "status": "migrated",
+    "name": "stream-chain"
+  },
+  {
+    "category": "orchestration",
+    "skill": "swarm-advanced",
+    "status": "migrated",
+    "name": "swarm-advanced"
+  },
+  {
+    "category": "orchestration",
+    "skill": "swarm-orchestration",
+    "status": "migrated",
+    "name": "swarm-orchestration"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-automating-github-actions-use-workflow-automation",
+    "status": "migrated",
+    "name": "when-automating-github-actions-use-workflow-automation"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-automating-workflows-use-hooks-automation",
+    "status": "migrated",
+    "name": "when-automating-workflows-use-hooks-automation"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-building-backend-api-orchestrate-api-development",
+    "status": "migrated",
+    "name": "when-building-backend-api-orchestrate-api-development"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-chaining-workflows-use-cascade-orchestrator",
+    "status": "migrated",
+    "name": "when-chaining-workflows-use-cascade-orchestrator"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-coordinating-collective-intelligence-use-hive-mind",
+    "status": "migrated",
+    "name": "when-coordinating-collective-intelligence-use-hive-mind"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-deploying-cloud-swarm-use-flow-nexus-swarm",
+    "status": "migrated",
+    "name": "when-deploying-cloud-swarm-use-flow-nexus-swarm"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-releasing-new-product-orchestrate-product-launch",
+    "status": "migrated",
+    "name": "when-releasing-new-product-orchestrate-product-launch"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-reviewing-pull-request-orchestrate-comprehensive-code-review",
+    "status": "migrated",
+    "name": "when-reviewing-pull-request-orchestrate-comprehensive-code-review"
+  },
+  {
+    "category": "orchestration",
+    "skill": "when-using-sparc-methodology-use-sparc-workflow",
+    "status": "migrated",
+    "name": "when-using-sparc-methodology-use-sparc-workflow"
+  },
+  {
+    "category": "orchestration",
+    "skill": "workflow",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb",
+    "status": "migrated",
+    "name": "agentdb"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb-advanced",
+    "status": "migrated",
+    "name": "agentdb-advanced-features"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb-learning",
+    "status": "migrated",
+    "name": "agentdb-learning-plugins"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb-memory-patterns",
+    "status": "migrated",
+    "name": "agentdb-memory-patterns"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb-optimization",
+    "status": "migrated",
+    "name": "agentdb-performance-optimization"
+  },
+  {
+    "category": "platforms",
+    "skill": "agentdb-vector-search",
+    "status": "migrated",
+    "name": "agentdb-vector-search"
+  },
+  {
+    "category": "platforms",
+    "skill": "codex-auto",
+    "status": "migrated",
+    "name": "codex-auto"
+  },
+  {
+    "category": "platforms",
+    "skill": "codex-reasoning",
+    "status": "migrated",
+    "name": "codex-reasoning"
+  },
+  {
+    "category": "platforms",
+    "skill": "flow-nexus-neural",
+    "status": "migrated",
+    "name": "flow-nexus-neural"
+  },
+  {
+    "category": "platforms",
+    "skill": "flow-nexus-platform",
+    "status": "migrated",
+    "name": "flow-nexus-platform"
+  },
+  {
+    "category": "platforms",
+    "skill": "gemini-extensions",
+    "status": "migrated",
+    "name": "gemini-extensions"
+  },
+  {
+    "category": "platforms",
+    "skill": "gemini-media",
+    "status": "migrated",
+    "name": "gemini-media"
+  },
+  {
+    "category": "platforms",
+    "skill": "gemini-megacontext",
+    "status": "migrated",
+    "name": "gemini-megacontext"
+  },
+  {
+    "category": "platforms",
+    "skill": "gemini-search",
+    "status": "migrated",
+    "name": "gemini-search"
+  },
+  {
+    "category": "platforms",
+    "skill": "machine-learning",
+    "status": "migrated",
+    "name": "machine-learning"
+  },
+  {
+    "category": "platforms",
+    "skill": "multi-model",
+    "status": "migrated",
+    "name": "multi-model"
+  },
+  {
+    "category": "platforms",
+    "skill": "platform",
+    "status": "migrated",
+    "name": "platform"
+  },
+  {
+    "category": "platforms",
+    "skill": "reasoningbank-agentdb",
+    "status": "migrated",
+    "name": "reasoningbank-with-agentdb"
+  },
+  {
+    "category": "platforms",
+    "skill": "reasoningbank-intelligence",
+    "status": "migrated",
+    "name": "reasoningbank-intelligence"
+  },
+  {
+    "category": "platforms",
+    "skill": "when-using-flow-nexus-platform-use-flow-nexus-platform",
+    "status": "migrated",
+    "name": "when-using-flow-nexus-platform-use-flow-nexus-platform"
+  },
+  {
+    "category": "platforms",
+    "skill": "_shared",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "quality",
+    "skill": "audit-pipeline",
+    "status": "migrated",
+    "name": "audit-pipeline"
+  },
+  {
+    "category": "quality",
+    "skill": "code-review-assistant",
+    "status": "migrated",
+    "name": "code-review-assistant"
+  },
+  {
+    "category": "quality",
+    "skill": "dogfooding-system",
+    "status": "migrated",
+    "name": "dogfooding-system"
+  },
+  {
+    "category": "quality",
+    "skill": "functionality-audit",
+    "status": "migrated",
+    "name": "functionality-audit"
+  },
+  {
+    "category": "quality",
+    "skill": "gate-validation",
+    "status": "migrated",
+    "name": "gate-validation"
+  },
+  {
+    "category": "quality",
+    "skill": "github-code-review",
+    "status": "migrated",
+    "name": "github-code-review"
+  },
+  {
+    "category": "quality",
+    "skill": "holistic-evaluation",
+    "status": "migrated",
+    "name": "holistic-evaluation"
+  },
+  {
+    "category": "quality",
+    "skill": "quick-quality-check",
+    "status": "migrated",
+    "name": "quick-quality-check"
+  },
+  {
+    "category": "quality",
+    "skill": "reproducibility-audit",
+    "status": "migrated",
+    "name": "reproducibility-audit"
+  },
+  {
+    "category": "quality",
+    "skill": "sop-code-review",
+    "status": "migrated",
+    "name": "sop-code-review"
+  },
+  {
+    "category": "quality",
+    "skill": "sop-dogfooding-continuous-improvement",
+    "status": "migrated",
+    "name": "sop-dogfooding-continuous-improvement"
+  },
+  {
+    "category": "quality",
+    "skill": "sop-dogfooding-pattern-retrieval",
+    "status": "migrated",
+    "name": "sop-dogfooding-pattern-retrieval"
+  },
+  {
+    "category": "quality",
+    "skill": "sop-dogfooding-quality-detection",
+    "status": "migrated",
+    "name": "sop-dogfooding-quality-detection"
+  },
+  {
+    "category": "quality",
+    "skill": "style-audit",
+    "status": "migrated",
+    "name": "style-audit"
+  },
+  {
+    "category": "quality",
+    "skill": "testing",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "quality",
+    "skill": "testing-quality",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "quality",
+    "skill": "theater-detection-audit",
+    "status": "migrated",
+    "name": "theater-detection-audit"
+  },
+  {
+    "category": "quality",
+    "skill": "verification-quality",
+    "status": "migrated",
+    "name": "verification-and-quality-assurance"
+  },
+  {
+    "category": "quality",
+    "skill": "when-reviewing-github-pr-use-github-code-review",
+    "status": "migrated",
+    "name": "when-reviewing-github-pr-use-github-code-review"
+  },
+  {
+    "category": "research",
+    "skill": ".backup-20251215-215344",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": ".backup-20251215-215509",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": ".backup-complete-20251215-215911",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": ".backup-complete-20251215-220038",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": ".backup-complete-20251215-220149",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": "academic-reading-workflow",
+    "status": "migrated",
+    "name": "academic-reading-workflow"
+  },
+  {
+    "category": "research",
+    "skill": "baseline-replication",
+    "status": "migrated",
+    "name": "baseline-replication"
+  },
+  {
+    "category": "research",
+    "skill": "deep-research-orchestrator",
+    "status": "migrated",
+    "name": "deep-research-orchestrator"
+  },
+  {
+    "category": "research",
+    "skill": "general-research-workflow",
+    "status": "migrated",
+    "name": "general-research-workflow"
+  },
+  {
+    "category": "research",
+    "skill": "intent-analyzer",
+    "status": "migrated",
+    "name": "intent-analyzer"
+  },
+  {
+    "category": "research",
+    "skill": "interactive-planner",
+    "status": "migrated",
+    "name": "interactive-planner"
+  },
+  {
+    "category": "research",
+    "skill": "literature-synthesis",
+    "status": "migrated",
+    "name": "literature-synthesis"
+  },
+  {
+    "category": "research",
+    "skill": "method-development",
+    "status": "migrated",
+    "name": "method-development"
+  },
+  {
+    "category": "research",
+    "skill": "observability",
+    "status": "migrated",
+    "name": "observability"
+  },
+  {
+    "category": "research",
+    "skill": "rapid-idea-generator",
+    "status": "migrated",
+    "name": "rapid-idea-generator"
+  },
+  {
+    "category": "research",
+    "skill": "rapid-manuscript-drafter",
+    "status": "migrated",
+    "name": "rapid-manuscript-drafter"
+  },
+  {
+    "category": "research",
+    "skill": "research-driven-planning",
+    "status": "migrated",
+    "name": "research-driven-planning"
+  },
+  {
+    "category": "research",
+    "skill": "research-gap-visualizer",
+    "status": "migrated",
+    "name": "research-gap-visualizer"
+  },
+  {
+    "category": "research",
+    "skill": "research-publication",
+    "status": "migrated",
+    "name": "research-publication"
+  },
+  {
+    "category": "research",
+    "skill": "researcher",
+    "status": "migrated",
+    "name": "researcher"
+  },
+  {
+    "category": "research",
+    "skill": "source-credibility-analyzer",
+    "status": "migrated",
+    "name": "source-credibility-analyzer"
+  },
+  {
+    "category": "research",
+    "skill": "specialized-tools",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "research",
+    "skill": "testing-quality",
+    "status": "migrated",
+    "name": "testing-quality"
+  },
+  {
+    "category": "research",
+    "skill": "visual-asset-generator",
+    "status": "migrated",
+    "name": "visual-asset-generator"
+  },
+  {
+    "category": "security",
+    "skill": "compliance",
+    "status": "migrated",
+    "name": "compliance"
+  },
+  {
+    "category": "security",
+    "skill": "network-security-setup",
+    "status": "migrated",
+    "name": "network-security-setup"
+  },
+  {
+    "category": "security",
+    "skill": "resources",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "security",
+    "skill": "reverse-engineer-debug",
+    "status": "migrated",
+    "name": "reverse-engineer-debug"
+  },
+  {
+    "category": "security",
+    "skill": "reverse-engineering-deep",
+    "status": "migrated",
+    "name": "reverse-engineering-deep-analysis"
+  },
+  {
+    "category": "security",
+    "skill": "reverse-engineering-firmware",
+    "status": "migrated",
+    "name": "reverse-engineering-firmware-analysis"
+  },
+  {
+    "category": "security",
+    "skill": "reverse-engineering-quick",
+    "status": "migrated",
+    "name": "reverse-engineering-quick-triage"
+  },
+  {
+    "category": "security",
+    "skill": "sandbox-configurator",
+    "status": "migrated",
+    "name": "sandbox-configurator"
+  },
+  {
+    "category": "security",
+    "skill": "security",
+    "status": "migrated",
+    "name": "security"
+  },
+  {
+    "category": "security",
+    "skill": "specialized-tools",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "security",
+    "skill": "when-auditing-security-use-security-analyzer",
+    "status": "migrated",
+    "name": "when-auditing-security-use-security-analyzer"
+  },
+  {
+    "category": "security",
+    "skill": "when-training-neural-networks-use-flow-nexus-neural",
+    "status": "migrated",
+    "name": "when-training-neural-networks-use-flow-nexus-neural"
+  },
+  {
+    "category": "specialists",
+    "skill": "database-specialists",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "specialists",
+    "skill": "expertise-manager",
+    "status": "migrated",
+    "name": "expertise-manager"
+  },
+  {
+    "category": "specialists",
+    "skill": "frontend-specialists",
+    "status": "migrated",
+    "name": "frontend-specialists"
+  },
+  {
+    "category": "specialists",
+    "skill": "language-specialists",
+    "status": "migrated",
+    "name": "language-specialists"
+  },
+  {
+    "category": "specialists",
+    "skill": "ml",
+    "status": "migrated",
+    "name": "ml"
+  },
+  {
+    "category": "specialists",
+    "skill": "ml-expert",
+    "status": "migrated",
+    "name": "ml-expert"
+  },
+  {
+    "category": "specialists",
+    "skill": "ml-training-debugger",
+    "status": "migrated",
+    "name": "ml-training-debugger"
+  },
+  {
+    "category": "specialists",
+    "skill": "physics-simulation-creator",
+    "status": "migrated",
+    "name": "physics-simulation-creator"
+  },
+  {
+    "category": "specialists",
+    "skill": "visual-art-composition",
+    "status": "migrated",
+    "name": "visual-art-composition"
+  },
+  {
+    "category": "specialists",
+    "skill": "when-finding-high-ev-hackathons-use-ev-optimizer",
+    "status": "migrated",
+    "name": "when-finding-high-ev-hackathons-use-ev-optimizer"
+  },
+  {
+    "category": "specialists",
+    "skill": "when-protecting-physics-ip-use-tracker",
+    "status": "migrated",
+    "name": "when-protecting-physics-ip-use-tracker"
+  },
+  {
+    "category": "specialists",
+    "skill": "when-tracking-dual-career-intelligence-use-career-intel",
+    "status": "migrated",
+    "name": "when-tracking-dual-career-intelligence-use-career-intel"
+  },
+  {
+    "category": "specialists",
+    "skill": "when-tracking-financial-runway-use-dashboard",
+    "status": "migrated",
+    "name": "when-tracking-financial-runway-use-dashboard"
+  },
+  {
+    "category": "tooling",
+    "skill": "bootstrap-loop",
+    "status": "migrated",
+    "name": "bootstrap-loop"
+  },
+  {
+    "category": "tooling",
+    "skill": "clarity-linter",
+    "status": "migrated",
+    "name": "clarity-linter"
+  },
+  {
+    "category": "tooling",
+    "skill": "dependencies",
+    "status": "migrated",
+    "name": "dependencies"
+  },
+  {
+    "category": "tooling",
+    "skill": "documentation",
+    "status": "migrated",
+    "name": "documentation"
+  },
+  {
+    "category": "tooling",
+    "skill": "eval-harness",
+    "status": "migrated",
+    "name": "eval-harness"
+  },
+  {
+    "category": "tooling",
+    "skill": "github-integration",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "tooling",
+    "skill": "improvement-pipeline",
+    "status": "migrated",
+    "name": "improvement-pipeline"
+  },
+  {
+    "category": "tooling",
+    "skill": "pptx-generation",
+    "status": "migrated",
+    "name": "pptx-generation"
+  },
+  {
+    "category": "tooling",
+    "skill": "template-extractor",
+    "status": "migrated",
+    "name": "template-extractor"
+  },
+  {
+    "category": "tooling",
+    "skill": "ui-ux-excellence",
+    "status": "migrated",
+    "name": "ui-ux-excellence"
+  },
+  {
+    "category": "tooling",
+    "skill": "utilities",
+    "status": "failed",
+    "error": "No SKILL.md found"
+  },
+  {
+    "category": "tooling",
+    "skill": "web-cli-teleport",
+    "status": "migrated",
+    "name": "web-cli-teleport"
+  },
+  {
+    "category": "tooling",
+    "skill": "when-documenting-code-use-doc-generator",
+    "status": "migrated",
+    "name": "when-documenting-code-use-doc-generator"
+  },
+  {
+    "category": "tooling",
+    "skill": "when-mapping-dependencies-use-dependency-mapper",
+    "status": "migrated",
+    "name": "when-mapping-dependencies-use-dependency-mapper"
+  }
+]

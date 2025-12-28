@@ -1,0 +1,81 @@
+// Agent Selector Process Flow v2.1.0
+// Intelligent agent selection from 203-agent registry using semantic matching
+
+digraph agent_selector {
+    rankdir=TB;
+    node [shape=box, style="rounded,filled", fontname="Helvetica"];
+    edge [fontname="Helvetica", fontsize=10];
+
+    // Colors
+    node [fillcolor="#E8F4FD"];  // Default light blue
+
+    // Phase 0: Expertise Loading
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        style=dashed;
+        color="#666666";
+
+        detect_domain [label="Detect Domain\n(task type, complexity)", fillcolor="#FFF3E0"];
+        check_expertise [label="Check Expertise\n.claude/expertise/agent-selection.yaml", fillcolor="#FFF3E0"];
+        load_context [label="Load Selection Patterns\n& Scoring Weights", fillcolor="#FFF3E0"];
+
+        detect_domain -> check_expertise -> load_context;
+    }
+
+    // Input
+    input [label="Task Description\n& Requirements", shape=ellipse, fillcolor="#C8E6C9"];
+
+    // Phase 1: Analysis
+    subgraph cluster_analysis {
+        label="Phase 1: Semantic Analysis";
+        style=filled;
+        color="#E3F2FD";
+
+        parse_task [label="Parse Task\nIntent & Keywords"];
+        extract_requirements [label="Extract Requirements\nComplexity, Domain, Tools"];
+        build_query [label="Build Semantic\nQuery Vector"];
+    }
+
+    // Phase 2: Registry Search
+    subgraph cluster_search {
+        label="Phase 2: Registry Search";
+        style=filled;
+        color="#F3E5F5";
+
+        load_registry [label="Load Agent Registry\n203 Agents / 10 Categories"];
+        semantic_match [label="Semantic Similarity\nMatching"];
+        capability_filter [label="Capability & Tool\nFiltering"];
+        rank_candidates [label="Rank Candidates\nby Score"];
+    }
+
+    // Phase 3: Selection
+    subgraph cluster_selection {
+        label="Phase 3: Selection & Validation";
+        style=filled;
+        color="#E8F5E9";
+
+        top_candidates [label="Top 3-5\nCandidates"];
+        validate_fit [label="Validate Fit\n& Constraints"];
+        select_best [label="Select Best Agent\n(or Ensemble)", fillcolor="#81C784"];
+    }
+
+    // Output
+    output [label="Selected Agent(s)\n+ Confidence Score", shape=ellipse, fillcolor="#BBDEFB"];
+
+    // Connections
+    load_context -> input;
+    input -> parse_task;
+    parse_task -> extract_requirements;
+    extract_requirements -> build_query;
+    build_query -> load_registry;
+    load_registry -> semantic_match;
+    semantic_match -> capability_filter;
+    capability_filter -> rank_candidates;
+    rank_candidates -> top_candidates;
+    top_candidates -> validate_fit;
+    validate_fit -> select_best;
+    select_best -> output;
+
+    // Feedback loop
+    output -> detect_domain [style=dashed, label="Learn from\nselection outcomes", color="#FF9800"];
+}

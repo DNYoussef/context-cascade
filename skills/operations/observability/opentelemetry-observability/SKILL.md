@@ -465,3 +465,111 @@ The OpenTelemetry Observability skill provides a comprehensive framework for imp
 The workflows demonstrate the complete lifecycle from auto-instrumentation setup to custom span creation, metrics collection, and advanced sampling strategies. The emphasis on W3C Trace Context propagation ensures trace continuity across polyglot services, while the semantic conventions guarantee interoperability with all major observability backends. The anti-patterns table serves as a critical reference to avoid common pitfalls that lead to metric explosions, memory leaks, and unactionable telemetry.
 
 This skill is particularly valuable when debugging production issues across distributed systems, implementing SLO-based alerting, or migrating from proprietary APM solutions to vendor-neutral OpenTelemetry. Whether you're instrumenting a Node.js microservice, a Python Flask API, or a complex event-driven architecture with message queues, the patterns and best practices documented here provide a solid foundation. Combined with backend setup guides (Jaeger, Prometheus, Grafana Tempo) and troubleshooting references, you have everything needed to build observable systems that provide actionable insights when incidents occur.
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### Observability as the Immune System
+
+In Dr. Synthara's organism model, observability is the **immune system** - it detects problems, triggers responses, and enables recovery. Without observability, your system is blind to its own health.
+
+**The Three Pillars Mapped to Body Systems**:
+- **Metrics** = Vital signs (CPU, memory, request rate) - continuous health monitoring
+- **Logs** = Medical records - detailed event history for diagnosis
+- **Traces** = MRI scans - see inside distributed requests
+
+### Observability Decision Tree
+
+```
+What problem are you solving?
+|
++-- "Is the system healthy right now?"
+|   +-- Metrics (Prometheus, CloudWatch)
+|   +-- Dashboards showing current state
+|   +-- Alerting on threshold violations
+|
++-- "What happened during this incident?"
+|   +-- Logs (ELK, Loki, CloudWatch Logs)
+|   +-- Structured JSON with trace_id correlation
+|   +-- Search by time range and attributes
+|
++-- "Why is this request slow?"
+    +-- Traces (Jaeger, Tempo, X-Ray)
+    +-- Follow request across services
+    +-- Identify bottleneck spans
+```
+
+### SPOF Mitigation Through Observability
+
+| SPOF Risk | Observability Defense |
+|-----------|----------------------|
+| **Database failure** | Metrics: connection pool usage, query latency p99 |
+| **Memory leak** | Metrics: heap usage trend, GC frequency |
+| **Cascading failure** | Traces: identify failing upstream service |
+| **Network partition** | Metrics: inter-service error rates by destination |
+| **Silent failures** | Alerts: on zero-traffic (dead service detection) |
+
+**What I'm Thinking**: "How do I know this is failing at 2am?"
+- Every SPOF needs a metric
+- Every failure mode needs an alert
+- Every alert needs a runbook
+
+### Master Design Flow for Observability
+
+```
+OBSERVABILITY DESIGN FLOW
+1) Define SLIs (Service Level Indicators)
+   +-- Availability: successful requests / total requests
+   +-- Latency: p50, p95, p99 response time
+   +-- Error rate: errors / total requests
+2) Set SLOs (Service Level Objectives)
+   +-- "99.9% of requests succeed"
+   +-- "p99 latency < 500ms"
+3) Instrument the code
+   +-- Auto-instrumentation for frameworks
+   +-- Custom spans for business logic
+   +-- Metrics for cardinality-safe dimensions
+4) Configure sampling
+   +-- 5-10% for production traces
+   +-- 100% for errors (tail sampling)
+5) Set up alerting
+   +-- Alert on SLO burn rate, not raw metrics
+   +-- PagerDuty/Slack integration
+   +-- Runbook links in alerts
+6) Build dashboards
+   +-- RED metrics (Rate, Errors, Duration)
+   +-- USE metrics (Utilization, Saturation, Errors)
+```
+
+### Phase 0 Observability Constraint Extraction
+
+| Constraint | Questions |
+|------------|-----------|
+| **SLOs** | What availability/latency targets? |
+| **Scale** | How many services? QPS? |
+| **Budget** | Trace storage costs? Metric cardinality limits? |
+| **Retention** | How long to keep traces/logs? |
+| **Compliance** | PII in logs? Audit requirements? |
+
+### The 90-Second Interview Narrative for Observability
+
+1. **Clarify** SLOs, scale, compliance requirements
+2. **Three pillars** metrics (Prometheus), logs (Loki), traces (Tempo)
+3. **Instrumentation** auto + custom spans for business logic
+4. **Sampling** 5-10% traces, 100% for errors
+5. **Alerting** SLO-based (burn rate), not threshold-based
+6. **Correlation** trace_id in logs, exemplars in metrics
+7. **Dashboards** RED/USE patterns, service maps
+8. **Trade-offs** cost vs resolution, sampling vs completeness
+
+### Anti-Pattern: Observability as Afterthought
+
+> "You cannot debug what you cannot see."
+
+| Anti-Pattern | Why It Fails | Correct Approach |
+|--------------|--------------|------------------|
+| Add monitoring after launch | First incident = blind debugging | Instrument BEFORE deploy |
+| Alert on every metric | Alert fatigue, ignored pages | Alert on SLO burn rate |
+| 100% sampling in prod | Cost explosion, storage overflow | 5-10% with tail sampling |
+| Logs without trace_id | Manual correlation during incident | Auto-inject trace context |

@@ -448,3 +448,108 @@ The specialized sub-skills (Docker containerization, Terraform IaC) provide deep
 The infrastructure orchestration skill enables teams to build robust, scalable, and secure cloud infrastructure through systematic automation and best practices. By treating infrastructure as code, implementing proper monitoring and observability, and following defense-in-depth principles, organizations can achieve high availability, rapid deployment, and operational excellence. The skill coordinates specialized sub-skills for Docker containerization and Terraform IaC while providing comprehensive workflows for provisioning, deployment, monitoring, and configuration management.
 
 Success in infrastructure orchestration requires commitment to automation, security-first thinking, and operational discipline. Avoiding anti-patterns like manual configuration changes or skipping multi-environment testing prevents costly production incidents and technical debt. The integration of CI/CD pipelines, comprehensive monitoring, and disaster recovery procedures ensures infrastructure can scale reliably while maintaining security compliance. By following the workflows and best practices outlined in this skill, teams can deliver production-ready infrastructure that meets modern cloud-native standards while remaining maintainable and cost-effective over time.
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### Scaling Decision Tree
+
+```
+Need to handle more load?
+|
++-- Mostly CPU/RAM bound + small scale + OK if brief downtime?
+|   +-- Vertical scale (scale up) as short-term patch
+|
++-- Need high availability OR growth beyond one machine?
+    +-- Horizontal scale (scale out)
+        +-- Add load balancer
+        +-- Make app tier stateless
+        +-- Move state to shared systems (DB/cache/object storage)
+```
+
+**System-Designer Thought**: Vertical scaling is a DELAY TACTIC; horizontal scaling is an ARCHITECTURE CHOICE.
+
+### Load Balancer Algorithm Selector
+
+```
+Are servers identical + requests similar?
++-- Round robin
+
+Are sessions variable length (long polls, uploads)?
++-- Least connections
+
+Do servers have different capacity?
++-- Weighted RR / Weighted least-connections
+
+Need stickiness without shared session store?
++-- IP hash (but beware NAT skew) / consistent hashing
+
+Global users?
++-- Geo routing + regional LBs
+```
+
+**What I'm Thinking**:
+- Health checks AREN'T optional
+- The LB forces the real question: "Where do sessions live?"
+- If you need stickiness, say why
+- If you can avoid it, you should
+
+### SPOF Identification & Mitigation Table
+
+| Component | SPOF Risk | Mitigation Strategy |
+|-----------|-----------|---------------------|
+| **Load Balancer** | Single LB failure | Redundancy, failover, managed LB, multi-AZ |
+| **Database** | Single DB failure | Replication + automated failover + backups |
+| **Cache** | Cache failure melts DB | Degrade gracefully (cache miss shouldn't melt DB) |
+| **Queue** | Message loss | Durable broker, replay strategy, idempotent consumers |
+| **DNS** | DNS failure | Multiple DNS providers, low TTL |
+| **Secrets** | Vault unavailability | HA Vault cluster, cached secrets with expiry |
+
+**What I'm Thinking**: "How does this fail at 2am under traffic?"
+If the answer is "everything stops," you haven't finished.
+
+### Master Design Flow for Infrastructure
+
+```
+DESIGN FLOW
+1) Define invariants + SLOs
+   +-- Uptime target (99.9%? 99.99%?)
+   +-- RTO/RPO requirements
+2) Model traffic (QPS, burstiness, geo)
+3) Scale plan
+   +-- vertical (short-term)
+   +-- horizontal (LB + stateless)
+4) Reliability plan
+   +-- remove SPOFs
+   +-- replication/failover
+   +-- graceful degradation
+5) Security plan
+   +-- network segmentation
+   +-- secrets management
+   +-- least privilege
+6) Observability + ops
+   +-- metrics/logs/traces
+   +-- deploy strategy + rollback
+```
+
+### Phase 0 Infrastructure Constraint Extraction
+
+| Constraint | Questions |
+|------------|-----------|
+| **Availability** | SLO (99.9%? 99.99%)? RTO/RPO? |
+| **Latency Target** | p50/p95/p99? Global vs regional? |
+| **Traffic Model** | QPS now? Growth rate? Burst patterns? |
+| **Compliance** | SOC2? HIPAA? PCI-DSS? Data residency? |
+| **Cost** | Budget constraints? Cost per request target? |
+
+### The 90-Second Interview Narrative for Infrastructure
+
+1. **Clarify** SLOs, traffic model, compliance
+2. **Baseline** single-server and request flow
+3. **Identify SPOFs** (compute, DB, network, cache)
+4. **Evolve** split tiers -> LB -> stateless app -> DB replication
+5. **Reliability** failover, multi-AZ, graceful degradation
+6. **Security** network segmentation, secrets, IAM
+7. **Observability** logs/metrics/traces, alerting
+8. **Trade-offs** cost vs latency vs complexity

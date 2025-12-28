@@ -30,6 +30,8 @@ This is NOT just a simple skill file - this is a comprehensive AI development sy
 - `Skill("deep-research-orchestrator")` - 9-pipeline research system
 - `Skill("code-review-assistant")` - Multi-agent code review
 - `Task("Agent Name", "description", "agent-type")` - Spawn registered agent
+- `/ralph-loop "<prompt>" --max-iterations N --completion-promise "<text>"` - Persistence loop until task complete
+- `/cancel-ralph` - Cancel active Ralph loop
 
 ### Plugin Location
 
@@ -1143,9 +1145,87 @@ npx claude-flow hooks session-end --export-metrics true
 
 **Triggers**: "analyze code quality", "run improvement cycle", "dogfood"
 
+### 7.4 Ralph Wiggum (Persistence Loop)
+
+**When**: Iterative tasks requiring continuous refinement until tests pass or goals achieved
+
+**Concept**: Claude keeps iterating on the same task until completion criteria are met. Named after the Simpsons character - embodies persistence.
+
+**How It Works**:
+```
+1. Run /ralph-loop with task and completion promise
+2. Claude works on task
+3. Claude tries to exit
+4. Stop hook intercepts, checks for completion promise
+5. If not found: re-inject prompt, increment iteration
+6. Repeat until promise found OR max iterations
+```
+
+**Commands**:
+```bash
+# Start a loop
+/ralph-loop "Build REST API with tests.
+Run tests after each change.
+Fix failing tests.
+Output <promise>DONE</promise> when ALL tests pass." \
+  --completion-promise "DONE" \
+  --max-iterations 30
+
+# Cancel active loop
+/cancel-ralph
+```
+
+**Best Practices**:
+- Always set --max-iterations (safety limit)
+- Use verifiable criteria (tests pass, linter clean)
+- Include self-correction instructions
+- Use <promise>TEXT</promise> format
+
+**When to Use**:
+- TDD loops (tests must pass)
+- Coverage goals (80% coverage)
+- Linting loops (fix all errors)
+- Refactoring (remove code smells)
+
+**When NOT to Use**:
+- Tasks requiring human judgment
+- Subjective quality assessments
+- Production debugging
+
+**Integration with Three-Loop**:
+- Use after Phase 4 (routing) for execution
+- Ralph handles single-agent iteration
+- Complements swarm for multi-agent tasks
+
+**State Files**:
+- Loop state: `~/.claude/ralph-wiggum/loop-state.md`
+- History: `~/.claude/ralph-wiggum/loop-history.log`
+
+**Triggers**: "ralph loop", "persistence loop", "iterate until", "TDD loop"
+
 ---
 
 ## 8. CHANGELOG
+
+### v2.5.0 (2025-12-28)
+- Connascence Safety Analyzer integration with Ralph loop
+- New command: /quality-loop (quality-gated persistence loop)
+- New skill: connascence-quality-gate (quality category)
+- Automatic code auditing on every file change (PostToolUse hook)
+- Quality gate blocks completion until code passes audit
+- Supports 7 analyzers: Connascence, NASA, MECE, AST, Clarity, Safety, Six Sigma
+- Quality thresholds: 0 critical, max 3 high violations
+- State files: ~/.claude/connascence-audit/
+- Creates feedback loop: Write -> Audit -> Fix -> Repeat until perfect
+
+### v2.4.0 (2025-12-28)
+- Added Ralph Wiggum persistence loop integration
+- New commands: /ralph-loop, /cancel-ralph
+- New skill: ralph-loop (orchestration category)
+- Stop hook now includes Ralph loop checking
+- State files stored in ~/.claude/ralph-wiggum/
+- Enables "fire and forget" iterative development
+- Integrates with Three-Loop system for execution phase
 
 ### v2.3.0 (2025-11-25)
 - Added MCP Auto-Initialization System for agents and skills

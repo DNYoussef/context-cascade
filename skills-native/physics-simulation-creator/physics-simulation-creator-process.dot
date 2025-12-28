@@ -1,0 +1,96 @@
+digraph PhysicsSimulationCreator {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+    edge [fontname="Arial"];
+
+    // Start and end
+    start [shape=ellipse, label="Start:\nANY Physics Problem", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nOptimized Simulation\n(k != 0 usually)", fillcolor=green, fontcolor=white];
+
+    // Phase 1: Problem Analysis
+    subgraph cluster_analysis {
+        label="Phase 1: Analyze Problem";
+        fillcolor=lightyellow;
+        style=filled;
+
+        get_scale [label="Determine\nLength Scale L"];
+        check_singularity [label="Check: Has\nSingularity?"];
+
+        get_scale -> check_singularity;
+    }
+
+    // Decision point
+    has_sing [shape=diamond, label="Singularity\nPresent?", fillcolor=yellow];
+
+    // Phase 2a: Scale-based k (common path)
+    subgraph cluster_k_scale {
+        label="Phase 2a: k from Scale (Most Problems)";
+        fillcolor=lightblue;
+        style=filled;
+
+        k_formula [label="k = -0.0137*log10(L)\n+ 0.1593"];
+        k_validate [label="Validate:\nk in reasonable range"];
+
+        k_formula -> k_validate;
+    }
+
+    // Phase 2b: Singularity-based k
+    subgraph cluster_k_singular {
+        label="Phase 2b: k from Singularity";
+        fillcolor=lightsalmon;
+        style=filled;
+
+        k_lookup [label="Lookup:\n1/r -> k=-1\n1/r^2 -> k=-2\netc."];
+    }
+
+    // Phase 3: Code Generation
+    subgraph cluster_codegen {
+        label="Phase 3: Generate Code";
+        fillcolor=lightcoral;
+        style=filled;
+
+        gen_transforms [label="Generate NNC\nTransforms"];
+        gen_physics [label="Implement\nPhysics"];
+
+        gen_transforms -> gen_physics;
+    }
+
+    // Phase 4: Validation
+    subgraph cluster_validation {
+        label="Phase 4: Compare vs k=0";
+        fillcolor=lightgray;
+        style=filled;
+
+        compare_accuracy [label="Compare:\nAccuracy vs k=0"];
+        compare_perf [label="Compare:\nSteps vs k=0"];
+        document [label="Document:\nImprovement %"];
+
+        compare_accuracy -> compare_perf -> document;
+    }
+
+    // Key insight box
+    insight [shape=folder, label="KEY INSIGHT:\nk=0 is NOT optimal\nfor most problems!", fillcolor=orange];
+
+    // Flow
+    start -> get_scale;
+    check_singularity -> has_sing;
+
+    has_sing -> k_formula [label="NO\n(most cases)"];
+    has_sing -> k_lookup [label="YES"];
+
+    k_validate -> gen_transforms [lhead=cluster_codegen];
+    k_lookup -> gen_transforms [lhead=cluster_codegen];
+
+    gen_physics -> compare_accuracy [lhead=cluster_validation];
+    document -> end;
+
+    // Insight connection
+    insight -> k_formula [style=dashed, label="remember"];
+
+    // Legend
+    labelloc="t";
+    label="Physics Simulation Creator: Optimize ANY Simulation";
+    fontsize=16;
+    fontname="Arial Bold";
+}

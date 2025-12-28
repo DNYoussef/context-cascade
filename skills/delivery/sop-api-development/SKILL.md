@@ -673,3 +673,86 @@ Contract-First API Design treats the API specification as a versioned product, n
 Progressive Deployment through Canary Releases limits blast radius by incrementally rolling out new API versions to small traffic percentages before full production deployment. Direct deployment to 100% of traffic converts minor bugs into major incidents. Canary releases (1-5% traffic) with automated monitoring detect issues affecting a small user cohort before they impact the entire user base. Blue-green deployment provides instant rollback capability, while feature flags decouple deployment from feature activation. The incremental cost of progressive deployment is trivial compared to the cost of a production incident affecting all users.
 
 This SOP provides a systematic 4-phase workflow (Planning & Design, Development, Testing & Documentation, Deployment) with clear agent assignments, memory namespace conventions, and success metrics. Use this as a template for API development projects, adapting timeline and agent allocation to project complexity. REST API mastery is not about memorizing HTTP status codes - it is about applying consistent principles that guarantee quality, maintainability, and reliability through systematic testing, contract-driven design, and progressive deployment.
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### API Style Decision Tree
+
+```
+Who consumes it and what do they need?
+|
++-- Public API, broad compatibility, caching & simplicity matter?
+|   +-- REST (this skill's focus)
+|
++-- Complex UI needing shaped responses, reducing round trips?
+|   +-- GraphQL (control query cost + N+1)
+|
++-- Internal service-to-service, performance + typed contracts?
+    +-- gRPC (protobuf, streaming, strong typing)
+```
+
+**What I'm Thinking**: GraphQL trades "fewer requests" for "harder caching + expensive resolvers." Plan for that up front.
+
+### Protocol Decision Tree
+
+```
+What interaction pattern do you need?
+|
++-- Simple request/response?
+|   +-- HTTPS (default for REST)
+|
++-- Real-time push, bidirectional updates (chat, live presence)?
+|   +-- WebSockets (plan for sticky connections & backpressure)
+|
++-- Async work, decoupling, smoothing spikes (orders, emails)?
+|   +-- Queue (AMQP/Kafka/etc.)
+|
++-- Microservices needing speed/streaming contracts?
+    +-- gRPC over HTTP/2
+```
+
+### REST API Checklist (Interview Gold)
+
+- [ ] Resources are NOUNS: `/users`, `/orders/{id}`
+- [ ] Proper verbs via HTTP methods (GET/POST/PATCH/DELETE)
+- [ ] PAGINATION always for lists (limit/offset or cursor)
+- [ ] IDEMPOTENCY where needed (especially POST for payments/orders)
+- [ ] Correct status codes (201 Created, 204 No Content, 400/401/403/404/409/429, 5xx)
+- [ ] Versioning strategy (URL or headers), deprecation plan
+
+### GraphQL Checklist
+
+- [ ] Schema mirrors domain, modular types
+- [ ] Depth/complexity limits configured
+- [ ] N+1 avoided (batching, dataloaders)
+- [ ] Caching strategy defined (often app-level)
+- [ ] Explicit error shape (don't hide failures behind 200-only)
+
+### Phase 0 Constraint Extraction
+
+Before designing ANY API, extract these constraints:
+
+| Constraint | Questions |
+|------------|-----------|
+| **Users & Usage** | DAU/MAU? Peak QPS? Read/write ratio? Payload sizes? |
+| **Latency Target** | p50/p95/p99? Mobile vs desktop? Global vs local? |
+| **Consistency** | Strong vs eventual? Where does correctness matter? |
+| **Security** | Auth model? Threat surface? Compliance? |
+
+**What I'm Thinking**: "What are the non-negotiable invariants?"
+- "No double-charging" (payments)
+- "Messages never delivered out of order per conversation" (chat)
+- "Inventory can't go negative" (e-commerce)
+
+### The 90-Second Interview Narrative for API Design
+
+1. **Clarify** requirements + scale + SLOs
+2. **Choose** API style (REST/GraphQL/gRPC)
+3. **Design** resources, methods, pagination
+4. **Security** authn/authz + rate limiting
+5. **Documentation** OpenAPI spec
+6. **Testing** contract tests + integration
+7. **Deployment** canary rollout
+8. **Trade-offs** explain choices made

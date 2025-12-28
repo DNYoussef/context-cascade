@@ -466,3 +466,98 @@ The SQL Database Specialist skill provides comprehensive expertise in database p
 Success with SQL databases requires moving beyond generic best practices to data-driven optimization based on actual workload characteristics, query patterns, and performance metrics. The workflows provided - from EXPLAIN analysis to partitioning strategies to zero-downtime migrations - represent battle-tested patterns that work in production environments under real load. The emphasis on measurement (EXPLAIN ANALYZE, pg_stat_statements, connection pool metrics) ensures that optimization decisions are based on evidence rather than assumptions.
 
 Whether optimizing slow queries that are impacting user experience, designing schemas that will scale to billions of rows, implementing high-availability architectures, or debugging mysterious performance degradations, this skill provides the methodology and tooling to diagnose issues systematically and implement solutions confidently. The combination of PostgreSQL-specific features (JSONB, full-text search, partitioning) with universal SQL optimization principles creates a comprehensive foundation for database excellence that applies across relational database systems while leveraging the unique strengths of PostgreSQL when available.
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### Database Choice Decision Tree
+
+```
+What is the data + correctness need?
+|
++-- Strong transactions / invariants (money, inventory, ledgers)?
+|   +-- SQL (Postgres/MySQL) + ACID + constraints
+|   +-- THIS SKILL IS YOUR CHOICE
+|
++-- Clear relationships + joins matter?
+|   +-- SQL (normalized + indexes)
+|   +-- THIS SKILL IS YOUR CHOICE
+|
++-- Semi-structured JSON + evolving schema + high scale writes?
+|   +-- Document or wide-column (Mongo/Cassandra)
+|
++-- Ultra-low latency key lookup / caching / rate limits / sessions?
+|   +-- Key-value (Redis/Memcached)
+|
++-- Relationship traversal is the product (social graph, recs)?
+    +-- Graph DB (Neo4j/Neptune) or graph model over SQL/NoSQL
+```
+
+**What I'm Thinking as a Designer**: "Where do I want correctness enforced - DB constraints or application code?"
+
+If the DB doesn't enforce it, YOUR BUGS WILL.
+
+### When to Choose SQL (This Skill)
+
+Use SQL/PostgreSQL when you have:
+- **Non-negotiable invariants**: "Balance can never be negative", "Order total must equal sum of items"
+- **ACID requirements**: Financial transactions, inventory management, ledgers
+- **Complex joins**: Reports joining 5+ tables efficiently
+- **Referential integrity**: Foreign keys that MUST be enforced
+- **Mature tooling needs**: Backups, replication, monitoring ecosystems
+
+### Cache Integration Decision Tree
+
+```
+What database access patterns exist?
+|
++-- Hot reads that tolerate slight staleness?
+|   +-- Redis cache in front of PostgreSQL
+|   +-- TTL-based invalidation
+|
++-- Expensive computed results (reports, aggregations)?
+|   +-- Materialized views OR
+|   +-- Application cache with explicit invalidation
+|
++-- Session data / rate limiting?
+    +-- Redis (not PostgreSQL) for sub-ms latency
+```
+
+**What I'm Thinking**: Stampedes (thundering herd) and invalidation are the hardest parts:
+- TTL + soft TTL
+- Request coalescing / single-flight
+- Stale-while-revalidate patterns
+
+### SPOF Mitigation for Databases
+
+| SPOF Risk | Mitigation Strategy |
+|-----------|---------------------|
+| Single database instance | Streaming replication + automated failover (Patroni) |
+| Single region failure | Cross-region read replicas |
+| Connection exhaustion | PgBouncer connection pooling |
+| Data loss | WAL archiving + point-in-time recovery |
+| Schema corruption | Tested migration rollback procedures |
+
+### Phase 0 Database Constraint Extraction
+
+Before choosing database strategy, answer:
+
+| Constraint | Questions |
+|------------|-----------|
+| **Data Shape** | Relational? Document? Graph? Time-series? |
+| **Consistency** | Strong ACID required? Eventual OK? |
+| **Scale** | Rows now? Rows in 2 years? QPS? |
+| **Query Patterns** | OLTP (many small txns)? OLAP (few large queries)? |
+| **Hot Keys** | Data access uniform or skewed? |
+
+### The 90-Second Interview Narrative for Database Design
+
+1. **Clarify** data model + consistency requirements
+2. **Choose** SQL vs NoSQL (use decision tree)
+3. **Design** schema with normalization + indexes
+4. **Performance** EXPLAIN analysis + query optimization
+5. **Reliability** replication + failover + backups
+6. **Caching** Redis layer for hot paths
+7. **Operations** connection pooling + vacuum
+8. **Trade-offs** explain why SQL over alternatives

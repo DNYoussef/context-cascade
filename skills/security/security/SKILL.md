@@ -396,3 +396,97 @@ Security auditing requires:
 - Initial security skill with OWASP Top 10, secure coding patterns, authentication patterns
 - Added defense in depth, least privilege, security by design principles
 - Added anti-patterns table with solutions
+
+---
+
+## System Design Integration (Dr. Synthara Methodology)
+
+### Authentication Decision Tree
+
+```
+Need simple internal tool auth?
++-- Basic auth (only over HTTPS) or SSO
+
+Public app / APIs?
++-- Bearer tokens (often JWT) + refresh token rotation
++-- Store tokens securely (httpOnly cookies or secure storage)
+
+Need login via Google/GitHub?
++-- OAuth2 + OIDC (identity claims) + secure callback flows
++-- Validate state parameter to prevent CSRF
+
+Machine-to-machine auth?
++-- API keys (hashed, rotatable) or
++-- OAuth2 client credentials flow
+```
+
+**What I'm Thinking**: Revocation + token rotation + compromise response.
+If tokens are "stateless forever," you can't cleanly recover from theft.
+
+### Authorization Model Decision Tree
+
+```
+How complex are permissions?
+|
++-- Few roles, straightforward (admin/editor/viewer)?
+|   +-- RBAC (Role-Based Access Control)
+|   +-- Implement at middleware level
+|
++-- Policies depend on attributes (dept, region, device, time)?
+|   +-- ABAC (Attribute-Based Access Control)
+|   +-- Use policy engine (OPA, Cedar)
+|
++-- Per-object sharing (docs, folders, repos)?
+    +-- ACL (Access Control Lists)
+    +-- Often combined with roles
+    +-- Store permissions per-resource in database
+```
+
+### Security Hardening Checklist (Interview Gold)
+
+| Defense | Purpose | Implementation |
+|---------|---------|----------------|
+| **Rate limiting** | Prevent brute force and cost attacks | Per user/IP + global limits, 429 response |
+| **CORS** | Browser constraint (not full security) | Specific origin allowlist, never `*` with credentials |
+| **Injection defense** | Prevent SQLi, XSS, command injection | Parameterized queries + validation + output encoding |
+| **WAF/firewalls** | Block known bad patterns | Layer 7 filtering, reduce blast radius |
+| **VPN/private endpoints** | Keep internal APIs private | Zero-trust network, service mesh mTLS |
+| **CSRF** | Prevent cross-site request forgery | CSRF tokens for cookie-based auth |
+| **XSS** | Prevent script injection | Sanitize, escape, CSP headers, safe templating |
+
+**What I'm Thinking**: "If attacked, what fails closed vs fails open?"
+- Rate limiting should DENY when uncertain
+- Auth should DENY when token invalid
+- Firewalls should BLOCK unknown traffic
+
+### SPOF Identification for Security Systems
+
+| Component | SPOF Risk | Mitigation |
+|-----------|-----------|------------|
+| **Auth service** | Single auth failure = all users locked out | HA deployment, cached tokens, graceful degradation |
+| **Secrets vault** | Vault down = no credentials | HA Vault cluster, cached secrets with TTL |
+| **API keys** | Single key compromise = full access | Scoped keys, rotation, per-client keys |
+| **TLS certificates** | Expired cert = HTTPS failure | Auto-renewal (cert-manager), monitoring |
+
+### Phase 0 Security Constraint Extraction
+
+Before designing security architecture, answer:
+
+| Constraint | Questions |
+|------------|-----------|
+| **Auth Model** | Who authenticates? Users? Services? Both? |
+| **AuthZ Complexity** | Simple roles? Resource-level permissions? |
+| **Threat Surface** | Public internet? Internal only? Mobile? |
+| **Compliance** | SOC2? HIPAA? PCI-DSS? GDPR? |
+| **Secrets** | How many secrets? How often rotated? |
+
+### The 90-Second Interview Narrative for Security Design
+
+1. **Clarify** threat model, compliance requirements
+2. **Authentication** JWT vs sessions, OAuth for external
+3. **Authorization** RBAC vs ABAC vs ACL (use decision tree)
+4. **Transport** TLS everywhere, mTLS for service-to-service
+5. **Secrets** Vault/KMS, never in code, rotation policy
+6. **Defense layers** Rate limiting, WAF, input validation
+7. **Audit** Logging all auth events, immutable audit trail
+8. **Incident response** Revocation plan, compromise recovery
