@@ -333,12 +333,109 @@ console.log(JSON.stringify(result, null, 2));
 - **Fallback**: Use category-level generic if no specialist found (but log the gap)
 - **Audit**: Log all agent selections for continuous improvement
 
+## Multi-Model Routing (v3.0)
+
+### External Model Integration
+
+Before selecting Claude agents, check if task is better suited for external models:
+
+```javascript
+function selectOptimalModel(task) {
+  // Check task characteristics
+  const taskType = analyzeTaskType(task);
+
+  // Route to Gemini for research tasks
+  if (taskType.needsRealtimeSearch || taskType.contextTokens > 150000) {
+    return {
+      model: 'gemini',
+      skill: 'gemini-research',
+      script: 'scripts/multi-model/gemini-research.sh',
+      rationale: 'Task requires Google Search grounding or large context'
+    };
+  }
+
+  // Route to Codex for sandbox/audit tasks
+  if (taskType.needsSandbox || taskType.type in ['audit', 'debug', 'prototype']) {
+    return {
+      model: 'codex',
+      skill: 'codex-audit',
+      script: 'scripts/multi-model/codex-audit.sh',
+      rationale: 'Task requires autonomous sandbox execution'
+    };
+  }
+
+  // Route to LLM Council for critical decisions
+  if (taskType.criticality === 'high' && taskType.type === 'decision') {
+    return {
+      model: 'council',
+      skill: 'llm-council',
+      script: 'scripts/multi-model/llm-council.sh',
+      rationale: 'High-stakes decision benefits from multi-model consensus'
+    };
+  }
+
+  // Default: Claude agents from registry
+  return {
+    model: 'claude',
+    agent: selectFromRegistry(task),
+    rationale: 'Complex reasoning or multi-step task'
+  };
+}
+```
+
+### Model Selection Criteria
+
+| Task Characteristic | Route To | Skill |
+|---------------------|----------|-------|
+| Needs real-time info | Gemini | gemini-research |
+| Context > 150k tokens | Gemini | gemini-megacontext |
+| Needs sandbox execution | Codex | codex-audit |
+| Autonomous prototyping | Codex | codex-auto |
+| Critical decision | Council | llm-council |
+| Complex multi-step | Claude | agent-selector |
+| Code generation | Claude | coder agents |
+
+### Memory Handoff Pattern
+
+When routing to external models, use Memory-MCP for handoff:
+
+```javascript
+// External model stores result
+memory_store("multi-model/{model}/research/{task_id}", result);
+
+// Claude agent reads result
+const research = memory_retrieve("multi-model/gemini/research/{task_id}");
+Task("Coder", `Implement using: ${research.content}`, "coder");
+```
+
+### CLI vs MCP Decision
+
+| Scenario | Use CLI | Use MCP |
+|----------|---------|---------|
+| One-off operation | Yes | No |
+| Repeated access | No | Yes |
+| Context budget tight | Yes | No |
+| Multi-tool workflow | No | Yes |
+
+**CLI Pattern** (zero context cost):
+```bash
+bash scripts/multi-model/gemini-research.sh "query" "task_id"
+```
+
+**MCP Pattern** (repeated access):
+```bash
+claude mcp add gemini-research npx gemini-research-mcp
+```
+
 ## Related Resources
 
 - Agent Registry: `claude-code-plugins/ruv-sparc-three-loop-system/agents/README.md`
 - Cache Script: `scripts/cache-agents-memory-mcp.js`
 - CLAUDE.md Phase 4: Agent Selection Process
 - Memory MCP Tagging Protocol: `hooks/12fa/memory-mcp-tagging-protocol.js`
+- Multi-Model Skills: `skills-native/gemini-research/`, `skills-native/codex-audit/`, `skills-native/llm-council/`
+- CLI Scripts: `scripts/multi-model/`
+- Memory Namespace Schema: `docs/MEMORY-NAMESPACE-SCHEMA.yaml`
 
 ---
 

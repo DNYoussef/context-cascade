@@ -1,86 +1,98 @@
 ---
 name: codex-reasoning
-description: Use GPT-5-Codexs specialized reasoning for alternative approaches and second opinions
-allowed-tools: Read, Write, Edit, Bash, Task, TodoWrite, Glob, Grep, WebFetch
+description: Get alternative perspectives from GPT-5-Codex - second opinions on architecture and algorithms
+allowed-tools: Bash, Read, Write, TodoWrite
 ---
 
 # Codex Reasoning Skill
 
 ## Purpose
-Leverage OpenAI's GPT-5-Codex model (optimized for agentic coding) to get alternative reasoning approaches, second opinions, and specialized algorithmic solutions that complement Claude's perspective.
+
+Leverage GPT-5-Codex's different reasoning patterns to get alternative perspectives, second opinions, and specialized algorithmic solutions.
 
 ## Unique Capability
-**What This Adds**: Different AI reasoning patterns. GPT-5-Codex is optimized for agentic coding workflows and may approach problems differently than Claude, providing valuable alternative perspectives and solutions.
+
+**What This Adds**: Different AI reasoning:
+- GPT-5-Codex optimized for agentic coding
+- Different algorithmic approaches
+- Alternative architecture perspectives
+- Fast one-shot reasoning
 
 ## When to Use
 
 ### Perfect For:
-✅ Getting a second opinion on architecture decisions
-✅ Exploring alternative implementation approaches
-✅ Algorithmic optimization problems
-✅ When stuck on a problem (different perspective helps)
-✅ Comparing solution approaches
-✅ Code generation with different patterns
-✅ Performance-critical implementations
+- Getting second opinion on architecture
+- Exploring alternative implementations
+- Algorithmic optimization problems
+- When stuck (different perspective helps)
+- Comparing solution approaches
+- Performance-critical algorithms
 
 ### Don't Use When:
-❌ Claude's solution is clearly working (no need for alternatives)
-❌ Simple tasks that don't benefit from multiple perspectives
-❌ When consistency with existing Claude-generated code matters more
+- Claude's solution is clearly working
+- Simple tasks (no need for alternatives)
+- Consistency with existing Claude code matters
 
 ## Usage
 
-### Second Opinion
-```
-/codex-reasoning "I'm implementing user authentication. What's your approach?"
+```bash
+# Second opinion
+/codex-reasoning "What's an alternative approach to user authentication?"
+
+# Algorithm comparison
+/codex-reasoning "Optimize this sorting algorithm for large datasets"
+
+# Architecture alternative
+/codex-reasoning "What's an alternative to microservices for our scale?"
 ```
 
-### Algorithm Optimization
-```
-/codex-reasoning "Optimize this sorting algorithm for large datasets with these constraints..."
-```
+## CLI Command
 
-### Alternative Architecture
-```
-/codex-reasoning "What's an alternative way to structure this microservices communication?"
+```bash
+codex
+> /model gpt-5-codex
+> "Your reasoning question"
+
+# Or directly
+codex "What's an alternative approach to X?"
 ```
 
 ## Why Use Both Models?
 
-**Claude Strengths:**
-- Deep reasoning and problem understanding
-- Complex multi-step tasks
-- Comprehensive documentation
-- Reliability and error rate
+| Aspect | Claude | GPT-5-Codex |
+|--------|--------|-------------|
+| Deep reasoning | Excellent | Good |
+| One-shot prompting | Good | Excellent |
+| Documentation | Excellent | Good |
+| Fast prototyping | Good | Excellent |
+| Algorithm alternatives | Good | Excellent |
 
-**GPT-5-Codex Strengths:**
-- Optimized for agentic coding
-- Fast prototyping
-- Different algorithmic approaches
-- Good for one-shot prompting
+## Real Example
 
-**Together**: Get best of both worlds!
-
-## Real Examples
-
-### Example: Alternative Architecture
 ```
-Claude suggests: Event-driven with message queue
-Codex suggests: REST with polling + webhooks
+Architecture Decision:
+- Claude suggests: Event-driven with message queue
+- GPT-5-Codex suggests: REST with polling + webhooks
 
 Result: Hybrid approach combining benefits of both
 ```
 
-### Example: Algorithm Optimization
+## Integration Pattern
+
+```javascript
+// Get both perspectives
+const claudeApproach = await claudeArchitect("Design auth system");
+const codexApproach = await codexReasoning("Alternative auth approach?");
+
+// Use LLM Council for consensus
+const consensus = await llmCouncil(`
+  Claude: ${claudeApproach}
+  Codex: ${codexApproach}
+  Which is better for our use case?
+`);
 ```
-Claude: Recursive solution with memoization
-Codex: Iterative solution with lookup table
 
-Result: Codex approach 2x faster for this use case
-```
+## Memory Integration
 
----
-
-**Uses your ChatGPT Plus subscription.** Use `/model` in Codex to switch to GPT-5-Codex.
-
-See `.claude/agents/codex-reasoning-agent.md` for details.
+- Key: `multi-model/codex/reasoning/{task_id}`
+- Tags: WHO=codex-cli:reasoning, WHY=alternative-perspective

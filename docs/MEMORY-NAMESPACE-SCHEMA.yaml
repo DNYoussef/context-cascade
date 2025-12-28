@@ -1,0 +1,236 @@
+# Memory-MCP Namespace Schema for Multi-Model Integration
+# Part of Context Cascade Plugin v3.0.0
+
+version: "1.0.0"
+created: "2025-12-28"
+description: |
+  Defines the namespace structure for multi-model coordination via Memory-MCP.
+  All models (Claude, Gemini, Codex) read/write to these shared namespaces.
+
+namespaces:
+  multi-model:
+    description: Root namespace for all multi-model operations
+
+    gemini:
+      description: Gemini CLI results and cache
+
+      research:
+        pattern: "{task_id}"
+        description: Research results from Gemini
+        schema:
+          content: string
+          sources: array[string]
+          model: string
+          tokens_used: integer
+          timestamp: ISO8601
+          query: string
+        tags:
+          WHO: gemini-cli:research
+          WHY: research
+        retention: 30d
+
+      search:
+        pattern: "{query_hash}"
+        description: Cached search results
+        schema:
+          query: string
+          results: array
+          cached_at: ISO8601
+          ttl: 3600
+        retention: 1d
+
+    codex:
+      description: Codex CLI audit and sandbox results
+
+      audit:
+        pattern: "{task_id}"
+        description: Code audit results
+        schema:
+          raw_output: string
+          metrics:
+            files_analyzed: integer
+            findings_count: integer
+            fixes_applied: integer
+          context_path: string
+          sandbox_mode: boolean
+          max_iterations: integer
+        tags:
+          WHO: codex-cli:audit
+          WHY: audit
+        retention: 30d
+
+      sandbox:
+        pattern: "{session_id}"
+        description: Sandbox execution sessions
+        schema:
+          commands: array[string]
+          files_created: array[string]
+          files_modified: array[string]
+          test_results:
+            passed: integer
+            failed: integer
+            skipped: integer
+          duration_ms: integer
+        retention: 7d
+
+      fixes:
+        pattern: "{finding_id}"
+        description: Applied fixes from Codex
+        schema:
+          finding: string
+          fix: string
+          file: string
+          verified: boolean
+        retention: 90d
+
+    council:
+      description: LLM Council consensus decisions
+
+      responses:
+        pattern: "{query_id}/{model}"
+        description: Individual model responses
+        schema:
+          model: string
+          response: string
+          confidence: float
+          timestamp: ISO8601
+        retention: 7d
+
+      reviews:
+        pattern: "{query_id}/{reviewer}"
+        description: Cross-review rankings
+        schema:
+          reviewer: string
+          rankings: array
+          rationale: string
+        retention: 7d
+
+      final:
+        pattern: "{query_id}"
+        description: Synthesized final answers
+        schema:
+          answer: string
+          consensus_score: float
+          chairman: string
+          dissenting: array
+        retention: 30d
+
+      decisions:
+        pattern: "{timestamp}"
+        description: Complete decision records
+        schema:
+          query: string
+          query_id: string
+          final_answer: object
+          consensus_score: float
+          threshold: float
+          chairman: string
+          models: array[string]
+        tags:
+          WHO: llm-council
+          WHY: consensus-decision
+        retention: 90d
+
+      deadlocks:
+        pattern: "{query_id}"
+        description: Failed consensus requiring human review
+        schema:
+          query: string
+          responses: object
+          consensus_score: float
+          reason: string
+        retention: 30d
+
+    coordination:
+      description: Cross-model handoff and state
+
+      handoff:
+        pattern: "{from}/{to}/{task_id}"
+        description: Model-to-model handoffs
+        schema:
+          from_model: string
+          to_model: string
+          context: string
+          artifacts: array[string]
+          next_action: string
+          timestamp: ISO8601
+        retention: 7d
+
+      active:
+        pattern: "{task_id}"
+        description: Currently active multi-model tasks
+        schema:
+          task_id: string
+          models_involved: array[string]
+          current_model: string
+          stage: string
+          started_at: ISO8601
+        retention: 1d
+
+    errors:
+      description: Error tracking for multi-model operations
+
+      gemini:
+        pattern: "{timestamp}"
+        description: Gemini CLI errors
+        schema:
+          error: string
+          query: string
+          fallback_used: boolean
+        retention: 7d
+
+      codex:
+        pattern: "{timestamp}"
+        description: Codex CLI errors
+        schema:
+          error: string
+          task: string
+          context: string
+        retention: 7d
+
+      council:
+        pattern: "{timestamp}"
+        description: Council errors
+        schema:
+          error: string
+          stage: string
+          partial_results: object
+        retention: 7d
+
+# Tagging Protocol (WHO/WHEN/PROJECT/WHY)
+tagging:
+  required_tags:
+    - WHO: "Identifies the model/agent that wrote this"
+    - WHEN: "ISO8601 timestamp"
+    - PROJECT: "context-cascade or specific project"
+    - WHY: "research|audit|consensus|handoff|error"
+
+  optional_tags:
+    - MODEL: "Specific model version"
+    - TASK_ID: "Unique task identifier"
+    - TOKENS_USED: "Token count for the operation"
+    - GROUNDING: "google-search for Gemini"
+
+# Access Patterns
+access_patterns:
+  read_gemini_research: |
+    memory_retrieve("multi-model/gemini/research/{task_id}")
+
+  read_codex_audit: |
+    memory_retrieve("multi-model/codex/audit/{task_id}")
+
+  read_council_decision: |
+    memory_retrieve("multi-model/council/decisions/{query_id}")
+
+  list_active_tasks: |
+    memory_list("multi-model/coordination/active/*")
+
+  search_by_model: |
+    memory_search("multi-model/{model}/*", {WHO: "{model}-cli"})
+
+# Retention Policies
+retention:
+  short_term: 1d    # Cached searches, active tasks
+  medium_term: 7d   # Errors, reviews, sandbox sessions
+  long_term: 30d    # Research, audit, decisions
+  permanent: 90d    # Fixes, complete decision records
