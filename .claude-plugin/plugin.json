@@ -89,10 +89,11 @@
       ]
     },
     "mcpServers": {
-      "count": 5,
+      "count": 6,
       "note": "Auto-initialized based on agent requirements",
       "core": [
         "memory-mcp",
+        "connascence-analyzer",
         "sequential-thinking"
       ],
       "situational": [

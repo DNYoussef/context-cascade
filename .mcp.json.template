@@ -1,0 +1,56 @@
+{
+  "$comment": "Template MCP configuration - copy to .mcp.json and update paths",
+  "mcpServers": {
+    "memory-mcp": {
+      "command": "${MEMORY_MCP_PATH}/venv/bin/python",
+      "args": ["-m", "src.mcp.stdio_server"],
+      "cwd": "${MEMORY_MCP_PATH}",
+      "env": {
+        "PYTHONPATH": "${MEMORY_MCP_PATH}",
+        "PYTHONIOENCODING": "utf-8",
+        "CHROMA_PERSIST_DIR": "${MEMORY_MCP_PATH}/chroma_data"
+      },
+      "description": "Triple-layer memory system with Obsidian integration",
+      "repository": "https://github.com/DNYoussef/memory-mcp-triple-system"
+    },
+    "connascence-analyzer": {
+      "command": "${CONNASCENCE_PATH}/venv/bin/python",
+      "args": ["-m", "mcp.cli", "mcp-server"],
+      "cwd": "${CONNASCENCE_PATH}",
+      "env": {
+        "PYTHONPATH": "${CONNASCENCE_PATH}",
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "description": "Code quality analyzer with 7 analyzers",
+      "repository": "https://github.com/DNYoussef/connascence-safety-analyzer"
+    },
+    "claude-flow": {
+      "command": "npx",
+      "args": ["claude-flow@alpha", "mcp", "start"],
+      "description": "Agent orchestration (optional but recommended)"
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+      "description": "Sequential thinking for complex reasoning"
+    }
+  },
+  "setup": {
+    "instructions": [
+      "1. Clone memory-mcp-triple-system and connascence-safety-analyzer",
+      "2. Set up Python virtual environments in each",
+      "3. Copy this template to .mcp.json",
+      "4. Replace ${MEMORY_MCP_PATH} with actual path",
+      "5. Replace ${CONNASCENCE_PATH} with actual path",
+      "6. On Windows, use full paths with escaped backslashes"
+    ],
+    "windows_example": {
+      "memory-mcp": {
+        "command": "C:\\\\Users\\\\USERNAME\\\\Projects\\\\memory-mcp-triple-system\\\\venv\\\\Scripts\\\\python.exe"
+      },
+      "connascence-analyzer": {
+        "command": "C:\\\\Users\\\\USERNAME\\\\Projects\\\\connascence-safety-analyzer\\\\venv\\\\Scripts\\\\python.exe"
+      }
+    }
+  }
+}
