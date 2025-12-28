@@ -100,6 +100,96 @@ artifact_contracts: [...]
 
 ---
 
+## Memory-MCP Integration
+
+All 211 agents have access to the Memory-MCP triple-layer storage system for persistent memory across sessions.
+
+### Configuration
+
+Memory-MCP is configured in `identity/memory-mcp-config.json` and provides:
+
+| Capability | Tier | Latency | Purpose |
+|------------|------|---------|---------|
+| `kv_store` | 1 | <1ms | O(1) preference lookups |
+| `vector_search` | 3 | <100ms | Semantic search via embeddings |
+| `graph_service` | 4 | <50ms | Entity relationship graphs |
+| `event_log` | 5 | <10ms | Temporal event logging |
+| `query_router` | - | - | Polyglot tier selection |
+
+### Tagging Protocol (Required)
+
+All memory writes MUST include these tags:
+
+```yaml
+WHO: "{agent-type}:{agent-id}"    # e.g., "code-analyzer:601c545c"
+WHEN: "{ISO-8601-timestamp}"      # e.g., "2025-12-28T09:47:04.638Z"
+PROJECT: "{project-name}"         # e.g., "memory-mcp-triple-system"
+WHY: "{purpose}"                  # e.g., "analysis", "implementation", "bugfix"
+```
+
+### Memory Namespaces
+
+| Namespace | Pattern | Used For |
+|-----------|---------|----------|
+| agents | `agents/{category}/{type}/{project}/{timestamp}` | Agent-specific memories |
+| swarm | `swarm/{coordination-type}/{task-id}` | Swarm coordination state |
+| expertise | `expertise/{domain}` | Domain expertise files |
+| findings | `findings/{agent-type}/{severity}` | Code analysis findings |
+| decisions | `decisions/{project}/{decision-id}` | Decision records |
+
+### Access Levels by Role
+
+| Role | Operations | Namespaces |
+|------|------------|------------|
+| admin | All | All |
+| developer | set, get, delete, search, log_event | agents/*, swarm/*, findings/* |
+| reviewer | get, search, query_by_date | agents/*, findings/*, decisions/* |
+| coordinator | All | swarm/*, agents/* |
+| analyst | get, search, query_by_date, find_path | All (read) |
+
+### Example Usage
+
+```python
+# Store a finding
+kv_store.set_json('findings:code-analyzer:high:GOD-001', {
+    'WHO': 'code-analyzer:601c545c',
+    'WHEN': datetime.now().isoformat(),
+    'PROJECT': 'my-project',
+    'WHY': 'analysis',
+    'content': 'Found God Object with 0.26 cohesion',
+    'severity': 'high'
+})
+
+# Build knowledge graph
+graph.add_relationship('finding:GOD-001', 'fixed_by', 'pattern:facade')
+
+# Log event
+event_log.log_event(EventType.QUERY_EXECUTED, {
+    'agent': 'researcher',
+    'query': 'similar issues',
+    'results': 5
+})
+```
+
+### Agent YAML Configuration
+
+Ensure agents declare memory-mcp in their frontmatter:
+
+```yaml
+mcp_servers:
+  required:
+    - memory-mcp      # Cross-session memory (always required)
+  optional:
+    - ruv-swarm       # Swarm coordination
+  auto_enable: true
+
+rbac:
+  api_access:
+    - memory-mcp      # Required for memory operations
+```
+
+---
+
 ## Updating or Adding Agents
 
 1. Place new agents inside the category that matches their primary function.  

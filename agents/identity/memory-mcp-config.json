@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Memory-MCP Agent Configuration",
+  "description": "Configuration for memory-mcp integration with agent registry",
+  "version": "1.0.0",
+
+  "mcp_server": {
+    "name": "memory-mcp",
+    "description": "Triple-layer memory system for persistent agent memory",
+    "command": "C:\\Python312\\python.exe",
+    "args": ["D:\\Projects\\memory-mcp-triple-system\\src\\mcp\\stdio_server.py"],
+    "env": {
+      "PYTHONPATH": "D:\\Projects\\memory-mcp-triple-system",
+      "MEMORY_MCP_DATA_DIR": "C:\\Users\\17175\\.claude\\memory-mcp-data",
+      "MEMORY_MCP_LOG_LEVEL": "INFO"
+    }
+  },
+
+  "capabilities": {
+    "kv_store": {
+      "description": "Key-value store for O(1) preference lookups",
+      "tier": 1,
+      "latency": "<1ms",
+      "operations": ["set", "get", "delete", "list_keys", "set_json", "get_json"]
+    },
+    "vector_search": {
+      "description": "Semantic search using embeddings",
+      "tier": 3,
+      "latency": "<100ms",
+      "operations": ["search", "index", "delete"]
+    },
+    "graph_service": {
+      "description": "Knowledge graph for entity relationships",
+      "tier": 4,
+      "latency": "<50ms",
+      "operations": ["add_node", "add_relationship", "find_path", "get_subgraph"]
+    },
+    "event_log": {
+      "description": "Temporal event logging",
+      "tier": 5,
+      "latency": "<10ms",
+      "operations": ["log_event", "query_by_date", "query_by_type"]
+    },
+    "query_router": {
+      "description": "Polyglot storage tier selection",
+      "operations": ["route"]
+    }
+  },
+
+  "tagging_protocol": {
+    "description": "Required metadata for all memory writes",
+    "required_tags": {
+      "WHO": {
+        "description": "Agent identifier",
+        "format": "{agent-type}:{agent-id}",
+        "example": "code-analyzer:601c545c"
+      },
+      "WHEN": {
+        "description": "Timestamp",
+        "format": "ISO 8601",
+        "example": "2025-12-28T09:47:04.638Z"
+      },
+      "PROJECT": {
+        "description": "Project identifier",
+        "example": "memory-mcp-triple-system"
+      },
+      "WHY": {
+        "description": "Purpose/intent",
+        "values": ["implementation", "bugfix", "refactor", "testing", "documentation", "analysis", "planning", "research"]
+      }
+    }
+  },
+
+  "memory_namespaces": {
+    "agents": "agents/{category}/{agent-type}/{project}/{timestamp}",
+    "swarm": "swarm/{coordination-type}/{task-id}",
+    "expertise": "expertise/{domain}",
+    "findings": "findings/{agent-type}/{severity}",
+    "decisions": "decisions/{project}/{decision-id}"
+  },
+
+  "agent_access_levels": {
+    "admin": {
+      "description": "Full access to all memory operations",
+      "operations": ["*"],
+      "namespaces": ["*"]
+    },
+    "developer": {
+      "description": "Standard development memory access",
+      "operations": ["set", "get", "delete", "search", "log_event"],
+      "namespaces": ["agents/*", "swarm/*", "findings/*"]
+    },
+    "reviewer": {
+      "description": "Read-heavy with analysis capabilities",
+      "operations": ["get", "search", "query_by_date"],
+      "namespaces": ["agents/*", "findings/*", "decisions/*"]
+    },
+    "coordinator": {
+      "description": "Swarm coordination memory access",
+      "operations": ["*"],
+      "namespaces": ["swarm/*", "agents/*"]
+    },
+    "analyst": {
+      "description": "Research and analysis memory access",
+      "operations": ["get", "search", "query_by_date", "find_path"],
+      "namespaces": ["*"]
+    }
+  },
+
+  "usage_examples": {
+    "store_finding": {
+      "description": "Store a code analysis finding",
+      "code": "kv_store.set_json('findings:code-analyzer:high:GOD-001', { 'WHO': 'code-analyzer', 'WHEN': datetime.now().isoformat(), 'PROJECT': 'my-project', 'WHY': 'analysis', 'content': 'Found God Object in GraphService', 'severity': 'high', 'file': 'src/services/graph_service.py', 'line': 42 })"
+    },
+    "retrieve_patterns": {
+      "description": "Retrieve proven fix patterns",
+      "code": "patterns = kv_store.list_keys('expertise:refactoring:')"
+    },
+    "build_knowledge_graph": {
+      "description": "Build entity relationships",
+      "code": "graph.add_relationship('finding:GOD-001', 'fixed_by', 'pattern:facade')"
+    },
+    "log_agent_event": {
+      "description": "Log agent activity",
+      "code": "event_log.log_event(EventType.QUERY_EXECUTED, { 'agent': 'researcher', 'query': 'find similar issues', 'results': 5 })"
+    }
+  },
+
+  "integration_with_agents": {
+    "rbac_api_access": "memory-mcp",
+    "mcp_servers_required": ["memory-mcp"],
+    "memory_namespace_pattern": "agents/{category}/{agent-type}/{project}/{timestamp}"
+  }
+}
