@@ -87,6 +87,296 @@ class ObjectiveDirection(Enum):
     MINIMIZE = "minimize"
 
 
+# FR3.1: Two-tier optimization bounds (Hofstadter Nomic pattern)
+# IMMUTABLE tier: Core safety constraints that CANNOT be violated
+# MUTABLE tier: Parameters that optimization can freely adjust
+
+@dataclass
+class TwoTierBounds:
+    """
+    Two-tier optimization bounds following Hofstadter's Nomic pattern.
+
+    TIER 1 (IMMUTABLE): Core constraints for system safety
+    - evidential_min: Minimum evidential frame weight (epistemic hygiene)
+    - require_ground_min: Minimum ground requirement (prevents hallucination)
+
+    TIER 2 (MUTABLE): Freely optimizable within 0.0-1.0
+    - All other frame weights and parameters
+    """
+
+    # IMMUTABLE bounds (cannot be crossed by optimization)
+    evidential_min: float = 0.3  # Core evidence marking must be >= 30%
+    require_ground_min: float = 0.5  # Ground requirement must be >= 50%
+
+    # MUTABLE bounds (freely optimizable)
+    mutable_min: float = 0.0
+    mutable_max: float = 1.0
+
+    # Index mapping for constraint application
+    # These indices map to positions in the config vector
+    IMMUTABLE_INDICES: Dict[str, int] = field(default_factory=lambda: {
+        "evidential": 0,  # First frame in vector
+        "require_ground": 9,  # Position of require_ground in FullConfig
+    })
+
+    def constrain_suggestion(self, suggestion: List[float]) -> List[float]:
+        """
+        Apply two-tier constraints to a suggestion vector.
+
+        IMMUTABLE constraints are enforced with hard bounds.
+        MUTABLE values are clamped to valid range.
+
+        Args:
+            suggestion: Raw suggestion vector from optimizer
+
+        Returns:
+            Constrained vector respecting two-tier architecture
+        """
+        constrained = list(suggestion)  # Don't mutate input
+
+        # Apply IMMUTABLE tier constraints
+        evidential_idx = self.IMMUTABLE_INDICES.get("evidential", 0)
+        require_ground_idx = self.IMMUTABLE_INDICES.get("require_ground", 9)
+
+        if len(constrained) > evidential_idx:
+            constrained[evidential_idx] = max(
+                self.evidential_min,
+                constrained[evidential_idx]
+            )
+
+        if len(constrained) > require_ground_idx:
+            constrained[require_ground_idx] = max(
+                self.require_ground_min,
+                constrained[require_ground_idx]
+            )
+
+        # Apply MUTABLE tier bounds (clamp to valid range)
+        for i in range(len(constrained)):
+            if i not in self.IMMUTABLE_INDICES.values():
+                constrained[i] = max(
+                    self.mutable_min,
+                    min(self.mutable_max, constrained[i])
+                )
+
+        return constrained
+
+    def validate_config(self, config_vector: List[float]) -> Tuple[bool, List[str]]:
+        """
+        Validate a config vector against two-tier bounds.
+
+        Args:
+            config_vector: Configuration to validate
+
+        Returns:
+            Tuple of (is_valid, list_of_violations)
+        """
+        violations = []
+
+        evidential_idx = self.IMMUTABLE_INDICES.get("evidential", 0)
+        require_ground_idx = self.IMMUTABLE_INDICES.get("require_ground", 9)
+
+        if len(config_vector) > evidential_idx:
+            if config_vector[evidential_idx] < self.evidential_min:
+                violations.append(
+                    f"evidential ({config_vector[evidential_idx]:.2f}) "
+                    f"< minimum ({self.evidential_min})"
+                )
+
+        if len(config_vector) > require_ground_idx:
+            if config_vector[require_ground_idx] < self.require_ground_min:
+                violations.append(
+                    f"require_ground ({config_vector[require_ground_idx]:.2f}) "
+                    f"< minimum ({self.require_ground_min})"
+                )
+
+        return len(violations) == 0, violations
+
+
+# Global default bounds instance
+DEFAULT_TIER_BOUNDS = TwoTierBounds()
+
+
+# FR3.3: Thrashing detection and recovery
+@dataclass
+class ThrashingDetector:
+    """
+    Detect and recover from optimization thrashing (FR3.3).
+
+    Thrashing occurs when the optimizer oscillates between configurations
+    without making progress. This can happen due to:
+    - Conflicting objectives
+    - Noisy fitness evaluations
+    - Local optima traps
+
+    Detection uses:
+    - Configuration similarity (Euclidean distance)
+    - Objective stagnation (no improvement over window)
+    - Oscillation patterns (A->B->A->B)
+    """
+
+    # Thresholds for thrashing detection
+    similarity_threshold: float = 0.1  # Configs closer than this are "similar"
+    stagnation_window: int = 10  # Number of evaluations to check for progress
+    improvement_threshold: float = 0.01  # Minimum improvement to count as progress
+    oscillation_count_threshold: int = 3  # Number of oscillations to trigger
+
+    # History tracking
+    config_history: List[List[float]] = field(default_factory=list)
+    outcome_history: List[Dict[str, float]] = field(default_factory=list)
+
+    def record(self, config: List[float], outcomes: Dict[str, float]) -> None:
+        """Record a configuration and its outcomes."""
+        self.config_history.append(list(config))
+        self.outcome_history.append(dict(outcomes))
+
+    def detect_thrashing(self) -> Tuple[bool, Optional[str]]:
+        """
+        Check if optimization is thrashing.
+
+        Returns:
+            Tuple of (is_thrashing, reason_if_thrashing)
+        """
+        if len(self.config_history) < self.stagnation_window:
+            return False, None
+
+        # Check for stagnation
+        if self._check_stagnation():
+            return True, "stagnation"
+
+        # Check for oscillation
+        if self._check_oscillation():
+            return True, "oscillation"
+
+        # Check for similarity clustering
+        if self._check_similarity_clustering():
+            return True, "similarity_clustering"
+
+        return False, None
+
+    def _check_stagnation(self) -> bool:
+        """Check if objectives are stagnating."""
+        if len(self.outcome_history) < self.stagnation_window:
+            return False
+
+        recent = self.outcome_history[-self.stagnation_window:]
+        if not recent:
+            return False
+
+        # Check if any objective has improved
+        first_outcomes = recent[0]
+        last_outcomes = recent[-1]
+
+        for key in first_outcomes:
+            if key in last_outcomes:
+                improvement = last_outcomes[key] - first_outcomes[key]
+                if abs(improvement) > self.improvement_threshold:
+                    return False
+
+        return True  # No objective improved
+
+    def _check_oscillation(self) -> bool:
+        """Check for A->B->A->B oscillation patterns."""
+        if len(self.config_history) < 4:
+            return False
+
+        recent = self.config_history[-6:]  # Last 6 configs
+        oscillations = 0
+
+        for i in range(len(recent) - 2):
+            dist_to_next = self._config_distance(recent[i], recent[i + 1])
+            dist_to_skip = self._config_distance(recent[i], recent[i + 2])
+
+            # If config[i] is far from config[i+1] but close to config[i+2]
+            if dist_to_next > self.similarity_threshold * 2 and dist_to_skip < self.similarity_threshold:
+                oscillations += 1
+
+        return oscillations >= self.oscillation_count_threshold
+
+    def _check_similarity_clustering(self) -> bool:
+        """Check if recent configs are too similar (stuck in local area)."""
+        if len(self.config_history) < self.stagnation_window:
+            return False
+
+        recent = self.config_history[-self.stagnation_window:]
+        centroid = [sum(c[i] for c in recent) / len(recent) for i in range(len(recent[0]))]
+
+        # Check if all configs are close to centroid
+        for config in recent:
+            if self._config_distance(config, centroid) > self.similarity_threshold * 2:
+                return False
+
+        return True  # All clustered together
+
+    def _config_distance(self, a: List[float], b: List[float]) -> float:
+        """Euclidean distance between configs."""
+        return sum((ai - bi) ** 2 for ai, bi in zip(a, b)) ** 0.5
+
+    def handle_thrashing(
+        self,
+        current_population: List[List[float]],
+        reason: str,
+    ) -> List[List[float]]:
+        """
+        Apply recovery strategy based on thrashing type.
+
+        Args:
+            current_population: Current config population
+            reason: Type of thrashing detected
+
+        Returns:
+            Diversified population
+        """
+        if reason == "stagnation":
+            return self._diversify_mutation(current_population)
+        elif reason == "oscillation":
+            return self._break_oscillation(current_population)
+        elif reason == "similarity_clustering":
+            return self._expand_search(current_population)
+        return current_population
+
+    def _diversify_mutation(self, population: List[List[float]]) -> List[List[float]]:
+        """Add random mutations to break stagnation."""
+        import random
+        diversified = []
+        for config in population:
+            mutated = [
+                max(0.0, min(1.0, v + random.uniform(-0.2, 0.2)))
+                for v in config
+            ]
+            diversified.append(mutated)
+        return diversified
+
+    def _break_oscillation(self, population: List[List[float]]) -> List[List[float]]:
+        """Average oscillating configs to break A-B-A pattern."""
+        if len(population) < 2:
+            return population
+
+        # Average pairs of configs
+        averaged = []
+        for i in range(0, len(population) - 1, 2):
+            avg = [(a + b) / 2 for a, b in zip(population[i], population[i + 1])]
+            averaged.append(avg)
+        return averaged or population
+
+    def _expand_search(self, population: List[List[float]]) -> List[List[float]]:
+        """Expand search radius when clustered."""
+        import random
+        expanded = []
+        for config in population:
+            # Push away from cluster center with larger step
+            expanded_config = [
+                max(0.0, min(1.0, v + random.uniform(-0.4, 0.4)))
+                for v in config
+            ]
+            expanded.append(expanded_config)
+        return expanded
+
+    def clear_history(self) -> None:
+        """Clear tracking history (e.g., after recovery)."""
+        self.config_history.clear()
+        self.outcome_history.clear()
+
+
 @dataclass
 class Objective:
     """An optimization objective."""
@@ -171,6 +461,24 @@ class GlobalMOOClient:
         Objective("epistemic_consistency", ObjectiveDirection.MAXIMIZE),
     ]
 
+    # FR3.2: Self-modification objective (20% weight)
+    # This objective measures how well the system can improve itself
+    SELF_MODIFICATION_OBJECTIVE = Objective(
+        name="self_modification_potential",
+        direction=ObjectiveDirection.MAXIMIZE,
+        threshold=0.5,
+        weight=0.2,  # 20% of total objective weight
+    )
+
+    # Full objectives including self-modification (Hofstadter FR3.2)
+    HOFSTADTER_OBJECTIVES = [
+        Objective("task_accuracy", ObjectiveDirection.MAXIMIZE, threshold=0.9, weight=0.25),
+        Objective("token_efficiency", ObjectiveDirection.MAXIMIZE, weight=0.20),
+        Objective("edge_robustness", ObjectiveDirection.MAXIMIZE, weight=0.15),
+        Objective("epistemic_consistency", ObjectiveDirection.MAXIMIZE, weight=0.20),
+        Objective("self_modification_potential", ObjectiveDirection.MAXIMIZE, threshold=0.5, weight=0.20),
+    ]
+
     def __init__(
         self,
         api_key: Optional[str] = None,
@@ -202,6 +510,9 @@ class GlobalMOOClient:
         # Mock storage
         self._mock_cases: List[OptimizationOutcome] = []
         self._mock_pareto: List[ParetoPoint] = []
+
+        # FR3.3: Thrashing detection
+        self.thrashing_detector = ThrashingDetector()
 
     def __enter__(self) -> "GlobalMOOClient":
         """Context manager entry - returns self."""
@@ -459,6 +770,7 @@ class GlobalMOOClient:
         project_id: str,
         target_outcomes: Dict[str, float],
         num_suggestions: int = 5,
+        apply_tier_bounds: bool = True,
     ) -> List[List[float]]:
         """
         Inverse query: Given target outcomes, suggest config vectors.
@@ -466,23 +778,36 @@ class GlobalMOOClient:
         This is the KEY method for optimization - it asks GlobalMOO
         "what configuration would achieve these outcomes?"
 
+        FR3.1: Two-tier bounds are automatically applied to protect
+        IMMUTABLE constraints (evidential >= 0.3, require_ground >= 0.5).
+
         Args:
             project_id: Project ID
             target_outcomes: Target values for each objective
             num_suggestions: Number of suggestions to return
+            apply_tier_bounds: Apply two-tier constraints (default True)
 
         Returns:
-            List of suggested config vectors
+            List of suggested config vectors (constrained if apply_tier_bounds)
         """
         if self.use_mock:
-            return self._mock_suggest_inverse(target_outcomes, num_suggestions)
+            suggestions = self._mock_suggest_inverse(target_outcomes, num_suggestions)
+        else:
+            response = self.client.post(f"/projects/{project_id}/suggest", json={
+                "target_outcomes": target_outcomes,
+                "num_suggestions": num_suggestions,
+            })
+            response.raise_for_status()
+            suggestions = response.json()["suggestions"]
 
-        response = self.client.post(f"/projects/{project_id}/suggest", json={
-            "target_outcomes": target_outcomes,
-            "num_suggestions": num_suggestions,
-        })
-        response.raise_for_status()
-        return response.json()["suggestions"]
+        # FR3.1: Apply two-tier bounds to protect IMMUTABLE constraints
+        if apply_tier_bounds:
+            suggestions = [
+                DEFAULT_TIER_BOUNDS.constrain_suggestion(s)
+                for s in suggestions
+            ]
+
+        return suggestions
 
     def report_outcome(
         self,
@@ -495,10 +820,15 @@ class GlobalMOOClient:
         This closes the optimization loop - after evaluating a suggested
         config, we report the actual outcomes to improve future suggestions.
 
+        FR3.3: Also tracks outcomes for thrashing detection.
+
         Args:
             project_id: Project ID
             outcome: Evaluation result
         """
+        # FR3.3: Record for thrashing detection
+        self.thrashing_detector.record(outcome.config_vector, outcome.outcomes)
+
         if self.use_mock:
             self._mock_cases.append(outcome)
             self._update_mock_pareto()
@@ -508,6 +838,95 @@ class GlobalMOOClient:
             "outcome": outcome.to_dict(),
         })
         response.raise_for_status()
+
+    def check_and_handle_thrashing(
+        self,
+        population: List[List[float]],
+    ) -> Tuple[List[List[float]], bool]:
+        """
+        Check for optimization thrashing and apply recovery if needed (FR3.3).
+
+        Args:
+            population: Current config population
+
+        Returns:
+            Tuple of (possibly_modified_population, was_thrashing_detected)
+        """
+        is_thrashing, reason = self.thrashing_detector.detect_thrashing()
+
+        if is_thrashing:
+            logger.warning(f"Thrashing detected: {reason}. Applying recovery.")
+            recovered_population = self.thrashing_detector.handle_thrashing(population, reason)
+
+            # Apply tier bounds to recovered population
+            recovered_population = [
+                DEFAULT_TIER_BOUNDS.constrain_suggestion(config)
+                for config in recovered_population
+            ]
+
+            # Clear history after recovery
+            self.thrashing_detector.clear_history()
+
+            return recovered_population, True
+
+        return population, False
+
+    def calculate_self_modification_potential(
+        self,
+        config_vector: List[float],
+    ) -> float:
+        """
+        Calculate self-modification potential score (FR3.2).
+
+        This measures how well a configuration enables the system to
+        improve itself. Factors include:
+        - Flexibility (distance from immutable bounds)
+        - Diversity (coverage of parameter space)
+        - Adaptability (how much the config has changed over time)
+
+        Args:
+            config_vector: Configuration to evaluate
+
+        Returns:
+            Score from 0.0 to 1.0
+        """
+        score = 0.0
+
+        # Flexibility: How much room for adjustment?
+        # Higher when parameters are mid-range (can go either way)
+        flexibility_scores = []
+        for v in config_vector:
+            # Peak at 0.5, lower at edges
+            flexibility = 1.0 - 2.0 * abs(v - 0.5)
+            flexibility_scores.append(max(0.0, flexibility))
+        avg_flexibility = sum(flexibility_scores) / len(flexibility_scores) if flexibility_scores else 0.0
+        score += avg_flexibility * 0.4  # 40% weight
+
+        # Diversity: Does this explore new parameter combinations?
+        if self.thrashing_detector.config_history:
+            recent_configs = self.thrashing_detector.config_history[-10:]
+            avg_distance = sum(
+                self.thrashing_detector._config_distance(config_vector, c)
+                for c in recent_configs
+            ) / len(recent_configs)
+            # Normalize to 0-1 (assuming max distance of sqrt(n) where n = dims)
+            max_distance = len(config_vector) ** 0.5
+            diversity = min(1.0, avg_distance / max_distance)
+            score += diversity * 0.3  # 30% weight
+        else:
+            score += 0.3  # Default if no history
+
+        # Adaptability: Does this config enable learning?
+        # Higher evidential and verix settings enable better learning
+        if len(config_vector) > 9:
+            evidential = config_vector[0]
+            require_ground = config_vector[9] if len(config_vector) > 9 else 0.5
+            adaptability = (evidential + require_ground) / 2
+            score += adaptability * 0.3  # 30% weight
+        else:
+            score += 0.15  # Default
+
+        return min(1.0, max(0.0, score))
 
     def get_pareto_frontier(
         self,

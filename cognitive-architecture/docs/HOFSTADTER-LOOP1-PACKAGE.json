@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "loop": 1,
+    "phase": "research-driven-planning",
+    "timestamp": "2025-12-28T00:00:00Z",
+    "nextLoop": "parallel-swarm-implementation",
+    "version": "1.0.0",
+    "project": "hofstadter-axiom-improvements"
+  },
+  "specification": {
+    "file": "cognitive-architecture/docs/HOFSTADTER-SPEC.md",
+    "requirements_count": 11,
+    "functional_requirements": [
+      "FR1.1: Add meta_instruction() to 7 frames",
+      "FR1.2: Add recursion depth limits",
+      "FR1.3: Add thrashing prevention heuristics",
+      "FR1.4: Document two-tier architecture",
+      "FR2.1: Add [agent:X] prefix to VERIX",
+      "FR2.2: Add recursive claim validation",
+      "FR2.3: Add meta-level markers",
+      "FR3.1: Add two-tier optimization bounds",
+      "FR3.2: Add self-modification objective",
+      "FR3.3: Add thrashing detection",
+      "FR4.1-4.3: DSPy improvements (experimental)"
+    ],
+    "non_functional_requirements": {
+      "NFR1": "Thrashing prevention >= 50% faster",
+      "NFR2": "Backwards compatibility required",
+      "NFR3": "Test coverage >= 80%",
+      "NFR4": "Documentation complete"
+    }
+  },
+  "research": {
+    "source": "METAMAGICAL_AXIOM_SYNTHESIS.yaml",
+    "models_used": ["Claude Opus 4.5", "Gemini 2.0 Flash", "OpenAI GPT-5-Codex"],
+    "axiom_count": 55,
+    "mece_categories": 6,
+    "evidence_sources": 9,
+    "overall_confidence": 85,
+    "axiom_mapping": {
+      "FOUNDATIONS": ["SYNTH-FOUND-001", "SYNTH-FOUND-002", "SYNTH-FOUND-004"],
+      "MECHANISMS": ["SYNTH-MECH-001", "SYNTH-MECH-002", "SYNTH-MECH-004"],
+      "ARCHITECTURE": ["SYNTH-ARCH-002"],
+      "DYNAMICS": ["SYNTH-DYN-001", "SYNTH-DYN-003"],
+      "SEMANTICS": ["SYNTH-SEM-003"]
+    }
+  },
+  "planning": {
+    "total_tasks": 15,
+    "priority_breakdown": {
+      "P0": 2,
+      "P1": 3,
+      "P2": 3,
+      "P3": 3,
+      "Defense": 4
+    },
+    "implementation_order": [
+      {
+        "phase": 0,
+        "name": "PRE-IMPLEMENTATION",
+        "tasks": [
+          "Create integration test suite",
+          "Implement feature flags",
+          "Add claim ID system",
+          "Document namespace prefixes"
+        ],
+        "hours": 16
+      },
+      {
+        "phase": 1,
+        "name": "P0 FEATURES",
+        "tasks": ["FR2.1: Agent markers", "FR1.1: Meta instruction", "Defense L1"],
+        "hours": 20
+      },
+      {
+        "phase": 2,
+        "name": "P1 FEATURES",
+        "tasks": ["FR1.3: Thrashing prevention", "FR3.1: Tier bounds", "FR1.2: Recursion limits", "Defense L2"],
+        "hours": 28
+      },
+      {
+        "phase": 3,
+        "name": "P2 FEATURES",
+        "tasks": ["FR2.3: Meta-VERIX", "FR3.2: Self-mod objective", "FR3.3: Thrashing detection", "Defense L3"],
+        "hours": 24
+      },
+      {
+        "phase": 4,
+        "name": "P3 FEATURES (EXPERIMENTAL)",
+        "tasks": ["FR4.1: Self-ref signatures", "FR4.2: Hofstadter optimizer", "FR4.3: Homoiconic sigs"],
+        "hours": 20
+      }
+    ],
+    "total_hours": 108
+  },
+  "risk_analysis": {
+    "premortem_iterations": 1,
+    "agents_used": 5,
+    "agreement_rate": 100,
+    "initial_failure_confidence": 37.7,
+    "mitigated_failure_confidence": 2.56,
+    "target_failure_confidence": 3.0,
+    "convergence_achieved": true,
+    "risks": {
+      "critical": [
+        {"id": "R-DSP-01", "name": "DSPy incompatibility", "before": 45, "after": 5},
+        {"id": "R-CAS-01", "name": "Cascade failures", "before": 40, "after": 2},
+        {"id": "R-REC-01", "name": "Recursion bombs", "before": 45, "after": 1}
+      ],
+      "high": [
+        {"id": "R-PER-01", "name": "Performance collapse", "before": 33, "after": 2},
+        {"id": "R-HOM-01", "name": "Homoiconic type safety", "before": 45, "after": 5},
+        {"id": "R-OPT-01", "name": "Optimization divergence", "before": 28, "after": 2}
+      ],
+      "medium": [
+        {"id": "R-BWC-01", "name": "Backwards compatibility", "before": 25, "after": 1},
+        {"id": "R-MRK-01", "name": "Marker proliferation", "before": 30, "after": 2},
+        {"id": "R-CFD-01", "name": "Confidence rule confusion", "before": 25, "after": 2}
+      ]
+    },
+    "defense_strategies": {
+      "total": 15,
+      "implementation_hours": 92,
+      "maintenance_hours_per_month": 25,
+      "average_risk_reduction": 85
+    },
+    "root_causes": {
+      "structural": [
+        "No version-aware Protocol",
+        "Optimization + fallback conflation",
+        "VERIX grounds are strings",
+        "DSPy internal dependency"
+      ],
+      "accidental": [
+        "No unified grammar with namespaces"
+      ]
+    }
+  },
+  "blockers": {
+    "must_fix_before_implementation": [
+      "Integration test suite",
+      "Claim ID system for cycle detection",
+      "Namespace prefixes for markers",
+      "DSPy compatibility layer"
+    ],
+    "must_have_during_implementation": [
+      "Feature flags per FR",
+      "Performance benchmarks",
+      "Recursion guards",
+      "Rollback protocol"
+    ]
+  },
+  "integration": {
+    "feedsTo": "parallel-swarm-implementation",
+    "receivesFrom": "cicd-intelligent-recovery",
+    "memoryNamespaces": {
+      "specification": "loop1/hofstadter/specification",
+      "research": "loop1/hofstadter/research",
+      "planning": "loop1/hofstadter/planning",
+      "execution": "loop1/hofstadter/execution",
+      "output": "integration/hofstadter-loop1-to-loop2"
+    },
+    "artifacts": [
+      "HOFSTADTER-SPEC.md",
+      "HOFSTADTER-IMPROVEMENT-SPEC.md",
+      "HOFSTADTER-PREMORTEM-CONSENSUS.md",
+      "METAMAGICAL_AXIOM_SYNTHESIS.yaml",
+      "MECE_VISUAL_SUMMARY.md"
+    ]
+  },
+  "success_criteria": {
+    "loop1_complete": true,
+    "failure_confidence_met": true,
+    "byzantine_consensus_met": true,
+    "all_critical_risks_mitigated": true,
+    "ready_for_loop2": true
+  }
+}

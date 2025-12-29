@@ -2,6 +2,7 @@
 VERIX epistemic notation parser and validator.
 
 VERIX provides a structured way to express epistemic claims with:
+- AGENT: Who makes the claim (model, user, system, doc, process)
 - ILLOCUTION: What speech act is being performed (assert, query, etc.)
 - AFFECT: Emotional valence (neutral, positive, negative, uncertain)
 - CONTENT: The actual claim being made
@@ -10,7 +11,7 @@ VERIX provides a structured way to express epistemic claims with:
 - STATE: Claim status (provisional, confirmed, retracted)
 
 Grammar:
-STATEMENT := ILLOCUTION + AFFECT + CONTENT + GROUND + CONFIDENCE + STATE
+STATEMENT := [AGENT] + ILLOCUTION + AFFECT + CONTENT + GROUND + CONFIDENCE + STATE
 
 Compression Levels:
 - L0 (AI<->AI): Emoji shorthand for machine communication
@@ -62,6 +63,57 @@ class State(Enum):
     RETRACTED = "retracted"      # Claim withdrawn/invalidated
 
 
+class Agent(Enum):
+    """
+    Agent identity markers (Hofstadter SYNTH-SEM-003).
+
+    Disambiguates WHO makes each claim.
+    """
+    MODEL = "model"      # AI model making claim
+    USER = "user"        # User's stated claim
+    SYSTEM = "system"    # System-generated (hooks, config)
+    DOC = "doc"          # From documentation
+    PROCESS = "process"  # From running code/computation
+
+
+class MetaLevel(Enum):
+    """
+    Meta-level markers (Hofstadter FR2.3).
+
+    Enables claims about claims (meta-reasoning) following
+    Hofstadter's hierarchy of self-reference levels.
+
+    Level 1 (OBJECT): Claims about the world/domain
+    Level 2 (META): Claims about other claims
+    Level 3 (META_VERIX): Claims about VERIX notation itself
+    """
+    OBJECT = "object"           # Level 1: Claims about the world (default)
+    META = "meta"               # Level 2: Claims about claims
+    META_VERIX = "meta:verix"   # Level 3: Claims about VERIX itself
+
+    @classmethod
+    def from_string(cls, s: Optional[str]) -> "MetaLevel":
+        """Parse meta-level from string marker."""
+        if s is None:
+            return cls.OBJECT
+        s_lower = s.lower().strip()
+        if s_lower == "meta:verix":
+            return cls.META_VERIX
+        elif s_lower == "meta":
+            return cls.META
+        return cls.OBJECT
+
+    def to_marker(self) -> Optional[str]:
+        """Return the VERIX marker string for this level."""
+        if self == MetaLevel.OBJECT:
+            return None  # No marker for object-level claims
+        elif self == MetaLevel.META:
+            return "[meta]"
+        elif self == MetaLevel.META_VERIX:
+            return "[meta:verix]"
+        return None
+
+
 @dataclass
 class VerixClaim:
     """
@@ -69,6 +121,16 @@ class VerixClaim:
 
     Represents a single epistemic statement that can be validated
     and tracked through the system.
+
+    Claim IDs enable cycle detection in recursive claims. When a claim's
+    ground field references another claim by ID (e.g., ground:"claim-a"),
+    we can build a reference graph and detect circular dependencies like
+    claim-a -> claim-b -> claim-a.
+
+    Meta-levels (FR2.3) enable Hofstadter-style self-reference:
+    - OBJECT (Level 1): Claims about the world/domain
+    - META (Level 2): Claims about other claims
+    - META_VERIX (Level 3): Claims about VERIX notation itself
     """
     illocution: Illocution
     affect: Affect
@@ -77,6 +139,9 @@ class VerixClaim:
     confidence: float          # 0.0 - 1.0
     state: State
     raw_text: str             # Original unparsed text
+    claim_id: Optional[str] = None  # Unique identifier for claim references
+    agent: Optional[Agent] = None   # Who makes this claim (FR2.1)
+    meta_level: MetaLevel = MetaLevel.OBJECT  # Hofstadter meta-level (FR2.3)
 
     def is_high_confidence(self, threshold: float = 0.8) -> bool:
         """Check if claim meets confidence threshold."""
@@ -90,8 +155,15 @@ class VerixClaim:
         """
         Compress claim to L0 format (emoji shorthand).
 
-        Format: {illocution_emoji}{affect_emoji}{confidence%}:{content[:20]}
+        Format: {agent_prefix}{illocution_emoji}{affect_emoji}{confidence%}:{content[:20]}
         """
+        agent_map = {
+            Agent.MODEL: "M",
+            Agent.USER: "U",
+            Agent.SYSTEM: "S",
+            Agent.DOC: "D",
+            Agent.PROCESS: "P",
+        }
         illocution_map = {
             Illocution.ASSERT: "A",
             Illocution.QUERY: "?",
@@ -105,22 +177,46 @@ class VerixClaim:
             Affect.NEGATIVE: "-",
             Affect.UNCERTAIN: "~",
         }
+        agent_prefix = agent_map.get(self.agent, "") if self.agent else ""
         conf_pct = int(self.confidence * 100)
         short_content = self.content[:20] + "..." if len(self.content) > 20 else self.content
-        return f"{illocution_map[self.illocution]}{affect_map[self.affect]}{conf_pct}:{short_content}"
+        return f"{agent_prefix}{illocution_map[self.illocution]}{affect_map[self.affect]}{conf_pct}:{short_content}"
 
     def to_l1(self) -> str:
         """
         Format claim as L1 (annotated format for human inspector).
 
-        Format: [illocution|affect] content [ground:source] [conf:N.N] [state:state]
+        Format: [meta:X] [agent:X] [id:X] [illocution|affect] content [ground:source] [conf:N.N] [state:state]
+
+        The [meta:X] prefix is only included for meta-level claims (FR2.3).
+        The [agent:X] prefix is only included if agent is set (FR2.1).
+        The [id:X] prefix is only included if claim_id is set, enabling
+        other claims to reference this claim in their ground field.
         """
-        parts = [f"[{self.illocution.value}|{self.affect.value}]", self.content]
+        parts = []
+        # FR2.3: Add meta-level marker if not object-level
+        meta_marker = self.meta_level.to_marker()
+        if meta_marker:
+            parts.append(meta_marker)
+        if self.agent:
+            parts.append(f"[agent:{self.agent.value}]")
+        if self.claim_id:
+            parts.append(f"[id:{self.claim_id}]")
+        parts.append(f"[{self.illocution.value}|{self.affect.value}]")
+        parts.append(self.content)
         if self.ground:
             parts.append(f"[ground:{self.ground}]")
         parts.append(f"[conf:{self.confidence:.2f}]")
         parts.append(f"[state:{self.state.value}]")
         return " ".join(parts)
+
+    def is_meta(self) -> bool:
+        """Check if this is a meta-level claim (FR2.3)."""
+        return self.meta_level != MetaLevel.OBJECT
+
+    def is_meta_verix(self) -> bool:
+        """Check if this claim is about VERIX itself (FR2.3)."""
+        return self.meta_level == MetaLevel.META_VERIX
 
     def to_l2(self) -> str:
         """
@@ -145,11 +241,24 @@ class VerixClaim:
         if self.confidence >= 1.0:
             conf_phrase = "I'm highly confident that"
 
+        # Add agent attribution if set
+        agent_phrase = ""
+        if self.agent:
+            agent_phrases = {
+                Agent.MODEL: "The model claims",
+                Agent.USER: "The user states",
+                Agent.SYSTEM: "The system reports",
+                Agent.DOC: "Documentation indicates",
+                Agent.PROCESS: "Process output shows",
+            }
+            agent_phrase = agent_phrases.get(self.agent, "") + " "
+            conf_phrase = conf_phrase.lower()
+
         ground_phrase = ""
         if self.ground:
             ground_phrase = f" (based on {self.ground})"
 
-        return f"{conf_phrase} {self.content}{ground_phrase}."
+        return f"{agent_phrase}{conf_phrase} {self.content}{ground_phrase}."
 
 
 class VerixParser:
@@ -160,8 +269,14 @@ class VerixParser:
     back into structured claims.
     """
 
-    # L1 format pattern: [illocution|affect] content [ground:...] [conf:N.N] [state:...]
+    # L1 format pattern: [meta:X] [agent:X] [id:X] [illocution|affect] content [ground:...] [conf:N.N] [state:...]
+    # The [meta] or [meta:verix] prefix is optional (FR2.3)
+    # The [agent:X] prefix is optional and captures who makes the claim (FR2.1)
+    # The [id:X] prefix is optional and captures claim_id for cycle detection
     L1_PATTERN = re.compile(
+        r'(?:\[(?P<meta>meta(?::verix)?)\]\s*)?'
+        r'(?:\[agent:(?P<agent>\w+)\]\s*)?'
+        r'(?:\[id:(?P<claim_id>[\w\-]+)\]\s*)?'
         r'\[(?P<illocution>\w+)\|(?P<affect>\w+)\]'
         r'\s*(?P<content>.+?)'
         r'(?:\s*\[ground:(?P<ground>[^\]]+)\])?'
@@ -171,9 +286,9 @@ class VerixParser:
         re.MULTILINE
     )
 
-    # L0 format pattern: {I}{A}{NNN}:{content}
+    # L0 format pattern: {A}{I}{A}{NNN}:{content} where first A is optional agent
     L0_PATTERN = re.compile(
-        r'^(?P<illocution>[A?!CE])(?P<affect>[.+\-~])(?P<confidence>\d+):(?P<content>.+)$',
+        r'^(?P<agent>[MUSDP])?(?P<illocution>[A?!CE])(?P<affect>[.+\-~])(?P<confidence>\d+):(?P<content>.+)$',
         re.MULTILINE
     )
 
@@ -231,6 +346,15 @@ class VerixParser:
     def _parse_l1_match(self, match: re.Match) -> Optional[VerixClaim]:
         """Parse an L1 format regex match into VerixClaim."""
         try:
+            # Extract meta-level if present (FR2.3)
+            meta_str = match.group("meta")
+            meta_level = MetaLevel.from_string(meta_str)
+
+            # Extract agent if present (FR2.1)
+            agent_str = match.group("agent")
+            agent = Agent(agent_str.lower()) if agent_str else None
+
+            claim_id = match.group("claim_id")  # May be None if not present
             illocution = Illocution(match.group("illocution").lower())
             affect = Affect(match.group("affect").lower())
             content = match.group("content").strip()
@@ -248,6 +372,9 @@ class VerixParser:
                 confidence=confidence,
                 state=state,
                 raw_text=match.group(0),
+                claim_id=claim_id,
+                agent=agent,
+                meta_level=meta_level,
             )
         except (ValueError, KeyError):
             return None
@@ -255,6 +382,13 @@ class VerixParser:
     def _parse_l0_match(self, match: re.Match) -> Optional[VerixClaim]:
         """Parse an L0 format regex match into VerixClaim."""
         try:
+            agent_map = {
+                "M": Agent.MODEL,
+                "U": Agent.USER,
+                "S": Agent.SYSTEM,
+                "D": Agent.DOC,
+                "P": Agent.PROCESS,
+            }
             illocution_map = {
                 "A": Illocution.ASSERT,
                 "?": Illocution.QUERY,
@@ -269,6 +403,10 @@ class VerixParser:
                 "~": Affect.UNCERTAIN,
             }
 
+            # Extract agent if present (FR2.1)
+            agent_char = match.group("agent")
+            agent = agent_map.get(agent_char) if agent_char else None
+
             illocution = illocution_map[match.group("illocution")]
             affect = affect_map[match.group("affect")]
             confidence = int(match.group("confidence")) / 100.0
@@ -282,6 +420,7 @@ class VerixParser:
                 confidence=confidence,
                 state=State.PROVISIONAL,  # L0 doesn't include state
                 raw_text=match.group(0),
+                agent=agent,
             )
         except (ValueError, KeyError):
             return None
@@ -386,6 +525,71 @@ class VerixValidator:
 
         return violations
 
+    def detect_ground_cycles(self, claims: List[VerixClaim]) -> List[str]:
+        """
+        Detect circular dependencies in claim ground references.
+
+        Builds a directed graph where edges represent ground references between
+        claims (via claim_id). Uses DFS to find cycles, which indicate circular
+        reasoning (e.g., claim-a grounds claim-b which grounds claim-a).
+
+        Args:
+            claims: List of VerixClaim objects to analyze
+
+        Returns:
+            List of cycle descriptions (e.g., "claim-a -> claim-b -> claim-a")
+        """
+        # Build claim_id -> claim mapping
+        id_to_claim = {}
+        for claim in claims:
+            if claim.claim_id:
+                id_to_claim[claim.claim_id] = claim
+
+        # Build adjacency list: claim_id -> list of referenced claim_ids
+        graph = {}
+        for claim in claims:
+            if claim.claim_id:
+                graph[claim.claim_id] = []
+                if claim.ground:
+                    # Check if ground references another claim by ID
+                    # Ground format could be just the ID or contain it
+                    ground_lower = claim.ground.lower().strip()
+                    for other_id in id_to_claim.keys():
+                        if other_id.lower() in ground_lower:
+                            graph[claim.claim_id].append(other_id)
+
+        # DFS cycle detection
+        cycles = []
+        visited = set()
+        rec_stack = set()
+        path = []
+
+        def dfs(node: str) -> None:
+            visited.add(node)
+            rec_stack.add(node)
+            path.append(node)
+
+            for neighbor in graph.get(node, []):
+                if neighbor not in visited:
+                    dfs(neighbor)
+                elif neighbor in rec_stack:
+                    # Found cycle - extract it from path
+                    cycle_start = path.index(neighbor)
+                    cycle_nodes = path[cycle_start:] + [neighbor]
+                    cycle_str = " -> ".join(cycle_nodes)
+                    if cycle_str not in cycles:
+                        cycles.append(cycle_str)
+
+            path.pop()
+            rec_stack.remove(node)
+
+        # Run DFS from each unvisited node
+        for node in graph.keys():
+            if node not in visited:
+                dfs(node)
+
+        return cycles
+
     def compliance_score(self, claims: List[VerixClaim]) -> float:
         """
         Calculate overall compliance score (0.0 - 1.0).
@@ -424,6 +628,11 @@ class VerixValidator:
             max_points += 0.5
             if claim.content.strip():
                 total_points += 0.5
+
+            # Bonus points for having agent marker (FR2.1)
+            max_points += 0.25
+            if claim.agent:
+                total_points += 0.25
 
         # Inter-claim consistency bonus
         _, violations = self.validate(claims)
@@ -464,6 +673,8 @@ def create_claim(
     ground: Optional[str] = None,
     confidence: float = 0.5,
     state: State = State.PROVISIONAL,
+    agent: Optional[Agent] = None,
+    meta_level: MetaLevel = MetaLevel.OBJECT,
 ) -> VerixClaim:
     """
     Create a new VERIX claim with sensible defaults.
@@ -477,6 +688,8 @@ def create_claim(
         ground: Evidence/source (default: None)
         confidence: Confidence level 0-1 (default: 0.5)
         state: Claim state (default: PROVISIONAL)
+        agent: Who makes this claim (default: None) (FR2.1)
+        meta_level: Hofstadter meta-level (default: OBJECT) (FR2.3)
 
     Returns:
         New VerixClaim instance
@@ -489,4 +702,77 @@ def create_claim(
         confidence=confidence,
         state=state,
         raw_text="",
+        agent=agent,
+        meta_level=meta_level,
+    )
+
+
+def create_meta_claim(
+    content: str,
+    about_claim: Optional[VerixClaim] = None,
+    ground: Optional[str] = None,
+    confidence: float = 0.5,
+) -> VerixClaim:
+    """
+    Create a meta-level claim about another claim (FR2.3).
+
+    Convenience function for creating claims about claims.
+
+    Args:
+        content: The meta-claim content
+        about_claim: The claim this is about (for auto-grounding)
+        ground: Explicit ground (overrides about_claim)
+        confidence: Confidence level
+
+    Returns:
+        New VerixClaim at META level
+    """
+    actual_ground = ground
+    if about_claim and not ground:
+        if about_claim.claim_id:
+            actual_ground = f"claim:{about_claim.claim_id}"
+        else:
+            actual_ground = f"claim:{about_claim.content[:30]}..."
+
+    return VerixClaim(
+        illocution=Illocution.ASSERT,
+        affect=Affect.NEUTRAL,
+        content=content,
+        ground=actual_ground,
+        confidence=confidence,
+        state=State.PROVISIONAL,
+        raw_text="",
+        agent=Agent.MODEL,
+        meta_level=MetaLevel.META,
+    )
+
+
+def create_meta_verix_claim(
+    content: str,
+    ground: Optional[str] = None,
+    confidence: float = 0.5,
+) -> VerixClaim:
+    """
+    Create a claim about VERIX notation itself (FR2.3).
+
+    This is the highest meta-level - claims about the notation system.
+
+    Args:
+        content: The meta-VERIX claim content
+        ground: Evidence/source for the claim
+        confidence: Confidence level
+
+    Returns:
+        New VerixClaim at META_VERIX level
+    """
+    return VerixClaim(
+        illocution=Illocution.ASSERT,
+        affect=Affect.NEUTRAL,
+        content=content,
+        ground=ground or "verix-spec",
+        confidence=confidence,
+        state=State.PROVISIONAL,
+        raw_text="",
+        agent=Agent.SYSTEM,
+        meta_level=MetaLevel.META_VERIX,
     )

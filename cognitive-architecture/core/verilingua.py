@@ -103,6 +103,27 @@ DO NOT make claims without evidence markers. Every factual statement needs a sou
         coverage = min(1.0, marker_count / claim_sentences)
         return coverage
 
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        Enables frames to discuss themselves without logical issues.
+        """
+        return """
+## META-EVIDENTIAL MODE (Self-Reference)
+
+When discussing the evidential frame itself:
+- [mentioning:evidential] The evidential frame forces evidence marking
+- [using:evidential] [witnessed] The function returns null
+
+The distinction:
+- [using:evidential] = applying this frame to content
+- [mentioning:evidential] = discussing this frame as an object
+
+This frame derives from Turkish -mis/-di evidential markers.
+"""
+
 
 @dataclass
 class AspectualFrame:
@@ -153,6 +174,26 @@ DO NOT describe actions without aspect markers. Every verb needs completion stat
 
         coverage = min(1.0, marker_count / expected_markers)
         return coverage
+
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-ASPECTUAL MODE (Self-Reference)
+
+When discussing the aspectual frame itself:
+- [mentioning:aspectual] The aspectual frame marks completion status
+- [using:aspectual] [ongoing] The analysis is in progress
+
+The distinction:
+- [using:aspectual] = applying this frame to content
+- [mentioning:aspectual] = discussing this frame as an object
+
+This frame derives from Russian perfective/imperfective verb aspects.
+"""
 
 
 @dataclass
@@ -205,6 +246,26 @@ When introducing technical terms, show their compositional structure.
         coverage = min(1.0, marker_count / expected_markers)
         return coverage
 
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-MORPHOLOGICAL MODE (Self-Reference)
+
+When discussing the morphological frame itself:
+- [mentioning:morphological] The morphological frame decomposes concepts
+- [using:morphological] [root:compute] -> [derived:compute->computation]
+
+The distinction:
+- [using:morphological] = applying this frame to content
+- [mentioning:morphological] = discussing this frame as an object
+
+This frame derives from Arabic trilateral root system.
+"""
+
 
 @dataclass
 class CompositionalFrame:
@@ -255,6 +316,26 @@ Start with primitives, then show how they compose into the complex concept.
 
         coverage = min(1.0, marker_count / expected_markers)
         return coverage
+
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-COMPOSITIONAL MODE (Self-Reference)
+
+When discussing the compositional frame itself:
+- [mentioning:compositional] The compositional frame builds from primitives
+- [using:compositional] [primitive:frame] + [primitive:meta] = [compound:meta-frame]
+
+The distinction:
+- [using:compositional] = applying this frame to content
+- [mentioning:compositional] = discussing this frame as an object
+
+This frame derives from German compound word formation.
+"""
 
 
 @dataclass
@@ -310,6 +391,26 @@ Always consider: Who will read this? What do they need to know?
         additional = min(0.5, marker_count * 0.1)
         return base_score + additional
 
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-HONORIFIC MODE (Self-Reference)
+
+When discussing the honorific frame itself:
+- [mentioning:honorific] The honorific frame calibrates formality
+- [using:honorific] [audience:linguist] [formality:medium] [register:technical]
+
+The distinction:
+- [using:honorific] = applying this frame to content
+- [mentioning:honorific] = discussing this frame as an object
+
+This frame derives from Japanese keigo honorific system.
+"""
+
 
 @dataclass
 class ClassifierFrame:
@@ -361,6 +462,26 @@ Never say "some things" or "a few items" - always classify and count precisely.
 
         coverage = min(1.0, marker_count / expected_markers)
         return coverage
+
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-CLASSIFIER MODE (Self-Reference)
+
+When discussing the classifier frame itself:
+- [mentioning:classifier] The classifier frame categorizes objects
+- [using:classifier] [type:frame] There are 7 frames [measure:count]
+
+The distinction:
+- [using:classifier] = applying this frame to content
+- [mentioning:classifier] = discussing this frame as an object
+
+This frame derives from Chinese measure word system.
+"""
 
 
 @dataclass
@@ -414,6 +535,26 @@ Always provide full paths, exact line numbers, or clear directional flow.
         coverage = min(1.0, marker_count / expected_markers)
         return coverage
 
+    def meta_instruction(self) -> str:
+        """
+        Return instruction for discussing THIS frame (mention mode).
+
+        Hofstadter FR1.1 (SYNTH-FOUND-002): Self-reference is not paradox.
+        """
+        return """
+## META-SPATIAL MODE (Self-Reference)
+
+When discussing the spatial frame itself:
+- [mentioning:spatial] The spatial frame uses absolute positioning
+- [using:spatial] [path:/core/verilingua.py] [location:verilingua.py:500]
+
+The distinction:
+- [using:spatial] = applying this frame to content
+- [mentioning:spatial] = discussing this frame as an object
+
+This frame derives from Guugu Yimithirr absolute directional system.
+"""
+
 
 class FrameRegistry:
     """
@@ -426,6 +567,44 @@ class FrameRegistry:
     _frames: Dict[str, CognitiveFrame] = None
     _lock: threading.Lock = threading.Lock()
     _initialized: bool = False
+
+    # FR1.3: Keyword triggers for fast frame detection (first 500 chars)
+    # Each frame maps to keywords that strongly suggest its activation
+    KEYWORD_TRIGGERS: Dict[str, List[str]] = {
+        "evidential": [
+            "evidence", "witnessed", "reported", "inferred", "assumed",
+            "source", "citation", "verified", "confirmed", "prove",
+            "how do you know", "what's your evidence", "based on",
+        ],
+        "aspectual": [
+            "complete", "ongoing", "progress", "finished", "started",
+            "still running", "done", "in progress", "completed", "pending",
+            "status", "state", "phase", "stage",
+        ],
+        "morphological": [
+            "root", "derived", "component", "decompose", "break down",
+            "etymology", "structure", "composed of", "made up of",
+        ],
+        "compositional": [
+            "primitive", "compound", "builds", "define", "definition",
+            "what is", "means", "refers to", "consists of", "made from",
+        ],
+        "honorific": [
+            "audience", "formality", "formal", "casual", "technical",
+            "stakeholder", "manager", "developer", "user", "client",
+            "tone", "register", "who is reading",
+        ],
+        "classifier": [
+            "type", "category", "measure", "count", "how many",
+            "number of", "classification", "kind of", "sort of",
+            "units", "metrics",
+        ],
+        "spatial": [
+            "path", "location", "directory", "file", "line",
+            "upstream", "downstream", "where", "position", "navigate",
+            "architecture", "flow", "route",
+        ],
+    }
 
     @classmethod
     def _ensure_initialized(cls) -> None:
@@ -520,6 +699,86 @@ class FrameRegistry:
         """Get list of all registered frame names."""
         cls._ensure_initialized()
         return list(cls._frames.keys())
+
+    @classmethod
+    def get_active_fast(
+        cls,
+        prompt: str,
+        config: FrameworkConfig,
+        max_chars: int = 500,
+    ) -> List[CognitiveFrame]:
+        """
+        Fast frame selection using keyword triggers (FR1.3: Thrashing prevention).
+
+        Instead of O(n) evaluation of all frames against the full prompt,
+        this method uses keyword triggers on the first `max_chars` characters
+        for O(1) amortized lookup.
+
+        Fallback behavior:
+        - If no triggers match, returns [evidential] (safest default)
+        - Always respects config-disabled frames
+
+        Args:
+            prompt: The input prompt to analyze
+            config: FrameworkConfig specifying which frames are enabled
+            max_chars: Characters to scan for triggers (default 500)
+
+        Returns:
+            List of activated CognitiveFrame instances
+        """
+        cls._ensure_initialized()
+
+        # Scan only first N chars for efficiency
+        scan_text = prompt[:max_chars].lower()
+
+        # Find matching frames by keyword triggers
+        matched_frames: List[str] = []
+
+        for frame_name, triggers in cls.KEYWORD_TRIGGERS.items():
+            for trigger in triggers:
+                if trigger in scan_text:
+                    matched_frames.append(frame_name)
+                    break  # One match is enough per frame
+
+        # Fallback to evidential if no matches (Hofstadter base case)
+        if not matched_frames:
+            matched_frames = ["evidential"]
+
+        # Filter by config-enabled frames
+        active = []
+        for frame_name in matched_frames:
+            # Check if frame is enabled in config
+            if hasattr(config, frame_name) and getattr(config, frame_name):
+                if frame_name in cls._frames:
+                    active.append(cls._frames[frame_name])
+
+        # If config disabled all matched frames, still use evidential if enabled
+        if not active and config.evidential:
+            active.append(cls._frames["evidential"])
+
+        return active
+
+    @classmethod
+    def score_triggers(cls, prompt: str, max_chars: int = 500) -> Dict[str, int]:
+        """
+        Score all frames by trigger match count (diagnostic utility).
+
+        Args:
+            prompt: Text to analyze
+            max_chars: Characters to scan
+
+        Returns:
+            Dict mapping frame_name -> trigger_match_count
+        """
+        cls._ensure_initialized()
+        scan_text = prompt[:max_chars].lower()
+
+        scores = {}
+        for frame_name, triggers in cls.KEYWORD_TRIGGERS.items():
+            count = sum(1 for t in triggers if t in scan_text)
+            scores[frame_name] = count
+
+        return scores
 
 
 def score_all_frames(response: str, config: FrameworkConfig) -> Dict[str, float]:

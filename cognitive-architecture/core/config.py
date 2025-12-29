@@ -51,6 +51,10 @@ class FrameworkConfig:
     classifier: bool = False
     spatial: bool = False
 
+    # Hofstadter recursion control (FR1.2, SYNTH-MECH-001)
+    max_frame_depth: int = 3  # Base case: stop at depth 3
+    frame_step_policy: str = "simpler"  # Each nested level must be "lighter"
+
     def active_frames(self) -> List[str]:
         """Return list of active frame names."""
         frames = []
@@ -74,6 +78,32 @@ class FrameworkConfig:
         """Return number of active frames."""
         return len(self.active_frames())
 
+    def validate_nesting(self, frame_stack: List[str]) -> bool:
+        """
+        Ensure frame nesting follows Hofstadter recursion rules.
+
+        Returns True if nesting is valid (within depth limit and follows
+        simplification policy).
+        """
+        if len(frame_stack) > self.max_frame_depth:
+            return False  # Hit base case limit
+
+        if self.frame_step_policy == "simpler":
+            # Each nested frame should be "lighter" (lower complexity)
+            COMPLEXITY_ORDER = [
+                "compositional", "morphological", "aspectual",
+                "honorific", "classifier", "spatial", "evidential"
+            ]
+            for i in range(1, len(frame_stack)):
+                if frame_stack[i] not in COMPLEXITY_ORDER or frame_stack[i-1] not in COMPLEXITY_ORDER:
+                    continue
+                prev_complexity = COMPLEXITY_ORDER.index(frame_stack[i-1])
+                curr_complexity = COMPLEXITY_ORDER.index(frame_stack[i])
+                if curr_complexity <= prev_complexity:
+                    return False  # Not simplifying
+
+        return True
+
 
 @dataclass
 class PromptConfig:
@@ -87,6 +117,10 @@ class PromptConfig:
     compression_level: CompressionLevel = CompressionLevel.L1_AI_HUMAN
     require_ground: bool = True      # Require source/evidence citations
     require_confidence: bool = True  # Require confidence values
+
+    # Hofstadter recursive claim limits (FR2.2)
+    max_claim_depth: int = 3  # Maximum nested ground depth
+    require_confidence_decrease: bool = True  # Confidence must decrease toward base
 
     def is_strict(self) -> bool:
         """Check if running in strict mode."""
