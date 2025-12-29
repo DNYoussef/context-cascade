@@ -22,6 +22,7 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Protocol, runtime_checkable
 from dataclasses import dataclass
 import re
+import threading
 
 from .config import FrameworkConfig
 
@@ -92,7 +93,7 @@ DO NOT make claims without evidence markers. Every factual statement needs a sou
 
     def score_response(self, response: str) -> float:
         """Score based on marker usage density."""
-        marker_count = sum(1 for m in self.MARKERS if m in response.lower())
+        marker_count = sum(1 for m in self.MARKERS if m.lower() in response.lower())
 
         # Estimate number of claims (sentences that could be factual)
         sentences = len(re.findall(r'[.!?]+', response))
@@ -143,7 +144,7 @@ DO NOT describe actions without aspect markers. Every verb needs completion stat
 
     def score_response(self, response: str) -> float:
         """Score based on marker usage for action descriptions."""
-        marker_count = sum(1 for m in self.MARKERS if m in response.lower())
+        marker_count = sum(1 for m in self.MARKERS if m.lower() in response.lower())
 
         # Estimate action descriptions (verb phrases)
         action_patterns = r'\b(is|are|was|were|has|have|had|will|would|should|could|can|may|might)\b'
@@ -422,25 +423,32 @@ class FrameRegistry:
     for getting active frames based on configuration.
     """
 
-    _frames: Dict[str, CognitiveFrame] = {}
+    _frames: Dict[str, CognitiveFrame] = None
+    _lock: threading.Lock = threading.Lock()
     _initialized: bool = False
 
     @classmethod
     def _ensure_initialized(cls) -> None:
-        """Initialize registry with all frames if not already done."""
+        """Initialize registry with all frames if not already done (thread-safe)."""
+        # Double-checked locking pattern for thread safety
         if cls._initialized:
             return
 
-        cls._frames = {
-            "evidential": EvidentialFrame(),
-            "aspectual": AspectualFrame(),
-            "morphological": MorphologicalFrame(),
-            "compositional": CompositionalFrame(),
-            "honorific": HonorificFrame(),
-            "classifier": ClassifierFrame(),
-            "spatial": SpatialFrame(),
-        }
-        cls._initialized = True
+        with cls._lock:
+            # Check again inside lock to prevent race conditions
+            if cls._initialized:
+                return
+
+            cls._frames = {
+                "evidential": EvidentialFrame(),
+                "aspectual": AspectualFrame(),
+                "morphological": MorphologicalFrame(),
+                "compositional": CompositionalFrame(),
+                "honorific": HonorificFrame(),
+                "classifier": ClassifierFrame(),
+                "spatial": SpatialFrame(),
+            }
+            cls._initialized = True
 
     @classmethod
     def register(cls, frame: CognitiveFrame) -> None:

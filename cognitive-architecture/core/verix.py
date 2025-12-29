@@ -141,9 +141,9 @@ class VerixClaim:
             if low <= self.confidence < high:
                 conf_phrase = phrase
                 break
-            if self.confidence >= 0.9:
-                conf_phrase = "I'm highly confident that"
-                break
+        # FIX: Handle edge case of confidence == 1.0 (not covered by < high check)
+        if self.confidence >= 1.0:
+            conf_phrase = "I'm highly confident that"
 
         ground_phrase = ""
         if self.ground:

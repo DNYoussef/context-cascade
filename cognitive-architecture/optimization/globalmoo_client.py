@@ -165,6 +165,24 @@ class GlobalMOOClient:
         self._mock_cases: List[OptimizationOutcome] = []
         self._mock_pareto: List[ParetoPoint] = []
 
+    def __enter__(self) -> "GlobalMOOClient":
+        """Context manager entry - returns self."""
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        """Context manager exit - closes client."""
+        self.close()
+
+    def close(self) -> None:
+        """
+        Close HTTP client and release resources.
+
+        FIX: Added to prevent httpx.Client resource leak.
+        """
+        if self._client is not None:
+            self._client.close()
+            self._client = None
+
     @property
     def client(self) -> Any:
         """Lazy-init HTTP client."""
