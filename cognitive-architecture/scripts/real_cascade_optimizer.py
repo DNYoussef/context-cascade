@@ -32,6 +32,36 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.config import FullConfig, VectorCodec, PromptConfig, VerixStrictness
+
+
+# =============================================================================
+# MODE-AWARE OPTIMIZATION SYSTEM
+# =============================================================================
+#
+# Named modes from MOO optimization can be applied to cascade levels.
+# Each mode has different frame activations and VERIX settings.
+#
+# Mode -> Domain mapping:
+#   - audit: quality, security, testing (high epistemic consistency)
+#   - speed: operations, tooling (high token efficiency)
+#   - research: research, specialists (high task accuracy)
+#   - robust: delivery, orchestration (high edge robustness)
+#   - balanced: foundry, platforms (balanced objectives)
+
+MODE_DOMAIN_MAPPING = {
+    "delivery": "robust",
+    "quality": "audit",
+    "research": "research",
+    "orchestration": "robust",
+    "security": "audit",
+    "platforms": "balanced",
+    "specialists": "research",
+    "tooling": "speed",
+    "foundry": "balanced",
+    "operations": "speed",
+    "testing": "audit",
+    "documentation": "balanced",
+}
 from core.verix import VerixParser, VerixValidator, VerixClaim, Illocution, Affect, State
 from optimization.globalmoo_client import (
     GlobalMOOClient,
@@ -149,6 +179,37 @@ class RealCascadeOptimizer:
         self.storage_dir = Path(__file__).parent.parent / "storage" / "real_cascade"
         self.storage_dir.mkdir(parents=True, exist_ok=True)
 
+        # Named modes (loaded from MOO optimization)
+        self.named_modes: Dict[str, Dict[str, Any]] = {}
+        self._load_named_modes()
+
+    def _load_named_modes(self) -> None:
+        """Load named modes from MOO optimization output."""
+        modes_path = Path(__file__).parent.parent / "storage" / "two_stage_optimization" / "named_modes.json"
+        if modes_path.exists():
+            try:
+                with open(modes_path) as f:
+                    self.named_modes = json.load(f)
+                print(f"[CASCADE] Loaded {len(self.named_modes)} named modes")
+            except Exception as e:
+                print(f"[CASCADE] Failed to load modes: {e}")
+                self.named_modes = {}
+        else:
+            print(f"[CASCADE] No named modes found at {modes_path}")
+
+    def get_mode_for_domain(self, domain: str) -> Optional[Dict[str, Any]]:
+        """Get the optimal mode for a given domain."""
+        mode_name = MODE_DOMAIN_MAPPING.get(domain.lower(), "balanced")
+        return self.named_modes.get(mode_name)
+
+    def get_mode_frames(self, mode: Dict[str, Any]) -> List[str]:
+        """Extract active frames from a mode configuration."""
+        return mode.get("active_frames", [])
+
+    def get_mode_strictness(self, mode: Dict[str, Any]) -> str:
+        """Extract VERIX strictness from a mode configuration."""
+        return mode.get("verix_strictness", "MODERATE")
+
     def analyze_file(self, file_path: Path) -> FileMetrics:
         """
         Analyze a single file for VERIX compliance.
@@ -194,14 +255,26 @@ class RealCascadeOptimizer:
         """
         Generate optimized version of a file.
 
+        Uses mode-aware frame selection from MOO optimization when available.
+
         Returns:
             Tuple of (optimized_content, list_of_changes)
         """
         content = file_path.read_text(encoding='utf-8')
         changes = []
 
-        # 1. Add frame activation if missing
-        frame_type = self._get_frame_for_domain(domain)
+        # 1. Get optimal mode for domain (from MOO optimization)
+        mode = self.get_mode_for_domain(domain)
+        if mode:
+            mode_frames = self.get_mode_frames(mode)
+            mode_strictness = self.get_mode_strictness(mode)
+            changes.append(f"Using mode-aware optimization (frames: {mode_frames})")
+        else:
+            mode_frames = []
+            mode_strictness = "MODERATE"
+
+        # 2. Add frame activation if missing (mode-aware or fallback to domain)
+        frame_type = self._get_frame_for_domain_or_mode(domain, mode_frames)
         if frame_type and FRAME_ACTIVATIONS[frame_type]["phrase"] not in content:
             frame_data = FRAME_ACTIVATIONS[frame_type]
             activation_block = f"""
@@ -279,6 +352,26 @@ class RealCascadeOptimizer:
             if domain_lower in frame_data["domain"]:
                 return frame_name
         return "evidential"  # Default
+
+    def _get_frame_for_domain_or_mode(self, domain: str, mode_frames: List[str]) -> Optional[str]:
+        """
+        Get the appropriate frame, preferring mode-specified frames.
+
+        Args:
+            domain: The file's domain (e.g., "quality", "research")
+            mode_frames: Frames specified by the MOO-optimized mode
+
+        Returns:
+            The best frame to use for this domain
+        """
+        # If we have mode frames, use the first one that has an activation
+        for frame in mode_frames:
+            frame_lower = frame.lower()
+            if frame_lower in FRAME_ACTIVATIONS:
+                return frame_lower
+
+        # Fall back to domain-based frame selection
+        return self._get_frame_for_domain(domain)
 
     def run_level(
         self,
@@ -569,6 +662,68 @@ class RealCascadeOptimizer:
 
         print(f"\nResults saved to: {results_file}")
         print(f"Deltas saved to: {deltas_file}")
+
+
+def apply_modes_from_optimization(
+    modes_path: str,
+    levels: Optional[List[str]] = None,
+    dry_run: bool = False,
+) -> Dict[str, Any]:
+    """
+    Apply named modes from MOO optimization to cascade levels.
+
+    This is the production function called by the scheduled optimizer.
+
+    Args:
+        modes_path: Path to named_modes.json from two-stage optimization
+        levels: Which levels to update (default: all four)
+        dry_run: If True, analyze but don't write
+
+    Returns:
+        Results dict with metrics per level
+    """
+    levels = levels or ["commands", "agents", "skills", "playbooks"]
+
+    print("=" * 60)
+    print("APPLYING MOO-OPTIMIZED MODES TO CASCADE")
+    print("=" * 60)
+    print(f"Modes path: {modes_path}")
+    print(f"Levels: {levels}")
+    print(f"Dry run: {dry_run}")
+
+    # Load modes
+    try:
+        with open(modes_path) as f:
+            modes = json.load(f)
+        print(f"\nLoaded {len(modes)} named modes:")
+        for name, mode in modes.items():
+            outcomes = mode.get("outcomes", {})
+            print(f"  {name}: acc={outcomes.get('task_accuracy', 0):.3f}, "
+                  f"eff={outcomes.get('token_efficiency', 0):.3f}")
+    except Exception as e:
+        print(f"[ERROR] Failed to load modes: {e}")
+        return {"error": str(e)}
+
+    # Create optimizer with modes pre-loaded
+    optimizer = RealCascadeOptimizer(
+        use_mock_moo=True,
+        dry_run=dry_run,
+    )
+    optimizer.named_modes = modes
+
+    # Run cascade with mode-aware optimization
+    results = optimizer.run_full_cascade(levels=levels)
+
+    # Summary
+    print("\n" + "=" * 60)
+    print("MODE APPLICATION SUMMARY")
+    print("=" * 60)
+
+    for level_name, level_data in results.get("levels", {}).items():
+        metrics = level_data.get("final_metrics", {})
+        print(f"  {level_name.upper()}: {metrics.get('total_files', 0)} files updated")
+
+    return results
 
 
 def main():

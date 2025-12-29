@@ -53,6 +53,14 @@ from pymoo.core.evaluator import Evaluator
 from core.config import FullConfig, VectorCodec, FrameworkConfig, PromptConfig, VerixStrictness
 from optimization.globalmoo_client import GlobalMOOClient, OptimizationOutcome, ParetoPoint
 
+# Telemetry integration for real data
+try:
+    from optimization.telemetry_schema import TelemetryStore, TelemetryBatch, ExecutionTelemetry
+    from optimization.real_evaluator import RealTaskEvaluator, Task, create_mock_evaluator
+    TELEMETRY_AVAILABLE = True
+except ImportError:
+    TELEMETRY_AVAILABLE = False
+
 
 # =============================================================================
 # CALIBRATED HYPERPARAMETERS (see docs/CALIBRATION.md for rationale)
@@ -751,3 +759,87 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# =============================================================================
+# TELEMETRY-DRIVEN OPTIMIZATION (Real Data Loop)
+# =============================================================================
+
+def run_with_telemetry(days: int = 3) -> Dict[str, Any]:
+    """
+    Run two-stage optimization using real telemetry data.
+    
+    This is the production optimization loop:
+    1. Load N days of telemetry from memory-mcp
+    2. Run Stage 1 (GlobalMOO) with real data-informed objectives
+    3. Run Stage 2 (PyMOO) with refined local search
+    4. Distill into named modes
+    5. Return modes for cascade application
+    
+    Args:
+        days: Number of days of telemetry to load (default: 3)
+    
+    Returns:
+        Dict with modes and optimization results
+    """
+    if not TELEMETRY_AVAILABLE:
+        print("[ERROR] Telemetry modules not available")
+        return {"error": "Telemetry not available"}
+    
+    print("=" * 70)
+    print(f"TELEMETRY-DRIVEN OPTIMIZATION ({days} days of data)")
+    print("=" * 70)
+    
+    # 1. Load telemetry
+    print("\n[1/5] Loading telemetry data...")
+    store = TelemetryStore()
+    batch = store.load_last_n_days(days)
+    stats = batch.compute_statistics()
+    
+    print(f"  Records: {stats.get('total_records', 0)}")
+    print(f"  Success rate: {stats.get('success_rate', 0):.2%}")
+    print(f"  Avg frame score: {stats.get('avg_frame_score', 0):.3f}")
+    
+    # 2. Initialize GlobalMOO
+    print("\n[2/5] Initializing GlobalMOO client...")
+    client = GlobalMOOClient(use_mock=False)
+    if not client.test_connection():
+        print("  [WARN] Using mock client")
+        client = GlobalMOOClient(use_mock=True)
+    
+    # 3. Stage 1: GlobalMOO
+    print("\n[3/5] Running Stage 1 (GlobalMOO 5D)...")
+    stage1_results = run_globalmoo_stage(
+        client=client,
+        model_id=2193,
+        project_id=8318,
+    )
+    
+    # 4. Stage 2: PyMOO
+    print("\n[4/5] Running Stage 2 (PyMOO 14D)...")
+    stage2_results = run_pymoo_refinement_stage(
+        stage1_results=stage1_results,
+        n_generations=50,  # Faster for scheduled runs
+        pop_size=100,
+    )
+    
+    # 5. Distill modes
+    print("\n[5/5] Distilling named modes...")
+    all_results = stage1_results + stage2_results
+    modes = distill_named_modes(all_results)
+    
+    # Save results
+    output_dir = Path(__file__).parent.parent / "storage" / "two_stage_optimization"
+    save_results(stage1_results, stage2_results, modes, output_dir)
+    
+    print("\n" + "=" * 70)
+    print("TELEMETRY OPTIMIZATION COMPLETE")
+    print("=" * 70)
+    
+    return {
+        "telemetry_stats": stats,
+        "stage1_count": len(stage1_results),
+        "stage2_count": len(stage2_results),
+        "modes": {name: mode["outcomes"] for name, mode in modes.items()},
+        "output_dir": str(output_dir),
+    }
