@@ -114,6 +114,83 @@ x-author: ruv
 
 <!-- END ANTHROPIC FORMAT TEMPLATE -->
 
+<!-- HOOK SKILL CREATION GUIDE v1.0 -->
+## Creating Hook-Related Skills
+
+When creating skills that automate Claude Code hooks, follow these additional guidelines:
+
+### Hook Skill Naming Convention
+
+Use the trigger-first pattern with hook context:
+- `when-validating-commands-use-pre-hook-validator`
+- `when-auditing-operations-use-post-hook-logger`
+- `when-managing-sessions-use-session-hooks`
+
+### Required Integration Points
+
+Hook-related skills MUST reference:
+```yaml
+x-integration:
+  hook_reference: hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md
+  identity_system: hooks/12fa/utils/identity.js
+  templates: skills/specialists/when-creating-claude-hooks-use-hook-creator/resources/templates/
+```
+
+### Hook Event Types Reference
+
+Skills may target any of the 10 Claude Code hook events:
+
+| Category | Event | Purpose |
+|----------|-------|---------|
+| Blocking | UserPromptSubmit | Validate/modify prompts |
+| Blocking | SessionStart | Initialize sessions |
+| Blocking | PreToolUse | Validate tool calls |
+| Blocking | PermissionRequest | Auto-approve/deny |
+| Observational | PostToolUse | Log results |
+| Observational | Notification | Forward notifications |
+| Observational | Stop | Agent cleanup |
+| Observational | SubagentStop | Subagent tracking |
+| Observational | PreCompact | Preserve context |
+| Observational | SessionEnd | Session cleanup |
+
+### Hook Skill File Structure
+
+```
+skills/specialists/my-hook-skill/
+  SKILL.md              # Main skill definition
+  metadata.json         # Sidecar with custom fields
+  resources/
+    scripts/
+      hook-logic.js     # Main hook implementation
+    templates/
+      config.yaml       # Hook configuration template
+  tests/
+    test-scenarios.md   # Test cases
+  examples/
+    example-usage.md    # Usage examples
+```
+
+### Performance Requirements
+
+Document performance targets in metadata.json:
+```json
+{
+  "x-performance": {
+    "pre_hook_target_ms": 20,
+    "pre_hook_max_ms": 100,
+    "post_hook_target_ms": 100,
+    "post_hook_max_ms": 1000
+  }
+}
+```
+
+### Related Resources
+
+- **Hook Creator Skill**: `skills/specialists/when-creating-claude-hooks-use-hook-creator/`
+- **Hook Reference**: `hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md`
+- **Existing Hook Skill**: `skills/operations/hooks-automation/`
+<!-- END HOOK SKILL CREATION GUIDE -->
+
 <!-- SKILL SOP IMPROVEMENT v1.0 -->
 ## Skill Execution Criteria
 

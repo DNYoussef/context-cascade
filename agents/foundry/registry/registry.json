@@ -271,6 +271,40 @@
         }
       }
     },
+    "hook-creator": {
+      "name": "hook-creator",
+      "description": "Creates and validates Claude Code hooks with proper schemas, RBAC integration, and performance optimization. Specializes in all 10 hook event types.",
+      "tools": "Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite",
+      "model": "sonnet",
+      "x-type": "specialists",
+      "x-capabilities": [
+        "hook-creation",
+        "schema-validation",
+        "security-integration",
+        "template-generation",
+        "performance-optimization"
+      ],
+      "x-skills": [
+        "hook-creator",
+        "hooks-automation"
+      ],
+      "x-prompting_techniques": [
+        "plan-and-solve",
+        "program-of-thought"
+      ],
+      "x-mcp_servers": {
+        "required": [
+          "memory-mcp"
+        ],
+        "recommended": [],
+        "usage": "HOOK CREATION WORKFLOW:\n1. Load hook reference: Read hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md\n2. Select template: pre-hook-template.js or post-hook-template.js\n3. Implement logic with schema validation\n4. Store hook patterns: memory-mcp.memory_store(pattern, {intent: \"hook-creation\"})"
+      },
+      "x-integration_points": {
+        "hook_reference": "hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md",
+        "identity_system": "hooks/12fa/utils/identity.js",
+        "templates": "skills/specialists/when-creating-claude-hooks-use-hook-creator/resources/templates/"
+      }
+    },
     "planner": {
       "type": "core-development",
       "subagent_type": "planner",
@@ -5574,9 +5608,9 @@
     }
   },
   "metadata": {
-    "total_agents": 86,
-    "version": "2.0.0",
-    "last_updated": "2025-10-30",
+    "total_agents": 87,
+    "version": "3.1.0",
+    "last_updated": "2025-12-30",
     "three_loop_integration": true,
     "evidence_based_optimization": true
   },

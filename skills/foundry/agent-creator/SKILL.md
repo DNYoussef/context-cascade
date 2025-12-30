@@ -1,7 +1,8 @@
 ---
 name: agent-creator
-description: SKILL skill for foundry workflows
+description: Create specialized AI agents with optimized system prompts using 5-phase SOP methodology. Use for building domain-expert agents, hook-related agents, multi-agent coordinators, and production-ready agent definitions.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
 ---
 
 
@@ -127,6 +128,90 @@ You are a database migration specialist. Your role is to:
 ```
 
 <!-- END ANTHROPIC FORMAT TEMPLATE -->
+
+<!-- HOOK AGENT CREATION GUIDE v1.0 -->
+## Creating Hook-Related Agents
+
+When creating agents that work with Claude Code hooks, follow these additional guidelines:
+
+### Hook Agent Naming Convention
+
+Use descriptive names indicating hook focus:
+- `hook-creator` - Creates new hooks
+- `hook-validator` - Validates hook implementations
+- `audit-hook-agent` - Manages audit logging hooks
+- `security-hook-agent` - Manages security/RBAC hooks
+
+### Required Capabilities for Hook Agents
+
+Hook-related agents MUST include these x-capabilities:
+```yaml
+x-capabilities:
+  - hook-creation        # For agents that create hooks
+  - schema-validation    # For input/output schema work
+  - security-integration # For RBAC-related hooks
+  - performance-optimization  # For latency-sensitive hooks
+  - template-generation  # For hook template work
+```
+
+### Hook Agent RBAC Configuration
+
+Hook agents typically need specific path scopes:
+```yaml
+x-rbac:
+  denied_tools: []
+  path_scopes:
+    - "hooks/**"
+    - "skills/**/hooks*/**"
+    - ".claude/settings*.json"
+  api_access: false
+```
+
+### Example Hook Agent Definition
+
+```markdown
+---
+name: hook-creator
+description: Creates and validates Claude Code hooks with RBAC integration
+tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-agent_id: 7e8f9a0b-1c2d-4e5f-6a7b-8c9d0e1f2a3b
+x-role: developer
+x-capabilities:
+  - hook-creation
+  - schema-validation
+  - security-integration
+x-rbac:
+  path_scopes:
+    - "hooks/**"
+x-category: specialists
+x-version: 1.0.0
+---
+
+# Hook Creator Agent
+
+I specialize in creating production-ready Claude Code hooks...
+```
+
+### Hook Agent Integration Points
+
+Reference these in agent system prompts:
+- **Hook Reference**: `hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md`
+- **Identity System**: `hooks/12fa/utils/identity.js`
+- **Hook Templates**: `skills/specialists/when-creating-claude-hooks-use-hook-creator/resources/templates/`
+- **Existing Hook Agents**: `agents/specialists/hook-creator/`
+
+### Performance Guidance for Hook Agents
+
+Include in agent instructions:
+```
+When creating hooks, ensure:
+- Pre-hooks complete in <20ms (target), <100ms (max)
+- Post-hooks complete in <100ms (target), <1000ms (max)
+- Use caching for repeated identity lookups
+- Avoid network calls in blocking hooks
+```
+<!-- END HOOK AGENT CREATION GUIDE -->
 
 <!-- AGENT CREATOR v3.1.0 :: VERILINGUA x VERIX EDITION                           -->
 

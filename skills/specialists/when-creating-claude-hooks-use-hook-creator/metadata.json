@@ -1,0 +1,51 @@
+{
+  "version": "1.0.0",
+  "category": "specialists",
+  "subcategory": "automation",
+  "author": "Context Cascade",
+  "created": "2025-12-30",
+  "updated": "2025-12-30",
+  "tags": [
+    "hooks",
+    "claude-code",
+    "automation",
+    "security",
+    "rbac",
+    "validation"
+  ],
+  "cognitive_frame": "evidential",
+  "verix_compliant": true,
+  "tier": "silver",
+  "dependencies": {
+    "skills": [
+      "hooks-automation"
+    ],
+    "agents": [
+      "coder",
+      "reviewer",
+      "tester"
+    ],
+    "mcp_servers": []
+  },
+  "metrics": {
+    "avg_execution_time_ms": 2500,
+    "success_rate": 0.95,
+    "complexity": "medium"
+  },
+  "examples": [
+    "Create a hook that blocks dangerous Bash commands",
+    "Create a hook that logs all file writes to an audit trail",
+    "Create a hook that auto-approves read-only operations"
+  ],
+  "related_skills": [
+    "hooks-automation",
+    "cicd-intelligent-recovery",
+    "cascade-orchestrator"
+  ],
+  "integration_points": {
+    "rbac_system": "hooks/12fa/utils/identity.js",
+    "permission_checker": "hooks/12fa/permission-checker.js",
+    "budget_tracker": "hooks/12fa/budget-tracker.js",
+    "reference_docs": "hooks/12fa/docs/CLAUDE-CODE-HOOKS-REFERENCE.md"
+  }
+}

@@ -1,7 +1,8 @@
 ---
 name: hooks-automation
-description: SKILL skill for operations workflows
+description: Automate Claude Code operations through hooks for pre/post-operation validation, session management, and RBAC security. Integrates with all 10 hook event types (PreToolUse, PostToolUse, UserPromptSubmit, etc.) for validation, logging, and workflow automation.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
 ---
 
 
