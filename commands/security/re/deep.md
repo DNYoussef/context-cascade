@@ -1,230 +1,223 @@
+/*============================================================================*/
+/* RE:DEEP COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:deep
+version: 1.0.0
 binding: skill:reverse-engineering-deep
 category: reverse-engineering
-version: 1.0.0
 ---
 
-# /re:deep
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:deep",
+  binding: "skill:reverse-engineering-deep",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Level 3: Dynamic Analysis (≤1 hr) 1. Execute binary in sandbox (sandbox-validator) 2. Attach GDB with GEF/Pwndbg extensions 3. Set breakpoints at ",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:deep"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Deep reverse engineering with runtime execution and symbolic exploration (Levels 3-4: Dynamic Analysis + Symbolic Execution).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: 3-7 hours
-**RE Levels**: 3 (Dynamic Analysis) + 4 (Symbolic Execution)
+[define|neutral] SYNTAX := "/re:deep [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:deep <binary-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--level": { description: "Specific level: 3 (dynamic only), 4 (symbolic only", default: "false" },
+    "--args": { description: "Arguments to pass to binary during dynamic analysi", default: "false" },
+    "--target-addr": { description: "Target address for symbolic execution (hex, e.g., ", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--level` - Specific level: 3 (dynamic only), 4 (symbolic only), or 3,4 (both, default)
-- `--args` - Arguments to pass to binary during dynamic analysis (default: "")
-- `--target-addr` - Target address for symbolic execution (hex, e.g., 0x401234)
-- `--output` - Output directory (default: re-project/)
-- `--sandbox` - Run in isolated sandbox for safety (default: true)
-- `--store-findings` - Store in memory-mcp (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Full deep analysis with runtime + symbolic
-/re:deep crackme.exe
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute binary in sandbox (sandbox-validator)", model: "Claude" },
+  { stage: 2, action: "Attach GDB with GEF/Pwndbg extensions", model: "Claude" },
+  { stage: 3, action: "Set breakpoints at key functions (from Level 2 static analys", model: "Claude" },
+  { stage: 4, action: "Trace execution flow and capture state", model: "Claude" },
+  { stage: 5, action: "Dump memory regions and extract runtime secrets", model: "Claude" },
+  { stage: 6, action: "Analyze crashes with stack traces", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Dynamic analysis with arguments
-/re:deep server.elf --level 3 --args "--port 8080"
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Symbolic execution to reach specific address
-/re:deep binary.bin --level 4 --target-addr 0x401337
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Deep analysis with custom output
-/re:deep challenge.exe --output ./re-deep-analysis/
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Level 3: Dynamic Analysis (≤1 hr)
-1. Execute binary in sandbox (sandbox-validator)
-2. Attach GDB with GEF/Pwndbg extensions
-3. Set breakpoints at key functions (from Level 2 static analysis)
-4. Trace execution flow and capture state
-5. Dump memory regions and extract runtime secrets
-6. Analyze crashes with stack traces
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Success Criteria**:
-- ✅ Binary executed safely in sandbox
-- ✅ Runtime state captured (registers, stack, heap)
-- ✅ Secrets extracted (keys, passwords, tokens)
-- ✅ Crash points identified (if applicable)
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-**Tools**: GDB+GEF, GDB+Pwndbg, ltrace, strace
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Level 4: Symbolic Execution (2-6 hrs)
-1. Load binary into Angr symbolic execution engine
-2. Define target state (address to reach)
-3. Define avoid states (dead ends, infinite loops)
-4. Explore paths symbolically with constraint solving
-5. Synthesize inputs that reach target state
-6. Generate Angr scripts for reproducibility
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-**Success Criteria**:
-- ✅ Target state reached
-- ✅ Input values synthesized
-- ✅ Constraints solved (Z3 theorem proving)
-- ✅ Angr script saved for future use
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-**Tools**: Angr, Z3, symbolic execution frameworks
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## Decision Gate (Level 3 → Level 4)
+[define|neutral] EXAMPLES := [
+  { command: "/re:deep crackme.exe", description: "Example usage" },
+  { command: "/re:deep server.elf --level 3 --args "--port 8080"", description: "Example usage" },
+  { command: "/re:deep binary.bin --level 4 --target-addr 0x401337", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-After Level 3 completes, the skill asks:
-- **Did dynamic analysis reveal sufficient runtime behavior?**
-- **Do we need to explore ALL paths to reach a target state?**
-- **Is manual analysis sufficient or need automated path exploration?**
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-If Level 3 answers your question → **EXIT EARLY** ✅
-If need exhaustive path exploration → **PROCEED to Level 4** 🧠
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:deep -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:deep arg1' '/re:deep arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Agents Involved
-- `RE-Runtime-Tracer` - GDB scripting and runtime tracing
-- `RE-Symbolic-Solver` - Angr/Z3 symbolic execution
-- `debugger` - General debugging assistance
-- `sandbox-validator` - Safe binary execution
-- `root-cause-detective` - Crash analysis
-- `error-message-analyzer` - Stack trace parsing
-- `memory-coordinator` - Store findings
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-## MCP Servers Used
-- **memory-mcp**: Store runtime findings and symbolic solutions
-- **filesystem**: Access binaries and sandbox files
-- **sequential-thinking**: Complex decision trees for symbolic path selection
-- **focused-changes**: Track which code paths were executed
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Output Structure
-```
-re-project/
-├── dbg/
-│   ├── breakpoints.txt         # GDB breakpoint script
-│   ├── traces.log              # Execution traces
-│   ├── memory-dumps/           # Memory snapshots
-│   │   ├── 0x401000-stack.bin
-│   │   └── 0x601000-heap.bin
-│   ├── registers.txt           # Register state at breakpoints
-│   └── runtime-secrets.txt     # Extracted keys/passwords
-├── sym/
-│   ├── angr-script.py          # Reproducible Angr script
-│   ├── solutions.txt           # Synthesized inputs
-│   ├── constraints.smt2        # Z3 constraint formulas
-│   └── path-exploration.log    # Explored paths
-├── notes/
-│   ├── 003-dynamic-l3.md       # Dynamic analysis findings
-│   └── 004-symbolic-l4.md      # Symbolic execution findings
-└── artifacts/
-    └── exploits/               # POC exploits if vulnerabilities found
-```
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## Security Warning ⚠️
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:deep-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:deep/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["reverse-engineering-deep"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-**ALWAYS run in sandbox for untrusted binaries!**
-- Use `--sandbox true` (default)
-- Dynamic analysis executes potentially malicious code
-- Sandbox isolates filesystem, network, and process access
-- Review sandbox logs after execution
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Chains With
-- `/re:quick` - Start with quick triage first
-- `/re:firmware` - If binary is embedded firmware
-- `/functionality-audit` - Validate reverse-engineered logic
-- `/theater-detect` - Ensure findings are genuine
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:deep-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Integration Notes
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Memory-MCP Tagging
-```json
-{
-  "agent": "RE-Runtime-Tracer",
-  "category": "reverse-engineering",
-  "intent": "deep-analysis",
-  "layer": "long_term",
-  "project": "binary-analysis-2025-11-01",
-  "keywords": ["dynamic", "symbolic", "runtime", "angr"],
-  "re_level": "3-4",
-  "binary_hash": "sha256:...",
-  "target_address": "0x401337"
-}
-```
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Sandbox Integration
-```python
-# Safe execution wrapper
-sandbox-validator.execute_safely(
-    binary_path="suspicious.exe",
-    args="--flag test",
-    timeout=60,
-    filesystem_isolation=True,
-    network_disabled=True
-)
-```
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-### Sequential Thinking for Path Selection
-```
-QUESTION: "Should we explore this branch symbolically?"
-REASONING:
-- Branch contains comparison with user input ✓
-- Static analysis shows interesting code after branch ✓
-- No infinite loops detected ✓
-DECISION: YES, add to symbolic exploration queue
-```
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Performance Notes
-- Level 3 is fast (≤1 hour) - runtime execution
-- Level 4 is slow (2-6 hours) - explores MANY paths
-- Use `--target-addr` to focus symbolic execution
-- Define avoid states to skip dead code
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## See Also
-- `/re:quick` - Fast triage (Levels 1-2)
-- `/re:firmware` - Firmware analysis (Level 5)
-- `/re:dynamic` - Dynamic analysis only
-- `/re:symbolic` - Symbolic execution only
-
-
----
-*Promise: `<promise>DEEP_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>RE:DEEP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,261 +1,223 @@
----
-
-## Command Purpose
-[Define what this command does - the specific action it triggers]
-
-## Input Requirements
-[Parameters and prerequisites needed to execute this command]
-
-## Expected Output
-[What artifacts, results, or state changes this command produces]
-
-## Success Indicators
-[How to verify the command executed successfully]
-
-## Error Handling
-[Common failures and recovery procedures]
-
-## Related Commands
-[Commands that work together with this one in typical workflows]
+/*============================================================================*/
+/* GITHUB-RELEASE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: github-release-benchmark-v1
-  tests:
-    - command_execution_success
-    - workflow_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/workflows/github-release/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [deployment-readiness, cicd-intelligent-recovery]
-  related_agents: [cicd-engineer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: github-release
-category: deployment
 version: 1.0.0
+binding: skill:github-release
+category: delivery
 ---
 
-# /github-release
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "github-release",
+  binding: "skill:github-release",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "[Define what this command does - the specific action it triggers]",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /github-release"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Automated GitHub release creation with semantic versioning and changelog generation.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/github-release [version] [options]
-```
+[define|neutral] SYNTAX := "/github-release [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `version` - Release version (auto-incremented if not specified)
-- `--type` - Release type: major|minor|patch|pre (default: patch)
-- `--prerelease` - Mark as pre-release (default: false)
-- `--draft` - Create as draft (default: false)
-- `--changelog-auto` - Auto-generate changelog (default: true)
-- `--tag-prefix` - Tag prefix (default: v)
-- `--assets` - Attach assets: path1,path2,... (optional)
-- `--target` - Target branch/commit (default: main)
-- `--notify` - Send release notifications (default: true)
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    version: { type: "string", description: "Release version (auto-incremented if not specified" }
+  },
+  flags: {
+    "--type": { description: "Release type: major|minor|patch|pre (default: patc", default: "false" },
+    "--prerelease": { description: "Mark as pre-release (default: false)", default: "false" },
+    "--draft": { description: "Create as draft (default: false)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-**Comprehensive Release Automation**:
-1. 🏷️ Calculate next semantic version
-2. 📝 Generate changelog from commits
-3. 🔍 Validate release readiness
-4. 🏗️ Build release artifacts
-5. 📦 Create GitHub release
-6. 🚀 Publish release notes
-7. 📢 Send notifications
-8. 🔖 Tag repository
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "🏷️ Calculate next semantic version", model: "Claude" },
+  { stage: 2, action: "📝 Generate changelog from commits", model: "Claude" },
+  { stage: 3, action: "🔍 Validate release readiness", model: "Claude" },
+  { stage: 4, action: "🏗️ Build release artifacts", model: "Claude" },
+  { stage: 5, action: "📦 Create GitHub release", model: "Claude" },
+  { stage: 6, action: "🚀 Publish release notes", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-**Changelog Generation**:
-- Parse conventional commits
-- Group by type (feat, fix, docs, etc.)
-- List contributors
-- Link PRs and issues
-- Generate release notes
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Auto-increment patch version
-/github-release
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Specific version release
-/github-release v1.2.3
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Major version bump
-/github-release --type major
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Pre-release
-/github-release v2.0.0-beta.1 --prerelease true
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-# Draft release with assets
-/github-release --draft true --assets "dist/myapp.zip,dist/myapp.tar.gz"
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Release without changelog auto-generation
-/github-release v1.5.0 --changelog-auto false
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Release on specific branch
-/github-release --target develop --type minor
-```
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Output
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-```
-🚀 GitHub Release Creation Started
+[define|neutral] EXAMPLES := [
+  { command: "/github-release", description: "Example usage" },
+  { command: "/github-release v1.2.3", description: "Example usage" },
+  { command: "/github-release --type major", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-Repository: myorg/myapp
-Current Version: v1.2.2
-Next Version: v1.3.0 (minor bump)
-Target: main (commit: abc1234)
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-Pre-Release Validation:
-  ✅ All tests passing
-  ✅ No merge conflicts
-  ✅ Branch up to date with remote
-  ✅ CI/CD pipeline succeeded
-  ✅ No uncommitted changes
-  ✅ Semantic version valid
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/github-release -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/github-release arg1' '/github-release arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-Generating Changelog:
-  📝 Analyzing 42 commits since v1.2.2...
-  ✅ Parsed 38 conventional commits
-  ✅ Found 3 breaking changes
-  ✅ Identified 12 contributors
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-Changelog Preview:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# v1.3.0 (2025-11-01)
+[define|neutral] RELATED := {
+  complementary: ["/docker-build", "/pr-enhance", "/monitoring-configure"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## 🚀 Features
-- Add dark mode toggle (#234) @johndoe
-- Implement real-time notifications (#245) @janedoe
-- Support multi-language (#251) @contributor
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## 🐛 Bug Fixes
-- Fix memory leak in WebSocket handler (#238) @dev1
-- Resolve authentication timeout issue (#242) @dev2
-- Correct timezone handling (#249) @dev3
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "github-release-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/github-release/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["github-release"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-## 📚 Documentation
-- Update API documentation (#240) @techwriter
-- Add deployment guide (#246) @devops
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## ⚡ Performance
-- Optimize database queries (40% faster) (#241)
-- Reduce bundle size by 25% (#247)
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "github-release-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## 💥 BREAKING CHANGES
-- Remove deprecated API endpoints (#243)
-- Change authentication flow (#248)
-- Update minimum Node.js version to 18 (#250)
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-## 👥 Contributors
-@johndoe, @janedoe, @contributor, @dev1, @dev2,
-@dev3, @techwriter, @devops, and 4 others
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-**Full Changelog**: v1.2.2...v1.3.0
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-Building Release Artifacts:
-  🔨 Running build script...
-  ✅ Build successful (23.4s)
-  📦 Creating distribution packages...
-     - myapp-v1.3.0-linux-x64.tar.gz (12.4 MB)
-     - myapp-v1.3.0-darwin-x64.tar.gz (11.8 MB)
-     - myapp-v1.3.0-win-x64.zip (13.2 MB)
-  ✅ Artifacts created (3 files, 37.4 MB total)
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Creating Git Tag:
-  🏷️ Tag: v1.3.0
-  📝 Message: "Release v1.3.0"
-  ✅ Tag created locally
-  ✅ Tag pushed to origin
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-Creating GitHub Release:
-  🚀 Release: v1.3.0
-  📝 Title: "myapp v1.3.0 - Dark Mode & Real-time Features"
-  ✅ Release created
-  ✅ Changelog attached
-
-Uploading Assets:
-  📤 myapp-v1.3.0-linux-x64.tar.gz... ✅ (4.2s)
-  📤 myapp-v1.3.0-darwin-x64.tar.gz... ✅ (4.0s)
-  📤 myapp-v1.3.0-win-x64.zip... ✅ (4.5s)
-
-Publishing Release:
-  ✅ Release published (draft → public)
-  🌐 URL: https://github.com/myorg/myapp/releases/tag/v1.3.0
-
-Post-Release Actions:
-  📢 Slack notification sent (#releases channel)
-  📧 Email notification sent (subscribers: 1,234)
-  🐦 Twitter announcement posted
-  📊 GitHub Discussions thread created
-
-Release Summary:
-  Version: v1.3.0
-  Type: Minor Release
-  Commits: 42
-  Contributors: 12
-  Breaking Changes: 3
-  Assets: 3 files (37.4 MB)
-  Time: 45.3s
-
-Next Steps:
-  - Monitor deployment: /monitoring-configure
-  - Deploy to staging: /k8s-deploy --environment staging
-  - Create announcement: docs/announcements/v1.3.0.md
-
-✅ GitHub Release Complete!
-🌐 https://github.com/myorg/myapp/releases/tag/v1.3.0
-```
-
-## Chains With
-
-```bash
-# Test → release → deploy
-/regression-test && /github-release && /k8s-deploy
-
-# Build → release → notify
-/docker-build --tag v1.0.0 && /github-release v1.0.0
-
-# Full release pipeline
-/workflow:cicd --stage release
-
-# Release with deployment
-/github-release --type minor && \
-/docker-build && \
-/k8s-deploy --environment production
-```
-
-## See Also
-- `/workflow:cicd` - Full CI/CD pipeline
-- `/k8s-deploy` - Kubernetes deployment
-- `/docker-build` - Container image build
-- `/monitoring-configure` - Post-release monitoring
-- `/pr-enhance` - PR enhancement before release
-
-
----
-*Promise: `<promise>GITHUB_RELEASE_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>GITHUB_RELEASE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

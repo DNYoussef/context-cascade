@@ -1,3 +1,61 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
+---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for foundry workflows [ground:given] [conf:0.95] [state:confirmed]
+category: foundry
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic foundry processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "foundry",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "foundry", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 # Recursive Improvement - Meta-Loop Skill
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -91,229 +149,67 @@ Skills are not production-ready until they pass documentation audit (100% Tier 1
 
 In practice:
 - Every skill audit checks for Core Principles, Anti-Patterns, Conclusion
-- Missing sections trigger auto-generation using domain-specific templates
-- Documentation coverage tracked in Memory MCP (skill-audit/metrics)
+- Missing sections trigger auto-generation using domain-specific t
 
-## Workflow
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Phase 1: Audit Selection
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Select appropriate auditor based on target type:
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-| Target | Auditor | Detection Focus |
-|--------|---------|-----------------|
-| SKILL.md files | skill-auditor | Structure, contracts, safety, logging, idempotency |
-| System prompts | prompt-auditor | Evidence techniques, cognitive patterns, constraints |
-| Expertise files | expertise-auditor | Currency, accuracy, completeness, validation |
-| Agent outputs | output-auditor | Theater detection, claim verification, quality |
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Phase 2: Issue Detection
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Run auditor against target:
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/foundry/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```yaml
-audit_output:
-  target: "{path}"
-  issues:
-    critical: [{location, description, fix_template}]
-    high: [{location, description, fix_template}]
-    medium: [{location, description, fix_template}]
-  documentation_gaps:
-    missing_sections: ["Core Principles", "Anti-Patterns", "Conclusion"]
-    tier_compliance: {tier1: 60%, tier2: 40%, tier3: 30%, tier4: 25%}
-  overall_score: 0.45
-  recommendation: NEEDS_IMPROVEMENT
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Phase 3: Proposal Generation
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-Generate improvement proposals for detected issues:
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```yaml
-proposals:
-  - id: "prop-{timestamp}-001"
-    type: documentation  # or: structural, safety, contract, logging
-    target_section: "Core Principles"
-    before: null  # Section missing
-    after: |
-      ## Core Principles
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-      [Auto-generated content using template from SKILL-AUDIT-PROTOCOL.md]
-    predicted_improvement: "+15% tier1_compliance"
-    risk: low
-```
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Phase 4: Apply via skill-forge
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-Apply proposals through skill-forge Phase 7a/7b:
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-1. Archive current version (rollback safety)
-2. Apply proposed changes
-3. Run documentation audit (Phase 7b)
-4. Validate tier compliance
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Phase 5: Evaluation Gate
-
-Test against frozen eval-harness:
-
-```yaml
-evaluation:
-  benchmark_suite: "skill-quality-v1"
-  tests:
-    - structure_compliance: PASS
-    - contract_coverage: PASS
-    - safety_rails: PASS
-    - documentation_completeness: PASS
-  baseline_comparison:
-    before_score: 0.45
-    after_score: 0.82
-    improvement: +0.37
-  verdict: ACCEPT
-```
-
-### Phase 6: Commit or Rollback
-
-Based on evaluation:
-
-- **ACCEPT**: Commit changes, update version, log to Memory MCP
-- **REJECT**: Rollback to archived version, log failure for learning
-- **PENDING**: Request human review for edge cases
-
-### Phase 7: Monitoring (7 days)
-
-Track post-improvement metrics:
-
-```yaml
-monitoring:
-  window: "7 days"
-  metrics:
-    - usage_success_rate
-    - error_rate
-    - user_satisfaction
-  rollback_trigger: "success_rate < 90%"
-```
-
-## Documentation Audit Integration
-
-**NEW in v2.0**: Every improvement cycle includes mandatory documentation audit.
-
-### Audit Protocol Reference
-
-Full protocol: `skills/foundry/skill-forge/SKILL-AUDIT-PROTOCOL.md`
-
-### Tier Requirements
-
-| Tier | Sections | Target |
-|------|----------|--------|
-| Tier 1 (Critical) | YAML Frontmatter, Overview, Core Principles, When to Use, Main Workflow | 100% |
-| Tier 2 (Essential) | Pattern Recognition, Advanced Techniques, Anti-Patterns, Practical Guidelines | 100% |
-| Tier 3 (Integration) | Cross-Skill Coordination, MCP Requirements, I/O Contracts, Recursive Improvement | 80% |
-| Tier 4 (Closure) | Examples, Troubleshooting, Conclusion, Completion Verification | 80% |
-
-### Auto-Generation Templates
-
-When sections are missing, use templates from SKILL-AUDIT-PROTOCOL.md:
-
-**Core Principles Template**:
-```markdown
-## Core Principles
-
-[Skill Name] operates on 3 fundamental principles:
-
-### Principle 1: [Domain-Specific Name]
-[1-2 sentence explanation based on skill purpose]
-
-In practice:
-- [Practical application derived from skill workflow]
-- [Another practical application]
-```
-
-**Anti-Patterns Template**:
-```markdown
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **[Derived from skill domain]** | [Common mistake] | [How skill addresses it] |
-```
-
-**Conclusion Template**:
-```markdown
-## Conclusion
-
-[Skill Name] provides [core value proposition from Overview].
-
-Key takeaways:
-- [Derived from Core Principles]
-- [Derived from Workflow]
-
-Use this skill when [When to Use summary]. Avoid [Anti-Pattern summary].
-```
-
-## Memory Namespace
-
-```yaml
-namespaces:
-  skill-audit/metrics:
-    total_skills: 180
-    complete: N
-    partial: M
-    incomplete: K
-    avg_score: X
-    last_audit: ISO-8601
-
-  improvement/audits/{target}:
-    timestamp: ISO-8601
-    auditor: skill-auditor|prompt-auditor|...
-    score: 0.0-1.0
-    issues: [...]
-
-  improvement/proposals/{id}:
-    status: pending|applied|rejected
-    changes: [...]
-    evaluation: {...}
-
-  improvement/history:
-    cycles: [{date, improvements_made, success_rate}]
-```
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Skipping Eval Gate** | Applying improvements without benchmark validation leads to quality regression | ALWAYS run full eval-harness before commit. No exceptions, no shortcuts. |
-| **Self-Improving Eval Harness** | If eval-harness improves itself, it can optimize to pass its own tests (Goodhart's Law) | Eval-harness is FROZEN. Changes require human approval and external audit. |
-| **Documentation as Afterthought** | Treating doc audit as optional creates perpetually incomplete skills | Documentation audit is MANDATORY in every cycle (Phase 7b). Block until Tier 1+2 at 100%. |
-
-## Conclusion
-
-Recursive Improvement provides the self-improving meta-loop that keeps the entire skill ecosystem healthy and improving over time. By coordinating four specialized auditors, applying changes through a propose-test-compare-commit pipeline, and gating all improvements through a frozen eval-harness, the system achieves continuous quality improvement without the risks of unconstrained self-modification.
-
-Use this skill when skill quality has degraded, documentation is incomplete, or you want to run a systematic improvement cycle across the skill ecosystem. The documentation audit integration ensures that the 151+ skills missing Core Principles, Anti-Patterns, and Conclusion sections are systematically enhanced over time through batch processing.
-
-Key insight: The frozen eval-harness is what makes safe self-improvement possible. Without this constraint, the system could optimize for its own benchmarks rather than genuine quality.
-
-## Related Skills
-
-- `skill-forge`: Applies improvements, includes Phase 7b documentation audit
-- `prompt-forge`: Generates and improves prompts
-- `functionality-audit`: Validates code actually works (not theater)
-- `expertise-manager`: Manages domain expertise files
-
-## MCP Requirements
-
-```yaml
-mcp_servers:
-  required: [memory-mcp]  # Stores audit results, proposals, history
-  optional: [connascence-analyzer]  # Enhanced code quality detection
-```
-
----
-
-**Status**: Production-Ready
-**Version**: 2.0.0
-**Key Constraint**: Eval-harness is FROZEN - never self-improves
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

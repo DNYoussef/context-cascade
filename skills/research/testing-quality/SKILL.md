@@ -1,8 +1,60 @@
+/*============================================================================*/
+/* TESTING-QUALITY SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: testing-quality
 version: 2.1.0
-description: Testing quality assessment for test suite health, coverage analysis, and test effectiveness. Use when auditing test quality, improving test coverage, or assessing test reliability and maintainability.
+description: |
+  [assert|neutral] Testing quality assessment for test suite health, coverage analysis, and test effectiveness. Use when auditing test quality, improving test coverage, or assessing test reliability and maintainability. [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute testing-quality workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "testing-quality",
+  category: "research",
+  version: "2.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["testing-quality", "research", "workflow"],
+  context: "user needs testing-quality capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Testing Quality
 
@@ -155,58 +207,67 @@ In practice:
 - Flaky test rate must be <1% with any non-deterministic tests immediately investigated and fixed
 - Test isolation prevents interdependence where one test's side effects affect another's results
 - Reproducible test environments (seeded random data, controlled timing) eliminate environmental variability
-- Test execution monitoring tracks consistency over multiple runs to identify emerging flakiness
+- Test execution monitoring tracks consistency over multiple 
 
-### Principle 3: Fast Feedback Through Optimized Execution
-Test suites that take too long to run get skipped, defeating their purpose of catching bugs early.
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-In practice:
-- Test execution time target <5 minutes enables running full suite before every commit
-- Parallelization distributes tests across multiple cores to reduce wall-clock time
-- Test prioritization runs fast unit tests before slow integration tests for quick failure detection
-- Slow test identification and optimization ensures test suite speed improves over time rather than degrading
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Common Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Coverage Theater** | High coverage percentage from tests that execute code but don't validate behavior (missing assertions) | Measure assertion density (>= 2 per test); review tests for meaningful validations; require tests to fail when code is broken |
-| **Flaky Test Tolerance** | Accepting non-deterministic tests and re-running until they pass rather than fixing root causes | Enforce <1% flaky rate; investigate any flakiness immediately; isolate tests to eliminate interdependence |
-| **Over-Mocking** | Tests that mock everything and validate only that mocks are called, not actual behavior | Use mocks sparingly for external dependencies only; test real integrations in sandboxes; validate outputs not just call counts |
-| **Slow Test Accumulation** | Test suite execution time growing unbounded as tests are added without optimization | Set execution time budgets (<5 min); parallelize tests; identify and optimize slow tests; separate unit from integration |
-| **Test Interdependence** | Tests that must run in specific order or share state, making them fragile and hard to debug | Ensure tests can run independently in any order; use test fixtures for setup; clean up state after each test |
-| **Commented-Out Tests** | Disabling failing tests rather than fixing them or the code they validate | Never allow commented tests in codebase; either fix test/code or delete test entirely; track test deletions with justification |
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Conclusion
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Testing Quality assessment provides systematic evaluation of test suite health beyond simple coverage metrics, examining reliability, speed, maintainability, and effectiveness. By measuring test quality across multiple dimensions and identifying anti-patterns like flakiness, over-mocking, and slow execution, this skill helps teams build test suites that actually catch bugs and provide confidence in code correctness rather than creating false security through coverage theater.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/testing-quality/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Use this skill when auditing test suite health as part of quality initiatives, when analyzing why tests are being skipped or ignored due to flakiness or slow execution, when test coverage numbers are high but bugs still reach production, or when improving test maintainability to reduce technical debt. The skill is essential for establishing trust in automated testing and ensuring that test investments deliver real value through early bug detection rather than just checking a coverage box.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "testing-quality-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-The multi-dimensional assessment - coverage analysis, reliability metrics, speed optimization, and maintainability evaluation - creates a comprehensive view of test suite quality that guides targeted improvements. The identification of specific anti-patterns (flaky tests, over-mocking, interdependence) with concrete metrics enables prioritized remediation rather than vague calls for "better testing." When combined with functionality-audit for execution verification and verification-quality for quality gates, testing-quality ensures that test suites are not just comprehensive but genuinely effective at preventing defects from reaching production.
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Core Principles
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-1. **Multi-Dimensional Assessment** - Test quality cannot be measured by coverage alone. Evaluate across coverage, reliability, speed, and maintainability dimensions for comprehensive quality understanding.
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-2. **Evidence-Based Metrics** - Use quantitative thresholds (80% line coverage, <1% flake rate, <5 min execution) validated through static and dynamic analysis rather than subjective assessment.
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-3. **Continuous Improvement Loop** - Quality assessment feeds the dogfooding system for self-improvement. Patterns detected in test suite health inform better testing practices across the codebase.
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Anti-Patterns
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-| Anti-Pattern | Why It Fails | Better Approach |
-|-------------|--------------|-----------------|
-| **Coverage Theater** - Achieving high coverage percentage without testing meaningful scenarios | Coverage number becomes vanity metric, critical paths remain untested, false confidence in quality | Focus on critical path coverage (100%), verify assertions test actual behavior, use branch coverage not just line coverage |
-| **Ignoring Flaky Tests** - Tolerating non-deterministic test failures | Developers ignore CI failures, real bugs get missed, trust in automation erodes | Track flake rate (<1% threshold), quarantine flaky tests, fix or delete them, never merge with flaky tests |
-| **Test Code Neglect** - Treating test code as second-class citizen without quality standards | Unmaintainable test suite, high duplication, unclear test intent, hard to debug failures | Apply same quality standards to test code, refactor test helpers, document test patterns, review test code rigorously |
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Conclusion
-
-The testing quality skill enables systematic assessment of test suite health across multiple dimensions beyond simple coverage metrics. By evaluating coverage adequacy, test reliability, execution speed, and code maintainability, teams gain comprehensive understanding of their testing effectiveness. The integration with the recursive improvement system ensures quality assessments feed continuous self-improvement through the dogfooding cycle, creating a feedback loop that elevates testing practices organization-wide.
-
-Effective quality assessment requires looking beyond vanity metrics to evidence-based evaluation of what tests actually validate. Avoiding anti-patterns like coverage theater or tolerating flaky tests ensures the test suite provides genuine confidence rather than false assurance. By maintaining quality standards for test code itself and continuously improving through the assessment-feedback-improvement loop, teams build test suites that catch bugs reliably, execute quickly, and remain maintainable as codebases evolve. This systematic approach transforms testing from a compliance exercise into a strategic quality advantage.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>TESTING_QUALITY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

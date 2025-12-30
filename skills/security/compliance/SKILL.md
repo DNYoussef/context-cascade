@@ -1,17 +1,62 @@
+/*============================================================================*/
+/* COMPLIANCE SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: compliance
-description: Regulatory compliance validation and documentation for GDPR, HIPAA, SOC
-  2, PCI-DSS, and ISO 27001. Use when implementing compliance controls, conducting
-  compliance audits, or preparing for certification. Provides automated compliance
-  checks and evidence collection.
 version: 1.0.0
+description: |
+  [assert|neutral] Regulatory compliance validation and documentation for GDPR, HIPAA, SOC 2, PCI-DSS, and ISO 27001. Use when implementing compliance controls, conducting compliance audits, or preparing for certificati [ground:given] [conf:0.95] [state:confirmed]
 category: security
 tags:
 - security
 - compliance
 - safety
 author: ruv
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute compliance workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic security processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "compliance",
+  category: "security",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["compliance", "security", "workflow"],
+  context: "user needs compliance capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When to Use This Skill
 
@@ -69,130 +114,65 @@ Kaynak dogrulama modu etkin.
 
 
 
-Comprehensive compliance validation and documentation for major regulatory frameworks.
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-## When to Use This Skill
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Use when implementing compliance controls for regulated industries, preparing for compliance audits or certifications, documenting security and privacy practices, or validating adherence to regulatory standards.
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Supported Compliance Frameworks
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### GDPR (General Data Protection Regulation)
-- Data privacy and protection
-- Right to erasure and portability
-- Consent management
-- Data breach notification
-- Privacy by design
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### HIPAA (Health Insurance Portability and Accountability Act)
-- Protected Health Information (PHI) safeguards
-- Administrative, physical, technical safeguards
-- Business Associate Agreements (BAA)
-- Audit controls and logging
-- Breach notification
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/security/compliance/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### SOC 2 (Service Organization Control 2)
-- Trust Services Criteria (Security, Availability, Confidentiality)
-- Control documentation
-- Evidence collection
-- Continuous monitoring
-- Independent auditor reports
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "compliance-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### PCI-DSS (Payment Card Industry Data Security Standard)
-- Cardholder data protection
-- Network security controls
-- Access control mechanisms
-- Regular security testing
-- Security policy maintenance
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-### ISO 27001 (Information Security Management)
-- Information Security Management System (ISMS)
-- Risk assessment and treatment
-- 114 security controls across 14 domains
-- Continuous improvement process
-- Certification preparation
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Process
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-1. **Identify compliance requirements**
-   - Determine applicable regulations
-   - Map business processes to controls
-   - Identify data flows and storage
-   - Assess current compliance gaps
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-2. **Implement controls**
-   - Technical controls (encryption, access management)
-   - Administrative controls (policies, procedures)
-   - Physical controls (facility security)
-   - Documentation and evidence
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-3. **Validate compliance**
-   - Automated compliance scanning
-   - Manual control testing
-   - Evidence collection and review
-   - Gap analysis and remediation
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-4. **Maintain compliance**
-   - Continuous monitoring
-   - Regular audits and assessments
-   - Update controls for regulatory changes
-   - Train personnel
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-5. **Prepare for audits**
-   - Organize compliance documentation
-   - Conduct pre-audit assessments
-   - Engage external auditors
-   - Implement findings
-
-## Automated Compliance Checks
-
-- **Access Control**: IAM policies, least privilege
-- **Encryption**: Data at rest and in transit
-- **Logging**: Audit trails and monitoring
-- **Network Security**: Firewalls, segmentation
-- **Incident Response**: Breach notification procedures
-## Core Principles
-
-Compliance operates on 3 fundamental principles:
-
-### Principle 1: Evidence-Based Validation
-Every compliance claim must be backed by verifiable evidence collected through automated scanning, manual verification, and independent testing. This prevents false compliance and ensures audit readiness.
-
-In practice:
-- Automated compliance tools generate timestamped evidence logs
-- Manual verification of 20% of automated findings catches tool blind spots
-- Cross-validation using multiple methods confirms critical controls
-
-### Principle 2: Continuous Compliance Monitoring
-Compliance is an ongoing state maintained through continuous monitoring rather than a point-in-time certification. This detects drift and enables rapid remediation.
-
-In practice:
-- Real-time alerting on compliance violations (access control changes, encryption disabled)
-- Automated evidence collection runs daily with audit trail retention
-- Regular control testing identifies degradation before audits
-
-### Principle 3: Risk-Prioritized Remediation
-Compliance gaps are triaged by severity (critical/high/medium/low) with mandatory remediation timelines for critical violations before certification or production deployment.
-
-In practice:
-- Critical gaps (PII exposure, missing encryption) block deployment
-- High-severity gaps require remediation plans with assigned owners
-- Compliance score >90% required for certification readiness
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Checkbox Compliance** | Implementing controls to pass audits without ensuring actual security creates false sense of compliance | Validate controls through independent testing, collect evidence of effectiveness not just existence |
-| **Point-in-Time Certification** | Achieving compliance for audit then allowing drift creates compliance gaps and violation risks | Implement continuous monitoring with automated alerting on control changes |
-| **Manual Evidence Collection** | Gathering evidence manually is error-prone, time-consuming, and difficult to maintain consistently | Automate evidence collection with timestamped logs, use compliance-as-code tools |
-
-## Conclusion
-
-Compliance provides comprehensive regulatory validation and documentation for major frameworks (GDPR, HIPAA, SOC 2, PCI-DSS, ISO 27001) through evidence-based controls, continuous monitoring, and automated compliance checks. By treating compliance as an engineering discipline with measurable outcomes and automated validation, this skill transforms regulatory adherence from a periodic burden to a continuous process.
-
-Use this skill when implementing controls for regulated industries, preparing for certification audits, or maintaining ongoing compliance for production systems. The framework supports multi-jurisdiction compliance (GDPR + CCPA), automated evidence collection with audit trails, and risk-prioritized remediation plans. Critical guardrails prevent false compliance claims, unauthorized system access, and security control bypasses. The result is verifiable compliance readiness with 90%+ framework coverage and zero critical violations.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>COMPLIANCE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

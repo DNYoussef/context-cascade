@@ -1,38 +1,64 @@
+/*============================================================================*/
+/* COORDINATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: coordination
-description: Advanced multi-agent coordination patterns including mesh, hierarchical,
-  and adaptive topologies with state synchronization, consensus mechanisms, and distributed
-  task execution. Use when orchestrating complex multi-agent workflows requiring sophisticated
-  coordination, consensus building, or distributed decision-making.
 version: 2.0.0
-tier: gold
+description: |
+  [assert|neutral] Advanced multi-agent coordination patterns including mesh, hierarchical, and adaptive topologies with state synchronization, consensus mechanisms, and distributed task execution. Use when orchestratin [ground:given] [conf:0.95] [state:confirmed]
+category: orchestration
 tags:
 - coordination
 - multi-agent
 - orchestration
 - topology
 - consensus
-- distributed
-category: orchestration
-agents:
-- hierarchical-coordinator
-- mesh-coordinator
-- adaptive-coordinator
-- collective-intelligence-coordinator
-- consensus-validator
-complexity: advanced
-estimated_duration: 30-120 minutes
-prerequisites:
-- Claude Flow MCP installed
-- Understanding of distributed systems
-- Multi-agent architecture knowledge
-outputs:
-- Coordination topologies
-- Agent network configurations
-- Consensus protocols
-- Distributed execution plans
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute coordination workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic orchestration processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "coordination",
+  category: "orchestration",
+  version: "2.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["coordination", "orchestration", "workflow"],
+  context: "user needs coordination capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## Orchestration Skill Guidelines
 
@@ -104,442 +130,67 @@ Activate this skill when:
 
 ### 1. Topology Patterns
 
-#### Mesh Topology
-**When:** All agents need to communicate directly with each other
-**Characteristics:**
-- Peer-to-peer communication
-- No single point of failure
-- High redundancy
-- Complex coordination overhead
-- Best for: Small agent counts (3-8), consensus building
-
-**Script:** `resources/scripts/init-mesh-topology.js`
-**Template:** `resources/templates/mesh-topology.yaml`
-
-#### Hierarchical Topology
-**When:** Clear command structure with parent-child relationships
-**Characteristics:**
-- Tree-like structure
-- Clear authority hierarchy
-- Efficient delegation
-- Centralized coordination
-- Best for: Large agent counts (8+), task delegation
-
-**Script:** `resources/scripts/init-hierarchical-topology.js`
-**Template:** `resources/templates/hierarchical-topology.yaml`
-
-#### Adaptive Topology
-**When:** Topology needs to evolve based on task requirements
-**Characteristics:**
-- Dynamic reconfiguration
-- Self-organizing structure
-- Performance-driven optimization
-- Complexity management
-- Best for: Variable workloads, unpredictable requirements
-
-**Script:** `resources/scripts/init-adaptive-topology.js`
-**Template:** `resources/templates/adaptive-topology.yaml`
-
-### 2. Consensus Mechanisms
-
-#### Byzantine Consensus
-**When:** Need fault tolerance against malicious or faulty agents
-**Characteristics:**
-- 2f+1 agents required for f faults
-- Cryptographic verification
-- High security guarantees
-- Moderate performance overhead
-- Best for: Critical decisions, security-sensitive operations
-
-**Script:** `resources/scripts/byzantine-consensus.js`
-
-#### Raft Consensus
-**When:** Need leader-based consensus with strong consistency
-**Characteristics:**
-- Leader election
-- Log replication
-- Strong consistency
-- Simple mental model
-- Best for: State machine replication, distributed logs
-
-**Script:** `resources/scripts/raft-consensus.js`
-
-### 3. Execution Patterns
-
-#### Parallel Execution
-**When:** Tasks are independent and can run simultaneously
-**Benefits:** Maximum throughput, reduced latency
-**Trade-offs:** Higher resource usage, complex coordination
-
-#### Sequential Execution
-**When:** Tasks have strict dependencies
-**Benefits:** Simple coordination, deterministic order
-**Trade-offs:** Lower throughput, longer total time
-
-#### Adaptive Execution
-**When:** Mix of dependent and independent tasks
-**Benefits:** Balanced throughput and coordination
-**Trade-offs:** Complex orchestration logic
-
-## Implementation Workflow
-
-### Phase 1: Topology Selection & Initialization
-
-**1.1 Analyze Requirements**
-```bash
-# Use topology selector script
-node resources/scripts/topology-selector.js \
-  --agents 6 \
-  --task-type distributed \
-  --fault-tolerance high \
-  --output topology-recommendation.json
-```
-
-**1.2 Initialize Topology**
-```bash
-# Initialize selected topology (example: mesh)
-node resources/scripts/init-mesh-topology.js \
-  --max-agents 6 \
-  --strategy balanced \
-  --config topology-config.yaml
-```
-
-**Key Considerations:**
-- Agent count: <8 → mesh, >8 → hierarchical
-- Fault tolerance: High → Byzantine, Medium → Raft, Low → simple consensus
-- Communication overhead: Minimize for large swarms
-- Task dependencies: Strong → hierarchical, Weak → mesh
-
-### Phase 2: Agent Spawning & Network Formation
-
-**2.1 Spawn Specialized Agents**
-```bash
-# Spawn agents with role assignments
-node resources/scripts/spawn-coordinated-agents.js \
-  --topology mesh \
-  --roles researcher,coder,analyst,optimizer \
-  --config agent-roles.yaml
-```
-
-**2.2 Establish Communication Channels**
-- Mesh: All-to-all connections
-- Hierarchical: Parent-child links
-- Ring: Circular connections
-- Star: Hub-and-spoke
-
-**2.3 Initialize Shared State**
-```bash
-# Initialize distributed state store
-npx claude-flow@alpha memory store \
-  --key "coordination/shared-state" \
-  --value '{
-    "topology": "mesh",
-    "agent_count": 6,
-    "consensus": "byzantine",
-    "session_id": "coord-2024-001"
-  }'
-```
-
-### Phase 3: Task Orchestration
-
-**3.1 Task Decomposition**
-Break complex tasks into agent-specific subtasks:
-- Analyze dependencies between subtasks
-- Identify parallel vs. sequential execution opportunities
-- Assign subtasks to specialized agents
-- Define success criteria for each subtask
-
-**3.2 Distributed Task Assignment**
-```bash
-# Orchestrate task across agents
-node resources/scripts/orchestrate-distributed-task.js \
-  --task "Full-stack feature development" \
-  --strategy adaptive \
-  --priority high \
-  --agents researcher,coder,tester,reviewer
-```
-
-**3.3 Execution Monitoring**
-```bash
-# Monitor distributed execution
-npx claude-flow@alpha swarm_monitor \
-  --duration 60 \
-  --interval 5 \
-  --output execution-metrics.json
-```
-
-### Phase 4: Consensus & Decision Making
-
-**4.1 Initiate Consensus Protocol**
-For critical decisions requiring agreement among agents:
-
-```bash
-# Run Byzantine consensus
-node resources/scripts/byzantine-consensus.js \
-  --proposal "Deploy to production" \
-  --agents agent-1,agent-2,agent-3,agent-4,agent-5 \
-  --threshold 0.67 \
-  --timeout 30
-```
-
-**4.2 Validate Consensus**
-- Verify quorum reached (e.g., 2f+1 for Byzantine)
-- Check signature validity
-- Confirm majority agreement
-- Handle dissenting opinions
-
-**4.3 Execute Consensus Decision**
-Once consensus achieved, coordinate execution across agents.
-
-### Phase 5: State Synchronization
-
-**5.1 Continuous State Sync**
-```bash
-# Synchronize state across agents
-node resources/scripts/sync-agent-state.js \
-  --topology mesh \
-  --interval 10 \
-  --conflict-resolution last-write-wins
-```
-
-**5.2 Conflict Resolution**
-- **Last-Write-Wins**: Simple, eventual consistency
-- **Vector Clocks**: Causal consistency
-- **CRDT**: Conflict-free replicated data types
-- **Consensus-Based**: Strong consistency, higher latency
-
-### Phase 6: Performance Optimization
-
-**6.1 Analyze Bottlenecks**
-```bash
-# Identify coordination bottlenecks
-npx claude-flow@alpha agent_metrics \
-  --metric all \
-  --output performance-analysis.json
-```
-
-**6.2 Optimize Topology**
-- Rebalance agent load
-- Adjust communication patterns
-- Scale agent count
-- Switch topology if needed
-
-**6.3 Measure Improvements**
-Track key metrics:
-- Task completion time
-- Agent utilization
-- Communication overhead
-- Consensus latency
-- Error rates
-
-## Advanced Features
-
-### Dynamic Reconfiguration
-
-Adapt topology during execution:
-```bash
-# Reconfigure topology on-the-fly
-node resources/scripts/reconfigure-topology.js \
-  --from mesh \
-  --to hierarchical \
-  --preserve-state true \
-  --migration-strategy gradual
-```
-
-### Fault Detection & Recovery
-
-Implement automatic fault handling:
-```bash
-# Enable fault detection
-node resources/scripts/enable-fault-detection.js \
-  --heartbeat-interval 5 \
-  --failure-threshold 3 \
-  --recovery-strategy spawn-replacement
-```
-
-### Load Balancing
-
-Distribute work evenly:
-```bash
-# Enable dynamic load balancing
-node resources/scripts/load-balancer.js \
-  --strategy adaptive \
-  --rebalance-interval 30 \
-  --target-utilization 0.75
-```
-
-## Success Criteria
-
-- [ ] Appropriate topology selected and initialized
-- [ ] Agents spawned with correct role assignments
-- [ ] Communication channels established
-- [ ] Tasks distributed and executed
-- [ ] Consensus reached on critical decisions
-- [ ] State synchronized across agents
-- [ ] Performance metrics within targets
-- [ ] Fault tolerance validated
-
-### Performance Targets
-
-- **Agent Spawning**: <5 seconds per agent
-- **Task Assignment**: <2 seconds
-- **Consensus Latency**: <10 seconds (Byzantine), <5 seconds (Raft)
-- **State Sync Frequency**: Every 5-10 seconds
-- **Agent Utilization**: 70-85%
-- **Task Success Rate**: >95%
-
-## Best Practices
-
-1. **Topology Selection**: Match topology to task characteristics
-2. **Consensus Usage**: Only for critical decisions (overhead cost)
-3. **State Management**: Use shared memory for coordination state
-4. **Error Handling**: Implement retry logic and graceful degradation
-5. **Monitoring**: Continuous performance tracking
-6. **Scaling**: Add agents incrementally, test at each scale
-7. **Testing**: Validate with chaos engineering (agent failures, network partitions)
-8. **Documentation**: Record topology decisions and rationale
-
-## Common Patterns & Solutions
-
-### Pattern: Research → Implementation → Validation
-**Topology**: Hierarchical (coordinator → specialist agents)
-**Execution**: Sequential with parallel validation
-**Consensus**: Simple majority vote on validation
-
-### Pattern: Distributed Code Review
-**Topology**: Mesh (peer review among 4-6 agents)
-**Execution**: Parallel analysis, consensus on approval
-**Consensus**: Byzantine (2f+1 security checks)
-
-### Pattern: Multi-Model Inference
-**Topology**: Star (hub routes requests to model agents)
-**Execution**: Parallel inference, ensemble aggregation
-**Consensus**: Weighted voting based on confidence
-
-## Troubleshooting
-
-### Issue: Consensus Timeout
-**Symptoms**: Consensus protocol fails to reach agreement
-**Solutions:**
-- Increase timeout threshold
-- Reduce agent count
-- Check network connectivity
-- Verify agent health
-
-### Issue: State Desynchronization
-**Symptoms**: Agents have conflicting state
-**Solutions:**
-- Increase sync frequency
-- Use stronger consistency (CRDT, consensus)
-- Implement conflict resolution
-- Reset shared state
-
-### Issue: Performance Degradation
-**Symptoms**: Slow task completion, high latency
-**Solutions:**
-- Analyze bottlenecks (use metrics)
-- Optimize topology (fewer connections)
-- Reduce consensus overhead
-- Scale horizontally (more agents)
-
-## Integration Points
-
-- **when-chaining-workflows-use-cascade-orchestrator**: For workflow cascades
-- **when-coordinating-collective-intelligence-use-hive-mind**: For hierarchical queen-led coordination
-- **swarm-orchestration**: For basic swarm operations
-- **performance-analysis**: For bottleneck detection
-
-## Resources
-
-### Scripts (resources/scripts/)
-- `topology-selector.js` - Recommend optimal topology
-- `init-mesh-topology.js` - Initialize mesh coordination
-- `init-hierarchical-topology.js` - Initialize hierarchical coordination
-- `init-adaptive-topology.js` - Initialize adaptive coordination
-- `spawn-coordinated-agents.js` - Spawn agents with roles
-- `orchestrate-distributed-task.js` - Distribute tasks
-- `byzantine-consensus.js` - Run Byzantine consensus
-- `raft-consensus.js` - Run Raft consensus
-- `sync-agent-state.js` - Synchronize agent state
-- `reconfigure-topology.js` - Dynamic reconfiguration
-- `enable-fault-detection.js` - Fault detection & recovery
-- `load-balancer.js` - Dynamic load balancing
-
-### Templates (resources/templates/)
-- `mesh-topology.yaml` - Mesh coordination config
-- `hierarchical-topology.yaml` - Hierarchical coordination config
-- `adaptive-topology.yaml` - Adaptive coordination config
-- `agent-roles.yaml` - Agent role definitions
-
-### Tests (tests/)
-- `test-mesh-topology.js` - Mesh coordination tests
-- `test-hierarchical-topology.js` - Hierarchical coordination tests
-- `test-consensus-mechanisms.js` - Consensus protocol tests
-
-## References
-
-- Distributed Systems: Concepts and Design (Coulouris et al.)
-- Byzantine Fault Tolerance in Practice (Castro & Liskov)
-- Raft Consensus Algorithm (Ongaro & Ousterhout)
-- Multi-Agent Systems: A Modern Approach (Wooldridge)
----
-
-## Core Principles
-
-### 1. CAP Theorem Applies to Agent Coordination
-In distributed agent systems, you cannot simultaneously guarantee Consistency (all agents see the same state), Availability (every request receives a response), and Partition tolerance (system functions despite network splits). Choose based on requirements: Strong consistency (Raft consensus, higher latency) for financial transactions. Eventual consistency (gossip protocols, lower latency) for analytics dashboards. Partition tolerance is non-negotiable in distributed systems - network failures are inevitable.
-
-### 2. Topology Encodes Coordination Strategy
-Topology is not cosmetic - it defines communication patterns and failure modes. Mesh topology (all-to-all) enables Byzantine fault tolerance but requires O(N^2) messages. Hierarchical topology (tree structure) enables efficient delegation but creates single points of failure at coordinator nodes. Star topology (hub-and-spoke) centralizes coordination but bottlenecks at the hub. Ring topology (circular chain) enables pipeline processing but suffers from head-of-line blocking. Select topology to match your coordination requirements, then accept the inherent tradeoffs.
-
-### 3. State Synchronization Frequency is a Tradeoff
-High-frequency sync (every 1-2 seconds) provides near-real-time consistency but generates massive coordination traffic (hundreds of messages per minute in large swarms). Low-frequency sync (every 30-60 seconds) reduces traffic but increases divergence windows where agents operate on stale state. Optimal frequency depends on task characteristics: Real-time collaboration (high frequency), batch processing (low frequency), mixed workloads (adaptive frequency based on phase).
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|-------------|--------------|------------------|
-| **Synchronous Consensus for Every Decision** | Agent A blocks 10 seconds waiting for consensus on variable naming. Agent B blocks 10 seconds on file organization. 80% of execution time spent in consensus protocols for non-critical decisions. | Reserve consensus for critical decisions only (deployment, architecture, security). Use leader-decides pattern (coordinator makes unilateral decision) for routine choices. Async notification (inform agents of decision, don't block) for non-blocking updates. |
-| **Ignoring Network Partitions** | Agent 5 disconnects due to network split. Coordination assumes all agents reachable. System deadlocks waiting for Agent 5's consensus vote that never arrives. | Implement partition detection (heartbeat + timeout), partition handling (quorum with majority), and partition recovery (state reconciliation when agent reconnects). Partitions are inevitable - design for them, don't ignore them. |
-| **Static Topology for Dynamic Workloads** | Initialize 10-agent hierarchical swarm for research task (needs peer collaboration). Coordinator becomes bottleneck as agents attempt peer-to-peer discussions. Workflow stalls on coordination overhead. | Dynamic topology reconfiguration: Start with topology matching initial phase (hierarchical for planning), reconfigure mid-execution when requirements change (mesh for brainstorming), restore original topology for later phases (hierarchical for integration). |
-
----
-
-## Enhanced Conclusion
-
-Agent coordination is distributed systems engineering applied to AI workflows. The patterns documented here (mesh, hierarchical, star, ring topologies; Byzantine, Raft, gossip consensus; state synchronization protocols) are not novel inventions - they are proven distributed systems techniques adapted for multi-agent orchestration.
-
-The fundamental insight: coordination is overhead, not value. Every consensus round, state sync, and topology reconfiguration consumes time that could be spent on productive work. Effective coordination minimizes this overhead while preserving correctness guarantees. This means selecting appropriate topology (mesh for small collaborative swarms <8 agents, hierarchical for large coordinated swarms >8 agents), using consensus sparingly (only for critical decisions), and synchronizing state at task-appropriate frequencies (high for real-time collaboration, low for batch processing).
-
-The workflow documented here (topology selection, agent spawning, task orchestration, consensus decision-making, state synchronization, performance optimization) provides a systematic approach to distributed agent coordination. Follow this workflow for complex multi-agent tasks (6+ agents, sophisticated dependencies, fault tolerance requirements). For simpler scenarios (2-5 agents, loose coupling, no consensus requirements), direct agent spawning without formal coordination infrastructure is sufficient.
-
-Coordination patterns scale agent capabilities from isolated execution to distributed collaboration. The cost is coordination overhead. The benefit is parallelized execution across specialized agents. The art is balancing these tradeoffs to match task requirements.
-
----
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Synchronous Consensus for Every Decision** | Agent A blocks 10 seconds waiting for consensus on variable naming. Agent B blocks 10 seconds on file organization. 80% of execution time spent in consensus protocols for non-critical decisions. | Reserve consensus for critical decisions only (deployment, architecture, security). Use leader-decides pattern (coordinator makes unilateral decision) for routine choices. Async notification (inform agents of decision, don't block) for non-blocking updates. |
-| **Ignoring Network Partitions** | Agent 5 disconnects due to network split. Coordination assumes all agents reachable. System deadlocks waiting for Agent 5's consensus vote that never arrives. | Implement partition detection (heartbeat + timeout), partition handling (quorum with majority), and partition recovery (state reconciliation when agent reconnects). Partitions are inevitable - design for them, don't ignore them. |
-| **Static Topology for Dynamic Workloads** | Initialize 10-agent hierarchical swarm for research task (needs peer collaboration). Coordinator becomes bottleneck as agents attempt peer-to-peer discussions. Workflow stalls on coordination overhead. | Dynamic topology reconfiguration: Start with topology matching initial phase (hierarchical for planning), reconfigure mid-execution when requirements change (mesh for brainstorming), restore original topology for later phases (hierarchical for integration). |
-
-## Conclusion
-
-Advanced multi-agent coordination provides sophisticated topology patterns, consensus mechanisms, and distributed task execution for complex multi-agent workflows requiring synchronized collaboration.
-
-Key takeaways:
-- Topology selection determines communication patterns and failure modes - mesh for collaboration (3-8 agents), hierarchical for delegation (8+ agents), star for centralized coordination, ring for pipeline processing
-- Consensus mechanisms are expensive - reserve Byzantine/Raft consensus for critical decisions only, use eventual consistency for routine coordination
-- State synchronization frequency trades consistency for overhead - high frequency for real-time collaboration, low frequency for batch processing
-- Coordination is overhead, not value - minimize through appropriate topology, sparse consensus, and task-appropriate sync frequency
-- CAP theorem applies - choose between consistency, availability, and partition tolerance based on requirements
-
-Use this skill when orchestrating complex multi-agent workflows (6+ agents) requiring sophisticated coordination, consensus building, fault tolerance, or distributed decision-making across mesh, hierarchical, or adaptive topologies. Avoid for simple 2-5 agent tasks with loose coupling where direct spawning without formal coordination infrastructure is more efficient.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+###
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/orchestration/coordination/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "coordination-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>COORDINATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

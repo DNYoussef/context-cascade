@@ -1,266 +1,214 @@
+/*============================================================================*/
+/* PRISMA-INIT COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: research  file: .claude/expertise/research.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: prisma-init-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/research/./prisma-init/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [literature-synthesis, deep-research-orchestrator]  related_agents: [researcher, evaluator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: prisma-init
-description: Initialize PRISMA 2020 systematic literature review protocol with search strategies
+version: 1.0.0
+binding: skill:prisma-init
+category: delivery
 ---
 
-# 📚 Initialize PRISMA 2020 Systematic Literature Review
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "prisma-init",
+  binding: "skill:prisma-init",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute prisma-init workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /prisma-init"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Sets up complete PRISMA 2020 systematic literature review protocol with search strategies, screening criteria, and data extraction forms for comprehensive literature gap analysis.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Purpose
+[define|neutral] SYNTAX := "/prisma-init [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-Part of **Pipeline A: Systematic Literature & Gap-Finding**, this command initializes a rigorous PRISMA-compliant literature review to identify research gaps and establish baselines. Required for evidence-based research planning.
-
-## Usage
-
-```bash
-npx claude-flow@alpha command prisma-init --topic "<research-topic>" [options]
-```
-
-## Required Arguments
-
-- `--topic <string>` - Research topic or question being investigated
-
-## Optional Arguments
-
-- `--output-dir <path>` - Output directory (default: `./prisma-reviews/`)
-- `--databases <list>` - Databases to search (default: `arxiv,scholar,pubmed,ieee,acm`)
-- `--timeframe <years>` - Search timeframe in years (default: `5`)
-- `--min-papers <number>` - Minimum papers for inclusion (default: `50`)
-- `--format <format>` - Output format: `markdown` (default), `latex`, `docx`, `pdf`
-- `--interactive` - Launch interactive protocol builder
-- `--auto-search` - Automatically execute search queries
-- `--store-memory` - Store protocol in Memory MCP
-
-## What This Command Does
-
-1. **Creates PRISMA Protocol Document** with complete structure:
-   - Title and research question (PICO format)
-   - Protocol registration information
-   - Eligibility criteria (inclusion/exclusion)
-   - Information sources (databases, registries)
-   - Search strategy (keywords, boolean operators)
-   - Selection process (screening workflow)
-   - Data collection process (extraction forms)
-   - Data items (fields to extract)
-   - Risk of bias assessment
-   - Synthesis methods
-
-2. **Generates Search Strategies** for each database:
-   - **arXiv**: Boolean search with category filters
-   - **Google Scholar**: Advanced search with date range
-   - **PubMed**: MeSH terms and field tags
-   - **IEEE Xplore**: Metadata search with filters
-   - **ACM Digital Library**: Advanced search syntax
-
-3. **Creates Screening Workflow** (3 stages):
-   - **Stage 1**: Title screening (remove obviously irrelevant)
-   - **Stage 2**: Abstract screening (apply inclusion criteria)
-   - **Stage 3**: Full-text review (final inclusion decision)
-   - Dual screening with conflict resolution protocol
-
-4. **Generates Data Extraction Forms**:
-   - Study metadata (authors, year, venue, DOI)
-   - Research question and objectives
-   - Methods (dataset, model, evaluation)
-   - Results (metrics, baselines, ablations)
-   - Limitations and future work
-   - Risk of bias ratings
-
-5. **Sets Up PRISMA Flow Diagram** template:
-   - Identification (database search results)
-   - Screening (duplicates removed, records screened)
-   - Eligibility (full-text assessed)
-   - Included (studies in synthesis)
-
-6. **Configures Quality Assessment**:
-   - Risk of bias tool selection (RoB 2, ROBINS-I, etc.)
-   - Quality criteria checklist
-   - Evidence grading (GRADE framework)
-
-## Output Files
-
-- `prisma-reviews/<topic>-protocol.md` - Main PRISMA protocol
-- `prisma-reviews/<topic>-search-strategies.yaml` - Database search queries
-- `prisma-reviews/<topic>-screening-form.md` - Screening criteria checklist
-- `prisma-reviews/<topic>-extraction-form.md` - Data extraction template
-- `prisma-reviews/<topic>-flow-diagram.dot` - Graphviz flow diagram
-- `prisma-reviews/<topic>-timeline.md` - Review timeline and milestones
-
-## Example
-
-```bash
-# Initialize PRISMA review for transformer architectures
-npx claude-flow@alpha command prisma-init \
-  --topic "Transformer Architectures for NLP" \
-  --databases "arxiv,scholar,acm" \
-  --timeframe 3 \
-  --min-papers 100 \
-  --auto-search \
-  --store-memory
-
-# Interactive protocol builder
-npx claude-flow@alpha command prisma-init \
-  --topic "Federated Learning Privacy" \
-  --interactive
-
-# Quick protocol for rapid review
-npx claude-flow@alpha command prisma-init \
-  --topic "Graph Neural Networks" \
-  --format markdown \
-  --timeframe 2 \
-  --min-papers 30
-```
-
-## Search Strategy Example
-
-The command generates structured search queries:
-
-**arXiv Search Strategy**:
-```
-(("transformer" OR "attention mechanism" OR "self-attention")
-AND ("natural language processing" OR "NLP" OR "language model"))
-AND (cat:cs.CL OR cat:cs.LG OR cat:cs.AI)
-AND (submittedDate:[2022-01-01 TO 2025-12-31])
-```
-
-**Inclusion Criteria**:
-- Peer-reviewed publications or preprints
-- Published in last 5 years (configurable)
-- Focus on transformer architectures for NLP
-- Empirical evaluation with quantitative results
-- Available in English
-
-**Exclusion Criteria**:
-- Opinion pieces, editorials, commentaries
-- Studies without empirical evaluation
-- Duplicate publications of same work
-- Non-English publications
-- Studies outside date range
-
-## PRISMA Checklist Integration
-
-The protocol includes the 27-item PRISMA 2020 checklist:
-
-**Title**: Identify report as systematic review
-**Abstract**: Structured summary (objectives, methods, results, conclusions)
-**Introduction**: Rationale and objectives
-**Methods**: Protocol registration, eligibility criteria, search strategy, selection process, data collection, risk of bias, synthesis methods
-**Results**: Study selection, characteristics, risk of bias, synthesis results
-**Discussion**: Summary, limitations, conclusions
-
-## Integration with Agents
-
-- **systematic-reviewer**: Executes PRISMA protocol, manages review process
-- **literature-screener**: Performs title/abstract screening, applies criteria
-- **data-extractor**: Extracts data using generated forms
-- **bias-auditor**: Assesses risk of bias using configured tools
-- **archivist**: Archives protocol and results with version control
-
-## Memory MCP Storage
-
-When `--store-memory` is enabled:
-
-```json
-{
-  "key": "sop/prisma/<topic-slug>",
-  "value": {
-    "topic": "Transformer Architectures for NLP",
-    "protocol_path": "./prisma-reviews/transformer-nlp-protocol.md",
-    "databases": ["arxiv", "scholar", "acm"],
-    "search_executed": true,
-    "papers_found": 247,
-    "papers_screened": 0,
-    "papers_included": 0,
-    "status": "protocol_complete",
-    "created_at": "2025-11-01T12:00:00Z"
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
   },
-  "tags": ["SOP", "Pipeline-A", "PRISMA", "literature-review", "systematic-reviewer"]
-}
-```
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Pipeline A Workflow
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-```mermaid
-graph TD
-    A[prisma-init] --> B[execute-search]
-    B --> C[screen-titles]
-    C --> D[screen-abstracts]
-    D --> E[full-text-review]
-    E --> F[extract-data]
-    F --> G[synthesize-findings]
-    G --> H[identify-gaps]
-```
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## Related Commands
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-- `/execute-search` - Run database searches from protocol
-- `/screen-papers` - Perform title/abstract screening
-- `/extract-data` - Extract data from included studies
-- `/synthesize-findings` - Synthesize results, create evidence tables
-- `/identify-gaps` - Identify research gaps from synthesis
-- `/update-protocol` - Update protocol with protocol amendments
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Automation Features
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-With `--auto-search` enabled:
-- Automatically queries all configured databases
-- Deduplicates results across databases
-- Exports to reference manager format (BibTeX, RIS)
-- Creates initial screening queue
-- Generates summary statistics
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Quality Gates Integration
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Pipeline A Contribution to Gate 1**:
-- Literature review establishes baseline methods
-- Gap analysis justifies research direction
-- Synthesis informs data requirements
-- Prior work comparison planned
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## References
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-- Page et al. (2021). "PRISMA 2020 statement". BMJ 372:n71
-- Deep Research SOP Pipeline A: Systematic Literature & Gap-Finding
-- PRISMA 2020 Checklist: http://www.prisma-statement.org/
-- PROSPERO Protocol Registration: https://www.crd.york.ac.uk/prospero/
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Next Steps
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-After protocol initialization:
-1. Execute database searches: `/execute-search --protocol <topic>`
-2. Begin title screening: `/screen-papers --stage title --protocol <topic>`
-3. Configure citation manager integration
-4. Set up dual-reviewer workflow
-5. Plan synthesis approach (meta-analysis, narrative, etc.)
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] EXAMPLES := [
+  { command: "/prisma-init example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>PRISMA_INIT_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/prisma-init -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/prisma-init arg1' '/prisma-init arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/synthesize-findings", "/identify-gaps", "/update-protocol", "/execute-search", "/screen-papers"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "prisma-init-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/prisma-init/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["prisma-init"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "prisma-init-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>PRISMA_INIT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

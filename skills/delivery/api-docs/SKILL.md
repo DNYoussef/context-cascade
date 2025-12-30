@@ -1,39 +1,62 @@
+/*============================================================================*/
+/* API-DOCS SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: api-docs
-description: Generate and maintain comprehensive API documentation using OpenAPI 3.0,
-  Swagger UI, and GraphQL Playground. Use when documenting REST APIs, GraphQL services,
-  or creating API reference materials. Ensures consistent, machine-readable, and developer-friendly
-  documentation.
-tier: gold
-capabilities:
-- OpenAPI 3.0 specification generation from source code (Flask, FastAPI, Express.js,
-  Django)
-- Multi-format validation (swagger-cli, openapi-generator-cli, yq, yamllint)
-- Interactive documentation (Swagger UI, ReDoc)
-- Markdown and HTML documentation generation
-- Automated schema-to-example conversion
-- Code examples in multiple languages (cURL, JavaScript, Python, Go)
-resources:
-  scripts:
-  - generate_openapi.py (350+ lines, framework auto-detection, route extraction)
-  - validate_spec.sh (400+ lines, multi-tool validation pipeline)
-  - create_docs.py (400+ lines, multiple output formats)
-  templates:
-  - openapi-3.0.yaml (complete OpenAPI 3.0 specification template)
-  - endpoint-template.json (reusable endpoint definition with examples)
-  - schema-template.json (comprehensive schema patterns)
-  tests:
-  - test-1-openapi-generation.md (12 test cases, framework validation)
-  - test-2-spec-validation.md (12 test cases, compliance checks)
-  - test-3-documentation.md (12 test cases, format validation)
 version: 1.0.0
+description: |
+  [assert|neutral] Generate and maintain comprehensive API documentation using OpenAPI 3.0, Swagger UI, and GraphQL Playground. Use when documenting REST APIs, GraphQL services, or creating API reference materials. Ensu [ground:given] [conf:0.95] [state:confirmed]
 category: delivery
 tags:
 - delivery
 - development
 - workflow
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute api-docs workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic delivery processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "api-docs",
+  category: "delivery",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["api-docs", "delivery", "workflow"],
+  context: "user needs api-docs capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # API Documentation Generator (Gold Tier)
 
@@ -134,257 +157,67 @@ Use when documenting new or existing APIs, creating REST API specifications, mai
    - Configure Swagger UI for REST APIs
    - Set up GraphQL Playground
    - Add authentication testing support
-   - Enable "Try It Out" functionality
+   - Enable "Try It Out" fu
 
-4. **Add versioning and deprecation notices**
-   - Document API version compatibility
-   - Mark deprecated endpoints
-   - Provide migration guides
-   - Include changelog
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-5. **Generate code examples**
-   - Client SDK examples (curl, JavaScript, Python)
-   - Authentication flows
-   - Common use case scenarios
-   - Error handling patterns
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Gold Tier Features
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Automated Specification Generation
-- **Framework Support**: Flask, FastAPI, Express.js, Django REST Framework
-- **Auto-Detection**: Automatically identifies web framework from source code
-- **Route Extraction**: Parses decorators, docstrings, and JSDoc comments
-- **Parameter Inference**: Extracts path/query/body parameters from function signatures
-- **Schema Generation**: Creates reusable component schemas from type hints
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Multi-Tool Validation
-- **Syntax Validation**: YAML/JSON syntax checking with yamllint/jq
-- **OpenAPI Compliance**: swagger-cli and openapi-generator-cli validation
-- **Strict Mode**: Treat warnings as errors for production specs
-- **Validation Reports**: Detailed error/warning reports with timestamps
-- **Field Checks**: Required fields, best practices, security schemes
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Interactive Documentation
-- **Swagger UI**: Interactive API explorer with "Try it out" functionality
-- **ReDoc**: Clean three-panel documentation with search
-- **Markdown**: Human-readable documentation with tables
-- **HTML**: Custom templates with styling
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/delivery/api-docs/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Code Examples
-- **Multi-Language**: cURL, JavaScript, Python, Go examples
-- **Authentication**: Automatic header injection (Bearer, API Key)
-- **Request/Response**: Complete examples with realistic data
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "api-docs-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Available Resources
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-### Scripts (resources/scripts/)
-1. **generate_openapi.py**
-   - Generate OpenAPI 3.0 specs from source code
-   - Framework auto-detection (Flask, FastAPI, Express, Django)
-   - Route extraction with docstrings/JSDoc
-   - Component schema generation
-   - YAML/JSON output formats
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-2. **validate_spec.sh**
-   - Multi-tool validation pipeline
-   - YAML/JSON syntax checking
-   - OpenAPI 3.0 compliance validation
-   - Best practices enforcement
-   - Validation report generation
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-3. **create_docs.py**
-   - Markdown documentation generation
-   - Swagger UI setup
-   - ReDoc setup
-   - Custom HTML templates
-   - Schema-to-example conversion
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Templates (resources/templates/)
-1. **openapi-3.0.yaml** - Complete OpenAPI 3.0 specification template
-2. **endpoint-template.json** - Reusable endpoint definition with examples
-3. **schema-template.json** - Comprehensive schema patterns
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-### Tests (tests/)
-1. **test-1-openapi-generation.md** - 12 test cases for spec generation
-2. **test-2-spec-validation.md** - 12 test cases for validation
-3. **test-3-documentation.md** - 12 test cases for documentation
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Usage Examples
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Generate OpenAPI Spec from Source Code
-```bash
-# Auto-detect framework and generate spec
-python resources/scripts/generate_openapi.py \
-  --source ./src \
-  --output openapi.yaml \
-  --framework auto
-
-# Explicit framework with custom info
-python resources/scripts/generate_openapi.py \
-  --source ./app \
-  --output api-spec.json \
-  --framework fastapi \
-  --format json \
-  --title "My API" \
-  --version "2.0.0"
-```
-
-### Validate OpenAPI Specification
-```bash
-# Standard validation
-./resources/scripts/validate_spec.sh openapi.yaml
-
-# Strict mode (warnings as errors)
-./resources/scripts/validate_spec.sh openapi.yaml --strict
-
-# Save validation report
-./resources/scripts/validate_spec.sh openapi.yaml \
-  --output validation-report.txt \
-  --verbose
-```
-
-### Generate Documentation
-```bash
-# Swagger UI (interactive)
-python resources/scripts/create_docs.py \
-  --spec openapi.yaml \
-  --output docs/ \
-  --format html \
-  --swagger-ui
-
-# ReDoc (clean layout)
-python resources/scripts/create_docs.py \
-  --spec openapi.yaml \
-  --output docs/ \
-  --format html \
-  --redoc
-
-# Markdown documentation
-python resources/scripts/create_docs.py \
-  --spec openapi.yaml \
-  --output docs/ \
-  --format markdown
-
-# Both formats
-python resources/scripts/create_docs.py \
-  --spec openapi.yaml \
-  --output docs/ \
-  --format both \
-  --swagger-ui
-```
-
-## Best Practices
-
-- **Completeness**: Document all endpoints, parameters, responses
-- **Accuracy**: Keep docs synchronized with implementation
-- **Clarity**: Use clear descriptions and examples
-- **Consistency**: Follow OpenAPI 3.0 or GraphQL standards
-- **Usability**: Enable interactive testing
-- **Automation**: Integrate generation/validation into CI/CD
-- **Versioning**: Track API versions and deprecations
-- **Testing**: Use validation before deployment
-
-## Integration with CI/CD
-
-```yaml
-# .github/workflows/api-docs.yml
-name: API Documentation
-
-on: [push, pull_request]
-
-jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Generate OpenAPI Spec
-        run: |
-          python skills/api-docs/resources/scripts/generate_openapi.py \
-            --source ./src --output openapi.yaml
-
-      - name: Validate Specification
-        run: |
-          bash skills/api-docs/resources/scripts/validate_spec.sh \
-            openapi.yaml --strict
-
-      - name: Generate Documentation
-        run: |
-          python skills/api-docs/resources/scripts/create_docs.py \
-            --spec openapi.yaml --output docs/ --format both --swagger-ui
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-```
-
-## Performance Metrics
-
-| Operation | Small API | Medium API | Large API |
-|-----------|-----------|------------|-----------|
-| Generation | < 1s | < 3s | < 10s |
-| Validation | < 1s | < 2s | < 5s |
-| Documentation | < 2s | < 5s | < 15s |
-
-**Specifications:**
-- Small: 5-20 endpoints
-- Medium: 20-100 endpoints
-- Large: 100+ endpoints
-
-## Core Principles
-
-API Documentation operates on 3 fundamental principles:
-
-### Principle 1: Documentation as Code
-
-API specifications should be machine-readable, version-controlled, and generated from source code rather than maintained manually.
-
-In practice:
-- OpenAPI specs live in version control alongside code (docs/openapi.yaml)
-- Automated generation from code annotations prevents drift between implementation and documentation
-- CI/CD validates specs on every commit using swagger-cli and openapi-generator-cli
-- Breaking changes detected automatically through spec comparison tools
-
-### Principle 2: Interactive Over Static
-
-Developers learn APIs by trying them, not just reading about them. Interactive documentation enables exploration and experimentation.
-
-In practice:
-- Swagger UI provides "Try it out" functionality for every endpoint
-- Authentication is pre-configured so developers can test with real credentials
-- Response examples show actual JSON/XML structures, not just schema definitions
-- Error cases documented with real error payloads developers will encounter
-
-### Principle 3: Completeness Through Automation
-
-Comprehensive documentation requires documenting every parameter, response, and error code. Manual documentation always has gaps.
-
-In practice:
-- Framework auto-detection extracts routes from Flask/FastAPI/Express/Django automatically
-- Type hints and JSDoc comments become parameter schemas without duplication
-- Validation rules (required fields, enum values, constraints) flow from code to spec
-- Missing documentation triggers validation warnings, not silent gaps
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Manual Specification Maintenance** | Hand-writing OpenAPI specs separate from code causes documentation drift as code evolves | Generate specs from code annotations (docstrings, JSDoc, decorators) using framework-specific tools; treat specs as build artifacts |
-| **Example-Free Documentation** | Schema-only docs without concrete request/response examples force developers to construct examples mentally | Include realistic examples for every endpoint; show full request bodies and response payloads with actual data |
-| **Missing Error Documentation** | Documenting only success cases (200 OK) while omitting error responses (4xx, 5xx) leaves developers unprepared for failures | Document all error codes with example payloads; explain what triggers each error; show error response schemas |
-| **Static-Only Documentation** | PDF or Markdown docs without interactive API explorer require developers to use separate tools (Postman, curl) for testing | Deploy Swagger UI or ReDoc with "Try it out" functionality; enable authentication testing in browser; provide runnable examples |
-| **Versioning Neglect** | Single documentation version for multiple API versions confuses developers about which features are available | Document each API version separately; mark deprecated endpoints with sunset dates; provide migration guides between versions |
-| **Validation-Free Publishing** | Deploying documentation without validating OpenAPI compliance results in broken specs that tools cannot parse | Run swagger-cli validate and openapi-generator-cli validate in CI/CD; treat validation failures as build breaks; enforce strict mode |
-
-## Conclusion
-
-API Documentation Generator transforms API specification from a manual, error-prone chore into an automated, reliable artifact generated directly from source code. By extracting documentation from Flask decorators, FastAPI type hints, Express JSDoc comments, and Django REST Framework serializers, it ensures documentation stays synchronized with implementation through continuous validation in CI/CD pipelines.
-
-The skill's three-phase workflow - generation from code, multi-tool validation (swagger-cli, openapi-generator-cli, yamllint), and interactive documentation deployment (Swagger UI, ReDoc) - creates a comprehensive documentation pipeline that catches errors early and delivers developer-friendly exploration tools. The framework auto-detection intelligently identifies your web framework and applies appropriate extraction strategies, while the validation pipeline enforces OpenAPI 3.0 compliance with strict mode treating warnings as errors for production specs.
-
-Use this skill when building new APIs that need documentation from day one, when refactoring existing APIs where documentation has drifted from reality, or when onboarding external developers who need clear API references. The automated generation prevents documentation debt from accumulating, while interactive Swagger UI enables developers to understand and test endpoints without leaving the browser. The result is API documentation that developers actually trust and use rather than outdated PDFs gathering dust in wikis.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>API_DOCS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

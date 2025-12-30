@@ -1,482 +1,216 @@
-# Slack Notification Command
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Command Context
-- GitHub API integration requirements: Requires GitHub CLI (gh) or GitHub API token for authentication
-- Authentication/token requirements: Use GITHUB_TOKEN env var or gh auth login for GitHub operations
-- Expected PR/issue/workflow outputs: JSON responses, PR/issue URLs, workflow run IDs, status codes
-- Automation trigger conditions: Webhook events, schedule triggers, manual dispatch, PR/issue state changes
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: slack-notify-benchmark-v1
-  tests:
-    - github_integration_success
-    - automation_validation
-  success_threshold: 0.9
-namespace: "commands/operations/github/slack-notify/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [github-workflow-automation, github-release-management]
-  related_agents: [github-actions-specialist, release-orchestration-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-
-**Category**: External Integrations
-**Phase**: 4 - Deployment & Integration
-**Complexity**: Low
-
-## Purpose
-
-Send intelligent notifications to Slack channels for deployments, CI/CD events, alerts, and team collaboration.
-
-## Usage
-
-```bash
-/slack-notify [type] [options]
-
-Types:
-  deployment          Deployment notification
-  build               CI/CD build status
-  alert               System alert/error
-  pr                  Pull request activity
-  release             Release announcement
-  custom              Custom message
-
-Options:
-  --channel <name>    Slack channel (default: #general)
-  --message <text>    Message text
-  --status <status>   Status (success|warning|error)
-  --url <url>         Action URL
-  --mentions <users>  @mention users
-  --thread            Reply in thread
-  --blocks            Use Block Kit formatting
-```
-
-## Examples
-
-```bash
-# Deployment notification
-/slack-notify deployment --channel #deployments --status success --message "Production deployed v2.1.0"
-
-# Build failure alert
-/slack-notify build --channel #ci-cd --status error --message "Build failed on main branch" --mentions "@devops-team"
-
-# PR notification
-/slack-notify pr --channel #code-review --message "New PR ready for review: Feature authentication" --url "https://github.com/org/repo/pull/123"
-
-# Release announcement
-/slack-notify release --channel #announcements --message "Version 3.0.0 released! 🚀" --blocks
-
-# System alert
-/slack-notify alert --channel #incidents --status error --message "Database connection timeout" --mentions "@oncall"
-
-# Custom message
-/slack-notify custom --channel #team --message "Morning standup in 10 minutes"
-```
-
-## Slack App Setup
-
-### 1. Create Slack App
-
-1. Go to https://api.slack.com/apps
-2. Click "Create New App"
-3. Choose "From scratch"
-4. Name: "GitHub Notifications Bot"
-5. Select workspace
-
-### 2. Configure Permissions
-
-Required OAuth Scopes:
-- `chat:write` - Send messages
-- `chat:write.public` - Send to public channels
-- `files:write` - Upload files
-- `incoming-webhook` - Incoming webhooks
-
-### 3. Install App to Workspace
-
-```bash
-# Get OAuth token (starts with xoxb-)
-# Save as GitHub secret
-gh secret set SLACK_BOT_TOKEN --body "xoxb-your-token-here"
-
-# Or use webhook URL
-gh secret set SLACK_WEBHOOK_URL --body "https://hooks.slack.com/services/T00/B00/XXX"
-```
-
-## Message Templates
-
-### Simple Text Message
-
-```json
-{
-  "channel": "#deployments",
-  "text": "Deployment to production completed successfully! ✅"
-}
-```
-
-### Rich Block Kit Message
-
-```json
-{
-  "channel": "#deployments",
-  "blocks": [
-    {
-      "type": "header",
-      "text": {
-        "type": "plain_text",
-        "text": "🚀 Production Deployment"
-      }
-    },
-    {
-      "type": "section",
-      "fields": [
-        {
-          "type": "mrkdwn",
-          "text": "*Status:*\n✅ Success"
-        },
-        {
-          "type": "mrkdwn",
-          "text": "*Version:*\nv2.1.0"
-        },
-        {
-          "type": "mrkdwn",
-          "text": "*Environment:*\nProduction"
-        },
-        {
-          "type": "mrkdwn",
-          "text": "*Duration:*\n3m 24s"
-        }
-      ]
-    },
-    {
-      "type": "actions",
-      "elements": [
-        {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "text": "View Deployment"
-          },
-          "url": "https://github.com/org/repo/actions/runs/123",
-          "style": "primary"
-        },
-        {
-          "type": "button",
-          "text": {
-            "type": "plain_text",
-            "text": "Rollback"
-          },
-          "url": "https://github.com/org/repo/actions",
-          "style": "danger"
-        }
-      ]
-    }
-  ]
-}
-```
-
-### Build Status with Attachment
-
-```json
-{
-  "channel": "#ci-cd",
-  "text": "Build Status",
-  "attachments": [
-    {
-      "color": "#36a64f",
-      "title": "Build #123 - Success",
-      "title_link": "https://github.com/org/repo/actions/runs/123",
-      "fields": [
-        {
-          "title": "Branch",
-          "value": "main",
-          "short": true
-        },
-        {
-          "title": "Commit",
-          "value": "abc1234",
-          "short": true
-        },
-        {
-          "title": "Author",
-          "value": "johndoe",
-          "short": true
-        },
-        {
-          "title": "Duration",
-          "value": "2m 45s",
-          "short": true
-        }
-      ],
-      "footer": "GitHub Actions",
-      "ts": 1730419200
-    }
-  ]
-}
-```
-
-## GitHub Actions Integration
-
-### Workflow Notification
-
-```yaml
-name: Slack Notifications
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-  workflow_run:
-    workflows: ["CI"]
-    types: [completed]
-
-jobs:
-  notify:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Notify on Push
-      if: github.event_name == 'push'
-      uses: slackapi/slack-github-action@v1
-      with:
-        channel-id: 'C01234567'
-        slack-message: |
-          New commit pushed to main
-          Author: ${{ github.actor }}
-          Commit: ${{ github.sha }}
-          Message: ${{ github.event.head_commit.message }}
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-    - name: Notify Build Status
-      if: github.event.workflow_run.conclusion
-      uses: slackapi/slack-github-action@v1
-      with:
-        payload: |
-          {
-            "text": "Build ${{ github.event.workflow_run.conclusion }}",
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "Build *${{ github.event.workflow_run.conclusion }}* for <${{ github.event.workflow_run.html_url }}|${{ github.event.workflow_run.name }}>"
-                }
-              }
-            ]
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-
-### Deployment Notification
-
-```yaml
-- name: Deployment Success
-  uses: slackapi/slack-github-action@v1
-  with:
-    payload: |
-      {
-        "text": "Deployment completed",
-        "blocks": [
-          {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": "🚀 Deployment to Production"
-            }
-          },
-          {
-            "type": "section",
-            "fields": [
-              {
-                "type": "mrkdwn",
-                "text": "*Status:* ✅ Success"
-              },
-              {
-                "type": "mrkdwn",
-                "text": "*Version:* ${{ github.ref_name }}"
-              },
-              {
-                "type": "mrkdwn",
-                "text": "*Deployed by:* ${{ github.actor }}"
-              },
-              {
-                "type": "mrkdwn",
-                "text": "*URL:* <https://myapp.com|myapp.com>"
-              }
-            ]
-          }
-        ]
-      }
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-
-## Conditional Notifications
-
-```yaml
-# Only notify on failure
-- name: Notify Failure
-  if: failure()
-  uses: slackapi/slack-github-action@v1
-  with:
-    channel-id: 'C01234567'
-    slack-message: |
-      ❌ Build failed!
-      Workflow: ${{ github.workflow }}
-      Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-      @channel Please investigate
-  env:
-    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-# Notify on success after failure
-- name: Notify Recovery
-  if: success() && github.event.workflow_run.conclusion == 'failure'
-  uses: slackapi/slack-github-action@v1
-  with:
-    slack-message: "✅ Build recovered! All tests passing."
-  env:
-    SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-```
-
-## Slack API Methods
-
-```bash
-# Post message (Bot Token)
-curl -X POST https://slack.com/api/chat.postMessage \
-  -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "channel": "#deployments",
-    "text": "Deployment completed",
-    "blocks": [...]
-  }'
-
-# Post via webhook (Simpler, no auth header)
-curl -X POST $SLACK_WEBHOOK_URL \
-  -H "Content-Type: application/json" \
-  -d '{
-    "text": "Hello from GitHub Actions!"
-  }'
-
-# Upload file
-curl -F file=@report.pdf \
-  -F channels=C01234567 \
-  -F title="Sprint Report" \
-  -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
-  https://slack.com/api/files.upload
-```
-
-## Message Formatting
-
-### Markdown (mrkdwn)
-
-```
-*bold text*
-_italic text_
-~strikethrough~
-`code`
-```block code```
-<https://example.com|link text>
-<@U123ABC|username>
-<#C123ABC|channel>
-<!channel> <!here> <!everyone>
-:emoji:
-```
-
-### Emojis for Status
-
-- ✅ Success: `:white_check_mark:`
-- ❌ Failure: `:x:`
-- ⚠️ Warning: `:warning:`
-- 🚀 Deployment: `:rocket:`
-- 🔧 Maintenance: `:wrench:`
-- 🐛 Bug: `:bug:`
-- ⏳ In Progress: `:hourglass:`
-- 📊 Report: `:bar_chart:`
-
-## Thread Replies
-
-```yaml
-# Post initial message and get ts (timestamp)
-- name: Post Message
-  id: slack
-  uses: slackapi/slack-github-action@v1
-  with:
-    channel-id: 'C01234567'
-    slack-message: "Starting deployment..."
-  env:
-    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-
-# Reply in thread
-- name: Update Thread
-  uses: slackapi/slack-github-action@v1
-  with:
-    channel-id: 'C01234567'
-    payload: |
-      {
-        "thread_ts": "${{ steps.slack.outputs.ts }}",
-        "text": "Deployment completed successfully!"
-      }
-  env:
-    SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-```
-
-## Best Practices
-
-1. **Use Webhooks for Simple Notifications**: No auth management needed
-2. **Bot Tokens for Advanced Features**: Threading, file uploads, reactions
-3. **Rate Limiting**: Max 1 message/second per channel
-4. **Message Formatting**: Use Block Kit for rich formatting
-5. **Channel Organization**: Separate channels for deployments/alerts/PRs
-6. **Mention Sparingly**: Only @mention for critical issues
-7. **Thread Conversations**: Use threads to reduce noise
-8. **Status Colors**: Red (error), Yellow (warning), Green (success)
-
-## Integration Points
-
-- **/github-actions** - CI/CD notifications
-- **/aws-deploy** - Deployment alerts
-- **/jira-sync** - Issue updates
-- **/hook:on-deploy** - Deployment hooks
-- **/hook:on-error** - Error alerts
-
-## Agent Integration
-
-```javascript
-// Coordinator: Send deployment notification
-mcp__ruv-swarm__task_orchestrate({
-  task: "Notify team of deployment completion via Slack",
-  strategy: "sequential"
-})
-```
-
-## Related Commands
-
-- `/github-actions` - Workflow automation
-- `/jira-sync` - Issue notifications
-- `/hook:on-deploy` - Deployment hooks
+/*============================================================================*/
+/* SLACK-NOTIFY COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-**Implementation Status**: Production-Ready
-**Last Updated**: 2025-11-01
-**Maintainer**: Integration Specialist
-
-
+name: slack-notify
+version: 1.0.0
+binding: skill:slack-notify
+category: delivery
 ---
-*Promise: `<promise>SLACK_NOTIFY_VERIX_COMPLIANT</promise>`*
+
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "slack-notify",
+  binding: "skill:slack-notify",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "Execute slack-notify workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /slack-notify"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/slack-notify [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/slack-notify deployment --channel #deployments --status suc", description: "Example usage" },
+  { command: "/slack-notify build --channel #ci-cd --status error --messag", description: "Example usage" },
+  { command: "/slack-notify pr --channel #code-review --message "New PR re", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/slack-notify -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/slack-notify arg1' '/slack-notify arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/jira-sync", "/github-actions"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "slack-notify-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/slack-notify/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["slack-notify"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "slack-notify-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SLACK_NOTIFY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,117 +1,218 @@
+/*============================================================================*/
+/* AUDIT-PIPELINE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: quality
-  file: .claude/expertise/quality.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/quality/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [clarity-linter, functionality-audit]
-  related_agents: [code-analyzer, reviewer]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: audit-pipeline
-binding: cascade:audit-pipeline
-category: workflow
 version: 1.0.0
+binding: skill:cascade:audit-pipeline
+category: workflow
 ---
 
-# /audit-pipeline
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "audit-pipeline",
+  binding: "skill:cascade:audit-pipeline",
+  category: "workflow",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute audit-pipeline workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /audit-pipeline"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Complete 3-phase quality audit: theater detection → functionality testing → style polish.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/audit-pipeline <path> [options]
-```
+[define|neutral] SYNTAX := "/audit-pipeline [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `path` - File or directory to audit (required)
-- `--phase` - Run specific phase: theater|functionality|style|all (default: all)
-- `--model` - AI model for functionality phase: codex-auto|claude (default: codex-auto)
-- `--output` - Output file for comprehensive report (default: stdout)
-- `--parallel` - Run independent phases in parallel (default: false)
+[define|neutral] PARAMETERS := {
+  required: {
+    path: { type: "string", description: "File or directory to audit" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--phase": { description: "Run specific phase: theater|functionality|style|al", default: "false" },
+    "--model": { description: "AI model for functionality phase: codex-auto|claud", default: "false" },
+    "--output": { description: "Output file for comprehensive report (default: std", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Complete pipeline
-/audit-pipeline src/
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Specific phase only
-/audit-pipeline src/ --phase functionality --model codex-auto
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Generate comprehensive report
-/audit-pipeline src/ --output comprehensive-audit.json
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Pipeline Stages
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Phase 1: Theater Detection
-Finds all mocks, TODOs, placeholders, and incomplete implementations.
-**Command**: `/theater-detect src/`
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 2: Functionality Audit (with Codex Iteration)
-Tests everything in sandbox, auto-fixes failures with Codex iteration loop.
-**Command**: `/functionality-audit src/ --model codex-auto`
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-**Codex Iteration Pattern**:
-- For each failing test
-- Spawn Codex in sandbox
-- Auto-fix failure
-- Re-test (max 5 iterations)
-- Apply fix if passing
-- Escalate if still failing
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 3: Style Audit
-Lint, refactor, document to production standards.
-**Command**: `/style-audit src/`
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## As Cascade Script
-```bash
-# Simple cascade - just call commands in order!
-/theater-detect src/
-/functionality-audit src/ --model codex-auto
-/style-audit src/
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Integration
-- Uses `/theater-detect` from theater-detection-audit skill
-- Uses `/functionality-audit` from functionality-audit skill
-- Uses `/style-audit` from style-audit skill
-- Uses `/codex-auto` for auto-fixing in Phase 2
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## See also
-- `/theater-detect` - Phase 1 only
-- `/functionality-audit` - Phase 2 only
-- `/style-audit` - Phase 3 only
-- `/quality-check` - Alternative quality workflow
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>AUDIT_PIPELINE_VERIX_COMPLIANT</promise>`*
+[define|neutral] EXAMPLES := [
+  { command: "/audit-pipeline src/", description: "Example usage" },
+  { command: "/audit-pipeline src/ --phase functionality --model codex-aut", description: "Example usage" },
+  { command: "/audit-pipeline src/ --output comprehensive-audit.json", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/audit-pipeline -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/audit-pipeline arg1' '/audit-pipeline arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/theater-detect", "/quality-check", "/functionality-audit", "/style-audit"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "workflow",
+    file: ".claude/expertise/workflow.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "audit-pipeline-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/workflow/audit-pipeline/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["cascade:audit-pipeline"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "audit-pipeline-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AUDIT_PIPELINE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

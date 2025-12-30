@@ -1,11 +1,64 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill: safe-task-spawn
-description: Validated wrapper around Task() calls that enforces agent registry compliance, prevents invalid spawns, and logs all spawn attempts for audit trails
-tags: [orchestration, validation, safety, task-spawning, audit, registry]
+name: SKILL
 version: 1.0.0
+description: |
+  [assert|neutral] Validated wrapper around Task() calls that enforces agent registry compliance, prevents invalid spawns, and logs all spawn attempts for audit trails [ground:given] [conf:0.95] [state:confirmed]
 category: orchestration
-tier: gold
+tags:
+- orchestration
+- validation
+- safety
+- task-spawning
+- audit
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic orchestration processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "orchestration",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "orchestration", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Safe Task Spawn - Registry-Validated Task Spawning
 
@@ -107,531 +160,67 @@ Every spawn attempt (success or failure) is logged to Memory MCP for debugging, 
   "validation_results": {
     "registry_found": true,
     "capabilities_match": true,
-    "category_match": true
-  },
-  "tags": {
-    "who": "safe-task-spawn",
-    "when": "2025-12-17T10:30:00Z",
-    "project": "api-development",
-    "why": "task-spawning"
-  }
-}
-```
-
-## Workflow
-
-### Phase 1: Input Validation
-```
-Input: agent_type, description, prompt, skill_context (optional)
-├─ Validate agent_type is non-empty string
-├─ Validate description is non-empty string
-├─ Validate prompt is non-empty string
-└─ Parse skill_context for requirements (if provided)
-```
-
-### Phase 2: Registry Lookup
-```
-Load Registry:
-├─ Read: claude-code-plugins/ruv-sparc-three-loop-system/agents/README.md
-├─ Parse: 211 agents across 10 categories
-├─ Build index: agent_type -> metadata (category, capabilities, phase, file_path)
-└─ Cache: Registry in memory for subsequent calls
-
-Search:
-├─ Exact match: agent_type === registry[agent_type]
-├─ Fuzzy match: Levenshtein distance < 3 for suggestions
-└─ Category match: Filter by skill_context.category if provided
-```
-
-### Phase 3: Capability Validation (if skill_context provided)
-```
-Match Requirements:
-├─ required_capabilities: Agent must have ALL
-├─ category: Agent category must match
-├─ phase: Agent phase must match (planning, development, testing, etc.)
-├─ tools_required: Agent must support required tools
-└─ mcp_servers: Agent must have required MCP servers
-
-Score:
-├─ Calculate match score (0-100)
-├─ Threshold: >= 80 to pass
-└─ Return: Pass/fail with detailed breakdown
-```
-
-### Phase 4: Spawn or Error
-```
-If valid:
-├─ Spawn: Task(agent_type, description, prompt)
-├─ Log: Success to Memory MCP
-└─ Return: Task object
-
-If invalid:
-├─ Generate suggestions from registry (fuzzy match, category match)
-├─ Log: Failure to Memory MCP with suggestions
-├─ Return: Error with actionable guidance
-└─ Throw: ValidationError with structured details
-```
-
-### Phase 5: Audit Logging
-```
-Store to Memory MCP:
-├─ Namespace: "orchestration/safe-task-spawn/{project}/{timestamp}"
-├─ Tags: WHO (safe-task-spawn), WHEN (ISO), PROJECT (detected), WHY (task-spawning)
-├─ Metadata: {agent_type, description, status, validation_results, suggestions}
-└─ TTL: 30 days (configurable)
-```
-
-## Input Contract
-
-```typescript
-interface SafeTaskSpawnInput {
-  agent_type: string;              // Agent identifier (e.g., "backend-dev")
-  description: string;             // Task description (e.g., "Build REST API")
-  prompt: string;                  // Detailed instructions for agent
-  skill_context?: {                // Optional skill requirements
-    required_capabilities?: string[];
-    category?: string;             // delivery, operations, quality, etc.
-    phase?: string;                // planning, development, testing, etc.
-    tools_required?: string[];     // Read, Write, Bash, etc.
-    mcp_servers?: {
-      required?: string[];         // memory-mcp, ruv-swarm, etc.
-      optional?: string[];
-    };
-  };
-  project_id?: string;             // For audit logging namespace
-  validate_only?: boolean;         // If true, validate but don't spawn
-}
-```
-
-## Output Contract
-
-### Success Case
-- [assert|neutral] ```typescript [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] interface SafeTaskSpawnSuccess { [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] status: "success"; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] task: Task;                      // Spawned Task object [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] agent_metadata: { [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] agent_type: string; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] category: string; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-    capabilities: string[];
-- [assert|neutral] file_path: string; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] }; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] validation_results: { [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] registry_found: true; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] capabilities_match: boolean; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] category_match: boolean; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] match_score: number;           // 0-100 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] }; [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] audit_log_key: string;           // Memory MCP key for audit record [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] } [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ``` [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Failure Case
-```typescript
-interface SafeTaskSpawnFailure {
-  status: "error";
-  error_type: "agent_not_found" | "capability_mismatch" | "validation_failed";
-  message: string;                 // Human-readable error
-  suggestions: Array<{
-    agent_type: string;
-    category: string;
-    match_score: number;           // 0-100 (similarity to requested)
-    file_path: string;
-    reason: string;                // Why this is suggested
-  }>;
-  validation_results: {
-    registry_found: boolean;
-    capabilities_match: boolean;
-    category_match: boolean;
-    match_score: number;
-  };
-  audit_log_key: string;           // Memory MCP key for failure record
-}
-```
-
-## Anti-Patterns Table
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|--------------|-------------|------------------|
-| Direct Task("backend-developer", ...) without validation | agent_type "backend-developer" doesn't exist (correct: "backend-dev") | safe_task_spawn("backend-dev", ...) validates against registry |
-| Spawning generic "coder" when specific specialist needed | Generic coder lacks domain expertise (API design, database, etc.) | Use skill_context to match specialist: backend-dev, frontend-dev, etc. |
-| No audit trail of spawn attempts | Cannot debug why tasks fail or analyze patterns | All spawns logged to Memory MCP with validation results |
-| Silent failures when agent not found | Task fails with no guidance on correct agent | Returns error with fuzzy-matched suggestions from registry |
-| Hardcoding agent_type without checking registry | Registry evolves, hardcoded types become stale | Validate dynamically against live registry |
-| Spawning agent with missing MCP servers | Agent requires memory-mcp but it's not enabled | Validate mcp_servers.required and prompt to enable if missing |
-
-## Implementation Examples
-
-### Example 1: Basic Validation
-```javascript
-// Direct Task() call (risky - no validation)
-Task("backend-developer", "Build REST API", "Implement user auth endpoints...")
-// ❌ FAIL: "backend-developer" not in registry
-
-// Safe Task Spawn (validated)
-safe_task_spawn(
-  "backend-dev",  // Validated against registry
-  "Build REST API",
-  "Implement user authentication endpoints with JWT..."
-)
-// ✅ SUCCESS: Spawns backend-dev agent
-// ✅ LOGGED: Audit record in Memory MCP
-```
-
-### Example 2: Skill Context Validation
-```javascript
-// Skill requires specific capabilities
-const skill_context = {
-  required_capabilities: ["api-design", "authentication", "database-integration"],
-  category: "delivery",
-  phase: "development",
-  mcp_servers: {
-    required: ["memory-mcp"]
-  }
-};
-
-// Attempt 1: Wrong specialist
-safe_task_spawn("frontend-dev", "Build REST API", "...", skill_context)
-// ❌ FAIL: frontend-dev missing "api-design", "database-integration"
-// Returns suggestions: backend-dev, golang-backend-specialist, rust-systems-developer
-
-// Attempt 2: Correct specialist
-safe_task_spawn("backend-dev", "Build REST API", "...", skill_context)
-// ✅ SUCCESS: backend-dev has all required capabilities (match_score: 95)
-```
-
-### Example 3: Validate-Only Mode
-```javascript
-// Pre-flight validation before orchestration
-const validation = safe_task_spawn(
-  "ml-training-agent",
-  "Train neural network",
-  "...",
-  { validate_only: true }  // Don't spawn, just validate
-)
-
-if (validation.status === "success") {
-  // Proceed with orchestration
-  orchestrate_ml_pipeline()
-} else {
-  // Handle invalid agent, show suggestions
-  console.error(validation.message)
-  console.log("Suggestions:", validation.suggestions)
-}
-```
-
-### Example 4: Audit Log Analysis
-```javascript
-// Query Memory MCP for spawn patterns
-const spawn_logs = memory_retrieve({
-  pattern: "orchestration/safe-task-spawn/*",
-  filters: {
-    status: "error",  // Only failed spawns
-    time_range: "last_7_days"
-  }
-})
-
-// Analyze common failures
-const failures = spawn_logs.map(log => ({
-  requested: log.agent_type,
-  suggestions: log.suggestions[0].agent_type
-}))
-
-// Identify patterns (e.g., "backend-developer" -> "backend-dev" is common mistake)
-```
-
-## Registry Structure
-
-The agent registry is organized into 10 categories:
-
-| Category | Agent Count | Example Agents |
-|----------|-------------|----------------|
-| delivery | 18 | backend-dev, frontend-dev, sparc-architect |
-| foundry | 19 | base-template-generator, skill-boilerplate-generator |
-| operations | 28 | cicd-engineer, terraform-provisioner, kubernetes-specialist |
-| orchestration | 21 | hierarchical-coordinator, byzantine-coordinator |
-| platforms | 44 | automl-optimizer, flow-nexus-agent, sql-database-specialist |
-| quality | 18 | code-analyzer, test-orchestrator, functionality-audit |
-| research | 11 | archivist, researcher, root-cause-analyzer |
-| security | 5 | soc-compliance-auditor, penetration-testing-agent |
-| specialists | 18 | business-analyst, quant-analyst, logistics-optimizer |
-| tooling | 24 | api-docs, pr-manager, github-release-manager |
-
-**Registry Path**: `claude-code-plugins/ruv-sparc-three-loop-system/agents/`
-**Total Agents**: 211 (as of 2025-11-26)
-
-## Error Messages
-
-### Agent Not Found
-```
-ERROR: Agent type 'ml-trainer' not found in registry (211 agents)
-
-Did you mean one of these?
-1. automl-optimizer (platforms/ai-ml/automl/automl-optimizer.md)
-   - Category: platforms
-   - Capabilities: hyperparameter-tuning, model-selection, neural-architecture-search
-   - Match: 78% (similar name, correct category)
-
-2. ml-developer (platforms/ai-ml/ml-developer.md)
-   - Category: platforms
-   - Capabilities: model-training, dataset-preparation, experiment-tracking
-   - Match: 72% (similar capabilities)
-
-3. neural-training-coordinator (platforms/neural/neural-training-coordinator.md)
-   - Category: platforms
-   - Capabilities: distributed-training, multi-gpu, training-orchestration
-   - Match: 65% (training focus)
-
-Registry: claude-code-plugins/ruv-sparc-three-loop-system/agents/
-Browse all agents: agents/README.md
-```
-
-### Capability Mismatch
-```
-ERROR: Agent 'frontend-dev' missing required capabilities
-
-Required by skill:
-- api-design ❌
-- authentication ❌
-- database-integration ❌
-
-Agent has:
-- ui-components ✅
-- react-development ✅
-- accessibility ✅
-
-Match score: 32% (below threshold of 80%)
-
-Suggested agents with required capabilities:
-1. backend-dev (95% match)
-2. golang-backend-specialist (88% match)
-3. rust-systems-developer (82% match)
-```
-
-### MCP Server Missing
-```
-WARNING: Agent 'automl-optimizer' requires MCP servers that are not enabled
-
-Required MCPs (missing):
-- flow-nexus (for cloud neural training)
-
-Optional MCPs (missing):
-- ruv-swarm (for distributed coordination)
-
-Enable required MCPs:
-  claude mcp add flow-nexus npx flow-nexus@latest mcp start
-
-Continue anyway? (not recommended) [y/N]
-```
-
-## Integration with Existing Skills
-
-### Before (Direct Task() - Risky)
-```javascript
-// In any skill.md or orchestrator
-Task("backend-developer", "Build API", "...")  // No validation
-Task("ml-trainer", "Train model", "...")       // Invalid agent
-Task("devops-guy", "Deploy app", "...")        // Typo
-```
-
-### After (Safe Task Spawn - Validated)
-```javascript
-// Import safe-task-spawn
-Skill("safe-task-spawn")
-
-// Validated spawns
-safe_task_spawn("backend-dev", "Build API", "...", {
-  required_capabilities: ["api-design"],
-  category: "delivery"
-})
-
-safe_task_spawn("automl-optimizer", "Train model", "...", {
-  mcp_servers: { required: ["flow-nexus"] }
-})
-
-safe_task_spawn("cicd-engineer", "Deploy app", "...", {
-  category: "operations"
-})
-```
-
-## Memory MCP Schema
-
-All spawn attempts are logged to Memory MCP with this schema:
-
-```javascript
-{
-  "namespace": "orchestration/safe-task-spawn/{project_id}/{timestamp}",
-  "key": "{agent_type}-{uuid}",
-  "value": {
-    "agent_type": "backend-dev",
-    "description": "Build REST API with authentication",
-    "status": "success" | "error",
-    "validation_results": {
-      "registry_found": true,
-      "capabilities_match": true,
-      "category_match": true,
-      "phase_match": true,
-      "tools_match": true,
-      "mcp_servers_match": true,
-      "match_score": 95
-    },
-    "agent_metadata": {
-      "category": "delivery",
-      "capabilities": ["api-design", "authentication", "database-integration"],
-      "phase": "development",
-      "file_path": "delivery/development/backend/dev-backend-api.md",
-      "mcp_servers": {
-        "required": ["memory-mcp"],
-        "optional": []
-      }
-    },
-    "suggestions": [],  // Empty on success, populated on error
-    "error": null,      // Null on success, error details on failure
-    "spawned_at": "2025-12-17T10:30:00.000Z",
-    "skill_context": {...}
-  },
-  "tags": {
-    "who": "safe-task-spawn",
-    "when": "2025-12-17T10:30:00.000Z",
-    "project": "api-development",
-    "why": "task-spawning",
-    "status": "success"
-  },
-  "ttl": 2592000  // 30 days
-}
-```
-
-## Success Metrics
-
-Safe Task Spawn succeeds when:
-- ✅ Agent registry loaded and indexed successfully (211 agents)
-- ✅ Agent type validated against registry (exact or fuzzy match)
-- ✅ Capability requirements matched (if skill_context provided)
-- ✅ MCP server requirements checked (warn if missing)
-- ✅ Task spawned successfully (valid Task() call)
-- ✅ Audit log written to Memory MCP with all metadata
-- ✅ On error: Actionable suggestions provided from registry
-
-Failure modes:
-- ❌ Agent type not found and no close matches (< 50% similarity)
-- ❌ Capability mismatch score below threshold (< 80%)
-- ❌ Required MCP servers missing and user declines to continue
-- ❌ Registry unavailable (fallback: warn and spawn anyway)
-
-## Performance Considerations
-
-### Caching Strategy
-```javascript
-// Registry is cached in memory after first load
-let registry_cache = null;
-let cache_timestamp = null;
-const CACHE_TTL = 300000; // 5 minutes
-
-function load_registry() {
-  const now = Date.now();
-  if (registry_cache && (now - cache_timestamp) < CACHE_TTL) {
-    return registry_cache;  // Return cached
-  }
-
-  // Reload registry
-  registry_cache = parse_agent_registry();
-  cache_timestamp = now;
-  return registry_cache;
-}
-```
-
-### Batch Validation
-```javascript
-// Validate multiple spawns before executing
-const spawns = [
-  { agent_type: "backend-dev", description: "...", prompt: "..." },
-  { agent_type: "frontend-dev", description: "...", prompt: "..." },
-  { agent_type: "tester", description: "...", prompt: "..." }
-];
-
-const validations = safe_task_spawn_batch(spawns);
-if (validations.every(v => v.status === "success")) {
-  // All valid, spawn in parallel
-  spawns.forEach(s => Task(s.agent_type, s.description, s.prompt));
-} else {
-  // Handle invalid spawns
-  validations.filter(v => v.status === "error").forEach(error => {
-    console.error(error.message);
-    console.log(error.suggestions);
-  });
-}
-```
-
-## Related Skills
-
-- **swarm-orchestration**: Multi-agent coordination with safe spawning
-- **cascade-orchestrator**: Workflow cascades with validated agent selection
-- **hive-mind-advanced**: Collective intelligence with registry-backed agents
-- **agent-selector**: Intelligent agent selection from registry (211 agents)
-- **agent-creation/agent-creator**: Create new agents for registry
-
-## Configuration
-
-### Environment Variables
-```bash
-# Registry location (default: claude-code-plugins/ruv-sparc-three-loop-system/agents/)
-SAFE_TASK_SPAWN_REGISTRY_PATH=/custom/path/to/agents
-
-# Validation strictness (strict|lenient|off)
-SAFE_TASK_SPAWN_VALIDATION_MODE=strict
-
-# Match threshold (0-100, default: 80)
-SAFE_TASK_SPAWN_MATCH_THRESHOLD=80
-
-# Cache TTL in milliseconds (default: 300000 = 5 minutes)
-SAFE_TASK_SPAWN_CACHE_TTL=300000
-
-# Audit logging (on|off, default: on)
-SAFE_TASK_SPAWN_AUDIT_LOGGING=on
-
-# Memory MCP namespace prefix
-SAFE_TASK_SPAWN_NAMESPACE_PREFIX=orchestration/safe-task-spawn
-```
-
-### Settings.json Integration
-```json
-{
-  "skills": {
-    "safe-task-spawn": {
-      "validation_mode": "strict",
-      "match_threshold": 80,
-      "cache_ttl": 300000,
-      "audit_logging": true,
-      "fallback_agents": ["coder", "researcher", "tester", "reviewer"],
-      "auto_enable_mcp_servers": true
-    }
-  }
-}
-```
-
-## Conclusion
-
-Safe Task Spawn transforms agent spawning from a risky operation with silent failures into a validated, audited, and safe process. By enforcing registry compliance, matching agent capabilities to skill requirements, and logging all attempts to Memory MCP, it provides:
-
-1. **Safety**: Invalid spawns fail fast with actionable guidance
-2. **Auditability**: Complete trail of all spawn attempts
-3. **Intelligence**: Fuzzy matching and suggestions from 211-agent registry
-4. **Compatibility**: Validates agent capabilities match skill needs
-5. **Observability**: Memory MCP integration for pattern analysis
-
-Every skill that spawns agents should use Safe Task Spawn to prevent invalid spawns and build audit trails for debugging and compliance.
-
-**Status**: Production-Ready (Gold Tier)
-**Category**: Orchestration
-**Documentation**: Complete with validation logic, audit schema, and integration examples
-
----
-
-**Maintained by**: Claude Code (Sonnet 4.5)
-**Registry Source**: claude-code-plugins/ruv-sparc-three-loop-system/agents/ (211 agents)
-**Version**: 1.0.0
-**Last Updated**: 2025-12-17
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+    "category_match": tr
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/orchestration/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

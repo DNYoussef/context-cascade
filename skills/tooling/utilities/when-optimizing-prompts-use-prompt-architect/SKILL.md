@@ -1,42 +1,63 @@
+/*============================================================================*/
+/* WHEN-OPTIMIZING-PROMPTS-USE-PROMPT-ARCHITECT SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
 name: when-optimizing-prompts-use-prompt-architect
 version: 1.0.0
-description: Comprehensive framework for analyzing, creating, and refining prompts
-  for AI systems using evidence-based techniques
+description: |
+  [assert|neutral] Comprehensive framework for analyzing, creating, and refining prompts for AI systems using evidence-based techniques [ground:given] [conf:0.95] [state:confirmed]
 category: utilities
 tags:
 - prompt-engineering
 - optimization
 - ai-systems
 - llm
-agents:
-- researcher
-- coder
-difficulty: intermediate
-estimated_duration: 20-40min
-success_criteria:
-- Prompt structure optimized
-- Anti-patterns eliminated
-- Evidence-based techniques applied
-- Effectiveness validated
-validation_method: A/B testing
-dependencies:
-- claude-flow@alpha
-prerequisites:
-- Prompt to optimize OR use case defined
-outputs:
-- Optimized prompt
-- Analysis report
-- A/B test results
-triggers:
-- Poor AI response quality
-- Inconsistent outputs
-- New prompt needed
-- Prompt refactoring required
 author: ruv
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute when-optimizing-prompts-use-prompt-architect workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic utilities processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-optimizing-prompts-use-prompt-architect",
+  category: "utilities",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-optimizing-prompts-use-prompt-architect", "utilities", "workflow"],
+  context: "user needs when-optimizing-prompts-use-prompt-architect capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Prompt Architect - Evidence-Based Prompt Engineering
 
@@ -185,719 +206,67 @@ await memory.store('prompt-architect/missing', missingComponents);
 ### Hooks Integration
 ```bash
 npx claude-flow@alpha hooks pre-task \
-  --description "Analyze prompt structure and quality" \
-  --complexity "medium"
 
-npx claude-flow@alpha hooks post-task \
-  --task-id "prompt-analysis" \
-  --output "analysis-report.json"
-```
 
-## Phase 2: Structure Optimization
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Objective
-Reorganize prompt for logical flow and clarity
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Agent: Coder (Prompt Specialist)
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-**Step 2.1: Apply Template Structure**
-```javascript
-const optimizedStructure = {
-  systemContext: {
-    domain: extractDomain(prompt),
-    background: generateContextualBackground(),
-    constraints: extractOrInferConstraints(prompt)
-  },
-  roleDefinition: {
-    persona: definePersona(task),
-    expertise: listRequiredExpertise(),
-    perspective: defineWorkingPerspective()
-  },
-  taskDescription: {
-    primary: extractPrimaryTask(prompt),
-    secondary: extractSecondaryTasks(prompt),
-    scope: defineScope(),
-    outOfScope: defineWhatNotToDo()
-  },
-  constraints: {
-    required: extractRequirements(prompt),
-    forbidden: extractProhibitions(prompt),
-    optional: extractPreferences(prompt)
-  },
-  formatSpecification: {
-    outputFormat: specifyFormat(),
-    structure: defineStructure(),
-    examples: []
-  },
-  qualityCriteria: {
-    success: defineSuccessCriteria(),
-    validation: defineValidationMethod(),
-    metrics: defineMetrics()
-  }
-};
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-await memory.store('prompt-architect/structure', optimizedStructure);
-```
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-**Step 2.2: Build Optimized Prompt**
-```markdown
-# System Context
-${optimizedStructure.systemContext.background}
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/utilities/when-optimizing-prompts-use-prompt-architect/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Domain: ${optimizedStructure.systemContext.domain}
-Constraints: ${optimizedStructure.systemContext.constraints.join(', ')}
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-optimizing-prompts-use-prompt-architect-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Role
-You are ${optimizedStructure.roleDefinition.persona} with expertise in:
-${optimizedStructure.roleDefinition.expertise.map(e => `- ${e}`).join('\n')}
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-Your perspective: ${optimizedStructure.roleDefinition.perspective}
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Task
-Primary objective: ${optimizedStructure.taskDescription.primary}
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-${optimizedStructure.taskDescription.secondary.length > 0 ?
-  'Secondary objectives:\n' + optimizedStructure.taskDescription.secondary.map(t => `- ${t}`).join('\n') : ''}
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-Scope: ${optimizedStructure.taskDescription.scope}
-Out of scope: ${optimizedStructure.taskDescription.outOfScope.join(', ')}
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-# Constraints
-MUST: ${optimizedStructure.constraints.required.map(r => `- ${r}`).join('\n')}
-MUST NOT: ${optimizedStructure.constraints.forbidden.map(f => `- ${f}`).join('\n')}
-PREFER: ${optimizedStructure.constraints.optional.map(o => `- ${o}`).join('\n')}
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Output Format
-${optimizedStructure.formatSpecification.outputFormat}
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-Structure:
-${optimizedStructure.formatSpecification.structure}
-
-# Quality Criteria
-Success is defined as:
-${optimizedStructure.qualityCriteria.success.map(s => `- ${s}`).join('\n')}
-
-Validation method: ${optimizedStructure.qualityCriteria.validation}
-```
-
-**Step 2.3: Add Progressive Disclosure**
-```javascript
-// For complex prompts, use hierarchical structure
-const progressivePrompt = {
-  essential: generateEssentialInstructions(),
-  details: generateDetailedGuidance(),
-  advanced: generateAdvancedTechniques(),
-  examples: generateExamples(),
-  troubleshooting: generateTroubleshootingGuide()
-};
-
-// Structure with collapsible sections
-const enhancedPrompt = `
-${progressivePrompt.essential}
-
-<details>
-<summary>Detailed Guidance</summary>
-${progressivePrompt.details}
-</details>
-
-<details>
-<summary>Advanced Techniques</summary>
-${progressivePrompt.advanced}
-</details>
-
-<details>
-<summary>Examples</summary>
-${progressivePrompt.examples}
-</details>
-`;
-```
-
-### Validation Criteria
-- [ ] All 7 components present
-- [ ] Logical flow established
-- [ ] Progressive disclosure applied
-- [ ] Clear hierarchy visible
-
-### Script Template
-```bash
-#!/bin/bash
-# optimize-structure.sh
-
-INPUT_PROMPT="$1"
-OUTPUT_PROMPT="$2"
-
-# Analyze structure
-ANALYSIS=$(npx claude-flow@alpha agent-spawn \
-  --type researcher \
-  --task "Analyze prompt structure: $(cat $INPUT_PROMPT)")
-
-# Optimize
-OPTIMIZED=$(npx claude-flow@alpha agent-spawn \
-  --type coder \
-  --task "Restructure prompt based on analysis: $ANALYSIS")
-
-echo "$OPTIMIZED" > "$OUTPUT_PROMPT"
-
-npx claude-flow@alpha hooks post-edit \
-  --file "$OUTPUT_PROMPT" \
-  --memory-key "prompt-architect/optimized"
-```
-
-## Phase 3: Apply Evidence-Based Techniques
-
-### Objective
-Incorporate proven prompt engineering methods
-
-### Agent: Researcher + Coder
-
-**Step 3.1: Add Chain-of-Thought**
-```markdown
-# Chain-of-Thought Enhancement
-
-Before providing your final answer, think through the problem step by step:
-
-1. **Understand**: Restate the problem in your own words
-2. **Analyze**: Break down into components
-3. **Reason**: Work through the logic
-4. **Synthesize**: Combine insights
-5. **Conclude**: Provide final answer
-
-Format your response as:
-<thinking>
-[Your step-by-step reasoning]
-</thinking>
-
-<answer>
-[Your final answer]
-</answer>
-```
-
-**Step 3.2: Add Self-Consistency**
-```markdown
-# Self-Consistency Pattern
-
-Generate 3 independent solutions to this problem using different approaches:
-
-Approach 1: [Method 1]
-Approach 2: [Method 2]
-Approach 3: [Method 3]
-
-Then compare the solutions and select the most robust answer, explaining why it's superior.
-```
-
-**Step 3.3: Add ReAct Pattern**
-```markdown
-# ReAct (Reasoning + Acting) Pattern
-
-For each step in your process:
-
-**Thought**: [What you're thinking]
-**Action**: [What you're doing]
-**Observation**: [What you learned]
-
-Repeat this cycle until the task is complete.
-
-Example:
-Thought: I need to understand the data structure
-Action: Analyze the schema
-Observation: It's a relational database with 5 tables
-Thought: I should check for relationships
-Action: Examine foreign keys
-Observation: Tables are connected via user_id
-```
-
-**Step 3.4: Add Few-Shot Examples**
-```javascript
-const examples = [
-  {
-    input: '[Example input 1]',
-    reasoning: '[How to approach it]',
-    output: '[Expected output 1]'
-  },
-  {
-    input: '[Example input 2]',
-    reasoning: '[How to approach it]',
-    output: '[Expected output 2]'
-  },
-  {
-    input: '[Example input 3 - edge case]',
-    reasoning: '[How to handle edge case]',
-    output: '[Expected output 3]'
-  }
-];
-
-const fewShotSection = `
-# Examples
-
-${examples.map((ex, i) => `
-## Example ${i + 1}
-
-**Input**: ${ex.input}
-
-**Reasoning**: ${ex.reasoning}
-
-**Output**:
-\`\`\`
-${ex.output}
-\`\`\`
-`).join('\n')}
-
-Now apply the same pattern to: [ACTUAL INPUT]
-`;
-```
-
-**Step 3.5: Add Constraint Framing**
-```markdown
-# Constraint-Based Optimization
-
-This task requires balancing multiple constraints:
-
-1. **Quality**: Must meet 90% accuracy
-2. **Speed**: Must complete in < 2 seconds
-3. **Resources**: Memory usage < 100MB
-4. **Safety**: No external API calls
-
-When these constraints conflict, prioritize in this order: Safety > Quality > Speed > Resources
-
-If you cannot satisfy all constraints, explicitly state which ones are violated and why.
-```
-
-### Validation Criteria
-- [ ] CoT reasoning added
-- [ ] Self-consistency pattern included
-- [ ] Examples provided (2-3)
-- [ ] Constraints clearly framed
-
-### Memory Pattern
-```bash
-npx claude-flow@alpha hooks post-edit \
-  --file "enhanced-prompt.md" \
-  --memory-key "prompt-architect/techniques-applied"
-```
-
-## Phase 4: Validate Effectiveness
-
-### Objective
-Test prompt performance and measure improvement
-
-### Agent: Researcher
-
-**Step 4.1: Define Test Cases**
-```javascript
-const testCases = [
-  {
-    id: 'test-1',
-    type: 'typical',
-    input: '[Common use case]',
-    expectedOutput: '[What should happen]',
-    successCriteria: '[How to measure success]'
-  },
-  {
-    id: 'test-2',
-    type: 'edge-case',
-    input: '[Unusual scenario]',
-    expectedOutput: '[How to handle]',
-    successCriteria: '[Validation method]'
-  },
-  {
-    id: 'test-3',
-    type: 'stress',
-    input: '[Complex/ambiguous input]',
-    expectedOutput: '[Robust handling]',
-    successCriteria: '[Quality threshold]'
-  }
-];
-
-await memory.store('prompt-architect/test-cases', testCases);
-```
-
-**Step 4.2: Run A/B Tests**
-```javascript
-async function runABTest(originalPrompt, optimizedPrompt, testCases) {
-  const results = {
-    original: [],
-    optimized: []
-  };
-
-  for (const testCase of testCases) {
-    // Test original prompt
-    const originalResult = await testPrompt(originalPrompt, testCase.input);
-    results.original.push({
-      testId: testCase.id,
-      output: originalResult,
-      score: scoreOutput(originalResult, testCase.expectedOutput),
-      meetsSuccessCriteria: evaluateCriteria(originalResult, testCase.successCriteria)
-    });
-
-    // Test optimized prompt
-    const optimizedResult = await testPrompt(optimizedPrompt, testCase.input);
-    results.optimized.push({
-      testId: testCase.id,
-      output: optimizedResult,
-      score: scoreOutput(optimizedResult, testCase.expectedOutput),
-      meetsSuccessCriteria: evaluateCriteria(optimizedResult, testCase.successCriteria)
-    });
-  }
-
-  return results;
-}
-
-const abTestResults = await runABTest(originalPrompt, optimizedPrompt, testCases);
-await memory.store('prompt-architect/ab-test-results', abTestResults);
-```
-
-**Step 4.3: Calculate Metrics**
-```javascript
-const metrics = {
-  original: {
-    avgScore: calculateAverage(abTestResults.original.map(r => r.score)),
-    successRate: calculateSuccessRate(abTestResults.original),
-    consistency: calculateConsistency(abTestResults.original)
-  },
-  optimized: {
-    avgScore: calculateAverage(abTestResults.optimized.map(r => r.score)),
-    successRate: calculateSuccessRate(abTestResults.optimized),
-    consistency: calculateConsistency(abTestResults.optimized)
-  },
-  improvement: {
-    scoreImprovement: 0, // calculated below
-    successRateImprovement: 0,
-    consistencyImprovement: 0
-  }
-};
-
-metrics.improvement = {
-  scoreImprovement: ((metrics.optimized.avgScore - metrics.original.avgScore) / metrics.original.avgScore * 100).toFixed(2) + '%',
-  successRateImprovement: ((metrics.optimized.successRate - metrics.original.successRate) / metrics.original.successRate * 100).toFixed(2) + '%',
-  consistencyImprovement: ((metrics.optimized.consistency - metrics.original.consistency) / metrics.original.consistency * 100).toFixed(2) + '%'
-};
-
-await memory.store('prompt-architect/metrics', metrics);
-```
-
-### Validation Criteria
-- [ ] Test cases defined (3+ cases)
-- [ ] A/B testing completed
-- [ ] Metrics calculated
-- [ ] Improvement demonstrated
-
-### Script Template
-```bash
-#!/bin/bash
-# validate-prompt.sh
-
-ORIGINAL="$1"
-OPTIMIZED="$2"
-TEST_CASES="$3"
-
-# Run A/B tests
-RESULTS=$(npx claude-flow@alpha agent-spawn \
-  --type researcher \
-  --task "A/B test prompts: original='$ORIGINAL' optimized='$OPTIMIZED' tests='$TEST_CASES'")
-
-# Calculate improvement
-METRICS=$(echo "$RESULTS" | jq '.improvement')
-
-echo "Improvement Metrics:"
-echo "$METRICS" | jq '.'
-
-# Store results
-npx claude-flow@alpha hooks post-task \
-  --task-id "prompt-validation" \
-  --metrics "$METRICS"
-```
-
-## Phase 5: Refine Iteratively
-
-### Objective
-Continuous improvement based on validation results
-
-### Agent: Coder
-
-**Step 5.1: Analyze Failures**
-```javascript
-const failures = abTestResults.optimized.filter(r => !r.meetsSuccessCriteria);
-
-const failureAnalysis = failures.map(failure => {
-  const testCase = testCases.find(tc => tc.id === failure.testId);
-
-  return {
-    testId: failure.testId,
-    testType: testCase.type,
-    expectedOutput: testCase.expectedOutput,
-    actualOutput: failure.output,
-    gap: analyzeGap(testCase.expectedOutput, failure.output),
-    rootCause: identifyRootCause(failure, optimizedPrompt),
-    recommendedFix: suggestFix(rootCause)
-  };
-});
-
-await memory.store('prompt-architect/failure-analysis', failureAnalysis);
-```
-
-**Step 5.2: Apply Refinements**
-```javascript
-let refinedPrompt = optimizedPrompt;
-
-for (const analysis of failureAnalysis) {
-  switch (analysis.rootCause.type) {
-    case 'MISSING_CONSTRAINT':
-      refinedPrompt = addConstraint(refinedPrompt, analysis.recommendedFix.constraint);
-      break;
-    case 'AMBIGUOUS_INSTRUCTION':
-      refinedPrompt = clarifyInstruction(refinedPrompt, analysis.recommendedFix.clarification);
-      break;
-    case 'INSUFFICIENT_EXAMPLES':
-      refinedPrompt = addExample(refinedPrompt, analysis.recommendedFix.example);
-      break;
-    case 'MISSING_EDGE_CASE_HANDLING':
-      refinedPrompt = addEdgeCaseGuidance(refinedPrompt, analysis.recommendedFix.guidance);
-      break;
-  }
-}
-
-await memory.store('prompt-architect/refined-prompt', refinedPrompt);
-```
-
-**Step 5.3: Re-validate**
-```javascript
-const revalidationResults = await runABTest(optimizedPrompt, refinedPrompt, testCases);
-
-const improvementFromOptimized = {
-  scoreImprovement: calculateImprovement(
-    metrics.optimized.avgScore,
-    calculateAverage(revalidationResults.optimized.map(r => r.score))
-  ),
-  successRateImprovement: calculateImprovement(
-    metrics.optimized.successRate,
-    calculateSuccessRate(revalidationResults.optimized)
-  )
-};
-
-// If refined version is better, adopt it
-if (improvementFromOptimized.scoreImprovement > 5) {
-  console.log('✅ Refinement successful. Adopting refined version.');
-  finalPrompt = refinedPrompt;
-} else {
-  console.log('✅ Optimized version is sufficient.');
-  finalPrompt = optimizedPrompt;
-}
-
-await memory.store('prompt-architect/final-prompt', finalPrompt);
-```
-
-**Step 5.4: Generate Documentation**
-```markdown
-# Prompt Optimization Report
-
-## Original Prompt
-\`\`\`
-${originalPrompt}
-\`\`\`
-
-## Final Prompt
-\`\`\`
-${finalPrompt}
-\`\`\`
-
-## Changes Applied
-${changesApplied.map(change => `- ${change}`).join('\n')}
-
-## Performance Metrics
-
-| Metric | Original | Optimized | Improvement |
-|--------|----------|-----------|-------------|
-| Avg Score | ${metrics.original.avgScore} | ${metrics.optimized.avgScore} | ${metrics.improvement.scoreImprovement} |
-| Success Rate | ${metrics.original.successRate}% | ${metrics.optimized.successRate}% | ${metrics.improvement.successRateImprovement} |
-| Consistency | ${metrics.original.consistency} | ${metrics.optimized.consistency} | ${metrics.improvement.consistencyImprovement} |
-
-## Test Results
-${testCases.map(tc => `
-### ${tc.id} (${tc.type})
-- **Expected**: ${tc.expectedOutput}
-- **Original Result**: ${getResult('original', tc.id)}
-- **Optimized Result**: ${getResult('optimized', tc.id)}
-- **Status**: ${getStatus('optimized', tc.id)}
-`).join('\n')}
-
-## Recommendations
-${generateRecommendations(finalPrompt)}
-```
-
-### Validation Criteria
-- [ ] Failures analyzed
-- [ ] Refinements applied
-- [ ] Re-validation completed
-- [ ] Documentation generated
-
-### Memory Pattern
-```bash
-npx claude-flow@alpha hooks session-end \
-  --session-id "prompt-architect-${TIMESTAMP}" \
-  --export-metrics true \
-  --summary "Prompt optimized with ${IMPROVEMENT}% improvement"
-```
-
-## Success Metrics
-
-### Quantitative
-- Score improvement > 20%
-- Success rate > 85%
-- Consistency score > 0.8
-- All test cases pass
-
-### Qualitative
-- Clear structure
-- No anti-patterns
-- Evidence-based techniques applied
-- User satisfaction with outputs
-
-## Common Patterns
-
-### Pattern 1: Role-Based Optimization
-```markdown
-You are an expert ${domain} specialist with ${years} years of experience.
-Your expertise includes: ${expertise_list}
-You approach problems by: ${methodology}
-```
-
-### Pattern 2: Constraint-First Design
-```markdown
-# Constraints (Read First)
-MUST: ${required_constraints}
-MUST NOT: ${forbidden_actions}
-OPTIMIZE FOR: ${optimization_targets}
-
-# Task
-[task description with constraints in mind]
-```
-
-### Pattern 3: Format-Driven Output
-```markdown
-Your output MUST follow this exact structure:
-
-\`\`\`json
-{
-  "analysis": "...",
-  "recommendations": [...],
-  "confidence": 0.XX
-}
-\`\`\`
-
-Do not deviate from this format.
-```
-
-## Integration Examples
-
-### With Agent Creation
-```javascript
-// Use prompt architect to optimize agent system prompts
-const agentPrompt = await optimizePrompt({
-  role: 'backend-developer',
-  domain: 'Node.js API development',
-  constraints: ['RESTful design', 'security-first', 'test-driven'],
-  outputFormat: 'production-ready code'
-});
-```
-
-### With SPARC Workflow
-```bash
-# Optimize specification prompts
-npx claude-flow@alpha skill-run prompt-architect \
-  --input "sparc-spec-prompt.md" \
-  --output "optimized-spec-prompt.md"
-
-# Use optimized prompt in SPARC
-npx claude-flow@alpha sparc run spec-pseudocode \
-  --prompt-file "optimized-spec-prompt.md"
-```
-
-## Memory Schema
-
-```javascript
-{
-  "prompt-architect/": {
-    "session-${id}/": {
-      "analysis": {},
-      "anti-patterns": [],
-      "missing": [],
-      "structure": {},
-      "techniques-applied": [],
-      "test-cases": [],
-      "ab-test-results": {},
-      "metrics": {},
-      "failure-analysis": [],
-      "refined-prompt": "",
-      "final-prompt": ""
-    }
-  }
-}
-```
-
-## Skill Completion
-
-Outputs:
-1. **final-prompt.md**: Optimized prompt ready for use
-2. **optimization-report.md**: Detailed analysis and results
-3. **ab-test-results.json**: Performance comparison data
-4. **prompt-library-entry.md**: Cataloged for reuse
-
-Skill complete when metrics show >20% improvement and all test cases pass.
-## Core Principles
-
-### 1. Structural Completeness Over Ad-Hoc Construction
-Prompts must contain all 7 essential components: system context, role definition, task description, constraints, format specification, examples, and quality criteria.
-
-In practice:
-- Audit existing prompts against structural checklist - identify missing components
-- Add system context explaining domain, background, and operating constraints
-- Define explicit role with persona, expertise, and working perspective
-- Separate MUST (required), MUST NOT (forbidden), and PREFER (optional) constraints
-- Specify exact output format (JSON schema, markdown structure, code template)
-- Include 2-3 examples showing desired behavior for typical, edge case, and stress scenarios
-
-### 2. Evidence-Based Techniques Drive Results
-Apply proven prompt engineering methods from research: Chain-of-Thought, self-consistency, ReAct, program-of-thought, plan-and-solve, role-playing, and few-shot learning.
-
-In practice:
-- Add explicit reasoning steps with Chain-of-Thought pattern (Understand -> Analyze -> Reason -> Synthesize -> Conclude)
-- Use self-consistency by requesting 3 independent solutions with different approaches, then selecting most robust
-- Implement ReAct pattern for multi-step workflows (Thought -> Action -> Observation cycle)
-- Provide 2-3 few-shot examples with input, reasoning process, and expected output
-- Frame constraints explicitly with prioritization order when conflicts occur
-
-### 3. Validate Through Measurement, Not Assumption
-Effectiveness claims require empirical A/B testing against baseline with quantitative metrics.
-
-In practice:
-- Define 3+ test cases covering typical use, edge cases, and stress scenarios
-- Run original prompt and optimized prompt on identical test cases
-- Measure average score, success rate, and consistency for both versions
-- Calculate percentage improvement for each metric
-- Require > 20% score improvement and > 85% success rate before deployment
-- Iteratively refine based on failure analysis until thresholds met
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|-------------|---------|----------|
-| Vague imperative instructions | "Please try to analyze..." produces inconsistent results | Use definitive commands: "Analyze the following dataset using statistical methods X, Y, Z. Return results in JSON format." Remove hedging words (please, try, maybe, possibly). |
-| Missing output format specification | AI guesses format, creates integration friction | Specify exact structure with schema or template. For JSON, provide complete schema with types. For text, show exact markdown structure. Include format validation in success criteria. |
-| Implicit assumptions unstated | AI fills gaps with incorrect interpretations | Make all assumptions explicit. State domain knowledge requirements. Define edge case handling. Clarify ambiguous terms with examples. |
-| Conflicting instructions | "Be comprehensive but concise" creates confusion | Resolve contradictions with explicit priorities: "Prioritize comprehensive coverage over brevity. Maximum 500 words per section." Use constraint hierarchy (Safety > Quality > Speed > Resources). |
-| No examples provided | AI guesses desired behavior from description alone | Include 2-3 few-shot examples: (1) typical case, (2) edge case, (3) error handling. Show input, reasoning process, and expected output for each. |
-| Untested optimization claims | "Optimized prompt" without validation proof | Always run A/B tests. Compare original vs optimized on 3+ test cases. Measure score, success rate, consistency. Require > 20% improvement with statistical significance (p < 0.05). |
-
-## Conclusion
-
-Prompt Architect provides a systematic engineering framework for transforming ad-hoc instructions into high-performance prompts through structural analysis, evidence-based optimization, and empirical validation. The skill recognizes that prompt quality directly determines AI system effectiveness - poorly structured prompts produce inconsistent, low-quality outputs regardless of model capabilities.
-
-The 7-component structural template ensures completeness by addressing common failure modes: missing context causes hallucinations, absent role definition produces generic responses, vague constraints enable interpretation drift, and lack of examples creates misaligned outputs. By systematically auditing for and adding these components, prompts become explicit, unambiguous contracts between human intent and AI execution.
-
-Most critically, this skill rejects subjective optimization claims in favor of quantitative A/B testing. The validation phase compares original and optimized prompts on identical test cases, measuring improvement in score, success rate, and consistency. Only prompts demonstrating > 20% improvement and > 85% success rate are deployed to production. This evidence-based approach ensures optimization efforts produce measurable value rather than speculative improvements.
-
-The iterative refinement process (analyze failures -> apply fixes -> re-validate) creates a continuous improvement loop. Failed test cases trigger root cause analysis identifying missing constraints, ambiguous instructions, insufficient examples, or inadequate edge case handling. Each iteration addresses specific failure modes, progressively improving prompt robustness. This systematic methodology scales from individual prompt optimization to building reusable prompt libraries, enabling organizations to accumulate proven patterns for common tasks and domains.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>WHEN_OPTIMIZING_PROMPTS_USE_PROMPT_ARCHITECT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

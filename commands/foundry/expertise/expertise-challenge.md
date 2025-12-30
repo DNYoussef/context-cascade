@@ -1,185 +1,222 @@
+/*============================================================================*/
+/* EXPERTISE-CHALLENGE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: expertise-challenge-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/foundry/expertise/expertise-challenge/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [prompt-auditor, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: expertise-challenge
-binding: agent:expertise-adversary
-category: foundry
 version: 1.0.0
+binding: skill:agent:expertise-adversary
+category: foundry
 ---
 
-# /expertise-challenge
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "expertise-challenge",
+  binding: "skill:agent:expertise-adversary",
+  category: "foundry",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "**Critical for Preventing Confident Drift**  Unlike `/expertise-validate` which checks if claims are TRUE, this command actively tries to PROVE claims",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /expertise-challenge"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Run adversarial validation to actively try to DISPROVE expertise claims. Prevents confident drift.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
+[define|neutral] SYNTAX := "/expertise-challenge [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-/expertise-challenge <domain> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    domain: { type: "string", description: "Domain to challenge" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--claim": { description: "Challenge specific claim only", default: "false" },
+    "--thoroughness": { description: ""quick" | "standard" | "exhaustive"", default: "false" },
+    "--survival-threshold": { description: "Minimum survival rate (default: 0.7)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-- `domain` - Domain to challenge (required)
-- `--claim` - Challenge specific claim only
-- `--thoroughness` - "quick" | "standard" | "exhaustive"
-- `--survival-threshold` - Minimum survival rate (default: 0.7)
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Find Contradicting Code**", model: "Claude" },
+  { stage: 2, action: "**Find Edge Cases**", model: "Claude" },
+  { stage: 3, action: "**Check Historical Contradictions**", model: "Claude" },
+  { stage: 4, action: "**Test Assumption Conflicts**", model: "Claude" },
+  { stage: 5, action: "**Run Falsifiable Checks**", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## What It Does
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-**Critical for Preventing Confident Drift**
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-Unlike `/expertise-validate` which checks if claims are TRUE, this command actively tries to PROVE claims are FALSE.
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**5-Point Adversarial Protocol**:
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-1. **Find Contradicting Code**
-   - Search for code that violates stated patterns
-   - Look for files in wrong locations
-   - Check for architecture violations
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-2. **Find Edge Cases**
-   - Look for exceptions to patterns
-   - Find legacy code that doesn't follow rules
-   - Check for config flags that change behavior
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-3. **Check Historical Contradictions**
-   - Search git history for recent changes
-   - Find commits that modified patterns
-   - Look for reverts and TODOs
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-4. **Test Assumption Conflicts**
-   - Compare against test assumptions
-   - Check mock behavior vs. claimed behavior
-   - Look for integration test contradictions
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-5. **Run Falsifiable Checks**
-   - Execute all validation commands
-   - Record exact pass/fail results
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Survival Rate Interpretation
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-| Rate | Meaning | Action |
-|------|---------|--------|
-| > 90% | Strong expertise | Accept updates |
-| 70-90% | Acceptable | Correct weak claims |
-| < 70% | Major issues | Reject updates, refresh |
+[define|neutral] EXAMPLES := [
+  { command: "/expertise-challenge authentication", description: "Example usage" },
+  { command: "/expertise-challenge database --claim "Services don't import", description: "Example usage" },
+  { command: "/expertise-challenge payments --thoroughness exhaustive", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Standard adversarial challenge
-/expertise-challenge authentication
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/expertise-challenge -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/expertise-challenge arg1' '/expertise-challenge arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Challenge specific claim
-/expertise-challenge database --claim "Services don't import controllers"
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-# Exhaustive challenge (before major releases)
-/expertise-challenge payments --thoroughness exhaustive
+[define|neutral] RELATED := {
+  complementary: ["/expertise-refresh", "/expertise-history", "/expertise-validate"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Strict threshold for CI/CD
-/expertise-challenge api --survival-threshold 0.9
-```
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## Output
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "foundry",
+    file: ".claude/expertise/foundry.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "expertise-challenge-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/foundry/expertise-challenge/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:expertise-adversary"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-```
-ADVERSARIAL CHALLENGE: authentication
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-Challenger: expertise-adversary
-Thoroughness: standard
-Threshold: 70%
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "expertise-challenge-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Running 5-Point Adversarial Protocol...
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-1. Finding contradicting code...
-   [DISPROVEN] Claim: "Controllers don't access database directly"
-   Evidence: src/auth/controllers/admin.ts:45 imports 'typeorm'
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-2. Finding edge cases...
-   [WEAKENED] Claim: "All routes use auth middleware"
-   Exception: /health endpoint bypasses auth (intentional)
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-3. Checking historical contradictions...
-   [OK] No recent contradicting commits
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-4. Testing assumption conflicts...
-   [OK] Tests align with claims
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-5. Running falsifiable checks...
-   21/23 passed
-
-Results:
-  Claims challenged: 25
-  Claims survived: 18
-  Claims disproven: 3
-  Claims weakened: 4
-  Survival rate: 72%
-
-Verdict: CONDITIONAL_ACCEPT
-  - Must correct 3 disproven claims
-  - Should clarify 4 weakened claims
-  - Then expertise can be trusted
-
-Disproven claims:
-  1. "Controllers don't access database directly"
-     Fix: Update claim or fix code
-
-Weakened claims (add exceptions):
-  1. "All routes use auth middleware"
-     Add exception: /health, /metrics (monitoring endpoints)
-```
-
-## Why This Matters
-
-Without adversarial validation, auto-learning creates confident drift:
-
-```
-Build 1: Learn pattern A -> Expertise says "we use A"
-Build 2: Code actually uses B -> But self-improve sees "A works" -> Confirms A
-Build 3: More code uses B -> Expertise still says A -> Drift increases
-Build N: Expertise completely wrong -> Agents make bad decisions
-```
-
-Adversarial validation breaks this cycle by actively challenging claims BEFORE they're reinforced.
-
-## Integration
-
-Called automatically by:
-- Self-improve hook (before applying updates)
-- Loop 2 Step 9.5 (before expertise update)
-- Scheduled weekly audits
-
-## See Also
-
-- `/expertise-validate` - Basic validation
-- `/expertise-refresh` - Rebuild expertise
-- `/expertise-history` - View challenge history
-
-
----
-*Promise: `<promise>EXPERTISE_CHALLENGE_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>EXPERTISE_CHALLENGE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

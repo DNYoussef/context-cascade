@@ -1,361 +1,223 @@
----
-
-## Command Purpose
-[Define what this command does - the specific action it triggers]
-
-## Input Requirements
-[Parameters and prerequisites needed to execute this command]
-
-## Expected Output
-[What artifacts, results, or state changes this command produces]
-
-## Success Indicators
-[How to verify the command executed successfully]
-
-## Error Handling
-[Common failures and recovery procedures]
-
-## Related Commands
-[Commands that work together with this one in typical workflows]
+/*============================================================================*/
+/* WORKFLOW-DEPLOYMENT COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: workflow-deployment-benchmark-v1
-  tests:
-    - command_execution_success
-    - workflow_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/workflows/workflow-deployment/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [deployment-readiness, cicd-intelligent-recovery]
-  related_agents: [cicd-engineer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-name: workflow:deployment
-category: workflow
+name: workflow-deployment
 version: 1.0.0
+binding: skill:workflow-deployment
+category: delivery
 ---
 
-# /workflow:deployment
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Orchestrate multi-stage deployment workflows with validation gates.
-
-## Usage
-```bash
-/workflow:deployment [options]
-```
-
-## Parameters
-- `--environment` - Target environment: dev|staging|production (required)
-- `--strategy` - Deployment strategy: rolling|blue-green|canary|recreate (default: rolling)
-- `--validation` - Enable validation gates (default: true)
-- `--smoke-test` - Run smoke tests post-deployment (default: true)
-- `--auto-rollback` - Rollback on failure (default: true)
-- `--notify` - Send deployment notifications (default: true)
-- `--approve-manual` - Require manual approval for production (default: true)
-- `--canary-percentage` - Canary traffic percentage (default: 10)
-
-## What It Does
-
-**Multi-Stage Deployment Workflow**:
-1. 🔍 **Pre-Deployment**: Validate readiness
-2. 🎯 **Target Selection**: Choose deployment target
-3. 🚦 **Validation Gate**: Quality checks
-4. 🚀 **Deploy**: Execute deployment strategy
-5. 🏥 **Health Check**: Monitor pod/instance health
-6. 🧪 **Smoke Test**: Run basic functionality tests
-7. 📊 **Metrics**: Collect performance metrics
-8. ✅ **Approval Gate**: Manual/auto approval
-9. 📢 **Notify**: Send deployment status
-
-**Deployment Strategies**:
-- **Rolling**: Gradual pod replacement (zero downtime)
-- **Blue-Green**: Full environment switch with instant rollback
-- **Canary**: Gradual traffic shift (10% → 50% → 100%)
-- **Recreate**: Terminate all, then deploy new (downtime)
-
-## Examples
-
-```bash
-# Deploy to staging with rolling update
-/workflow:deployment --environment staging
-
-# Production deployment with blue-green
-/workflow:deployment --environment production --strategy blue-green
-
-# Canary deployment with 20% traffic
-/workflow:deployment --environment production --strategy canary --canary-percentage 20
-
-# Deploy without smoke tests
-/workflow:deployment --environment dev --smoke-test false
-
-# Deploy with manual approval
-/workflow:deployment --environment production --approve-manual true
-
-# Recreate deployment (downtime acceptable)
-/workflow:deployment --environment dev --strategy recreate
-```
-
-## Output
-
-```
-🚀 Deployment Workflow Started
-
-Environment: production
-Strategy: Blue-Green
-Validation Gates: Enabled
-Auto-Rollback: Enabled
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 1: Pre-Deployment Validation
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ✅ All tests passing (452/452)
-  ✅ Security audit: No critical issues
-  ✅ Code coverage: 94.3% (≥80%)
-  ✅ Docker image built: myapp:v1.3.0
-  ✅ Image scanned: 0 vulnerabilities
-  ✅ Manifests validated
-
-  🎯 Ready to deploy
-  ⏱️  Duration: 4.2s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 2: Target Environment Check
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Cluster: production-us-east-1
-  Namespace: myapp-prod
-  Current Version: v1.2.9 (green environment)
-  Target Version: v1.3.0 (blue environment)
-
-  ✅ Cluster connectivity: OK
-  ✅ Namespace exists: myapp-prod
-  ✅ Resources available: CPU, Memory, Storage
-  ✅ Blue environment: Ready for deployment
-  ✅ Green environment: Active (serving traffic)
-
-  ⏱️  Duration: 2.1s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage: Deploy to Blue Environment
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🌊 Deploying v1.3.0 to blue environment...
-
-  ✅ ConfigMaps updated
-  ✅ Secrets synchronized
-  ✅ Deployment scaled to 3 replicas
-
-  Pod Status:
-    myapp-blue-abc123: Running ✅ (health: OK)
-    myapp-blue-def456: Running ✅ (health: OK)
-    myapp-blue-ghi789: Running ✅ (health: OK)
-
-  ✅ All pods healthy (3/3)
-  ⏱️  Duration: 38.4s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 3: Health Check Validation
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🏥 Performing health checks...
-
-  Liveness Probes:
-    ✅ /health → 200 OK (all pods)
-
-  Readiness Probes:
-    ✅ /ready → 200 OK (all pods)
-
-  Dependency Checks:
-    ✅ Database: Connected
-    ✅ Redis: Connected
-    ✅ External API: Reachable
-
-  ⏱️  Duration: 5.3s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 4: Smoke Test Suite
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🧪 Running smoke tests against blue environment...
-
-  Critical Paths:
-    ✅ User login: 87ms → Success
-    ✅ Fetch dashboard: 124ms → Success
-    ✅ Create record: 156ms → Success
-    ✅ Update record: 143ms → Success
-    ✅ Delete record: 98ms → Success
-
-  API Endpoints:
-    ✅ GET /api/users: 200 OK
-    ✅ POST /api/auth/login: 200 OK
-    ✅ GET /api/health: 200 OK
-    ✅ GET /api/metrics: 200 OK
-
-  ✅ All smoke tests passed (15/15)
-  ⏱️  Duration: 8.7s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 5: Performance Metrics
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  📊 Collecting baseline metrics...
-
-  Blue Environment (v1.3.0):
-    Response Time: 87ms (target: <100ms) ✅
-    Error Rate: 0.00% (target: <0.1%) ✅
-    Throughput: 450 req/s ✅
-    CPU: 28% ✅
-    Memory: 32% ✅
-
-  Green Environment (v1.2.9 - current):
-    Response Time: 84ms
-    Error Rate: 0.02%
-    Throughput: 445 req/s
-    CPU: 30%
-    Memory: 35%
-
-  Comparison:
-    ⚡ Response Time: +3ms (+3.6%) - Acceptable
-    ✅ Error Rate: -0.02% (improved)
-    ✅ Throughput: +5 req/s (improved)
-    ✅ CPU: -2% (improved)
-    ✅ Memory: -3% (improved)
-
-  🎯 Performance metrics within SLA
-  ⏱️  Duration: 12.4s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Gate 6: Manual Approval Required
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ⏸️  Deployment paused for approval
-
-  Summary:
-    ✅ All validation gates passed
-    ✅ Blue environment ready
-    ✅ Performance within SLA
-    ✅ No regressions detected
-
-  Ready to switch traffic from green → blue
-
-  [APPROVED] (auto-approved after 30s timeout)
-  ⏱️  Duration: 2.1s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage: Traffic Switch (Blue-Green)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔀 Switching traffic from green to blue...
-
-  ✅ Service updated: myapp-svc → blue selector
-  ✅ Ingress updated: myapp.example.com → blue backend
-  ✅ Load balancer health check: 3/3 targets healthy
-  ✅ DNS propagated
-
-  Traffic Routing:
-    Blue (v1.3.0): 100% ✅
-    Green (v1.2.9): 0%
-
-  ⏱️  Duration: 8.2s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage: Post-Switch Monitoring (5min)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  📊 Monitoring blue environment...
-
-  [00:30] Error Rate: 0.00% ✅ | Response Time: 88ms ✅
-  [01:00] Error Rate: 0.00% ✅ | Response Time: 86ms ✅
-  [01:30] Error Rate: 0.01% ✅ | Response Time: 89ms ✅
-  [02:00] Error Rate: 0.00% ✅ | Response Time: 85ms ✅
-  [02:30] Error Rate: 0.00% ✅ | Response Time: 87ms ✅
-
-  ✅ No anomalies detected
-  ✅ Traffic stable
-  ⏱️  Duration: 5m 0s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage: Green Environment Cleanup
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🧹 Scaling down green environment...
-
-  ✅ Green deployment scaled to 0
-  ✅ Resources released
-  ✅ Old image retained (rollback capability)
-
-  ⏱️  Duration: 4.3s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Deployment Summary
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Status: ✅ SUCCESS
-Strategy: Blue-Green
-Total Duration: 7m 23s
-Downtime: 0s (zero-downtime deployment)
-
-Deployment Details:
-  Environment: production
-  Version: v1.2.9 → v1.3.0
-  Replicas: 3/3 healthy
-  Traffic: 100% on blue
-
-Performance:
-  Response Time: 87ms (SLA: <100ms) ✅
-  Error Rate: 0.00% (SLA: <0.1%) ✅
-  Throughput: 450 req/s ✅
-
-URLs:
-  🌐 Production: https://myapp.example.com
-  📊 Metrics: https://grafana.example.com/d/myapp
-  📊 Logs: kubectl logs -n myapp-prod -l app=myapp,env=blue
-
-Rollback Command (if needed):
-  /workflow:rollback --environment production --to v1.2.9
-
-Notifications Sent:
-  ✅ Slack: #deployments
-  ✅ Email: devops@example.com
-  ✅ PagerDuty: Deployment success event
-
-✅ Deployment Complete!
-```
-
-## Chains With
-
-```bash
-# Full deployment pipeline
-/docker-build && /workflow:deployment --environment staging
-
-# Deploy to staging then production
-/workflow:deployment --environment staging && \
-/smoke-test && \
-/workflow:deployment --environment production
-
-# Deploy with monitoring
-/workflow:deployment --environment production && \
-/monitoring-configure --alerts true
-```
-
-## See Also
-- `/workflow:cicd` - Full CI/CD pipeline
-- `/workflow:rollback` - Rollback deployment
-- `/docker-build` - Build container images
-- `/k8s-deploy` - Kubernetes deployment
-- `/smoke-test` - Post-deployment testing
-- `/monitoring-configure` - Setup monitoring
-
-
----
-*Promise: `<promise>WORKFLOW_DEPLOYMENT_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "workflow-deployment",
+  binding: "skill:workflow-deployment",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "[Define what this command does - the specific action it triggers]",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /workflow-deployment"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/workflow-deployment [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--environment": { description: "Target environment: dev|staging|production (requir", default: "false" },
+    "--strategy": { description: "Deployment strategy: rolling|blue-green|canary|rec", default: "false" },
+    "--validation": { description: "Enable validation gates (default: true)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "🔍 **Pre-Deployment**: Validate readiness", model: "Claude" },
+  { stage: 2, action: "🎯 **Target Selection**: Choose deployment target", model: "Claude" },
+  { stage: 3, action: "🚦 **Validation Gate**: Quality checks", model: "Claude" },
+  { stage: 4, action: "🚀 **Deploy**: Execute deployment strategy", model: "Claude" },
+  { stage: 5, action: "🏥 **Health Check**: Monitor pod/instance health", model: "Claude" },
+  { stage: 6, action: "🧪 **Smoke Test**: Run basic functionality tests", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/workflow:deployment --environment staging", description: "Example usage" },
+  { command: "/workflow:deployment --environment production --strategy blu", description: "Example usage" },
+  { command: "/workflow:deployment --environment production --strategy can", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/workflow-deployment -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/workflow-deployment arg1' '/workflow-deployment arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/docker-build", "/smoke-test", "/monitoring-configure"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "workflow-deployment-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/workflow-deployment/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["workflow-deployment"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "workflow-deployment-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WORKFLOW_DEPLOYMENT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

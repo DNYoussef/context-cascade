@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* DOCKER-CONTAINERIZATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: docker-containerization
-description: Docker containerization specialist for multi-stage builds, layer caching optimization, security scanning with Trivy, Docker Compose orchestration, BuildKit advanced features, and production-grade Dockerfile best practices. Use when containerizing applications, optimizing image size, implementing CI/CD pipelines, or requiring Docker best practices. Handles secrets management, health checks, resource limits, and registry operations.
+version: 1.0.0
+description: |
+  [assert|neutral] Docker containerization specialist for multi-stage builds, layer caching optimization, security scanning with Trivy, Docker Compose orchestration, BuildKit advanced features, and production-grade Dock [ground:given] [conf:0.95] [state:confirmed]
 category: Infrastructure
-complexity: Medium
-triggers: ["docker", "dockerfile", "docker compose", "containerization", "docker build", "buildkit", "trivy", "docker security", "multi-stage build"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute docker-containerization workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Infrastructure processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "docker-containerization",
+  category: "Infrastructure",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["docker-containerization", "Infrastructure", "workflow"],
+  context: "user needs docker-containerization capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Docker Containerization Specialist
 
@@ -179,305 +229,67 @@ services:
 
 networks:
   app-network:
-    driver: bridge
-
-volumes:
-  postgres-data:
-  redis-data:
-```
-
-### Workflow 4: BuildKit Advanced Features
-
-**Enable BuildKit**
-
-```bash
-# Set environment variable
-export DOCKER_BUILDKIT=1
-
-# Or in daemon.json
-{
-  "features": {
-    "buildkit": true
-  }
-}
-```
-
-**Cache Mounts for Package Managers**
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM node:18-alpine
-
-WORKDIR /app
-
-# Cache npm cache across builds
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
-
-COPY . .
-RUN npm run build
-```
-
-**Secrets Management**
-
-```dockerfile
-# syntax=docker/dockerfile:1
-FROM alpine
-
-# Use secret without storing in image layer
-RUN --mount=type=secret,id=aws_credentials \
-    cat /run/secrets/aws_credentials > ~/.aws/credentials && \
-    aws s3 cp s3://bucket/file . && \
-    rm ~/.aws/credentials
-```
-
-```bash
-# Build with secret
-docker build --secret id=aws_credentials,src=$HOME/.aws/credentials -t myapp .
-```
-
-### Workflow 5: Security Scanning with Trivy
-
-```bash
-# Install Trivy
-brew install trivy  # macOS
-# or
-wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/trivy.list
-sudo apt-get update && sudo apt-get install trivy
-
-# Scan Docker image for vulnerabilities
-trivy image myapp:latest
-
-# Fail build on HIGH/CRITICAL vulnerabilities
-trivy image --exit-code 1 --severity HIGH,CRITICAL myapp:latest
-
-# Generate JSON report
-trivy image --format json --output results.json myapp:latest
-
-# Scan filesystem before building
-trivy fs --severity HIGH,CRITICAL .
-```
-
-### Workflow 6: Layer Caching Optimization
-
-```dockerfile
-# ❌ BAD: Invalidates cache on any code change
-FROM node:18
-COPY . .
-RUN npm install
-RUN npm run build
-
-# ✅ GOOD: Separate dependency and code layers
-FROM node:18
-WORKDIR /app
-
-# Cache dependencies separately
-COPY package*.json ./
-RUN npm ci
-
-# Code changes don't invalidate dependency layer
-COPY . .
-RUN npm run build
-```
-
-**BuildKit Cache Mount (even better)**
-
-```dockerfile
-FROM node:18
-WORKDIR /app
-
-COPY package*.json ./
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
-
-COPY . .
-RUN npm run build
-```
-
-## Best Practices
-
-**1. Minimal Base Images**
-```dockerfile
-# ✅ GOOD: Alpine for small size (5MB)
-FROM node:18-alpine
-
-# ✅ GOOD: Distroless for security (no shell)
-FROM gcr.io/distroless/nodejs18
-
-# ❌ BAD: Full OS (1GB+)
-FROM ubuntu:22.04
-RUN apt-get install nodejs
-```
-
-**2. .dockerignore File**
-```
-# .dockerignore
-node_modules
-npm-debug.log
-.git
-.env
-.DS_Store
-*.md
-Dockerfile
-.dockerignore
-```
-
-**3. Run as Non-Root**
-```dockerfile
-# ✅ GOOD: Non-root user
-RUN addgroup -g 1001 -S appgroup && \
-    adduser -S appuser -u 1001
-USER appuser
-
-# ❌ BAD: Running as root
-USER root
-```
-
-**4. Health Checks**
-```dockerfile
-HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
-  CMD curl -f http://localhost:3000/health || exit 1
-```
-
-**5. Resource Limits**
-```yaml
-# docker-compose.yml
-services:
-  app:
-    deploy:
-      resources:
-        limits:
-          cpus: '1.0'
-          memory: 512M
-```
-
-## Quality Criteria
-
-- ✅ Image size <200MB (Node.js apps)
-- ✅ Build time <5 minutes
-- ✅ Zero HIGH/CRITICAL vulnerabilities (Trivy)
-- ✅ Multi-stage builds used
-- ✅ Running as non-root user
-- ✅ Health check defined
-- ✅ .dockerignore configured
-
-## Common Commands
-
-```bash
-# Build image
-docker build -t myapp:latest .
-
-# Build with BuildKit cache
-docker build --cache-from myapp:latest -t myapp:latest .
-
-# Run container
-docker run -d -p 3000:3000 --name myapp myapp:latest
-
-# View logs
-docker logs -f myapp
-
-# Execute command in container
-docker exec -it myapp sh
-
-# Inspect image
-docker inspect myapp:latest
-
-# Tag and push to registry
-docker tag myapp:latest myregistry.io/myapp:v1.0.0
-docker push myregistry.io/myapp:v1.0.0
-
-# Clean up
-docker system prune -a --volumes
-```
-
-## Troubleshooting
-
-**Issue**: Image size too large
-**Solution**: Use multi-stage builds, Alpine/distroless base images, optimize layers
-
-**Issue**: Build cache not working
-**Solution**: Ensure COPY commands are in correct order (dependencies before code)
-
-**Issue**: Container exits immediately
-**Solution**: Check logs (`docker logs`), ensure CMD/ENTRYPOINT is correct
-
-## Related Skills
-
-- `kubernetes-specialist`: Deploying containers to K8s
-- `aws-specialist`: ECR and ECS
-- `cicd-intelligent-recovery`: Docker in CI/CD
-
-## Tools
-
-- Docker Desktop: Local Docker environment
-- BuildKit: Advanced build engine
-- Trivy: Vulnerability scanner
-- Dive: Image layer analysis tool
-- Hadolint: Dockerfile linter
-
-## MCP Tools
-
-- `mcp__flow-nexus__sandbox_execute` for Docker commands
-- `mcp__memory-mcp__memory_store` for Dockerfile patterns
-
-## Success Metrics
-- [assert|neutral] Image size: <200MB [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Build time: <5 minutes [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Vulnerabilities: 0 HIGH/CRITICAL [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Startup time: <10 seconds [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Core Principles
-
-Docker Containerization operates on 3 fundamental principles:
-
-### Principle 1: Layer Efficiency Through Strategic Ordering
-Docker images are composed of layers, and each Dockerfile instruction creates a new layer. Layer ordering directly impacts build speed, cache hit rate, and final image size. This principle ensures fast builds and small artifacts.
-
-In practice:
-- Place rarely-changing instructions early in Dockerfile (base image, system dependencies)
-- Copy dependency files before application code to cache package installations
-- Use multi-stage builds to separate build dependencies from runtime artifacts
-- Leverage BuildKit cache mounts to persist package manager caches across builds
-
-### Principle 2: Minimal Attack Surface Through Base Image Selection
-The base image determines the security posture, image size, and available tooling. Smaller images have fewer vulnerabilities and faster pull times. This principle balances functionality with security.
-
-In practice:
-- Prefer Alpine Linux (5MB) for minimal footprint when shell access is needed
-- Use Distroless images when no shell is required (20-40MB, no package manager vulnerabilities)
-- Avoid full OS base images like Ubuntu unless absolutely necessary (200MB+)
-- Regularly scan base images with Trivy and update to patched versions
-
-### Principle 3: Runtime Security Through Least Privilege
-Containers should run with the minimum privileges necessary to function. Running as root is a security vulnerability that can lead to host compromise. This principle reduces blast radius of container escapes.
-
-In practice:
-- Create non-root users in Dockerfile and switch to them before CMD/ENTRYPOINT
-- Set readOnlyRootFilesystem to prevent runtime modifications
-- Drop all capabilities and add back only required ones
-- Use security scanning tools (Trivy, Snyk) to detect vulnerabilities before deployment
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Copying Entire Context** | Using COPY . . without .dockerignore copies node_modules, .git, build artifacts into the image, bloating size by 10-100x and exposing sensitive files. | Create comprehensive .dockerignore excluding node_modules, .git, .env, test files. Copy only necessary files. Use multi-stage builds to separate build and runtime dependencies. |
-| **Running as Root User** | Default user in containers is root. Container escapes or application vulnerabilities can lead to host compromise since container root = host root in many configurations. | Create dedicated user with RUN addgroup/adduser commands. Switch to non-root user with USER directive before CMD. Set runAsNonRoot in Kubernetes SecurityContext. |
-| **No Health Checks** | Docker/Kubernetes cannot determine if the application is actually healthy, only if the process is running. Leads to traffic being routed to broken containers. | Implement HEALTHCHECK instruction in Dockerfile using curl or application-specific health endpoint. Use interval/timeout/retries to tune sensitivity. |
-| **Single-Stage Builds** | Including build tools (gcc, make, npm) in the final image bloats size, increases attack surface, and exposes unnecessary tooling in production. | Use multi-stage builds with separate builder and runtime stages. Copy only compiled artifacts from builder to final stage. Final image should have minimal dependencies. |
-| **Hardcoded Secrets** | Embedding API keys, passwords, or certificates in Dockerfile or environment variables bakes secrets into image layers, exposing them to anyone with image access. | Use BuildKit --secret mount for build-time secrets. Use environment variables or external secret managers (Vault, AWS Secrets Manager) for runtime secrets. Never commit secrets to Dockerfiles. |
-
-## Conclusion
-
-The Docker Containerization skill provides a comprehensive framework for building production-grade container images that are secure, efficient, and maintainable. By mastering the three core principles of layer efficiency, minimal attack surface, and least privilege, you ensure that your containerized applications are optimized for speed, security, and cost.
-
-The multi-stage build workflows demonstrated here are the industry standard for modern containerization, reducing image sizes by 70-90% compared to naive approaches. The security practices including non-root users, health checks, and vulnerability scanning with Trivy establish a robust defense-in-depth strategy. The anti-patterns table serves as a checklist to avoid common mistakes that plague Docker implementations in the wild.
-
-This skill is essential when building CI/CD pipelines, deploying microservices to Kubernetes, or migrating legacy applications to containers. Whether you're containerizing a Node.js API, a Python Flask application, or a complex multi-service architecture with Docker Compose, the patterns and best practices documented here will accelerate your path to production-ready containerization. Combined with the troubleshooting guide and tool references, you have everything needed to build, optimize, and maintain secure container images at scale.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+  
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Infrastructure/docker-containerization/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "docker-containerization-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>DOCKER_CONTAINERIZATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

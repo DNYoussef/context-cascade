@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* OPENTELEMETRY-OBSERVABILITY SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: opentelemetry-observability
-description: OpenTelemetry specialist for distributed tracing, metrics collection, log correlation, auto-instrumentation, custom spans, trace context propagation, and sampling strategies. Use when implementing observability in microservices, debugging production issues, monitoring performance, or requiring OpenTelemetry best practices. Handles integration with Jaeger/Zipkin/Tempo, Prometheus/Grafana, and cloud-native observability platforms.
+version: 1.0.0
+description: |
+  [assert|neutral] OpenTelemetry specialist for distributed tracing, metrics collection, log correlation, auto-instrumentation, custom spans, trace context propagation, and sampling strategies. Use when implementing obs [ground:given] [conf:0.95] [state:confirmed]
 category: Observability
-complexity: High
-triggers: ["opentelemetry", "otel", "distributed tracing", "observability", "metrics", "spans", "tracing", "jaeger", "zipkin", "tempo", "instrumentation"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute opentelemetry-observability workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Observability processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "opentelemetry-observability",
+  category: "Observability",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["opentelemetry-observability", "Observability", "workflow"],
+  context: "user needs opentelemetry-observability capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # OpenTelemetry Observability Specialist
 
@@ -147,340 +197,67 @@ async function processOrder(orderId) {
 }
 ```
 
-### Workflow 3: Custom Metrics
-
-```javascript
-const { metrics } = require('@opentelemetry/api');
-
-const meter = metrics.getMeter('my-service', '1.0.0');
-
-// Counter: Monotonically increasing value
-const orderCounter = meter.createCounter('orders.processed', {
-  description: 'Total number of orders processed',
-});
-
-orderCounter.add(1, {
-  'order.type': 'online',
-  'order.status': 'completed',
-});
-
-// Histogram: Statistical distribution
-const requestDuration = meter.createHistogram('http.server.duration', {
-  description: 'HTTP request duration in milliseconds',
-  unit: 'ms',
-});
-
-requestDuration.record(150, {
-  'http.method': 'POST',
-  'http.route': '/api/orders',
-  'http.status_code': 200,
-});
-
-// UpDownCounter: Value can go up or down
-const activeConnections = meter.createUpDownCounter('db.connections.active', {
-  description: 'Number of active database connections',
-});
-
-activeConnections.add(1); // Connection opened
-activeConnections.add(-1); // Connection closed
-
-// ObservableGauge: Current value snapshot
-const memoryUsage = meter.createObservableGauge('process.memory.usage', {
-  description: 'Process memory usage in bytes',
-  unit: 'bytes',
-});
-
-memoryUsage.addCallback((result) => {
-  result.observe(process.memoryUsage().heapUsed, {
-    'memory.type': 'heap',
-  });
-});
-```
-
-### Workflow 4: Context Propagation (W3C Trace Context)
-
-```javascript
-// Propagate context between services
-const { propagation, context } = require('@opentelemetry/api');
-
-// Client-side: Inject trace context into HTTP headers
-async function callExternalService(url, data) {
-  const span = tracer.startSpan('external_api_call');
-  const headers = {};
-
-  // Inject trace context into headers (W3C Trace Context)
-  propagation.inject(context.active(), headers);
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers, // traceparent, tracestate headers
-      },
-      body: JSON.stringify(data),
-    });
-    return response.json();
-  } finally {
-    span.end();
-  }
-}
-
-// Server-side: Extract trace context from HTTP headers
-app.post('/api/process', (req, res) => {
-  // Extract context from incoming headers
-  const extractedContext = propagation.extract(context.active(), req.headers);
-
-  context.with(extractedContext, () => {
-    const span = tracer.startSpan('process_request');
-    // This span will be a child of the parent trace from the caller
-    // ...
-    span.end();
-  });
-
-  res.json({ status: 'ok' });
-});
-```
-
-### Workflow 5: Sampling Strategies
-
-```javascript
-const { ParentBasedSampler, AlwaysOnSampler, AlwaysOffSampler, TraceIdRatioBasedSampler } = require('@opentelemetry/sdk-trace-base');
-
-// Probability-based sampling (10% of traces)
-const sampler = new TraceIdRatioBasedSampler(0.1);
-
-// Parent-based sampling with rate limiting
-const parentBasedSampler = new ParentBasedSampler({
-  root: new TraceIdRatioBasedSampler(0.1), // 10% for root spans
-  remoteParentSampled: new AlwaysOnSampler(), // Always sample if parent sampled
-  remoteParentNotSampled: new AlwaysOffSampler(), // Never sample if parent not sampled
-  localParentSampled: new AlwaysOnSampler(),
-  localParentNotSampled: new AlwaysOffSampler(),
-});
-
-const sdk = new NodeSDK({
-  sampler: parentBasedSampler,
-  // ... other config
-});
-```
-
-## Best Practices
-
-**1. Use Semantic Conventions**
-```javascript
-// ✅ GOOD: Standard semantic conventions
-const { SemanticAttributes } = require('@opentelemetry/semantic-conventions');
-
-span.setAttributes({
-  [SemanticAttributes.HTTP_METHOD]: 'POST',
-  [SemanticAttributes.HTTP_URL]: '/api/users',
-  [SemanticAttributes.HTTP_STATUS_CODE]: 200,
-  [SemanticAttributes.DB_SYSTEM]: 'postgresql',
-  [SemanticAttributes.DB_NAME]: 'mydb',
-});
-
-// ❌ BAD: Custom attributes without namespace
-span.setAttributes({
-  method: 'POST',
-  url: '/api/users',
-});
-```
-
-**2. Keep Span Names Concise**
-```javascript
-// ✅ GOOD: Generic operation name (use attributes for details)
-const span = tracer.startSpan('GET /api/users/:id', {
-  attributes: { 'user.id': userId },
-});
-
-// ❌ BAD: High cardinality span names
-const span = tracer.startSpan(`GET /api/users/${userId}`);
-```
-
-**3. Always End Spans**
-```javascript
-// ✅ GOOD: Use try/finally to ensure span ends
-const span = tracer.startSpan('operation');
-try {
-  await doWork();
-} finally {
-  span.end();
-}
-
-// ❌ BAD: Span might never end
-const span = tracer.startSpan('operation');
-await doWork();
-span.end();
-```
-
-**4. Use Baggage for Cross-Cutting Concerns**
-```javascript
-const { propagation, baggageUtils } = require('@opentelemetry/api');
-
-// Set baggage (propagates across service boundaries)
-const baggage = propagation.createBaggage({
-  'user.id': { value: '12345' },
-  'request.id': { value: 'req-abc-123' },
-});
-
-context.with(propagation.setBaggage(context.active(), baggage), () => {
-  // Baggage available in all child spans
-  const userId = propagation.getBaggage(context.active())?.getEntry('user.id')?.value;
-});
-```
-
-**5. Log Correlation**
-```javascript
-const { trace } = require('@opentelemetry/api');
-const winston = require('winston');
-
-const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format((info) => {
-      const span = trace.getActiveSpan();
-      if (span) {
-        const spanContext = span.spanContext();
-        info.trace_id = spanContext.traceId;
-        info.span_id = spanContext.spanId;
-      }
-      return info;
-    })(),
-    winston.format.json()
-  ),
-  transports: [new winston.transports.Console()],
-});
-
-logger.info('Order processed', { order_id: '123' });
-// Output: { "message": "Order processed", "order_id": "123", "trace_id": "...", "span_id": "..." }
-```
-
-## Quality Criteria
-
-- ✅ All HTTP requests automatically traced
-- ✅ Database queries instrumented
-- ✅ Custom business logic spans added
-- ✅ Metrics exported every 60 seconds
-- ✅ Sampling rate configured (not 100% in production)
-- ✅ Trace context propagated across services
-- ✅ Logs correlated with traces
-
-## Backend Setup (Jaeger)
-
-```bash
-# Run Jaeger all-in-one (for development)
-docker run -d --name jaeger \
-  -e COLLECTOR_OTLP_ENABLED=true \
-  -p 16686:16686 \
-  -p 4318:4318 \
-  jaegertracing/all-in-one:latest
-
-# Access Jaeger UI: http://localhost:16686
-```
-
-## Troubleshooting
-
-**Issue**: No traces appearing in Jaeger
-**Solution**: Check exporter URL, ensure OTLP collector is running, verify network connectivity
-
-**Issue**: High memory usage
-**Solution**: Reduce sampling rate, use batch span processor with smaller queue size
-
-**Issue**: Missing trace context between services
-**Solution**: Ensure W3C Trace Context headers (traceparent, tracestate) are propagated
-
-## Related Skills
-
-- `kubernetes-specialist`: Deploying OTel Collector in K8s
-- `aws-specialist`: AWS X-Ray integration
-- `backend-dev`: Application instrumentation
-
-## Tools
-
-- Jaeger: Open-source tracing backend
-- Zipkin: Distributed tracing system
-- Grafana Tempo: High-scale tracing backend
-- Prometheus: Metrics collection
-- Grafana: Visualization
-
-## MCP Requirements
-
-This skill can optionally use the following MCP servers for real-time monitoring:
-
-### flow-nexus execution_streams (2.3k tokens)
-
-**Purpose**: Real-time monitoring of execution streams and trace data
-
-**Tools Used**:
-- `mcp__flow-nexus__execution_stream_subscribe`: Monitor Claude-flow-swarm traces in real-time
-- `mcp__flow-nexus__execution_stream_status`: Check status of execution streams
-- `mcp__flow-nexus__execution_files_list`: List files created during traced executions
-
-**Activation** (PowerShell):
-```powershell
-# Check if already active
-claude mcp list
-
-# Add if not present
-claude mcp add flow-nexus npx flow-nexus@latest mcp start
-
-# Authenticate (required)
-npx flow-nexus@latest login
-```
-
-**Usage Example**:
-```javascript
-// Subscribe to real-time trace updates
-const subscription = await mcp__flow-nexus__execution_stream_subscribe({
-  stream_type: 'claude-flow-swarm',
-  deployment_id: 'prod-deployment-123'
-});
-
-// Check execution stream status
-const status = await mcp__flow-nexus__execution_stream_status({
-  stream_id: subscription.id
-});
-```
-
-**Token Cost**: 2.3k tokens (1.2% of 200k context)
-**When to Load**: Only when monitoring cloud-deployed observability systems (TIER 7 - Specialized/Optional)
-
-### flow-nexus realtime (1.8k tokens)
-
-**Purpose**: Real-time database subscriptions for live metrics updates
-
-**Tools Used**:
-- `mcp__flow-nexus__realtime_subscribe`: Subscribe to live metric updates from database
-- `mcp__flow-nexus__realtime_unsubscribe`: Unsubscribe from real-time updates
-- `mcp__flow-nexus__realtime_list`: List active subscriptions
-
-**Activation** (PowerShell):
-```powershell
-# Same as above (part of flow-nexus)
-```
-
-**Usage Example**:
-```javascript
-// Subscribe to metrics table updates
-const metricsSubscription = await mcp__flow-nexus__realtime_subscribe({
-  table: 'metrics',
-  event: 'INSERT',
-  filter: "metric_name.eq.http_request_duration"
-});
-
-// List active subscriptions
-const subscriptions = await mcp__flow-nexus__realtime_list();
-```
-
-**Token Cost**: 1.8k tokens (0.9% of 200k context)
-**When to Load**: Only when using cloud database for metrics storage (TIER 7 - Specialized/Optional)
-
-## Success Metrics
-- [assert|neutral] Trace coverage: ≥95% of requests [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Sampling rate: 5-10% (production) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Metrics export interval: 60 seconds [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Span drop rate: <1% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Log-trace correlation: 100% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`* [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+### Workfl
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Observability/opentelemetry-observability/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "opentelemetry-observability-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>OPENTELEMETRY_OBSERVABILITY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

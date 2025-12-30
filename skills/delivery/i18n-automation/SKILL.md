@@ -1,18 +1,64 @@
+/*============================================================================*/
+/* I18N-AUTOMATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: i18n-automation
-description: Automate internationalization and localization workflows for web applications
-  with translation, key generation, and library setup
+version: 1.0.0
+description: |
+  [assert|neutral] Automate internationalization and localization workflows for web applications with translation, key generation, and library setup [ground:given] [conf:0.95] [state:confirmed]
+category: delivery
 tags:
 - i18n
 - translation
 - localization
 - automation
 - react
-- nextjs
-version: 1.0.0
-category: delivery
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute i18n-automation workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic delivery processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "i18n-automation",
+  category: "delivery",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["i18n-automation", "delivery", "workflow"],
+  context: "user needs i18n-automation capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # i18n Automation
 
@@ -114,543 +160,67 @@ const withNextIntl = createNextIntlPlugin();
 module.exports = withNextIntl({
   i18n: {
     locales: ['en', 'ja', 'es', 'fr'],
-    defaultLocale: 'en'
-  }
-});
-
-// File structure
-/messages
-  /en.json
-  /ja.json
-  /es.json
-  /fr.json
-```
-
-**React (Recommended: react-i18next)**:
-```javascript
-// Installation
-npm install react-i18next i18next
-
-// Configuration: i18n.js
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: require('./locales/en.json') },
-      ja: { translation: require('./locales/ja.json') }
-    },
-    lng: 'en',
-    fallbackLng: 'en',
-    interpolation: { escapeValue: false }
-  });
-```
-
-**Vue (Recommended: vue-i18n)**:
-```javascript
-// Installation
-npm install vue-i18n
-
-// Configuration
-import { createI18n } from 'vue-i18n';
-
-const i18n = createI18n({
-  locale: 'en',
-  messages: {
-    en: require('./locales/en.json'),
-    ja: require('./locales/ja.json')
-  }
-});
-```
-
-### Translation Key Architecture
-
-**Namespace Organization**:
-```json
-{
-  "common": {
-    "buttons": {
-      "submit": "Submit",
-      "cancel": "Cancel",
-      "save": "Save"
-    },
-    "errors": {
-      "required": "This field is required",
-      "invalid_email": "Invalid email address"
-    }
-  },
-  "landing": {
-    "hero": {
-      "title": "Welcome to Our Product",
-      "subtitle": "The best solution for your needs",
-      "cta": "Get Started"
-    },
-    "features": {
-      "feature1_title": "Fast Performance",
-      "feature1_desc": "Lightning-fast response times"
-    }
-  },
-  "pricing": {
-    "tiers": {
-      "free": "Free",
-      "pro": "Pro",
-      "enterprise": "Enterprise"
-    }
-  }
-}
-```
-
-**Flat vs Nested Keys**:
-```json
-// Nested (Recommended for organization)
-{
-  "user": {
-    "profile": {
-      "title": "Profile",
-      "edit": "Edit Profile"
-    }
-  }
-}
-
-// Flat (Simpler, some libraries prefer)
-{
-  "user.profile.title": "Profile",
-  "user.profile.edit": "Edit Profile"
-}
-```
-
-### Translation Strategies
-
-**Strategy 1: Professional Translation**
-- Extract keys to XLIFF or JSON
-- Send to translation service (Locize, Crowdin, Phrase)
-- Import translated files
-- High quality, costs money
-
-**Strategy 2: AI Translation (Good for MVP)**
-- Use Claude/GPT to translate
-- Review by native speaker recommended
-- Fast and cost-effective
-- May miss cultural nuances
-
-**Strategy 3: Community Translation**
-- Open source projects
-- Contributor PRs with translations
-- Review process for quality
-- Builds community engagement
-
-**Strategy 4: Hybrid**
-- AI for initial translation
-- Professional review for key pages
-- Community contributions for edge cases
-- Best balance of speed/quality/cost
-
-### Language-Specific Considerations
-
-**Japanese (ja)**:
-```json
-{
-  "formality": {
-    "casual": "ありがとう",
-    "polite": "ありがとうございます",
-    "honorific": "ありがとうございました"
-  },
-  "context_matters": "Japanese uses different words based on context",
-  "character_counts": "Japanese characters more information-dense than English"
-}
-```
-
-**Spanish (es)**:
-```json
-{
-  "variants": {
-    "es-ES": "Spain Spanish",
-    "es-MX": "Mexican Spanish",
-    "es-AR": "Argentine Spanish"
-  },
-  "formality": {
-    "informal_you": "tú",
-    "formal_you": "usted"
-  }
-}
-```
-
-**Arabic (ar) - RTL**:
-```json
-{
-  "direction": "rtl",
-  "text_align": "right",
-  "special_handling": "Needs RTL CSS and mirrored layouts"
-}
-```
-
-**German (de)**:
-```json
-{
-  "compound_words": "German combines words: Datenschutzerklärung",
-  "formal_vs_informal": {
-    "informal": "du",
-    "formal": "Sie"
-  }
-}
-```
-
-### SEO and Metadata Localization
-
-**Next.js Metadata**:
-```typescript
-// app/[locale]/layout.tsx
-export async function generateMetadata({ params: { locale } }) {
-  const t = await getTranslations({ locale, namespace: 'metadata' });
-
-  return {
-    title: t('title'),
-    description: t('description'),
-    keywords: t('keywords'),
-    openGraph: {
-      title: t('og_title'),
-      description: t('og_description'),
-      images: [t('og_image')]
-    },
-    alternates: {
-      canonical: `https://example.com/${locale}`,
-      languages: {
-        'en': 'https://example.com/en',
-        'ja': 'https://example.com/ja',
-        'es': 'https://example.com/es'
-      }
-    }
-  };
-}
-```
-
-**Sitemap Localization**:
-```xml
-<!-- sitemap.xml -->
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url>
-    <loc>https://example.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="ja" href="https://example.com/ja/"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://example.com/es/"/>
-  </url>
-</urlset>
-```
-
-### Language Switcher Component
-
-**Next.js Example**:
-```typescript
-// components/LanguageSwitcher.tsx
-import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
-
-const languages = {
-  en: { name: 'English', flag: '🇺🇸' },
-  ja: { name: '日本語', flag: '🇯🇵' },
-  es: { name: 'Español', flag: '🇪🇸' },
-  fr: { name: 'Français', flag: '🇫🇷' }
-};
-
-export default function LanguageSwitcher() {
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const switchLanguage = (newLocale: string) => {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    router.push(newPath);
-  };
-
-  return (
-    <select value={locale} onChange={(e) => switchLanguage(e.target.value)}>
-      {Object.entries(languages).map(([code, { name, flag }]) => (
-        <option key={code} value={code}>
-          {flag} {name}
-        </option>
-      ))}
-    </select>
-  );
-}
-```
-
-### RTL Support
-
-**CSS for RTL**:
-```css
-/* Automatic RTL with logical properties */
-.container {
-  margin-inline-start: 1rem;  /* Left in LTR, Right in RTL */
-  padding-inline-end: 2rem;   /* Right in LTR, Left in RTL */
-}
-
-/* Direction-specific overrides */
-[dir="rtl"] .special-element {
-  transform: scaleX(-1);  /* Mirror icons/images */
-}
-```
-
-**Next.js RTL Detection**:
-```typescript
-// middleware.ts
-import { NextRequest, NextResponse } from 'next/server';
-
-const rtlLocales = ['ar', 'he', 'fa'];
-
-export function middleware(request: NextRequest) {
-  const locale = request.nextUrl.pathname.split('/')[1];
-  const response = NextResponse.next();
-
-  if (rtlLocales.includes(locale)) {
-    response.headers.set('dir', 'rtl');
-  }
-
-  return response;
-}
-```
-
-### Automation Workflow
-
-**Step 1: Extract Strings**
-```javascript
-// Scan all components for hardcoded strings
-// Generate translation keys automatically
-// Create skeleton locale files
-```
-
-**Step 2: Generate Translations**
-```javascript
-// For each target language:
-//   - Translate using AI or service
-//   - Preserve placeholders: {name}, {count}
-//   - Handle pluralization rules
-//   - Format dates/numbers correctly
-```
-
-**Step 3: Install & Configure**
-```javascript
-// Install i18n library
-// Create configuration files
-// Set up routing (if Next.js)
-// Add language detection
-```
-
-**Step 4: Replace Strings**
-```javascript
-// Replace hardcoded strings with t('key') calls
-// Update components to use translations
-// Add language switcher component
-```
-
-**Step 5: Validate**
-```javascript
-// Test each locale
-// Check RTL languages
-// Verify SEO metadata
-// Test language switching
-```
-
-## Input Contract
-
-```yaml
-project_info:
-  framework: nextjs | react | vue | other
-  existing_i18n: boolean
-  pages_to_translate: array[string]
-
-translation_config:
-  target_languages: array[string]  # ['ja', 'es', 'fr']
-  translation_method: ai | professional | manual
-  include_metadata: boolean
-  include_errors: boolean
-
-routing_strategy:
-  type: subdirectory | subdomain | query_param  # /ja/, ja.site.com, ?lang=ja
-  default_locale: string
-
-quality_requirements:
-  review_needed: boolean
-  formality_level: casual | polite | formal
-  cultural_adaptation: boolean
-```
-
-## Output Contract
-
-```yaml
-deliverables:
-  installed_packages: array[string]
-  config_files: array[{path, content}]
-  locale_files: array[{language, path, content}]
-  components_modified: array[string]
-  new_components: array[{name, path, code}]
-
-translation_summary:
-  languages_added: array[string]
-  keys_created: number
-  strings_translated: number
-  rtl_support: boolean
-
-validation_report:
-  all_keys_present: boolean
-  no_missing_translations: boolean
-  seo_configured: boolean
-  switcher_working: boolean
-
-documentation:
-  usage_guide: markdown
-  adding_new_language: markdown
-  adding_new_keys: markdown
-```
-
-## Integration Points
-
-- **Cascades**: Integrates with landing page creation, feature development
-- **Commands**: `/translate-site`, `/add-language`, `/i18n-setup`
-- **Other Skills**: Works with web-cli-teleport (good for Web), seo-optimization
-
-## Usage Examples
-
-**Complete Landing Page Translation**:
-```
-Use i18n-automation to translate the Next.js landing page to Japanese, Spanish, and French.
-Include SEO metadata and create a language switcher in the header.
-```
-
-**Add New Language**:
-```
-Add German (de) support to existing i18n setup. Use AI translation for initial version.
-```
-
-**Full i18n Setup**:
-```
-Set up complete internationalization for React app:
-- Install react-i18next
-- Support English, Japanese, Arabic (RTL)
-- Extract all strings from components
-- Generate translation keys
-- Create language switcher
-- Configure SEO metadata
-```
-
-## Best Practices
-
-**Key Naming**:
-1. Use descriptive, hierarchical keys: `landing.hero.title`
-2. Group by page/component: `pricing.tier.pro.price`
-3. Separate common strings: `common.buttons.submit`
-4. Version keys if changing meaning: `welcome_v2`
-
-**File Organization**:
-1. One file per language: `en.json`, `ja.json`
-2. OR namespace split: `en/common.json`, `en/landing.json`
-3. Keep files in sync (same keys across languages)
-4. Use TypeScript for type safety
-
-**Translation Quality**:
-1. Preserve placeholders exactly: `{name}`, `{count}`
-2. Handle pluralization: `{count} item` vs `{count} items`
-3. Format dates/numbers per locale
-4. Consider cultural context, not just literal translation
-
-**Performance**:
-1. Lazy-load translations per route
-2. Split large translation files by namespace
-3. Cache translations in production
-4. Use dynamic imports for rare languages
-
-## Failure Modes & Mitigations
-
-- **Missing translations**: Use fallback locale, log warnings
-- **RTL layout breaks**: Use logical CSS properties, test thoroughly
-- **SEO not working**: Verify alternate links, sitemap, hreflang tags
-- **Wrong formality level**: Document target audience, review by native speaker
-- **Placeholders broken**: Validate translation files, check for {variable} syntax
-
-## Validation Checklist
-
-- [ ] All target languages have complete locale files
-- [ ] No missing translation keys
-- [ ] Language switcher works on all pages
-- [ ] SEO metadata translated
-- [ ] RTL languages display correctly (if applicable)
-- [ ] Pluralization works correctly
-- [ ] Date/number formatting locale-aware
-- [ ] No hardcoded strings remain
-- [ ] Fallback locale configured
-- [ ] Documentation updated
-
-## Neural Training Integration
-
-```yaml
-training:
-  pattern: program-of-thought
-  feedback_collection: true
-  success_metrics:
-    - translation_accuracy
-    - user_engagement_by_locale
-    - seo_performance_by_language
-    - completeness_score
-```
-
----
-
-**Quick Commands**:
-- Next.js: `npm install next-intl`
-- React: `npm install react-i18next i18next`
-- Vue: `npm install vue-i18n`
-
-**Pro Tips**:
-- Use Claude Code Web for translation tasks (well-defined, one-off)
-- AI translations good for MVP, professional for production
-- Test RTL languages early if supporting Arabic/Hebrew
-- Keep translation keys synchronized across all locales
-- Consider loading translations from CMS for non-developers to update
-
----
-
-## Core Principles
-
-### 1. Translation Key Architecture as Product Design
-Translation key structure is not a technical implementation detail but a product design decision that affects maintainability, scalability, and translator effectiveness. Hierarchical namespacing (landing.hero.title) enables feature-based organization, context preservation for translators, and modular loading strategies. Flat key structures sacrifice these capabilities for marginal simplicity gains, creating technical debt that compounds as the product scales internationally.
-
-### 2. Cultural Adaptation Over Literal Translation
-Effective internationalization requires cultural adaptation, not just linguistic translation. Japanese formality levels (casual/polite/honorific), Spanish regional variants (Spain/Mexico/Argentina), and German compound words require context-aware translation strategies that preserve meaning and cultural appropriateness. AI translation provides speed and cost efficiency for MVPs, but professional review ensures cultural nuances align with brand voice and audience expectations.
-
-### 3. RTL Support as Architectural Constraint
-Right-to-left language support cannot be retrofitted effectively; it must be designed into layout architecture from the start. Logical CSS properties (margin-inline-start vs margin-left) and direction-agnostic layouts enable bidirectional support without duplication. Testing Arabic/Hebrew early prevents costly refactoring when RTL is added after launch, as spatial assumptions in LTR-only designs break in RTL contexts.
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|-------------|--------------|------------------|
-| **Hardcoding user-facing strings in components** | Makes translation impossible without code changes, breaks translator workflows, prevents dynamic language switching, creates maintenance burden for every content update. | Externalize all strings to locale files. Use i18n library functions (t(), useTranslation()). Separate content from presentation logic completely. |
-| **Concatenating translated strings** | Breaks grammar rules across languages. English "You have 5 items" becomes garbled in languages with different word order (Japanese: "5 items you have"). Forces unnatural translations. | Use interpolation with placeholders: t('items_count', {count: 5}). Let translators control full sentence structure with {count} variables. Handle pluralization separately. |
-| **Assuming left-to-right text direction** | Causes layout failures for Arabic/Hebrew. Icons, margins, and flow direction break. Mirrored layouts look unnatural. Users perceive as low-quality localization effort. | Use logical CSS properties (inline-start vs left). Test RTL early. Apply dir="rtl" attribute. Mirror only icons/images, not text or UI chrome. |
-
----
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **String Concatenation in Translations** | Building sentences by concatenating translated fragments like `t('hello') + ' ' + t('name')`. Breaks grammar in languages with different word order (Japanese, Arabic). Results in unnatural or nonsensical translations. | Use complete sentence templates with interpolation: `t('greeting', {name})` where translators control full sentence structure. Provide translators context about variable placement. |
-| **Assuming One Translation Per String** | Using same translation key for semantically different contexts. English "Post" (verb) vs "Post" (noun) uses same word but requires different translations in most languages (French: "Publier" vs "Article"). | Create context-specific keys: `t('actions.post')` vs `t('content.post')`. Add translator comments explaining context. Use namespacing to separate domains (UI actions vs content types). |
-| **Late-Stage Internationalization** | Adding i18n after application is built with hardcoded English strings throughout codebase. Requires expensive refactoring, breaks existing components, delays international launches by months. | Architect for i18n from day one. Use translation functions even for English-only MVP. Set up translation infrastructure early (next-intl, locale files, language switcher placeholder). Adding languages becomes configuration change, not refactoring project. |
-
----
-
-## Conclusion
-
-Internationalization automation addresses the tension between product velocity and global reach. Manual i18n workflows create bottlenecks that delay launches, while ad-hoc approaches accumulate technical debt that makes adding languages prohibitively expensive. This skill bridges the gap by systematizing the complete workflow from string extraction through translation generation to locale configuration.
-
-The skill's power lies in treating i18n as a first-class product concern rather than a post-launch addition. By enforcing architectural patterns (hierarchical key namespacing, RTL-aware CSS, SEO metadata localization) and providing framework-specific implementations (Next.js routing, React hooks, Vue composition), it eliminates the research tax that typically accompanies internationalization efforts. The translation strategy matrix (professional/AI/community/hybrid) acknowledges that quality-speed-cost tradeoffs vary by context, providing clear guidance rather than dogmatic recommendations.
-
-The automation workflow reduces a multi-day manual process to hours while improving quality through systematic validation gates. String extraction eliminates hardcoding, AI translation provides speed for MVPs, and professional review ensures cultural appropriateness for production. The result is applications that launch globally without sacrificing engineering velocity, with internationalization architecture that scales to dozens of languages without refactoring.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+    defaultLocale: '
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/delivery/i18n-automation/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "i18n-automation-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>I18N_AUTOMATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,49 +1,61 @@
----
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Gathering comprehensive requirements through structured multi-select questions
-- Architecture decisions requiring user input on frameworks, databases, deployment
-- Feature planning when user preferences unknown (auth methods, UI libraries)
-- Reducing assumption-based planning by collecting explicit choices upfront
-- When playbook routing requires clarification of technical stack
-
-### When NOT to Use This Skill
-- Requirements already well-defined (skip to planner skill)
-- Single-choice decisions (not multi-select scenarios)
-- When speed prioritized over comprehensive gathering
-- Follow-up planning where context established
-
-### Success Criteria
-- [assert|neutral] User answers 5-10 multi-select questions covering key decisions [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All critical choices captured (framework, database, auth, deployment, testing) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Plan generated reflects user selections (no misaligned assumptions) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] User confirms plan matches intent before execution [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Requirements document exported with all selections [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- User unsure of options: provide explanations, suggest defaults
-- Too many questions: group related choices, prioritize critical decisions
-- Contradictory selections: flag conflicts, ask for resolution
-- Missing options: allow custom user input for unlisted choices
-- Technical jargon: simplify language, provide examples
-
-### Critical Guardrails
-- NEVER assume technical choices without asking (framework, database, cloud provider)
-- ALWAYS provide option explanations for non-experts
-- NEVER overwhelm with >15 questions (prioritize top 5-10)
-- ALWAYS export requirements document after gathering
-- NEVER proceed to planning without user confirmation of selections
-
-### Evidence-Based Validation
-- Validate coverage: did questions capture all critical decisions?
-- Cross-check consistency: are selections compatible (e.g., React + Express)?
-- Test plan alignment: does generated plan use selected options?
-- Verify user understanding: were explanations clear, choices informed?
-- Confirm completeness: are there unstated requirements still missing?
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 name: interactive-planner
 description: Use Claude Code's interactive question tool to gather comprehensive requirements
   through structured multi-select questions
@@ -217,349 +229,67 @@ Question 4: Quality Level
 - Research/experimental
 ```
 
-### Working with Tool Limitations
-
-**AskUserQuestion Tool Constraints**:
-- Maximum 4 questions per call
-- 2-4 options per question
-- "Other" option automatically added
-- Headers limited to 12 characters
-- multiSelect available for non-exclusive choices
-
-**Multi-Batch Strategy** (20-30 questions total):
-```
-Batch 1 (4 questions): High-level project scope
-Batch 2 (4 questions): Technical architecture
-Batch 3 (4 questions): Feature prioritization
-Batch 4 (4 questions): Quality/testing requirements
-Batch 5 (4 questions): Integration/deployment
-[Continue until comprehensive coverage]
-```
-
-**When NOT to Use Interactive Questions**:
-- User has already provided detailed spec
-- Exploratory/research phase (needs open discussion)
-- Single, simple change requested
-- Follow-up questions on existing work
-
-**When to Use Open Questions Instead**:
-```
-For new complex projects:
-"Before using interactive questions, let me ask 20-30 clarifying questions
-to fully understand your requirements. Please answer each one thoroughly."
-
-[Ask detailed questions in conversation]
-[Then summarize into structured specification]
-```
-
-### Example Question Sets
-
-**For Landing Page Translation**:
-```yaml
-questions:
-  - question: "Which languages should we support?"
-    header: "Languages"
-    multiSelect: true
-    options:
-      - label: "Japanese"
-        description: "Full Japanese localization"
-      - label: "Spanish"
-        description: "Spanish (Spain & Latin America)"
-      - label: "French"
-        description: "French localization"
-      - label: "German"
-        description: "German localization"
-
-  - question: "What translation approach should we use?"
-    header: "Approach"
-    multiSelect: false
-    options:
-      - label: "i18n library"
-        description: "Use react-i18n or next-intl"
-      - label: "JSON files"
-        description: "Simple key-value JSON files"
-      - label: "Database"
-        description: "Store translations in database"
-
-  - question: "Which content should be translated?"
-    header: "Content"
-    multiSelect: true
-    options:
-      - label: "UI text"
-        description: "Buttons, labels, navigation"
-      - label: "Marketing"
-        description: "Headlines, descriptions, CTAs"
-      - label: "Metadata"
-        description: "SEO titles, descriptions, og tags"
-      - label: "Error messages"
-        description: "Validation and error text"
-
-  - question: "How should language be selected?"
-    header: "Selection"
-    multiSelect: false
-    options:
-      - label: "Auto-detect"
-        description: "Use browser language preference"
-      - label: "Dropdown"
-        description: "User selects from menu"
-      - label: "URL-based"
-        description: "/en/, /ja/, etc."
-      - label: "Subdomain"
-        description: "ja.site.com, en.site.com"
-```
-
-**For OAuth Implementation**:
-```yaml
-questions:
-  - question: "Which OAuth providers should we support?"
-    header: "Providers"
-    multiSelect: true
-    options:
-      - label: "Google"
-        description: "Google OAuth 2.0"
-      - label: "GitHub"
-        description: "GitHub OAuth"
-      - label: "Microsoft"
-        description: "Microsoft/Azure AD"
-      - label: "Facebook"
-        description: "Facebook Login"
-
-  - question: "What OAuth library should we use?"
-    header: "Library"
-    multiSelect: false
-    options:
-      - label: "NextAuth.js"
-        description: "Full-featured, Next.js optimized"
-      - label: "Passport.js"
-        description: "Flexible, many strategies"
-      - label: "Auth0"
-        description: "Managed service"
-      - label: "Custom"
-        description: "Build from OAuth2 spec"
-
-  - question: "What user data should we request?"
-    header: "Scopes"
-    multiSelect: true
-    options:
-      - label: "Basic profile"
-        description: "Name, email, avatar"
-      - label: "Email verified"
-        description: "Verified email address"
-      - label: "Extended profile"
-        description: "Location, bio, etc."
-      - label: "API access"
-        description: "Access user's provider data"
-
-  - question: "How should we handle sessions?"
-    header: "Sessions"
-    multiSelect: false
-    options:
-      - label: "JWT tokens"
-        description: "Stateless JWT tokens"
-      - label: "Database sessions"
-        description: "Server-side session storage"
-      - label: "Cookies"
-        description: "Encrypted cookie sessions"
-      - label: "Redis"
-        description: "Redis-backed sessions"
-```
-
-## Input Contract
-
-```yaml
-project_description: string
-project_type: web | mobile | api | library | cli | other
-complexity_estimate: simple | moderate | complex
-has_existing_spec: boolean
-planning_depth: shallow | normal | deep
-```
-
-## Output Contract
-
-```yaml
-gathered_requirements:
-  project_scope: object
-  technical_decisions: object
-  feature_list: array[string]
-  constraints: array[string]
-  quality_requirements: object
-
-specification_document: markdown
-question_batches_used: number
-confidence_level: high | medium | low
-missing_information: array[string] (what still needs clarification)
-```
-
-## Integration Points
-
-- **Cascades**: First step in feature development workflows
-- **Commands**: `/plan-interactive`, `/scope-project`
-- **Other Skills**: Works with web-cli-teleport, sparc-methodology, feature-dev-complete
-
-## Usage Examples
-
-**New Project Planning**:
-```
-Use interactive-planner to scope out a new e-commerce checkout flow with payment integration
-```
-
-**Feature Addition**:
-```
-I want to add real-time collaboration to my app. Use interactive questions to understand requirements.
-```
-
-**Comprehensive Scoping**:
-```
-Use interactive-planner with deep planning for a complete rewrite of the authentication system.
-Ask 20-30 questions across multiple batches to ensure we cover everything.
-```
-
-## Best Practices
-
-**Question Design**:
-1. Start broad, get specific in later batches
-2. Use multiSelect when user might want multiple options
-3. Keep options truly distinct (no overlap)
-4. Provide helpful context in descriptions
-5. Keep headers under 12 characters for UI
-
-**Multi-Batch Planning**:
-1. Batch 1: Project type, goal, complexity
-2. Batch 2: Tech stack, architecture
-3. Batch 3: Core features, priorities
-4. Batch 4: Quality, testing, docs
-5. Batch 5+: Domain-specific details
-
-**Synthesis**:
-1. Summarize all answers clearly
-2. Identify conflicts or gaps
-3. Ask follow-up questions if needed
-4. Create actionable specification
-5. Confirm understanding before proceeding
-
-## Failure Modes & Mitigations
-
-- **Too few questions**: Use multiple batches, aim for 20-30 total
-- **Questions overlap**: Design orthogonal question dimensions
-- **User picks "Other" repeatedly**: Questions too restrictive, use open discussion
-- **Vague answers**: Ask for clarification before proceeding
-- **Missing critical info**: Always ask about constraints, integrations, timeline
-
-## Validation Checklist
-
-- [ ] Questions cover all critical dimensions
-- [ ] No overlapping options within questions
-- [ ] Headers are under 12 characters
-- [ ] Descriptions provide helpful context
-- [ ] multiSelect enabled where appropriate
-- [ ] Specification document is complete
-- [ ] No critical gaps in requirements
-- [ ] User confirmed understanding
-
-## Neural Training Integration
-
-```yaml
-training:
-  pattern: convergent
-  feedback_collection: true
-  success_metrics:
-    - questions_needed_for_completeness
-    - user_satisfaction_with_process
-    - specification_clarity
-    - downstream_rework_rate
-```
-
----
-
-**Quick Reference**:
-- Max 4 questions per batch
-- Use multiSelect for non-exclusive choices
-- "Other" option always available
-- Plan 5-8 batches for complex projects
-
-**Pro Tips**:
-- Better to ask more questions upfront than iterate later
-- Use in Planning Mode for automatic activation
-- Combine with open discussion for best results
-- Save complex projects for CLI, simple tasks for Web
-## Core Principles
-
-Interactive Planning operates on 3 fundamental principles:
-
-### Principle 1: Question-Driven Requirements Elicitation
-Every project begins with structured, multi-dimensional questions that systematically explore scope, architecture, features, quality, and constraints. This prevents assumption-driven planning and ensures user preferences are captured explicitly.
-
-In practice:
-- 5-10 multi-select questions covering critical decision points (framework, database, auth, deployment, testing)
-- Questions designed to be clear, non-overlapping, with 2-4 mutually exclusive options
-- Multi-batch strategy for complex projects (20-30 questions across 5-8 batches)
-
-### Principle 2: Progressive Refinement Through Batches
-Requirements gathering proceeds in waves from broad to specific, with each batch building on previous answers. This balances comprehensiveness with user experience, avoiding overwhelming users while ensuring complete coverage.
-
-In practice:
-- Batch 1: Project type, goal, complexity (high-level scope)
-- Batch 2: Tech stack, architecture (technical foundations)
-- Batch 3: Core features, priorities (functionality)
-- Batch 4: Quality, testing, documentation (non-functional requirements)
-- Batch 5+: Domain-specific details (context-dependent refinement)
-
-### Principle 3: Synthesis Into Actionable Specifications
-Gathered answers are transformed into concrete, validated specifications that directly inform downstream planning and execution. This ensures interactive questions produce tangible value rather than surface-level data collection.
-
-In practice:
-- Requirements document exports all selections with explanations
-- Conflicts and gaps are identified and resolved before proceeding
-- User confirmation required before moving to execution phase
-- Specifications include explicit technical decisions (no lingering ambiguities)
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Assumption-Driven Planning** | Proceeding with technical choices (framework, database, cloud provider) without explicit user input leads to misaligned implementations and rework | Use interactive questions to gather ALL critical decisions upfront - NEVER assume user preferences |
-| **Question Overload** | Asking >15 questions in a single batch or poorly organized questions overwhelms users and reduces response quality | Limit to 4 questions per batch, use 5-8 batches for complex projects, group related questions into coherent phases |
-| **Overlapping Options** | Question options that aren't mutually exclusive or cover the same concept confuse users and produce ambiguous requirements | Design orthogonal question dimensions - each option must be distinct, use multiSelect when choices aren't exclusive |
-
-## Conclusion
-
-Interactive Planner provides a structured framework for gathering comprehensive requirements through multi-select questions that systematically explore all critical project dimensions. By enforcing question-driven elicitation, progressive refinement through batches, and synthesis into actionable specifications, this skill ensures projects begin with clear, validated requirements rather than assumptions.
-
-Use this skill when starting new projects with vague or underspecified requirements, when technical stack decisions need user input, or when planning complex features where preferences are unknown. The multi-batch workflow (4 questions per batch across 5-8 batches) balances thoroughness with user experience, while the guardrails prevent common pitfalls like assumption-driven planning, question overload, and ambiguous options. The result is a complete requirements document with explicit technical decisions ready for downstream planning and execution.
-
----
-
-## Core Principles
-
-### 1. Structured Multi-Select Questions Eliminate Assumption Debt
-Vague requirements lead to assumption-based planning where critical choices (framework, database, auth method) get implicitly decided without user input. This creates assumption debt - hidden decisions that surface as rework when user expectations don't match agent choices. Interactive multi-select questions make technical choices explicit upfront, converting implicit assumptions into validated requirements. Better to spend 5 minutes gathering requirements than hours rebuilding with wrong tech stack.
-
-### 2. Batch Questions by Decision Category for Cognitive Flow
-Randomly ordered questions create cognitive whiplash as users jump between unrelated concerns. Group questions into coherent batches: Project Scope (4 questions), Technical Architecture (4 questions), Feature Prioritization (4 questions), Quality Requirements (4 questions). This categorical structure helps users think systematically through decision dimensions without mental context switching, improving response quality and reducing decision fatigue.
-
-### 3. Progressive Refinement from Broad to Specific
-Start with high-level questions (project type, primary goal, complexity) that establish context, then progressively refine into technical details (framework, database, deployment). This funnel structure prevents asking technical questions without sufficient context and enables adaptive question paths where later questions depend on earlier answers. Early broad questions guide which specific technical questions are relevant, avoiding irrelevant choices.
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|--------------|--------------|------------------|
-| **Asking too few questions (<10 total)** | Insufficient coverage leaves critical decisions unstated. Common gaps: testing strategy, deployment target, authentication method, scalability requirements. Under-specified requirements lead to rework when user reveals missing constraints mid-implementation. | Plan 20-30 questions across 5-7 batches for complex projects. Cover all decision dimensions: functionality, architecture, UX, quality, constraints. Better to gather comprehensive requirements upfront than iterate on wrong assumptions. Use multi-select to capture nuanced choices efficiently. |
-| **Non-orthogonal options that overlap** | Options like "REST API" and "Backend Service" aren't mutually exclusive - confusion about which to choose. Overlapping options signal unclear question design and produce ambiguous responses that don't clarify actual intent. | Design questions with distinct, non-overlapping options. Each option should be clearly different from others. Good: "REST API", "GraphQL", "WebSockets", "Database Direct". Bad: "API Service", "Backend API", "RESTful Service" (all mean similar things). Test: can user pick multiple without contradiction? |
-| **Overwhelming users with 40+ questions in one batch** | Tool constraint is 4 questions per call, but even 8-10 batches (32-40 questions) causes fatigue. Users rush through later questions, provide low-quality responses, or abandon the process. Diminishing returns after 30 questions. | Cap at 20-30 questions (5-7 batches) for complex projects, 12-16 (3-4 batches) for moderate scope. Prioritize highest-impact questions. For extremely complex projects, split into multi-session gathering or supplement with open discussion. Quality over exhaustive coverage. |
-
----
-
-## Conclusion
-
-Interactive Planner transforms requirement gathering from unstructured conversation into systematic multi-dimensional scoping through Claude Code's AskUserQuestion tool. This structured approach converts vague project ideas into concrete specifications by making technical choices explicit through strategic multi-select questions organized into coherent decision categories. The skill's value lies in preventing assumption debt - eliminating hidden technical choices that cause rework when user expectations diverge from agent decisions.
-
-The power emerges from three integrated patterns: structured multi-select questions eliminate implicit assumptions by forcing explicit technical choices; categorical batching (scope, architecture, features, quality, constraints) creates cognitive flow that helps users think systematically; and progressive refinement from broad to specific enables adaptive question paths where early answers guide later technical specificity. Together, these patterns enable comprehensive requirement gathering in 20-30 well-designed questions spanning 5-7 batches.
-
-Successful implementation requires balancing thoroughness with user experience. Too few questions leave critical gaps; too many cause fatigue. The sweet spot: 20-30 questions for complex projects, 12-16 for moderate scope, organized into decision categories that minimize context switching. Master question design (clear, specific, non-overlapping options with helpful descriptions), leverage multiSelect for non-exclusive choices, and maintain progressive refinement from project scope to technical details. This systematic approach transforms ambiguous project requests into actionable specifications that align agent implementation with user intent from the start.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+### Working wi
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,79 +1,218 @@
----
-Key platform/tooling/training command improvements:
-- Platform API requirements
-- Tool configuration
-- Training data requirements
-- Workflow chaining
+/*============================================================================*/
+/* GEMINI-MEGACONTEXT COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: platforms  file: .claude/expertise/platforms.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: gemini-megacontext-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/platforms/multi-model-commands/gemini-megacontext/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [flow-nexus-platform]  related_agents: [multi-model-orchestrator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
+---
 name: gemini-megacontext
-binding: multi-model:gemini-megacontext
-category: multi-model
 version: 1.0.0
+binding: skill:multi-model:gemini-megacontext
+category: multi-model
 ---
 
-# /gemini-megacontext
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "gemini-megacontext",
+  binding: "skill:multi-model:gemini-megacontext",
+  category: "multi-model",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute gemini-megacontext workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /gemini-megacontext"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Access Gemini's 1 million token context window for analyzing entire large codebases.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/gemini-megacontext "<task>" [options]
-```
+[define|neutral] SYNTAX := "/gemini-megacontext [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `task` - Analysis task description (required)
-- `--context` - Directory or files to analyze (default: current directory)
-- `--output` - Output file for analysis results (default: stdout)
-- `--format` - Output format: markdown|json|text (default: markdown)
+[define|neutral] PARAMETERS := {
+  required: {
+    task: { type: "string", description: "Analysis task description" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--context": { description: "Directory or files to analyze (default: current di", default: "false" },
+    "--output": { description: "Output file for analysis results (default: stdout)", default: "false" },
+    "--format": { description: "Output format: markdown|json|text (default: markdo", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Analyze entire codebase
-/gemini-megacontext "Analyze architecture patterns across entire codebase" --context src/
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Find all API endpoints
-/gemini-megacontext "List all API endpoints with their auth requirements" --context src/
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Generate report
-/gemini-megacontext "Security audit of entire application" --output security-report.md
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## When to Use
-- ✅ Analyzing large codebases (30K+ lines)
-- ✅ Cross-file pattern detection
-- ✅ Architecture documentation
-- ✅ Comprehensive security audits
-- ✅ Dependency mapping
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Capabilities
-- **Context**: 1,000,000 tokens (~30,000 lines of code)
-- **Model**: Gemini 2.0 Flash
-- **Free tier**: 60 requests/min, 1000/day
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Implementation
-```bash
-# Executed via Gemini CLI
-gemini "<task>" --files <context> --model gemini-2.0-flash
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Chains with
-```bash
-# Large codebase analysis → architecture design
-/gemini-megacontext "Analyze codebase patterns" | \
-/agent-architect "Design refactoring plan"
-```
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## See also
-- `/gemini-search` - Real-time web information
-- `/codex-auto` - Rapid prototyping
-- `/claude-reason` - Best overall reasoning
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>GEMINI_MEGACONTEXT_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/gemini-megacontext "Analyze architecture patterns across en", description: "Example usage" },
+  { command: "/gemini-megacontext "List all API endpoints with their auth ", description: "Example usage" },
+  { command: "/gemini-megacontext "Security audit of entire application" -", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/gemini-megacontext -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/gemini-megacontext arg1' '/gemini-megacontext arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/claude-reason", "/gemini-search", "/codex-auto"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "multi-model",
+    file: ".claude/expertise/multi-model.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "gemini-megacontext-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/multi-model/gemini-megacontext/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["multi-model:gemini-megacontext"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "gemini-megacontext-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>GEMINI_MEGACONTEXT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

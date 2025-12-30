@@ -1,311 +1,223 @@
----
-
-## Command Purpose
-[Define what this command does - the specific action it triggers]
-
-## Input Requirements
-[Parameters and prerequisites needed to execute this command]
-
-## Expected Output
-[What artifacts, results, or state changes this command produces]
-
-## Success Indicators
-[How to verify the command executed successfully]
-
-## Error Handling
-[Common failures and recovery procedures]
-
-## Related Commands
-[Commands that work together with this one in typical workflows]
+/*============================================================================*/
+/* WORKFLOW-CICD COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: workflow-cicd-benchmark-v1
-  tests:
-    - command_execution_success
-    - workflow_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/workflows/workflow-cicd/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [deployment-readiness, cicd-intelligent-recovery]
-  related_agents: [cicd-engineer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-name: workflow:cicd
-category: workflow
+name: workflow-cicd
 version: 1.0.0
+binding: skill:workflow-cicd
+category: delivery
 ---
 
-# /workflow:cicd
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "workflow-cicd",
+  binding: "skill:workflow-cicd",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "[Define what this command does - the specific action it triggers]",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /workflow-cicd"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Complete CI/CD workflow orchestration with intelligent failure recovery.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/workflow:cicd [options]
-```
+[define|neutral] SYNTAX := "/workflow-cicd [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `--stage` - Run specific stage: all|build|test|deploy|release (default: all)
-- `--environment` - Target environment: dev|staging|production (default: staging)
-- `--strategy` - Deployment strategy: rolling|blue-green|canary (default: rolling)
-- `--parallel` - Enable parallel test execution (default: true)
-- `--fail-fast` - Stop on first failure (default: false)
-- `--notify` - Send notifications (default: true)
-- `--auto-rollback` - Rollback on failure (default: true)
-- `--docker` - Build Docker image (default: true)
-- `--k8s` - Deploy to Kubernetes (default: false)
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--stage": { description: "Run specific stage: all|build|test|deploy|release ", default: "false" },
+    "--environment": { description: "Target environment: dev|staging|production (defaul", default: "false" },
+    "--strategy": { description: "Deployment strategy: rolling|blue-green|canary (de", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-**Complete CI/CD Pipeline (9 Stages)**:
-1. 🔍 **Pre-flight**: Validate environment and dependencies
-2. 🏗️ **Build**: Compile and bundle application
-3. 🧪 **Test**: Run all test suites in parallel
-4. 🔒 **Security**: Security and dependency audits
-5. 📊 **Quality**: Code quality and coverage checks
-6. 🐳 **Package**: Build Docker images
-7. 🚀 **Deploy**: Deploy to target environment
-8. ✅ **Verify**: Post-deployment validation
-9. 📢 **Notify**: Send status notifications
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "🔍 **Pre-flight**: Validate environment and dependencies", model: "Claude" },
+  { stage: 2, action: "🏗️ **Build**: Compile and bundle application", model: "Claude" },
+  { stage: 3, action: "🧪 **Test**: Run all test suites in parallel", model: "Claude" },
+  { stage: 4, action: "🔒 **Security**: Security and dependency audits", model: "Claude" },
+  { stage: 5, action: "📊 **Quality**: Code quality and coverage checks", model: "Claude" },
+  { stage: 6, action: "🐳 **Package**: Build Docker images", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-**Intelligent Features**:
-- Auto-retry failed tests (up to 3 attempts)
-- Parallel test execution (4x faster)
-- Smart caching (dependencies, build artifacts)
-- Auto-rollback on deployment failure
-- Real-time progress monitoring
-- Comprehensive failure reports
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Full CI/CD pipeline
-/workflow:cicd
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Build and test only
-/workflow:cicd --stage test
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Deploy to production with blue-green
-/workflow:cicd --environment production --strategy blue-green
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Build stage only
-/workflow:cicd --stage build --parallel true
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-# Fast fail pipeline
-/workflow:cicd --fail-fast true
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Docker build with K8s deployment
-/workflow:cicd --docker true --k8s true --environment staging
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Release stage
-/workflow:cicd --stage release
-```
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Output
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-```
-🔄 CI/CD Pipeline Started
+[define|neutral] EXAMPLES := [
+  { command: "/workflow:cicd", description: "Example usage" },
+  { command: "/workflow:cicd --stage test", description: "Example usage" },
+  { command: "/workflow:cicd --environment production --strategy blue-gree", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-Configuration:
-  Environment: staging
-  Strategy: Rolling Update
-  Parallel Tests: Enabled
-  Docker Build: Yes
-  K8s Deploy: Yes
-  Auto-Rollback: Enabled
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 1/9: Pre-Flight Checks
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ✅ Git repository clean
-  ✅ Dependencies installed
-  ✅ Environment variables loaded
-  ✅ Docker daemon running
-  ✅ Kubernetes cluster accessible
-  ⏱️  Duration: 3.2s
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/workflow-cicd -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/workflow-cicd arg1' '/workflow-cicd arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 2/9: Build Application
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔨 Installing dependencies...
-  ✅ npm install (cached, 2.1s)
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-  🔨 Building application...
-  ✅ TypeScript compilation (12.3s)
-  ✅ Webpack bundling (8.7s)
-  ✅ Asset optimization (3.4s)
+[define|neutral] RELATED := {
+  complementary: ["/security-audit", "/docker-build", "/regression-test", "/github-release"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-  Build Artifacts:
-    - dist/main.js (342 KB, gzip: 98 KB)
-    - dist/vendor.js (1.2 MB, gzip: 387 KB)
-    - dist/assets/* (45 files, 2.3 MB)
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-  ⏱️  Duration: 24.5s
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "workflow-cicd-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/workflow-cicd/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["workflow-cicd"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 3/9: Test Suite
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Running tests in parallel (4 workers)...
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-  🧪 Unit Tests: 342 passed (8.2s)
-  🧪 Integration Tests: 87 passed (12.4s)
-  🧪 E2E Tests: 23 passed (45.6s)
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "workflow-cicd-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-  Coverage Report:
-    Statements: 94.3% (target: 80%)
-    Branches: 89.7% (target: 75%)
-    Functions: 92.1% (target: 80%)
-    Lines: 93.8% (target: 80%)
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-  ✅ All tests passed (452/452)
-  ⏱️  Duration: 45.6s (parallel)
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 4/9: Security Audit
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔒 Running security scan...
-  ✅ No critical vulnerabilities (0.8s)
-  ✅ Dependency audit passed (1.2s)
-  ⚠️  2 medium severity issues (non-blocking)
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-  🔐 Secrets scan...
-  ✅ No secrets exposed
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-  ⏱️  Duration: 2.3s
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 5/9: Quality Checks
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🎯 Running linters...
-  ✅ ESLint: No errors (2.1s)
-  ✅ Prettier: All files formatted (0.8s)
-  ✅ TypeScript: No type errors (3.4s)
-
-  📊 Code Quality Score: 92/100
-
-  ⏱️  Duration: 6.3s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 6/9: Docker Build
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🐳 Building image: myapp:v1.3.0
-  ✅ Multi-stage build complete
-  ✅ Image size: 142 MB (75% reduction)
-  ✅ Security scan: No vulnerabilities
-  ✅ Pushed to registry
-
-  ⏱️  Duration: 37.8s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 7/9: Deploy to Staging
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ☸️  Deploying to Kubernetes...
-  ✅ Manifests validated
-  ✅ Rolling update started
-  ✅ New pods ready (3/3)
-  ✅ Old pods terminated
-  ✅ Service endpoints updated
-  ✅ Ingress routing verified
-
-  ⏱️  Duration: 42.6s (zero downtime)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 8/9: Post-Deployment Validation
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  🔍 Running smoke tests...
-  ✅ Health check: /health → 200 OK
-  ✅ API endpoints: 15/15 passed
-  ✅ Database connectivity: OK
-  ✅ External services: All reachable
-
-  📊 Performance Metrics:
-    - Response time: 87ms (baseline: 84ms)
-    - Error rate: 0.00%
-    - CPU usage: 30%
-    - Memory usage: 28%
-
-  ⏱️  Duration: 8.4s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Stage 9/9: Notifications
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  📢 Sending notifications...
-  ✅ Slack: #deployments
-  ✅ Email: devops@example.com
-  ✅ GitHub: Deployment status updated
-
-  ⏱️  Duration: 1.2s
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Pipeline Summary
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Status: ✅ SUCCESS
-Total Duration: 2m 52s
-Stages Passed: 9/9
-
-Build Metrics:
-  - Build Time: 24.5s
-  - Test Time: 45.6s (parallel)
-  - Deploy Time: 42.6s
-  - Cache Hit Rate: 78%
-
-Deployment:
-  Environment: staging
-  Version: v1.3.0
-  Replicas: 3/3 healthy
-  URL: https://staging.myapp.example.com
-
-Rollback Command (if needed):
-  /workflow:rollback --environment staging --to v1.2.9
-
-✅ CI/CD Pipeline Complete!
-```
-
-## Chains With
-
-```bash
-# CI/CD → monitor
-/workflow:cicd && /monitoring-configure
-
-# CI/CD for production with canary
-/workflow:cicd --environment production --strategy canary
-
-# Build → test → manual deploy
-/workflow:cicd --stage test && /k8s-deploy --environment production
-
-# Full release workflow
-/github-release && /workflow:cicd --environment production
-```
-
-## See Also
-- `/docker-build` - Docker image build
-- `/k8s-deploy` - Kubernetes deployment
-- `/workflow:deployment` - Deployment orchestration
-- `/workflow:rollback` - Rollback deployment
-- `/security-audit` - Security scanning
-- `/regression-test` - Regression testing
-- `/github-release` - Release automation
-
-
----
-*Promise: `<promise>WORKFLOW_CICD_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>WORKFLOW_CICD_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,44 +1,63 @@
+/*============================================================================*/
+/* WHEN-ANALYZING-USER-INTENT-USE-INTENT-ANALYZER SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
 name: when-analyzing-user-intent-use-intent-analyzer
 version: 1.0.0
-description: Advanced intent interpretation system using cognitive science principles
-  and probabilistic intent mapping
+description: |
+  [assert|neutral] Advanced intent interpretation system using cognitive science principles and probabilistic intent mapping [ground:given] [conf:0.95] [state:confirmed]
 category: utilities
 tags:
 - intent-analysis
 - cognitive-science
 - disambiguation
 - user-understanding
-agents:
-- researcher
-- analyst
-- planner
-difficulty: intermediate
-estimated_duration: 15-30min
-success_criteria:
-- Clear understanding of user intent achieved
-- Ambiguities resolved through targeted questions
-- Actionable task definition created
-- User confirmation obtained
-validation_method: user_confirmation
-dependencies:
-- claude-flow@alpha
-- hooks-integration
-prerequisites:
-- User request captured
-- Context information available
-outputs:
-- Interpreted intent document
-- Clarifying questions (if needed)
-- Action plan
-triggers:
-- Ambiguous user requests
-- Complex multi-part instructions
-- Vague or unclear requirements
 author: ruv
+cognitive_frame:
+  primary: honorific
+  goal_analysis:
+    first_order: "Execute when-analyzing-user-intent-use-intent-analyzer workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic utilities processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-analyzing-user-intent-use-intent-analyzer",
+  category: "utilities",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Honorific",
+  source: "Japanese",
+  force: "Who is the audience?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-analyzing-user-intent-use-intent-analyzer", "utilities", "workflow"],
+  context: "user needs when-analyzing-user-intent-use-intent-analyzer capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Intent Analyzer - Advanced User Intent Interpretation
 
@@ -177,665 +196,67 @@ const tokens = {
 // }
 ```
 
-**Step 2.2: Build Component Tree**
-```javascript
-const componentTree = {
-  primary: {
-    intent: inferPrimaryIntent(tokens),
-    confidence: 0.85
-  },
-  secondary: tokens.actions.slice(1).map(action => ({
-    intent: action,
-    confidence: 0.60
-  })),
-  implicit: inferImplicitRequirements(tokens, contextClues)
-};
-
-await memory.store('intent/component-tree', componentTree);
-```
-
-**Step 2.3: Identify Dependencies**
-```javascript
-const dependencies = {
-  sequential: findSequentialDeps(componentTree),
-  parallel: findParallelDeps(componentTree),
-  conditional: findConditionalDeps(componentTree)
-};
-
-// Example:
-// {
-//   sequential: ['database schema' -> 'API endpoints' -> 'tests'],
-//   parallel: ['frontend', 'backend'],
-//   conditional: ['if authentication: setup OAuth']
-// }
-```
-
-### Validation Criteria
-- [ ] All action verbs identified
-- [ ] Component tree constructed
-- [ ] Dependencies mapped
-- [ ] Implicit requirements surfaced
-
-### Script Template
-```bash
-#!/bin/bash
-# decompose-intent.sh
-
-INPUT_FILE="$1"
-OUTPUT_FILE="$2"
-
-# Read user input
-USER_REQUEST=$(cat "$INPUT_FILE")
-
-# Decompose using researcher agent
-npx claude-flow@alpha agent-spawn \
-  --type researcher \
-  --task "Decompose this request into components: $USER_REQUEST" \
-  --output "$OUTPUT_FILE"
-
-# Store results
-npx claude-flow@alpha hooks post-edit \
-  --file "$OUTPUT_FILE" \
-  --memory-key "intent-analyzer/decomposition"
-```
-
-## Phase 3: Map Probabilities
-
-### Objective
-Assign likelihood scores to possible interpretations
-
-### Agent: Analyst
-
-**Step 3.1: Generate Interpretation Candidates**
-```javascript
-const interpretations = [
-  {
-    id: 'interp-1',
-    description: 'User wants a complete REST API with authentication',
-    probability: 0.75,
-    evidence: ['mentions API', 'security constraint'],
-    assumptions: ['Express.js framework', 'JWT auth']
-  },
-  {
-    id: 'interp-2',
-    description: 'User wants to add auth to existing API',
-    probability: 0.20,
-    evidence: ['existing project detected'],
-    assumptions: ['API already exists']
-  },
-  {
-    id: 'interp-3',
-    description: 'User wants auth documentation/research',
-    probability: 0.05,
-    evidence: ['vague phrasing'],
-    assumptions: ['exploratory phase']
-  }
-];
-
-await memory.store('intent/interpretations', interpretations);
-```
-
-**Step 3.2: Apply Bayesian Reasoning**
-```javascript
-function updateProbabilities(interpretations, newEvidence) {
-  return interpretations.map(interp => {
-    const priorProb = interp.probability;
-    const likelihoodGivenEvidence = calculateLikelihood(interp, newEvidence);
-    const posteriorProb = (priorProb * likelihoodGivenEvidence) /
-                          calculateNormalization(interpretations, newEvidence);
-
-    return { ...interp, probability: posteriorProb };
-  });
-}
-
-const updatedInterpretations = updateProbabilities(interpretations, contextClues);
-```
-
-**Step 3.3: Rank by Confidence**
-```javascript
-const rankedInterpretations = updatedInterpretations
-  .sort((a, b) => b.probability - a.probability)
-  .map((interp, index) => ({
-    ...interp,
-    rank: index + 1,
-    confidenceLevel: interp.probability > 0.8 ? 'HIGH' :
-                     interp.probability > 0.5 ? 'MEDIUM' : 'LOW'
-  }));
-
-await memory.store('intent/ranked-interpretations', rankedInterpretations);
-```
-
-### Validation Criteria
-- [ ] At least 3 interpretations generated
-- [ ] Probabilities sum to ~1.0
-- [ ] Evidence listed for each interpretation
-- [ ] Confidence levels assigned
-
-### Memory Pattern
-```bash
-# Store probability analysis
-npx claude-flow@alpha hooks post-task \
-  --task-id "probability-mapping" \
-  --metrics '{"interpretations": 3, "top_confidence": 0.75}'
-```
-
-## Phase 4: Clarify Ambiguities
-
-### Objective
-Ask targeted questions to resolve uncertainty
-
-### Agent: Planner
-
-**Step 4.1: Identify Decision Points**
-```javascript
-const ambiguities = rankedInterpretations.flatMap(interp => {
-  if (interp.probability < 0.8 && interp.rank <= 2) {
-    return interp.assumptions.map(assumption => ({
-      interpretation: interp.id,
-      assumption: assumption,
-      impact: calculateImpact(assumption),
-      question: generateClarifyingQuestion(assumption)
-    }));
-  }
-  return [];
-});
-
-// Example output:
-// {
-//   interpretation: 'interp-1',
-//   assumption: 'Express.js framework',
-//   impact: 'HIGH',
-//   question: 'Which framework would you prefer: Express.js, Fastify, or NestJS?'
-// }
-```
-
-**Step 4.2: Prioritize Questions**
-```javascript
-const prioritizedQuestions = ambiguities
-  .sort((a, b) => {
-    // Sort by: HIGH impact first, then by interpretation probability
-    if (a.impact !== b.impact) {
-      return b.impact === 'HIGH' ? 1 : -1;
-    }
-    const interpA = rankedInterpretations.find(i => i.id === a.interpretation);
-    const interpB = rankedInterpretations.find(i => i.id === b.interpretation);
-    return interpB.probability - interpA.probability;
-  })
-  .slice(0, 3); // Max 3 questions to avoid overwhelming user
-
-await memory.store('intent/questions', prioritizedQuestions);
-```
-
-**Step 4.3: Format Questions for User**
-```javascript
-const questionSet = {
-  header: `I want to make sure I understand your request correctly. Can you clarify:`,
-  questions: prioritizedQuestions.map((q, i) => ({
-    number: i + 1,
-    text: q.question,
-    options: generateOptions(q.assumption),
-    rationale: `This helps determine: ${q.impact.toLowerCase()} impact on ${q.interpretation}`
-  })),
-  footer: `These clarifications will help me provide exactly what you need.`
-};
-
-// Present to user
-console.log(formatQuestionSet(questionSet));
-```
-
-**Step 4.4: Process User Responses**
-```javascript
-async function processResponses(responses) {
-  // Update interpretation probabilities based on answers
-  const refinedInterpretations = rankedInterpretations.map(interp => {
-    let newProb = interp.probability;
-
-    responses.forEach(response => {
-      if (response.confirmsAssumption(interp)) {
-        newProb *= 1.5; // Boost probability
-      } else if (response.contradicsAssumption(interp)) {
-        newProb *= 0.3; // Reduce probability
-      }
-    });
-
-    return { ...interp, probability: newProb };
-  });
-
-  // Re-normalize probabilities
-  const total = refinedInterpretations.reduce((sum, i) => sum + i.probability, 0);
-  const normalized = refinedInterpretations.map(i => ({
-    ...i,
-    probability: i.probability / total
-  }));
-
-  await memory.store('intent/refined-interpretations', normalized);
-  return normalized;
-}
-```
-
-### Validation Criteria
-- [ ] High-impact ambiguities identified
-- [ ] Questions prioritized effectively
-- [ ] User responses processed
-- [ ] Probabilities updated
-
-### Script Template
-```bash
-#!/bin/bash
-# clarify-ambiguities.sh
-
-INTERPRETATIONS_FILE="$1"
-
-# Generate clarifying questions
-QUESTIONS=$(npx claude-flow@alpha agent-spawn \
-  --type planner \
-  --task "Generate clarifying questions from: $(cat $INTERPRETATIONS_FILE)")
-
-# Present to user (interactive)
-echo "$QUESTIONS"
-echo ""
-echo "Your responses:"
-read -p "1. " RESPONSE_1
-read -p "2. " RESPONSE_2
-read -p "3. " RESPONSE_3
-
-# Store responses
-cat > responses.json <<EOF
-{
-  "responses": [
-    {"question": 1, "answer": "$RESPONSE_1"},
-    {"question": 2, "answer": "$RESPONSE_2"},
-    {"question": 3, "answer": "$RESPONSE_3"}
-  ],
-  "timestamp": "$(date -Iseconds)"
-}
-EOF
-
-npx claude-flow@alpha hooks post-edit \
-  --file "responses.json" \
-  --memory-key "intent-analyzer/user-responses"
-```
-
-## Phase 5: Synthesize Understanding
-
-### Objective
-Form clear, actionable interpretation with user confirmation
-
-### Agent: Analyst + Planner
-
-**Step 5.1: Select Final Interpretation**
-```javascript
-const finalInterpretation = refinedInterpretations
-  .sort((a, b) => b.probability - a.probability)[0];
-
-const synthesis = {
-  understanding: finalInterpretation.description,
-  confidence: finalInterpretation.probability,
-  breakdown: {
-    primaryGoal: extractPrimaryGoal(finalInterpretation),
-    subTasks: extractSubTasks(finalInterpretation),
-    constraints: finalInterpretation.evidence,
-    assumptions: finalInterpretation.assumptions
-  },
-  actionPlan: generateActionPlan(finalInterpretation)
-};
-
-await memory.store('intent/final-synthesis', synthesis);
-```
-
-**Step 5.2: Generate Confirmation Statement**
-```javascript
-const confirmation = {
-  summary: `Based on your input, I understand you want to: ${synthesis.understanding}`,
-  details: {
-    scope: synthesis.breakdown.primaryGoal,
-    approach: synthesis.actionPlan.strategy,
-    deliverables: synthesis.actionPlan.outputs
-  },
-  confidence: `I'm ${(synthesis.confidence * 100).toFixed(0)}% confident in this interpretation.`,
-  verification: `Does this match your expectations? If not, please let me know what I misunderstood.`
-};
-
-// Present to user
-console.log(formatConfirmation(confirmation));
-```
-
-**Step 5.3: Create Execution Brief**
-```javascript
-const executionBrief = {
-  metadata: {
-    skillName: 'intent-analyzer',
-    timestamp: new Date().toISOString(),
-    confidence: synthesis.confidence
-  },
-  userIntent: {
-    original: userInput.request,
-    interpreted: synthesis.understanding,
-    clarifications: questionSet.questions.length
-  },
-  actionPlan: {
-    phases: synthesis.actionPlan.phases,
-    agents: synthesis.actionPlan.requiredAgents,
-    estimatedDuration: synthesis.actionPlan.duration,
-    dependencies: synthesis.actionPlan.dependencies
-  },
-  successCriteria: synthesis.actionPlan.successCriteria,
-  riskFactors: identifyRisks(synthesis)
-};
-
-await memory.store('intent/execution-brief', executionBrief);
-
-// Export for next workflow
-await fs.writeFile(
-  '/tmp/intent-analysis-result.json',
-  JSON.stringify(executionBrief, null, 2)
-);
-```
-
-**Step 5.4: Handoff to Execution**
-```javascript
-// If confidence is high, prepare for immediate execution
-if (synthesis.confidence > 0.85) {
-  console.log('\n✅ High confidence understanding achieved.');
-  console.log('Ready to proceed with execution.');
-
-  // Generate TodoWrite for execution phase
-  const todos = executionBrief.actionPlan.phases.map((phase, i) => ({
-    id: `exec-${i + 1}`,
-    content: phase.description,
-    status: i === 0 ? 'in_progress' : 'pending',
-    activeForm: phase.activeDescription,
-    priority: phase.priority,
-    agent: phase.assignedAgent
-  }));
-
-  // Output todos for execution
-  console.log('\nGenerated execution plan:');
-  console.log(JSON.stringify(todos, null, 2));
-} else {
-  console.log('\n⚠️  Confidence below threshold. Recommend additional clarification.');
-}
-```
-
-### Validation Criteria
-- [ ] Final interpretation selected (confidence > 0.8)
-- [ ] User confirmation obtained
-- [ ] Execution brief created
-- [ ] Handoff to next workflow prepared
-
-### Memory Pattern
-```bash
-# Session completion
-npx claude-flow@alpha hooks session-end \
-  --session-id "intent-analyzer-${TIMESTAMP}" \
-  --export-metrics true \
-  --summary "Intent analysis completed with ${CONFIDENCE}% confidence"
-
-# Store final results
-npx claude-flow@alpha hooks post-task \
-  --task-id "intent-synthesis" \
-  --output "/tmp/intent-analysis-result.json"
-```
-
-## Success Metrics
-
-### Quantitative
-- Interpretation confidence score > 0.8
-- Number of clarifying questions asked < 5
-- User confirmation obtained: YES/NO
-- Time to resolution < 30 minutes
-
-### Qualitative
-- User expresses satisfaction with understanding
-- No major revisions needed after confirmation
-- Action plan is clear and executable
-- Ambiguities resolved effectively
-
-## Common Patterns
-
-### Pattern 1: Multi-Part Request
-```javascript
-// When user request has multiple independent goals
-if (componentTree.primary.length > 1) {
-  // Decompose into separate intent analyses
-  const subIntents = componentTree.primary.map(async (component) => {
-    return await analyzeIntent(component, contextClues);
-  });
-
-  // Synthesize into coordinated plan
-  const coordinatedPlan = synthesizeMultiIntent(await Promise.all(subIntents));
-}
-```
-
-### Pattern 2: Vague Request
-```javascript
-// When specificity score is low
-if (characteristics.specificityScore < 0.4) {
-  // Use more Socratic questioning
-  const questions = generateOpenEndedQuestions(userInput);
-
-  // Iterate until specificity improves
-  while (getCurrentSpecificity() < 0.6) {
-    const response = await askUser(questions.shift());
-    updateInterpretations(response);
-  }
-}
-```
-
-### Pattern 3: Expert User
-```javascript
-// When user expertise level is high
-if (contextClues.userExpertise === 'expert') {
-  // Skip basic clarifications
-  const technicalInterpretations = interpretations.filter(
-    i => i.technicalDepth === 'advanced'
-  );
-
-  // Assume technical knowledge
-  const brief = generateTechnicalBrief(technicalInterpretations[0]);
-}
-```
-
-## Troubleshooting
-
-### Issue: Low Confidence After Clarification
-**Solution**: Request specific examples from user
-```javascript
-if (synthesis.confidence < 0.7 && clarificationRound > 1) {
-  console.log('Could you provide a specific example of what you want?');
-  const example = await getUserExample();
-  interpretations = refineWithExample(interpretations, example);
-}
-```
-
-### Issue: Contradictory User Responses
-**Solution**: Highlight contradiction and ask for priority
-```javascript
-const contradictions = detectContradictions(responses);
-if (contradictions.length > 0) {
-  console.log(`I notice some conflicting requirements: ${contradictions}`);
-  console.log('Which is more important to you?');
-  const priority = await getUserPriority(contradictions);
-}
-```
-
-### Issue: Too Many Interpretations
-**Solution**: Focus on top 2 and ask direct choice
-```javascript
-if (rankedInterpretations[1].probability > 0.3) {
-  console.log('I see two main possibilities:');
-  console.log(`A) ${rankedInterpretations[0].description}`);
-  console.log(`B) ${rankedInterpretations[1].description}`);
-  console.log('Which better matches your intent?');
-}
-```
-
-## Integration Examples
-
-### With SPARC Workflow
-```bash
-# Use intent analyzer before SPARC specification phase
-npx claude-flow@alpha skill-run intent-analyzer \
-  --input "user-request.txt" \
-  --output "/tmp/intent-brief.json"
-
-# Feed result to SPARC
-npx claude-flow@alpha sparc run spec-pseudocode \
-  --context "/tmp/intent-brief.json"
-```
-
-### With Cascade Orchestrator
-```javascript
-// Integrate as first step in cascade
-const cascade = {
-  steps: [
-    {
-      skill: 'intent-analyzer',
-      input: userRequest,
-      output: 'intent-brief'
-    },
-    {
-      skill: 'feature-dev-complete',
-      input: '${intent-brief}',
-      conditional: '${intent-brief.confidence} > 0.8'
-    }
-  ]
-};
-```
-
-### With Agent Swarm
-```bash
-# Spawn intent analyzer as coordinator
-npx claude-flow@alpha swarm-init --topology hierarchical
-npx claude-flow@alpha agent-spawn --type analyst --role coordinator
-
-# Agents report findings to analyzer for synthesis
-npx claude-flow@alpha task-orchestrate \
-  --task "Analyze user intent from multiple perspectives" \
-  --coordinator "intent-analyzer"
-```
-
-## Memory Schema
-
-```javascript
-{
-  "intent-analyzer/": {
-    "session-${id}/": {
-      "raw-input": { /* Phase 1 */ },
-      "characteristics": { /* Phase 1 */ },
-      "context-clues": { /* Phase 1 */ },
-      "component-tree": { /* Phase 2 */ },
-      "interpretations": { /* Phase 3 */ },
-      "ranked-interpretations": { /* Phase 3 */ },
-      "questions": { /* Phase 4 */ },
-      "user-responses": { /* Phase 4 */ },
-      "refined-interpretations": { /* Phase 4 */ },
-      "final-synthesis": { /* Phase 5 */ },
-      "execution-brief": { /* Phase 5 */ }
-    }
-  }
-}
-```
-
-## Performance Optimization
-
-### Caching Common Patterns
-```javascript
-// Cache frequently seen intent patterns
-const intentCache = new Map();
-
-async function checkCache(userInput) {
-  const embedding = await generateEmbedding(userInput);
-  const similar = findSimilar(embedding, intentCache);
-
-  if (similar && similar.similarity > 0.9) {
-    console.log('Using cached interpretation...');
-    return similar.interpretation;
-  }
-
-  return null;
-}
-```
-
-### Parallel Interpretation Generation
-```javascript
-// Generate interpretations concurrently
-const interpretationPromises = [
-  generateLiteralInterpretation(userInput),
-  generateInferredInterpretation(userInput, context),
-  generateExpertInterpretation(userInput, expertise),
-  generateNovelInterpretation(userInput) // Think outside the box
-];
-
-const interpretations = await Promise.all(interpretationPromises);
-```
-
-## Skill Completion
-
-Upon successful completion, this skill outputs:
-1. **intent-analysis-result.json**: Complete execution brief
-2. **confidence-score.txt**: Final confidence percentage
-3. **clarification-log.md**: Record of questions and answers
-4. **next-steps.md**: Recommended workflow to execute
-
-The skill is complete when user confirmation is obtained and confidence > 0.8.
----
-
-## Core Principles
-
-### 1. First Principles Decomposition Over Surface Interpretation
-Break requests into fundamental components to uncover true intent, not just stated requirements.
-
-**In practice**:
-- Extract action verbs, subjects, constraints, and desired outcomes from user input
-- Build component trees showing primary, secondary, and implicit requirements
-- Map dependencies between components to understand execution order
-- Surface implicit assumptions that users may not articulate
-- Apply cognitive science principles: probabilistic intent mapping, volition extrapolation
-
-### 2. Socratic Clarification for Ambiguity Resolution
-Ask targeted questions to narrow interpretation space instead of guessing user intent.
-
-**In practice**:
-- Generate 3+ interpretation candidates with probability scores
-- Identify high-impact ambiguities (affect primary metric or risk assessment)
-- Prioritize questions by impact and interpretation likelihood
-- Limit to 3 questions maximum to avoid overwhelming user
-- Update probabilities using Bayesian reasoning when user responds
-
-### 3. Confidence Thresholds Trigger Clarification
-Only proceed with execution when interpretation confidence exceeds 80%, otherwise clarify.
-
-**In practice**:
-- Calculate confidence score for top interpretation using evidence and context
-- If confidence < 0.8, generate clarifying questions before proceeding
-- If confidence > 0.85, prepare execution brief immediately
-- Track clarification rounds: if still < 0.7 after 2 rounds, request concrete examples
-- Present confidence score to user for transparency
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Surface-Level Parsing** | Taking user requests literally without deeper analysis misses implicit requirements and leads to incomplete solutions | Apply first principles decomposition. Build component trees. Surface implicit constraints. Use probabilistic intent mapping to generate multiple interpretations. |
-| **Assumption Without Validation** | Proceeding with low-confidence interpretation because clarification feels like overhead results in rework when assumptions are wrong | Set 80% confidence threshold. Generate clarifying questions when below threshold. Present multiple interpretations and ask user to select. Track confidence scores. |
-| **Question Overload** | Bombarding users with 10+ clarification questions causes fatigue and disengagement | Limit to 3 questions maximum. Prioritize by impact and probability. Use multiple-choice when possible. Ask open-ended only for novel situations. |
-| **Ignoring Context Clues** | Treating each request in isolation without leveraging environment, history, or project type wastes available information | Analyze file system, recent edits, project type, user expertise level. Use context clues to boost or reduce interpretation probabilities. Apply Bayesian updates. |
-| **Single Interpretation Bias** | Generating only one interpretation and confirming it creates confirmation bias and misses alternatives | Generate at least 3 interpretations with probabilities. Rank by confidence. Present top 2 if they are close (>0.3 probability). Ask user to choose between alternatives. |
-| **No Learning from Feedback** | Discarding user clarifications after task completion prevents improving future intent analysis | Store clarifications in memory with intent analysis results. Build pattern library of common ambiguities and resolutions. Use for semantic caching on similar future requests. |
-
----
-
-## Conclusion
-
-Intent analysis is the foundation of effective AI assistance. By applying first principles decomposition, Socratic clarification, and confidence thresholds, the intent analyzer transforms vague requests into precise execution briefs. This upfront investment in understanding prevents costly rework downstream.
-
-The skill's power lies in its structured approach: decompose into components, generate multiple interpretations with probabilities, ask targeted questions to narrow possibilities, and synthesize a confident understanding. When confidence is high, execution proceeds immediately. When confidence is low, clarification is mandatory - not optional.
-
-Remember: ambiguity is not the user's fault - it is the AI's responsibility to resolve. Every vague request is an opportunity to demonstrate intelligence through thoughtful questioning. The goal is not to execute fastest, but to execute correctly. Invest 5 minutes in intent analysis to save hours of rework. When you understand what the user truly needs, not just what they said, you deliver solutions that exceed expectations.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+*
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/utilities/when-analyzing-user-intent-use-intent-analyzer/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-analyzing-user-intent-use-intent-analyzer-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WHEN_ANALYZING_USER_INTENT_USE_INTENT_ANALYZER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

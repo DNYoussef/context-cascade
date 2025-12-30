@@ -1,147 +1,224 @@
----
-
-## Command Purpose
-[Define what this command does - the specific action it triggers]
-
-## Input Requirements
-[Parameters and prerequisites needed to execute this command]
-
-## Expected Output
-[What artifacts, results, or state changes this command produces]
-
-## Success Indicators
-[How to verify the command executed successfully]
-
-## Error Handling
-[Common failures and recovery procedures]
-
-## Related Commands
-[Commands that work together with this one in typical workflows]
+/*============================================================================*/
+/* FIX-BUG COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: fix-bug-benchmark-v1
-  tests:
-    - command_execution_success
-    - workflow_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/essential-commands/fix-bug/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [deployment-readiness, cicd-intelligent-recovery]
-  related_agents: [cicd-engineer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: fix-bug
-binding: skill:smart-bug-fix
-category: essential
 version: 1.0.0
+binding: skill:fix-bug
+category: delivery
 ---
 
-# /fix-bug
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "fix-bug",
+  binding: "skill:fix-bug",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "[Define what this command does - the specific action it triggers]",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /fix-bug"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Intelligent bug fixing with RCA + multi-model reasoning + auto-fix + validation.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/fix-bug "<bug description>" <context_path>
-```
+[define|neutral] SYNTAX := "/fix-bug [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `bug_description` - Description of the bug (required)
-- `context_path` - Directory or file context (required)
-- `--depth` - Investigation depth: shallow|normal|deep (default: deep)
-- `--reproduction-steps` - Steps to reproduce (optional)
-- `--error-logs` - Path to error logs (optional)
+[define|neutral] PARAMETERS := {
+  required: {
+    bug_description: { type: "string", description: "Description of the bug" },
+    context_path: { type: "string", description: "Directory or file context" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--depth": { description: "Investigation depth: shallow|normal|deep (default:", default: "false" },
+    "--reproduction-steps": { description: "Steps to reproduce (optional)", default: "false" },
+    "--error-logs": { description: "Path to error logs (optional)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-**6-Phase Systematic Debugging**:
-1. 🔍 Deep root cause analysis (Claude RCA Agent)
-2. 🧠 Context analysis (Gemini MegaContext if large codebase)
-3. 💡 Alternative solutions (Multi-model reasoning)
-4. 🔧 Implement fix (Codex Auto in sandbox)
-5. ✅ Comprehensive testing (Codex iteration, max 5x)
-6. 📊 Performance impact analysis
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "🔍 Deep root cause analysis (Claude RCA Agent)", model: "Claude" },
+  { stage: 2, action: "🧠 Context analysis (Gemini MegaContext if large codebase)", model: "Gemini" },
+  { stage: 3, action: "💡 Alternative solutions (Multi-model reasoning)", model: "Claude" },
+  { stage: 4, action: "🔧 Implement fix (Codex Auto in sandbox)", model: "Codex" },
+  { stage: 5, action: "✅ Comprehensive testing (Codex iteration, max 5x)", model: "Codex" },
+  { stage: 6, action: "📊 Performance impact analysis", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-**Models Used**:
-- **Claude**: Root cause analysis
-- **Gemini**: Large codebase context
-- **Codex**: Fix implementation + auto-testing
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Fix bug with description
-/fix-bug "API timeout under load" src/api/
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# With reproduction steps
-/fix-bug "Login fails on Firefox" src/auth/ \
-  --reproduction-steps "1. Open Firefox 2. Try login 3. See error"
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-# With error logs
-/fix-bug "Database connection fails" src/db/ \
-  --error-logs "logs/error.log"
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Quick shallow fix
-/fix-bug "Typo in variable name" src/utils/helper.js --depth shallow
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Output
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-```
-🐛 Smart Bug Fix Complete!
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-Root Cause: Database connection pool exhausted under concurrent requests
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-Fix Applied:
-  - Increased pool size from 10 to 50
-  - Added connection timeout handling
-  - Implemented connection recycling
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-Validation:
-  ✅ All tests passing
-  ✅ No regressions detected
-  ✅ Performance improved 23%
+[define|neutral] EXAMPLES := [
+  { command: "/fix-bug "API timeout under load" src/api/", description: "Example usage" },
+  { command: "/fix-bug "Login fails on Firefox" src/auth/ \", description: "Example usage" },
+  { command: "/fix-bug "Database connection fails" src/db/ \", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-Files Changed:
-  - src/db/connection.js
-  - src/config/database.js
-```
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Chains With
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/fix-bug -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/fix-bug arg1' '/fix-bug arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-```bash
-# Fix bug → run full tests → deploy
-/fix-bug "bug" src/ && /functionality-audit src/ && /deploy
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-# Fix multiple bugs in sequence
-/fix-bug "bug1" src/ && /fix-bug "bug2" src/ && /audit-pipeline src/
-```
+[define|neutral] RELATED := {
+  complementary: ["/functionality-audit", "/agent-rca", "/codex-auto"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## See Also
-- `/agent-rca` - RCA only (no fix)
-- `/codex-auto` - Direct Codex fix
-- `/functionality-audit` - Testing only
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "fix-bug-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/fix-bug/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["fix-bug"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
----
-*Promise: `<promise>FIX_BUG_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "fix-bug-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>FIX_BUG_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

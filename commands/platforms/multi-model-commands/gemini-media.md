@@ -1,83 +1,218 @@
----
-Key platform/tooling/training command improvements:
-- Platform API requirements
-- Tool configuration
-- Training data requirements
-- Workflow chaining
+/*============================================================================*/
+/* GEMINI-MEDIA COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: platforms  file: .claude/expertise/platforms.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: gemini-media-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/platforms/multi-model-commands/gemini-media/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [flow-nexus-platform]  related_agents: [multi-model-orchestrator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
+---
 name: gemini-media
-binding: multi-model:gemini-media
-category: multi-model
 version: 1.0.0
+binding: skill:multi-model:gemini-media
+category: multi-model
 ---
 
-# /gemini-media
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "gemini-media",
+  binding: "skill:multi-model:gemini-media",
+  category: "multi-model",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute gemini-media workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /gemini-media"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Generate images (Imagen 3/4) and videos (Veo 2/3.1) for visualizations.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/gemini-media "<description>" [options]
-```
+[define|neutral] SYNTAX := "/gemini-media [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `description` - Detailed description of image/video to generate (required)
-- `--type` - Media type: image|video (default: image)
-- `--output` - Output file path (required)
-- `--style` - Style: realistic|artistic|diagram|technical (default: realistic)
+[define|neutral] PARAMETERS := {
+  required: {
+    description: { type: "string", description: "Detailed description of image/video to generate" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--type": { description: "Media type: image|video (default: image)", default: "false" },
+    "--output": { description: "Output file path (required)", default: "false" },
+    "--style": { description: "Style: realistic|artistic|diagram|technical (defau", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Generate architecture diagram
-/gemini-media "System architecture diagram showing microservices with API gateway" \
-  --type image --output docs/architecture.png --style diagram
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Create UI mockup
-/gemini-media "Modern dashboard UI with dark mode and analytics charts" \
-  --output mockups/dashboard.png
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Generate demo video
-/gemini-media "Demo video showing user signup flow" \
-  --type video --output demos/signup-flow.mp4
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## When to Use
-- ✅ Architecture diagrams
-- ✅ UI mockups and wireframes
-- ✅ Documentation visuals
-- ✅ Demo videos
-- ✅ Marketing materials
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Capabilities
-- **Images**: Imagen 3/4 (high quality)
-- **Videos**: Veo 2/3.1 (up to 60 seconds)
-- **Model**: Gemini 2.0 Flash
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Implementation
-```bash
-# Executed via Gemini CLI with media generation
-gemini "Generate: <description>" --output <file>
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Chains with
-```bash
-# Design → generate → document
-/agent-architect "Design authentication system" | \
-/gemini-media "Architecture diagram for designed system" --output docs/auth-arch.png | \
-/generate-docs docs/architecture.md
-```
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## See also
-- `/gemini-extensions` - Figma integration for design
-- `/agent-architect` - System architecture design
-- `/generate-docs` - Documentation generation
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>GEMINI_MEDIA_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/gemini-media "System architecture diagram showing microserv", description: "Example usage" },
+  { command: "/gemini-media "Modern dashboard UI with dark mode and analyt", description: "Example usage" },
+  { command: "/gemini-media "Demo video showing user signup flow" \", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/gemini-media -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/gemini-media arg1' '/gemini-media arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/generate-docs", "/agent-architect", "/gemini-extensions"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "multi-model",
+    file: ".claude/expertise/multi-model.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "gemini-media-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/multi-model/gemini-media/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["multi-model:gemini-media"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "gemini-media-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>GEMINI_MEDIA_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

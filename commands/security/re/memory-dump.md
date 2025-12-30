@@ -1,511 +1,216 @@
-# Memory Dump Analysis Command
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-
-**Category**: Reverse Engineering
-**Phase**: 4 - Advanced Analysis
-**Complexity**: High
-**⚠️ SECURITY WARNING**: Memory dumps may contain sensitive data
-
-## Purpose
-
-Memory forensics and analysis for malware detection, incident response, and rootkit discovery using Volatility and other memory analysis tools.
-
-## Usage
-
-```bash
-/re:memory-dump [action] [options]
-
-Actions:
-  capture             Capture memory dump
-  analyze             Analyze existing dump
-  processes           List running processes
-  network             Extract network connections
-  registry            Extract registry keys (Windows)
-  malware-scan        Scan for malware signatures
-  extract             Extract files/artifacts
-  timeline            Generate memory timeline
-
-Options:
-  --dump <file>       Memory dump file
-  --profile <name>    OS profile (Win10x64, Linux_Ubuntu, etc.)
-  --output <dir>      Output directory
-  --pid <pid>         Target process ID
-  --yara <rules>      YARA rules file
-  --strings           Extract strings
-```
-
-## Examples
-
-```bash
-# Capture live memory (Linux)
-/re:memory-dump capture --output memory.raw
-
-# Analyze Windows memory dump
-/re:memory-dump analyze --dump memory.dmp --profile Win10x64_19041
-
-# List processes
-/re:memory-dump processes --dump memory.dmp
-
-# Extract network connections
-/re:memory-dump network --dump memory.dmp
-
-# Scan for malware
-/re:memory-dump malware-scan --dump memory.dmp --yara malware_rules.yar
-
-# Extract files from memory
-/re:memory-dump extract --dump memory.dmp --pid 1234 --output artifacts/
-
-# Generate timeline
-/re:memory-dump timeline --dump memory.dmp --output timeline.csv
-```
-
-## Memory Capture
-
-### Linux (LiME - Linux Memory Extractor)
-
-```bash
-# Install LiME
-git clone https://github.com/504ensicsLabs/LiME
-cd LiME/src
-make
-
-# Capture memory
-sudo insmod lime.ko "path=/tmp/memory.lime format=lime"
-
-# Or capture to network
-sudo insmod lime.ko "path=tcp:4444 format=lime"
-nc -l 4444 > memory.lime
-```
-
-### Windows
-
-```powershell
-# Using DumpIt (Comae)
-.\DumpIt.exe /O memory.dmp
-
-# Using WinPmem
-.\winpmem_mini_x64.exe memory.raw
-
-# Using Belkasoft Live RAM Capturer
-.\RamCapture64.exe memory.mem
-```
-
-### macOS
-
-```bash
-# Using osxpmem
-./osxpmem -o memory.aff4 memory
-```
-
-## Volatility 3 Analysis
-
-### Installation
-
-```bash
-# Install Volatility 3
-pip install volatility3
-
-# Verify installation
-vol -h
-```
-
-### Basic Analysis
-
-```bash
-# Identify OS profile
-vol -f memory.dmp windows.info
-
-# List processes
-vol -f memory.dmp windows.pslist
-vol -f memory.dmp windows.pstree
-vol -f memory.dmp windows.psscan  # Find hidden processes
-
-# Network connections
-vol -f memory.dmp windows.netscan
-vol -f memory.dmp windows.netstat
-
-# Registry analysis
-vol -f memory.dmp windows.registry.hivelist
-vol -f memory.dmp windows.registry.printkey --key "Microsoft\Windows\CurrentVersion\Run"
-
-# DLL analysis
-vol -f memory.dmp windows.dlllist --pid 1234
-vol -f memory.dmp windows.ldrmodules --pid 1234  # Detect DLL injection
-
-# Command history
-vol -f memory.dmp windows.cmdline
-vol -f memory.dmp windows.consoles
-
-# File handles
-vol -f memory.dmp windows.handles --pid 1234
-
-# Dump process memory
-vol -f memory.dmp windows.memmap --pid 1234 --dump
-
-# Extract process executable
-vol -f memory.dmp windows.dumpfiles --pid 1234
-```
-
-## Malware Detection
-
-### Rootkit Detection
-
-```bash
-# Detect hidden processes (DKOM attacks)
-vol -f memory.dmp windows.pslist > visible.txt
-vol -f memory.dmp windows.psscan > all.txt
-diff visible.txt all.txt
-
-# Detect hooking
-vol -f memory.dmp windows.ssdt
-vol -f memory.dmp windows.idt
-vol -f memory.dmp windows.gdt
-
-# Detect driver modifications
-vol -f memory.dmp windows.driverscan
-vol -f memory.dmp windows.modules
-
-# Detect injected code
-vol -f memory.dmp windows.malfind
-vol -f memory.dmp windows.hollowprocesses
-```
-
-### YARA Scanning
-
-```bash
-# Scan with YARA rules
-vol -f memory.dmp windows.yarascan --yara-file malware.yar
-
-# Process-specific scan
-vol -f memory.dmp windows.yarascan --yara-file malware.yar --pid 1234
-
-# Kernel scan
-vol -f memory.dmp windows.yarascan --yara-file rootkit.yar --kernel
-```
-
-**Example YARA Rules**:
-
-```yara
-rule Mimikatz {
-    meta:
-        description = "Detects Mimikatz in memory"
-        author = "Security Researcher"
-    strings:
-        $str1 = "sekurlsa::logonpasswords" ascii wide
-        $str2 = "privilege::debug" ascii wide
-        $str3 = "lsadump::sam" ascii wide
-    condition:
-        any of them
-}
-
-rule Cobalt_Strike {
-    strings:
-        $beacon1 = { 4D 5A 90 00 03 00 00 00 }
-        $beacon2 = "ReflectiveLoader" ascii
-        $beacon3 = "%s%s%s%s%s%s%s%s%MMMM" ascii
-    condition:
-        any of them
-}
-```
-
-## Process Analysis
-
-### Suspicious Process Detection
-
-```python
-# detect_suspicious.py
-import volatility3
-from volatility3.framework import contexts
-
-def detect_suspicious_processes(dump_file):
-    suspicious = []
-
-    # Get process list
-    processes = run_vol_plugin(dump_file, 'windows.pslist')
-
-    for proc in processes:
-        # Detect suspicious patterns
-        if proc['ImageFileName'] in ['svchost.exe', 'csrss.exe']:
-            # Check parent process
-            if proc['ParentProcessId'] not in expected_parents[proc['ImageFileName']]:
-                suspicious.append({
-                    'pid': proc['ProcessId'],
-                    'name': proc['ImageFileName'],
-                    'reason': 'Unusual parent process',
-                    'parent_pid': proc['ParentProcessId']
-                })
-
-        # Check for no executable on disk
-        if not has_file_on_disk(proc['ProcessId']):
-            suspicious.append({
-                'pid': proc['ProcessId'],
-                'name': proc['ImageFileName'],
-                'reason': 'No executable on disk'
-            })
-
-        # Check for unusual network activity
-        if has_network_connections(proc['ProcessId']) and proc['ImageFileName'] == 'notepad.exe':
-            suspicious.append({
-                'pid': proc['ProcessId'],
-                'name': proc['ImageFileName'],
-                'reason': 'Unexpected network activity'
-            })
-
-    return suspicious
-```
-
-## Network Artifacts
-
-```bash
-# Extract network connections
-vol -f memory.dmp windows.netscan > network.txt
-
-# Filter for specific IP
-vol -f memory.dmp windows.netscan | grep "185.220.101.45"
-
-# Extract DNS cache
-vol -f memory.dmp windows.registry.printkey --key "SYSTEM\CurrentControlSet\Services\Dnscache"
-```
-
-## Credential Extraction
-
-```bash
-# Extract passwords (Windows LSA secrets)
-vol -f memory.dmp windows.lsadump
-
-# Extract cached credentials
-vol -f memory.dmp windows.hashdump
-
-# Extract Kerberos tickets
-vol -f memory.dmp windows.kerberos
-
-# Note: Use with authorization only for incident response
-```
-
-## Timeline Generation
-
-```bash
-# Generate comprehensive timeline
-vol -f memory.dmp timeliner --create-bodyfile > timeline.body
-
-# Process timeline with mactime
-mactime -b timeline.body -d > timeline.csv
-
-# Analyze specific timeframe
-mactime -b timeline.body -d 2025-11-01..2025-11-02 > filtered_timeline.csv
-```
-
-## File Extraction
-
-```bash
-# Dump all files from memory
-vol -f memory.dmp windows.dumpfiles --output-dir extracted/
-
-# Dump files from specific process
-vol -f memory.dmp windows.dumpfiles --pid 1234 --output-dir process_files/
-
-# Extract specific file by address
-vol -f memory.dmp windows.dumpfiles --virtaddr 0x7ffe0000 --output-dir file_output/
-
-# Analyze extracted files
-for file in extracted/*; do
-    file $file
-    md5sum $file
-done
-```
-
-## Registry Analysis
-
-```bash
-# List registry hives
-vol -f memory.dmp windows.registry.hivelist
-
-# Extract specific key
-vol -f memory.dmp windows.registry.printkey --key "Microsoft\Windows\CurrentVersion\Run"
-
-# Extract user registry
-vol -f memory.dmp windows.registry.printkey --key "Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU"
-
-# Dump entire registry hive
-vol -f memory.dmp windows.registry.hivelist --dump
-```
-
-## Code Injection Detection
-
-```bash
-# Detect code injection
-vol -f memory.dmp windows.malfind
-
-# Check for hollow processes
-vol -f memory.dmp windows.hollowprocesses
-
-# Detect APC injection
-vol -f memory.dmp windows.threads --pid 1234
-
-# Check VAD (Virtual Address Descriptor) tree
-vol -f memory.dmp windows.vadinfo --pid 1234
-vol -f memory.dmp windows.vadtree --pid 1234
-```
-
-## Linux Memory Analysis
-
-```bash
-# Linux process list
-vol -f memory.lime linux.pslist
-vol -f memory.lime linux.pstree
-
-# Network connections
-vol -f memory.lime linux.sockstat
-
-# Bash history
-vol -f memory.lime linux.bash
-
-# Loaded kernel modules
-vol -f memory.lime linux.lsmod
-
-# Check for rootkits
-vol -f memory.lime linux.check_syscall
-vol -f memory.lime linux.check_modules
-```
-
-## Automation Script
-
-```python
-# automated_analysis.py
-import subprocess
-import json
-
-def analyze_memory_dump(dump_file):
-    results = {}
-
-    # Run multiple Volatility plugins
-    plugins = [
-        'windows.pslist',
-        'windows.pstree',
-        'windows.netscan',
-        'windows.cmdline',
-        'windows.malfind',
-    ]
-
-    for plugin in plugins:
-        cmd = f"vol -f {dump_file} {plugin}"
-        output = subprocess.check_output(cmd, shell=True)
-        results[plugin] = parse_output(output)
-
-    # Generate report
-    generate_report(results)
-
-def parse_output(output):
-    # Parse Volatility output
-    lines = output.decode().split('\n')
-    # Custom parsing logic
-    return lines
-
-def generate_report(results):
-    # Generate HTML/JSON report
-    with open('report.json', 'w') as f:
-        json.dump(results, f, indent=2)
-```
-
-## Best Practices
-
-1. **Capture Methodology**: Use trusted tools on clean systems
-2. **Chain of Custody**: Document capture process for legal cases
-3. **Integrity**: Calculate hashes before/after capture
-4. **Storage**: Encrypt dumps containing sensitive data
-5. **Analysis Environment**: Use isolated analysis VM
-6. **Documentation**: Record all findings and commands
-7. **Privacy**: Redact PII before sharing
-8. **Validation**: Cross-reference findings with disk forensics
-
-## Security Considerations
-
-⚠️ **Memory dumps contain**:
-- Passwords and credentials
-- Encryption keys
-- Personal information
-- Business secrets
-- Network traffic
-
-✅ **Protection measures**:
-- Encrypt dumps at rest
-- Secure transmission
-- Access controls
-- Audit logging
-- Data retention policies
-- Legal authorization
-
-## Integration Points
-
-- **/re:malware-sandbox** - Malware behavior analysis
-- **/re:network-traffic** - Network artifact correlation
-- **Flow-Nexus Sandboxes** - Cloud-based analysis
-
-## Agent Integration
-
-```javascript
-// Forensics Analyst: Automated memory analysis
-mcp__ruv-swarm__agent_spawn({
-  type: "analyst",
-  capabilities: ["memory-forensics", "malware-detection"]
-})
-
-// Threat Hunter: IOC extraction
-mcp__ruv-swarm__task_orchestrate({
-  task: "Analyze memory dump for persistence mechanisms",
-  strategy: "parallel"
-})
-```
-
-## Related Commands
-
-- `/re:malware-sandbox` - Malware analysis
-- `/re:network-traffic` - Network forensics
-- `/re:decompile` - Binary analysis
+/*============================================================================*/
+/* MEMORY-DUMP COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-**Implementation Status**: Production-Ready
-**Security Level**: CRITICAL
-**Last Updated**: 2025-11-01
-**Maintainer**: Digital Forensics Specialist
-
-
+name: memory-dump
+version: 1.0.0
+binding: skill:memory-dump
+category: delivery
 ---
-*Promise: `<promise>MEMORY_DUMP_VERIX_COMPLIANT</promise>`*
+
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "memory-dump",
+  binding: "skill:memory-dump",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "Execute memory-dump workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /memory-dump"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/memory-dump [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/re:memory-dump capture --output memory.raw", description: "Example usage" },
+  { command: "/re:memory-dump analyze --dump memory.dmp --profile Win10x64", description: "Example usage" },
+  { command: "/re:memory-dump processes --dump memory.dmp", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/memory-dump -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/memory-dump arg1' '/memory-dump arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "memory-dump-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/memory-dump/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["memory-dump"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "memory-dump-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>MEMORY_DUMP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

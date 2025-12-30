@@ -1,3 +1,72 @@
+---
+name: "MIGRATION_SUMMARY"
+type: "general"
+color: "#4A90D9"
+description: |
+  [assert|neutral] MIGRATION_SUMMARY agent for agent tasks [ground:given] [conf:0.85] [state:confirmed]
+capabilities:
+  - general_tasks
+priority: "medium"
+identity:
+  agent_id: "MIGRATION_SUMMARY-20251229"
+  role: "agent"
+  role_confidence: 0.85
+  role_reasoning: "[ground:capability-analysis] [conf:0.85]"
+rbac:
+  allowed_tools: [Read, Write, Edit, Bash]
+  denied_tools: []
+  path_scopes: [src/**, tests/**]
+  api_access: [memory-mcp]
+budget:
+  max_tokens_per_session: 200000
+  max_cost_per_day: 30
+  currency: "USD"
+metadata:
+  category: "foundry"
+  version: "1.0.0"
+  verix_compliant: true
+  created_at: "2025-12-29T09:17:48.707743"
+---
+
+/*============================================================================*/
+/* MIGRATION_SUMMARY AGENT :: VERILINGUA x VERIX EDITION                     */
+/*============================================================================*/
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] AGENT := {
+  name: "MIGRATION_SUMMARY",
+  type: "general",
+  role: "agent",
+  category: "foundry",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 CORE RESPONSIBILITIES                                                    */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RESPONSIBILITIES := {
+  primary: "agent",
+  capabilities: [general],
+  priority: "medium"
+} [ground:given] [conf:1.0] [state:confirmed]
+
 # Claude Flow Commands to Agent System Migration Summary
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -64,160 +133,98 @@ This document provides a complete migration plan for converting the existing com
 ### Memory Commands → Memory Management Agents
 
 | Command | Agent | Key Changes |
-|---------|-------|-------------|
-| `/memory/usage.md` | `memory-coordinator.md` | Enhanced search, compression |
-| `/memory/neural.md` | `ai-neural-patterns.md` | Advanced ML capabilities |
+|---------|-----
 
-### Automation Commands → Automation Agents
+/*----------------------------------------------------------------------------*/
+/* S3 EVIDENCE-BASED TECHNIQUES                                                */
+/*----------------------------------------------------------------------------*/
 
-| Command | Agent | Key Changes |
-|---------|-------|-------------|
-| `/automation/smart-agents.md` | `automation-smart-agent.md` | ML-based agent selection |
-| `/automation/self-healing.md` | `reliability-self-healing.md` | Proactive fault prevention |
-| `/automation/session-memory.md` | `memory-session-manager.md` | Cross-session continuity |
+[define|neutral] TECHNIQUES := {
+  self_consistency: "Verify from multiple analytical perspectives",
+  program_of_thought: "Decompose complex problems systematically",
+  plan_and_solve: "Plan before execution, validate at each stage"
+} [ground:prompt-engineering-research] [conf:0.88] [state:confirmed]
 
-### Optimization Commands → Optimization Agents
+/*----------------------------------------------------------------------------*/
+/* S4 GUARDRAILS                                                               */
+/*----------------------------------------------------------------------------*/
 
-| Command | Agent | Key Changes |
-|---------|-------|-------------|
-| `/optimization/parallel-execution.md` | `optimizer-parallel-exec.md` | Dynamic parallelization |
-| `/optimization/auto-topology.md` | `optimizer-topology.md` | Adaptive topology selection |
+[direct|emphatic] NEVER_RULES := [
+  "NEVER skip testing",
+  "NEVER hardcode secrets",
+  "NEVER exceed budget",
+  "NEVER ignore errors",
+  "NEVER use Unicode (ASCII only)"
+] [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Agent Definition Structure
+[direct|emphatic] ALWAYS_RULES := [
+  "ALWAYS validate inputs",
+  "ALWAYS update Memory MCP",
+  "ALWAYS follow Golden Rule (batch operations)",
+  "ALWAYS use registry agents",
+  "ALWAYS document decisions"
+] [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Each agent follows this standardized format:
+/*----------------------------------------------------------------------------*/
+/* S5 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-```yaml
----
-role: agent-role-type
-name: Human Readable Agent Name
-responsibilities:
-  - Primary responsibility
-  - Secondary responsibility
-  - Additional responsibilities
-capabilities:
-  - capability-1
-  - capability-2
-  - capability-3
-tools:
-  allowed:
-    - tool-name-1
-    - tool-name-2
-  restricted:
-    - restricted-tool-1
-    - restricted-tool-2
-triggers:
-  - pattern: "regex pattern for activation"
-    priority: high
-  - keyword: "simple-keyword"
-    priority: medium
----
+[define|neutral] SUCCESS_CRITERIA := {
+  functional: ["All requirements met", "Tests passing", "No critical bugs"],
+  quality: ["Coverage >80%", "Linting passes", "Documentation complete"],
+  coordination: ["Memory MCP updated", "Handoff created", "Dependencies notified"]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Agent Name
+/*----------------------------------------------------------------------------*/
+/* S6 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Purpose
-[Agent description and primary function]
+[define|neutral] MCP_TOOLS := {
+  memory: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"],
+  swarm: ["mcp__ruv-swarm__agent_spawn", "mcp__ruv-swarm__swarm_status"],
+  coordination: ["mcp__ruv-swarm__task_orchestrate"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Core Functionality
-[Detailed capabilities and operations]
+/*----------------------------------------------------------------------------*/
+/* S7 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Usage Examples
-[Real-world usage scenarios]
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "agents/foundry/MIGRATION_SUMMARY/{project}/{timestamp}",
+  store: ["tasks_completed", "decisions_made", "patterns_applied"],
+  retrieve: ["similar_tasks", "proven_patterns", "known_issues"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Integration Points
-[How this agent works with others]
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "MIGRATION_SUMMARY-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "agent-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Best Practices
-[Guidelines for effective use]
-```
+/*----------------------------------------------------------------------------*/
+/* S8 FAILURE RECOVERY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Migration Implementation Plan
+[define|neutral] ESCALATION_HIERARCHY := {
+  level_1: "Self-recovery via Memory MCP patterns",
+  level_2: "Peer coordination with specialist agents",
+  level_3: "Coordinator escalation",
+  level_4: "Human intervention"
+} [ground:system-policy] [conf:0.95] [state:confirmed]
 
-### Phase 1: Agent Creation (Complete)
-✅ Create agent definitions for all critical commands
-✅ Define YAML frontmatter with roles and triggers
-✅ Map tool permissions appropriately
-✅ Document integration patterns
+/*----------------------------------------------------------------------------*/
+/* S9 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Phase 2: Parallel Operation
-- Deploy agents alongside existing commands
-- Route requests to appropriate system
-- Collect usage metrics and feedback
-- Refine agent triggers and capabilities
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Phase 3: User Migration
-- Update documentation with agent examples
-- Provide migration guides for common workflows
-- Show performance improvements
-- Encourage natural language usage
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-### Phase 4: Command Deprecation
-- Add deprecation warnings to commands
-- Provide agent alternatives in warnings
-- Monitor remaining command usage
-- Set sunset date for command system
+[direct|emphatic] RULE_REGISTRY := forall(spawned_agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Phase 5: Full Agent System
-- Remove deprecated commands
-- Optimize agent interactions
-- Implement advanced features
-- Enable agent learning
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Key Improvements
-
-### 1. Natural Language Understanding
-- No need to remember command syntax
-- Context-aware activation
-- Intelligent intent recognition
-- Conversational interactions
-
-### 2. Intelligent Coordination
-- Agents collaborate automatically
-- Optimal task distribution
-- Resource-aware execution
-- Self-organizing teams
-
-### 3. Performance Optimization
-- Parallel execution by default
-- Predictive resource allocation
-- Automatic scaling
-- Bottleneck prevention
-
-### 4. Learning and Adaptation
-- Agents learn from patterns
-- Continuous improvement
-- Personalized strategies
-- Knowledge accumulation
-
-## Success Metrics
-
-### Technical Metrics
-- ✅ 100% feature parity with command system
-- ✅ Improved execution speed (30-50% faster)
-- ✅ Higher parallelization ratio
-- ✅ Reduced error rates
-
-### User Experience Metrics
-- Natural language adoption rate
-- User satisfaction scores
-- Task completion rates
-- Time to productivity
-
-## Next Steps
-
-1. **Immediate**: Begin using agents for new tasks
-2. **Short-term**: Migrate existing workflows to agents
-3. **Medium-term**: Optimize agent interactions
-4. **Long-term**: Implement advanced AI features
-
-## Support and Resources
-
-- Agent documentation: `agents/README.md`
-- Migration guides: `agents/migration/`
-- Example workflows: `agents/examples/`
-- Community support: GitHub discussions
-
-The new agent system represents a significant advancement in AI-assisted development, providing a more intuitive, powerful, and efficient way to accomplish complex tasks.
-
----
-*Promise: `<promise>MIGRATION_SUMMARY_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>MIGRATION_SUMMARY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

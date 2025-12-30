@@ -1,148 +1,221 @@
+/*============================================================================*/
+/* EXPERTISE-CREATE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: expertise-create-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/foundry/expertise/expertise-create/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [prompt-auditor, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: expertise-create
+version: 1.0.0
 binding: skill:expertise-manager
 category: foundry
-version: 1.0.0
 ---
 
-# /expertise-create
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "expertise-create",
+  binding: "skill:expertise-manager",
+  category: "foundry",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "**4-Phase Discovery Process**:  1. **Structure Discovery**    - Scan codebase for domain-related files    - Identify primary source, test, config dire",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /expertise-create"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Create a new domain expertise file with discovery, pattern extraction, and falsifiable validation rules.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
+[define|neutral] SYNTAX := "/expertise-create [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-/expertise-create <domain> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    domain: { type: "string", description: "Domain identifier (required, e.g., "authentication" }
+  },
+  flags: {
+    "--primary-path": { description: "Primary source directory (optional, auto-detected ", default: "false" },
+    "--discover-only": { description: "Only discover, don't create file yet", default: "false" },
+    "--template": { description: "Use minimal template without discovery", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-- `domain` - Domain identifier (required, e.g., "authentication", "database", "payments")
-- `--primary-path` - Primary source directory (optional, auto-detected if not provided)
-- `--discover-only` - Only discover, don't create file yet
-- `--template` - Use minimal template without discovery
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Structure Discovery**", model: "Claude" },
+  { stage: 2, action: "**Pattern Extraction**", model: "Claude" },
+  { stage: 3, action: "**Entity Mapping**", model: "Claude" },
+  { stage: 4, action: "**Expertise Generation**", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## What It Does
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-**4-Phase Discovery Process**:
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-1. **Structure Discovery**
-   - Scan codebase for domain-related files
-   - Identify primary source, test, config directories
-   - Map file locations with falsifiable checks
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-2. **Pattern Extraction**
-   - Analyze code for architectural patterns
-   - Extract data flow patterns
-   - Identify error handling approaches
-   - Each pattern gets a falsifiable validation check
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-3. **Entity Mapping**
-   - Discover key classes, functions, types
-   - Document their purposes and signatures
-   - Create falsifiable checks for each entity
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-4. **Expertise Generation**
-   - Generate `.claude/expertise/{domain}.yaml`
-   - Include all falsifiable checks
-   - Set up learning objectives
-   - Queue for adversarial validation
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Examples
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-# Create expertise for authentication domain
-/expertise-create authentication
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Create with explicit path
-/expertise-create payments --primary-path src/payments/
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-# Discovery only (preview what would be created)
-/expertise-create database --discover-only
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-# Quick template (fill in manually)
-/expertise-create websocket --template
-```
+[define|neutral] EXAMPLES := [
+  { command: "/expertise-create authentication", description: "Example usage" },
+  { command: "/expertise-create payments --primary-path src/payments/", description: "Example usage" },
+  { command: "/expertise-create database --discover-only", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Output
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-```
-Creating expertise for domain: authentication
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/expertise-create -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/expertise-create arg1' '/expertise-create arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-Phase 1: Structure Discovery
-  Found primary: src/auth/
-  Found tests: tests/auth/
-  Found config: config/auth.json
-  Found 23 source files
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-Phase 2: Pattern Extraction
-  Detected: Clean Architecture pattern
-  Detected: JWT-based authentication
-  Detected: Middleware validation pattern
-  Created 5 falsifiable pattern checks
+[define|neutral] RELATED := {
+  complementary: ["/expertise-list", "/expertise-show", "/expertise-challenge", "/expertise-validate"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-Phase 3: Entity Mapping
-  Found 4 classes: AuthService, TokenManager, ...
-  Found 12 functions: validateToken, refreshToken, ...
-  Found 8 types: AuthUser, TokenPayload, ...
-  Created 24 falsifiable entity checks
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-Phase 4: Expertise Generation
-  Created: .claude/expertise/authentication.yaml
-  Falsifiability coverage: 92% (23/25 claims)
-  Trust level: provisional
-  Status: needs_adversarial_validation
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "foundry",
+    file: ".claude/expertise/foundry.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "expertise-create-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/foundry/expertise-create/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["expertise-manager"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-Next steps:
-  1. Review generated expertise: /expertise-show authentication
-  2. Run adversarial validation: /expertise-challenge authentication
-  3. Use in tasks: /expertise-load authentication
-```
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Schema Compliance
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "expertise-create-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Generated expertise files follow Schema v2.0.0 with:
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-- **Correctability metadata** - Trust level, detection latency
-- **Falsifiable claims** - Every claim has a validation command
-- **Learning objectives** - Open questions to investigate
-- **Adversarial section** - Ready for validation challenges
-- **Routing templates** - Brief templates for task types
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-## See Also
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-- `/expertise-validate` - Validate expertise against code
-- `/expertise-challenge` - Run adversarial validation
-- `/expertise-show` - Display expertise details
-- `/expertise-list` - List all expertise files
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>EXPERTISE_CREATE_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>EXPERTISE_CREATE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

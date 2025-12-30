@@ -1,332 +1,214 @@
+/*============================================================================*/
+/* ASSESS-RISKS COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: research  file: .claude/expertise/research.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: assess-risks-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/research/./assess-risks/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [literature-synthesis, deep-research-orchestrator]  related_agents: [researcher, evaluator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: assess-risks
-description: Comprehensive risk assessment for AI/ML research with ethical, safety, and reproducibility analysis
+version: 1.0.0
+binding: skill:assess-risks
+category: delivery
 ---
 
-# 🛡️ Assess Research Risks (Pipeline F: Safety & Ethics)
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "assess-risks",
+  binding: "skill:assess-risks",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute assess-risks workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /assess-risks"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Performs comprehensive risk assessment covering ethical concerns, safety implications, bias risks, privacy issues, dual-use potential, and reproducibility threats. Mandatory for all quality gates.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Purpose
+[define|neutral] SYNTAX := "/assess-risks [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-Part of **Pipeline F: Safety & Ethics**, this command conducts systematic risk analysis across 6 domains to identify and document potential harms, mitigation strategies, and ethical considerations. Required for Quality Gates 1, 2, and 3.
-
-## Usage
-
-```bash
-npx claude-flow@alpha command assess-risks --component "<what>" [options]
-```
-
-## Required Arguments
-
-- `--component <string>` - What to assess: `dataset`, `model`, `method`, `deployment`, `all`
-
-## Optional Arguments
-
-- `--output-dir <path>` - Output directory (default: `./risk-assessments/`)
-- `--severity-threshold <level>` - Minimum severity to report: `low`, `medium` (default), `high`, `critical`
-- `--domains <list>` - Risk domains to assess (default: `all`)
-  - `ethical` - Fairness, bias, discrimination
-  - `safety` - Harmful outputs, adversarial robustness
-  - `privacy` - Data leakage, re-identification
-  - `dual-use` - Misuse potential, weaponization
-  - `reproducibility` - Replication risks, opacity
-  - `environmental` - Energy consumption, carbon footprint
-- `--framework <name>` - Assessment framework: `IEEE7010` (default), `NIST-AI-RMF`, `ISO42001`, `DPIA`
-- `--interactive` - Interactive risk identification mode
-- `--auto-mitigate` - Suggest mitigation strategies automatically
-- `--store-memory` - Store assessment in Memory MCP
-
-## What This Command Does
-
-1. **Ethical Risk Assessment** (IEEE 7010 Framework):
-   - **Fairness Analysis**: Disparate impact across protected groups
-   - **Bias Detection**: Dataset bias, label bias, measurement bias
-   - **Discrimination Risk**: Direct/indirect discrimination potential
-   - **Transparency**: Explainability, interpretability assessment
-   - **Accountability**: Clear responsibility assignment
-   - **Human Rights**: Impact on fundamental rights (privacy, expression, etc.)
-
-2. **Safety Risk Assessment** (NIST AI RMF):
-   - **Harmful Outputs**: Toxic, offensive, dangerous content generation
-   - **Adversarial Robustness**: Susceptibility to attacks (evasion, poisoning)
-   - **Failure Modes**: Graceful degradation, edge case handling
-   - **Uncertainty Quantification**: Confidence calibration, OOD detection
-   - **Cascading Failures**: Downstream impact of errors
-   - **Safety Guardrails**: Existing controls and gaps
-
-3. **Privacy Risk Assessment** (GDPR DPIA):
-   - **Data Minimization**: Excessive data collection risks
-   - **Re-identification**: De-anonymization potential
-   - **Membership Inference**: Training data leakage
-   - **Model Inversion**: Reconstruction attacks
-   - **Linkage Attacks**: Cross-dataset correlation
-   - **Consent & Control**: Data subject rights compliance
-
-4. **Dual-Use Risk Assessment**:
-   - **Misuse Potential**: Weaponization, surveillance, manipulation
-   - **Accessibility**: Who can access? What safeguards exist?
-   - **Offensive Applications**: Disinformation, deepfakes, automated attacks
-   - **Proliferation**: Spread of harmful capabilities
-   - **Mitigation Strategies**: Access controls, rate limits, watermarking
-
-5. **Reproducibility Risk Assessment**:
-   - **Opacity**: Undocumented choices, hidden parameters
-   - **Randomness**: Insufficient seed control, non-deterministic ops
-   - **Environment**: Dependency versioning, hardware dependencies
-   - **Data Provenance**: Dataset versioning, splits documentation
-   - **Code Availability**: Missing code, incomplete instructions
-
-6. **Environmental Risk Assessment**:
-   - **Energy Consumption**: Training/inference power usage
-   - **Carbon Footprint**: CO2 emissions estimate
-   - **Resource Efficiency**: Computational waste, over-parameterization
-   - **Sustainability**: Long-term environmental impact
-
-## Output Files
-
-- `risk-assessments/<component>-risk-assessment.md` - Comprehensive risk report
-- `risk-assessments/<component>-risk-matrix.csv` - Severity x likelihood matrix
-- `risk-assessments/<component>-mitigation-plan.md` - Proposed mitigations
-- `risk-assessments/<component>-ethics-checklist.md` - Ethics review checklist
-- `risk-assessments/<component>-dpia.md` - Data Protection Impact Assessment (if applicable)
-
-## Example
-
-```bash
-# Assess all risks for a dataset
-npx claude-flow@alpha command assess-risks \
-  --component dataset \
-  --domains "ethical,privacy,bias" \
-  --framework IEEE7010 \
-  --auto-mitigate \
-  --store-memory
-
-# Safety assessment for model deployment
-npx claude-flow@alpha command assess-risks \
-  --component deployment \
-  --domains safety \
-  --severity-threshold high \
-  --framework NIST-AI-RMF
-
-# Comprehensive assessment (all domains, all components)
-npx claude-flow@alpha command assess-risks \
-  --component all \
-  --interactive \
-  --auto-mitigate
-```
-
-## Risk Matrix Example
-
-The command generates a structured risk matrix:
-
-| Risk ID | Domain | Description | Likelihood | Severity | Impact | Mitigation |
-|---------|--------|-------------|------------|----------|--------|------------|
-| RISK-001 | Ethical | Gender bias in training data | High | High | Critical | Bias audit, rebalancing |
-| RISK-002 | Safety | Toxic output generation | Medium | High | High | Content filtering, human review |
-| RISK-003 | Privacy | Membership inference attack | Medium | Medium | Medium | Differential privacy, aggregation |
-| RISK-004 | Dual-use | Deepfake generation | Low | Critical | High | Access controls, watermarking |
-| RISK-005 | Repro | Missing random seeds | High | Low | Low | Seed documentation, deterministic ops |
-
-**Severity Levels**:
-- **Critical**: Fundamental rights violations, serious harm
-- **High**: Significant harm, regulatory violations
-- **Medium**: Moderate harm, reputational risk
-- **Low**: Minor issues, edge cases
-
-**Likelihood Levels**:
-- **High**: Very likely to occur (>50%)
-- **Medium**: May occur (10-50%)
-- **Low**: Unlikely (<10%)
-
-## IEEE 7010 Risk Domains
-
-The command implements IEEE 7010 (Well-being Impact Assessment):
-
-1. **Physical**: Bodily harm, safety risks
-2. **Psychological**: Mental health, stress, manipulation
-3. **Social**: Relationships, community impact, isolation
-4. **Economic**: Financial harm, job displacement
-5. **Political**: Discrimination, surveillance, freedom
-6. **Environmental**: Ecological impact, sustainability
-
-## Mitigation Strategies
-
-Auto-generated mitigations by risk type:
-
-**Bias Mitigation**:
-- Data rebalancing and augmentation
-- Fairness constraints during training
-- Post-processing calibration
-- Regular bias audits
-
-**Safety Mitigation**:
-- Content filtering and safety classifiers
-- Human-in-the-loop review
-- Rate limiting and access controls
-- Adversarial training
-
-**Privacy Mitigation**:
-- Differential privacy (ε, δ parameters)
-- Federated learning
-- Secure multi-party computation
-- Data anonymization techniques
-
-**Dual-Use Mitigation**:
-- Access authentication and authorization
-- Usage monitoring and logging
-- Watermarking and provenance tracking
-- Ethical use agreements
-
-## Integration with Quality Gates
-
-**Gate 1 Requirements**:
-- ✅ Ethics review initiated (Form F-F1)
-- ✅ Dataset risks assessed
-- ✅ High/critical risks documented
-
-**Gate 2 Requirements**:
-- ✅ Model safety assessment complete
-- ✅ Mitigation strategies implemented
-- ✅ Fairness metrics computed
-
-**Gate 3 Requirements**:
-- ✅ Deployment risk assessment
-- ✅ All critical risks mitigated
-- ✅ Monitoring plan established
-
-## Integration with Agents
-
-- **ethics-agent**: Primary owner, conducts ethical review
-- **evaluator**: Validates risk assessment completeness
-- **data-steward**: Provides dataset risk information
-- **archivist**: Archives risk assessments with versions
-- **reliability-agent**: Implements safety mitigations
-
-## Memory MCP Storage
-
-When `--store-memory` is enabled:
-
-```json
-{
-  "key": "sop/risk-assessments/<component>",
-  "value": {
-    "component": "dataset",
-    "assessment_path": "./risk-assessments/dataset-risk-assessment.md",
-    "total_risks": 12,
-    "critical_risks": 2,
-    "high_risks": 4,
-    "medium_risks": 4,
-    "low_risks": 2,
-    "mitigated_risks": 8,
-    "unmitigated_risks": 4,
-    "gate_1_ready": true,
-    "gate_2_ready": false,
-    "gate_3_ready": false,
-    "created_at": "2025-11-01T12:00:00Z",
-    "last_updated": "2025-11-01T14:30:00Z"
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
   },
-  "tags": ["SOP", "Pipeline-F", "risk-assessment", "ethics-agent", "safety"]
-}
-```
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Risk Assessment Template
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-```markdown
-# Risk Assessment: [Component Name]
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## Executive Summary
-- Total Risks Identified: 12
-- Critical: 2 | High: 4 | Medium: 4 | Low: 2
-- Mitigation Status: 8/12 (67%)
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## 1. Ethical Risks
-### RISK-001: Gender Bias in Training Data
-- **Domain**: Ethical / Fairness
-- **Likelihood**: High (estimated 70%)
-- **Severity**: High
-- **Impact**: Discriminatory predictions for protected groups
-- **Mitigation**: Bias audit, rebalancing, fairness constraints
-- **Status**: In Progress
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-[... detailed risk entries ...]
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## 2. Safety Risks
-[...]
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## 3. Privacy Risks
-[...]
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Quality Gate Readiness
-- Gate 1: ✅ Ready
-- Gate 2: ⏳ In Progress
-- Gate 3: ❌ Not Ready
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Related Commands
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-- `/ethics-review` - Initiate formal ethics review (Form F-F1)
-- `/bias-audit` - Detailed bias analysis for datasets/models
-- `/safety-eval` - Safety evaluation with adversarial testing
-- `/privacy-audit` - Privacy risk analysis with attack simulation
-- `/validate-gate-1` - Check Gate 1 requirements including risk assessment
-- `/mitigate-risk` - Implement specific risk mitigation
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Compliance Frameworks
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-The command supports multiple compliance frameworks:
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-- **IEEE 7010**: Well-being Impact Assessment
-- **NIST AI RMF**: AI Risk Management Framework
-- **ISO 42001**: AI Management System
-- **GDPR DPIA**: Data Protection Impact Assessment
-- **FDA AI/ML**: Software as Medical Device guidance
-- **EU AI Act**: High-risk AI system requirements
+[define|neutral] EXAMPLES := [
+  { command: "/assess-risks example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## References
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-- IEEE 7010-2020: Well-being Metrics for Ethical AI and AS
-- NIST AI Risk Management Framework (2023)
-- ISO/IEC 42001:2023: AI Management System
-- Deep Research SOP Pipeline F: Safety & Ethics
-- Quality Gate Requirements (SOP Section 4.3)
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/assess-risks -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/assess-risks arg1' '/assess-risks arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Next Steps
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-After risk assessment:
-1. Review high/critical risks with ethics committee
-2. Implement mitigation strategies: `/mitigate-risk --risk-id <ID>`
-3. Document in ethics review: `/ethics-review --assessment <file>`
-4. Schedule regular reassessment (quarterly recommended)
-5. Validate gate readiness: `/validate-gate-<N> --pipeline F`
+[define|neutral] RELATED := {
+  complementary: ["/mitigate-risk", "/privacy-audit", "/ethics-review", "/safety-eval", "/bias-audit"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>ASSESS_RISKS_VERIX_COMPLIANT</promise>`*
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "assess-risks-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/assess-risks/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["assess-risks"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "assess-risks-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>ASSESS_RISKS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

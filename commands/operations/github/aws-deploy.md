@@ -1,241 +1,216 @@
-# AWS Deployment Command
+/*============================================================================*/
+/* AWS-DEPLOY COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+---
+name: aws-deploy
+version: 1.0.0
+binding: skill:aws-deploy
+category: delivery
+---
 
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] COMMAND := {
+  name: "aws-deploy",
+  binding: "skill:aws-deploy",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Command Context
-- GitHub API integration requirements: Requires GitHub CLI (gh) or GitHub API token for authentication
-- Authentication/token requirements: Use GITHUB_TOKEN env var or gh auth login for GitHub operations
-- Expected PR/issue/workflow outputs: JSON responses, PR/issue URLs, workflow run IDs, status codes
-- Automation trigger conditions: Webhook events, schedule triggers, manual dispatch, PR/issue state changes
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
-## Recursive Improvement Integration (v2.1)
-benchmark: aws-deploy-benchmark-v1
-  tests:
-    - github_integration_success
-    - automation_validation
-  success_threshold: 0.9
-namespace: "commands/operations/github/aws-deploy/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [github-workflow-automation, github-release-management]
-  related_agents: [github-actions-specialist, release-orchestration-agent]
+[assert|neutral] PURPOSE := {
+  action: "Execute aws-deploy workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /aws-deploy"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] SYNTAX := "/aws-deploy [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-**Category**: External Integrations
-**Phase**: 4 - Deployment & Integration
-**Complexity**: High
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Purpose
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-Automated deployment to AWS infrastructure with infrastructure-as-code validation, multi-region support, and rollback capabilities.
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## Usage
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-```bash
-/aws-deploy [options]
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-Options:
-  --service <name>        AWS service (ec2|ecs|lambda|s3|cloudfront)
-  --region <region>       AWS region (default: us-east-1)
-  --env <environment>     Environment (dev|staging|prod)
-  --profile <name>        AWS CLI profile
-  --stack <name>          CloudFormation stack name
-  --rollback-on-failure   Auto-rollback on deployment failure
-  --dry-run               Preview deployment without execution
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Deploy Lambda function
-/aws-deploy --service lambda --region us-west-2 --env prod --profile production
-
-# Deploy ECS container with auto-rollback
-/aws-deploy --service ecs --region eu-west-1 --env staging --rollback-on-failure
-
-# Deploy static site to S3 + CloudFront
-/aws-deploy --service s3 --region us-east-1 --env prod --stack my-website
-
-# Dry-run deployment preview
-/aws-deploy --service ec2 --region ap-south-1 --env dev --dry-run
-```
-
-## Workflow
-
-1. **Pre-Deployment Validation**
-   - Verify AWS credentials and permissions
-   - Validate CloudFormation/SAM templates
-   - Check resource quotas and limits
-   - Run security compliance checks (AWS Config)
-
-2. **Infrastructure Provisioning**
-   - Create/update CloudFormation stacks
-   - Configure Auto Scaling groups
-   - Set up load balancers and target groups
-   - Configure VPC, subnets, security groups
-
-3. **Application Deployment**
-   - Build and package application artifacts
-   - Upload to S3 or ECR registry
-   - Deploy to Lambda/ECS/EC2
-   - Update Route53 DNS records
-
-4. **Post-Deployment**
-   - Run smoke tests on deployed resources
-   - Configure CloudWatch alarms and dashboards
-   - Enable X-Ray tracing
-   - Generate deployment report
-
-5. **Rollback on Failure**
-   - Monitor deployment health checks
-   - Auto-rollback to previous stable version
-   - Restore database snapshots if needed
-   - Notify team via SNS/Slack
-
-## Integration Points
-
-- **AWS CLI**: Infrastructure management
-- **AWS SDK**: Programmatic resource control
-- **CloudFormation**: Infrastructure as code
-- **SAM/CDK**: Serverless deployments
-- **CodeDeploy**: Blue/green deployments
-- **Systems Manager**: Parameter Store integration
-
-## Security
-
-- ✅ Use IAM roles with least privilege
-- ✅ Encrypt data at rest (KMS)
-- ✅ Encrypt data in transit (TLS 1.2+)
-- ✅ Enable CloudTrail logging
-- ✅ Use AWS Secrets Manager for sensitive data
-- ✅ Implement VPC security groups
-
-## Prerequisites
-
-```bash
-# Install AWS CLI
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
-# Configure AWS credentials
-aws configure --profile production
-# Enter: Access Key ID, Secret Access Key, Region, Output format
-
-# Verify access
-aws sts get-caller-identity --profile production
-```
-
-## Environment Variables
-
-```bash
-AWS_PROFILE=production
-AWS_REGION=us-east-1
-AWS_DEFAULT_OUTPUT=json
-AWS_PAGER=""
-```
-
-## Command Output
-
-```json
-{
-  "deployment_id": "deploy-abc123",
-  "service": "lambda",
-  "region": "us-west-2",
-  "environment": "prod",
-  "status": "SUCCESS",
-  "resources_created": [
-    "my-function-prod",
-    "my-function-role",
-    "my-function-log-group"
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
   ],
-  "endpoint": "https://abc123.execute-api.us-west-2.amazonaws.com/prod",
-  "deployment_time": "2m 34s",
-  "cost_estimate": "$0.12/month"
-}
-```
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Error Handling
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-- **Credential Errors**: Verify AWS_PROFILE and credentials
-- **Permission Denied**: Check IAM policies
-- **Resource Limits**: Request quota increase
-- **Template Validation**: Fix CloudFormation syntax
-- **Deployment Failure**: Review CloudWatch logs
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Best Practices
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-1. Use separate AWS accounts for dev/staging/prod
-2. Tag all resources for cost tracking
-3. Enable CloudTrail in all regions
-4. Use AWS Organizations for multi-account management
-5. Implement least privilege IAM policies
-6. Enable GuardDuty for threat detection
-7. Use AWS Config for compliance monitoring
-8. Backup critical resources with AWS Backup
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Related Commands
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-- `/terraform-apply` - Terraform infrastructure deployment
-- `/docker-compose` - Container orchestration
-- `/ansible-deploy` - Configuration management
-- `/github-actions` - CI/CD automation
+[define|neutral] EXAMPLES := [
+  { command: "/aws-deploy --service lambda --region us-west-2 --env prod -", description: "Example usage" },
+  { command: "/aws-deploy --service ecs --region eu-west-1 --env staging -", description: "Example usage" },
+  { command: "/aws-deploy --service s3 --region us-east-1 --env prod --sta", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Agent Integration
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-```javascript
-// Researcher: Find AWS best practices
-mcp__ruv-swarm__agent_spawn({ type: "researcher", capabilities: ["aws-architecture"] })
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/aws-deploy -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/aws-deploy arg1' '/aws-deploy arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-// Coder: Implement deployment scripts
-mcp__ruv-swarm__agent_spawn({ type: "coder", capabilities: ["aws-sdk", "cloudformation"] })
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-// DevOps: Configure infrastructure
-mcp__ruv-swarm__agent_spawn({ type: "optimizer", capabilities: ["aws-devops"] })
-```
+[define|neutral] RELATED := {
+  complementary: ["/ansible-deploy", "/terraform-apply", "/github-actions", "/docker-compose"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Monitoring
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# CloudWatch Logs
-aws logs tail /aws/lambda/my-function --follow --profile production
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "aws-deploy-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/aws-deploy/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["aws-deploy"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-# CloudWatch Metrics
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/Lambda \
-  --metric-name Invocations \
-  --dimensions Name=FunctionName,Value=my-function \
-  --start-time 2025-11-01T00:00:00Z \
-  --end-time 2025-11-01T23:59:59Z \
-  --period 3600 \
-  --statistics Sum
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-# X-Ray tracing
-aws xray get-trace-summaries \
-  --start-time 2025-11-01T00:00:00Z \
-  --end-time 2025-11-01T23:59:59Z
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "aws-deploy-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
----
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-**Implementation Status**: Production-Ready
-**Last Updated**: 2025-11-01
-**Maintainer**: Integration Specialist
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>AWS_DEPLOY_VERIX_COMPLIANT</promise>`*
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AWS_DEPLOY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

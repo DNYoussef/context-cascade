@@ -1,569 +1,216 @@
-# Ansible Deployment Command
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Command Context
-- GitHub API integration requirements: Requires GitHub CLI (gh) or GitHub API token for authentication
-- Authentication/token requirements: Use GITHUB_TOKEN env var or gh auth login for GitHub operations
-- Expected PR/issue/workflow outputs: JSON responses, PR/issue URLs, workflow run IDs, status codes
-- Automation trigger conditions: Webhook events, schedule triggers, manual dispatch, PR/issue state changes
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: ansible-deploy-benchmark-v1
-  tests:
-    - github_integration_success
-    - automation_validation
-  success_threshold: 0.9
-namespace: "commands/operations/github/ansible-deploy/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [github-workflow-automation, github-release-management]
-  related_agents: [github-actions-specialist, release-orchestration-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-
-**Category**: External Integrations
-**Phase**: 4 - Deployment & Integration
-**Complexity**: Medium
-
-## Purpose
-
-Automated configuration management and application deployment using Ansible playbooks with inventory management and role-based architecture.
-
-## Usage
-
-```bash
-/ansible-deploy [action] [options]
-
-Actions:
-  init                Initialize Ansible project
-  playbook            Run playbook
-  role                Create/apply role
-  inventory           Manage inventory
-  vault               Manage secrets
-  lint                Lint playbooks
-  dry-run             Test without changes
-
-Options:
-  --playbook <file>   Playbook file
-  --inventory <file>  Inventory file
-  --limit <hosts>     Limit to specific hosts
-  --tags <tags>       Run specific tags
-  --check             Dry-run mode
-  --diff              Show changes
-  --vault-id <id>     Vault password ID
-```
-
-## Examples
-
-```bash
-# Initialize Ansible project structure
-/ansible-deploy init --project myapp
-
-# Run playbook
-/ansible-deploy playbook --playbook deploy.yml --inventory prod
-
-# Dry-run deployment
-/ansible-deploy playbook --playbook deploy.yml --check --diff
-
-# Deploy to specific servers
-/ansible-deploy playbook --playbook deploy.yml --limit webservers
-
-# Run specific tags
-/ansible-deploy playbook --playbook deploy.yml --tags database,nginx
-
-# Create new role
-/ansible-deploy role --name webapp
-
-# Manage secrets with Ansible Vault
-/ansible-deploy vault --encrypt secrets.yml
-
-# Lint playbooks
-/ansible-deploy lint --playbook deploy.yml
-```
-
-## Project Structure
-
-```
-ansible/
-├── ansible.cfg              # Ansible configuration
-├── inventory/
-│   ├── hosts                # Inventory file
-│   ├── group_vars/
-│   │   ├── all.yml         # Variables for all hosts
-│   │   ├── webservers.yml  # Web server variables
-│   │   └── databases.yml   # Database variables
-│   └── host_vars/
-│       └── server1.yml     # Host-specific variables
-├── playbooks/
-│   ├── deploy.yml          # Main deployment playbook
-│   ├── setup.yml           # Initial server setup
-│   └── rollback.yml        # Rollback playbook
-├── roles/
-│   ├── common/             # Common configuration
-│   ├── nginx/              # Nginx web server
-│   ├── nodejs/             # Node.js application
-│   └── postgresql/         # PostgreSQL database
-└── files/                  # Static files
-```
-
-## Inventory Configuration
-
-### 1. Static Inventory
-
-```ini
-# inventory/hosts
-[webservers]
-web1.example.com ansible_host=192.168.1.10
-web2.example.com ansible_host=192.168.1.11
-
-[databases]
-db1.example.com ansible_host=192.168.1.20
-db2.example.com ansible_host=192.168.1.21
-
-[loadbalancers]
-lb1.example.com ansible_host=192.168.1.30
-
-[production:children]
-webservers
-databases
-loadbalancers
-
-[webservers:vars]
-ansible_user=deploy
-ansible_port=22
-ansible_python_interpreter=/usr/bin/python3
-```
-
-### 2. Dynamic Inventory (AWS)
-
-```yaml
-# inventory/aws_ec2.yml
-plugin: amazon.aws.aws_ec2
-regions:
-  - us-east-1
-  - us-west-2
-filters:
-  tag:Environment: production
-keyed_groups:
-  - key: tags.Role
-    prefix: role
-  - key: tags.Environment
-    prefix: env
-hostnames:
-  - tag:Name
-  - private-ip-address
-```
-
-## Deployment Playbook
-
-### 1. Main Deployment Playbook
-
-```yaml
-# playbooks/deploy.yml
----
-- name: Deploy Application
-  hosts: webservers
-  become: yes
-  serial: 1  # Rolling deployment (one at a time)
-  max_fail_percentage: 0
-
-  vars:
-    app_name: myapp
-    app_version: "{{ version | default('latest') }}"
-    deploy_user: deploy
-    deploy_path: "/opt/{{ app_name }}"
-
-  pre_tasks:
-    - name: Check server health
-      uri:
-        url: "http://{{ ansible_host }}:3000/health"
-        status_code: 200
-      register: health_check
-      ignore_errors: yes
-      tags: [health]
-
-    - name: Remove from load balancer
-      community.aws.elb_instance:
-        instance_id: "{{ ec2_id }}"
-        state: absent
-        wait: yes
-      delegate_to: localhost
-      tags: [loadbalancer]
-
-  roles:
-    - role: common
-      tags: [common]
-    - role: nodejs
-      tags: [nodejs]
-    - role: nginx
-      tags: [nginx]
-
-  tasks:
-    - name: Stop application
-      systemd:
-        name: "{{ app_name }}"
-        state: stopped
-      tags: [deploy]
-
-    - name: Pull latest code
-      git:
-        repo: "https://github.com/myorg/{{ app_name }}.git"
-        dest: "{{ deploy_path }}"
-        version: "{{ app_version }}"
-      become_user: "{{ deploy_user }}"
-      tags: [deploy]
-
-    - name: Install dependencies
-      npm:
-        path: "{{ deploy_path }}"
-        production: yes
-      become_user: "{{ deploy_user }}"
-      tags: [deploy]
-
-    - name: Build application
-      command: npm run build
-      args:
-        chdir: "{{ deploy_path }}"
-      become_user: "{{ deploy_user }}"
-      tags: [deploy]
-
-    - name: Run database migrations
-      command: npm run migrate
-      args:
-        chdir: "{{ deploy_path }}"
-      environment:
-        DATABASE_URL: "{{ database_url }}"
-      become_user: "{{ deploy_user }}"
-      run_once: yes
-      tags: [database]
-
-    - name: Start application
-      systemd:
-        name: "{{ app_name }}"
-        state: started
-        enabled: yes
-      tags: [deploy]
-
-    - name: Wait for application to be ready
-      uri:
-        url: "http://localhost:3000/health"
-        status_code: 200
-      retries: 30
-      delay: 2
-      tags: [health]
-
-  post_tasks:
-    - name: Add back to load balancer
-      community.aws.elb_instance:
-        instance_id: "{{ ec2_id }}"
-        state: present
-        wait: yes
-      delegate_to: localhost
-      tags: [loadbalancer]
-
-    - name: Verify deployment
-      uri:
-        url: "http://{{ ansible_host }}:3000/health"
-        status_code: 200
-      tags: [health]
-```
-
-### 2. Nginx Role
-
-```yaml
-# roles/nginx/tasks/main.yml
----
-- name: Install Nginx
-  apt:
-    name: nginx
-    state: present
-    update_cache: yes
-
-- name: Configure Nginx
-  template:
-    src: nginx.conf.j2
-    dest: /etc/nginx/sites-available/{{ app_name }}
-  notify: reload nginx
-
-- name: Enable site
-  file:
-    src: /etc/nginx/sites-available/{{ app_name }}
-    dest: /etc/nginx/sites-enabled/{{ app_name }}
-    state: link
-  notify: reload nginx
-
-- name: Start Nginx
-  systemd:
-    name: nginx
-    state: started
-    enabled: yes
-```
-
-```jinja2
-# roles/nginx/templates/nginx.conf.j2
-upstream {{ app_name }} {
-    server 127.0.0.1:3000;
-}
-
-server {
-    listen 80;
-    server_name {{ domain_name }};
-
-    location / {
-        proxy_pass http://{{ app_name }};
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-}
-```
-
-### 3. Node.js Role
-
-```yaml
-# roles/nodejs/tasks/main.yml
----
-- name: Install Node.js repository
-  shell: curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-
-- name: Install Node.js
-  apt:
-    name: nodejs
-    state: present
-
-- name: Create deploy user
-  user:
-    name: "{{ deploy_user }}"
-    shell: /bin/bash
-    create_home: yes
-
-- name: Create app directory
-  file:
-    path: "{{ deploy_path }}"
-    state: directory
-    owner: "{{ deploy_user }}"
-    group: "{{ deploy_user }}"
-    mode: '0755'
-
-- name: Create systemd service
-  template:
-    src: app.service.j2
-    dest: "/etc/systemd/system/{{ app_name }}.service"
-  notify: reload systemd
-```
-
-```jinja2
-# roles/nodejs/templates/app.service.j2
-[Unit]
-Description={{ app_name }} Node.js Application
-After=network.target
-
-[Service]
-Type=simple
-User={{ deploy_user }}
-WorkingDirectory={{ deploy_path }}
-ExecStart=/usr/bin/node server.js
-Restart=always
-Environment=NODE_ENV=production
-Environment=PORT=3000
-
-[Install]
-WantedBy=multi-user.target
-```
-
-## Ansible Vault (Secrets Management)
-
-```bash
-# Create encrypted file
-ansible-vault create secrets.yml
-
-# Encrypt existing file
-ansible-vault encrypt secrets.yml
-
-# Edit encrypted file
-ansible-vault edit secrets.yml
-
-# Decrypt file
-ansible-vault decrypt secrets.yml
-
-# View encrypted file
-ansible-vault view secrets.yml
-
-# Use vault in playbook
-ansible-playbook deploy.yml --ask-vault-pass
-
-# Use vault password file
-ansible-playbook deploy.yml --vault-password-file .vault_pass
-```
-
-```yaml
-# secrets.yml (encrypted)
-database_url: "postgresql://user:password@db.example.com/myapp"
-jwt_secret: "supersecret123"
-aws_access_key: "AKIAIOSFODNN7EXAMPLE"
-aws_secret_key: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
-```
-
-## GitHub Actions Integration
-
-```yaml
-name: Ansible Deploy
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.11'
-
-    - name: Install Ansible
-      run: |
-        pip install ansible
-        ansible-galaxy collection install community.general
-
-    - name: Setup SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-
-    - name: Run Ansible Playbook
-      env:
-        ANSIBLE_VAULT_PASSWORD: ${{ secrets.ANSIBLE_VAULT_PASSWORD }}
-      run: |
-        cd ansible
-        echo "$ANSIBLE_VAULT_PASSWORD" > .vault_pass
-        ansible-playbook playbooks/deploy.yml \
-          -i inventory/prod \
-          --vault-password-file .vault_pass \
-          --extra-vars "version=${{ github.sha }}"
-```
-
-## Rolling Deployment
-
-```yaml
-# Serial deployment (one at a time)
-- hosts: webservers
-  serial: 1
-  max_fail_percentage: 0
-
-# Batch deployment (50% at a time)
-- hosts: webservers
-  serial: "50%"
-
-# Custom batch sizes
-- hosts: webservers
-  serial:
-    - 1       # First server
-    - 25%     # Then 25%
-    - 100%    # Then all remaining
-```
-
-## Rollback Playbook
-
-```yaml
-# playbooks/rollback.yml
----
-- name: Rollback Application
-  hosts: webservers
-  become: yes
-
-  vars:
-    previous_version: "{{ version }}"
-
-  tasks:
-    - name: Stop application
-      systemd:
-        name: "{{ app_name }}"
-        state: stopped
-
-    - name: Checkout previous version
-      git:
-        repo: "https://github.com/myorg/{{ app_name }}.git"
-        dest: "{{ deploy_path }}"
-        version: "{{ previous_version }}"
-
-    - name: Rollback database
-      command: npm run migrate:rollback
-      args:
-        chdir: "{{ deploy_path }}"
-
-    - name: Start application
-      systemd:
-        name: "{{ app_name }}"
-        state: started
-```
-
-## Best Practices
-
-1. **Idempotency**: Write idempotent tasks (safe to run multiple times)
-2. **Roles**: Use roles for reusable components
-3. **Tags**: Tag tasks for selective execution
-4. **Variables**: Use group_vars and host_vars for configuration
-5. **Vault**: Encrypt sensitive data with Ansible Vault
-6. **Handlers**: Use handlers for service restarts
-7. **Check Mode**: Test with `--check` before applying
-8. **Serial**: Use rolling deployments for zero downtime
-9. **Delegation**: Delegate tasks to localhost when needed
-10. **Facts**: Use Ansible facts for dynamic configuration
-
-## Integration Points
-
-- **/terraform-apply** - Infrastructure provisioning
-- **/docker-compose** - Container deployment
-- **/github-actions** - CI/CD automation
-- **/aws-deploy** - Cloud deployment
-
-## Agent Integration
-
-```javascript
-// Orchestrator: Coordinate deployment
-mcp__ruv-swarm__task_orchestrate({
-  task: "Deploy application with Ansible across 10 servers",
-  strategy: "sequential"
-})
-
-// DevOps: Optimize playbooks
-mcp__ruv-swarm__agent_spawn({
-  type: "optimizer",
-  capabilities: ["ansible", "configuration-management"]
-})
-```
-
-## Related Commands
-
-- `/terraform-apply` - Infrastructure as code
-- `/docker-compose` - Container orchestration
-- `/github-actions` - CI/CD workflows
+/*============================================================================*/
+/* ANSIBLE-DEPLOY COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-**Implementation Status**: Production-Ready
-**Last Updated**: 2025-11-01
-**Maintainer**: Integration Specialist
-
-
+name: ansible-deploy
+version: 1.0.0
+binding: skill:ansible-deploy
+category: delivery
 ---
-*Promise: `<promise>ANSIBLE_DEPLOY_VERIX_COMPLIANT</promise>`*
+
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "ansible-deploy",
+  binding: "skill:ansible-deploy",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "Execute ansible-deploy workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /ansible-deploy"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/ansible-deploy [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/ansible-deploy init --project myapp", description: "Example usage" },
+  { command: "/ansible-deploy playbook --playbook deploy.yml --inventory p", description: "Example usage" },
+  { command: "/ansible-deploy playbook --playbook deploy.yml --check --dif", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/ansible-deploy -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/ansible-deploy arg1' '/ansible-deploy arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/terraform-apply", "/github-actions", "/docker-compose"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "ansible-deploy-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/ansible-deploy/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["ansible-deploy"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "ansible-deploy-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>ANSIBLE_DEPLOY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

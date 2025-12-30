@@ -1,90 +1,218 @@
+/*============================================================================*/
+/* STYLE-AUDIT COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: quality
-  file: .claude/expertise/quality.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/quality/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [clarity-linter, functionality-audit]
-  related_agents: [code-analyzer, reviewer]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: style-audit
-binding: micro-skill:style-audit
-category: audit
 version: 1.0.0
+binding: skill:micro-style-audit
+category: audit
 ---
 
-# /style-audit
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "style-audit",
+  binding: "skill:micro-style-audit",
+  category: "audit",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute style-audit workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /style-audit"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Audits code against style rules, quality guidelines, and best practices, then rewrites to meet standards.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/style-audit <path> [options]
-```
+[define|neutral] SYNTAX := "/style-audit [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `path` - File or directory to audit (required)
-- `--rules` - Style rules file (default: .eslintrc, .prettierrc, etc.)
-- `--fix` - Auto-fix style issues (default: true)
-- `--output` - Output file for report (default: stdout)
+[define|neutral] PARAMETERS := {
+  required: {
+    path: { type: "string", description: "File or directory to audit" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--rules": { description: "Style rules file (default: .eslintrc, .prettierrc,", default: "false" },
+    "--fix": { description: "Auto-fix style issues (default: true)", default: "false" },
+    "--output": { description: "Output file for report (default: stdout)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Audit and auto-fix
-/style-audit src/
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Audit only (no fixes)
-/style-audit src/ --fix false
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Custom rules
-/style-audit src/ --rules custom-style-rules.json --output style-report.json
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## What It Checks
-- Linting rules enforcement
-- Naming convention compliance
-- Code organization and structure
-- Readability and maintainability
-- Documentation completeness
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Chains with
-- `/theater-detect` → `/functionality-audit` → `/style-audit`
-- Part of `/audit-pipeline` cascade
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## See also
-- `/functionality-audit` - Verify functionality first
-- `/audit-pipeline` - Run all audits
-- `/lint-code` - Quick linting only
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>STYLE_AUDIT_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/style-audit src/", description: "Example usage" },
+  { command: "/style-audit src/ --fix false", description: "Example usage" },
+  { command: "/style-audit src/ --rules custom-style-rules.json --output s", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/style-audit -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/style-audit arg1' '/style-audit arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/functionality-audit", "/audit-pipeline", "/lint-code"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "audit",
+    file: ".claude/expertise/audit.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "style-audit-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/audit/style-audit/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["micro-style-audit"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "style-audit-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>STYLE_AUDIT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

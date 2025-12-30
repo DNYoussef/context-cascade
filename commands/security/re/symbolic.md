@@ -1,258 +1,222 @@
+/*============================================================================*/
+/* RE:SYMBOLIC COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:symbolic
-binding: agent:RE-Symbolic-Solver
-category: reverse-engineering
 version: 1.0.0
+binding: skill:agent:RE-Symbolic-Solver
+category: reverse-engineering
 ---
 
-# /re:symbolic
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:symbolic",
+  binding: "skill:agent:RE-Symbolic-Solver",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Phase 1: Binary Loading 1. **Load into Angr**: Create Angr project from binary 2. **Identify Architecture**: Extract from ELF/PE headers 3. **Find",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:symbolic"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Symbolic execution and constraint solving with Angr/Z3 (RE Level 4 only).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: 2-6 hours
-**RE Level**: 4 (Symbolic Execution)
+[define|neutral] SYNTAX := "/re:symbolic [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:symbolic <binary-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--target-addr": { description: "Target address to reach (hex, e.g., 0x401337) (req", default: "false" },
+    "--target-symbol": { description: "Target symbol/function to reach (e.g., "win", "suc", default: "false" },
+    "--avoid-addrs": { description: "Comma-separated addresses to avoid (default: none)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--target-addr` - Target address to reach (hex, e.g., 0x401337) (required or --target-symbol)
-- `--target-symbol` - Target symbol/function to reach (e.g., "win", "success")
-- `--avoid-addrs` - Comma-separated addresses to avoid (default: none)
-- `--avoid-symbols` - Comma-separated symbols to avoid (e.g., "fail,lose,exit")
-- `--find-all` - Find ALL paths to target, not just one (default: false)
-- `--max-states` - Maximum number of states to explore (default: 1000)
-- `--timeout` - Timeout in seconds (default: 21600 = 6 hours)
-- `--output` - Output directory (default: re-project/sym/)
-- `--store-findings` - Store in memory-mcp (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Find input to reach specific address
-/re:symbolic crackme.exe --target-addr 0x401337
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Load into Angr**: Create Angr project from binary", model: "Claude" },
+  { stage: 2, action: "**Identify Architecture**: Extract from ELF/PE headers", model: "Claude" },
+  { stage: 3, action: "**Find Entry Point**: main(), _start, or custom", model: "Claude" },
+  { stage: 4, action: "**Resolve Symbols**: Map function names to addresses", model: "Claude" },
+  { stage: 5, action: "**Setup Hooks**: Hook library calls (printf, scanf, etc.)", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Find input to reach "win" function
-/re:symbolic ctf-challenge.elf --target-symbol win
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Avoid "fail" function
-/re:symbolic keygen.exe --target-symbol success --avoid-symbols fail,error
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Find all possible solutions
-/re:symbolic puzzle.bin --target-addr 0x402000 --find-all true
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Limit state explosion
-/re:symbolic complex.exe --target-addr 0x401500 --max-states 500
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## What It Does
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 1: Binary Loading
-1. **Load into Angr**: Create Angr project from binary
-2. **Identify Architecture**: Extract from ELF/PE headers
-3. **Find Entry Point**: main(), _start, or custom
-4. **Resolve Symbols**: Map function names to addresses
-5. **Setup Hooks**: Hook library calls (printf, scanf, etc.)
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Phase 2: Symbolic Exploration
-1. **Define Initial State**: Mark inputs as symbolic (stdin, argv, files)
-2. **Define Target State**: Address or symbol to reach
-3. **Define Avoid States**: Addresses/symbols to NOT explore
-4. **Start Exploration**: Use simulation manager to explore paths
-5. **Track Constraints**: Collect path constraints (if statements, loops)
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 3: Constraint Solving
-1. **Reach Target State**: Continue until target address reached
-2. **Extract Constraints**: Get all path conditions leading to target
-3. **Invoke Z3 Solver**: Solve constraints to find concrete input values
-4. **Generate Solution**: Produce input that reaches target state
-5. **Validate Solution**: Re-run binary with generated input to verify
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Phase 4: Reporting
-1. **Generate Angr Script**: Reproducible Python script
-2. **Document Solutions**: Input values, constraints, paths taken
-3. **Save Constraint Formulas**: SMT2 format for Z3
-4. **Store in memory-mcp**: Tag with target address, solutions
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Success Criteria
-- [assert|neutral] ✅ Target state reached [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Input values synthesized [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Constraints solved successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Solution validated (binary actually reaches target) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Reproducible Angr script generated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## Output Structure
-```
-re-project/
-├── sym/
-│   ├── angr-script.py           # Reproducible Angr script
-│   ├── solutions/               # Synthesized inputs
-│   │   ├── solution-1.txt
-│   │   ├── solution-2.txt       # If --find-all true
-│   │   └── solution-3.txt
-│   ├── constraints/             # Z3 constraint formulas
-│   │   ├── path-1.smt2
-│   │   └── path-2.smt2
-│   ├── path-exploration.log     # Paths explored
-│   ├── state-tree.dot           # Visualization of state tree
-│   └── validation.log           # Validation results
-├── notes/
-│   └── 004-symbolic-l4.md       # Symbolic execution findings
-└── artifacts/
-    └── working-inputs/          # Verified working inputs
-```
+[define|neutral] EXAMPLES := [
+  { command: "/re:symbolic crackme.exe --target-addr 0x401337", description: "Example usage" },
+  { command: "/re:symbolic ctf-challenge.elf --target-symbol win", description: "Example usage" },
+  { command: "/re:symbolic keygen.exe --target-symbol success --avoid-symb", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Example Angr Script (angr-script.py)
-```python
-#!/usr/bin/env python3
-import angr
-import claripy
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Load binary
-p = angr.Project('./crackme.exe', auto_load_libs=False)
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:symbolic -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:symbolic arg1' '/re:symbolic arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Create symbolic bitvector for input (32 bytes)
-flag = claripy.BVS('flag', 32 * 8)
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-# Setup initial state with symbolic stdin
-state = p.factory.entry_state(stdin=flag)
+[define|neutral] RELATED := {
+  complementary: ["/functionality-audit"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Add constraint: input must be printable ASCII
-for byte in flag.chop(8):
-    state.add_constraints(byte >= 0x20, byte <= 0x7e)
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-# Setup simulation manager
-simgr = p.factory.simulation_manager(state)
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:symbolic-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:symbolic/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:RE-Symbolic-Solver"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-# Define target and avoid addresses
-target_addr = 0x401337
-avoid_addrs = [0x401400, 0x401500]
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Explore paths
-simgr.explore(find=target_addr, avoid=avoid_addrs)
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:symbolic-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Extract solution
-if simgr.found:
-    solution_state = simgr.found[0]
-    solution = solution_state.solver.eval(flag, cast_to=bytes)
-    print(f"Solution: {solution}")
-else:
-    print("No solution found")
-```
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Agents Used
-- `RE-Symbolic-Solver` - Angr/Z3 symbolic execution specialist
-- `graph-analyst` - Visualize state exploration tree
-- `code-analyzer` - Analyze paths and constraints
-- `mece-decomposer` - Break down state space
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-## MCP Servers Used
-- **memory-mcp**: Store symbolic execution results
-- **filesystem**: Access binary and write outputs
-- **sequential-thinking**: Complex path selection decisions
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Common Use Cases
-- 🚩 **CTF Challenges**: Find flag inputs that reach "win" function
-- 🔑 **License Key Validation**: Generate valid license keys
-- 🔐 **Password Cracking**: Synthesize passwords for authentication checks
-- 🐛 **Vulnerability Discovery**: Find inputs that crash the program
-- 🎯 **Code Coverage**: Reach specific code paths for testing
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## State Explosion Problem
-Symbolic execution can explode with too many paths:
-- **Loops**: Unbounded loops create infinite states
-- **Recursion**: Deep recursion multiplies states
-- **Complex Conditionals**: Many if/else branches
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-**Mitigation**:
-- Use `--max-states` to limit exploration
-- Define `--avoid-addrs` to prune dead ends
-- Use `--timeout` to cap execution time
-- Focus on specific target (don't explore entire binary)
-
-## Performance Notes
-- **Simple Binaries**: 30 min - 1 hour (few paths, small state space)
-- **Medium Complexity**: 1-3 hours (moderate branching)
-- **Complex Binaries**: 3-6 hours (many paths, large state space)
-- **State Explosion**: May timeout without solution (refine strategy)
-
-**Optimization**:
-- Start with small `--max-states` (100-500)
-- Add specific `--avoid-addrs` to prune aggressively
-- Use `--find-all false` to stop at first solution
-- Run multiple attempts with different strategies
-
-## When to Use This vs /re:deep
-- Use `/re:symbolic` when: Only need symbolic execution (no dynamic tracing)
-- Use `/re:deep` when: Need both dynamic analysis AND symbolic execution
-
-## Chains With
-- `/re:dynamic` - Start with dynamic to identify target address
-- `/re:static` - Use static analysis to find target/avoid addresses
-- `/re:deep` - Run full Level 3+4 workflow
-- `/functionality-audit` - Validate synthesized inputs work
-
-## Integration with Sequential-Thinking
-
-Complex path selection uses sequential-thinking MCP:
-```
-QUESTION: "Should we explore this branch symbolically?"
-OBSERVATIONS:
-- Branch has 50 nested if statements (high complexity)
-- Static analysis shows branch leads to error handler
-- Target address is NOT in this branch
-REASONING:
-- Exploring this branch will create state explosion
-- Branch does not lead to target
-- Avoid this branch to save time
-DECISION: Add to avoid list, do NOT explore
-```
-
-## See Also
-- `/re:deep` - Deep analysis (Levels 3-4)
-- `/re:dynamic` - Dynamic analysis only
-- `/re:static` - Find target/avoid addresses
-- `/functionality-audit` - Validate solutions
-
-
----
-*Promise: `<promise>SYMBOLIC_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>RE:SYMBOLIC_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

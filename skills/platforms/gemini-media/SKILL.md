@@ -1,9 +1,64 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill: gemini-media
-description: Generate images and videos using Gemini's Imagen and Veo integration
-tags: [gemini, image-generation, video-generation, visualization, media, imagen, veo]
+name: SKILL
 version: 1.0.0
+description: |
+  [assert|neutral] Generate images and videos using Gemini's Imagen and Veo integration [ground:given] [conf:0.95] [state:confirmed]
+category: platforms
+tags:
+- gemini
+- image-generation
+- video-generation
+- visualization
+- media
+author: system
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic platforms processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "platforms",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "platforms", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Gemini Media Generation Skill
 
@@ -123,183 +178,66 @@ The agent provides:
 ## Real-World Examples
 
 ### Example 1: Architecture Diagram
-```
-Request: "Create a microservices architecture diagram"
 
-Agent generates:
-- PNG image (1024x1024)
-- Shows: API Gateway, 4 services, databases, message queue
-- Arrows indicating data flow
-- Color-coded by service type
-- Saved to: docs/images/architecture.png
-```
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Example 2: UI Mockup
-```
-Request: "Design an admin dashboard"
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Agent generates:
-- PNG mockup (1920x1080)
-- Shows: Sidebar nav, header, metrics cards, charts, data table
-- Modern design with consistent colors
-- Saved to: designs/admin-dashboard-v1.png
-```
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Example 3: Demo Video
-```
-Request: "Show user completing a checkout flow" --type video
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-Agent generates:
-- MP4 video (10 seconds, 1080p)
-- Shows: Cart → Shipping → Payment → Confirmation
-- Smooth transitions between steps
-- Saved to: demos/checkout-flow-demo.mp4
-```
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Technical Details
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/platforms/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Gemini CLI Command Pattern
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-#### Image Generation (Imagen)
-```bash
-# Via MCP server
-gemini "Generate an image: [detailed description]. Save to [path]"
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-# Using Imagen directly via API in script
-# (Agent handles this internally)
-```
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-#### Video Generation (Veo)
-```bash
-# Via MCP server
-gemini "Generate a video: [detailed description]. Duration: [seconds]. Save to [path]"
-```
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Available Models
-- **Imagen 3**: High-quality images, better prompt adherence
-- **Imagen 4**: Latest model, improved quality and control
-- **Veo 2**: Video generation, general availability
-- **Veo 3.1**: Enhanced audio, narrative control, new features
-- **Veo 3.1 Fast**: Faster generation, paid preview
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Generation Parameters
-- **Image Resolution**: 1024x1024 (default), custom sizes available
-- **Video Duration**: Typically 10-30 seconds
-- **Format**: PNG for images, MP4 for videos
-- **Quality**: Adjustable based on use case
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Best Practices
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Write Detailed Descriptions
-✅ "Modern dashboard with dark theme, sidebar navigation with icons, main area showing 4 metric cards in a grid, line chart below, data table at bottom"
-❌ "Dashboard" (too vague)
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Specify Style and Details
-✅ "Flowchart with rounded rectangles, blue for processes, green for decisions, orange for endpoints, arrows showing flow"
-❌ "Flowchart" (unclear style)
-
-### Include Layout Information
-✅ "Mobile UI mockup, portrait orientation, header at top with back button, content area with list items, bottom navigation with 4 icons"
-❌ "Mobile UI" (missing structure)
-
-### For Videos, Describe Sequence
-✅ "Video showing: 1) User lands on homepage 2) Clicks signup 3) Fills form 4) Receives confirmation. Each step 3 seconds."
-❌ "Signup video" (no sequence)
-
-## Integration with Workflow
-
-### Typical Workflow:
-1. Use `/gemini-media` to generate visual assets
-2. Save to appropriate docs/images/designs directory
-3. Reference in documentation or presentations
-4. Use Claude Code to integrate into codebase if needed
-
-### Works Well With:
-- **Documentation generation**: Create diagrams for docs
-- **gemini-megacontext**: Analyze codebase, then visualize architecture
-- **Prototyping**: Generate UI mockups before implementation
-- **Tutorials**: Create step-by-step visual guides
-
-## Cost Considerations
-
-- **Free tier**: Limited generation (check current quotas)
-- **Paid tier**: More generations, higher quality, faster processing
-- **API costs**: Imagen and Veo have separate pricing
-- **Best practice**: Use for final assets, not rapid iteration
-
-## Troubleshooting
-
-### Generation Failed
-→ Check MCP server is configured for Imagen/Veo access
-→ Verify API credentials are set up
-→ Ensure prompt is clear and specific
-
-### Poor Quality Results
-→ Provide more detailed descriptions
-→ Specify style, colors, layout explicitly
-→ Try different prompts with more context
-
-### Wrong Style/Content
-→ Be more prescriptive about visual style
-→ Include examples or reference styles
-→ Iterate with refinements
-
-### File Not Saved
-→ Check file path is valid and writable
-→ Verify agent has permissions to create files
-→ Ensure directory exists
-
-## Limitations
-
-⚠️ **Generation Limitations**:
-- Cannot edit existing images (only generate new)
-- Limited control over exact positioning
-- May not match brand guidelines perfectly
-- Video length typically limited to 30 seconds
-
-⚠️ **Quality Considerations**:
-- Generated images are AI-created (not designer-crafted)
-- May need refinement for production use
-- Cannot guarantee exact reproduction of complex layouts
-
-✅ **Best For**:
-- Rapid prototyping and ideation
-- Documentation and diagrams
-- Placeholder content
-- Concept visualization
-- Demo and presentation materials
-
-## Advanced Features
-
-### Image-to-Video
-```bash
-/gemini-media "Take this screenshot and animate it showing user clicking through the form" --input screenshot.png --type video
-```
-
-### Iterative Refinement
-```bash
-/gemini-media "Create dashboard mockup"
-# Review output
-/gemini-media "Refine previous dashboard: make sidebar wider, add profile icon top-right, change color scheme to blue"
-```
-
-### Batch Generation
-```bash
-/gemini-media "Generate 5 variations of logo design with different color schemes"
-```
-
-## Related Skills
-
-- `gemini-megacontext`: Analyze architecture → visualize with media
-- `gemini-extensions`: Use Figma extension → enhance with generated assets
-- `multi-model`: Let orchestrator decide when visualization needed
-
-## Success Indicators
-- [assert|neutral] ✅ Generated image/video matches description [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Quality suitable for intended use [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ File saved to correct location [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Asset integrated into documentation/project [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Time saved vs manual creation [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Visualization enhances understanding [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Remember**: Use Gemini Media for GENERATION (creating new visual assets), not EDITING (modifying existing ones). Best for rapid prototyping and documentation. [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`* [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

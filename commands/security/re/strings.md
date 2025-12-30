@@ -1,182 +1,223 @@
+/*============================================================================*/
+/* RE:STRINGS COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:strings
-binding: agent:RE-String-Analyst
-category: reverse-engineering
 version: 1.0.0
+binding: skill:agent:RE-String-Analyst
+category: reverse-engineering
 ---
 
-# /re:strings
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:strings",
+  binding: "skill:agent:RE-String-Analyst",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "1. **Extract Strings**: Run `strings -n 10 binary` for printable ASCII/Unicode 2. **Categorize Findings**:    - URLs (http://, https://, ftp://)    - ",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:strings"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-String reconnaissance only - fast IOC extraction and pattern matching (RE Level 1 only).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: ≤30 minutes
-**RE Level**: 1 (String Reconnaissance)
+[define|neutral] SYNTAX := "/re:strings [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:strings <binary-path> [options]
-```
-
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--min-length` - Minimum string length to extract (default: 10)
-- `--encoding` - Character encoding: ascii, unicode, utf8, all (default: all)
-- `--output` - Output file for strings.json (default: re-project/artifacts/strings.json)
-- `--ioc-only` - Only extract IOCs (URLs, IPs, emails), skip all other strings (default: false)
-- `--store-findings` - Store in memory-mcp (default: true)
-
-## Examples
-```bash
-# Extract all strings
-/re:strings malware.exe
-
-# Short strings (minimum 4 chars)
-/re:strings binary.bin --min-length 4
-
-# IOCs only (fast triage)
-/re:strings suspicious.elf --ioc-only
-
-# Custom output location
-/re:strings firmware.bin --output ./string-analysis.json
-```
-
-## What It Does
-
-1. **Extract Strings**: Run `strings -n 10 binary` for printable ASCII/Unicode
-2. **Categorize Findings**:
-   - URLs (http://, https://, ftp://)
-   - IP addresses (IPv4, IPv6)
-   - Email addresses
-   - File paths (C:\, /etc/, /usr/)
-   - Registry keys (HKEY_)
-   - Protocol tokens (HTTP/1.1, SSH-, SMTP)
-   - API endpoints (/api/, /v1/)
-   - Crypto indicators (AES, RSA, SHA256)
-3. **Generate IOC List**: Extract Indicators of Compromise
-4. **Compute Metadata**: File hash, size, magic bytes
-5. **Store in memory-mcp**: Tag with WHO/WHEN/PROJECT/WHY
-
-## Success Criteria
-- [assert|neutral] ✅ Strings extracted and categorized [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ IOCs cataloged (URLs, IPs, emails) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Protocol tokens identified [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ File metadata computed [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ JSON output generated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Output Format (strings.json)
-```json
-{
-  "binary": {
-    "path": "/path/to/binary.exe",
-    "hash": "sha256:abc123...",
-    "size": 1048576,
-    "magic": "PE32 executable"
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
   },
-  "strings": {
-    "total": 1337,
-    "urls": [
-      "http://malicious.example.com/payload",
-      "https://c2server.bad/api/v1/checkin"
-    ],
-    "ips": [
-      "192.168.1.100",
-      "10.0.0.5"
-    ],
-    "emails": [
-      "attacker@evil.com"
-    ],
-    "file_paths": [
-      "C:\\Windows\\System32\\evil.dll",
-      "/tmp/backdoor.sh"
-    ],
-    "protocols": [
-      "HTTP/1.1",
-      "SSH-2.0-OpenSSH_7.4"
-    ],
-    "crypto": [
-      "AES-256-CBC",
-      "RSA-2048"
-    ],
-    "interesting": [
-      "admin_password",
-      "debug_mode_enabled",
-      "license_key_check"
-    ]
+  optional: {
+    options: { type: "object", description: "Additional options" }
   },
-  "iocs": [
-    "http://malicious.example.com/payload",
-    "192.168.1.100",
-    "attacker@evil.com"
+  flags: {
+    "--min-length": { description: "Minimum string length to extract (default: 10)", default: "false" },
+    "--encoding": { description: "Character encoding: ascii, unicode, utf8, all (def", default: "false" },
+    "--output": { description: "Output file for strings.json (default: re-project/", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Extract Strings**: Run `strings -n 10 binary` for printabl", model: "Claude" },
+  { stage: 2, action: "**Categorize Findings**:", model: "Claude" },
+  { stage: 1, action: "1, SSH-, SMTP)", model: "Claude" },
+  { stage: 3, action: "**Generate IOC List**: Extract Indicators of Compromise", model: "Claude" },
+  { stage: 4, action: "**Compute Metadata**: File hash, size, magic bytes", model: "Claude" },
+  { stage: 5, action: "**Store in memory-mcp**: Tag with WHO/WHEN/PROJECT/WHY", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
   ],
-  "analysis_time": "2025-11-01T10:30:00Z",
-  "analyst": "RE-String-Analyst"
-}
-```
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Agent Used
-- `RE-String-Analyst` - String extraction and pattern matching specialist
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## MCP Servers Used
-- **memory-mcp**: Store string findings
-- **filesystem**: Read binary file
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Use Cases
-- **Malware Triage**: Quick IOC extraction for threat intel
-- **Incident Response**: Fast indicators from suspicious files
-- **Bug Bounty**: Find hardcoded API endpoints and secrets
-- **CTF Challenges**: Extract flags and clues from binaries
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## When to Use This vs /re:quick
-- Use `/re:strings` when: Only need string/IOC extraction (≤30 min)
-- Use `/re:quick` when: Need both strings AND static analysis (≤2 hrs)
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Chains With
-- `/re:static` - Follow up with disassembly
-- `/re:quick` - Run full Level 1+2 analysis
-- `/memory-search` - Search memory-mcp for related IOCs
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## See Also
-- `/re:quick` - Fast triage (Levels 1-2)
-- `/re:static` - Static analysis only
-- `/re:deep` - Dynamic/symbolic analysis
+[define|neutral] EXAMPLES := [
+  { command: "/re:strings malware.exe", description: "Example usage" },
+  { command: "/re:strings binary.bin --min-length 4", description: "Example usage" },
+  { command: "/re:strings suspicious.elf --ioc-only", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>STRINGS_VERIX_COMPLIANT</promise>`*
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:strings -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:strings arg1' '/re:strings arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:strings-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:strings/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:RE-String-Analyst"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:strings-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>RE:STRINGS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

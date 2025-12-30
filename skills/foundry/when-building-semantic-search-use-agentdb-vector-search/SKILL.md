@@ -1,44 +1,60 @@
+/*============================================================================*/
+/* AGENTDB SEMANTIC VECTOR SEARCH SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill_id: when-building-semantic-search-use-agentdb-vector-search
 name: AgentDB Semantic Vector Search
 version: 1.0.0
+description: |
+  [assert|neutral] AgentDB Semantic Vector Search skill for agentdb workflows [ground:given] [conf:0.95] [state:confirmed]
 category: agentdb
-subcategory: semantic-search
-trigger_pattern: "when-building-semantic-search"
-agents:
-  - ml-developer
-  - backend-dev
-  - tester
-complexity: intermediate
-estimated_duration: 6-8 hours
-prerequisites:
-  - AgentDB basics
-  - Embedding models knowledge
-  - REST API development
-outputs:
-  - Semantic search engine
-  - Document retrieval system
-  - RAG-ready infrastructure
-  - Query API endpoints
-validation_criteria:
-  - Search returns relevant results
-  - Retrieval accuracy > 90%
-  - Query latency < 100ms
-  - API functional and documented
-evidence_based_techniques:
-  - Relevance evaluation
-  - Precision/recall metrics
-  - User feedback testing
-metadata:
-  author: claude-flow
-  created: 2025-10-30
-  tags:
-    - agentdb
-    - semantic-search
-    - rag
-    - vector-search
-    - embeddings
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute AgentDB Semantic Vector Search workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic agentdb processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "AgentDB Semantic Vector Search",
+  category: "agentdb",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["AgentDB Semantic Vector Search", "agentdb", "workflow"],
+  context: "user needs AgentDB Semantic Vector Search capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # AgentDB Semantic Vector Search
 
@@ -157,39 +173,67 @@ Build HNSW indexes for 150x faster vector search compared to exhaustive search, 
 In practice:
 - Create HNSW (Hierarchical Navigable Small World) indexes after document ingestion to enable fast approximate nearest neighbor search
 - Optimize search parameters (ef_construction, M) based on accuracy vs speed tradeoffs for your use case
-- Test retrieval accuracy with evaluation datasets to ensure index parameters maintain >90% recall at top-10 results
-- Batch insert operations during document ingestion to amortize indexing overhead across multiple documents
+- Test retrieval accuracy with evaluation datasets to en
 
-### Principle 3: Context-Aware Retrieval
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-Enhance search with filtering, re-ranking, and hybrid approaches to improve relevance beyond pure vector similarity.
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-In practice:
-- Add metadata filters to search queries (category, date range, author) to constrain results to relevant document subsets
-- Implement re-ranking with cross-encoders or relevance models to improve ordering of top-K results after initial retrieval
-- Build hybrid search combining vector similarity (semantic) with keyword matching (BM25) for robust retrieval
-- Track query-document relevance metrics to continuously improve search quality through user feedback loops
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
----
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Common Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Exhaustive Search Without Indexing** | Searching all vectors linearly has O(N) complexity, causing query latency to scale linearly with dataset size and becoming unusable at >10k documents | Build HNSW index (Phase 3) to enable approximate nearest neighbor search with O(log N) complexity, achieving <100ms queries at millions of documents |
-| **Single-Model Embeddings** | Using only vector similarity ignores keyword signals and metadata, causing retrieval to miss exact matches and fail when embeddings don't capture query intent | Implement hybrid search combining vector similarity with keyword search (BM25) and metadata filtering to leverage multiple retrieval signals |
-| **Ignoring Retrieval Metrics** | Deploying semantic search without measuring precision/recall creates invisible quality issues where search appears to work but returns irrelevant results | Establish retrieval accuracy baselines (>90% recall@10 target) with evaluation datasets and track metrics continuously to detect degradation |
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/agentdb/AgentDB Semantic Vector Search/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
----
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "AgentDB Semantic Vector Search-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Conclusion
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-AgentDB Semantic Vector Search enables building production-grade document retrieval systems for RAG applications, knowledge bases, and search engines. By prioritizing meaning over keywords, leveraging HNSW indexing for performance, and implementing context-aware retrieval strategies, it provides the foundation for intelligent information retrieval.
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-This skill excels at building RAG systems where LLMs need relevant context, semantic search engines for large document collections, and recommendation systems based on content similarity. Use this when keyword search is insufficient because users search by concept rather than exact terms, or when you need to retrieve contextually relevant documents even when query phrasing differs from document text.
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-The 5-phase framework (setup database, embed documents, build index, implement query interface, refine optimization) provides a systematic path from initial prototype to production deployment with <100ms query latency and >90% retrieval accuracy at scale.
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AGENTDB SEMANTIC VECTOR SEARCH_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

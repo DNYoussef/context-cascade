@@ -1,206 +1,222 @@
+/*============================================================================*/
+/* RE:STATIC COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:static
-binding: agent:RE-Disassembly-Expert
-category: reverse-engineering
 version: 1.0.0
+binding: skill:agent:RE-Disassembly-Expert
+category: reverse-engineering
 ---
 
-# /re:static
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:static",
+  binding: "skill:agent:RE-Disassembly-Expert",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Phase 1: Binary Analysis 1. **Identify Architecture**: x86, x64, ARM, MIPS, etc. 2. **Detect Compiler**: GCC, MSVC, Clang based on signatures 3. *",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:static"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Static analysis and disassembly only - no code execution (RE Level 2 only).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: 1-2 hours
-**RE Level**: 2 (Static Analysis)
+[define|neutral] SYNTAX := "/re:static [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:static <binary-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--tool": { description: "Disassembler to use: ghidra, radare2, objdump, aut", default: "false" },
+    "--output": { description: "Output directory for analysis (default: re-project", default: "false" },
+    "--functions": { description: "Comma-separated functions to focus on (default: al", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--tool` - Disassembler to use: ghidra, radare2, objdump, auto (default: auto)
-- `--output` - Output directory for analysis (default: re-project/ghidra/)
-- `--functions` - Comma-separated functions to focus on (default: all)
-- `--decompile` - Generate decompiled C code (default: true)
-- `--callgraph` - Generate callgraph visualization (default: true)
-- `--store-findings` - Store in memory-mcp (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Full static analysis with Ghidra (auto-detected)
-/re:static binary.exe
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Identify Architecture**: x86, x64, ARM, MIPS, etc.", model: "Claude" },
+  { stage: 2, action: "**Detect Compiler**: GCC, MSVC, Clang based on signatures", model: "Claude" },
+  { stage: 3, action: "**Find Entry Point**: main(), WinMain(), _start", model: "Claude" },
+  { stage: 4, action: "**Map Sections**: .text, .data, .rodata, .bss", model: "Claude" },
+  { stage: 5, action: "**Extract Imports**: External library calls", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Use radare2 instead of Ghidra
-/re:static malware.elf --tool radare2
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Focus on specific functions
-/re:static crackme.bin --functions main,check_password,validate_license
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Skip decompilation (faster)
-/re:static large-binary.exe --decompile false
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Custom output directory
-/re:static firmware.bin --output ./static-analysis/
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## What It Does
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 1: Binary Analysis
-1. **Identify Architecture**: x86, x64, ARM, MIPS, etc.
-2. **Detect Compiler**: GCC, MSVC, Clang based on signatures
-3. **Find Entry Point**: main(), WinMain(), _start
-4. **Map Sections**: .text, .data, .rodata, .bss
-5. **Extract Imports**: External library calls
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Phase 2: Disassembly
-1. **Load Binary**: Import into Ghidra/radare2
-2. **Auto-Analysis**: Let disassembler identify functions
-3. **Control Flow Graph**: Map execution paths
-4. **Data Flow Analysis**: Track variable usage
-5. **Detect Patterns**: Obfuscation, packing, anti-analysis
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 3: Decompilation
-1. **Generate C Code**: Decompile assembly to pseudo-C
-2. **Apply Code Quality**: Run connascence-analyzer on output
-3. **Identify Key Functions**:
-   - Authentication/authorization
-   - Crypto operations
-   - Network communication
-   - File I/O
-4. **Flag Vulnerabilities**:
-   - Buffer overflows (strcpy, gets)
-   - Format string bugs (printf user input)
-   - Integer overflows
-   - Use-after-free
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Phase 4: Visualization
-1. **Callgraph**: Function call relationships
-2. **CFG**: Control flow within functions
-3. **Dependency Graph**: Module relationships
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Success Criteria
-- [assert|neutral] ✅ Binary disassembled successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Entry point and key functions identified [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Control flow graph generated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Decompiled C code produced (if --decompile true) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Suspicious patterns flagged [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## Output Structure
-```
-re-project/
-├── ghidra/
-│   ├── binary.gpr               # Ghidra project file
-│   ├── binary.rep/              # Analysis results
-│   ├── decompiled/              # Decompiled C code
-│   │   ├── main.c
-│   │   ├── check_password.c
-│   │   └── validate_license.c
-│   ├── callgraphs/              # Call graph visualizations
-│   │   └── main-callgraph.dot
-│   └── cfg/                     # Control flow graphs
-│       ├── main-cfg.dot
-│       └── check_password-cfg.dot
-├── notes/
-│   └── 002-static-l2.md         # Static analysis findings
-└── artifacts/
-    ├── imports.txt              # External library calls
-    ├── strings.txt              # Strings found (if not already done)
-    └── suspicious-functions.txt # Flagged vulnerabilities
-```
+[define|neutral] EXAMPLES := [
+  { command: "/re:static binary.exe", description: "Example usage" },
+  { command: "/re:static malware.elf --tool radare2", description: "Example usage" },
+  { command: "/re:static crackme.bin --functions main,check_password,valid", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Agents Used
-- `RE-Disassembly-Expert` - Static analysis and disassembly specialist
-- `code-analyzer` - Analyze decompiled code quality
-- `graph-analyst` - Callgraph and CFG visualization
-- `connascence-detector` - Detect coupling in decompiled code
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-## MCP Servers Used
-- **memory-mcp**: Store static analysis findings
-- **filesystem**: Access binary and write outputs
-- **connascence-analyzer**: Analyze decompiled C code
-- **graph-analyst**: Generate visualizations
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:static -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:static arg1' '/re:static arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Integration with Connascence-Analyzer
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-After decompiling, automatically analyze code quality:
-```bash
-connascence-analyzer.analyze_workspace(./ghidra/decompiled/)
-```
+[define|neutral] RELATED := {
+  complementary: ["/audit-pipeline"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-**Detects**:
-- God Objects (functions > 500 lines)
-- Parameter Bombs (functions > 7 parameters)
-- Deep Nesting (nesting > 4 levels)
-- Missing Docstrings
-- NASA Power of 10 violations
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## Common Patterns Detected
-- 🔒 **Anti-Analysis**: IsDebuggerPresent(), ptrace detection
-- 📦 **Packing**: UPX, ASPack, runtime decompression
-- 🌀 **Obfuscation**: Control flow flattening, opaque predicates
-- 🔐 **Crypto**: Hardcoded keys, custom encryption
-- 🐛 **Vulnerabilities**: strcpy, gets, sprintf, format strings
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:static-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:static/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:RE-Disassembly-Expert"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-## When to Use This vs /re:quick
-- Use `/re:static` when: Only need static analysis (no string extraction)
-- Use `/re:quick` when: Need both string recon AND static analysis
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Chains With
-- `/re:strings` - Start with string analysis first
-- `/re:dynamic` - Follow up with runtime analysis
-- `/re:quick` - Run full Level 1+2 workflow
-- `/code-review-assistant` - Review decompiled code
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:static-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Performance Notes
-- **Ghidra**: Comprehensive but slower (1-2 hrs for large binaries)
-- **radare2**: Faster but less accurate decompilation (30 min - 1 hr)
-- **objdump**: Very fast but no decompilation (5-10 min)
-- Use `--tool radare2` for speed, `--tool ghidra` for quality
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-## See Also
-- `/re:quick` - Fast triage (Levels 1-2)
-- `/re:strings` - String analysis only
-- `/re:dynamic` - Runtime analysis
-- `/audit-pipeline` - Code quality audit
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>STATIC_VERIX_COMPLIANT</promise>`*
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>RE:STATIC_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,24 +1,64 @@
+/*============================================================================*/
+/* WHEN-MAPPING-DEPENDENCIES-USE-DEPENDENCY-MAPPER SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: when-mapping-dependencies-use-dependency-mapper
 version: 1.0.0
-description: Comprehensive dependency mapping, analysis, and visualization tool for software projects
-author: Claude Code
+description: |
+  [assert|neutral] Comprehensive dependency mapping, analysis, and visualization tool for software projects [ground:given] [conf:0.95] [state:confirmed]
 category: analysis
-complexity: MEDIUM
-tags: [dependencies, graph-analysis, security, visualization, mece]
-agents:
-  - code-analyzer
-  - researcher
-  - security-manager
-components:
-  - subagent
-  - slash-command
-  - mcp-tool
-dependencies:
-  - claude-flow@alpha
-  - graphviz (optional)
-  - npm/pip/cargo (auto-detected)
+tags:
+- dependencies
+- graph-analysis
+- security
+- visualization
+- mece
+author: Claude Code
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute when-mapping-dependencies-use-dependency-mapper workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic analysis processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-mapping-dependencies-use-dependency-mapper",
+  category: "analysis",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-mapping-dependencies-use-dependency-mapper", "analysis", "workflow"],
+  context: "user needs when-mapping-dependencies-use-dependency-mapper capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Dependency Mapper Skill
 
@@ -187,202 +227,67 @@ mcp__claude-flow__swarm_init({ topology: "hierarchical", maxAgents: 4 })
 
 // Step 2: Spawn agents via Claude Code Task tool
 [Parallel Execution]:
-  Task("Dependency Extractor", "Extract all dependencies from package.json and package-lock.json", "code-analyzer")
-  Task("Security Auditor", "Run npm audit and cross-reference CVE databases", "security-manager")
-  Task("Graph Builder", "Construct dependency graph and detect circular deps", "code-analyzer")
-  Task("Visualization Generator", "Create interactive HTML dependency graph", "coder")
-```
+  Task("Dependency Extractor", "Extract all
 
-## Configuration
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Default Settings:
-```json
-{
-  "max_depth": 10,
-  "include_dev_dependencies": true,
-  "security_scan_enabled": true,
-  "circular_detection_enabled": true,
-  "license_check_enabled": true,
-  "outdated_check_enabled": true,
-  "visualization_default_format": "html",
-  "cache_results": true,
-  "cache_ttl": 3600
-}
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Performance Considerations
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-- **Caching**: Results cached for 1 hour by default
-- **Parallel Processing**: Multiple package managers analyzed concurrently
-- **Incremental Analysis**: Only re-analyze changed dependencies
-- **Lazy Loading**: Visualization loads nodes on-demand for large graphs
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Error Handling
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-- Graceful degradation if package manager unavailable
-- Fallback to partial analysis if network issues
-- Clear error messages for invalid project structures
-- Retry logic for transient failures
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/analysis/when-mapping-dependencies-use-dependency-mapper/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Best Practices
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-mapping-dependencies-use-dependency-mapper-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-1. Run dependency mapping before major releases
-2. Integrate into CI/CD pipelines for automated auditing
-3. Set up alerts for critical vulnerabilities
-4. Review circular dependencies regularly
-5. Keep dependency depth shallow (< 5 levels)
-6. Audit licenses for compliance requirements
-7. Update outdated packages incrementally
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Troubleshooting
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Issue: No dependencies found
-**Solution**: Ensure lock files are present (package-lock.json, yarn.lock, etc.)
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Issue: Visualization too large to render
-**Solution**: Use `--max-depth 5` to limit tree depth
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Issue: Security scan taking too long
-**Solution**: Use cached results or run offline mode
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## MCP Requirements
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-This skill requires the following MCP servers for optimal functionality:
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Filesystem MCP (18k tokens)
-
-**Purpose**: Read package manifests and lock files across multiple languages
-
-**Tools Used**:
-- `mcp__filesystem__read_text_file`: Read package.json, requirements.txt, Cargo.toml, etc.
-- `mcp__filesystem__read_multiple_files`: Batch read multiple dependency files
-- `mcp__filesystem__list_directory`: Discover package manager files
-
-**Activation** (PowerShell):
-```powershell
-# Check if already active
-claude mcp list
-
-# Add if not present
-claude mcp add filesystem npx @modelcontextprotocol/server-filesystem start
-```
-
-**Usage Example**:
-```javascript
-// Read multiple package files
-mcp__filesystem__read_multiple_files({
-  paths: [
-    "C:/Users/17175/project/package.json",
-    "C:/Users/17175/project/package-lock.json",
-    "C:/Users/17175/project/requirements.txt"
-  ]
-})
-
-// Discover dependency files
-mcp__filesystem__list_directory({ path: "C:/Users/17175/project" })
-
-// Read specific lock file
-mcp__filesystem__read_text_file({ path: "C:/Users/17175/project/yarn.lock" })
-```
-
-**Token Cost**: 18k tokens (9% of 200k context)
-**When to Load**: Always (core functionality for reading dependency files)
-
-### Memory MCP (8.5k tokens)
-
-**Purpose**: Store dependency analysis results and vulnerability patterns
-
-**Tools Used**:
-- `mcp__memory-mcp__memory_store`: Store dependency graphs and security findings
-- `mcp__memory-mcp__vector_search`: Find similar dependency patterns
-
-**Activation** (PowerShell):
-```powershell
-# Already configured
-claude mcp list
-```
-
-**Usage Example**:
-```javascript
-// Store dependency analysis
-const { taggedMemoryStore } = require('./hooks/12fa/memory-mcp-tagging-protocol.js');
-taggedMemoryStore('code-analyzer', JSON.stringify(dependency_graph), {
-  project: 'my-app',
-  total_deps: 847,
-  vulnerabilities: 19
-});
-
-// Search for similar patterns
-mcp__memory-mcp__vector_search({ query: "circular dependency npm packages", limit: 5 })
-```
-
-**Token Cost**: 8.5k tokens (4.25% of 200k context)
-**When to Load**: Optional (for caching results)
-
-## See Also
-
-- PROCESS.md - Detailed step-by-step workflow
-- README.md - Quick start guide
-- subagent-dependency-mapper.md - Agent implementation details
-- slash-command-dep-map.sh - Command-line interface
-- mcp-dependency-mapper.json - MCP tool schema
-
-## Core Principles
-
-### 1. Comprehensive Multi-Dimensional Analysis
-Dependency mapping is not just listing packages - it requires analyzing structure, security, licenses, and maintainability across all dimensions.
-
-In practice:
-- Extract both direct dependencies (package.json) and transitive dependencies (lock files)
-- Build complete dependency graph with depth tracking (flag if depth > 5 levels)
-- Detect circular dependencies using graph cycle detection algorithms
-- Scan for security vulnerabilities by querying CVE databases (npm audit, pip-audit, cargo audit)
-- Check license compliance against organizational policies (GPL, MIT, Apache compatibility)
-- Identify duplicate dependencies (different versions of same package in tree)
-- Analyze dependency health metrics (last update date, maintainer count, download statistics)
-
-### 2. Multi-Language Unified Approach
-Different package managers share common dependency patterns - extract abstractions that work across npm, pip, cargo, maven, go.mod.
-
-In practice:
-- Auto-detect package manager from manifest files (package.json, requirements.txt, Cargo.toml, pom.xml, go.mod)
-- Use normalized dependency graph format across all languages (name, version, dependents, dependencies, depth, licenses, vulnerabilities)
-- Run parallel analysis for multi-language projects (Node.js backend + Python ML service + Rust performance library)
-- Aggregate results into unified report showing cross-language dependency relationships
-- Handle package manager specifics (npm devDependencies, Python extras, Cargo features) with language adapters
-
-### 3. Actionable Recommendations Over Raw Data
-Dependency reports must guide decisions, not just present information - provide prioritized recommendations with clear remediation paths.
-
-In practice:
-- Rank vulnerabilities by severity (critical > high > medium > low) and exploitability (CVSS score, proof-of-concept exists)
-- Identify circular dependencies with specific file paths causing cycles
-- Highlight outdated packages with available updates, grouped by breaking changes (major, minor, patch)
-- Detect duplicate dependencies with recommendations to deduplicate (use resolutions field in package.json, consolidate versions)
-- Flag license conflicts with specific incompatible combinations (GPL dependency in proprietary project)
-- Generate visual dependency graphs with problematic nodes highlighted (red = vulnerability, yellow = outdated, orange = circular)
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|-------------|---------|----------|
-| Analyzing only direct dependencies | Misses 90% of actual dependencies (transitive) and vulnerabilities | Always analyze full dependency tree from lock files (package-lock.json, yarn.lock, Pipfile.lock). Direct dependencies are < 10% of total. Vulnerabilities hide in transitive deps. |
-| Ignoring circular dependencies | Creates brittle coupling, prevents tree-shaking, causes runtime errors | Run cycle detection algorithms on dependency graph. Flag circular deps as critical issues. Visualize cycle paths. Refactor to break cycles through dependency inversion or abstraction layers. |
-| No security vulnerability scanning | Ships known CVEs to production, exposes attack surface | Integrate security audits in CI/CD (npm audit, pip-audit, cargo audit, Snyk, Dependabot). Block builds on critical vulnerabilities. Auto-update security patches with automated testing. |
-| Allowing unbounded dependency depth | Deep trees (> 5 levels) increase attack surface, slow installs, create conflicts | Set maximum dependency depth threshold (4-5 levels). Flag violations in CI/CD. Prefer libraries with flat dependency trees. Consider bundling/vendoring deep transitive deps. |
-| Missing license compliance checks | Legal liability from incompatible license combinations (GPL + proprietary) | Scan all dependency licenses. Define allowed licenses policy (MIT, Apache, BSD). Block GPL dependencies in proprietary projects. Use SPDX identifiers for unambiguous license detection. |
-| Stale dependency audits | Vulnerabilities discovered after last audit, false sense of security | Run dependency audits on every commit in CI/CD. Cache results for 1 hour maximum. Subscribe to security advisories for critical dependencies. Re-audit weekly minimum. |
-
-## Conclusion
-
-Dependency Mapper provides comprehensive visibility into the software supply chain by extracting, analyzing, and visualizing dependency trees across multiple package managers and languages. In modern software, direct dependencies are typically less than 10% of total dependencies - the remaining 90% are transitive dependencies pulled in automatically, creating hidden security vulnerabilities, license conflicts, and version conflicts that surface only in production.
-
-This skill addresses the dependency analysis challenge through a five-phase workflow: Discovery (detect package managers and locate manifest files), Extraction (parse declarations and resolve transitive dependencies), Analysis (detect circular dependencies, duplicates, depth issues), Security (query vulnerability databases, check licenses, assess supply chain risks), and Visualization (generate interactive graphs with problematic nodes highlighted). Each phase builds on the previous, creating a complete picture from raw dependency declarations to actionable remediation recommendations.
-
-The multi-language unified approach recognizes that modern applications often combine multiple ecosystems (Node.js frontend, Python ML service, Rust performance library, Go microservices). By abstracting common dependency patterns and using language-specific adapters for package manager nuances, the skill produces unified reports showing cross-language relationships and aggregated security posture. This holistic view prevents gaps where vulnerabilities hide at ecosystem boundaries.
-
-Most critically, Dependency Mapper transforms raw dependency data into prioritized recommendations that guide decision-making. Instead of overwhelming developers with thousands of dependencies, the skill highlights critical issues: vulnerabilities ranked by severity and exploitability, circular dependencies with specific cycle paths, outdated packages grouped by breaking change risk, license conflicts with incompatible combinations, and duplicate dependencies with deduplication strategies. This actionable intelligence enables teams to systematically improve dependency health without getting lost in complexity. Integration with CI/CD pipelines ensures dependency audits run on every commit, catching issues before they reach production and maintaining continuous visibility into the evolving software supply chain.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>WHEN_MAPPING_DEPENDENCIES_USE_DEPENDENCY_MAPPER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,46 +1,60 @@
+/*============================================================================*/
+/* REASONINGBANK ADAPTIVE LEARNING WITH AGENTDB SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill_id: when-implementing-adaptive-learning-use-reasoningbank-agentdb
 name: ReasoningBank Adaptive Learning with AgentDB
 version: 1.0.0
+description: |
+  [assert|neutral] ReasoningBank Adaptive Learning with AgentDB skill for agentdb workflows [ground:given] [conf:0.95] [state:confirmed]
 category: agentdb
-subcategory: adaptive-learning
-trigger_pattern: "when-implementing-adaptive-learning"
-agents:
-  - ml-developer
-  - safla-neural
-  - performance-analyzer
-complexity: advanced
-estimated_duration: 8-10 hours
-prerequisites:
-  - AgentDB advanced features
-  - Reinforcement learning concepts
-  - Neural network understanding
-outputs:
-  - ReasoningBank system
-  - Trajectory tracking
-  - Verdict judgment system
-  - Memory distillation pipeline
-  - Pattern recognition
-validation_criteria:
-  - Trajectories tracked accurately
-  - Verdicts judged correctly
-  - Patterns learned and applied
-  - Decision quality improves over time
-evidence_based_techniques:
-  - Trajectory analysis
-  - Verdict evaluation
-  - Pattern mining
-  - Self-improvement loops
-metadata:
-  author: claude-flow
-  created: 2025-10-30
-  tags:
-    - agentdb
-    - reasoningbank
-    - adaptive-learning
-    - meta-learning
-    - pattern-recognition
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute ReasoningBank Adaptive Learning with AgentDB workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic agentdb processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "ReasoningBank Adaptive Learning with AgentDB",
+  category: "agentdb",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["ReasoningBank Adaptive Learning with AgentDB", "agentdb", "workflow"],
+  context: "user needs ReasoningBank Adaptive Learning with AgentDB capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # ReasoningBank Adaptive Learning with AgentDB
 
@@ -196,60 +210,67 @@ All AgentDB/ReasoningBank operations are performed through:
 
 ---
 
-## Core Principles
+## Core Principl
 
-ReasoningBank Adaptive Learning operates on 3 fundamental principles for building self-improving AI agents:
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Principle 1: Trajectory-Based Learning
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Agents learn from complete decision trajectories (state, action, reasoning, outcome) rather than isolated actions, enabling understanding of reasoning patterns.
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-In practice:
-- Track full trajectories with steps array containing state, action, reasoning for each decision point, not just final outcomes
-- Store context alongside trajectories (input state, constraints, available options) to enable case-based reasoning later
-- Record reasoning text explicitly ("Because X and Y") to make decision rationale visible for pattern mining and debugging
-- Capture outcome metrics (success/failure, reward value, efficiency score) to enable trajectory evaluation and verdict judgment
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Principle 2: Verdict Judgment System
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Evaluate decision quality across multiple criteria (efficiency, correctness, novelty) using structured judgment rather than binary success/failure.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/agentdb/ReasoningBank Adaptive Learning with AgentDB/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-In practice:
-- Define multi-dimensional criteria for verdict judgment - efficiency (resource usage), correctness (goal achievement), novelty (exploration)
-- Score trajectories on 0-1 scale per criterion with weighted aggregation to identify high-quality reasoning patterns
-- Use verdict threshold (0.7 default) to filter trajectories for memory distillation - only learn from proven successful patterns
-- Track verdict confidence scores to prioritize learning from high-confidence judgments over uncertain evaluations
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "ReasoningBank Adaptive Learning with AgentDB-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Principle 3: Memory Distillation for Pattern Recognition
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-Extract and consolidate successful reasoning patterns through pattern mining, pruning ineffective approaches to maintain lean memory.
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-In practice:
-- Run pattern mining on recent trajectories with minimum support (0.1) and confidence (0.8) thresholds to identify frequent successful patterns
-- Compress trajectory memory by keeping top 10% highest-scoring patterns, discarding low-value historical data to prevent memory bloat
-- Store distilled patterns in AgentDB vector database for fast retrieval (150x faster than exhaustive search) during decision-making
-- Apply learned patterns with case-based reasoning - find similar past contexts and reuse successful decision strategies
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
----
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-## Common Anti-Patterns
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Learning From All Trajectories** | Treating all decisions equally regardless of outcome quality creates noise in learned patterns, degrading decision-making over time | Implement verdict judgment (Phase 3) with threshold filtering (0.7 default) to learn only from high-quality trajectories, pruning ineffective approaches |
-| **Storing Raw Trajectories Indefinitely** | Accumulating all historical trajectories without compression causes memory bloat, slow retrieval, and dilutes signal with obsolete patterns | Run memory distillation (Phase 4) periodically to extract patterns, keep top 10% by quality, and prune low-value historical data |
-| **Ignoring Reasoning Context** | Recording only actions and outcomes without capturing reasoning and context makes patterns non-transferable to new situations | Store full trajectories with reasoning text and context state (Phase 2) to enable case-based reasoning and debugging decision-making |
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
----
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Conclusion
-
-ReasoningBank Adaptive Learning with AgentDB provides a framework for building self-improving AI agents that learn from experience through trajectory tracking, verdict judgment, memory distillation, and pattern recognition. By capturing complete decision contexts, evaluating quality across multiple dimensions, and extracting proven patterns, it enables agents to continuously improve decision-making.
-
-This skill excels at building meta-learning systems where agents need to improve over time, reinforcement learning applications requiring trajectory analysis, and decision support systems that learn from historical outcomes. Use this when agents face recurring decision scenarios where learning from past successes and failures can improve future performance.
-
-The 5-phase framework (initialize ReasoningBank, track trajectories, judge verdicts, distill memory, apply learning) provides systematic progression from data collection to active learning. The integration with AgentDB's 150x faster vector search makes it suitable for production environments with real-time decision requirements and large trajectory datasets.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>REASONINGBANK ADAPTIVE LEARNING WITH AGENTDB_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

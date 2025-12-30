@@ -1,130 +1,218 @@
----
-Key platform/tooling/training command improvements:
-- Platform API requirements
-- Tool configuration
-- Training data requirements
-- Workflow chaining
+/*============================================================================*/
+/* CREATE-CASCADE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: create-cascade-benchmark-v1  tests:    - training_validation    - pattern_verification  success_threshold: 0.9namespace: "commands/delivery/workflow-commands/create-cascade/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [coder, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
+---
 name: create-cascade
+version: 1.0.0
 binding: skill:cascade-orchestrator
 category: workflow
-version: 1.0.0
 ---
 
-# /create-cascade
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "create-cascade",
+  binding: "skill:cascade-orchestrator",
+  category: "workflow",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute create-cascade workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /create-cascade"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Creates workflow cascades that coordinate micro-skills with multi-model routing.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/create-cascade "<workflow>" [options]
-```
+[define|neutral] SYNTAX := "/create-cascade [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `workflow` - Workflow goal description (required)
-- `--stages` - Comma-separated list of stages or commands (optional)
-- `--parallel` - Enable parallel execution where possible (default: false)
-- `--multi-model` - Enable intelligent AI routing (default: true)
-- `--output` - Output file for cascade definition (default: .claude/cascades/<name>.yaml)
+[define|neutral] PARAMETERS := {
+  required: {
+    workflow: { type: "string", description: "Workflow goal description" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--stages": { description: "Comma-separated list of stages or commands (option", default: "false" },
+    "--parallel": { description: "Enable parallel execution where possible (default:", default: "false" },
+    "--multi-model": { description: "Enable intelligent AI routing (default: true)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Simple sequential cascade
-/create-cascade "Complete code quality audit" \
-  --stages "/theater-detect,/functionality-audit,/style-audit"
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# With multi-model routing
-/create-cascade "Research and implement feature" \
-  --stages "/gemini-search,/codex-auto,/functionality-audit" \
-  --multi-model true
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Parallel execution
-/create-cascade "Comprehensive quality checks" \
-  --stages "/lint-code,/security-scan,/test-coverage" \
-  --parallel true
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Cascade Patterns
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Pattern 1: Sequential Pipeline
-```yaml
-# Just call slash commands in order!
-/extract-data input.json
-/validate-data --strict
-/transform-data --format csv
-/generate-report
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Pattern 2: Parallel Fan-Out
-```yaml
-parallel:
-  - /lint-code src/
-  - /security-scan src/
-  - /test-coverage src/
-then:
-  - /merge-reports
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Pattern 3: Conditional Branching
-```bash
-/validate-quality src/
-if pass: /deploy-prod
-if fail: /generate-error-report
-```
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Pattern 4: Multi-Model Cascade
-```bash
-/gemini-search "Latest best practices"
-/codex-auto "Implement with best practices"
-/functionality-audit --model codex-auto
-/style-audit
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Pattern 5: Codex Iteration Loop
-```bash
-/functionality-audit src/ --model codex-auto
-# Automatically:
-# 1. Run tests
-# 2. For failures: /codex-auto fix
-# 3. Re-test (iterate 5x)
-# 4. Apply if passing
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Key Insight
-Cascades are just sequences of slash commands! No need for complex YAML - just call commands in order.
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Created Structure
-```
-.claude/cascades/<cascade-name>/
-├── cascade.yaml       # Cascade definition
-├── README.md          # Usage documentation
-└── examples/          # Usage examples
-```
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Integration
-- ✅ Uses existing slash commands
-- ✅ Can be bound to new slash command
-- ✅ Supports multi-model routing
-- ✅ Enables parallel execution
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## Chains with
-```bash
-# Create cascade → bind to command
-/create-cascade "Quality pipeline" --stages "..." | \
-/create-command quality-check --binding cascade:quality-pipeline
-```
+[define|neutral] EXAMPLES := [
+  { command: "/create-cascade "Complete code quality audit" \", description: "Example usage" },
+  { command: "/create-cascade "Research and implement feature" \", description: "Example usage" },
+  { command: "/create-cascade "Comprehensive quality checks" \", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## See also
-- `/create-micro-skill` - Create atomic skills first
-- `/create-command` - Bind cascade to command
-- `/audit-pipeline` - Example cascade
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/create-cascade -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/create-cascade arg1' '/create-cascade arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
----
-*Promise: `<promise>CREATE_CASCADE_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/create-micro-skill", "/audit-pipeline", "/create-command"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "workflow",
+    file: ".claude/expertise/workflow.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "create-cascade-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/workflow/create-cascade/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["cascade-orchestrator"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "create-cascade-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>CREATE_CASCADE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

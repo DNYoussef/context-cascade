@@ -1,0 +1,165 @@
+{
+  "timestamp": "2025-12-29T02:51:27.528796",
+  "layers_audited": [
+    "1",
+    "2",
+    "3"
+  ],
+  "total_checks": 13,
+  "passed": 12,
+  "failed": 1,
+  "success_rate": 0.9230769230769231,
+  "results": [
+    {
+      "name": "schema_import",
+      "passed": true,
+      "message": "Telemetry schema imports successfully",
+      "details": {
+        "classes": [
+          "ExecutionTelemetry",
+          "TelemetryBatch",
+          "TelemetryStore"
+        ]
+      },
+      "timestamp": "2025-12-29T02:51:26.468443"
+    },
+    {
+      "name": "store_writable",
+      "passed": true,
+      "message": "TelemetryStore writes correctly",
+      "details": {
+        "key": "telemetry/executions/2025-12-29/a467d9df-e81b-4b5a-b2cb-21afa7992c89"
+      },
+      "timestamp": "2025-12-29T02:51:26.470438"
+    },
+    {
+      "name": "hook_config",
+      "passed": true,
+      "message": "Telemetry hook exists at C:\\Users\\17175\\claude-code-plugins\\ruv-sparc-three-loop-system\\.claude\\hooks\\telemetry-collector.sh",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:26.470438"
+    },
+    {
+      "name": "recent_data",
+      "passed": false,
+      "message": "Telemetry directory not found: C:\\Users\\17175\\.claude\\memory-mcp-data\\telemetry\\executions",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:26.471435"
+    },
+    {
+      "name": "optimizer_import",
+      "passed": true,
+      "message": "Two-stage optimizer imports successfully",
+      "details": {
+        "functions": [
+          "run_with_telemetry",
+          "distill_named_modes"
+        ]
+      },
+      "timestamp": "2025-12-29T02:51:26.806439"
+    },
+    {
+      "name": "globalmoo_client",
+      "passed": true,
+      "message": "GlobalMOO client initializes (mock mode)",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:26.806439"
+    },
+    {
+      "name": "globalmoo_api",
+      "passed": true,
+      "message": "GlobalMOO API reachable",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:27.410252"
+    },
+    {
+      "name": "pymoo_available",
+      "passed": true,
+      "message": "PyMOO NSGA-II available",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:27.410252"
+    },
+    {
+      "name": "named_modes",
+      "passed": true,
+      "message": "Found 6 named modes: ['audit', 'speed', 'research', 'robust', 'balanced', 'meta-loop']",
+      "details": {
+        "modes": [
+          "audit",
+          "speed",
+          "research",
+          "robust",
+          "balanced",
+          "meta-loop"
+        ],
+        "expected": [
+          "audit",
+          "speed",
+          "research",
+          "robust",
+          "balanced"
+        ]
+      },
+      "timestamp": "2025-12-29T02:51:27.411248"
+    },
+    {
+      "name": "cascade_import",
+      "passed": true,
+      "message": "Cascade optimizer imports successfully",
+      "details": {},
+      "timestamp": "2025-12-29T02:51:27.418230"
+    },
+    {
+      "name": "mode_mapping",
+      "passed": true,
+      "message": "Mode mapping covers 12 domains",
+      "details": {
+        "domains": [
+          "delivery",
+          "quality",
+          "research",
+          "orchestration",
+          "security",
+          "platforms",
+          "specialists",
+          "tooling",
+          "foundry",
+          "operations",
+          "testing",
+          "documentation"
+        ],
+        "missing": []
+      },
+      "timestamp": "2025-12-29T02:51:27.418230"
+    },
+    {
+      "name": "frame_activations",
+      "passed": true,
+      "message": "Found 4 frame activations",
+      "details": {
+        "frames": [
+          "evidential",
+          "aspectual",
+          "compositional",
+          "honorific"
+        ]
+      },
+      "timestamp": "2025-12-29T02:51:27.418230"
+    },
+    {
+      "name": "directories",
+      "passed": true,
+      "message": "Cascade directories: {'commands': 244, 'agents': 217, 'skills': 903, 'playbooks': 6}",
+      "details": {
+        "counts": {
+          "commands": 244,
+          "agents": 217,
+          "skills": 903,
+          "playbooks": 6
+        },
+        "missing": []
+      },
+      "timestamp": "2025-12-29T02:51:27.528796"
+    }
+  ]
+}

@@ -1,17 +1,62 @@
+/*============================================================================*/
+/* META-TOOLS SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: meta-tools
-description: Meta-tools is a comprehensive framework for creating, validating, optimizing,
-  and composing development tools. It provides automated workflows for tool generation,
-  cross-tool composition, and orchestration patterns that enable developers to build
-  custom tooling ecosystems.
 version: 1.0.0
+description: |
+  [assert|neutral] Meta-tools is a comprehensive framework for creating, validating, optimizing, and composing development tools. It provides automated workflows for tool generation, cross-tool composition, and orchestr [ground:given] [conf:0.95] [state:confirmed]
 category: foundry
 tags:
 - foundry
 - creation
 - meta-tools
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute meta-tools workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic foundry processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "meta-tools",
+  category: "foundry",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["meta-tools", "foundry", "workflow"],
+  context: "user needs meta-tools capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 <!-- SKILL SOP IMPROVEMENT v1.0 -->
 ## Skill Execution Criteria
@@ -134,222 +179,67 @@ python resources/tool-generator.py \
 ### Tool Validation
 ```bash
 # Validate a tool implementation
-node resources/tool-validator.js \
-  --tool tools/my-tool \
-  --checks security,performance,integration
-```
+node resou
 
-### Tool Optimization
-```bash
-# Optimize tool performance
-bash resources/tool-optimizer.sh \
-  --tool tools/my-tool \
-  --profile production \
-  --optimize memory,speed
-```
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Tool Packaging
-```bash
-# Package tool for distribution
-python resources/tool-packager.py \
-  --tool tools/my-tool \
-  --format npm,docker \
-  --output dist/
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Tool Composition
-```javascript
-// Compose multiple tools into a workflow
-const { ComposeTool } = require('./examples/tool-composition');
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-const workflow = new ComposeTool([
-  { name: 'validator', config: {...} },
-  { name: 'transformer', config: {...} },
-  { name: 'optimizer', config: {...} }
-]);
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-await workflow.execute(input);
-```
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Tool Orchestration
-```javascript
-// Orchestrate complex multi-tool operations
-const { OrchestrateTool } = require('./examples/tool-orchestration');
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/foundry/meta-tools/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-const orchestrator = new OrchestrateTool({
-  tools: [...],
-  strategy: 'parallel',
-  errorHandling: 'continue'
-});
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "meta-tools-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-await orchestrator.run();
-```
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Architecture
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Components
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-1. **Tool Generator**: Creates tools from specifications
-2. **Tool Validator**: Validates tool correctness and security
-3. **Tool Optimizer**: Enhances tool performance
-4. **Tool Packager**: Bundles tools for distribution
-5. **Composition Engine**: Chains tools into workflows
-6. **Orchestration Engine**: Coordinates multi-tool operations
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-### Templates
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-- **tool-template.yaml**: Base tool structure
-- **meta-config.json**: Framework configuration
-- **tool-manifest.yaml**: Tool metadata and dependencies
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Workflow
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-```
-Specification → Generation → Validation → Optimization → Packaging → Distribution
-                                ↓
-                           Composition → Orchestration → Execution
-```
-
-## Integration
-
-### With Existing Tools
-- Import existing tools via adapters
-- Wrap legacy tools with modern interfaces
-- Bridge different tool ecosystems
-- Provide unified API layer
-
-### With CI/CD
-- Automated tool generation in pipelines
-- Continuous validation and testing
-- Performance regression detection
-- Automated packaging and deployment
-
-### With Monitoring
-- Tool execution metrics
-- Performance tracking
-- Error rate monitoring
-- Resource usage analysis
-
-## Best Practices
-
-### Tool Design
-- Keep tools focused on single responsibility
-- Use clear, consistent interfaces
-- Provide comprehensive error messages
-- Include detailed documentation
-- Support configuration externalization
-
-### Composition
-- Design for composability from the start
-- Use standard data formats between tools
-- Handle errors gracefully
-- Implement proper cleanup
-- Support transaction-like behavior
-
-### Orchestration
-- Plan for parallel execution
-- Implement proper synchronization
-- Handle partial failures
-- Provide rollback mechanisms
-- Log all operations
-
-## Sub-Skills
-
-This meta-tools framework includes specialized sub-skills:
-
-1. **Skill Gap Analyzer** - Identifies missing capabilities and suggests tools
-2. **Token Budget Advisor** - Optimizes tool usage within constraints
-3. **Prompt Optimization Analyzer** - Enhances tool prompts and interactions
-
-## Examples
-
-See the `examples/` directory for comprehensive demonstrations:
-
-- `create-tool.js` - Complete tool creation workflow
-- `tool-composition.js` - Multi-tool composition patterns
-- `tool-orchestration.js` - Complex orchestration scenarios
-
-## Testing
-
-Run the test suite:
-
-```bash
-npm test                    # Run all tests
-npm test validator          # Test validation logic
-npm test composer           # Test composition engine
-npm test orchestrator       # Test orchestration engine
-```
-
-## Performance
-
-- **Tool Generation**: < 1 second for standard tools
-- **Validation**: < 5 seconds for comprehensive checks
-- **Optimization**: 20-40% performance improvement typical
-- **Composition**: Near-zero overhead for chaining
-- **Orchestration**: Efficient parallel execution with resource pooling
-
-## Security
-
-- Input sanitization in all tools
-- Sandboxed execution environments
-- Dependency vulnerability scanning
-- Access control and permissions
-- Audit logging for all operations
-
-## Support
-
-For issues, questions, or contributions:
-- Check the documentation in `README.md`
-- Review examples in `examples/`
-- Run tests in `tests/`
-- Consult sub-skill documentation
-
-## License
-
-Part of the SPARC Three-Loop System
-
-## Core Principles
-
-Meta-Tools operates on 3 fundamental principles:
-
-### Principle 1: Tools as First-Class Artifacts
-Tools are not ad-hoc scripts but structured, validated, versioned artifacts with specifications, tests, and documentation. This elevates tooling to production-grade quality.
-
-In practice:
-- Tools generated from formal specifications with validation logic
-- Every tool includes comprehensive test suite and documentation
-- Version management and dependency resolution built-in
-
-### Principle 2: Composability by Design
-Tools are designed from the start to chain together, using standard data formats and error handling patterns. This enables building complex workflows from simple components.
-
-In practice:
-- Standard input/output formats between all tools
-- Consistent error propagation and cleanup mechanisms
-- Pipeline creation with near-zero overhead
-
-### Principle 3: Optimization as Continuous Process
-Tool performance, security, and resource usage are continuously monitored and optimized rather than being one-time considerations.
-
-In practice:
-- Automated performance profiling during generation
-- Security scanning integrated into validation workflow
-- Resource optimization applied systematically across tool ecosystem
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Manual Tool Creation** | Hand-crafting tools leads to inconsistent quality, missing validation, and poor documentation | Use tool-generator with specifications to ensure consistency and completeness |
-| **Tight Coupling** | Tools tightly coupled to specific implementations prevent reuse and composition | Design with standard interfaces, use adapters for legacy integration |
-| **Skipping Validation** | Deploying tools without security/performance checks creates technical debt and vulnerabilities | Run full validation suite (security, performance, integration) before deployment |
-
-## Conclusion
-
-Meta-Tools provides a comprehensive framework that transforms tool creation from an artisanal process to an engineering discipline. By treating tools as first-class artifacts with specifications, validation, and optimization, this framework enables developers to build robust tooling ecosystems that scale.
-
-Use this skill when creating multiple related tools, building custom development workflows, or establishing tooling standards across teams. The framework's strength lies in automation and consistency - what would take hours of manual work (writing tests, documentation, validation) happens automatically through specification-driven generation. This reduces cognitive load while ensuring professional-grade quality for all generated tools.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>META_TOOLS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

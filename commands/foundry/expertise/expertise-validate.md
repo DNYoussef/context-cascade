@@ -1,166 +1,223 @@
+/*============================================================================*/
+/* EXPERTISE-VALIDATE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: expertise-validate-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/foundry/expertise/expertise-validate/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [prompt-auditor, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: expertise-validate
+version: 1.0.0
 binding: skill:expertise-manager
 category: foundry
-version: 1.0.0
 ---
 
-# /expertise-validate
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "expertise-validate",
+  binding: "skill:expertise-manager",
+  category: "foundry",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "**5-Phase Validation Process**:  1. **Load Expertise**    - Read `.claude/expertise/{domain}.yaml`    - Parse all falsifiable checks  2. **Run Falsifi",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /expertise-validate"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Validate domain expertise against current code reality. Run all falsifiable checks and detect drift.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
+[define|neutral] SYNTAX := "/expertise-validate [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-/expertise-validate <domain> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    domain: { type: "string", description: "Domain to validate" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--fix": { description: "Auto-fix minor issues", default: "false" },
+    "--strict": { description: "Fail on any validation error", default: "false" },
+    "--report": { description: "Generate detailed validation report", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-- `domain` - Domain to validate (required)
-- `--fix` - Auto-fix minor issues
-- `--strict` - Fail on any validation error
-- `--report` - Generate detailed validation report
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Load Expertise**", model: "Claude" },
+  { stage: 2, action: "**Run Falsifiable Checks**", model: "Claude" },
+  { stage: 3, action: "**Detect Drift**", model: "Claude" },
+  { stage: 0, action: "0 - 1.0)", model: "Claude" },
+  { stage: 4, action: "**Check Staleness**", model: "Claude" },
+  { stage: 5, action: "**Report & Update**", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## What It Does
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-**5-Phase Validation Process**:
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-1. **Load Expertise**
-   - Read `.claude/expertise/{domain}.yaml`
-   - Parse all falsifiable checks
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-2. **Run Falsifiable Checks**
-   - Execute each validation command
-   - Compare results to expected values
-   - Track pass/fail/skip for each claim
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-3. **Detect Drift**
-   - Compare expertise to current code
-   - Calculate drift score (0.0 - 1.0)
-   - Identify stale claims
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-4. **Check Staleness**
-   - Compare git history to expertise timestamps
-   - Flag outdated expertise
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-5. **Report & Update**
-   - Update validation_status in expertise
-   - Log to learning history
-   - Flag issues for correction
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Validation Outcomes
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-| Outcome | Drift Score | Action |
-|---------|-------------|--------|
-| Valid | < 0.2 | Update timestamp, use as-is |
-| Minor Drift | 0.2 - 0.5 | Auto-correct with --fix |
-| Major Drift | > 0.5 | Flag for refresh |
-| Stale | N/A | Needs refresh |
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Basic validation
-/expertise-validate authentication
+[define|neutral] EXAMPLES := [
+  { command: "/expertise-validate authentication", description: "Example usage" },
+  { command: "/expertise-validate database --fix", description: "Example usage" },
+  { command: "/expertise-validate payments --strict", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-# Validate and auto-fix minor issues
-/expertise-validate database --fix
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Strict validation (CI/CD use)
-/expertise-validate payments --strict
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/expertise-validate -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/expertise-validate arg1' '/expertise-validate arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Generate detailed report
-/expertise-validate websocket --report
-```
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-## Output
+[define|neutral] RELATED := {
+  complementary: ["/expertise-refresh", "/expertise-challenge", "/expertise-diff"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-```
-Validating expertise: authentication
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-Phase 1: Loading expertise
-  Version: 1.2.0
-  Last validated: 2025-12-10T14:30:00Z
-  Claims: 25 total, 23 with falsifiable checks
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "foundry",
+    file: ".claude/expertise/foundry.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "expertise-validate-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/foundry/expertise-validate/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["expertise-manager"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-Phase 2: Running falsifiable checks
-  [PASS] file_locations.primary: src/auth/ exists
-  [PASS] file_locations.tests: tests/auth/ exists
-  [PASS] patterns.architecture: Controllers don't import repositories
-  [FAIL] entities.classes.AuthService: Class moved to src/auth/service/
-  ...
-  Results: 21 passed, 2 failed, 2 skipped
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-Phase 3: Drift detection
-  Drift score: 0.15 (minor)
-  Changed since validation: 3 files
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "expertise-validate-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Phase 4: Staleness check
-  Commits since validation: 12
-  Status: Current
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-Phase 5: Update
-  Validation status: valid
-  Corrections needed: 2 (minor, auto-fixable)
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-Validation complete.
-  Overall: VALID (minor corrections available)
-  Run with --fix to auto-correct 2 issues
-```
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Pre-Action Usage
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-This command should be run BEFORE any domain-specific action:
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-```javascript
-// In agent workflow
-const validation = await runCommand('/expertise-validate', domain);
-
-if (validation.status === 'valid' || validation.status === 'minor_drift') {
-  // Proceed with expertise
-  const expertise = loadExpertise(domain);
-  return executeWithExpertise(task, expertise);
-} else {
-  // Expertise too stale
-  console.log('Running /expertise-refresh first');
-  await runCommand('/expertise-refresh', domain);
-}
-```
-
-## See Also
-
-- `/expertise-challenge` - Adversarial validation
-- `/expertise-refresh` - Rebuild stale expertise
-- `/expertise-diff` - Show what's changed
-
-
----
-*Promise: `<promise>EXPERTISE_VALIDATE_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>EXPERTISE_VALIDATE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

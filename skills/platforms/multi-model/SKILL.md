@@ -1,9 +1,64 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill: multi-model
-description: Intelligent multi-model orchestrator that routes tasks to Gemini or Codex based on their strengths
-tags: [orchestration, multi-model, routing, automation, gemini, codex]
+name: SKILL
 version: 1.0.0
+description: |
+  [assert|neutral] Intelligent multi-model orchestrator that routes tasks to Gemini or Codex based on their strengths [ground:given] [conf:0.95] [state:confirmed]
+category: platforms
+tags:
+- orchestration
+- multi-model
+- routing
+- automation
+- gemini
+author: system
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic platforms processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "platforms",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "platforms", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Multi-Model Orchestrator Skill
 
@@ -157,67 +212,67 @@ The orchestrator provides:
 ✅ Learning which model does what
 
 ### Direct Skill Use Instead:
-Use specific skills when you know exactly what you need:
-- Know you need codebase analysis → `/gemini-megacontext`
-- Know you need web search → `/gemini-search`
-- Know you need prototyping → `/codex-auto`
+Use specific sk
 
-## Advanced Features
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-### Parallel Execution
-When tasks are independent, orchestrator runs them in parallel:
-```
-/multi-model "Research auth best practices AND prototype a login page AND create UI mockups"
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Parallel execution:
-- gemini-search (auth research)
-- codex-auto (login prototype)
-- gemini-media (UI mockups)
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-Then Claude Code integrates all results.
-```
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-### Adaptive Routing
-Orchestrator learns from:
-- Task success/failure patterns
-- User feedback
-- Model performance
-- Cost/speed trade-offs
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Examples by Use Case
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/platforms/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Onboarding to New Codebase
-```
-/multi-model "Help me understand this unfamiliar codebase"
-→ gemini-megacontext (analyze all code)
-→ gemini-media (create architecture diagram)
-→ Claude Code (explain and document)
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Feature Development
-```
-/multi-model "Build a payment integration feature"
-→ gemini-search (latest Stripe best practices)
-→ gemini-extensions (test Stripe API)
-→ codex-auto (scaffold integration code)
-→ Claude Code (refine and test)
-```
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-### Documentation Project
-```
-/multi-model "Create full technical documentation"
-→ gemini-megacontext (understand system)
-→ gemini-media (generate diagrams)
-→ gemini-search (find examples and references)
-→ Claude Code (write and structure docs)
-```
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Success Indicators
-- [assert|neutral] ✅ Task completed efficiently [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Right model used for each subtask [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Time/cost optimized [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ High-quality results [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Smooth coordination between models [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Remember**: When in doubt, use `/multi-model` - it will figure out the optimal routing for you! [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] See `docs/agents/multi-model-guide.md` for complete documentation. [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`* [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

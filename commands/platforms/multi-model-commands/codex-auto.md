@@ -1,106 +1,218 @@
----
-Key platform/tooling/training command improvements:
-- Platform API requirements
-- Tool configuration
-- Training data requirements
-- Workflow chaining
+/*============================================================================*/
+/* CODEX-AUTO COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: platforms  file: .claude/expertise/platforms.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: codex-auto-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/platforms/multi-model-commands/codex-auto/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [flow-nexus-platform]  related_agents: [multi-model-orchestrator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
+---
 name: codex-auto
-binding: multi-model:codex-auto
-category: multi-model
 version: 1.0.0
+binding: skill:multi-model:codex-auto
+category: multi-model
 ---
 
-# /codex-auto
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "codex-auto",
+  binding: "skill:multi-model:codex-auto",
+  category: "multi-model",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute codex-auto workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /codex-auto"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Unattended rapid prototyping in sandboxed environment with Full Auto mode.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/codex-auto "<task>" [options]
-```
+[define|neutral] SYNTAX := "/codex-auto [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `task` - Implementation task description (required)
-- `--context` - Context files or directory (optional)
-- `--sandbox` - Enable isolated sandbox (default: true)
-- `--max-iterations` - Max auto-iterations (default: 5)
-- `--output` - Output directory for generated code (default: current directory)
+[define|neutral] PARAMETERS := {
+  required: {
+    task: { type: "string", description: "Implementation task description" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--context": { description: "Context files or directory (optional)", default: "false" },
+    "--sandbox": { description: "Enable isolated sandbox (default: true)", default: "false" },
+    "--max-iterations": { description: "Max auto-iterations (default: 5)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Rapid prototype
-/codex-auto "Implement user authentication with JWT"
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# With context
-/codex-auto "Add pagination to user list API" --context src/api/users.js
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Fix failing test
-/codex-auto "Fix test failure in test_auth.py" --context tests/test_auth.py
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Sandbox iteration (used by functionality-audit)
-/codex-auto "Fix timeout in API handler" --sandbox true --max-iterations 5
-```
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## When to Use
-- ✅ Rapid prototyping
-- ✅ Quick feature implementations
-- ✅ Auto-fixing test failures
-- ✅ Boilerplate generation
-- ✅ Exploratory coding
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Safety Features
-- **Sandbox**: Isolated execution environment
-- **Network**: DISABLED in sandbox
-- **Scope**: CWD only (no parent directory access)
-- **Isolation**: Seatbelt (macOS) / Docker
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Capabilities
-- **Model**: GPT-4-Codex (via ChatGPT Plus subscription)
-- **Mode**: Full Auto (unattended execution)
-- **Iteration**: Automatic test-fix-retest loop
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Implementation
-```bash
-# Executed via Codex CLI
-codex --full-auto "<task>" --context <files> --sandbox
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Integration with Functionality Audit
-```python
-# Used in /functionality-audit Phase 2
-for failing_test in test_results:
-    # Spawn Codex to auto-fix
-    /codex-auto "Fix test: {test_name}" \
-      --context {test_file} \
-      --sandbox true \
-      --max-iterations 5
-```
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Chains with
-```bash
-# Research → prototype → test → fix
-/gemini-search "Best practices for feature X" | \
-/codex-auto "Implement feature X with best practices" | \
-/functionality-audit --model codex-auto
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Quick prototype → polish
-/codex-auto "Rapid prototype for user feature" | \
-/style-audit
-```
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## See also
-- `/codex-reasoning` - Alternative reasoning approach
-- `/functionality-audit` - Uses Codex for auto-fixing
-- `/gemini-megacontext` - Large context analysis
-- `/claude-reason` - Best reasoning (default)
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] EXAMPLES := [
+  { command: "/codex-auto "Implement user authentication with JWT"", description: "Example usage" },
+  { command: "/codex-auto "Add pagination to user list API" --context src/", description: "Example usage" },
+  { command: "/codex-auto "Fix test failure in test_auth.py" --context tes", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>CODEX_AUTO_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/codex-auto -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/codex-auto arg1' '/codex-auto arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/functionality-audit", "/gemini-megacontext", "/claude-reason", "/codex-reasoning"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "multi-model",
+    file: ".claude/expertise/multi-model.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "codex-auto-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/multi-model/codex-auto/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["multi-model:codex-auto"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "codex-auto-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>CODEX_AUTO_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

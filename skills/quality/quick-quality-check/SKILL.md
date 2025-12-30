@@ -1,19 +1,64 @@
+/*============================================================================*/
+/* QUICK-QUALITY-CHECK SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: quick-quality-check
-description: Lightning-fast quality check using parallel command execution. Runs theater
-  detection, linting, security scan, and basic tests in parallel for instant feedback
-  on code quality.
+version: 2.0.0
+description: |
+  [assert|neutral] Lightning-fast quality check using parallel command execution. Runs theater detection, linting, security scan, and basic tests in parallel for instant feedback on code quality. [ground:given] [conf:0.95] [state:confirmed]
+category: quality
 tags:
 - quality
 - quick
 - parallel
 - essential
 - tier-enhanced
-version: 2.0.0
-tier: enhanced
-category: quality
 author: ruv
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute quick-quality-check workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic quality processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "quick-quality-check",
+  category: "quality",
+  version: "2.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["quick-quality-check", "quality", "workflow"],
+  context: "user needs quick-quality-check capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When to Use This Skill
 
@@ -92,154 +137,67 @@ Kaynak dogrulama modu etkin.
 
 Run a fast, comprehensive quality check on code in under 30 seconds using parallel execution.
 
-## Specialist Agent
+## Specialist A
 
-I am a quality assurance specialist focused on rapid feedback loops.
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-**Methodology** (Parallel Execution Pattern):
-1. Spawn swarm with optimal topology for speed
-2. Execute independent checks in parallel
-3. Aggregate results in real-time
-4. Provide instant actionable feedback
-5. Prioritize findings by severity
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Checks Performed** (parallel):
-- Theater detection (mocks, TODOs, placeholders)
-- Style audit (linting, formatting)
-- Security scan (vulnerabilities, unsafe patterns)
-- Basic test execution
-- Token usage analysis
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-**Output**: Unified quality report with severity-ranked issues
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Input Contract
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-```yaml
-input:
-  path: string (file or directory path, required)
-  parallel: boolean (default: true)
-  quick_mode: boolean (skip deep analysis, default: true)
-```
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/quality/quick-quality-check/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Output Contract
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "quick-quality-check-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```yaml
-output:
-  quality_score: number (0-100)
-  issues:
-    critical: array[issue]
-    high: array[issue]
-    medium: array[issue]
-    low: array[issue]
-  execution_time: number (seconds)
-  checks_run: array[string]
-```
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Execution Flow
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-```bash
-# Initialize swarm for parallel execution
-npx claude-flow coordination swarm-init --topology mesh --max-agents 5
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Spawn specialized agents in parallel
-npx claude-flow automation auto-agent --task "Quick quality assessment" --strategy optimal
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-# Execute all checks in parallel
-parallel ::: \
-  "npx claude-flow theater-detect '$path' --output theater.json" \
-  "npx claude-flow style-audit '$path' --quick --output style.json" \
-  "npx claude-flow security-scan '$path' --fast --output security.json" \
-  "npx claude-flow test-coverage '$path' --quick --output tests.json" \
-  "npx claude-flow analysis token-usage --time-range 1h --output tokens.json"
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-# Aggregate results
-npx claude-flow merge-reports theater.json style.json security.json tests.json tokens.json \
-  --output quality-report.json \
-  --prioritize severity
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Display summary
-cat quality-report.json | jq '.summary'
-```
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Integration Points
-
-### Cascades
-- Part of `/production-readiness` cascade
-- Used by `/code-review-assistant` cascade
-- Invoked by `/quick-check` command
-
-### Commands
-- Combines: `/theater-detect`, `/style-audit`, `/security-scan`, `/test-coverage`, `/token-usage`
-- Uses: `/swarm-init`, `/auto-agent`, `/parallel-execute`
-
-### Other Skills
-- Input to `deep-code-audit` skill
-- Used by `pre-commit-check` skill
-- Part of `continuous-quality` skill
-
-## Usage Example
-
-```bash
-# Quick check current directory
-quick-quality-check .
-
-# Quick check specific file
-quick-quality-check src/api/users.js
-
-# Quick check with detailed output
-quick-quality-check src/ --detailed
-```
-
-## Failure Modes
-
-- **Insufficient resources**: Reduce parallelism, run sequentially
-- **Tests failing**: Flag but continue other checks
-- **Security issues found**: Escalate to detailed security review
-- **Poor quality score**: Trigger `deep-code-audit` skill
----
-
-## Core Principles
-
-Quick Quality Check operates on 3 fundamental principles:
-
-### Principle 1: Speed Through Parallelization
-Quality feedback must be fast enough to fit into developer flow (under 30 seconds). Sequential checks create context-switching delays.
-
-In practice:
-- All 5 checks (theater, style, security, tests, tokens) run concurrently in mesh topology
-- Results aggregate in real-time as each check completes
-- No check waits for another - independence enables parallel execution
-
-### Principle 2: Fail-Fast Detection
-Critical issues should block development immediately, not hours later in CI/CD. Early detection saves rework time.
-
-In practice:
-- Theater detection flags mock/stub/TODO patterns that indicate incomplete work
-- Security scan catches vulnerabilities before they reach code review
-- Build validation ensures code compiles before committing
-
-### Principle 3: Severity-Based Triage
-Not all issues are equal. Ranking findings by severity (critical/high/medium/low) guides developer prioritization.
-
-In practice:
-- Critical issues (security, broken builds) surface first in report
-- Low-priority issues (style nitpicks) appear last
-- Quick mode skips deep analysis for faster feedback loop
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Deep Analysis in Quick Check** | Running comprehensive analysis (full security audit, 100% coverage) instead of quick scan causing 5+ minute delays | Use quick mode flags (--quick, --fast) - deep analysis belongs in pre-commit or CI/CD |
-| **Blocking on Non-Critical Issues** | Failing quality check for minor style violations or low-priority warnings | Only fail on critical/high severity - flag medium/low as warnings that don't block |
-| **No Prioritization** | Showing all 50+ findings in flat list without ranking | Always sort by severity (critical first) and provide counts (3 critical, 12 high, 35 low) |
-
-## Conclusion
-
-Quick Quality Check provides instant quality feedback (under 30 seconds) by running 5 independent checks in parallel and aggregating results with severity ranking. This enables developers to catch critical issues (theater code, security vulnerabilities, broken builds) before committing, rather than discovering them hours later in CI/CD. The key insight is parallelization - because checks are independent (theater detection doesn't need security scan results), they can run concurrently on separate agents and complete in the time of the slowest check (typically 20-30 seconds).
-
-Use this skill when you need fast quality feedback during active development - before git commit, during code review, or as a pre-push hook. The quick mode skips deep analysis (full coverage reports, comprehensive security audits) in favor of speed, making it suitable for tight feedback loops. For thorough analysis, use the comprehensive code review workflow instead.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>QUICK_QUALITY_CHECK_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

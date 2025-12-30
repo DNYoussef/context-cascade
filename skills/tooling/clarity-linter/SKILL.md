@@ -1,12 +1,60 @@
+/*============================================================================*/
+/* CLARITY-LINTER SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: clarity-linter
 version: 2.1.0
-description: Machine-readable code clarity auditing with cognitive load optimization. 3-phase SOP - Metrics Collection (code-analyzer) -> Rubric Evaluation (reviewer) -> Fix Generation (coder + analyst). Detects thin helpers, excessive indirection, call chain depth, poor naming, and comment issues.
+description: |
+  [assert|neutral] Machine-readable code clarity auditing with cognitive load optimization. 3-phase SOP - Metrics Collection (code-analyzer) -> Rubric Evaluation (reviewer) -> Fix Generation (coder + analyst). Detects t [ground:given] [conf:0.95] [state:confirmed]
 category: quality
-agents: code-analyzer, reviewer, coder, analyst
-mcp_tools: memory-mcp
-artifacts: clarity_rubric.json, violation-reports, fix-suggestions
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute clarity-linter workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic quality processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "clarity-linter",
+  category: "quality",
+  version: "2.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["clarity-linter", "quality", "workflow"],
+  context: "user needs clarity-linter capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Clarity Linter
 
@@ -154,685 +202,67 @@ output:
 
 **Objective**: Collect code metrics for clarity rubric evaluation
 
-**Agent**: `code-analyzer`
 
-**Prompt**:
-```javascript
-await Task("Clarity Metrics Collector", `
-Collect code clarity metrics for rubric evaluation.
 
-Target: <target-path>
-Rubric: .claude/skills/clarity-linter/.artifacts/clarity_rubric.json
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-Metrics to Collect (per function):
-1. func_lines: Non-comment, non-blank lines in function body
-2. nesting_depth: Maximum nesting depth of control structures
-3. is_trivial_expression: Single simple expression or statement
-4. is_single_call_forwarder: Single call that forwards parameters verbatim
-5. call_count: How many other functions call this function
-6. name_semantic_score: 0-1 heuristic of domain meaning in function name
-   - 1.0: Rich domain meaning (e.g., 'is_valid_email', 'calculate_compound_interest')
-   - 0.5: Moderate meaning (e.g., 'process_data', 'handle_request')
-   - 0.1: Generic/vague (e.g., 'do_thing', 'helper', 'util')
-7. comment_density: Comment lines / total lines inside function
-8. local_domain_spread: 0-1 measure of unrelated concerns touched (0=cohesive, 1=scattered)
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Metrics to Collect (per file):
-1. thin_helper_count: Count of functions meeting thin helper criteria
-2. avg_func_length: Average function length across file
-3. avg_nesting_depth: Average nesting depth across file
-4. max_call_chain_depth: Estimated max call depth from public entrypoints
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-Metrics to Collect (per project):
-1. max_project_call_chain_depth: Max call chain across whole project
-2. duplicate_block_count: Duplicated code blocks >5 lines
-3. duplicate_block_details: List of duplications with locations
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-Output Format (JSON):
-{
-  "timestamp": "ISO8601",
-  "target": "<path>",
-  "functions": [
-    {
-      "file": "path/to/file.py",
-      "name": "function_name",
-      "line": 42,
-      "metrics": {
-        "func_lines": 15,
-        "nesting_depth": 2,
-        "is_trivial_expression": false,
-        "is_single_call_forwarder": false,
-        "call_count": 3,
-        "name_semantic_score": 0.7,
-        "comment_density": 0.12,
-        "local_domain_spread": 0.3
-      }
-    }
-  ],
-  "files": [...],
-  "project": {...}
-}
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Save to: .claude/.artifacts/clarity-metrics-<timestamp>.json
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/quality/clarity-linter/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Use hooks for coordination:
-npx claude-flow@alpha hooks pre-task --description "clarity metrics collection"
-npx claude-flow@alpha hooks post-task --task-id "clarity-metrics"
-`, "code-analyzer");
-```
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "clarity-linter-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**MCP Tools Used**:
-- `mcp__memory-mcp__memory_store` (optional: cache results for faster re-runs)
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-**Bash Commands**:
-```bash
-# Navigate to target
-cd <target-path>
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Analyze with AST parsing (example for Python)
-python -c "
-import ast
-import json
-# ... AST analysis to collect metrics ...
-with open('.claude/.artifacts/clarity-metrics.json', 'w') as f:
-    json.dump(metrics, f, indent=2)
-"
-```
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-**Success Criteria**:
-- All functions analyzed
-- Metrics JSON generated
-- No parse errors
-- All required metrics present
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
----
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## SOP Phase 2: Rubric Evaluation (5-15 sec)
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**Objective**: Apply clarity rubric to metrics and calculate scores
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-**Agent**: `reviewer`
-
-**Prompt**:
-```javascript
-await Task("Clarity Rubric Evaluator", `
-Evaluate code clarity using machine-readable rubric.
-
-Rubric: .claude/skills/clarity-linter/.artifacts/clarity_rubric.json
-Metrics: .claude/.artifacts/clarity-metrics-<timestamp>.json
-
-Evaluation Process:
-1. Load clarity_rubric.json
-2. Load metrics JSON
-3. For each entity (function/file/project):
-   a. Apply checks from rubric dimensions
-   b. Evaluate conditions (metric op value comparisons)
-   c. Apply score_impact for triggered checks
-   d. Aggregate dimension scores with weights
-4. Calculate overall score (weighted sum across 5 dimensions)
-5. Determine verdict:
-   - ACCEPT: score ≥ 0.8
-   - REFINE: 0.6 ≤ score < 0.8
-   - REJECT: score < 0.6
-
-Rubric Dimensions (with weights):
-1. thin_helpers_and_indirection (25%): 4 checks
-   - THIN_HELPER_SIZE: ≤3 lines + trivial + low semantic name
-   - THIN_HELPER_SINGLE_CALL: ≤3 lines + called once + low semantic name
-   - PASS_THROUGH_WRAPPER: Single call forwarder + low semantic name
-   - FILE_THIN_HELPER_DENSITY: >10 thin helpers in file
-
-2. function_size_and_cohesion (25%): 3 checks
-   - SOFT_TOO_LONG_FUNCTION: >40 lines (soft limit)
-   - HARD_TOO_LONG_FUNCTION: >50 lines (hard limit)
-   - LOW_COHESION_FUNCTION: local_domain_spread >0.6
-
-3. indirection_and_call_depth (20%): 2 checks
-   - FILE_CALL_CHAIN_DEPTH: >4 levels in file
-   - PROJECT_CALL_CHAIN_DEPTH: >6 levels in project
-
-4. duplication_vs_dry (15%): 1 check
-   - HARMFUL_DUPLICATION: Duplicated blocks with multiple occurrences
-
-5. comments_and_explanation (15%): 2 checks
-   - OVERCOMMENTED_FUNCTION: comment_density >0.35
-   - UNDEREXPLAINED_COMPLEX_FUNCTION: >40 lines + nesting ≥3 + comment_density <0.05
-
-Output Format (JSON):
-{
-  "timestamp": "ISO8601",
-  "overall_score": 0.73,
-  "verdict": "REFINE",
-  "dimension_scores": {
-    "thin_helpers_indirection": 0.85,
-    "function_size_cohesion": 0.60,
-    "indirection_call_depth": 0.75,
-    "duplication_vs_dry": 0.90,
-    "comments_explanation": 0.55
-  },
-  "violations": [
-    {
-      "check_id": "SOFT_TOO_LONG_FUNCTION",
-      "severity": "info",
-      "entity_type": "function",
-      "file": "path/to/file.py",
-      "function": "process_request",
-      "line": 42,
-      "message": "Function is longer than the soft maximum; check if it mixes multiple responsibilities.",
-      "suggested_fix": "Look for logical substeps and consider extracting them into well-named helpers if it improves clarity.",
-      "score_impact": -0.1,
-      "metrics": {
-        "func_lines": 45,
-        "threshold": 40
-      }
-    }
-  ],
-  "total_violations": 12,
-  "by_severity": {
-    "warning": 5,
-    "info": 7
-  }
-}
-
-Save to: .claude/.artifacts/clarity-evaluation-<timestamp>.json
-`, "reviewer");
-```
-
-**MCP Tools Used**:
-- None (pure rubric evaluation logic)
-
-**Success Criteria**:
-- Rubric loaded successfully
-- All dimensions evaluated
-- Overall score calculated (0-1)
-- Verdict determined (ACCEPT/REFINE/REJECT)
-- Violations list generated with suggested fixes
-
----
-
-## SOP Phase 3: Fix Generation & Reporting (20-60 sec)
-
-**Objective**: Generate auto-fixes and human-readable reports
-
-**Agents**: `coder` (auto-fixes) + `analyst` (reports)
-
-**Prompt for Coder** (if auto_fix enabled):
-```javascript
-await Task("Clarity Fix Generator", `
-Generate auto-fix PRs for high-confidence clarity violations.
-
-Evaluation: .claude/.artifacts/clarity-evaluation-<timestamp>.json
-
-Auto-Fix Strategy (by check_id):
-
-1. THIN_HELPER_SIZE / THIN_HELPER_SINGLE_CALL:
-   - Inline the helper function at its call site(s)
-   - Remove the helper function definition
-   - Confidence: HIGH (safe if called ≤3 times)
-
-2. PASS_THROUGH_WRAPPER:
-   - Replace wrapper calls with direct calls to underlying function
-   - Remove wrapper function
-   - Confidence: HIGH (safe if no side effects)
-
-3. SOFT_TOO_LONG_FUNCTION:
-   - Identify logical substeps (by code blocks or comments)
-   - Extract 2-3 well-named helper functions
-   - Confidence: MEDIUM (requires semantic understanding)
-
-4. LOW_COHESION_FUNCTION:
-   - Split function by domain concerns
-   - Extract separate functions per concern
-   - Confidence: MEDIUM (requires domain knowledge)
-
-5. OVERCOMMENTED_FUNCTION:
-   - Remove obvious/redundant comments
-   - Keep only "why" and non-obvious explanations
-   - Confidence: LOW (subjective - suggest only, don't auto-apply)
-
-6. UNDEREXPLAINED_COMPLEX_FUNCTION:
-   - Add docstring with purpose, invariants, design decisions
-   - Confidence: LOW (requires context - suggest only)
-
-For each HIGH confidence violation:
-  Generate git diff patch with before/after
-  Include in PR: file path, line numbers, check_id, explanation
-
-Output Format (JSON):
-{
-  "auto_fixes": [
-    {
-      "file": "path/to/file.py",
-      "violation_id": "THIN_HELPER_SINGLE_CALL",
-      "function": "wrapper_func",
-      "confidence": "HIGH",
-      "diff": "--- a/path/to/file.py\n+++ b/path/to/file.py\n@@ -10,5 +10,1 @@\n-def wrapper_func(x):\n-    return actual_func(x)\n...",
-      "explanation": "Inlined wrapper_func at its single call site (line 42). Removed unnecessary indirection."
-    }
-  ],
-  "suggested_fixes": [
-    {
-      "file": "path/to/file.py",
-      "violation_id": "SOFT_TOO_LONG_FUNCTION",
-      "function": "process_request",
-      "confidence": "MEDIUM",
-      "suggestion": "Consider extracting validation logic (lines 45-58) into 'validate_request_params' helper."
-    }
-  ]
-}
-
-Save to: .claude/.artifacts/clarity-fixes-<timestamp>.json
-`, "coder");
-```
-
-**Prompt for Analyst**:
-```javascript
-await Task("Clarity Report Generator", `
-Generate human-readable clarity audit report.
-
-Evaluation: .claude/.artifacts/clarity-evaluation-<timestamp>.json
-Metrics: .claude/.artifacts/clarity-metrics-<timestamp>.json
-Fixes: .claude/.artifacts/clarity-fixes-<timestamp>.json
-
-Report Structure (Markdown):
-
-# Code Clarity Audit Report
-
-**Generated**: <timestamp>
-**Target**: <target-path>
-**Overall Score**: <score> / 1.0
-**Verdict**: <ACCEPT | REFINE | REJECT>
-
-## Executive Summary
-
-- **Functions Analyzed**: <count>
-- **Files Analyzed**: <count>
-- **Total Violations**: <count>
-  - Critical: <count>
-  - Warning: <count>
-  - Info: <count>
-
-## Dimension Scores
-
-| Dimension | Weight | Score | Status |
-|-----------|--------|-------|--------|
-| Thin Helpers & Indirection | 25% | 0.85 | ✅ |
-| Function Size & Cohesion | 25% | 0.60 | ⚠️ |
-| Indirection & Call Depth | 20% | 0.75 | ✅ |
-| Duplication vs DRY | 15% | 0.90 | ✅ |
-| Comments & Explanation | 15% | 0.55 | ⚠️ |
-| **Overall** | 100% | **0.73** | **REFINE** |
-
-## Top Violations
-
-### 1. SOFT_TOO_LONG_FUNCTION (5 occurrences)
-
-**Impact**: -0.50 total score impact
-**Severity**: Info
-
-**Examples**:
-- \`process_request\` (path/to/file.py:42) - 45 lines
-- \`handle_data\` (path/to/file.py:108) - 52 lines
-
-**Suggested Fix**: Extract logical substeps into well-named helpers.
-
-### 2. THIN_HELPER_SINGLE_CALL (3 occurrences)
-
-**Impact**: -0.45 total score impact
-**Severity**: Warning
-
-**Auto-Fixes Available**: 3 PRs generated
-
-...
-
-## Metrics Summary
-
-### Call Chain Analysis
-- Max call chain depth (project): 5 levels
-- Max call chain depth (file): 4 levels
-- Files with deep chains: 2
-
-### Naming Quality
-- High semantic score (>0.7): 85%
-- Medium semantic score (0.4-0.7): 12%
-- Low semantic score (<0.4): 3%
-
-### Comment Density Distribution
-- Overcommented (>0.35): 2 functions
-- Well-documented (0.05-0.35): 78 functions
-- Underdocumented (<0.05): 12 functions
-
-## Recommendations
-
-1. **Refactor long functions** (5 instances)
-   - Priority: High
-   - Effort: 2-3 hours
-   - Expected improvement: +0.15 score
-
-2. **Inline thin helpers** (3 instances)
-   - Priority: High
-   - Effort: 30 minutes
-   - Auto-fix available: Yes
-   - Expected improvement: +0.10 score
-
-3. **Add documentation to complex functions** (12 instances)
-   - Priority: Medium
-   - Effort: 1-2 hours
-   - Expected improvement: +0.08 score
-
-## Next Steps
-
-- [ ] Review and apply auto-fix PRs (3 available)
-- [ ] Manual refactoring for medium-confidence violations
-- [ ] Re-run clarity-linter after changes
-- [ ] Target score: ≥0.8 (ACCEPT threshold)
-
----
-
-**Report Generated by**: clarity-linter skill
-**Rubric Version**: clarity_rubric_v1 (0.1.0)
-
-Save to: docs/clarity-audit-report-<timestamp>.md
-`, "analyst");
-```
-
-**MCP Tools Used**:
-- `mcp__memory-mcp__memory_store` (store results with WHO/WHEN/PROJECT/WHY tags)
-
-**Memory Storage**:
-```javascript
-// Store evaluation results
-mcp__memory-mcp__memory_store({
-  text: `Clarity Linter evaluation complete. Score: ${score}/1.0, Verdict: ${verdict}. Violations: ${totalViolations} (${violations_by_severity}). Top issues: ${top_3_violation_types}. Auto-fixes: ${auto_fix_count} generated. Target: ${target_path}`,
-  metadata: {
-    key: `clarity-linter/${project_name}/evaluation-${timestamp}`,
-    namespace: "quality/clarity-audits",
-    layer: "mid-term",  // 7-day retention
-    category: "code-quality",
-    tags: {
-      WHO: "clarity-linter",
-      WHEN: new Date().toISOString(),
-      PROJECT: project_name,
-      WHY: "clarity-audit"
-    }
-  }
-});
-
-// Store fixes for pattern learning
-if (auto_fixes.length > 0) {
-  mcp__memory-mcp__memory_store({
-    text: `Clarity Linter auto-fixes applied: ${auto_fixes.map(f => `${f.check_id} in ${f.file}`).join(', ')}. Patterns: ${fix_patterns}`,
-    metadata: {
-      key: `clarity-linter/${project_name}/fixes-${timestamp}`,
-      namespace: "quality/fix-patterns",
-      layer: "long-term",  // 30d+ retention for pattern learning
-      category: "auto-fixes",
-      tags: {
-        WHO: "clarity-linter",
-        WHEN: new Date().toISOString(),
-        PROJECT: project_name,
-        WHY: "fix-pattern-learning"
-      }
-    }
-  });
-}
-```
-
-**Success Criteria**:
-- Auto-fix PRs generated for HIGH confidence violations
-- Markdown report with executive summary, dimension scores, recommendations
-- Results stored in Memory-MCP with proper tagging
-- Report accessible at docs/clarity-audit-report-<timestamp>.md
-
----
-
-## Integration with Dogfooding Cycle
-
-**Clarity Linter** complements **Connascence Analyzer** in the 3-phase dogfooding system:
-
-### Phase 1: Quality Detection (30-60s total)
-```
-Run in Parallel:
-  ├─ sop-dogfooding-quality-detection (connascence violations)
-  └─ clarity-linter (cognitive load violations)
-```
-
-### Phase 2: Pattern Retrieval (10-30s)
-```
-sop-dogfooding-pattern-retrieval searches Memory-MCP for:
-  ├─ Past connascence fixes (coupling patterns)
-  └─ Past clarity fixes (indirection/naming/size patterns)
-```
-
-### Phase 3: Continuous Improvement (60-120s)
-```
-sop-dogfooding-continuous-improvement applies:
-  ├─ Connascence auto-fixes (God Objects → delegation)
-  └─ Clarity auto-fixes (thin helpers → inlining)
-```
-
-**Combined Benefits**:
-- Connascence: Detects coupling (God Objects, Parameter Bombs, etc.)
-- Clarity: Detects cognitive load (thin helpers, long functions, poor naming)
-- Together: Comprehensive code quality (coupling + clarity)
-
----
-
-## Performance Targets
-
-| Phase | Target Time | Metric |
-|-------|-------------|--------|
-| Phase 1: Metrics Collection | 10-30s | 100-500 functions/sec |
-| Phase 2: Rubric Evaluation | 5-15s | 5000 checks/sec |
-| Phase 3: Fix Generation | 20-60s | 10-30 fixes/minute |
-| **Total** | **35-105s** | **Complete audit in <2 min** |
-
-**Accuracy Targets**:
-- Precision: ≥90% (violations are real clarity issues)
-- Recall: ≥80% (finds most clarity problems)
-- Auto-fix safety: 100% (no breakage from HIGH confidence fixes)
-
----
-
-## Example Usage
-
-```bash
-# Quick clarity audit (standard policy)
-npx claude-flow@alpha skills run clarity-linter \
-  --target ./src \
-  --report-format markdown
-
-# Strict audit with auto-fixes
-npx claude-flow@alpha skills run clarity-linter \
-  --target ./src \
-  --policy strict \
-  --auto-fix true
-
-# Audit specific file
-npx claude-flow@alpha skills run clarity-linter \
-  --target ./src/core/engine.py \
-  --report-format json
-```
-
----
-
-## Artifacts Reference
-
-1. **clarity_rubric.json**: Machine-readable scoring rubric (see .artifacts/)
-2. **clarity-metrics-<timestamp>.json**: Collected metrics
-3. **clarity-evaluation-<timestamp>.json**: Rubric evaluation results
-4. **clarity-fixes-<timestamp>.json**: Auto-fix PRs + suggestions
-5. **clarity-audit-report-<timestamp>.md**: Human-readable report
-
----
-
-## Success Metrics
-- [assert|neutral] Track in Memory-MCP: [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Total audits run [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Average score trend (improving over time) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Auto-fix success rate (no regressions) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Time to ACCEPT (target: <5 iterations) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Violations by type (trend analysis) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *END OF CLARITY-LINTER SKILL SOP** [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] - [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Recursive Improvement Integration (v2.1)
-
-### Input/Output Contracts
-
-```yaml
-input_contract:
-  required:
-    - code_path: string
-  optional:
-    - config: object
-    - expertise_file: path
-
-output_contract:
-  required:
-    - clarity_score: float
-    - violations: list
-    - fixes: list
-    - status: string
-```
-
-### Eval Harness Integration
-
-```yaml
-benchmark: clarity-linter-benchmark-v1
-  tests:
-    - cl-001: Violation Detection
-    - cl-002: Fix Quality
-  minimum_scores:
-    detection_accuracy: 0.85
-    fix_quality: 0.80
-```
-
-### Memory Namespace
-
-```yaml
-namespaces:
-  - clarity-linter/reports/{id}: Lint reports
-  - clarity-linter/patterns: Clarity patterns
-```
-
-### Cross-Skill Coordination
-
-Works with: **style-audit**, **code-review-assistant**, **skill-forge**
-
----
-
-## !! SKILL COMPLETION VERIFICATION (MANDATORY) !!
-
-**After invoking this skill, you MUST complete ALL items below before proceeding:**
-
-### Completion Checklist
-
-- [ ] **Agent Spawning**: Did you spawn at least 1 agent via Task()?
-  - Example: `Task("Agent Name", "Task description", "agent-type-from-registry")`
-
-- [ ] **Agent Registry Validation**: Is your agent from the registry?
-  - Registry location: `claude-code-plugins/ruv-sparc-three-loop-system/agents/`
-  - Valid categories: delivery, foundry, operations, orchestration, platforms, quality, research, security, specialists, tooling
-  - NOT valid: Made-up agent names
-
-- [ ] **TodoWrite Called**: Did you call TodoWrite with 5+ todos?
-  - Example: `TodoWrite({ todos: [8-10 items covering all work] })`
-
-- [ ] **Work Delegation**: Did you delegate to agents (not do work yourself)?
-  - CORRECT: Agents do the implementation via Task()
-  - WRONG: You write the code directly after reading skill
-
-### Correct Pattern After Skill Invocation
-
-```javascript
-// After Skill("<skill-name>") is invoked:
-[Single Message - ALL in parallel]:
-  Task("Agent 1", "Description of task 1...", "agent-type-1")
-  Task("Agent 2", "Description of task 2...", "agent-type-2")
-  Task("Agent 3", "Description of task 3...", "agent-type-3")
-  TodoWrite({ todos: [
-    {content: "Task 1 description", status: "in_progress", activeForm: "Working on task 1"},
-    {content: "Task 2 description", status: "pending", activeForm: "Working on task 2"},
-    {content: "Task 3 description", status: "pending", activeForm: "Working on task 3"},
-  ]})
-```
-
-### Wrong Pattern (DO NOT DO THIS)
-
-```javascript
-// WRONG - Reading skill and then doing work yourself:
-Skill("<skill-name>")
-// Then you write all the code yourself without Task() calls
-// This defeats the purpose of the skill system!
-```
-
-**The skill is NOT complete until all checklist items are checked.**
-
----
-
-**Remember the pattern: Skill() -> Task() -> TodoWrite() - ALWAYS**
-
----
-
-## Core Principles
-
-### 1. Cognitive Load is Measurable
-Code clarity is not subjective. Indirection, nesting depth, function size, and naming quality can be quantified through machine-readable rubrics with weighted scoring.
-
-**In practice:**
-- Use clarity_rubric.json with 5 dimensions (25% thin helpers, 25% size/cohesion, 20% call depth, 15% duplication, 15% comments)
-- Collect objective metrics: func_lines, nesting_depth, call_count, name_semantic_score, comment_density
-- Score 0-1 per dimension based on threshold violations (SOFT_TOO_LONG_FUNCTION > 40 lines)
-- Aggregate to overall score with weights (0.8+ ACCEPT, 0.6-0.79 REFINE, <0.6 REJECT)
-- Track improvement over time (average score trend, violations by type)
-- Use statistical validation (metrics collection on 100-500 functions/sec)
-
-### 2. Indirection is Only Valuable When Semantic
-Adding layers of abstraction without adding meaning increases cognitive load. Thin helpers that forward calls or wrap trivial expressions are clarity violations.
-
-**In practice:**
-- Detect thin helpers: <=3 lines + trivial expression + low semantic name score
-- Identify pass-through wrappers: single call forwarder + no value-add
-- Score naming quality: 1.0 for domain meaning (validate_email), 0.1 for generic (do_thing, helper)
-- Count call depth (max 4 levels per file, 6 levels per project)
-- Auto-fix HIGH confidence violations: inline thin helpers, remove wrappers
-- Require semantic justification for abstraction layers
-
-### 3. Fixes Must Be Safe and Evidence-Based
-Auto-fixes should only apply to high-confidence, mechanical transformations. Complex refactorings require human judgment.
-
-**In practice:**
-- HIGH confidence (auto-apply): Inline thin helper called <=3 times, remove pass-through wrapper
-- MEDIUM confidence (suggest only): Extract substeps from long function, split low-cohesion function
-- LOW confidence (suggest only): Adjust comment density, add documentation to complex functions
-- All auto-fixes tested for correctness (no breakage from inlining)
-- Suggested fixes include rationale and expected improvement
-- Track auto-fix success rate (no regressions allowed)
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Creating thin helpers for "clean code"** | Adds useless indirection, hides complexity instead of reducing it, increases call depth | Inline helpers <=3 lines with trivial logic. Only extract if semantic value added (meaningful name, reusable abstraction). |
-| **Over-abstracting for "DRY"** | Creates God Objects, parameter bombs, excessive indirection to avoid 2 lines of duplication | Allow intentional duplication for clarity. Extract only when pattern is genuine, reusable, and semantically cohesive. |
-| **Ignoring cognitive load metrics** | Code "looks clean" but has 8-level nesting, 72-line functions, 14-parameter methods | Enforce NASA coding standards: max 4 nesting levels, 50 lines per function, 6 parameters per method. Measure objectively. |
-| **Auto-fixing without validation** | Breaks functionality, introduces bugs, loses semantic meaning during mechanical refactoring | Only auto-fix HIGH confidence violations (inline, remove wrapper). Suggest MEDIUM/LOW confidence fixes. Test all changes. |
-| **Confusing comments with clarity** | Over-commented code (comment_density > 0.35) hides poor naming and structure | Good code self-documents. Use comments for "why", not "what". If comments explain code, improve code instead. |
-| **Skipping baseline comparison** | Cannot prove improvement, may make code worse while chasing metrics | Always compare before/after scores. Track improvement delta. Validate that refactoring improves clarity, not just metrics. |
-
----
-
-## Conclusion
-
-The Clarity Linter skill operationalizes code clarity through machine-readable rubrics that quantify cognitive load across five dimensions: thin helpers, function size, call depth, duplication, and comments. By collecting objective metrics and applying weighted scoring, this skill transforms subjective code review into evidence-based quality assessment.
-
-The emphasis on indirection as the primary clarity violation challenges the "clean code" assumption that more abstraction is always better. Thin helpers, pass-through wrappers, and excessive call depth increase cognitive load without reducing complexity. The skill detects these patterns automatically and provides high-confidence auto-fixes (inlining, wrapper removal) alongside lower-confidence suggestions (extracting substeps, splitting cohesion).
-
-By integrating with the dogfooding cycle (Phase 1: quality detection, Phase 2: pattern retrieval, Phase 3: continuous improvement), the Clarity Linter enables systematic code quality improvement with pattern learning across projects. The combination of objective metrics, safe auto-fixes, and transparent reporting makes code clarity measurable, improvable, and auditable - transforming it from an art into an engineering discipline.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>CLARITY_LINTER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,49 +1,61 @@
----
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Vague or ambiguous user requests requiring clarification
-- Multi-step workflows where underlying intent is unclear
-- First principles decomposition of complex requests
-- Socratic questioning to uncover hidden constraints
-- Probabilistic intent mapping with <80% confidence requiring clarification
-
-### When NOT to Use This Skill
-- Clear, actionable requests with explicit requirements (>90% confidence)
-- Simple single-step tasks with no ambiguity
-- When speed is prioritized over thorough understanding
-- Follow-up questions where context already established
-
-### Success Criteria
-- [assert|neutral] Understood intent with 85%+ confidence score [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Explicit and implicit constraints identified [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Ambiguities resolved through Socratic clarification [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] User confirms optimized request matches true intent [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] First principles decomposition reveals underlying goals [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- User says 'just do it': flag low confidence, proceed with caveats
-- Contradictory requirements: surface conflict, request prioritization
-- Unstated assumptions: probe with questions, validate inferences
-- Multiple valid interpretations: present options, ask user to choose
-- Domain-specific jargon: verify technical terms match user's mental model
-
-### Critical Guardrails
-- NEVER proceed with <80% confidence without clarification
-- ALWAYS distinguish explicit constraints (stated) from implicit (inferred)
-- NEVER assume user's technical level (ask if terminology unclear)
-- ALWAYS present optimized request for user confirmation
-- NEVER skip first principles decomposition for complex requests
-
-### Evidence-Based Validation
-- Validate confidence score: recompute from constraint clarity, goal specificity
-- Cross-check assumptions: ask follow-up targeting low-confidence areas
-- Test optimized request: does it capture all explicit + implicit constraints?
-- Verify first principles: can you explain WHY each requirement exists?
-- Confirm user alignment: show decomposition, get explicit approval
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 name: intent-analyzer
 description: Advanced intent interpretation system that analyzes user requests using
   cognitive science principles and extrapolates logical volition. Use when user requests
@@ -118,406 +130,67 @@ Recognize which category of request this represents based on established taxonom
 - Creative task (writing, design, ideation)
 - Analytical task (evaluation, comparison, assessment)
 - Technical task (coding, configuration, troubleshooting)
-- Learning query (explanation, teaching, understanding)
-- Decision-making request (choosing between options, planning)
-- Problem-solving (debugging, optimization, fixing issues)
-
-Each category has characteristic patterns, common unstated assumptions, and typical underlying goals. Use pattern recognition to inform interpretation.
-
-### Constraint Detection
-
-Identify both explicit and implicit constraints:
-
-**Explicit constraints**: Directly stated requirements like word limits, specific formats, deadline pressures, technical requirements, or resource limitations
-
-**Implicit constraints**: Emerge from context such as:
-- Technical skill level (suggested by terminology used)
-- Time pressure (urgent phrasing, "quick" requests)
-- Resource limitations (mentions of budget, access, permissions)
-- Domain-specific requirements (industry standards, company policies)
-- Audience considerations (who will see/use the output)
-
-Surface implicit constraints through strategic questioning when they significantly impact the response.
-
-### Socratic Clarification
-
-When facing genuine uncertainty, engage in targeted questioning designed to reveal:
-- Hidden assumptions and unstated premises
-- True underlying goals beyond stated requests
-- Critical constraints that weren't mentioned
-- Context that would change the optimal approach
-
-These questions are strategically chosen to disambiguate between competing interpretations, not to gather exhaustive details. Quality questions prevent wasted effort on wrong interpretations.
-
-## The Intent Analysis Process
-
-### Phase 1: Deep Analysis (Internal Processing)
-
-Upon receiving a request, immediately engage in comprehensive internal analysis:
-
-**Intent Archaeology**: Excavate the layers of intent:
-- What is explicitly stated?
-- What is implied?
-- What domain knowledge or context is assumed?
-- What expertise level does the phrasing suggest?
-- Are there temporal constraints, quality requirements, or formatting preferences implied?
-
-**Goal Extrapolation**: Construct a model of what the user is ultimately trying to achieve:
-- Immediate goals (the task at hand)
-- Higher-order goals (why they're doing this task)
-
-For example, someone asking for code to scrape a website might be:
-- Building a data pipeline (needs production-ready, maintainable code)
-- Learning web scraping (needs educational code with explanations)
-- Completing a school project (needs working code with documentation)
-- Solving a one-time problem (needs quick, simple solution)
-
-Each underlying goal suggests different optimal responses.
-
-**Constraint Detection**: Identify constraints both explicit and implicit:
-- Stated requirements (lengths, formats, deadlines)
-- Contextual constraints (skill level, time pressure, resources)
-- Domain requirements (standards, policies, compatibility)
-
-**Pattern Recognition**: Map the request to established categories and identify which prompting patterns would be most beneficial. Is this analytical, creative, technical, learning-focused, or decision-oriented? Each benefits from different approaches.
-
-**Ambiguity Assessment**: Quantify uncertainty in interpretation:
-- **High confidence (>80%)**: Proceed with dominant interpretation while noting alternatives
-- **Moderate confidence (50-80%)**: Proceed with interpretation but explicitly acknowledge assumption
-- **Low confidence (<50%)**: Seek clarification before proceeding
-
-### Phase 2: Decision Point
-
-After internal analysis, choose between two paths:
-
-**Path A - High Confidence Interpretation**: 
-When analysis reveals clear dominant interpretation (confidence >80%), proceed directly while:
-- Briefly noting interpretation if it involves meaningful assumptions
-- Remaining open to correction if interpretation was wrong
-- Framing response to make interpretation obvious
-
-**Path B - Clarification Required**:
-When analysis identifies:
-- Genuine ambiguity (multiple interpretations >30% probability each)
-- Hidden assumptions that could lead to dramatically different responses
-- Critical missing information that significantly impacts optimal approach
-
-Engage in Socratic clarification before proceeding.
-
-### Phase 3: Socratic Clarification (When Needed)
-
-When clarification is needed, ask strategic questions:
-
-**Disambiguation Questions**: Distinguish between competing interpretations:
-- "Are you looking to [interpretation A] or [interpretation B]?"
-- "Is your goal [immediate goal] or [higher-order goal]?"
-- "Would you prefer [approach X] or [approach Y]?"
-
-**Constraint Revelation Questions**: Surface unstated constraints:
-- "What will you use this for?" (reveals purpose)
-- "Who is the audience?" (reveals formality/complexity needs)
-- "What have you tried already?" (reveals context and expertise)
-- "What's your timeline?" (reveals urgency)
-
-**Context Gathering Questions**: Build essential understanding:
-- "What's the broader context for this request?"
-- "Are there specific requirements or constraints I should know about?"
-- "What would success look like for you?"
-
-**Assumption Validation Questions**: Verify implicit assumptions:
-- "I'm assuming [X]. Is that correct?"
-- "Should I focus on [aspect A] or is [aspect B] more important?"
-
-Keep clarification focused and efficient. Avoid overwhelming with questions. Ask 1-3 strategic questions maximum in a single turn.
-
-### Phase 4: Interpretation Reconstruction
-
-After clarification (if needed), reconstruct the request with improved clarity:
-
-**Intent Synthesis**: Combine explicit statements with uncovered implicit goals into comprehensive understanding of true intent.
-
-**Assumption Surfacing**: Make previously implicit assumptions explicit:
-- "I'm interpreting this as [specific interpretation]"
-- "I'm assuming [key assumption]"
-- "If you meant something different, let me know"
-
-**Approach Signaling**: Indicate the approach being taken:
-- "I'll focus on [aspect] because [reasoning]"
-- "This seems like a [task type], so I'll [approach]"
-
-This transparency allows users to correct misunderstandings early.
-
-## Pattern-Based Intent Recognition
-
-Different request patterns suggest different underlying intents:
-
-### Creative Requests
-**Patterns**: "Write," "Create," "Design," "Come up with"
-**Common underlying goals**:
-- Generating ideas for further refinement
-- Producing finished output for external use
-- Learning creative techniques
-- Overcoming writer's block or creative barriers
-
-**Key questions to disambiguate**:
-- What will this be used for?
-- What tone/style/voice are you aiming for?
-- Do you want multiple options or one polished version?
-
-### Analytical Requests
-**Patterns**: "Analyze," "Evaluate," "Compare," "Assess"
-**Common underlying goals**:
-- Making a decision (needs actionable insights)
-- Understanding deeply (needs educational explanation)
-- Validating existing opinion (needs objective assessment)
-- Finding problems (needs critical analysis)
-
-**Key questions to disambiguate**:
-- What decision are you trying to make?
-- What criteria matter most to you?
-- Are you looking for validation or challenging your assumptions?
-
-### Technical Requests
-**Patterns**: "Fix," "Debug," "Build," "Implement"
-**Common underlying goals**:
-- Solving specific problem quickly
-- Learning technical concepts
-- Establishing patterns for future work
-- Meeting external requirements (assignment, job task)
-
-**Key questions to disambiguate**:
-- What's your experience level with [technology]?
-- Is this for learning or production use?
-- What have you tried already?
-
-### Learning Requests
-**Patterns**: "Explain," "How does," "Teach me," "I don't understand"
-**Common underlying goals**:
-- Building foundational understanding
-- Clarifying specific confusion
-- Preparing for application (test, project, interview)
-- Satisfying intellectual curiosity
-
-**Key questions to disambiguate**:
-- What's your current understanding level?
-- What will you do with this knowledge?
-- What specifically is confusing?
-
-### Decision Requests
-**Patterns**: "Should I," "Which is better," "What do you recommend"
-**Common underlying goals**:
-- Making high-stakes choice (needs thorough analysis)
-- Validating leaning (wants confirmation)
-- Understanding tradeoffs (needs balanced view)
-- Generating options (needs creative alternatives)
-
-**Key questions to disambiguate**:
-- What criteria are most important to you?
-- What are you optimizing for?
-- What constraints do you have?
-
-## Advanced Techniques
-
-### Temporal Analysis
-
-Consider timing-related intent signals:
-- "Quick" or "fast" → Simple, direct solution preferred
-- "Comprehensive" → Thorough, detailed response valued
-- No temporal qualifier with complex task → Likely values quality over speed
-
-### Audience Detection
-
-Identify who will consume the output:
-- Technical expert audience → Precision and accuracy critical
-- General audience → Clarity and accessibility critical
-- Personal use → Can be tailored to user's specific needs
-- Formal presentation → Polish and professionalism critical
-
-### Expertise Calibration
-
-Assess user's expertise from:
-- Terminology used (technical vs. layman terms)
-- Specificity of question (precise vs. general)
-- Awareness of options (mentions specific approaches/tools)
-- Previous context in conversation
-
-Adjust explanation depth and technical detail accordingly.
-
-### Meta-Request Recognition
-
-Identify requests that are actually about the conversation itself:
-- Asking about capabilities → Wants to know what's possible
-- Expressing dissatisfaction → Wants different approach
-- Checking understanding → Wants validation before proceeding
-- Requesting examples → Wants concrete illustration
-
-## Transparency and User Control
-
-### Interpretation Acknowledgment
-
-When making significant interpretive leaps:
-- "I'm interpreting this as [interpretation]. If you meant something different, let me know."
-- "Based on [clue], I'm assuming [assumption]. Correct me if that's wrong."
-
-### Assumption Surfacing
-
-Make implicit assumptions explicit when relevant:
-- "I'm assuming you need [X] rather than [Y] because [reasoning]"
-- "This approach prioritizes [value A] over [value B]"
-
-### User Override
-
-Users can always override interpretation:
-- If user explicitly states different intent, immediately adjust
-- Don't argue about interpretation—respect user's clarification
-- Learn from corrections to improve future interpretation
-
-### Gradual Escalation
-
-Don't immediately jump to maximum complexity:
-- Start with reasonable interpretation for simple questions
-- Escalate sophistication only when request clearly warrants it
-- Match response complexity to request complexity
-
-## Meta-Level Awareness
-
-### Expertise Detection
-
-Calibrate interpretation based on user sophistication:
-- Expert users: Formulate clear requests needing minimal reconstruction
-- Novice users: Often benefit from significant interpretation and restructuring
-
-Detect expertise through:
-- Vocabulary choices and terminology
-- Specificity of requests
-- Awareness of capabilities
-- Response to initial interactions
-
-### Domain Adaptation
-
-Different domains have different conventions:
-- Technical domains: May need less background but more precision
-- Creative domains: May need more exploration of aesthetic goals
-- Learning domains: May benefit from Socratic questioning
-
-### Feedback Integration
-
-When users express dissatisfaction or correction:
-- Treat as high-value feedback
-- Immediately recalibrate interpretation model
-- Adjust approach for subsequent messages
-- Don't repeat the same misinterpretation
-
-### Progressive Refinement
-
-Treat conversations as iterative refinement:
-- First interpretation may not be perfect
-- Each interaction provides more information
-- Continuously update model of user's goals
-- Build understanding progressively
-
-## Practical Guidelines
-
-### When to Clarify vs. When to Proceed
-
-**Clarify when**:
-- Multiple reasonable interpretations exist (>2 with >30% probability)
-- Wrong interpretation would waste significant effort
-- Stakes are high (important decision, major project)
-- Missing information is critical to providing value
-
-**Proceed when**:
-- One interpretation is clearly dominant (>80% confidence)
-- Request is straightforward and low-stakes
-- User has provided clear context
-- Ambiguity is minor and doesn't significantly impact response
-
-### Balancing Efficiency and Understanding
-
-- Don't over-clarify simple, clear requests
-- Don't under-clarify complex, ambiguous ones
-- Aim for minimum necessary clarification
-- Value user's time—be efficient
-
-### Natural Conversation Flow
-
-- Make interpretation feel natural, not mechanical
-- Don't overwhelm with meta-commentary about reasoning process
-- Focus on providing value, not demonstrating analysis
-- Keep clarifying questions conversational, not interrogatory
-
-## Common Intent Patterns
-
-### "Help me with X"
-
-Could mean:
-- Do X for me (wants output)
-- Teach me how to do X (wants understanding)
-- Review my attempt at X (wants feedback)
-- Brainstorm approaches to X (wants options)
-
-**Disambiguate**: Check if they've already tried something or if starting from scratch
-
-### "Is X good?"
-
-Could mean:
-- Validate my positive opinion of X (wants confirmation)
-- Should I choose X over Y (wants decision help)
-- What are the tradeoffs of X (wants balanced analysis)
-- Is X technically correct (wants accuracy check)
-
-**Disambiguate**: Ask what they're trying to decide or evaluate
-
-### "Make X better"
-
-Could mean:
-- Fix specific problems in X (needs diagnosis)
-- Optimize X for [metric] (needs target metric)
-- Rewrite X entirely (wants fresh approach)
-- Polish X for presentation (needs refinement only)
-
-**Disambiguate**: Ask what aspects they want improved or what "better" means
-
-## Conclusion
-
-Intent Analyzer transforms request interpretation from surface-level reading to deep understanding. By applying cognitive science principles, probabilistic reasoning, and strategic questioning, it helps discover what users truly need rather than just what they initially asked for.
-
-This leads to responses that address real underlying goals, avoid wasted effort on misinterpretations, and ultimately provide much greater value. The investment in understanding intent deeply pays dividends through higher-quality, more relevant responses that truly help users achieve their goals.
-
-Use Intent Analyzer thoughtfully—not every request needs deep analysis, but complex, ambiguous, or high-stakes requests benefit enormously from this systematic approach to understanding what users really want.
----
-
-## Core Principles
-
-### 1. First Principles Decomposition Before Action
-Never take requests at face value. Decompose every request to fundamental goals by questioning surface assumptions. "Summarize this document" rarely means literal summarization - it often means extracting specific information, preparing for meetings, or evaluating relevance. Identify underlying needs before choosing approaches. This prevents wasted effort on solutions that address stated requests but miss true intent.
-
-### 2. Probabilistic Confidence Thresholds Drive Clarification
-Treat intent interpretation as probability distribution, not binary certainty. When confidence exceeds 80%, proceed with transparent assumptions. Between 50-80%, acknowledge uncertainty and present interpretations explicitly. Below 50%, pause for Socratic clarification through strategic questions. This calibrated approach prevents both over-clarification (wasting user time) and under-clarification (wasting effort on wrong interpretations).
-
-### 3. Pattern Recognition Accelerates Understanding
-Different request categories (creative, analytical, technical, learning, decision-making) have characteristic patterns and unstated assumptions. Recognize these patterns to rapidly identify likely underlying goals and common implicit constraints. A technical debugging request implies skill level from terminology, time pressure from phrasing urgency, and resource constraints from solution complexity mentioned. Pattern matching enables faster, more accurate intent extraction.
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|--------------|--------------|------------------|
-| **Proceeding with low confidence (<80%) without clarification** | Wrong interpretation wastes significant effort on misaligned solutions. User receives unhelpful response, requires rework, and loses trust in system accuracy. | When confidence <80%, engage Socratic clarification with 1-3 strategic questions targeting highest-uncertainty areas. Better to ask upfront than deliver wrong solution. Example: "Are you looking to [interpretation A] or [interpretation B]?" |
-| **Over-clarifying simple, clear requests** | Creates friction for straightforward tasks. Users perceive system as inefficient when obvious requests trigger lengthy questioning. Slows workflow unnecessarily and trains users to provide less information to avoid interrogation. | Match clarification depth to request ambiguity. Simple requests (>90% confidence) proceed immediately with brief interpretation acknowledgment. Reserve extensive questioning for genuinely ambiguous high-stakes requests. Respect user time. |
-| **Ignoring implicit constraints revealed through phrasing** | Missing implied time pressure ("quick"), technical level (jargon usage), or quality expectations ("comprehensive") leads to mismatched responses. User gets correct answer to wrong question because constraints were overlooked. | Analyze phrasing for constraint signals: "quick" = prioritize speed, technical jargon = adjust complexity, "comprehensive" = depth over brevity. Extract constraints from both explicit statements and implicit communication patterns. |
-
----
-
-## Conclusion
-
-Intent Analyzer represents a shift from literal interpretation to understanding underlying volition - determining what users would request with complete knowledge and perfect clarity. This approach recognizes that surface-level requests are often proxies for deeper needs shaped by incomplete information, communication constraints, and unstated assumptions. By applying first principles decomposition, probabilistic confidence calibration, and pattern recognition, the skill transforms vague requests into well-understood goals.
-
-The practical value emerges in prevented wasted effort. Without intent analysis, ambiguous requests lead to technically correct but functionally useless responses - solving the stated problem while missing the actual need. With intent analysis, responses address true underlying goals even when initial phrasing was imperfect. This is especially critical for complex, high-stakes, or ambiguous requests where misunderstanding compounds across multiple steps.
-
-Effective intent analysis requires balancing thoroughness with efficiency. Not every request needs deep analysis - straightforward queries benefit from immediate execution. The skill's power lies in recognizing when surface-level interpretation is insufficient and applying systematic analysis precisely where it adds value. Master this discernment, and you transform Claude from a literal executor into a genuine collaborator that understands not just what users say, but what they mean.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+- Learning query (explanation, teachin
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

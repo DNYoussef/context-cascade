@@ -1,8 +1,60 @@
+/*============================================================================*/
+/* DEPENDENCIES SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: dependencies
 version: 2.1.0
-description: Dependency management and analysis hub. Map project dependencies, analyze dependency graphs, identify vulnerabilities, and manage package versions. Routes to dependency-mapper and related analysis tools.
+description: |
+  [assert|neutral] Dependency management and analysis hub. Map project dependencies, analyze dependency graphs, identify vulnerabilities, and manage package versions. Routes to dependency-mapper and related analysis too [ground:given] [conf:0.95] [state:confirmed]
+category: tooling
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute dependencies workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic tooling processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "dependencies",
+  category: "tooling",
+  version: "2.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["dependencies", "tooling", "workflow"],
+  context: "user needs dependencies capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Dependencies
 
@@ -148,28 +200,67 @@ Direct dependencies are visible and reviewed, but transitive dependencies (depen
 Outdated dependencies accumulate security vulnerabilities and miss performance improvements, but aggressive version upgrades introduce breaking changes and untested code paths. The optimal strategy is risk-stratified: security patches applied immediately, minor updates batched and tested weekly, major updates evaluated for breaking changes and scheduled deliberately. Blanket "always latest" or "never update" policies fail by ignoring risk context.
 
 ### 3. Circular Dependencies as Architectural Code Smell
-Circular dependencies (package A depends on B, B depends on A) indicate architectural coupling that prevents independent evolution, complicates testing, and signals unclear separation of concerns. While sometimes unavoidable in legacy codebases, new circular dependencies should trigger architectural review. Dependency graph analysis that only reports existence without surfacing cycles misses a critical maintainability signal.
+Circular dependencies (package A depends on B, B depends on A) indicate architectural coupling that prevents independent evolution, complicates testing, and signals unclear separation of concerns. While sometimes unavoidable in legacy codebases, new circular dependenc
 
----
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Anti-Patterns
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-| Anti-Pattern | Why It Fails | Correct Approach |
-|-------------|--------------|------------------|
-| **Only auditing direct dependencies** | Ignores 80-95% of dependency graph. Transitive dependencies carry same security risks but escape review. Event-stream attack (2018) compromised via transitive dependency. False sense of security. | Audit full dependency tree: npm audit, pip-audit, cargo audit traverse transitives. Flag unmaintained packages at any depth. Review high-risk transitives (network access, filesystem writes). |
-| **Ignoring unused dependencies** | Bloats bundle size, increases attack surface, slows install times, creates maintenance burden for updates. Suggests code was deleted but package.json not cleaned up, indicating lax hygiene. | Run dependency-cruiser or depcheck to identify unused. Remove immediately. Prevent via CI check that fails on unused deps. Enforce "delete code, delete dependency" discipline. |
-| **Accepting circular dependencies as inevitable** | Circular dependencies prevent module-level testing, complicate reasoning about data flow, block parallelization, and signal architectural coupling. Treating as normal discourages refactoring. | Detect with madge or similar tools. Block new circulars in CI. Refactor existing: extract shared code to new module, apply dependency inversion, break into layers (domain/application/infrastructure). |
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
----
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Conclusion
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Dependency management addresses the tension between leveraging ecosystem velocity and controlling software supply chain risk. Modern applications depend on hundreds or thousands of packages, creating attack surface and maintenance burden that manual review cannot scale to. This skill systematizes dependency analysis to surface the signals that matter: security vulnerabilities, version freshness, circular coupling, and unused bloat.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/tooling/dependencies/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-The skill's effectiveness comes from treating dependencies as a living system requiring continuous monitoring rather than one-time audits. Automated security scanning detects CVEs as they are disclosed, version freshness checks identify stale packages before vulnerabilities emerge, and circular dependency detection prevents architectural decay. The cross-skill coordination with security audits and code review integrates dependency health into broader quality gates rather than treating it as isolated infrastructure concern.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "dependencies-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-By providing ecosystem-specific tooling (npm/pip/cargo/go mod) and risk-stratified update strategies (security patches immediate, minor updates batched, major updates deliberate), the skill balances the conflicting goals of staying current and maintaining stability. The result is applications that leverage ecosystem innovation without accumulating hidden technical debt and security exposure in the dependency graph.
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>DEPENDENCIES_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

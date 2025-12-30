@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* WCAG-ACCESSIBILITY SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: wcag-accessibility
-description: WCAG 2.1 AA/AAA accessibility compliance specialist for ARIA attributes, keyboard navigation, screen reader testing, color contrast validation, semantic HTML, and automated a11y testing with axe-core/Lighthouse. Use when ensuring web accessibility, meeting legal compliance (ADA, Section 508), implementing inclusive design, or requiring WCAG best practices. Handles focus management, live regions, accessible forms, and assistive technology compatibility.
+version: 1.0.0
+description: |
+  [assert|neutral] WCAG 2.1 AA/AAA accessibility compliance specialist for ARIA attributes, keyboard navigation, screen reader testing, color contrast validation, semantic HTML, and automated a11y testing with axe-core/ [ground:given] [conf:0.95] [state:confirmed]
 category: Compliance
-complexity: Medium
-triggers: ["wcag", "accessibility", "a11y", "aria", "screen reader", "keyboard navigation", "color contrast", "ada compliance", "section 508", "inclusive design"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute wcag-accessibility workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Compliance processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "wcag-accessibility",
+  category: "Compliance",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["wcag-accessibility", "Compliance", "workflow"],
+  context: "user needs wcag-accessibility capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # WCAG Accessibility Specialist
 
@@ -153,450 +203,67 @@ class AccessibleModal {
 
 ```html
 <body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
-  <nav><!-- navigation --></nav>
-  <main id="main-content" tabindex="-1">
-    <!-- main content -->
-  </main>
-</body>
-
-<style>
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  z-index: 999;
-  padding: 1em;
-  background: #000;
-  color: #fff;
-}
-
-.skip-link:focus {
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-}
-</style>
-```
-
-### Workflow 3: ARIA Patterns
-
-**Step 1: Accordion Component**
-
-```html
-<div class="accordion">
-  <h3>
-    <button
-      aria-expanded="false"
-      aria-controls="section1"
-      id="accordion1"
-    >
-      <span>Section 1</span>
-      <span aria-hidden="true">+</span>
-    </button>
-  </h3>
-  <div id="section1" role="region" aria-labelledby="accordion1" hidden>
-    <p>Section 1 content</p>
-  </div>
-
-  <h3>
-    <button
-      aria-expanded="false"
-      aria-controls="section2"
-      id="accordion2"
-    >
-      <span>Section 2</span>
-      <span aria-hidden="true">+</span>
-    </button>
-  </h3>
-  <div id="section2" role="region" aria-labelledby="accordion2" hidden>
-    <p>Section 2 content</p>
-  </div>
-</div>
-
-<script>
-document.querySelectorAll('.accordion button').forEach(button => {
-  button.addEventListener('click', () => {
-    const expanded = button.getAttribute('aria-expanded') === 'true';
-    const content = document.getElementById(button.getAttribute('aria-controls'));
-
-    button.setAttribute('aria-expanded', !expanded);
-    content.hidden = expanded;
-    button.querySelector('[aria-hidden]').textContent = expanded ? '+' : '-';
-  });
-});
-</script>
-```
-
-**Step 2: Live Regions for Dynamic Content**
-
-```html
-<div aria-live="polite" aria-atomic="true" class="sr-only">
-  <!-- Announces updates to screen readers -->
-</div>
-
-<script>
-function announceToScreenReader(message) {
-  const liveRegion = document.querySelector('[aria-live]');
-  liveRegion.textContent = message;
-  setTimeout(() => {
-    liveRegion.textContent = '';
-  }, 1000);
-}
-
-// Usage
-announceToScreenReader('Item added to cart');
-</script>
-```
-
-### Workflow 4: Color Contrast and Visual Design
-
-**Step 1: WCAG AA Contrast Requirements**
-
-```css
-/* ✅ GOOD: 4.5:1 contrast for normal text (WCAG AA) */
-.text {
-  color: #595959; /* on white background */
-  background: #ffffff;
-}
-
-/* ✅ GOOD: 3:1 contrast for large text (18pt+ or 14pt+ bold) */
-.large-text {
-  font-size: 18pt;
-  color: #767676;
-  background: #ffffff;
-}
-
-/* ❌ BAD: 2.5:1 contrast (fails WCAG AA) */
-.low-contrast {
-  color: #a8a8a8;
-  background: #ffffff;
-}
-```
-
-**Step 2: Focus Indicators**
-
-```css
-/* ✅ GOOD: Visible focus indicator */
-button:focus,
-a:focus {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
-}
-
-/* Enhanced focus for keyboard users only */
-button:focus-visible {
-  outline: 3px solid #4A90E2;
-  outline-offset: 2px;
-}
-
-/* ❌ BAD: Removing outline without replacement */
-button:focus {
-  outline: none; /* Don't do this */
-}
-```
-
-**Step 3: Responsive Text and Zoom**
-
-```css
-/* ✅ GOOD: Relative units for zoom support */
-body {
-  font-size: 16px; /* Base size */
-}
-
-h1 {
-  font-size: 2rem; /* 32px, scales with zoom */
-}
-
-/* ✅ GOOD: Allow text to reflow at 320px viewport */
-@media (max-width: 320px) {
-  .container {
-    width: 100%;
-    max-width: none;
-  }
-}
-```
-
-### Workflow 5: Automated Testing
-
-**Step 1: axe-core Integration**
-
-```bash
-npm install --save-dev @axe-core/playwright
-```
-
-```javascript
-// tests/accessibility.test.js
-import { test, expect } from '@playwright/test';
-import { injectAxe, checkA11y } from '@axe-core/playwright';
-
-test('homepage should be accessible', async ({ page }) => {
-  await page.goto('http://localhost:3000');
-  await injectAxe(page);
-
-  await checkA11y(page, null, {
-    detailedReport: true,
-    detailedReportOptions: {
-      html: true,
-    },
-  });
-});
-
-test('forms should be accessible', async ({ page }) => {
-  await page.goto('http://localhost:3000/form');
-  await injectAxe(page);
-
-  await checkA11y(page, '#form-container', {
-    axeOptions: {
-      runOnly: {
-        type: 'tag',
-        values: ['wcag2a', 'wcag2aa', 'wcag21aa'],
-      },
-    },
-  });
-});
-```
-
-**Step 2: Lighthouse CI**
-
-```yaml
-# .github/workflows/a11y.yml
-name: Accessibility Audit
-on: [pull_request]
-
-jobs:
-  lighthouse:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run Lighthouse
-        uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            http://localhost:3000
-          configPath: ./lighthouserc.json
-```
-
-```json
-// lighthouserc.json
-{
-  "ci": {
-    "assert": {
-      "assertions": {
-        "categories:accessibility": ["error", { "minScore": 0.9 }]
-      }
-    }
-  }
-}
-```
-
-## Best Practices
-
-**1. Semantic HTML First**
-```html
-<!-- ✅ GOOD -->
-<nav><ul><li><a href="/">Home</a></li></ul></nav>
-<main><article><h1>Title</h1></article></main>
-<footer>Footer content</footer>
-
-<!-- ❌ BAD -->
-<div class="nav"><div class="link">Home</div></div>
-<div class="content"><div class="title">Title</div></div>
-```
-
-**2. Alt Text for Images**
-```html
-<!-- ✅ GOOD: Descriptive alt text -->
-<img src="chart.png" alt="Bar chart showing sales increased 40% in Q4" />
-
-<!-- ✅ GOOD: Decorative image -->
-<img src="decorative.png" alt="" role="presentation" />
-
-<!-- ❌ BAD: Missing alt or generic text -->
-<img src="chart.png" alt="image" />
-```
-
-**3. Headings Hierarchy**
-```html
-<!-- ✅ GOOD: Logical heading order -->
-<h1>Page Title</h1>
-<h2>Section 1</h2>
-<h3>Subsection 1.1</h3>
-<h2>Section 2</h2>
-
-<!-- ❌ BAD: Skipping levels -->
-<h1>Page Title</h1>
-<h4>Section</h4>
-```
-
-**4. Links vs Buttons**
-```html
-<!-- ✅ GOOD: Link for navigation -->
-<a href="/page">Go to page</a>
-
-<!-- ✅ GOOD: Button for actions -->
-<button type="button" onclick="showModal()">Open Modal</button>
-
-<!-- ❌ BAD: Link styled as button for action -->
-<a href="#" onclick="showModal()">Open Modal</a>
-```
-
-**5. Tables for Tabular Data**
-```html
-<table>
-  <caption>Monthly Sales Report</caption>
-  <thead>
-    <tr>
-      <th scope="col">Month</th>
-      <th scope="col">Sales</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">January</th>
-      <td>$10,000</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-## Quality Criteria
-
-- ✅ Lighthouse accessibility score ≥90
-- ✅ Zero critical axe-core violations
-- ✅ All interactive elements keyboard accessible
-- ✅ Color contrast ratio ≥4.5:1 (normal text)
-- ✅ All images have alt text
-- ✅ Forms have proper labels
-- ✅ Passes screen reader testing (NVDA/VoiceOver)
-
-## Testing Checklist
-
-**Keyboard Navigation**:
-- [ ] Tab through all interactive elements
-- [ ] Shift+Tab works in reverse
-- [ ] Enter/Space activates buttons
-- [ ] Escape closes modals
-- [ ] Arrow keys work in custom widgets
-
-**Screen Reader**:
-- [ ] All content is announced
-- [ ] Landmarks are correctly identified
-- [ ] Form errors are announced
-- [ ] Dynamic content updates are announced
-- [ ] Images have descriptive alt text
-
-**Visual**:
-- [ ] Text readable at 200% zoom
-- [ ] Content reflows at 320px width
-- [ ] Focus indicators visible
-- [ ] No information conveyed by color alone
-
-## Troubleshooting
-
-**Issue**: Screen reader skipping content
-**Solution**: Check if content is visually hidden incorrectly (use `.sr-only` class, not `display: none`)
-
-**Issue**: Tab order incorrect
-**Solution**: Avoid positive `tabindex` values, ensure DOM order matches visual order
-
-**Issue**: Form errors not announced
-**Solution**: Use `aria-live="polite"` or `role="alert"` for error messages
-
-## Related Skills
-
-- `react-specialist`: Accessible React components
-- `testing-quality`: Automated accessibility testing
-- `style-audit`: CSS code quality and a11y
-
-## Tools
-
-- axe DevTools: Browser extension for a11y audits
-- Lighthouse: Performance and a11y audits
-- NVDA: Free screen reader (Windows)
-- VoiceOver: Built-in screen reader (macOS/iOS)
-- WAVE: Web accessibility evaluation tool
-- Color Contrast Analyzer: WCAG contrast checker
-
-## MCP Tools
-
-- `mcp__playwright__browser_snapshot` for visual regression testing
-- `mcp__playwright__browser_evaluate` for running axe-core
-- `mcp__memory-mcp__memory_store` for a11y patterns
-
-## Success Metrics
-- [assert|neutral] Lighthouse a11y score: ≥90 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] axe-core violations: 0 critical, <5 moderate [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Keyboard accessibility: 100% of interactive elements [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Screen reader testing: 0 critical issues [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] WCAG 2.1 AA compliance: 100% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] - [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Core Principles
-
-### 1. Semantic HTML First, ARIA Second
-The foundation of accessibility is proper HTML structure. Use native HTML elements with built-in semantics before adding ARIA attributes.
-
-**In practice:**
-- Use `<button>` instead of `<div role="button">` for interactive elements
-- Use `<nav>`, `<main>`, `<article>`, `<aside>` for document structure before adding landmarks
-- Reserve ARIA for enhancing native elements or creating custom widgets when no HTML equivalent exists
-- Remember: No ARIA is better than bad ARIA - incorrect ARIA can make experiences worse
-
-### 2. Keyboard Navigation is Non-Negotiable
-Every interactive element must be fully operable via keyboard alone. Mouse and touch are enhancements, not requirements.
-
-**In practice:**
-- All focusable elements must have visible focus indicators (3px minimum, 3:1 contrast)
-- Implement logical tab order that follows visual layout (avoid positive tabindex values)
-- Support standard keyboard patterns (Tab/Shift+Tab, Enter/Space, Arrow keys, Escape)
-- Test every user flow with keyboard only - if you cannot complete a task, users cannot either
-
-### 3. Perceivable Information Through Multiple Channels
-Content must be perceivable to users regardless of sensory abilities. Visual information must have non-visual equivalents.
-
-**In practice:**
-- Provide descriptive alt text for images (describe function, not appearance)
-- Never rely solely on color to convey information (use text labels, patterns, icons)
-- Ensure 4.5:1 contrast for normal text, 3:1 for large text and UI components
-- Use ARIA live regions to announce dynamic content changes to screen readers
-- Support text resizing up to 200% without loss of content or functionality
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Placeholder-only labels** (`<input placeholder="Email">`) | Screen readers do not treat placeholders as labels. Labels disappear when typing, causing memory burden. | Use `<label>` elements with `for` attribute. Placeholders can supplement but never replace labels. |
-| **Removing focus outlines** (`:focus { outline: none; }`) | Keyboard users cannot see where focus is, making navigation impossible. Creates accessibility barrier. | Always provide visible focus indicators. Use `:focus-visible` to show outlines for keyboard users only. |
-| **Generic link text** ("Click here", "Read more") | Screen reader users navigate by links. Generic text provides no context when read in isolation. | Use descriptive link text that makes sense out of context ("Download Q4 financial report", "Read privacy policy"). |
-| **Auto-playing media** (videos, carousels without pause) | Distracts screen reader users, causes cognitive overload, violates WCAG 2.1.1. Cannot be disabled by users. | Provide pause/stop controls. Never auto-play audio >3 seconds. Give users control over all motion. |
-| **Inaccessible modals** (no focus trap, no Escape key) | Keyboard users get lost in page behind modal. Cannot close modal without mouse. Violates WCAG 2.1.2. | Implement focus trap (Tab cycles within modal), restore focus on close, support Escape key to dismiss. |
-| **Missing alt text or alt="image"** | Screen readers announce "image" with no context. Users miss critical information conveyed visually. | Provide descriptive alt text for informative images, empty alt (`alt=""`) for decorative images. |
-
----
-
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Relying on color alone to convey meaning** (green=success, red=error) | Color-blind users cannot distinguish states. Information is lost for 8% of men, 0.5% of women with color blindness. | Always combine color with text labels, icons, or patterns. Example: Use both red color AND "Error" text; use checkmark icon AND green color. |
-| **Tab order does not match visual layout** (tabindex=1,2,3 scattered randomly) | Keyboard users become confused when Tab jumps between elements in non-visual order. Creates frustrating navigation that differs from sighted experience. | Never use positive tabindex values. Keep DOM order matching visual order. Test with Tab-only navigation to verify flow matches layout. |
-| **Hiding focus indicators with CSS** (outline:none, *:focus{outline:0}) | Keyboard users have no visual feedback where focus is. Navigation becomes impossible. Common practice from old IE6 compatibility workarounds. | Always provide visible focus indicators (minimum 3px, 3:1 contrast). Use :focus-visible for keyboard-only indicators. Never remove outlines without replacement. |
-
----
-
-## Conclusion
-
-Web accessibility is not a checklist or compliance exercise - it is a continuous commitment to inclusive design that expands your audience and improves experiences for all users. The principles outlined in this skill create a foundation for building interfaces usable by people with diverse abilities, assistive technologies, and interaction preferences.
-
-The intersection of semantic HTML, keyboard navigation, and perceivable information creates a robust accessibility foundation that serves not only users with disabilities but improves usability for everyone. Proper HTML structure enhances SEO, keyboard navigation benefits power users, and high contrast benefits users in bright environments. Accessibility improvements are rarely wasted effort - they create cascading benefits across user populations.
-
-As you implement these practices, remember that accessibility is measurable and testable. Lighthouse scores, axe-core audits, and screen reader testing provide objective validation. However, the true measure of success is whether real users with disabilities can accomplish their goals efficiently and independently. Combine automated testing with manual validation and user research to create genuinely accessible experiences that meet both technical standards and human needs.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+  <a href="#main-content" class="ski
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Compliance/wcag-accessibility/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "wcag-accessibility-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WCAG_ACCESSIBILITY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

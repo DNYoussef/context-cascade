@@ -1,18 +1,62 @@
+/*============================================================================*/
+/* AGENTDB SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: agentdb
-description: High-performance vector search and semantic memory for AI agents. Use
-  when implementing RAG systems, semantic document retrieval, or persistent agent
-  memory. Provides 150x faster vector search vs traditional databases with HNSW indexing
-  and 384-dimensional embeddings.
 version: 1.0.0
+description: |
+  [assert|neutral] High-performance vector search and semantic memory for AI agents. Use when implementing RAG systems, semantic document retrieval, or persistent agent memory. Provides 150x faster vector search vs trad [ground:given] [conf:0.95] [state:confirmed]
 category: platforms
 tags:
 - platforms
 - integration
 - tools
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute agentdb workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic platforms processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "agentdb",
+  category: "platforms",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["agentdb", "platforms", "workflow"],
+  context: "user needs agentdb capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When NOT to Use This Skill
 
@@ -98,83 +142,67 @@ Use when implementing retrieval-augmented generation (RAG), building semantic se
 
 2. **Store information**
    - Generate embeddings automatically
-   - Store with metadata tags
-   - Index for fast retrieval
-   - Maintain consistency
+   
 
-3. **Query semantically**
-   - Embed query text
-   - Perform vector similarity search
-   - Apply metadata filters
-   - Rank and return results
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-4. **Optimize performance**
-   - Tune HNSW parameters (M, ef_construction)
-   - Implement quantization (4-32x memory reduction)
-   - Use batched operations
-   - Monitor query latency
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Integration
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-- **Memory-MCP**: Triple-layer retention (24h/7d/30d+)
-- **RAG Pipelines**: Document retrieval for LLM context
-- **Agent Memory**: Cross-session state persistence
-- **Knowledge Bases**: Semantic search for documentation
----
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Core Principles
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-AgentDB operates on 3 fundamental principles:
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/platforms/agentdb/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Principle 1: HNSW-Accelerated Vector Similarity
-Hierarchical Navigable Small World indexing provides 150x faster vector search than brute-force approaches through graph-based approximate nearest neighbor search.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "agentdb-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-In practice:
-- Configure HNSW parameters (M=16, ef_construction=200) for optimal speed/accuracy tradeoff
-- Accept approximate results (recall@10 >0.95) for sub-millisecond query latency
-- Use exact search only when 100% recall is required and latency is not critical
-- Rebuild indices periodically as data distribution changes
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-### Principle 2: Embedding-First Storage Architecture
-All data stores as 384-dimensional sentence-transformer embeddings, enabling semantic similarity search without keyword matching.
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-In practice:
-- Generate embeddings automatically during insertion (no manual vectorization)
-- Store metadata alongside vectors for filtering and ranking
-- Query by semantic meaning, not exact text matches
-- Handle synonym variation, paraphrasing, and concept similarity naturally
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Principle 3: Quantization-Enabled Memory Efficiency
-Vector quantization reduces memory footprint by 4-32x with minimal accuracy degradation, enabling million-scale deployments.
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-In practice:
-- Use scalar quantization (4x reduction) for production RAG systems
-- Apply binary quantization (32x reduction) for large-scale retrieval where approximate results suffice
-- Maintain full-precision vectors for critical accuracy requirements
-- Monitor recall degradation when enabling quantization
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
----
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Common Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Keyword-Based Filtering** | Treating vector search like SQL WHERE clauses ignores semantic similarity | Use metadata filters for exact matches, semantic search for concept retrieval |
-| **Full-Precision Everything** | Storing unquantized vectors wastes memory and limits scale | Enable scalar quantization by default; use binary for >1M vectors |
-| **Ignoring Dimension Mismatch** | Inserting vectors with wrong dimensions corrupts index and causes query failures | Validate embedding dimensions (384 for sentence-transformers) before insertion |
-| **No Index Rebuilding** | Stale HNSW indices degrade performance as data distribution shifts | Rebuild indices monthly or after 10%+ data changes |
-| **Unbounded Result Sets** | Returning all similar vectors exhausts memory and provides low-quality matches | Always set k (top-k results) and similarity thresholds |
-
----
-
-## Conclusion
-
-The AgentDB skill provides production-grade vector search infrastructure for AI agent memory and RAG systems. By combining HNSW indexing, sentence embeddings, and quantization, it delivers 150x faster search with 4-32x memory reduction compared to traditional databases.
-
-Use this skill when implementing retrieval-augmented generation, building semantic search engines, or creating persistent agent memory systems. AgentDB excels at similarity search over large document corpora, cross-session agent state persistence, and real-time embedding-based retrieval where sub-millisecond latency matters.
-
-Key takeaways: Trust HNSW for approximate search (exact results rarely needed), enable quantization for memory efficiency, and validate embeddings before insertion. The integration with Memory-MCP, ReasoningBank, and 9 reinforcement learning algorithms provides a complete memory and learning infrastructure for stateful AI agents.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>AGENTDB_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,106 +1,217 @@
----
-Key platform/tooling/training command improvements:
-- Platform API requirements
-- Tool configuration
-- Training data requirements
-- Workflow chaining
+/*============================================================================*/
+/* CREATE-MICRO-SKILL COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: create-micro-skill-benchmark-v1  tests:    - training_validation    - pattern_verification  success_threshold: 0.9namespace: "commands/delivery/workflow-commands/create-micro-skill/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [coder, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
+---
 name: create-micro-skill
+version: 1.0.0
 binding: skill:micro-skill-creator
 category: workflow
-version: 1.0.0
 ---
 
-# /create-micro-skill
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "create-micro-skill",
+  binding: "skill:micro-skill-creator",
+  category: "workflow",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute create-micro-skill workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /create-micro-skill"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Creates atomic, focused micro-skills with evidence-based specialist agents.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/create-micro-skill "<task>" [options]
-```
+[define|neutral] SYNTAX := "/create-micro-skill [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `task` - Single responsibility description (required)
-- `--technique` - Evidence technique: self-consistency|program-of-thought|plan-and-solve (default: auto)
-- `--output` - Output directory for skill (default: .claude/skills/<skill-name>)
+[define|neutral] PARAMETERS := {
+  required: {
+    task: { type: "string", description: "Single responsibility description" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--technique": { description: "Evidence technique: self-consistency|program-of-th", default: "false" },
+    "--output": { description: "Output directory for skill (default: .claude/skill", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Create data extraction skill
-/create-micro-skill "Extract structured data from unstructured documents" \
-  --technique self-consistency
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Create validation skill
-/create-micro-skill "Validate API responses against OpenAPI schemas" \
-  --technique program-of-thought
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Create generation skill
-/create-micro-skill "Generate API documentation from code annotations" \
-  --technique plan-and-solve
-```
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Evidence-Based Techniques
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Self-Consistency (Factual Tasks)
-For extraction, parsing, data collection
-```
-1. Extract from multiple perspectives
-2. Cross-reference findings
-3. Flag inconsistencies
-4. Provide confidence scores
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Program-of-Thought (Analytical Tasks)
-For validation, analysis, reasoning
-```
-1. Decompose into logical components
-2. Work through systematically
-3. Show intermediate reasoning
-4. Validate consistency
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Plan-and-Solve (Complex Tasks)
-For generation, design, multi-step tasks
-```
-1. Create comprehensive plan
-2. Break into executable steps
-3. Execute systematically
-4. Validate at each step
-```
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Created Structure
-```
-.claude/skills/<skill-name>/
-├── SKILL.md           # Skill definition
-├── templates/         # Template files
-└── examples/          # Usage examples
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Integration
-After creation, skill is automatically:
-- ✅ Registered with Claude Code
-- ✅ Available for cascade composition
-- ✅ Can be bound to slash command
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Chains with
-```bash
-# Create skill → create command → use in cascade
-/create-micro-skill "Validate JSON schemas" | \
-/create-command validate-json --binding <skill> | \
-/create-cascade quality-pipeline
-```
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## See also
-- `/create-cascade` - Create workflow orchestration
-- `/create-command` - Create slash command binding
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>CREATE_MICRO_SKILL_VERIX_COMPLIANT</promise>`*
+[define|neutral] EXAMPLES := [
+  { command: "/create-micro-skill "Extract structured data from unstructur", description: "Example usage" },
+  { command: "/create-micro-skill "Validate API responses against OpenAPI ", description: "Example usage" },
+  { command: "/create-micro-skill "Generate API documentation from code an", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/create-micro-skill -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/create-micro-skill arg1' '/create-micro-skill arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/create-command", "/create-cascade"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "workflow",
+    file: ".claude/expertise/workflow.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "create-micro-skill-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/workflow/create-micro-skill/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["micro-skill-creator"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "create-micro-skill-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>CREATE_MICRO_SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

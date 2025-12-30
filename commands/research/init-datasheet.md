@@ -1,225 +1,214 @@
+/*============================================================================*/
+/* INIT-DATASHEET COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: research  file: .claude/expertise/research.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: init-datasheet-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/research/./init-datasheet/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [literature-synthesis, deep-research-orchestrator]  related_agents: [researcher, evaluator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: init-datasheet
-description: Initialize comprehensive Datasheet for Datasets (Form F-C1) with structured documentation
+version: 1.0.0
+binding: skill:init-datasheet
+category: delivery
 ---
 
-# 📊 Initialize Datasheet for Datasets
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "init-datasheet",
+  binding: "skill:init-datasheet",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute init-datasheet workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /init-datasheet"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Creates a comprehensive, structured Datasheet for Datasets following Gebru et al. (2020) template with all required sections and quality gates.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Purpose
+[define|neutral] SYNTAX := "/init-datasheet [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-Part of **Pipeline C: Data-Centric Build**, this command initializes Form F-C1 (Datasheet) which is mandatory for Quality Gate 1 approval. The datasheet provides complete transparency about dataset motivation, composition, collection process, preprocessing, distribution, and maintenance.
-
-## Usage
-
-```bash
-npx claude-flow@alpha command init-datasheet --dataset-name "<name>" [options]
-```
-
-## Required Arguments
-
-- `--dataset-name <string>` - Name of the dataset being documented
-
-## Optional Arguments
-
-- `--output-dir <path>` - Output directory for datasheet (default: `./datasheets/`)
-- `--template <type>` - Template type: `full` (default), `minimal`, `custom`
-- `--format <format>` - Output format: `markdown` (default), `pdf`, `json`, `html`
-- `--interactive` - Launch interactive questionnaire mode
-- `--validate` - Validate against quality gate requirements
-- `--store-memory` - Store datasheet metadata in Memory MCP for cross-session access
-
-## What This Command Does
-
-1. **Creates Structured Datasheet** with 7 required sections:
-   - **Motivation**: Why was the dataset created? What problems does it address?
-   - **Composition**: What is in the dataset? How many instances? What labels/features?
-   - **Collection Process**: How was data collected? Who collected it? What instruments?
-   - **Preprocessing/Cleaning/Labeling**: What preprocessing was done? Is raw data available?
-   - **Uses**: What tasks is the dataset suitable for? What should it NOT be used for?
-   - **Distribution**: How is it distributed? What license? Any access restrictions?
-   - **Maintenance**: Who maintains it? How to contribute? Will it be updated?
-
-2. **Populates Initial Metadata**:
-   - Dataset name, version, creation date
-   - Creator information (author, institution, contact)
-   - License and copyright information
-   - Related publications and DOIs
-
-3. **Includes Subsections** for each main section (47 total questions):
-   - Motivation: Purpose, creators, funding, other tasks
-   - Composition: Instance types, number, labels, splits, errors, confidentiality
-   - Collection: Mechanisms, sampling, timeframe, who collected, ethical review
-   - Preprocessing: Software, raw data availability, cleaning steps
-   - Uses: Appropriate tasks, impact on future uses, not suitable for
-   - Distribution: Distribution methods, copyright, DOI, embargo
-   - Maintenance: Maintainer, contributions, versioning, retention limits
-
-4. **Validates Quality Gate Requirements**:
-   - ✅ All 47 questions addressed (minimum 80% completion required)
-   - ✅ Bias audit results referenced
-   - ✅ Data splits documented
-   - ✅ Ethical review status documented
-   - ✅ License clearly specified
-
-5. **Integration with Memory MCP**:
-   - Stores datasheet metadata for agent access
-   - Tags: `SOP`, `Pipeline-C`, `Form-F-C1`, `data-steward`, dataset name
-   - Enables cross-session datasheet retrieval
-
-## Output Files
-
-- `datasheets/<dataset-name>-datasheet.md` - Main datasheet in markdown
-- `datasheets/<dataset-name>-datasheet.json` - Machine-readable JSON version
-- `datasheets/<dataset-name>-metadata.yaml` - YAML metadata for integration
-- `datasheets/<dataset-name>-validation-report.md` - Quality gate validation report
-
-## Example
-
-```bash
-# Initialize datasheet for ImageNet
-npx claude-flow@alpha command init-datasheet \
-  --dataset-name "ImageNet-1K" \
-  --format markdown \
-  --interactive \
-  --validate \
-  --store-memory
-
-# Minimal datasheet for quick start
-npx claude-flow@alpha command init-datasheet \
-  --dataset-name "MyDataset" \
-  --template minimal
-
-# Full datasheet with PDF output
-npx claude-flow@alpha command init-datasheet \
-  --dataset-name "COVID-CT-Scans" \
-  --format pdf \
-  --output-dir "./docs/datasheets/"
-```
-
-## Quality Gate Integration
-
-**Quality Gate 1 Requirement**:
-- ✅ Datasheet for Datasets (Form F-C1) → 80%+ complete
-- ✅ Bias audit results attached
-- ✅ Data splits specified
-- ✅ Ethical review documented
-
-This command ensures your dataset documentation meets Gate 1 requirements before proceeding to Pipeline D (Method Development).
-
-## Template Structure
-
-The generated datasheet follows this structure:
-
-```markdown
-# Datasheet: [Dataset Name]
-
-## Metadata
-- Version: 1.0.0
-- Created: 2025-11-01
-- Authors: [...]
-- License: [...]
-
-## 1. Motivation
-**1.1 For what purpose was the dataset created?**
-[Answer...]
-
-**1.2 Who created the dataset?**
-[Answer...]
-
-[... 47 total questions ...]
-
-## Validation Status
-- Completion: 85%
-- Gate 1 Ready: ✅
-- Last Updated: 2025-11-01
-```
-
-## Integration with Agents
-
-The following agents use datasheets initialized by this command:
-
-- **data-steward**: Primary owner of datasheet, ensures completeness
-- **ethics-agent**: Reviews for ethical compliance, bias documentation
-- **archivist**: Archives datasheet with dataset version
-- **evaluator**: Validates datasheet completeness for Gate 1
-
-## Memory MCP Storage
-
-When `--store-memory` is enabled, the command stores:
-
-```json
-{
-  "key": "sop/datasheets/<dataset-name>",
-  "value": {
-    "datasheet_path": "./datasheets/<dataset-name>-datasheet.md",
-    "version": "1.0.0",
-    "completion_rate": 0.85,
-    "gate_1_ready": true,
-    "created_at": "2025-11-01T12:00:00Z",
-    "sections": {
-      "motivation": {"complete": true, "questions": 4},
-      "composition": {"complete": true, "questions": 12},
-      "collection": {"complete": true, "questions": 9},
-      "preprocessing": {"complete": false, "questions": 6},
-      "uses": {"complete": true, "questions": 6},
-      "distribution": {"complete": true, "questions": 6},
-      "maintenance": {"complete": true, "questions": 4}
-    }
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
   },
-  "tags": ["SOP", "Pipeline-C", "Form-F-C1", "data-steward", "gate-1"]
-}
-```
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Related Commands
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-- `/bias-audit` - Run bias analysis required for datasheet
-- `/data-split` - Specify train/val/test splits for datasheet
-- `/assess-risks` - Assess dataset risks (referenced in datasheet)
-- `/validate-datasheet` - Validate datasheet completeness
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-## References
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-- Gebru et al. (2020). "Datasheets for Datasets". arXiv:1803.09010
-- Deep Research SOP Pipeline C: Data-Centric Build
-- Quality Gate 1 Requirements (SOP Section 4.3.1)
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Next Steps
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-After creating datasheet:
-1. Complete bias audit: `/bias-audit --dataset <name>`
-2. Document data splits: `/data-split --dataset <name>`
-3. Validate Gate 1 readiness: `/validate-gate-1 --pipeline C`
-4. Proceed to Method Development (Pipeline D)
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>INIT_DATASHEET_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/init-datasheet example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/init-datasheet -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/init-datasheet arg1' '/init-datasheet arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/validate-datasheet", "/assess-risks", "/data-split", "/bias-audit"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "init-datasheet-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/init-datasheet/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["init-datasheet"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "init-datasheet-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>INIT_DATASHEET_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

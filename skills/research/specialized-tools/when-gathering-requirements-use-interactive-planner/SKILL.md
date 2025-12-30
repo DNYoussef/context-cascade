@@ -1,76 +1,60 @@
----
-
-## RESEARCH ANALYSIS GUARDRAILS
-
-**Source Verification Required**:
-- NEVER cite sources without verification
-- ALWAYS check publication date and relevance
-- Verify author credentials and expertise
-- Cross-reference claims with multiple sources
-
-**Credibility Scoring**:
-- Tier 1 (90-100%): Peer-reviewed, official docs
-- Tier 2 (75-89%): Industry reports, credible news
-- Tier 3 (60-74%): Expert blogs, technical forums
-- Tier 4 (<60%): Unverified, opinion pieces
-- REJECT sources below threshold
-
-**Evidence-Based Reasoning**:
-- Support claims with concrete evidence
-- Distinguish facts from interpretations
-- Identify and disclose biases
-- Report contradictory evidence when found
-
-**Documentation Standards**:
-- Provide full citations (APA, IEEE, or ACM format)
-- Include access dates for web sources
-- Link to primary sources when available
-- Archive sources for reproducibility
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Triggering interactive-planner skill when gathering requirements detected
-- Auto-invoking structured multi-select questions for architecture decisions
-- Ensuring comprehensive requirements collection before planning
-- Reducing assumption-based design by collecting explicit user choices
-- Specialized tool wrapper for requirements gathering scenarios
-
-### When NOT to Use This Skill
-- Requirements already defined (skip to planner)
-- Single-choice decisions (not multi-select)
-- When interactive-planner already invoked directly
-- Follow-up scenarios where context exists
-
-### Success Criteria
-- [assert|neutral] Interactive-planner skill successfully invoked [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] User presented with 5-10 multi-select questions [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All critical choices captured before planning proceeds [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Requirements document exported [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Plan reflects user selections accurately [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- User bypasses questions: respect preference, document assumptions made
-- Skill invocation fails: fallback to manual requirements gathering
-- Too many nested tool calls: simplify to direct interactive-planner invocation
-- Contradictory selections: flag for resolution before proceeding
-- Missing context: gather minimal required info before invoking
-
-### Critical Guardrails
-- NEVER invoke if interactive-planner already active (avoid recursion)
-- ALWAYS verify requirements gathering truly needed
-- NEVER force questions if user has clear requirements
-- ALWAYS respect user preference to skip
-- NEVER proceed to planning without confirmation
-
-### Evidence-Based Validation
-- Validate invocation appropriateness: is requirements gathering truly needed?
-- Cross-check skill availability: is interactive-planner accessible?
-- Test user intent: does user want structured questions or prefer freeform?
-- Verify context: is this right moment to invoke (not mid-execution)?
-- Confirm fallback: if invocation fails, can manual gathering proceed?
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## SKILL-SPECIFIC GUIDANCE
 
@@ -185,72 +169,67 @@ Create final documentation and action plan.
 3. Use multi-select for priorities
 4. Document all responses
 5. Validate with stakeholders
-6. Create actionable plans
+6. Create ac
 
-## Workflow Summary
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-**Duration:** 15-30 minutes
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Deliverables:**
-- Requirements specification
-- Technical architecture
-- Action plan
-- Validation report
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
----
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Core Principles
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### 1. Structured Question Design Over Freeform Discussion
-Unstructured requirements gathering leads to incomplete specifications and missed assumptions. Multi-select questions with predefined options ensure comprehensive coverage while maintaining efficiency.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**In practice:**
-- Design 5-10 focused multi-select questions covering key decision points (architecture, technology stack, constraints)
-- Provide descriptive options that explain trade-offs (e.g., "PostgreSQL - ACID compliance, mature ecosystem" vs "MongoDB - flexible schema, horizontal scaling")
-- Group questions logically (first scope, then technical, then non-functional requirements)
-- Use AskUserQuestion tool to present all options simultaneously for comparison
-- Allow open-ended follow-up for edge cases not covered by predefined options
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### 2. Explicit Over Implicit Requirements
-Most project failures stem from unspoken assumptions. This skill forces explicit articulation of constraints, priorities, and success criteria through targeted questioning.
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-**In practice:**
-- Ask about non-functional requirements explicitly (performance targets, security compliance, scalability needs)
-- Probe for hidden constraints (budget limits, timeline pressures, team skill gaps)
-- Require priority ranking when multiple goals conflict (speed vs quality, features vs stability)
-- Validate assumptions by presenting them as questions ("Are we assuming cloud deployment?")
-- Document all responses in structured format (SPEC.md) for future reference
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### 3. Stakeholder Validation Before Planning Proceeds
-Gathering requirements is only valuable if stakeholders confirm completeness and accuracy. This skill builds in explicit approval checkpoints.
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-**In practice:**
-- Generate requirements specification document after question gathering
-- Present specification back to stakeholders for review ("Is this what you meant?")
-- Iterate on clarifications until stakeholders explicitly approve ("Yes, this captures everything")
-- Store validated requirements in memory-mcp for project lifecycle tracking
-- Block planning phase until validation checkpoint passes
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
----
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Anti-Patterns
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| Asking too many granular questions (>15) | Causes decision fatigue; stakeholders rush through later questions providing lower-quality answers; creates false sense of thoroughness while missing strategic issues | Limit to 5-10 high-impact questions. Focus on decisions that constrain architecture (cloud vs on-prem, SQL vs NoSQL, sync vs async). Leave implementation details for later planning phases. |
-| Using single-select for multi-dimensional requirements | Forces false choices when multiple options are valid simultaneously; misses hybrid approaches that combine strengths of different options | Use multi-select for all questions unless truly mutually exclusive. Ask separate questions for orthogonal concerns (storage tech AND deployment target AND performance requirements). |
-| Skipping validation checkpoint | Planner assumes questions captured all requirements; discovers misunderstandings mid-implementation; causes expensive rework when scope changes | ALWAYS generate specification document and get explicit stakeholder approval. Use checklist format for validation ("Requirements complete? Success criteria clear? Constraints documented?"). Store approval timestamp in metadata. |
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
----
-
-## Conclusion
-
-Interactive requirements planning represents a critical bridge between vague user requests and concrete implementation plans. By systematically extracting decisions through structured multi-select questions, this skill prevents the assumption-driven failures that plague software projects. The 15-30 minute investment in comprehensive questioning saves hours or days of rework caused by missed requirements or misunderstood constraints.
-
-The power of this approach lies in its ability to make implicit knowledge explicit. Users often know what they want but struggle to articulate it completely. Well-designed questions serve as prompts that trigger consideration of aspects the user might not have mentioned initially - security requirements, performance targets, scalability constraints. By presenting options with explanatory descriptions, this skill educates stakeholders about trade-offs while capturing their preferences.
-
-As projects increase in complexity and stakeholder ecosystems expand, the need for systematic requirements gathering intensifies. Interactive planning with structured questions provides a repeatable, efficient mechanism for ensuring all parties align on project goals before significant resources are committed. This skill demonstrates that proper requirements engineering need not be a lengthy, bureaucratic process - when done with focused, well-designed questions, it can be both comprehensive and efficient.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

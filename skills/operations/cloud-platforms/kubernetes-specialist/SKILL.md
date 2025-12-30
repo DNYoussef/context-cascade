@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* KUBERNETES-SPECIALIST SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: kubernetes-specialist
-description: Kubernetes orchestration expert for Helm chart development, custom operators and CRDs, service mesh (Istio/Linkerd), auto-scaling strategies (HPA/VPA/Cluster Autoscaler), multi-cluster management, and production-grade deployments. Use when deploying containerized applications to K8s, implementing GitOps workflows, optimizing pod scheduling, or requiring Kubernetes best practices. Handles ingress controllers, persistent volumes, network policies, and security contexts.
+version: 1.0.0
+description: |
+  [assert|neutral] Kubernetes orchestration expert for Helm chart development, custom operators and CRDs, service mesh (Istio/Linkerd), auto-scaling strategies (HPA/VPA/Cluster Autoscaler), multi-cluster management, and [ground:given] [conf:0.95] [state:confirmed]
 category: Cloud Platforms
-complexity: Very High
-triggers: ["kubernetes", "k8s", "helm", "operators", "crd", "istio", "linkerd", "service mesh", "kubectl", "kustomize", "argocd", "flux"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute kubernetes-specialist workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Cloud Platforms processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "kubernetes-specialist",
+  category: "Cloud Platforms",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["kubernetes-specialist", "Cloud Platforms", "workflow"],
+  context: "user needs kubernetes-specialist capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Kubernetes Specialist
 
@@ -201,448 +251,67 @@ ingress:
 **Step 3: Template Deployment**
 
 ```yaml
-# templates/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: {{ include "my-app.fullname" . }}
-  labels:
-    {{- include "my-app.labels" . | nindent 4 }}
-spec:
-  replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      {{- include "my-app.selectorLabels" . | nindent 6 }}
-  template:
-    metadata:
-      labels:
-        {{- include "my-app.selectorLabels" . | nindent 8 }}
-    spec:
-      containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        ports:
-        - containerPort: 8080
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
-```
-
-**Step 4: Install Chart**
-
-```bash
-helm install my-app . -n production --create-namespace
-helm upgrade my-app . -n production
-```
-
-### Workflow 3: Horizontal Pod Autoscaler (HPA)
-
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: my-app-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: my-app
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-  - type: Resource
-    resource:
-      name: memory
-      target:
-        type: Utilization
-        averageUtilization: 80
-  behavior:
-    scaleDown:
-      stabilizationWindowSeconds: 300
-      policies:
-      - type: Percent
-        value: 50
-        periodSeconds: 60
-    scaleUp:
-      stabilizationWindowSeconds: 0
-      policies:
-      - type: Percent
-        value: 100
-        periodSeconds: 15
-```
-
-### Workflow 4: Service Mesh with Istio
-
-**Step 1: Install Istio**
-
-```bash
-curl -L https://istio.io/downloadIstio | sh -
-cd istio-*
-export PATH=$PWD/bin:$PATH
-istioctl install --set profile=demo -y
-kubectl label namespace default istio-injection=enabled
-```
-
-**Step 2: Define VirtualService for Traffic Management**
-
-```yaml
-apiVersion: networking.istio.io/v1beta1
-kind: VirtualService
-metadata:
-  name: my-app
-spec:
-  hosts:
-  - my-app
-  http:
-  - match:
-    - headers:
-        canary:
-          exact: "true"
-    route:
-    - destination:
-        host: my-app
-        subset: v2
-      weight: 100
-  - route:
-    - destination:
-        host: my-app
-        subset: v1
-      weight: 90
-    - destination:
-        host: my-app
-        subset: v2
-      weight: 10
-```
-
-**Step 3: Define DestinationRule**
-
-```yaml
-apiVersion: networking.istio.io/v1beta1
-kind: DestinationRule
-metadata:
-  name: my-app
-spec:
-  host: my-app
-  trafficPolicy:
-    connectionPool:
-      tcp:
-        maxConnections: 100
-      http:
-        http1MaxPendingRequests: 50
-        http2MaxRequests: 100
-    outlierDetection:
-      consecutive5xxErrors: 5
-      interval: 30s
-      baseEjectionTime: 30s
-  subsets:
-  - name: v1
-    labels:
-      version: v1
-  - name: v2
-    labels:
-      version: v2
-```
-
-## Best Practices
-
-**1. Resource Limits Always**
-```yaml
-# ✅ GOOD
-resources:
-  requests:
-    memory: "128Mi"
-    cpu: "100m"
-  limits:
-    memory: "256Mi"
-    cpu: "500m"
-
-# ❌ BAD: No limits (can consume all node resources)
-resources: {}
-```
-
-**2. Health Probes**
-```yaml
-# ✅ GOOD: Both liveness and readiness
-livenessProbe:
-  httpGet:
-    path: /health
-    port: 8080
-readinessProbe:
-  httpGet:
-    path: /ready
-    port: 8080
-```
-
-**3. Security Contexts**
-```yaml
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 1000
-  readOnlyRootFilesystem: true
-  allowPrivilegeEscalation: false
-  capabilities:
-    drop: ["ALL"]
-```
-
-**4. Pod Disruption Budgets**
-```yaml
-apiVersion: policy/v1
-kind: PodDisruptionBudget
-metadata:
-  name: my-app-pdb
-spec:
-  minAvailable: 2
-  selector:
-    matchLabels:
-      app: my-app
-```
-
-**5. Network Policies**
-```yaml
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: my-app-network-policy
-spec:
-  podSelector:
-    matchLabels:
-      app: my-app
-  policyTypes:
-  - Ingress
-  - Egress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: frontend
-    ports:
-    - protocol: TCP
-      port: 8080
-  egress:
-  - to:
-    - podSelector:
-        matchLabels:
-          app: database
-    ports:
-    - protocol: TCP
-      port: 5432
-```
-
-## Quality Criteria
-
-- ✅ All workloads have resource limits
-- ✅ Health probes configured
-- ✅ Security contexts applied
-- ✅ PodDisruptionBudgets for critical apps
-- ✅ Network policies restrict traffic
-- ✅ Secrets managed with external-secrets or sealed-secrets
-- ✅ Cluster autoscaling enabled
-
-## Troubleshooting
-
-**Issue**: Pods stuck in Pending
-**Solution**: Check node capacity (`kubectl describe node`), review resource requests
-
-**Issue**: Service not reachable
-**Solution**: Verify selector matches pod labels, check NetworkPolicies
-
-**Issue**: High memory usage (OOMKilled)
-**Solution**: Increase memory limits, profile application memory usage
-
-## Related Skills
-
-- `docker-containerization`: Container best practices
-- `aws-specialist`: EKS deployment
-- `terraform-iac`: K8s cluster provisioning
-- `opentelemetry-observability`: Distributed tracing in K8s
-
-## Tools
-
-- kubectl: Kubernetes CLI
-- Helm: Package manager
-- Kustomize: YAML templating
-- ArgoCD/Flux: GitOps
-- Istio/Linkerd: Service mesh
-- Lens: Desktop GUI
-
-## MCP Tools
-
-- `mcp__flow-nexus__sandbox_execute` for kubectl commands
-- `mcp__memory-mcp__memory_store` for K8s patterns
-
-## Success Metrics
-- [assert|neutral] Deployment time: <5 minutes [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Pod startup time: <30 seconds [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Cluster utilization: 60-80% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Zero-downtime deployments: 100% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Core Principles
-
-Kubernetes Specialist operates on 3 fundamental principles:
-
-### Principle 1: Declarative Infrastructure Over Imperative Commands
-Kubernetes thrives on declarative configuration where you describe the desired state, not the steps to achieve it. This principle ensures reproducibility, version control, and GitOps compatibility.
-
-In practice:
-- Define all resources in YAML manifests checked into version control
-- Use Helm charts or Kustomize for templating rather than manual kubectl edits
-- Implement GitOps workflows with ArgoCD/Flux for automated deployments
-- Avoid imperative commands like kubectl run or kubectl expose in production
-
-### Principle 2: Resource Constraints Are Non-Negotiable
-Every container must have explicit resource requests and limits. This principle prevents the noisy neighbor problem, enables efficient bin-packing, and ensures predictable performance across the cluster.
-
-In practice:
-- Set CPU/memory requests based on actual application profiling (use VPA recommendations)
-- Set limits to prevent runaway processes from consuming entire node resources
-- Use HorizontalPodAutoscaler for elastic scaling based on utilization
-- Monitor resource utilization with metrics-server and adjust requests/limits accordingly
-
-### Principle 3: Defense in Depth Through Layered Security
-Security is not a single configuration but a composition of multiple protective layers. This principle ensures that even if one layer fails, others provide fallback protection.
-
-In practice:
-- Apply security contexts at pod level (runAsNonRoot, readOnlyRootFilesystem, capabilities drop)
-- Enforce network policies to restrict pod-to-pod communication
-- Use PodSecurityStandards or OPA/Gatekeeper for admission control
-- Implement RBAC with least-privilege access for service accounts
-- Scan images with Trivy/Snyk before deployment
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **No Resource Limits** | Pods can consume all node resources, causing cascading failures and unpredictable scheduling. Without limits, a memory leak or CPU spike can crash the entire node. | Define both requests and limits for every container. Use VPA for recommendations. Set namespace ResourceQuotas to enforce constraints. |
-| **Missing Health Probes** | Kubernetes cannot detect when containers are unhealthy or not ready to serve traffic. Results in traffic being routed to broken pods, causing user-facing errors. | Implement both liveness (restart if unhealthy) and readiness (remove from service if not ready) probes. Use HTTP checks for web services, TCP for databases. Set appropriate initialDelaySeconds and periodSeconds. |
-| **Deploying :latest Tag** | Image tags are mutable and can change unexpectedly, leading to version drift, inability to rollback, and non-reproducible deployments across environments. | Always use immutable tags with semantic versioning (e.g., v1.2.3 or git commit SHA). Implement image pull policies (IfNotPresent) to reduce registry load. Use image digests for absolute immutability. |
-| **StatefulSets for Stateless Apps** | Using StatefulSets when Deployments suffice adds unnecessary complexity, slower rollouts, and limited horizontal scaling capabilities. | Use Deployments for stateless applications. Reserve StatefulSets for databases or applications requiring stable network identity and persistent storage. Use init containers for initialization tasks. |
-| **Single Replica in Production** | Zero redundancy means any pod failure causes downtime. No high availability, no rolling updates without downtime. | Run minimum 2-3 replicas with PodDisruptionBudgets (minAvailable: 1). Use podAntiAffinity to spread replicas across nodes/zones. Implement HPA for dynamic scaling. |
-
-## Conclusion
-
-The Kubernetes Specialist skill empowers you to build production-grade container orchestration systems that are resilient, secure, and cost-effective. By adhering to the three core principles of declarative infrastructure, resource constraints, and defense-in-depth security, you ensure that your deployments are not only functional but maintainable at scale. The workflows provided cover the full spectrum from basic deployments to advanced service mesh implementations, giving you the tools to handle everything from greenfield microservices to complex multi-cluster architectures.
-
-Key takeaways: Always define resource limits, implement comprehensive health checks, and apply security contexts. Use Helm charts for reusability and GitOps for automated deployments. The anti-patterns table serves as a checklist to avoid common pitfalls that plague Kubernetes deployments. When combined with the troubleshooting section, you have a complete toolkit for diagnosing and resolving production issues.
-
-This skill is particularly valuable when deploying microservices architectures, implementing auto-scaling strategies, or migrating legacy applications to cloud-native platforms. Whether you're setting up a new EKS cluster on AWS or optimizing an existing GKE deployment on Google Cloud, the patterns and best practices documented here will accelerate your journey to production-ready Kubernetes deployments.
-
----
-
-## System Design Integration (Dr. Synthara Methodology)
-
-### Load Balancer Algorithm Selector for K8s Ingress/Services
-
-```
-Are pods identical + requests similar?
-+-- Round robin (default for K8s Services)
-
-Are sessions variable length (long polls, WebSocket, uploads)?
-+-- Least connections (requires Ingress controller config)
-
-Do pods have different resource limits?
-+-- Weighted routing (use Istio DestinationRule weights)
-
-Need stickiness without shared session store?
-+-- Session affinity (sessionAffinity: ClientIP on Service)
-    Warning: Breaks horizontal scaling - prefer stateless
-
-Global users across regions?
-+-- Multi-cluster with geo-routing (ExternalDNS + GLB)
-```
-
-**What I'm Thinking**:
-- K8s Service default (iptables DNAT) is pseudo-random, NOT round-robin
-- For true load balancing algorithms, use Ingress controller or service mesh
-- The LB forces the real question: "Where do sessions live?"
-- If you need stickiness, you probably shouldn't be using K8s
-
-### Scaling Decision Tree for Kubernetes
-
-```
-Need to handle more load?
-|
-+-- Pod-level scaling (most common)?
-|   +-- HPA (Horizontal Pod Autoscaler)
-|       +-- Scale on CPU/memory: Use for compute-bound apps
-|       +-- Scale on custom metrics: Use for queue-depth, connections
-|       +-- Set minReplicas >= 2 for HA
-|
-+-- Vertical scaling (rare, requires VPA)?
-|   +-- VPA adjusts resource requests/limits
-|   +-- WARNING: Pod restarts required
-|
-+-- Cluster-level scaling?
-    +-- Cluster Autoscaler
-        +-- Adds/removes NODES based on pending pods
-        +-- Configure max nodes to control costs
-```
-
-**System-Designer Thought**:
-- HPA is reactive (responds to load), not predictive
-- For spiky traffic, use HPA + Cluster Autoscaler + PodDisruptionBudget
-- Set `behavior.scaleDown.stabilizationWindowSeconds: 300` to prevent thrashing
-
-### SPOF Identification for Kubernetes Deployments
-
-| Component | SPOF Risk | Mitigation in K8s |
-|-----------|-----------|-------------------|
-| **Single Pod** | Pod crash = downtime | `replicas: 3` minimum |
-| **Single Node** | Node failure takes all pods | `podAntiAffinity` to spread pods |
-| **Single AZ** | AZ outage = full downtime | `topologySpreadConstraints` across zones |
-| **Ingress Controller** | Single point for all traffic | Run multiple replicas + PDB |
-| **etcd** | Control plane failure | Use managed K8s (EKS/GKE/AKS) |
-| **DNS (CoreDNS)** | DNS failure breaks service discovery | Multiple CoreDNS replicas |
-
-**What I'm Thinking**: "How does this fail at 2am during traffic spike?"
-- Always run 3+ replicas
-- Always use podAntiAffinity
-- Always test node failure with chaos engineering
-
-### Master Design Flow for Kubernetes Deployments
-
-```
-K8s DESIGN FLOW
-1) Define pod resources + limits
-   +-- Profile app to find actual needs
-   +-- Set requests = avg usage, limits = peak
-2) Configure health checks
-   +-- livenessProbe: restart if unhealthy
-   +-- readinessProbe: remove from service if not ready
-   +-- startupProbe: for slow-starting apps
-3) Set up HPA for elastic scaling
-   +-- target CPU: 70% (leave headroom)
-   +-- minReplicas: 3 (HA)
-4) Add podAntiAffinity
-   +-- Spread pods across nodes
-   +-- Spread across AZs if multi-zone
-5) Configure PodDisruptionBudget
-   +-- minAvailable: 2 (survive node drain)
-6) Apply NetworkPolicies
-   +-- Default deny all
-   +-- Explicit allow for needed traffic
-7) Enable observability
-   +-- Prometheus ServiceMonitor
-   +-- Structured logging to stdout
-```
-
-### The 90-Second Interview Narrative for K8s Architecture
-
-1. **Clarify** application type, traffic patterns, SLOs
-2. **Pod design** resources, probes, security context
-3. **Scaling** HPA on CPU/memory, Cluster Autoscaler for nodes
-4. **Reliability** 3+ replicas, anti-affinity, PDB
-5. **Networking** Services, Ingress, NetworkPolicies
-6. **Observability** Prometheus metrics, structured logs
-7. **Security** RBAC, NetworkPolicies, securityContext
-8. **Trade-offs** cost vs reliability, managed vs self-hosted
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+# templates/depl
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Cloud Platforms/kubernetes-specialist/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "kubernetes-specialist-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>KUBERNETES_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

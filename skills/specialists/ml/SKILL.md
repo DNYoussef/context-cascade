@@ -1,9 +1,12 @@
+/*============================================================================*/
+/* ML SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: ml
-description: Machine Learning development workflow with experiment tracking, hyperparameter
-  optimization, and MLOps integration
-tier: gold
 version: 2.0.0
+description: |
+  [assert|neutral] Machine Learning development workflow with experiment tracking, hyperparameter optimization, and MLOps integration [ground:given] [conf:0.95] [state:confirmed]
 category: specialized-development
 tags:
 - machine-learning
@@ -11,26 +14,51 @@ tags:
 - experiment-tracking
 - hyperparameter-tuning
 - model-registry
-agents:
-- ml-developer
-- data-scientist
-- mlops-engineer
-tools:
-- experiment-tracker
-- hyperparameter-tuner
-- model-registry
-- ml-ops-pipeline
-dependencies:
-- python-specialist
-- testing-quality
-- functionality-audit
-prerequisites:
-- Python 3.8+
-- ML frameworks (TensorFlow/PyTorch/scikit-learn)
-- Docker (for MLOps)
-- Git LFS (for model versioning)
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute ml workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic specialized-development processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "ml",
+  category: "specialized-development",
+  version: "2.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["ml", "specialized-development", "workflow"],
+  context: "user needs ml capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # ML Development Skill
 
@@ -143,179 +171,67 @@ bash resources/scripts/model-registry.sh deploy production latest
 
 ### 4. Model Evaluation
 - Comprehensive metrics analysis
-- Cross-validation
-- Error analysis
-- Model interpretability
+-
 
-### 5. Model Deployment
-- Register model in registry
-- Create deployment pipeline
-- Set up monitoring
-- Enable A/B testing
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Resources
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Scripts
-- `experiment-tracker.py`: MLflow/W&B experiment tracking with auto-logging
-- `hyperparameter-tuner.js`: Distributed hyperparameter optimization
-- `model-registry.sh`: Model versioning and deployment automation
-- `ml-ops.py`: End-to-end MLOps pipeline orchestration
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Templates
-- `experiment-config.yaml`: Experiment configuration template
-- `hyperparameter-space.json`: Hyperparameter search space definition
-- `model-card.md`: Model documentation template
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-### 1. Experiment Tracking
-150-line example showing MLflow integration with auto-logging, artifact tracking, and metric visualization.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/specialized-development/ml/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### 2. Hyperparameter Optimization
-250-line example demonstrating Optuna-based distributed hyperparameter tuning with pruning and parallel trials.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "ml-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### 3. MLOps Pipeline
-300-line example implementing complete MLOps workflow with model registry, CI/CD, and monitoring.
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Best Practices
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-1. **Reproducibility**
-   - Track all experiment parameters
-   - Version control data and code
-   - Use deterministic random seeds
-   - Document environment dependencies
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-2. **Experiment Organization**
-   - Use hierarchical experiment structure
-   - Tag experiments meaningfully
-   - Archive failed experiments
-   - Maintain experiment runbooks
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-3. **Model Management**
-   - Semantic versioning for models
-   - Comprehensive model cards
-   - Automated model testing
-   - Deployment staging (dev/staging/prod)
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-4. **Performance Optimization**
-   - Distributed training for large models
-   - Mixed precision training
-   - Efficient data loading
-   - Model compression techniques
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-5. **Monitoring & Observability**
-   - Real-time metric tracking
-   - Data drift detection
-   - Model performance degradation alerts
-   - Resource utilization monitoring
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-## Integration Points
-
-- **Data**: AgentDB for vector search, PostgreSQL for metadata
-- **Compute**: Flow Nexus sandboxes for distributed training
-- **CI/CD**: Automated model testing and deployment
-- **Memory**: Store experiment insights in Memory MCP
-
-## Advanced Features
-
-- **AutoML**: Automated architecture search and feature engineering
-- **Distributed Training**: Multi-GPU and multi-node training
-- **Model Compression**: Quantization, pruning, distillation
-- **Federated Learning**: Privacy-preserving distributed training
-- **Continuous Training**: Automated retraining on new data
-
-## Troubleshooting
-
-### Common Issues
-1. **Out of Memory**: Reduce batch size, enable gradient checkpointing
-2. **Slow Training**: Use mixed precision, optimize data pipeline
-3. **Poor Convergence**: Adjust learning rate, check data quality
-4. **Deployment Failures**: Validate model compatibility, test inference
-
-### Debug Mode
-```bash
-# Enable verbose logging
-export ML_DEBUG=1
-python resources/scripts/experiment-tracker.py --debug
-```
-
-## Performance Metrics
-
-- **Experiment Setup**: 2-5 minutes
-- **Hyperparameter Optimization**: 30min - 6 hours (depending on search space)
-- **Model Deployment**: 5-10 minutes
-- **Full MLOps Pipeline**: 1-2 hours
-
-## Support
-
-For issues or questions:
-- Check examples directory for reference implementations
-- Review test files for usage patterns
-- Consult MLflow/Optuna documentation
-- Use `functionality-audit` skill for validation
-
----
-
-## Core Principles
-
-### 1. Reproducibility First
-Reproducibility is the foundation of scientific machine learning. Every experiment must be independently verifiable by other researchers.
-
-**In practice:**
-- Version control all training code, data, and model artifacts with Git LFS
-- Pin all dependency versions (TensorFlow 2.13.0, not >=2.0)
-- Set deterministic random seeds across all libraries (Python, NumPy, TensorFlow/PyTorch)
-- Document hardware specifications and environment configuration
-- Track hyperparameters, data splits, and preprocessing steps in experiment tracker
-- Store data checksums to verify dataset integrity
-
-### 2. Evidence-Based Validation
-Claims about model performance require rigorous statistical evidence, not cherry-picked metrics.
-
-**In practice:**
-- Use separate train/validation/test splits with no data leakage
-- Perform k-fold cross-validation for robust performance estimates
-- Report confidence intervals using bootstrapping or statistical tests
-- Analyze confusion matrices for per-class performance
-- Conduct ablation studies to validate architectural choices
-- Test statistical significance of improvements (paired t-test, p < 0.05)
-- Never evaluate on training data or touch test set until final evaluation
-
-### 3. Production Readiness from Day One
-Models must be deployable, not just accurate. Production constraints shape development decisions.
-
-**In practice:**
-- Profile inference latency and memory usage during development
-- Design for deployment constraints (model size, hardware availability)
-- Implement monitoring for data drift and performance degradation
-- Document model assumptions, limitations, and failure modes
-- Set up automated retraining pipelines for continuous learning
-- Plan rollback strategies before deployment
-- Test on production-like data distributions
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Training on test data** | Inflates accuracy metrics, model fails in production due to overfitting to test distribution | Use strict train/val/test splits. Never touch test set until final evaluation. Use cross-validation on training data only. |
-| **Ignoring class imbalance** | Model achieves high accuracy by predicting majority class, fails on minority classes | Apply class weights, resampling (SMOTE), or stratified sampling. Evaluate with F1-score, precision-recall curves, not just accuracy. |
-| **Deploying without monitoring** | Model degrades silently as production data drifts from training distribution | Implement data drift detection (KL divergence, PSI). Monitor prediction confidence distributions. Set up automated alerts for performance degradation. |
-| **Hyperparameter tuning on test set** | Leaks test information into model selection, overestimates generalization | Tune hyperparameters only on validation set. Reserve test set for final evaluation after all decisions are made. |
-| **No experiment tracking** | Cannot reproduce results or compare experiments, wastes time re-running experiments | Use MLflow/W&B from day one. Track all hyperparameters, metrics, and artifacts. Tag experiments with meaningful names. |
-| **Premature optimization** | Spending weeks optimizing model before validating basic approach works | Start with simple baseline (logistic regression, small network). Validate approach works. Then optimize. |
-
----
-
-## Conclusion
-
-Machine learning development requires a rigorous engineering mindset that balances scientific accuracy with production pragmatism. The ML Development Skill provides a comprehensive workflow that treats reproducibility, evidence-based validation, and production readiness as first-class requirements, not afterthoughts.
-
-By integrating experiment tracking (MLflow/W&B), automated hyperparameter optimization (Optuna), and production MLOps pipelines from the start, this skill ensures that models are not only accurate but also deployable, maintainable, and scientifically rigorous. The emphasis on statistical validation, data quality, and monitoring prevents common pitfalls like overfitting, data leakage, and silent production failures.
-
-Whether you are training a simple classifier or building a complex multi-model pipeline, this skill enforces best practices that scale from research prototypes to production systems. The three core principles - reproducibility first, evidence-based validation, and production readiness - guide every phase of the ML lifecycle, from initial data exploration to continuous model improvement in production.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>ML_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

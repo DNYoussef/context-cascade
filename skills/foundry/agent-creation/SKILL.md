@@ -1,18 +1,62 @@
+/*============================================================================*/
+/* AGENT-CREATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: agent-creation
-description: Systematic agent creation using evidence-based prompting principles and
-  4-phase SOP methodology. Use when creating new specialist agents, refining existing
-  agent prompts, or designing multi-agent systems. Applies Chain-of-Thought, few-shot
-  learning, and role-based prompting. Includes validation scripts, templates, comprehensive
-  tests, and production-ready examples.
 version: 1.0.0
+description: |
+  [assert|neutral] Systematic agent creation using evidence-based prompting principles and 4-phase SOP methodology. Use when creating new specialist agents, refining existing agent prompts, or designing multi-agent syst [ground:given] [conf:0.95] [state:confirmed]
 category: foundry
 tags:
 - foundry
 - creation
 - meta-tools
 author: ruv
+cognitive_frame:
+  primary: compositional
+  goal_analysis:
+    first_order: "Execute agent-creation workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic foundry processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "agent-creation",
+  category: "foundry",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Compositional",
+  source: "German",
+  force: "Build from primitives?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["agent-creation", "foundry", "workflow"],
+  context: "user needs agent-creation capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 <!-- SKILL SOP IMPROVEMENT v1.0 -->
 ## Skill Execution Criteria
@@ -96,280 +140,67 @@ Use when creating new specialist agents for specific domains, refining existing 
 
 **Reference**: See `references/prompting-principles.md` for detailed techniques
 
-### Phase 3: Testing & Validation
-- Test with diverse inputs
-- Validate output quality using `resources/scripts/validate_agent.py`
-- Measure performance metrics
-- Iterate based on results
-
-**Tests**: Run tests from `tests/` directory (basic, specialist, integration)
-
-### Phase 4: Integration
-- Define agent coordination protocols
-- Establish communication patterns via Memory MCP
-- Configure memory and state management
-- Deploy with monitoring using Claude-Flow hooks
-
-**Examples**: See `examples/example-1-python-specialist.md` for complete walkthrough
-
----
-
-## Quick Start
-
-### Generate Agent
-
-```bash
-cd resources/scripts
-./generate_agent.sh <agent-name> <category> --interactive
-```
-
-**Categories**: specialist, coordinator, hybrid, research, development, testing, documentation, security
-
-### Validate Agent
-
-```bash
-python3 validate_agent.py <path-to-agent-spec.yaml>
-```
-
-**Expected Output**: All validation checks pass (metadata, role, capabilities, prompting, quality, integration)
-
-### Deploy Agent
-
-```bash
-# Copy to Claude-Flow agents directory
-cp agent-spec.yaml ~/.claude-flow/agents/<agent-name>.yaml
-
-# Test with Claude Code
-Task("<Agent Name>", "<Task Description>", "<category>")
-```
-
----
-
-## Evidence-Based Prompting Principles
-
-### 1. Role Definition
-Clear agent identity and expertise improves performance by 15-30%
-
-```yaml
-role:
-  identity: "You are a [Specific Role] with expertise in [Domain]"
-  expertise: ["skill-1", "skill-2", "skill-3"]
-  responsibilities: ["task-1", "task-2"]
-```
-
-### 2. Chain-of-Thought Reasoning
-Explicit reasoning steps improve accuracy by 20-40% on complex tasks
-
-```yaml
-reasoning_steps:
-  - "Step 1: Analyze requirements"
-  - "Step 2: Identify solutions"
-  - "Step 3: Evaluate trade-offs"
-  - "Step 4: Select optimal approach"
-```
-
-### 3. Few-Shot Learning
-2-5 examples improve performance by 30-50% compared to zero-shot
-
-```yaml
-examples:
-  - input: "Concrete example input"
-    reasoning: "Step-by-step thinking"
-    output: "Expected output with explanation"
-```
-
-### 4. Plan-and-Solve
-Planning before execution reduces errors by 25-35% on complex workflows
-
-```yaml
-workflow:
-  - name: "Planning Phase"
-    steps: ["Understand requirements", "Outline approach"]
-  - name: "Execution Phase"
-    steps: ["Implement solution", "Handle edge cases"]
-```
-
-**Reference**: Complete guide in `references/prompting-principles.md`
-
----
-
-## Agent Types
-
-### Specialist Agents
-- Domain-specific expertise (Python, React, SQL)
-- Single responsibility principle
-- 5-7 core competencies
-- Deep technical knowledge
-
-**Example**: Python Backend Specialist with FastAPI, SQLAlchemy, pytest
-
-### Coordinator Agents
-- Multi-agent orchestration
-- Task delegation and routing
-- Progress monitoring
-- Dependency management
-
-**Example**: Backend Coordinator managing API, database, and testing agents
-
-### Hybrid Agents
-- Multi-domain capabilities
-- Adaptive role switching
-- 2-3 related domains
-- Context-aware mode switching
-
-**Example**: Full-Stack Developer switching between backend and frontend
-
-**Reference**: Complete patterns in `references/agent-patterns.md`
-
----
-
-## Integration
-
-### Claude Code Task Tool
-
-```javascript
-// Spawn agent for parallel execution
-Task("Agent Name", "Task description", "category")
-```
-
-### Memory MCP
-
-```yaml
-integration:
-  memory_mcp:
-    enabled: true
-    tagging_protocol:
-      WHO: "agent-name"
-      WHEN: "timestamp"
-      PROJECT: "project-name"
-      WHY: "intent"
-```
-
-### Claude-Flow Hooks
-
-```yaml
-integration:
-  hooks:
-    pre_task: ["npx claude-flow@alpha hooks pre-task"]
-    post_task: ["npx claude-flow@alpha hooks post-task"]
-```
-
----
-
-## Resources
-
-### Scripts
-- **validate_agent.py**: Comprehensive agent specification validator
-- **generate_agent.sh**: Interactive agent generation with templates
-
-### Templates
-- **agent-spec.yaml**: Complete agent specification (250+ lines)
-- **capabilities.json**: Structured capabilities configuration (150+ lines)
-
-### Tests
-- **test-1-basic.md**: Basic agent creation (~10 min)
-- **test-2-specialist.md**: Specialist agent with advanced config (~20 min)
-- **test-3-integration.md**: Multi-agent coordination (~30 min)
-
-### Examples
-- **example-1-python-specialist.md**: Complete Python specialist walkthrough
-
-### Documentation
-- **prompting-principles.md**: Evidence-based prompting techniques
-- **agent-patterns.md**: Agent design patterns and anti-patterns
-- **agent-creation-process.dot**: GraphViz process flow diagram
-
----
-
-## Quality Assurance
-
-### Validation Checks
-- YAML syntax and structure
-- Metadata completeness (name, version, category, description)
-- Role definition (identity, expertise, responsibilities)
-- Capability specifications (primary, secondary, tools)
-- Prompting techniques (chain-of-thought, few-shot, role-based)
-- Few-shot examples (2+ with input/reasoning/output)
-- Quality criteria (success criteria, failure modes, metrics)
-- Integration configuration (Memory MCP, Claude-Flow hooks)
-
-### Success Criteria
-- Functional correctness > 95%
-- Output completeness > 90%
-- Test coverage > 80%
-- Response time < 30 seconds
-
----
-
-## Process Flow
-
-See `graphviz/agent-creation-process.dot` for visual workflow:
-
-1. **Specification Phase**: Define purpose, capabilities, quality criteria
-2. **Prompting Phase**: Apply evidence-based techniques, create examples
-3. **Testing Phase**: Validate with diverse inputs, measure metrics
-4. **Integration Phase**: Configure coordination, deploy with monitoring
-
-**Decision Points**: Quality checks at each phase with iteration loops
-
----
-
-## Next Steps
-
-1. **Read Documentation**: Start with `references/prompting-principles.md`
-2. **Run Example**: Follow `examples/example-1-python-specialist.md`
-3. **Generate Agent**: Use `resources/scripts/generate_agent.sh`
-4. **Validate**: Run `resources/scripts/validate_agent.py`
-5. **Test**: Execute tests from `tests/` directory
-6. **Deploy**: Copy to Claude-Flow and test with Claude Code
-7. **Monitor**: Track performance and iterate
-
----
-
-**Version**: 2.0.0 (Gold Tier)
-**Status**: Production Ready
-**Files**: 14+ (scripts, templates, tests, examples, documentation)
-## Core Principles
-
-### 1. Evidence-Based Prompting Over Intuition
-Agent system prompts must apply research-validated techniques: Chain-of-Thought for reasoning tasks (20-40% accuracy improvement), few-shot learning with 2-5 examples (30-50% performance boost), and explicit role definition (15-30% quality increase). These techniques have been empirically tested across millions of model invocations. Guessing at prompt structure or copying generic templates yields agents that underperform by 50%+ compared to evidence-based designs.
-
-### 2. Specialist Focus Over Generalist Scope
-Create agents with 5-7 tightly related competencies, not 20+ broad capabilities. Specialist agents (e.g., Python Backend Specialist with FastAPI, SQLAlchemy, pytest) consistently outperform generalists (e.g., Full-Stack Everything Agent) by 35-60% because they embed deeper domain knowledge and can apply specialized patterns. If you need breadth, use coordinator agents that delegate to specialists rather than creating jack-of-all-trades agents.
-
-### 3. Four-Phase Creation Prevents Technical Debt
-Never skip phases: Specification defines purpose clearly, Prompt Engineering applies techniques systematically, Testing validates with diverse inputs, Integration ensures coordination works. Skipping Testing (Phase 3) creates agents that appear to work but fail on edge cases 40% of the time. Skipping Specification (Phase 1) creates agents with unclear purpose that get misused or abandoned. Each phase builds on the previous, and shortcuts compound into production failures.
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|-------------|--------------|------------------|
-| **Generic Prompt Templates** | Copying boilerplate prompts without domain research. Results in agents that lack specialized knowledge and apply generic patterns to domain-specific problems, reducing effectiveness by 50%+. | Complete Phase 1 (Specification) with deep domain research. Study existing codebases, best practices, and domain-specific patterns. Embed this expertise in prompt through examples, constraints, and reasoning steps. |
-| **Zero-Shot Agents Without Examples** | Creating agents without few-shot examples. Reduces performance by 30-50% compared to agents with 2-5 concrete examples showing input-output patterns and reasoning. | Always include 2-5 few-shot examples in agent prompts. Examples should cover common cases, edge cases, and demonstrate desired reasoning patterns. Each example must show input, reasoning steps, and output. |
-| **Skipping Validation Testing** | Deploying agents without Phase 3 testing against diverse inputs and edge cases. Agents appear to work in demos but fail 40% of the time in production due to untested edge cases. | Run comprehensive Phase 3 validation: test with typical inputs, edge cases, error conditions, and adversarial inputs. Measure success rate, validate against quality criteria (>95% functional correctness). Iterate until thresholds met. |
-
----
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Zero-Shot Agents Without Examples** | Creating agents with no few-shot examples in system prompt. Reduces performance by 30-50% compared to agents with 2-5 concrete examples demonstrating desired input-output patterns and reasoning steps. | Include 2-5 few-shot examples covering common cases, edge cases, and desired reasoning patterns. Each example must show input, step-by-step reasoning, and expected output. Validate examples during Phase 3 testing. |
-| **Generic Agent Prompts** | Using template prompts without domain-specific research. Results in agents lacking specialized knowledge who apply generic patterns to domain-specific problems. Performance degradation of 50%+ compared to expert agents. | Complete Phase 1 Specification with deep domain research. Study codebases, documentation, best practices. Embed expertise through concrete examples, domain constraints, and specialized reasoning steps. Agent should demonstrate domain mastery, not general capability. |
-| **Skipping Validation Testing** | Deploying agents without Phase 3 testing against diverse inputs and edge cases. Agents appear functional in demos but fail 40% of the time in production due to untested scenarios. | Run comprehensive Phase 3 validation: test typical inputs, edge cases, error conditions, adversarial inputs. Measure success rate against quality criteria (>95% functional correctness). Iterate prompt until thresholds met before production deployment. |
-
----
-
-## Conclusion
-
-Agent creation is not prompt writing, it is systematic engineering. The difference between a casual prompt and a production-ready agent is the application of evidence-based techniques, deep domain research, and rigorous validation. Agents built through the 4-phase SOP consistently achieve 90%+ success rates because they embed expertise rather than rely on the model to figure it out on the fly.
-
-The agent-creation skill transforms vague requirements into specialized agents with clear roles, evidence-based prompts, and validated performance. By combining Chain-of-Thought reasoning, few-shot learning, role definition, and plan-and-solve workflows, it creates agents that don't just follow instructions but reason through problems systematically. This methodology scales from simple specialist agents to complex coordinator agents managing multi-agent workflows.
-
-Use this skill whenever creating new agents or refining existing ones. The upfront investment in systematic design pays exponential dividends: agents that work consistently, handle edge cases gracefully, and integrate seamlessly into the broader agent ecosystem. Build specialists, not generalists. Apply evidence, not intuition. Test rigorously, not casually.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+### Phase 3: Testing & Vali
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/foundry/agent-creation/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "agent-creation-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AGENT_CREATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

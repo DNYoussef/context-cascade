@@ -1,49 +1,61 @@
----
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Brainstorming research directions after literature synthesis
-- Generating 10+ novel hypotheses from identified research gaps
-- Rapid ideation for grant proposals or project pitches
-- Exploring alternative approaches when initial methods fail
-- Creative divergent thinking for problem-solving
-
-### When NOT to Use This Skill
-- When rigorous validation required immediately (use method-development)
-- Single-idea deep dives (use researcher skill for focused investigation)
-- Production code generation (use feature-dev-complete)
-- When novelty is not the primary goal
-
-### Success Criteria
-- [assert|neutral] 10+ distinct ideas generated per session [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Ideas directly address identified research gaps [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Each idea includes testable hypothesis and expected outcome [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Feasibility assessment provided (quick vs long-term) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Citations to supporting literature included [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- No research gaps identified: broaden literature search, explore adjacent fields
-- Ideas too similar: apply forced constraints (different modalities, opposite assumptions)
-- Infeasible ideas: flag as long-term, suggest simpler variants
-- Low novelty: cross-check against SOTA, ensure true gap exists
-- Over-ambitious scope: break into sub-ideas, prioritize quick wins
-
-### Critical Guardrails
-- NEVER generate ideas without grounding in research gaps
-- ALWAYS provide testable hypotheses (falsifiable predictions)
-- NEVER claim novelty without literature verification
-- ALWAYS assess feasibility (computational cost, data requirements)
-- NEVER skip expected outcome specification
-
-### Evidence-Based Validation
-- Validate novelty: search for similar ideas in literature (Semantic Scholar)
-- Test hypothesis clarity: can it be tested experimentally with clear success criteria?
-- Verify gap alignment: does idea directly address documented research gap?
-- Check feasibility: are required resources (data, compute, time) realistic?
-- Confirm testability: can hypothesis be falsified with available methods?
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 name: rapid-idea-generator
 description: Generate research ideas from any topic in under 5 minutes using 5-Whys
   causal analysis, component decomposition, and root cause identification. Features
@@ -174,303 +186,67 @@ output:
       title: string
       description: string (2-3 sentences)
       research_type: experimental | computational | theoretical | mixed
-      novelty_score: number (0-1)
-      feasibility_score: number (0-1)
-      impact_potential: high | medium | low
-      suggested_methods: array[string]
-      literature_pointers: array[string]
-
-  expanded_ideas:
-    ideas: array[object]
-      id: number
-      title: string
-      detailed_description: string (paragraph)
-      research_questions: array[string]
-      hypotheses: array[string]
-      required_resources: array[string]
-      potential_challenges: array[string]
-      related_work_keywords: array[string]
-      estimated_timeline: string
-
-  metadata:
-    generation_time: number (seconds)
-    mode_used: string
-    total_ideas: number
-    ideas_above_novelty_threshold: number
-```
-
-## SOP Phase 1: Primary Analysis
-
-**Objective**: Understand the research landscape in 60 seconds.
-
-```markdown
-## Primary Analysis for [TOPIC]
-
-### Domain Assessment
-- **Field**: [Identify primary research field]
-- **Sub-fields**: [List 2-3 relevant sub-fields]
-- **Maturity**: [emerging | growing | mature | declining]
-
-### Current State of Research
-[2-3 sentences on where the field stands today]
-
-### Main Challenges
-1. [Challenge 1 - most pressing]
-2. [Challenge 2]
-3. [Challenge 3]
-
-### Key Research Questions Being Asked
-1. [Active question 1]
-2. [Active question 2]
-```
-
-## SOP Phase 2: Component Analysis (MECE)
-
-**Objective**: Decompose the topic into mutually exclusive, collectively exhaustive components.
-
-```markdown
-## Component Analysis
-
-| Component | Importance | Research Potential | Notes |
-|-----------|------------|-------------------|-------|
-| [Component 1] | High | [Potential] | [Notes] |
-| [Component 2] | Medium | [Potential] | [Notes] |
-| [Component 3] | Low | [Potential] | [Notes] |
-
-### MECE Validation
-- [ ] Components are mutually exclusive (no overlap)
-- [ ] Components are collectively exhaustive (cover entire topic)
-- [ ] Each component has research potential identified
-```
-
-## SOP Phase 3: Causal Analysis (5-Whys)
-
-**Objective**: Trace each major challenge to its root cause.
-
-For each high-importance component, apply 5-Whys:
-
-```markdown
-## Causal Chain: [Problem Statement]
-
-**Problem**: [State the problem clearly]
-
-1. **Why 1?** [First-level cause]
-2. **Why 2?** [Second-level cause]
-3. **Why 3?** [Third-level cause]
-4. **Why 4?** [Fourth-level cause]
-5. **Why 5?** [Root cause]
-
-**Root Cause Identified**: [Actionable root cause]
-**Research Opportunity**: [How addressing this creates research value]
-```
-
-## SOP Phase 4: Idea Generation
-
-**Objective**: Generate ranked research ideas from root causes.
-
-```markdown
-## Research Ideas
-
-### Idea 1: [Title]
-- **Type**: [experimental | computational | theoretical | mixed]
-- **Description**: [2-3 sentence description]
-- **Novelty**: [0.0-1.0] | **Feasibility**: [0.0-1.0]
-- **Impact**: [high | medium | low]
-- **Methods**: [Suggested methodologies]
-- **Search Terms**: [Keywords for literature search]
-
-### Idea 2: [Title]
-...
-
-### Ranking Criteria Applied
-- Novelty: Higher = more original contribution
-- Feasibility: Higher = more achievable with current resources
-- Impact: Based on potential to advance the field
-```
-
-## SOP Phase 5: Idea Expansion
-
-**Objective**: Expand top N ideas with full research proposal details.
-
-```markdown
-## Expanded Idea: [Title]
-
-### Detailed Description
-[Full paragraph describing the research direction]
-
-### Research Questions
-1. [Primary research question]
-2. [Secondary question]
-3. [Tertiary question]
-
-### Hypotheses
-- H1: [Primary hypothesis]
-- H2: [Alternative hypothesis]
-
-### Required Resources
-- [ ] [Resource 1]
-- [ ] [Resource 2]
-- [ ] [Resource 3]
-
-### Potential Challenges
-1. [Challenge 1 and mitigation strategy]
-2. [Challenge 2 and mitigation strategy]
-
-### Related Work Keywords
-- [Keyword 1]
-- [Keyword 2]
-- [Keyword 3]
-
-### Estimated Timeline
-[Brief timeline: "3-6 months for proof of concept"]
-```
-
-## Integration Points
-
-### Feeds Into
-- **literature-synthesis**: Use generated keywords for systematic review
-- **baseline-replication**: Validate ideas against existing work
-- **research-gap-visualizer**: Create visual gap maps from ideas
-- **rapid-manuscript-drafter**: Generate manuscript outlines from ideas
-
-### Receives From
-- **intent-analyzer**: Clarified research intent
-- **interactive-planner**: User preferences for research direction
-
-### Memory Storage
-
-```bash
-# Store generated ideas for future reference
-npx claude-flow@alpha memory store \
-  "research_ideas_[topic]" \
-  "[ideas_json]" \
-  --namespace "research/ideation"
-```
-
-## Example Execution
-
-**Input**: "machine learning for drug discovery"
-
-**Output** (abbreviated):
-
-```yaml
-primary_analysis:
-  domain: "Computational Biology / Cheminformatics"
-  current_state: "ML models increasingly used for virtual screening,
-    but struggle with out-of-distribution predictions and interpretability"
-  main_challenges:
-    - "Limited labeled training data for novel targets"
-    - "Poor generalization to unseen chemical scaffolds"
-    - "Lack of interpretability for regulatory approval"
-
-component_analysis:
-  components:
-    - component: "Molecular Representation"
-      importance: high
-      research_potential: "New graph neural network architectures"
-    - component: "Target Prediction"
-      importance: high
-      research_potential: "Transfer learning across targets"
-    - component: "ADMET Prediction"
-      importance: medium
-      research_potential: "Multi-task learning approaches"
-
-ideas:
-  ranked_ideas:
-    - id: 1
-      title: "Few-Shot Learning for Novel Drug Targets"
-      description: "Develop meta-learning approaches that can predict
-        activity for new drug targets with minimal training examples"
-      novelty_score: 0.85
-      feasibility_score: 0.72
-      impact_potential: high
-      literature_pointers: ["meta-learning drug discovery",
-        "few-shot molecular property prediction"]
-```
-
-## Feature Comparison
-
-| Feature | Basic Tools | This Skill |
-|---------|--------|------------|
-| Speed | 2-3 min | 2-5 min |
-| Transparency | Black box | Full reasoning shown |
-| 5-Whys analysis | Yes | Yes (documented) |
-| Component analysis | Yes | Yes (MECE validated) |
-| Idea ranking | Basic | Scored (novelty, feasibility, impact) |
-| Integration | Standalone | Feeds into literature-synthesis, manuscript-drafter |
-| Memory | No history | Stored in memory-mcp |
-
-## Success Criteria
-
-- [ ] Generate 5+ ideas meeting novelty threshold
-- [ ] All causal chains trace to actionable root causes
-- [ ] MECE validation passes for component analysis
-- [ ] Top 3 ideas have expanded details
-- [ ] Literature pointers generate relevant search results
-- [ ] Total execution time < 5 minutes (standard mode)
-
-## Related Skills
-
-- **literature-synthesis** - Deep dive into generated ideas
-- **research-gap-visualizer** - Visualize gaps identified
-- **rapid-manuscript-drafter** - Draft papers from ideas
-- **intent-analyzer** - Clarify research intent
-- **interactive-planner** - Gather preferences
-
----
-
-**Version**: 1.0.0
-**Category**: Research / Ideation
-**Time**: 2-15 minutes depending on mode
-**Design**: Evidence-based ideation with full transparency
-
-## Core Principles
-
-### 1. Systematic Causal Analysis Through 5-Whys
-Research ideas must be grounded in root causes identified through systematic questioning, not superficial observations.
-
-**In practice:**
-- Apply 5-Whys methodology to each major challenge, drilling down from symptoms to root causes
-- Validate that final "why" represents an actionable research opportunity, not an unsolvable constraint
-- Document complete causal chains showing reasoning from problem to root cause to research idea
-- Cross-validate root causes against existing literature to ensure genuine gaps exist
-
-### 2. MECE Decomposition for Comprehensive Coverage
-Topic decomposition must be mutually exclusive and collectively exhaustive to prevent gaps and overlaps in idea generation.
-
-**In practice:**
-- Break down topics into components that don't overlap (mutually exclusive)
-- Ensure components cover the entire topic space (collectively exhaustive)
-- Validate MECE criteria before proceeding to causal analysis
-- Assign importance ratings to prioritize components with highest research potential
-
-### 3. Transparent Reasoning Over Black-Box Generation
-Research ideation must expose complete reasoning processes, enabling validation and learning, unlike opaque AI tools.
-
-**In practice:**
-- Document primary analysis showing domain assessment and current state
-- Show component analysis with MECE validation and importance ratings
-- Display causal chains with all five "why" levels and identified root causes
-- Provide scoring rationale for novelty, feasibility, and impact assessments
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| Surface-Level Ideation | Generating ideas from first impressions without root cause analysis leads to shallow, derivative research | Apply full 5-Whys methodology to each component, validate that ideas address root causes not symptoms |
-| Novelty Claims Without Verification | Assuming ideas are novel without checking literature creates wasted effort replicating existing work | Include literature pointers with each idea, cross-check against related work keywords, flag for validation |
-| Infeasibility Blindness | Proposing ambitious ideas without resource assessment leads to abandoned projects | Score feasibility explicitly (0-1 scale), estimate required resources, flag long-term vs quick-win ideas |
-| Single-Domain Tunnel Vision | Restricting ideation to one field misses interdisciplinary opportunities and cross-pollination | Include adjacent fields in primary analysis, explore component interactions, suggest mixed methodologies |
-| Vague Hypothesis Statements | Generating untestable research questions prevents experimental validation and publication | Formulate falsifiable hypotheses with clear success criteria and measurable outcomes for each idea |
-
-## Conclusion
-
-The Rapid Idea Generator skill transforms research ideation from ad-hoc brainstorming into systematic, evidence-based idea generation completed in under 5 minutes. By combining 5-Whys causal analysis with MECE decomposition and transparent scoring, this skill generates 5-10 actionable research ideas grounded in root causes rather than superficial observations. The structured workflow - primary analysis, component decomposition, causal chains, idea generation, and expansion - ensures comprehensive coverage while maintaining speed.
-
-The integration with memory storage and downstream skills creates a complete research workflow. Generated ideas feed directly into literature synthesis for validation, baseline replication for experimental validation, and manuscript drafting for publication. Organizations implementing this skill report significant acceleration in research direction setting, higher quality initial hypotheses, and reduced wasted effort on derivative ideas. The novelty and feasibility scoring system enables prioritization between quick wins and long-term ambitious projects.
-
-When compared to black-box idea generation tools, this skill provides unmatched transparency through documented reasoning at every step. Researchers can validate causal chains, challenge MECE decompositions, and adjust scoring criteria based on domain expertise. The expertise-aware workflow enables loading of domain-specific patterns and known research gaps, preventing regeneration of previously explored ideas. This systematic approach elevates research ideation from creative guesswork to rigorous, reproducible methodology that produces publication-ready research directions in minutes rather than weeks.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+      novelty_score
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

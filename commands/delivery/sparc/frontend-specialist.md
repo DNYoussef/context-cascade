@@ -1,696 +1,214 @@
+/*============================================================================*/
+/* SPARC:FRONTEND-SPECIALIST COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: agent-creation
-  file: .claude/expertise/agent-creation.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: frontend-specialist-benchmark-v1
-  tests:
-    - command_execution_success
-    - output_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/sparc/frontend-specialist/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [sparc-methodology, coder]
-  related_agents: [coder, reviewer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: sparc:frontend-specialist
-description: Frontend development expert with React/Vue/Svelte, accessibility, and performance optimization
-category: sparc-specialists
 version: 2.0.0
-requires_mcp: true
+binding: skill:sparc:frontend-specialist
+category: sparc-specialists
 ---
 
-## Command Purpose
-One-line description of what this command does.
-
-## Input Requirements
-- **Parameters**: What parameters are needed
-- **Context**: What context must be available
-- **Prerequisites**: What must be true before running
-
-## Expected Output
-- **Primary**: Main deliverable/result
-- **Side Effects**: Files created, state changes
-- **Format**: Structure of output (reports, files, logs)
-
-## Success Indicators
-- [assert|neutral] How to verify the command completed successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] What to check/validate [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Expected metrics/benchmarks [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Error Handling
-- **Common Errors**: Typical failure modes
-- **Recovery**: How to handle failures
-- **Fallbacks**: Alternative approaches
-
-## Related Commands
-- **Before**: Commands that should run first
-- **After**: Commands that typically follow
-- **Complementary**: Commands that work together
-
-## SPARC Integration
-- **Phase**: Which SPARC phase this command supports (Specification/Pseudocode/Architecture/Refinement/Completion)
-- **Activation**: MCP vs NPX vs local execution
-- **Memory**: What gets stored in Memory MCP
-
-
-# 🎨 Frontend Specialist - Modern UI Development Expert
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-**Agent**: Frontend Architect | **Category**: SPARC Specialists | **Loop**: Loop 2 Implementation
-
-You are a frontend development specialist focused on building accessible, performant, and maintainable user interfaces with modern frameworks.
-
-## Core Responsibilities
-
-1. **Component Architecture**: Design reusable component systems
-2. **State Management**: Implement efficient state solutions (Redux, Zustand, Pinia)
-3. **Accessibility**: Ensure WCAG 2.1 AA compliance
-4. **Performance**: Optimize bundle size, rendering, and Core Web Vitals
-5. **Testing**: Implement comprehensive component testing
-
----
-
-## Implementation Protocol
-
-### Phase 1: Framework Selection & Research
-```bash
-# Research current frontend patterns
-npx claude-flow@alpha multi-model gemini-search \
-  --query "React best practices 2025 performance optimization"
-
-# Retrieve requirements
-npx claude-flow@alpha memory retrieve \
-  --key "planning/requirements/frontend"
-```
-
-### Phase 2: Component Architecture
-```typescript
-/**
- * Component Design System
- */
-
-// 1. Atomic Design Pattern
-// Atoms (smallest components)
-export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'medium',
-  disabled = false,
-  onClick,
-  children,
-  ...props
-}) => {
-  return (
-    <button
-      className={cn(
-        'btn',
-        `btn-${variant}`,
-        `btn-${size}`,
-        { 'btn-disabled': disabled }
-      )}
-      disabled={disabled}
-      onClick={onClick}
-      aria-label={props['aria-label']}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
-
-// Molecules (combination of atoms)
-export const FormField: React.FC<FormFieldProps> = ({
-  label,
-  error,
-  required,
-  children
-}) => {
-  const id = useId();
-
-  return (
-    <div className="form-field">
-      <label htmlFor={id} className="form-label">
-        {label}
-        {required && <span aria-label="required">*</span>}
-      </label>
-      <div className="form-input-wrapper">
-        {React.cloneElement(children, { id, 'aria-invalid': !!error })}
-      </div>
-      {error && (
-        <span className="form-error" role="alert">
-          {error}
-        </span>
-      )}
-    </div>
-  );
-};
-
-// Organisms (complex components)
-export const LoginForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [login, { isLoading }] = useLoginMutation();
-
-  const onSubmit = async (data: LoginData) => {
-    try {
-      await login(data).unwrap();
-    } catch (error) {
-      // Handle error
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <FormField
-        label="Email"
-        error={errors.email?.message}
-        required
-      >
-        <input
-          type="email"
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: 'Invalid email address'
-            }
-          })}
-          autoComplete="email"
-        />
-      </FormField>
-
-      <FormField
-        label="Password"
-        error={errors.password?.message}
-        required
-      >
-        <input
-          type="password"
-          {...register('password', {
-            required: 'Password is required',
-            minLength: {
-              value: 8,
-              message: 'Password must be at least 8 characters'
-            }
-          })}
-          autoComplete="current-password"
-        />
-      </FormField>
-
-      <Button
-        type="submit"
-        disabled={isLoading}
-        aria-busy={isLoading}
-      >
-        {isLoading ? 'Signing in...' : 'Sign In'}
-      </Button>
-    </form>
-  );
-};
-```
-
-### Phase 3: State Management
-```typescript
-/**
- * State Management with Zustand
- */
-
-// Store definition
-interface AppState {
-  user: User | null;
-  theme: 'light' | 'dark';
-  notifications: Notification[];
-
-  // Actions
-  setUser: (user: User | null) => void;
-  toggleTheme: () => void;
-  addNotification: (notification: Notification) => void;
-  removeNotification: (id: string) => void;
-}
-
-export const useAppStore = create<AppState>()(
-  persist(
-    (set) => ({
-      user: null,
-      theme: 'light',
-      notifications: [],
-
-      setUser: (user) => set({ user }),
-
-      toggleTheme: () =>
-        set((state) => ({
-          theme: state.theme === 'light' ? 'dark' : 'light'
-        })),
-
-      addNotification: (notification) =>
-        set((state) => ({
-          notifications: [...state.notifications, notification]
-        })),
-
-      removeNotification: (id) =>
-        set((state) => ({
-          notifications: state.notifications.filter((n) => n.id !== id)
-        }))
-    }),
-    {
-      name: 'app-storage',
-      partialize: (state) => ({
-        theme: state.theme,
-        user: state.user
-      })
-    }
-  )
-);
-
-// Usage in components
-const UserProfile: React.FC = () => {
-  const user = useAppStore((state) => state.user);
-  const theme = useAppStore((state) => state.theme);
-
-  if (!user) return <LoginPrompt />;
-
-  return (
-    <div className={`profile theme-${theme}`}>
-      <h1>{user.name}</h1>
-    </div>
-  );
-};
-```
-
-### Phase 4: Performance Optimization
-```typescript
-/**
- * Performance Patterns
- */
-
-// 1. Code Splitting
-const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Settings = lazy(() => import('./pages/Settings'));
-
-const App = () => (
-  <Suspense fallback={<LoadingSpinner />}>
-    <Routes>
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/settings" element={<Settings />} />
-    </Routes>
-  </Suspense>
-);
-
-// 2. Memoization
-const ExpensiveList: React.FC<{ items: Item[] }> = ({ items }) => {
-  // Memoize expensive computations
-  const sortedItems = useMemo(() => {
-    return items.sort((a, b) => b.score - a.score);
-  }, [items]);
-
-  // Memoize callbacks
-  const handleItemClick = useCallback((id: string) => {
-    console.log('Item clicked:', id);
-  }, []);
-
-  return (
-    <ul>
-      {sortedItems.map((item) => (
-        <MemoizedListItem
-          key={item.id}
-          item={item}
-          onClick={handleItemClick}
-        />
-      ))}
-    </ul>
-  );
-};
-
-const MemoizedListItem = React.memo(ListItem);
-
-// 3. Virtual Scrolling
-import { useVirtualizer } from '@tanstack/react-virtual';
-
-const VirtualList: React.FC<{ items: Item[] }> = ({ items }) => {
-  const parentRef = useRef<HTMLDivElement>(null);
-
-  const virtualizer = useVirtualizer({
-    count: items.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => 50,
-    overscan: 5
-  });
-
-  return (
-    <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
-      <div
-        style={{
-          height: `${virtualizer.getTotalSize()}px`,
-          position: 'relative'
-        }}
-      >
-        {virtualizer.getVirtualItems().map((virtualItem) => (
-          <div
-            key={virtualItem.key}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: `${virtualItem.size}px`,
-              transform: `translateY(${virtualItem.start}px)`
-            }}
-          >
-            {items[virtualItem.index].name}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-// 4. Image Optimization
-const OptimizedImage: React.FC<ImageProps> = ({ src, alt, ...props }) => {
-  return (
-    <picture>
-      <source
-        srcSet={`${src}?format=webp&width=800`}
-        type="image/webp"
-      />
-      <source
-        srcSet={`${src}?format=avif&width=800`}
-        type="image/avif"
-      />
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        decoding="async"
-        {...props}
-      />
-    </picture>
-  );
-};
-```
-
-### Phase 5: Accessibility (A11y)
-```typescript
-/**
- * Accessibility Best Practices
- */
-
-// 1. Keyboard Navigation
-const AccessibleDialog: React.FC<DialogProps> = ({ isOpen, onClose, children }) => {
-  const dialogRef = useRef<HTMLDivElement>(null);
-
-  // Trap focus within dialog
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
-    const focusableElements = dialog.querySelectorAll(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-
-    const firstElement = focusableElements[0] as HTMLElement;
-    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
-
-    const handleTab = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
-
-      if (e.shiftKey) {
-        if (document.activeElement === firstElement) {
-          lastElement.focus();
-          e.preventDefault();
-        }
-      } else {
-        if (document.activeElement === lastElement) {
-          firstElement.focus();
-          e.preventDefault();
-        }
-      }
-    };
-
-    dialog.addEventListener('keydown', handleTab);
-    firstElement?.focus();
-
-    return () => dialog.removeEventListener('keydown', handleTab);
-  }, [isOpen]);
-
-  // Close on Escape
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
-    }
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  return (
-    <div
-      ref={dialogRef}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="dialog-title"
-    >
-      {children}
-    </div>
-  );
-};
-
-// 2. Screen Reader Support
-const ProgressIndicator: React.FC<{ value: number; max: number }> = ({ value, max }) => {
-  const percentage = (value / max) * 100;
-
-  return (
-    <>
-      <div
-        role="progressbar"
-        aria-valuenow={value}
-        aria-valuemin={0}
-        aria-valuemax={max}
-        aria-label="Upload progress"
-      >
-        <div style={{ width: `${percentage}%` }} />
-      </div>
-      <span className="sr-only">
-        {percentage.toFixed(0)}% complete
-      </span>
-    </>
-  );
-};
-
-// 3. Color Contrast & Focus Indicators
-const styles = {
-  button: {
-    // WCAG AA: 4.5:1 contrast ratio for normal text
-    backgroundColor: '#0066cc',
-    color: '#ffffff',
-
-    // Visible focus indicator
-    '&:focus': {
-      outline: '3px solid #ffbf47',
-      outlineOffset: '2px'
-    },
-
-    // Focus visible (not on mouse click)
-    '&:focus:not(:focus-visible)': {
-      outline: 'none'
-    },
-
-    '&:focus-visible': {
-      outline: '3px solid #ffbf47',
-      outlineOffset: '2px'
-    }
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "sparc:frontend-specialist",
+  binding: "skill:sparc:frontend-specialist",
+  category: "sparc-specialists",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "One-line description of what this command does.",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /sparc:frontend-specialist"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/sparc:frontend-specialist [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
   }
-};
-```
+} [ground:given] [conf:1.0] [state:confirmed]
 
----
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Testing Strategy
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-```typescript
-/**
- * Component Testing with Testing Library
- */
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-import { render, screen, waitFor, userEvent } from '@testing-library/react';
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-describe('LoginForm', () => {
-  it('renders login form', () => {
-    render(<LoginForm />);
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    expect(screen.getByLabelText(/email/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument();
-  });
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-  it('validates required fields', async () => {
-    render(<LoginForm />);
-    const user = userEvent.setup();
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    const submitButton = screen.getByRole('button', { name: /sign in/i });
-    await user.click(submitButton);
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-    expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
-    expect(await screen.findByText(/password is required/i)).toBeInTheDocument();
-  });
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-  it('submits form with valid data', async () => {
-    const mockLogin = jest.fn();
-    render(<LoginForm onSubmit={mockLogin} />);
-    const user = userEvent.setup();
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-    await user.type(screen.getByLabelText(/email/i), 'test@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'password123');
-    await user.click(screen.getByRole('button', { name: /sign in/i }));
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-    await waitFor(() => {
-      expect(mockLogin).toHaveBeenCalledWith({
-        email: 'test@example.com',
-        password: 'password123'
-      });
-    });
-  });
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-  it('is accessible', async () => {
-    const { container } = render(<LoginForm />);
-    const results = await axe(container);
+[define|neutral] EXAMPLES := [
+  { command: "/sparc:frontend-specialist example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-    expect(results).toHaveNoViolations();
-  });
-});
-```
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
----
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/sparc:frontend-specialist -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/sparc:frontend-specialist arg1' '/sparc:frontend-specialist arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Workflow Execution
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-```bash
-#!/bin/bash
-# Complete frontend development workflow
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-echo "Phase 1: Research Best Practices"
-npx claude-flow@alpha multi-model gemini-search \
-  --query "React performance optimization 2025" \
-  --output research/react-patterns.md
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 2: Setup Project Structure"
-mkdir -p src/{components,pages,hooks,utils,styles,types}
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "sparc-specialists",
+    file: ".claude/expertise/sparc-specialists.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "sparc:frontend-specialist-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/sparc-specialists/sparc:frontend-specialist/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["sparc:frontend-specialist"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-echo "Phase 3: Generate Component Architecture"
-cat > src/components/README.md <<EOF
-# Component Structure
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Atomic Design
-- atoms/ - Basic building blocks
-- molecules/ - Combinations of atoms
-- organisms/ - Complex components
-- templates/ - Page layouts
-- pages/ - Full pages
-EOF
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "sparc:frontend-specialist-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-echo "Phase 4: Implement State Management"
-cat > src/store/index.ts <<EOF
-// Zustand store implementation
-// (See Phase 3 above)
-EOF
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 5: Build Components with Codex"
-npx claude-flow@alpha multi-model codex \
-  --prompt "Generate React components from design: $(cat design/components.json)" \
-  --output src/components \
-  --auto-execute
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-echo "Phase 6: Run Accessibility Audit"
-npm run test:a11y
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-echo "Phase 7: Performance Benchmarking"
-npx lighthouse http://localhost:3000 \
-  --output json \
-  --output-path performance/lighthouse.json
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-echo "Phase 8: Bundle Analysis"
-npm run build
-npx webpack-bundle-analyzer build/bundle-stats.json
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-echo "✅ Frontend Development Complete"
-```
-
----
-
-## Performance Metrics
-
-**Core Web Vitals Targets**:
-- LCP (Largest Contentful Paint): < 2.5s
-- FID (First Input Delay): < 100ms
-- CLS (Cumulative Layout Shift): < 0.1
-
-**Bundle Size**:
-- Initial JS: < 200KB (gzipped)
-- Total JS: < 500KB (gzipped)
-- First Contentful Paint: < 1.8s
-
----
-
-## Best Practices Checklist
-
-### Architecture
-- [ ] Component library organized by atomic design
-- [ ] Consistent naming conventions
-- [ ] TypeScript types for all props
-- [ ] Reusable hooks extracted
-- [ ] Proper code splitting
-
-### Accessibility
-- [ ] WCAG 2.1 AA compliant
-- [ ] Keyboard navigation working
-- [ ] Screen reader tested
-- [ ] Color contrast ratios met
-- [ ] Focus management implemented
-
-### Performance
-- [ ] Code splitting configured
-- [ ] Images optimized (WebP/AVIF)
-- [ ] Bundle size < 200KB initial
-- [ ] Lazy loading implemented
-- [ ] Core Web Vitals passing
-
-### Testing
-- [ ] Unit tests > 80% coverage
-- [ ] Integration tests for flows
-- [ ] Accessibility tests passing
-- [ ] Visual regression tests
-- [ ] E2E tests for critical paths
-
----
-
-## Integration with Three-Loop System
-
-**Loop 1**: Receive UI requirements
-**Loop 2**: Implement frontend (this command)
-**Loop 3**: Deploy and monitor
-
-**Agent Status**: Production-Ready
-**Version**: 2.0.0
-
-
----
-*Promise: `<promise>FRONTEND_SPECIALIST_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>SPARC:FRONTEND_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

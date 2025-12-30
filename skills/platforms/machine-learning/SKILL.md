@@ -1,33 +1,64 @@
+/*============================================================================*/
+/* MACHINE-LEARNING SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: machine-learning
-description: Comprehensive machine learning development with training, evaluation, and deployment capabilities. Use when training models, developing ML pipelines, or deploying machine learning systems.
 version: 2.0.0
-tier: gold
-author: SPARC System
+description: |
+  [assert|neutral] Comprehensive machine learning development with training, evaluation, and deployment capabilities. Use when training models, developing ML pipelines, or deploying machine learning systems. [ground:given] [conf:0.95] [state:confirmed]
+category: platforms
 tags:
 - ml
 - deep-learning
 - training
 - evaluation
 - deployment
-- data-science
-dependencies:
-- python-specialist
-- agentdb-learning
-- ml-expert
-agents:
-- ml-developer
-- data-steward
-- evaluator
-related_skills:
-- when-debugging-ml-training-use-ml-training-debugger
-- when-developing-ml-models-use-ml-expert
-- agentdb-learning
-- holistic-evaluation
-- baseline-replication
-category: platforms
+author: SPARC System
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute machine-learning workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic platforms processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "machine-learning",
+  category: "platforms",
+  version: "2.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["machine-learning", "platforms", "workflow"],
+  context: "user needs machine-learning capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When NOT to Use This Skill
 
@@ -123,105 +154,67 @@ Auto-trigger when detecting:
 ```javascript
 // Auto-spawned agents for ML development
 Task("ML Researcher", "Research SOTA models and best practices for [task]", "researcher")
-Task("Data Engineer", "Preprocess data and engineer features", "coder")
-Task("ML Developer", "Implement and train model architecture", "ml-developer")
-Task("Model Evaluator", "Evaluate model performance and fairness", "evaluator")
-Task("ML Ops Engineer", "Deploy model with monitoring", "coder")
-```
+Task("
 
-## Integration Points
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-- **AgentDB Learning**: Reinforcement learning algorithms
-- **ML Expert**: Advanced model development
-- **Holistic Evaluation**: Comprehensive evaluation metrics
-- **Data Steward**: Dataset documentation and bias auditing
-- **Deployment Readiness**: Production ML deployment
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Resources
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-- `resources/scripts/model-trainer.py` - Complete training pipeline
-- `resources/scripts/data-preprocessor.py` - Data preprocessing utilities
-- `resources/scripts/model-evaluator.js` - Evaluation framework
-- `resources/scripts/ml-pipeline.sh` - End-to-end ML pipeline
-- `resources/templates/training-config.yaml` - Training configuration
-- `resources/templates/model-architecture.json` - Model architecture definitions
-- `resources/templates/evaluation-metrics.yaml` - Evaluation metrics configuration
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-See `examples/` directory:
-- `model-training.py` - Complete model training workflow
-- `data-pipeline.py` - Data preprocessing and feature engineering
-- `model-deployment.py` - Model deployment with FastAPI
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/platforms/machine-learning/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Testing
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "machine-learning-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Run tests with:
-```bash
-pytest tests/
-```
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-## Performance
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-- Supports distributed training with PyTorch DDP
-- GPU acceleration for training and inference
-- Automated hyperparameter tuning with Optuna
-- Model versioning and experiment tracking with MLflow
----
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Core Principles
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-Machine Learning Development operates on 3 fundamental principles:
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-### Principle 1: Reproducibility Through Determinism
-Every training run must be reproducible via fixed random seeds, version-locked dependencies, and containerized environments to enable scientific validation.
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-In practice:
-- Set random seeds for PyTorch, NumPy, and Python at training initialization
-- Lock dependency versions in requirements.txt with exact versions (==, not >=)
-- Use Docker containers with pinned base images for training environments
-- Version datasets with DVC to ensure identical train/validation/test splits
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Principle 2: Multi-Metric Holistic Evaluation
-Model quality cannot be reduced to single metrics; accuracy, fairness, robustness, efficiency, interpretability, and safety must all be evaluated.
-
-In practice:
-- Track accuracy metrics (precision, recall, F1) alongside fairness metrics (demographic parity, equalized odds)
-- Measure robustness via adversarial attacks and out-of-distribution detection
-- Monitor efficiency (inference latency, model size, FLOPS) for deployment feasibility
-- Assess interpretability through feature importance, saliency maps, or SHAP values
-
-### Principle 3: Deployment-Aware Training
-Models must be trained with deployment constraints in mind - target latency, memory footprint, and inference hardware determine architecture choices.
-
-In practice:
-- Profile inference latency on target hardware (CPU, GPU, TPU, mobile) early in development
-- Apply model compression (quantization, pruning, distillation) before final training
-- Design architectures compatible with deployment frameworks (ONNX, TensorRT, CoreML)
-- Monitor resource usage during training to predict deployment costs
-
----
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Unreproducible Training** | No fixed seeds, floating dependencies, or undocumented preprocessing prevents validation | Set seeds, lock versions, version datasets with DVC, document preprocessing |
-| **Accuracy-Only Evaluation** | Ignoring fairness, robustness, or efficiency leads to biased or unusable models | Implement holistic evaluation with 6+ metric categories (see holistic-evaluation skill) |
-| **Training Without Validation** | No held-out test set or k-fold validation causes overfitting and poor generalization | Always split data into train/val/test; use cross-validation for small datasets |
-| **Ignoring Deployment Constraints** | Training massive models incompatible with target hardware wastes resources | Profile inference latency early; apply compression techniques before training |
-| **Manual Hyperparameter Tuning** | Grid search or manual tuning is slow and suboptimal | Use automated hyperparameter optimization (Optuna, Ray Tune) |
-
----
-
-## Conclusion
-
-The Machine Learning Development skill provides end-to-end ML workflows from data preprocessing through model deployment, with strong emphasis on reproducibility, holistic evaluation, and deployment readiness. By integrating AgentDB Learning for RL algorithms, ML Expert for advanced architectures, and Holistic Evaluation for comprehensive metrics, it delivers production-grade ML systems.
-
-Use this skill when training neural networks, developing ML pipelines, or deploying machine learning systems requiring rigorous scientific methodology. The platform excels at distributed training, automated hyperparameter tuning, and fairness-aware model development where reproducibility and comprehensive evaluation matter.
-
-Key takeaways: Prioritize reproducibility through determinism, evaluate across multiple dimensions beyond accuracy, and design with deployment constraints from the start. The integration with Data Steward for bias auditing, Deployment Readiness for production validation, and MLflow for experiment tracking provides complete ML development infrastructure with Gold-tier quality standards.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>MACHINE_LEARNING_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

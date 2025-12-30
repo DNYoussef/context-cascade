@@ -1,118 +1,214 @@
+/*============================================================================*/
+/* RESEARCH:CITATION-MANAGER COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: research  file: .claude/expertise/research.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: citation-manager-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/research/./citation-manager/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [literature-synthesis, deep-research-orchestrator]  related_agents: [researcher, evaluator]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: research:citation-manager
-description: Citation management with BibTeX/Zotero integration and format conversion
-category: Research Workflows
 version: 1.0.0
-requires:
-  - python3
-  - bibtexparser
-  - requests
-usage: |
-  /research:citation-manager --import "citations.bib" --format "apa" --export "references.txt"
-  /research:citation-manager --search "doi:10.1234/example" --add-to "library.bib"
+binding: skill:research:citation-manager
+category: Research Workflows
 ---
 
-# Research: Citation Manager
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "research:citation-manager",
+  binding: "skill:research:citation-manager",
+  category: "Research Workflows",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute research:citation-manager workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /research:citation-manager"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Category**: Research Workflows
-**Purpose**: Manage research citations with BibTeX, format conversion, and bibliography generation.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Command Structure
+[define|neutral] SYNTAX := "/research:citation-manager [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-```bash
-/research:citation-manager [OPTIONS]
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Options:
-  --import <path>               Import citations from BibTeX file
-  --export <path>               Export formatted bibliography
-  --format <string>             Citation style (apa, ieee, chicago, harvard)
-  --search <string>             Search for citation by DOI, PMID, arXiv ID
-  --add-to <path>               Add citation to library
-  --validate                    Validate BibTeX entries
-  --deduplicate                 Remove duplicate citations
-```
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Implementation
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-```python
-#!/usr/bin/env python3
-"""
-Citation Management System
-"""
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-import bibtexparser
-from bibtexparser.bwriter import BibTexWriter
-from bibtexparser.bibdatabase import BibDatabase
-import requests
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-class CitationManager:
-    """Manage research citations"""
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    def __init__(self):
-        self.database = BibDatabase()
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-    def import_bibtex(self, path: str):
-        """Import citations from BibTeX file"""
-        with open(path, 'r', encoding='utf-8') as f:
-            self.database = bibtexparser.load(f)
-        print(f"✅ Imported {len(self.database.entries)} citations")
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    def fetch_doi(self, doi: str) -> Dict:
-        """Fetch citation metadata from DOI"""
-        url = f"https://api.crossref.org/works/{doi}"
-        response = requests.get(url)
-        return response.json()['message']
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-    def add_citation(self, entry: Dict):
-        """Add citation to library"""
-        self.database.entries.append(entry)
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    def export_bibtex(self, path: str):
-        """Export citations to BibTeX file"""
-        writer = BibTexWriter()
-        with open(path, 'w', encoding='utf-8') as f:
-            f.write(writer.write(self.database))
-        print(f"✅ Exported {len(self.database.entries)} citations")
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Example usage
-if __name__ == "__main__":
-    manager = CitationManager()
-    manager.import_bibtex('./citations.bib')
-    manager.export_bibtex('./references.bib')
-```
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
----
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-**Status**: Production Ready
-**Version**: 1.0.0
+[define|neutral] EXAMPLES := [
+  { command: "/research:citation-manager example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>CITATION_MANAGER_VERIX_COMPLIANT</promise>`*
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/research:citation-manager -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/research:citation-manager arg1' '/research:citation-manager arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "Research Workflows",
+    file: ".claude/expertise/Research Workflows.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "research:citation-manager-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/Research Workflows/research:citation-manager/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["research:citation-manager"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "research:citation-manager-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>RESEARCH:CITATION_MANAGER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

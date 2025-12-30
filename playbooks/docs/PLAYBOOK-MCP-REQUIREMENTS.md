@@ -1,3 +1,24 @@
+/*============================================================================*/
+/* PLAYBOOK MCP REQUIREMENTS - COMPLETE REFERENCE :: VERILINGUA x VERIX EDITION                               */
+/*============================================================================*/
+
+[define|neutral] PLAYBOOK := {
+  name: "PLAYBOOK-MCP-REQUIREMENTS",
+  type: "workflow-orchestration",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+---
+
 # Playbook MCP Requirements - Complete Reference
 
 ## Kanitsal Cerceve (Evidential Frame Activation)

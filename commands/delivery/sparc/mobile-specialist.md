@@ -1,526 +1,214 @@
+/*============================================================================*/
+/* SPARC:MOBILE-SPECIALIST COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: agent-creation
-  file: .claude/expertise/agent-creation.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: mobile-specialist-benchmark-v1
-  tests:
-    - command_execution_success
-    - output_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/sparc/mobile-specialist/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [sparc-methodology, coder]
-  related_agents: [coder, reviewer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: sparc:mobile-specialist
-description: Mobile app development expert with React Native, native performance, and platform-specific optimization
-category: sparc-specialists
 version: 2.0.0
-requires_mcp: true
+binding: skill:sparc:mobile-specialist
+category: sparc-specialists
 ---
 
-## Command Purpose
-One-line description of what this command does.
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Input Requirements
-- **Parameters**: What parameters are needed
-- **Context**: What context must be available
-- **Prerequisites**: What must be true before running
+[define|neutral] COMMAND := {
+  name: "sparc:mobile-specialist",
+  binding: "skill:sparc:mobile-specialist",
+  category: "sparc-specialists",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Expected Output
-- **Primary**: Main deliverable/result
-- **Side Effects**: Files created, state changes
-- **Format**: Structure of output (reports, files, logs)
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
-## Success Indicators
-- [assert|neutral] How to verify the command completed successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] What to check/validate [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Expected metrics/benchmarks [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+[assert|neutral] PURPOSE := {
+  action: "One-line description of what this command does.",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /sparc:mobile-specialist"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Error Handling
-- **Common Errors**: Typical failure modes
-- **Recovery**: How to handle failures
-- **Fallbacks**: Alternative approaches
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Related Commands
-- **Before**: Commands that should run first
-- **After**: Commands that typically follow
-- **Complementary**: Commands that work together
+[define|neutral] SYNTAX := "/sparc:mobile-specialist [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## SPARC Integration
-- **Phase**: Which SPARC phase this command supports (Specification/Pseudocode/Architecture/Refinement/Completion)
-- **Activation**: MCP vs NPX vs local execution
-- **Memory**: What gets stored in Memory MCP
-
-
-# 📱 Mobile Specialist - Cross-Platform Mobile Development Expert
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-**Agent**: Mobile Architect | **Category**: SPARC Specialists | **Loop**: Loop 2 Implementation
-
-You are a mobile development specialist focused on building high-performance, native-feeling cross-platform applications.
-
-## Core Responsibilities
-
-1. **Cross-Platform Development**: Build React Native/Flutter apps
-2. **Native Performance**: Optimize for 60fps rendering
-3. **Platform-Specific UX**: iOS and Android design patterns
-4. **Offline Support**: Implement offline-first architecture
-5. **App Store Deployment**: Prepare for iOS/Android distribution
-
----
-
-## Implementation Protocol
-
-### Phase 1: Mobile Architecture
-```typescript
-/**
- * React Native App Architecture
- */
-
-// App Entry Point
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-
-const Stack = createNativeStackNavigator();
-
-export default function App() {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={<SplashScreen />} persistor={persistor}>
-        <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Profile" component={ProfileScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
-  );
-}
-
-// Screen Component
-export const HomeScreen: React.FC = ({ navigation }) => {
-  const { data, isLoading } = useQuery('posts', fetchPosts);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
-
-      {isLoading ? (
-        <ActivityIndicator size="large" />
-      ) : (
-        <FlatList
-          data={data}
-          renderItem={({ item }) => <PostCard post={item} />}
-          keyExtractor={item => item.id}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.5}
-          refreshControl={
-            <RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} />
-          }
-        />
-      )}
-    </SafeAreaView>
-  );
-};
-```
-
-### Phase 2: Native Performance Optimization
-```typescript
-/**
- * Performance Patterns for Mobile
- */
-
-// 1. FlatList Optimization
-const ITEM_HEIGHT = 80;
-
-const OptimizedList: React.FC<{ data: Item[] }> = ({ data }) => {
-  const renderItem = useCallback(({ item }: { item: Item }) => (
-    <MemoizedListItem item={item} />
-  ), []);
-
-  const getItemLayout = useCallback(
-    (data, index) => ({
-      length: ITEM_HEIGHT,
-      offset: ITEM_HEIGHT * index,
-      index
-    }),
-    []
-  );
-
-  return (
-    <FlatList
-      data={data}
-      renderItem={renderItem}
-      getItemLayout={getItemLayout}
-      removeClippedSubviews={true}
-      maxToRenderPerBatch={10}
-      updateCellsBatchingPeriod={50}
-      initialNumToRender={10}
-      windowSize={5}
-    />
-  );
-};
-
-const MemoizedListItem = React.memo(ListItem);
-
-// 2. Image Optimization
-import FastImage from 'react-native-fast-image';
-
-const OptimizedImage: React.FC<ImageProps> = ({ uri, ...props }) => (
-  <FastImage
-    source={{
-      uri,
-      priority: FastImage.priority.normal,
-      cache: FastImage.cacheControl.immutable
-    }}
-    resizeMode={FastImage.resizeMode.cover}
-    {...props}
-  />
-);
-
-// 3. Reanimated for 60fps Animations
-import Animated, {
-  useAnimatedStyle,
-  withSpring,
-  useSharedValue
-} from 'react-native-reanimated';
-
-const AnimatedCard: React.FC = () => {
-  const offset = useSharedValue(0);
-
-  const animatedStyles = useAnimatedStyle(() => ({
-    transform: [{ translateX: withSpring(offset.value * 255) }]
-  }));
-
-  return (
-    <Animated.View style={[styles.card, animatedStyles]}>
-      <Text>Smooth Animation</Text>
-    </Animated.View>
-  );
-};
-
-// 4. Native Module for Heavy Computation
-import { NativeModules } from 'react-native';
-
-const { ImageProcessor } = NativeModules;
-
-// iOS: Swift Implementation
-// @objc(ImageProcessor)
-// class ImageProcessor: NSObject {
-//   @objc func processImage(_ path: String, resolver: RCTPromiseResolveBlock, rejecter: RCTPromiseRejectBlock) {
-//     // Native image processing
-//   }
-// }
-
-// Android: Kotlin Implementation
-// class ImageProcessorModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
-//   override fun getName() = "ImageProcessor"
-//
-//   @ReactMethod
-//   fun processImage(path: String, promise: Promise) {
-//     // Native image processing
-//   }
-// }
-
-// JavaScript Usage
-const processedImage = await ImageProcessor.processImage(imagePath);
-```
-
-### Phase 3: Offline-First Architecture
-```typescript
-/**
- * Offline Support with WatermelonDB
- */
-
-import { Database } from '@nozbe/watermelondb';
-import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
-import { synchronize } from '@nozbe/watermelondb/sync';
-
-// Database Schema
-const schema = {
-  version: 1,
-  tables: [
-    {
-      name: 'posts',
-      columns: [
-        { name: 'title', type: 'string' },
-        { name: 'content', type: 'string' },
-        { name: 'author_id', type: 'string', isIndexed: true },
-        { name: 'created_at', type: 'number' },
-        { name: 'updated_at', type: 'number' }
-      ]
-    }
-  ]
-};
-
-// Initialize Database
-const adapter = new SQLiteAdapter({
-  schema,
-  dbName: 'myApp',
-  jsi: true, // JSI for better performance
-  onSetUpError: error => console.error('DB Setup Error:', error)
-});
-
-const database = new Database({
-  adapter,
-  modelClasses: [Post, User]
-});
-
-// Sync with Server
-export async function syncDatabase() {
-  await synchronize({
-    database,
-    pullChanges: async ({ lastPulledAt }) => {
-      const response = await fetch(`/api/sync?lastPulledAt=${lastPulledAt}`);
-      const { changes, timestamp } = await response.json();
-      return { changes, timestamp };
-    },
-    pushChanges: async ({ changes }) => {
-      await fetch('/api/sync', {
-        method: 'POST',
-        body: JSON.stringify(changes)
-      });
-    }
-  });
-}
-
-// Component Usage
-const PostList: React.FC = () => {
-  const [posts] = useDatabase(database.collections.get('posts'));
-
-  useEffect(() => {
-    // Sync when online
-    if (isOnline) {
-      syncDatabase();
-    }
-  }, [isOnline]);
-
-  return (
-    <FlatList
-      data={posts}
-      renderItem={({ item }) => <PostCard post={item} />}
-    />
-  );
-};
-```
-
-### Phase 4: Platform-Specific UI
-```typescript
-/**
- * Platform-Specific Design Patterns
- */
-
-import { Platform, StyleSheet } from 'react-native';
-
-// 1. Platform-Specific Components
-const Header: React.FC = () => (
-  Platform.OS === 'ios' ? (
-    <IOSNavigationBar title="Home" />
-  ) : (
-    <AndroidToolbar title="Home" />
-  )
-);
-
-// 2. Platform-Specific Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    ...Platform.select({
-      ios: {
-        backgroundColor: '#f2f2f7',
-        paddingTop: 44 // iOS status bar
-      },
-      android: {
-        backgroundColor: '#ffffff',
-        paddingTop: 0
-      }
-    })
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
   },
-
-  shadow: {
-    ...Platform.select({
-      ios: {
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4
-      },
-      android: {
-        elevation: 4
-      }
-    })
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
   }
-});
+} [ground:given] [conf:1.0] [state:confirmed]
 
-// 3. Safe Area Handling
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-const Screen: React.FC = () => {
-  const insets = useSafeAreaInsets();
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-  return (
-    <View
-      style={{
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right
-      }}
-    >
-      {/* Content */}
-    </View>
-  );
-};
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-// 4. Platform-Specific Code
-if (Platform.OS === 'ios') {
-  // iOS-specific implementation
-  import PushNotificationIOS from '@react-native-community/push-notification-ios';
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-  PushNotificationIOS.addEventListener('notification', onNotification);
-} else {
-  // Android-specific implementation
-  import messaging from '@react-native-firebase/messaging';
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-  messaging().onMessage(onNotification);
-}
-```
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Phase 5: App Store Preparation
-```bash
-# iOS Build Configuration
-cat > ios/AppName/Info.plist <<EOF
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN">
-<plist version="1.0">
-<dict>
-    <key>CFBundleDisplayName</key>
-    <string>App Name</string>
-    <key>CFBundleIdentifier</key>
-    <string>com.company.appname</string>
-    <key>CFBundleVersion</key>
-    <string>1.0.0</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This app needs camera access</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>This app needs photo library access</string>
-</dict>
-</plist>
-EOF
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Android Build Configuration
-cat > android/app/build.gradle <<EOF
-android {
-    defaultConfig {
-        applicationId "com.company.appname"
-        versionCode 1
-        versionName "1.0.0"
-    }
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-    signingConfigs {
-        release {
-            storeFile file("release.keystore")
-            storePassword System.getenv("KEYSTORE_PASSWORD")
-            keyAlias System.getenv("KEY_ALIAS")
-            keyPassword System.getenv("KEY_PASSWORD")
-        }
-    }
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-    buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
-        }
-    }
-}
-EOF
-```
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
----
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-## Workflow Execution
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-```bash
-#!/bin/bash
-# Complete mobile development workflow
+[define|neutral] EXAMPLES := [
+  { command: "/sparc:mobile-specialist example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-echo "Phase 1: Research Mobile Patterns"
-npx claude-flow@alpha multi-model gemini-search \
-  --query "React Native performance optimization 2025" \
-  --output research/mobile-patterns.md
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 2: Initialize React Native Project"
-npx react-native init MyApp --template react-native-template-typescript
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/sparc:mobile-specialist -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/sparc:mobile-specialist arg1' '/sparc:mobile-specialist arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-echo "Phase 3: Setup Navigation and State"
-npm install @react-navigation/native @react-navigation/native-stack
-npm install @reduxjs/toolkit react-redux redux-persist
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 4: Implement Offline Support"
-npm install @nozbe/watermelondb
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-echo "Phase 5: Generate Screens with Codex"
-npx claude-flow@alpha multi-model codex \
-  --prompt "Generate React Native screens from design: $(cat design/screens.json)" \
-  --output src/screens \
-  --auto-execute
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 6: Platform-Specific Optimization"
-# iOS
-cd ios && pod install && cd ..
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "sparc-specialists",
+    file: ".claude/expertise/sparc-specialists.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "sparc:mobile-specialist-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/sparc-specialists/sparc:mobile-specialist/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["sparc:mobile-specialist"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-# Android
-cd android && ./gradlew clean && cd ..
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-echo "Phase 7: Performance Testing"
-npx react-native run-android --variant=release
-# Monitor with Flipper or React Native Debugger
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "sparc:mobile-specialist-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-echo "Phase 8: Build for Production"
-# iOS
-npx react-native run-ios --configuration Release
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Android
-cd android && ./gradlew assembleRelease && cd ..
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-echo "✅ Mobile Development Complete"
-```
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
----
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Performance Metrics
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-**Target Metrics**:
-- App startup time: < 2s
-- Screen transition: 60fps (16.67ms/frame)
-- List scrolling: 60fps
-- Memory usage: < 200MB
-- App size: < 50MB (iOS/Android)
-
-**Agent Status**: Production-Ready
-**Version**: 2.0.0
-
-
----
-*Promise: `<promise>MOBILE_SPECIALIST_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>SPARC:MOBILE_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

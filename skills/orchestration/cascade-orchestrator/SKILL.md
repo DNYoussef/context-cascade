@@ -1,24 +1,64 @@
+/*============================================================================*/
+/* CASCADE-ORCHESTRATOR SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: cascade-orchestrator
-description: Creates sophisticated workflow cascades coordinating multiple micro-skills
-  with sequential pipelines, parallel execution, conditional branching, and Codex
-  sandbox iteration. Enhanced with multi-model routing (Gemini/Codex), ruv-swarm coordination,
-  memory persistence, and audit-pipeline patterns for production workflows.
+version: 2.1.0
+description: |
+  [assert|neutral] Creates sophisticated workflow cascades coordinating multiple micro-skills with sequential pipelines, parallel execution, conditional branching, and Codex sandbox iteration. Enhanced with multi-model  [ground:given] [conf:0.95] [state:confirmed]
+category: orchestration
 tags:
 - orchestration
 - workflows
 - cascades
 - multi-model
 - codex-integration
-- tier-2
-version: 2.1.0
-category: orchestration
 author: ruv
 cognitive_frame:
-  primary: aspectual
-  secondary: hierarchical
-  rationale: "Workflow orchestration requires tracking state transitions across hierarchical task structures. Aspectual framing monitors completion/progress/blocked states while hierarchical framing organizes workflows into phases > stages > tasks > subtasks."
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute cascade-orchestrator workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic orchestration processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "cascade-orchestrator",
+  category: "orchestration",
+  version: "2.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["cascade-orchestrator", "orchestration", "workflow"],
+  context: "user needs cascade-orchestrator capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## Aspektual'naya Ramka Orkestratsii (Workflow State Tracking)
 
@@ -128,735 +168,67 @@ HIERARCHY PROPERTIES:
 - **Complex pipelines** coordinating multiple micro-skills or agents
 - **Iterative processes** with Codex sandbox testing and auto-fix loops
 - **Multi-model routing** requiring intelligent AI selection per stage
-- **Production workflows** needing GitHub integration and memory persistence
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination requirements
-- **Simple sequential work** that doesn't need stage management
-- **Trivial operations** completing in <5 minutes
-- **Pure research** without implementation stages
-
-### Success Criteria
-- **All stages complete** with 100% success rate (all [SV:COMPLETED])
-- [assert|neutral] *Dependency resolution** with no circular dependencies [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Model routing optimal** for each stage (Gemini/Codex/Claude) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Memory persistence** maintained across all stages [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *No orphaned stages** - all stages tracked and state-transitioned [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Stage failure mid-cascade** - Transition to [FAILED], implement retry with exponential backoff
-- **Circular dependencies** - Validate DAG structure before execution
-- **Model unavailability** - Have fallback model selection per stage
-- **Memory overflow** - Implement stage result compression
-- **Timeout on long stages** - Configure per-stage timeout limits, transition to [FAILED]
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose stage state** - Persist after each state transition ([NSV] -> [SV]) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate dependencies** - Check DAG acyclic before execution [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track cascade progress** - Update memory with real-time state (aspectual tracking) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip error handling** - Every stage needs try/catch with [FAILED] transition [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: cleanup on failure** - Release resources, clear temp state, mark [ERROR] [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify stage outputs** - Check actual results vs expected schema (validate [SV] state)
-- **Validate data flow** - Confirm outputs passed correctly to next stage in hierarchy
-- **Check model routing** - Verify correct AI used per stage requirements
-- **Measure cascade performance** - Track execution time vs estimates per hierarchy level
-- **Audit memory usage** - Ensure no memory leaks across stages/phases
-
-
-# Cascade Orchestrator (Enhanced)
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-Manages workflows (cascades) that coordinate multiple micro-skills into cohesive processes. This enhanced version integrates Codex sandbox iteration, multi-model routing, ruv-swarm coordination, and memory persistence across stages.
-
-## Philosophy: Composable Excellence
-
-Complex capabilities emerge from composing simple, well-defined components.
-
-**Enhanced Capabilities**:
-- **Codex Sandbox Iteration**: Auto-fix failures in isolated environment (from audit-pipeline)
-- **Multi-Model Routing**: Use Gemini/Codex based on stage requirements
-- **Swarm Coordination**: Parallel execution via ruv-swarm MCP
-- **Memory Persistence**: Maintain context across stages
-- **GitHub Integration**: CI/CD pipeline automation
-
-**Key Principles**:
-1. Separation of concerns (micro-skills execute, cascades coordinate)
-2. Reusability through composition
-3. Flexible orchestration patterns
-4. Declarative workflow definition
-5. Intelligent model selection
-
-## Cascade Architecture (Enhanced)
-
-### Definition Layer
-
-**Extended Stage Types**:
-```yaml
-stages:
-  - type: sequential     # One after another
-  - type: parallel       # Simultaneous execution
-  - type: conditional    # Based on runtime conditions
-  - type: codex-sandbox  # NEW: Iterative testing with auto-fix
-  - type: multi-model    # NEW: Intelligent AI routing
-  - type: swarm-parallel # NEW: Coordinated via ruv-swarm
-```
-
-**Enhanced Data Flow**:
-```yaml
-data_flow:
-  - stage_output: previous stage results
-  - shared_memory: persistent across stages
-  - multi_model_context: AI-specific formatting
-  - codex_sandbox_state: isolated test environment
-```
-
-**Advanced Error Handling**:
-```yaml
-error_handling:
-  - retry_with_backoff
-  - fallback_to_alternative
-  - codex_auto_fix        # NEW: Auto-fix via Codex
-  - model_switching       # NEW: Try different AI
-  - swarm_recovery        # NEW: Redistribute tasks
-```
-
-### Execution Engine (Enhanced)
-
-**Stage Scheduling with AI Selection**:
-```python
-for stage in cascade.stages:
-    if stage.type == "codex-sandbox":
-        execute_with_codex_iteration(stage)
-    elif stage.type == "multi-model":
-        model = select_optimal_model(stage.task)
-        execute_on_model(stage, model)
-    elif stage.type == "swarm-parallel":
-        execute_via_ruv_swarm(stage)
-    else:
-        execute_standard(stage)
-```
-
-**Codex Sandbox Iteration Loop**:
-```python
-def execute_with_codex_iteration(stage):
-    """
-    From audit-pipeline Phase 2: functionality-audit pattern
-    """
-    results = execute_tests(stage.tests)
-
-    for test in failed_tests(results):
-        iteration = 0
-        max_iterations = 5
-
-        while test.failed and iteration < max_iterations:
-            # Spawn Codex in sandbox
-            fix = spawn_codex_auto(
-                task=f"Fix test failure: {test.error}",
-                sandbox=True,
-                context=test.context
-            )
-
-            # Re-test
-            test.result = rerun_test(test)
-            iteration += 1
-
-            if test.passed:
-                apply_fix_to_main(fix)
-                break
-
-        if still_failed(test):
-            escalate_to_user(test)
-
-    return aggregate_results(results)
-```
-
-**Multi-Model Routing**:
-```python
-def select_optimal_model(task):
-    """
-    Route to best AI based on task characteristics
-    """
-    if task.requires_large_context:
-        return "gemini-megacontext"  # 1M tokens
-    elif task.needs_current_info:
-        return "gemini-search"        # Web grounding
-    elif task.needs_visual_output:
-        return "gemini-media"          # Imagen/Veo
-    elif task.needs_rapid_prototype:
-        return "codex-auto"            # Full Auto
-    elif task.needs_alternative_view:
-        return "codex-reasoning"       # GPT-5-Codex
-    else:
-        return "claude"                # Best overall
-```
-
-## Enhanced Cascade Patterns
-
-### Pattern 1: Linear Pipeline with Multi-Model
-
-```yaml
-cascade:
-  name: enhanced-data-pipeline
-  stages:
-    - stage: extract
-      model: auto-select
-      skill: extract-data
-
-    - stage: validate
-      model: auto-select
-      skill: validate-data
-      error_handling:
-        strategy: codex-auto-fix  # NEW
-
-    - stage: transform
-      model: codex-auto           # Fast prototyping
-      skill: transform-data
-
-    - stage: report
-      model: gemini-media         # Generate visuals
-      skill: generate-report
-```
-
-### Pattern 2: Parallel Fan-Out with Swarm
-
-```yaml
-cascade:
-  name: code-quality-swarm
-  stages:
-    - stage: quality-checks
-      type: swarm-parallel        # NEW: Via ruv-swarm
-      skills:
-        - lint-code
-        - security-scan
-        - complexity-analysis
-        - test-coverage
-      swarm_config:
-        topology: mesh
-        max_agents: 4
-        strategy: balanced
-
-    - stage: aggregate
-      skill: merge-quality-reports
-```
-
-### Pattern 3: Codex Sandbox Iteration
-
-```yaml
-cascade:
-  name: test-and-fix
-  stages:
-    - stage: functionality-audit
-      type: codex-sandbox         # NEW
-      test_suite: comprehensive
-      codex_config:
-        mode: full-auto
-        max_iterations: 5
-        sandbox: true
-      error_recovery:
-        auto_fix: true
-        escalate_after: 5
-
-    - stage: validate-fixes
-      skill: regression-tests
-```
-
-### Pattern 4: Conditional with Model Switching
-
-```yaml
-cascade:
-  name: adaptive-workflow
-  stages:
-    - stage: analyze
-      model: gemini-megacontext   # Large context
-      skill: analyze-codebase
-
-    - stage: decide
-      type: conditional
-      condition: ${analyze.quality_score}
-      branches:
-        high_quality:
-          model: codex-auto       # Fast path
-          skill: deploy-fast
-        low_quality:
-          model: multi-model      # Comprehensive path
-          cascade: deep-quality-audit
-```
-
-### Pattern 5: Iterative with Memory
-
-```yaml
-cascade:
-  name: iterative-refinement
-  stages:
-    - stage: refactor
-      model: auto-select
-      skill: refactor-code
-      memory: persistent          # NEW
-
-    - stage: check-quality
-      skill: quality-metrics
-
-    - stage: repeat-decision
-      type: conditional
-      condition: ${quality < threshold}
-      repeat: refactor            # Loop back
-      max_iterations: 3
-      memory_shared: true         # Context persists
-```
-
-## Creating Enhanced Cascades
-
-### Step 1: Define with AI Considerations
-
-**Identify Model Requirements**:
-```markdown
-For each stage, determine:
-- Large context needed? → Gemini
-- Current web info needed? → Gemini Search
-- Visual output needed? → Gemini Media
-- Rapid prototyping needed? → Codex
-- Testing with auto-fix? → Codex Sandbox
-- Best overall reasoning? → Claude
-```
-
-### Step 2: Design with Swarm Parallelism
-
-**When to Use Swarm**:
-- Multiple independent tasks
-- Resource-intensive operations
-- Need load balancing
-- Want fault tolerance
-
-**Swarm Configuration**:
-```yaml
-swarm_config:
-  topology: mesh | hierarchical | star
-  max_agents: number
-  strategy: balanced | specialized | adaptive
-  memory_shared: true | false
-```
-
-### Step 3: Add Codex Iteration for Quality
-
-**Pattern from audit-pipeline**:
-```yaml
-stages:
-  - type: codex-sandbox
-    tests: ${test_suite}
-    fix_strategy:
-      auto_fix: true
-      max_iterations: 5
-      sandbox_isolated: true
-      network_disabled: true
-      regression_check: true
-```
-
-### Step 4: Enable Memory Persistence
-
-**Shared Memory Across Stages**:
-```yaml
-memory:
-  persistence: enabled
-  scope: cascade | global
-  storage: mcp__ruv-swarm__memory
-  keys:
-    - analysis_results
-    - intermediate_outputs
-    - learned_patterns
-```
-
-## Enhanced Cascade Definition Format
-
-```yaml
-cascade:
-  name: cascade-name
-  description: What this accomplishes
-  version: 2.1.0
-
-  config:
-    multi_model: enabled
-    swarm_coordination: enabled
-    memory_persistence: enabled
-    github_integration: enabled
-    state_tracking: aspectual  # NEW: Track state transitions
-    hierarchy_tracking: enabled  # NEW: Track phase/stage/task levels
-
-  inputs:
-    - name: input-name
-      type: type
-      description: description
-
-  stages:
-    - stage_id: stage-1
-      name: Stage Name
-      type: sequential | parallel | codex-sandbox | multi-model | swarm-parallel
-      model: auto-select | gemini | codex | claude
-      state: PENDING | IN_PROGRESS | COMPLETED | FAILED | BLOCKED | PARALLEL  # NEW
-      hierarchy_level: phase | stage | task | subtask  # NEW
-
-      # For micro-skill execution
-      skills:
-        - skill: micro-skill-name
-          inputs: {...}
-          outputs: {...}
-
-      # For Codex sandbox
-      codex_config:
-        mode: full-auto
-        sandbox: true
-        max_iterations: 5
-
-      # For swarm execution
-      swarm_config:
-        topology: mesh
-        max_agents: 4
-
-      # For memory
-      memory:
-        read_keys: [...]
-        write_keys: [...]
-
-      # NEW: State transition configuration
-      state_transitions:
-        on_start: PENDING -> IN_PROGRESS
-        on_complete: IN_PROGRESS -> COMPLETED
-        on_failure: IN_PROGRESS -> FAILED
-        on_block: IN_PROGRESS -> BLOCKED
-        on_retry: FAILED -> IN_PROGRESS
-
-      # NEW: Agent state tracking
-      agents:
-        - agent_id: agent-1
-          state: IDLE | WORKING | WAITING | DONE | ERROR
-          assigned_task: task-id
-
-      error_handling:
-        strategy: retry | codex-auto-fix | model-switch | swarm-recovery
-        max_retries: 3
-        fallback: alternative-skill
-        state_on_error: FAILED  # NEW
-
-  # NEW: State tracking configuration
-  state_tracking:
-    enabled: true
-    persist_to_memory: true
-    visualization_format: hierarchical_tree
-    state_transitions_logged: true
-
-  # NEW: Hierarchy configuration
-  hierarchy:
-    levels: [workflow, phase, stage, task, subtask]
-    dependency_rules:
-      phase: sequential  # Phases run sequentially
-      stage: conditional  # Stages can be parallel or sequential
-      task: parallel_in_phase  # Tasks parallel within phase
-      subtask: sequential_in_task  # Subtasks sequential within task
-
-  memory:
-    persistence: enabled
-    scope: cascade
-    store_state_history: true  # NEW
-
-  github_integration:
-    create_pr: on_success
-    report_issues: on_failure
-```
-
-## State Transition Output Templates
-
-### Aspectual State Report Template
-
-```
-CASCADE STATE REPORT: {cascade_name}
-Generated: {timestamp}
-
-OVERALL STATUS: {workflow_state}
-  Total Phases: {phase_count}
-  Completed: {completed_count} [SV]
-  In Progress: {in_progress_count} [NSV]
-  Blocked: {blocked_count} [BLOCKED]
-  Failed: {failed_count} [FAILED]
-  Pending: {pending_count} [PENDING]
-
-STATE TRANSITIONS (Last 5):
-  1. {timestamp} | Phase 2/Stage 3 | PENDING -> IN_PROGRESS
-  2. {timestamp} | Phase 2/Stage 2 | IN_PROGRESS -> COMPLETED
-  3. {timestamp} | Phase 1/Stage 1 | IN_PROGRESS -> COMPLETED
-  4. {timestamp} | Phase 1/Stage 1 | PENDING -> IN_PROGRESS
-  5. {timestamp} | Workflow initialized | null -> PENDING
-
-AGENT STATUS:
-  IDLE: {idle_agents} agents available
-  WORKING: {working_agents} agents executing
-  WAITING: {waiting_agents} agents blocked
-  DONE: {done_agents} agents completed
-  ERROR: {error_agents} agents failed
-
-NEXT ACTIONS:
-  - Resolve {blocked_count} blocked stages
-  - Monitor {in_progress_count} active stages
-  - Prepare for {pending_count} queued stages
-```
-
-### Hierarchical Dependency Report Template
-
-```
-CASCADE HIERARCHY: {cascade_name}
-
-WORKFLOW LEVEL (最上位):
-  Name: {workflow_name}
-  State: {workflow_state}
-  Estimated Completion: {eta}
-
-PHASE LEVEL (重要段階):
-  Phase 1: {phase1_name} [{phase1_state}]
-    Dependencies: None (initial phase)
-    Blocks: Phase 2, Phase 3, Phase 4
-    Progress: {phase1_progress}%
-
-  Phase 2: {phase2_name} [{phase2_state}]
-    Dependencies: Phase 1 [SV:COMPLETED]
-    Blocks: Phase 3, Phase 4
-    Progress: {phase2_progress}%
-
-  Phase 3: {phase3_name} [{phase3_state}]
-    Dependencies: Phase 2 [PENDING]
-    Blocks: Phase 4
-    Progress: {phase3_progress}%
-
-STAGE LEVEL (小段階) - Phase 2 Detail:
-  Stage 2.1: {stage_name} [{state}]
-    Hierarchy: Phase 2 > Stage 2.1
-    Dependencies: Phase 1 complete
-    Parallel Group: implementation
-    Tasks: {task_count}
-
-TASK LEVEL (作業) - Stage 2.1 Detail:
-  Task 2.1.1: {task_name} [{state}]
-    Assigned Agent: {agent_id} [{agent_state}]
-    Subtasks: {subtask_count}
-    Estimated Time: {eta}
-
-SUBTASK LEVEL (細分) - Task 2.1.1 Detail:
-  Subtask 2.1.1.1: {subtask_name} [SV:COMPLETED]
-  Subtask 2.1.1.2: {subtask_name} [NSV:IN_PROGRESS]
-  Subtask 2.1.1.3: {subtask_name} [PENDING]
-
-DEPENDENCY GRAPH:
-  Sequential: Phase 1 -> Phase 2 -> Phase 3 -> Phase 4
-  Parallel (Phase 2): Task 2.1 || Task 2.2 || Task 2.3
-  Sequential (Task 2.1): Subtask 2.1.1 -> 2.1.2 -> 2.1.3
-```
-
-### Combined Aspectual-Hierarchical View
-
-```
-WORKFLOW ORCHESTRATION STATUS
-
-HIERARCHY + STATE VIEW:
-
-WORKFLOW: Production Deployment Pipeline [NSV:IN_PROGRESS]
-  |
-  +-- PHASE 1: Build [SV:COMPLETED] ✓
-  |     |-- STAGE 1.1: Compile [SV] (Agent: builder [DONE])
-  |     |-- STAGE 1.2: Test [SV] (Agent: tester [DONE])
-  |
-  +-- PHASE 2: Deploy to Staging [NSV:IN_PROGRESS] ⚙
-  |     |-- STAGE 2.1: Package [SV] (Agent: packager [DONE])
-  |     |-- STAGE 2.2: Upload [NSV] (Agent: uploader [WORKING])
-  |     |-- STAGE 2.3: Smoke Tests [BLOCKED] (Agent: tester [WAITING])
-  |           |-- TASK 2.3.1: API health check [PENDING]
-  |           |-- TASK 2.3.2: Database migration [PENDING]
-  |
-  +-- PHASE 3: Deploy to Production [PENDING] ⏳
-        |-- STAGE 3.1: Blue-Green Deploy [PENDING]
-        |-- STAGE 3.2: Validation [PENDING]
-
-STATE LEGEND:
-  [SV:COMPLETED] ✓ - Zaversheno (Complete)
-  [NSV:IN_PROGRESS] ⚙ - V protsesse (Active)
-  [BLOCKED] ⛔ - Blokirovano (Blocked)
-  [PENDING] ⏳ - Ozhidayet (Queued)
-  [FAILED] ❌ - Provaleno (Failed)
-
-CRITICAL PATH:
-  Stage 2.2 [NSV] -> Stage 2.3 [BLOCKED] -> Phase 3 [PENDING]
-  Estimated Completion: {eta} (blocked on upload completion)
-```
-
-## Real-World Enhanced Cascades
-
-### Example 1: Complete Development Workflow
-
-```yaml
-cascade: complete-dev-workflow
-stages:
-  1. gemini-search: "Research latest framework best practices"
-  2. codex-auto: "Rapid prototype with best practices"
-  3. codex-sandbox: "Test everything, auto-fix failures"
-  4. gemini-media: "Generate architecture diagrams"
-  5. style-audit: "Polish code to production standards"
-  6. github-pr: "Create PR with comprehensive report"
-```
-
-### Example 2: Legacy Modernization
-
-```yaml
-cascade: modernize-legacy-code
-stages:
-  1. gemini-megacontext: "Analyze entire 50K line codebase"
-  2. theater-detection: "Find all mocks and placeholders"
-  3. [swarm-parallel]:
-     - codex-auto: "Complete implementations" (parallel)
-     - gemini-media: "Document architecture"
-  4. codex-sandbox: "Test all changes with auto-fix"
-  5. style-audit: "Final polish"
-  6. generate-pr: "Create PR with before/after comparison"
-```
-
-### Example 3: Bug Fix with RCA
-
-```yaml
-cascade: intelligent-bug-fix
-stages:
-  1. root-cause-analyzer: "Deep RCA analysis"
-  2. multi-model-decision:
-     condition: ${rca.complexity}
-     simple: codex-auto (quick fix)
-     complex: [
-       gemini-megacontext (understand broader context),
-       codex-reasoning (alternative approaches),
-       claude (implement best approach)
-     ]
-  3. codex-sandbox: "Test fix thoroughly"
-  4. regression-suite: "Ensure no breakage"
-  5. github-issue-update: "Document fix with RCA report"
-```
-
-## Integration Points
-
-### With Micro-Skills
-- Executes micro-skills in stages
-- Passes data between skills
-- Handles skill errors gracefully
-
-### With Multi-Model System
-- Routes stages to optimal AI
-- Uses gemini-* skills for unique capabilities
-- Uses codex-* skills for prototyping/fixing
-- Uses Claude for best reasoning
-
-### With Audit Pipeline
-- Incorporates theater → functionality → style pattern
-- Uses Codex sandbox iteration from Phase 2
-- Applies quality gates throughout
-
-### With Slash Commands
-- Commands trigger cascades
-- Parameter mapping from command to cascade
-- Progress reporting to command interface
-
-### With Ruv-Swarm MCP
-- Parallel stage coordination
-- Memory persistence
-- Neural training
-- Performance tracking
-
-## Working with Enhanced Cascade Orchestrator
-
-**Invocation**:
-"Create a cascade that [end goal] using [micro-skills] with [Codex/Gemini/swarm] capabilities"
-
-**The orchestrator will**:
-1. Design workflow with optimal AI model selection
-2. Configure Codex sandbox for testing stages
-3. Set up swarm coordination for parallel stages
-4. Enable memory persistence across stages
-5. Integrate with GitHub for CI/CD
-6. Generate executable cascade definition
-
-**Advanced Features**:
-- Automatic model routing based on task
-- Codex iteration loop for auto-fixing
-- Swarm coordination for parallelism
-- Memory sharing across stages
-- GitHub PR/issue integration
-- Performance monitoring and optimization
-
----
-
-**Version 2.1 Enhancements**:
-- Aspectual cognitive framing for workflow state tracking
-- Hierarchical cognitive framing for phase/stage/task organization
-- State transition visualization (SV/NSV/BLOCKED/PARALLEL/FAILED/PENDING)
-- Agent state tracking (IDLE/WORKING/WAITING/DONE/ERROR)
-- 5-level hierarchy (WORKFLOW > PHASE > STAGE > TASK > SUBTASK)
-- Dependency visualization with state annotations
-
-**Version 2.0 Enhancements**:
-- Codex sandbox iteration pattern
-- Multi-model intelligent routing
-- Ruv-swarm MCP integration
-- Memory persistence
-- GitHub workflow automation
-- Enhanced error recovery
-## Core Principles
-
-Cascade Orchestrator operates on 3 fundamental principles:
-
-### Principle 1: Composable Excellence Through Separation of Concerns
-Complex workflows emerge from composing simple, well-defined micro-skills rather than building monolithic implementations.
-
-In practice:
-- Each stage in a cascade executes ONE focused micro-skill (extract-data, validate-data, transform-data)
-- Stages communicate through explicit data contracts (stage_output, shared_memory, codex_sandbox_state)
-- No micro-skill has visibility into the full cascade - only its inputs and expected outputs
-- Reusability: A "validate-data" micro-skill works in 50 different cascades without modification
-
-### Principle 2: Intelligent Model Routing Optimizes Resource Allocation
-Different AI models excel at different tasks - routing stages to the optimal model maximizes quality and speed.
-
-In practice:
-- Gemini Megacontext for large context analysis (50K+ line codebases)
-- Gemini Search for web-grounded best practices research
-- Codex Full Auto for rapid prototyping with sandbox iteration
-- Claude for best overall reasoning on complex architectural decisions
-- Multi-model cascades combine strengths: Gemini analyzes, Codex implements, Claude reviews
-
-### Principle 3: Iterative Sandbox Auto-Fix Eliminates Manual Debugging
-Testing failures trigger automatic Codex fix loops in isolated sandboxes until tests pass or max iterations reached.
-
-In practice:
-- codex-sandbox stage type runs tests, detects failures, spawns Codex with error context
-- Codex proposes fix, sandbox re-tests, repeats up to 5 iterations automatically
-- Fixes are isolated in sandbox until verified, then applied to main codebase
-- Escalate to user only after max iterations exhausted (95% auto-fix success rate)
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Sequential execution of parallelizable stages** | Stages that have no dependencies run one-after-another, wasting 5-10x time compared to parallel execution. | Use swarm-parallel stage type with ruv-swarm coordination for independent tasks. Execute concurrently with load balancing. |
-| **Circular dependencies in stage graph** | Stage A depends on Stage B, which depends on Stage C, which depends on Stage A, causing infinite loop or deadlock. | Validate cascade definition as DAG (directed acyclic graph) before execution. Reject circular dependencies at design time. |
-| **Hardcoded model selection** | Every stage uses "claude" even when Gemini (megacontext) or Codex (auto-fix) would be 10x better for specific tasks. | Use auto-select or adaptive model routing based on task requirements (large context, visual output, rapid prototyping, etc). |
-| **No memory persistence across stages** | Each stage re-analyzes code, re-computes results, forgets prior learnings, causing massive redundant work. | Enable memory persistence (scope: cascade or global) with mcp__ruv-swarm__memory. Share intermediate outputs and learned patterns. |
-| **Ignoring Codex auto-fix failures** | Test failures in codex-sandbox stage escalate to user immediately without retry, losing 95% auto-fix opportunity. | Configure max_iterations: 5 with exponential backoff. Let Codex iterate on fixes before human escalation. |
-
-## Conclusion
-
-Cascade Orchestrator transforms multi-step workflows from fragile, manually coordinated sequences into robust, self-healing pipelines. By composing micro-skills with intelligent model routing, swarm parallelism, and Codex sandbox iteration, cascades handle complex workflows that previously required extensive manual orchestration.
-
-The skill's power comes from three innovations: (1) separation of concerns through micro-skill composition enables reusability and maintainability, (2) multi-model routing leverages each AI's strengths (Gemini for context, Codex for speed, Claude for reasoning), and (3) sandbox auto-fix loops eliminate 95% of manual debugging by automatically iterating on test failures until resolution.
-
-Use Cascade Orchestrator when coordinating 4+ micro-skills with complex dependencies, implementing production workflows requiring fault tolerance and auto-recovery, or building systems that span multiple AI models for optimal performance. The key insight: orchestration is not about doing the work, but about intelligently coordinating specialized components to achieve emergent capability beyond any single agent or skill.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+- **Production workflows** needing GitHub integration and memory p
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/orchestration/cascade-orchestrator/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "cascade-orchestrator-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>CASCADE_ORCHESTRATOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

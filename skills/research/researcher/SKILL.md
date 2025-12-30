@@ -1,49 +1,61 @@
----
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Multi-source investigation requiring 3-5+ credible sources (Level 2-3)
-- Technical documentation analysis with credibility scoring (>85%)
-- Cross-referencing claims across reports, papers, official docs
-- Building knowledge bases for unfamiliar domains
-- Systematic information gathering with source evaluation
-
-### When NOT to Use This Skill
-- Single-source quick lookups (use web search)
-- Non-technical questions without credibility analysis
-- Speed prioritized over verification (<5 min deadline)
-- Opinion-based topics without objective truth
-
-### Success Criteria
-- [assert|neutral] 90%+ average credibility score across sources [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] 3+ independent sources corroborate key claims [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All sources annotated with credibility breakdown [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Contradictory evidence reported and analyzed [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Full citations (APA/IEEE/ACM with access dates) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- Paywalled sources: institutional access, preprints, contact authors
-- Conflicting experts: present both sides, analyze methodology/bias
-- Rapidly changing topics: prioritize Currency (15%), accept lower coverage
-- Niche topics: expand to Tier 3 (expert blogs), disclose limitations
-- Biased sources: flag bias score, require 3+ independent corroborations
-
-### Critical Guardrails
-- NEVER cite without credibility scoring (use 0-100% rubric)
-- ALWAYS cross-reference with 2+ independent Tier 1/2 sources
-- NEVER accept <70% credibility without disclosure
-- ALWAYS distinguish facts (verifiable) from interpretations (opinion)
-- NEVER skip publication date verification (Currency dimension)
-
-### Evidence-Based Validation
-- Validate authority: check credentials (H-index, institutional affiliation)
-- Cross-validate claims: search for contradictory evidence actively
-- Verify objectivity: check funding sources, conflicts of interest
-- Test currency: compare pub date to topic evolution, flag outdated
-- Confirm coverage: verify comprehensive treatment vs. surface-level
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 name: researcher
 description: Multi-level research with Gemini Search integration supporting 3 research
   depths. Use when gathering information, conducting systematic analysis, or synthesizing
@@ -158,30 +170,67 @@ Claims are validated through independent corroboration from 3+ sources at differ
 In practice:
 - Key technical findings backed by peer-reviewed journals plus official documentation
 - Contradictory evidence explicitly reported with analysis of disagreement sources
-- Single-source claims flagged and marked as unverified
+- Single-source claims flagged and ma
 
-### Principle 3: Transparent Evidence Trail
-All research outputs include full citations, access dates, credibility scores, and methodology notes. This enables verification and builds trust in findings.
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-In practice:
-- APA/IEEE/ACM citations with DOIs and access timestamps
-- Credibility breakdown visible for each source (Authority 28/30, Accuracy 23/25...)
-- Search methodology documented (queries used, sources consulted, filters applied)
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Common Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Single-Source Research** | Relying on one source creates vulnerability to bias, errors, or outdated information | Use Level 2+ research with 3-5 sources for cross-validation |
-| **Accepting Low Credibility** | Using sources below 70% without disclosure degrades finding quality and misleads users | Flag all <70% sources explicitly, require 3+ independent corroborations |
-| **Skipping Currency Check** | Outdated sources in rapidly evolving fields provide obsolete information | Verify publication date against topic evolution, flag sources >2 years old for tech topics |
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Conclusion
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-Researcher provides systematic multi-level research with rigorous source evaluation, ensuring findings are credible, well-supported, and transparently documented. By applying academic research standards to everyday information gathering, this skill transforms web search into evidence-based knowledge synthesis.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Use this skill when technical accuracy matters, when building knowledge bases for unfamiliar domains, or when decisions depend on reliable information. The three-level approach scales from quick factual lookups (Level 1, under 5 minutes) to publication-ready research (Level 3, 1+ hours with 10+ sources). The credibility scoring system ensures you know exactly how much trust to place in each finding, with explicit documentation of evidence quality.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

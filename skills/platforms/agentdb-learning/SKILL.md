@@ -1,18 +1,62 @@
+/*============================================================================*/
+/* AGENTDB-LEARNING-PLUGINS SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: agentdb-learning-plugins
-description: Create AI learning plugins using AgentDB's 9 reinforcement learning algorithms.
-  Train Decision Transformer, Q-Learning, SARSA, and Actor-Critic models. Deploy these
-  plugins to build self-learning agents, implement RL workflows, and optimize agent
-  behavior through experience. Apply offline RL for safe learning from logged data.
 version: 1.0.0
+description: |
+  [assert|neutral] Create AI learning plugins using AgentDB's 9 reinforcement learning algorithms. Train Decision Transformer, Q-Learning, SARSA, and Actor-Critic models. Deploy these plugins to build self-learning agen [ground:given] [conf:0.95] [state:confirmed]
 category: platforms
 tags:
 - platforms
 - integration
 - tools
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute agentdb-learning-plugins workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic platforms processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "agentdb-learning-plugins",
+  category: "platforms",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["agentdb-learning-plugins", "platforms", "workflow"],
+  context: "user needs agentdb-learning-plugins capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When NOT to Use This Skill
 
@@ -97,551 +141,67 @@ npx agentdb@latest create-plugin -t actor-critic -o ./plugins
 ### List Available Templates
 
 ```bash
-# Show all plugin templates
-npx agentdb@latest list-templates
-
-# Available templates:
-# - decision-transformer (sequence modeling RL - recommended)
-# - q-learning (value-based learning)
-# - sarsa (on-policy TD learning)
-# - actor-critic (policy gradient with baseline)
-# - curiosity-driven (exploration-based)
-```
-
-### Manage Plugins
-
-```bash
-# List installed plugins
-npx agentdb@latest list-plugins
-
-# Get plugin information
-npx agentdb@latest plugin-info my-agent
-
-# Shows: algorithm, configuration, training status
-```
-
----
-
-## Quick Start with API
-
-```typescript
-import { createAgentDBAdapter } from 'agentic-flow/reasoningbank';
-
-// Initialize with learning enabled
-const adapter = await createAgentDBAdapter({
-  dbPath: '.agentdb/learning.db',
-  enableLearning: true,       // Enable learning plugins
-  enableReasoning: true,
-  cacheSize: 1000,
-});
-
-// Store training experience
-await adapter.insertPattern({
-  id: '',
-  type: 'experience',
-  domain: 'game-playing',
-  pattern_data: JSON.stringify({
-    embedding: await computeEmbedding('state-action-reward'),
-    pattern: {
-      state: [0.1, 0.2, 0.3],
-      action: 2,
-      reward: 1.0,
-      next_state: [0.15, 0.25, 0.35],
-      done: false
-    }
-  }),
-  confidence: 0.9,
-  usage_count: 1,
-  success_count: 1,
-  created_at: Date.now(),
-  last_used: Date.now(),
-});
-
-// Train learning model
-const metrics = await adapter.train({
-  epochs: 50,
-  batchSize: 32,
-});
-
-console.log('Training Loss:', metrics.loss);
-console.log('Duration:', metrics.duration, 'ms');
-```
-
----
-
-## Available Learning Algorithms (9 Total)
-
-### 1. Decision Transformer (Recommended)
-
-**Type**: Offline Reinforcement Learning
-**Best For**: Learning from logged experiences, imitation learning
-**Strengths**: No online interaction needed, stable training
-
-```bash
-npx agentdb@latest create-plugin -t decision-transformer -n dt-agent
-```
-
-**Use Cases**:
-- Learn from historical data
-- Imitation learning from expert demonstrations
-- Safe learning without environment interaction
-- Sequence modeling tasks
-
-**Configuration**:
-```json
-{
-  "algorithm": "decision-transformer",
-  "model_size": "base",
-  "context_length": 20,
-  "embed_dim": 128,
-  "n_heads": 8,
-  "n_layers": 6
-}
-```
-
-### 2. Q-Learning
-
-**Type**: Value-Based RL (Off-Policy)
-**Best For**: Discrete action spaces, sample efficiency
-**Strengths**: Proven, simple, works well for small/medium problems
-
-```bash
-npx agentdb@latest create-plugin -t q-learning -n q-agent
-```
-
-**Use Cases**:
-- Grid worlds, board games
-- Navigation tasks
-- Resource allocation
-- Discrete decision-making
-
-**Configuration**:
-```json
-{
-  "algorithm": "q-learning",
-  "learning_rate": 0.001,
-  "gamma": 0.99,
-  "epsilon": 0.1,
-  "epsilon_decay": 0.995
-}
-```
-
-### 3. SARSA
-
-**Type**: Value-Based RL (On-Policy)
-**Best For**: Safe exploration, risk-sensitive tasks
-**Strengths**: More conservative than Q-Learning, better for safety
-
-```bash
-npx agentdb@latest create-plugin -t sarsa -n sarsa-agent
-```
-
-**Use Cases**:
-- Safety-critical applications
-- Risk-sensitive decision-making
-- Online learning with exploration
-
-**Configuration**:
-```json
-{
-  "algorithm": "sarsa",
-  "learning_rate": 0.001,
-  "gamma": 0.99,
-  "epsilon": 0.1
-}
-```
-
-### 4. Actor-Critic
-
-**Type**: Policy Gradient with Value Baseline
-**Best For**: Continuous actions, variance reduction
-**Strengths**: Stable, works for continuous/discrete actions
-
-```bash
-npx agentdb@latest create-plugin -t actor-critic -n ac-agent
-```
-
-**Use Cases**:
-- Continuous control (robotics, simulations)
-- Complex action spaces
-- Multi-agent coordination
-
-**Configuration**:
-```json
-{
-  "algorithm": "actor-critic",
-  "actor_lr": 0.001,
-  "critic_lr": 0.002,
-  "gamma": 0.99,
-  "entropy_coef": 0.01
-}
-```
-
-### 5. Active Learning
-
-**Type**: Query-Based Learning
-**Best For**: Label-efficient learning, human-in-the-loop
-**Strengths**: Minimizes labeling cost, focuses on uncertain samples
-
-**Use Cases**:
-- Human feedback incorporation
-- Label-efficient training
-- Uncertainty sampling
-- Annotation cost reduction
-
-### 6. Adversarial Training
-
-**Type**: Robustness Enhancement
-**Best For**: Safety, robustness to perturbations
-**Strengths**: Improves model robustness, adversarial defense
-
-**Use Cases**:
-- Security applications
-- Robust decision-making
-- Adversarial defense
-- Safety testing
-
-### 7. Curriculum Learning
-
-**Type**: Progressive Difficulty Training
-**Best For**: Complex tasks, faster convergence
-**Strengths**: Stable learning, faster convergence on hard tasks
-
-**Use Cases**:
-- Complex multi-stage tasks
-- Hard exploration problems
-- Skill composition
-- Transfer learning
-
-### 8. Federated Learning
-
-**Type**: Distributed Learning
-**Best For**: Privacy, distributed data
-**Strengths**: Privacy-preserving, scalable
-
-**Use Cases**:
-- Multi-agent systems
-- Privacy-sensitive data
-- Distributed training
-- Collaborative learning
-
-### 9. Multi-Task Learning
-
-**Type**: Transfer Learning
-**Best For**: Related tasks, knowledge sharing
-**Strengths**: Faster learning on new tasks, better generalization
-
-**Use Cases**:
-- Task families
-- Transfer learning
-- Domain adaptation
-- Meta-learning
-
----
-
-## Training Workflow
-
-### 1. Collect Experiences
-
-```typescript
-// Store experiences during agent execution
-for (let i = 0; i < numEpisodes; i++) {
-  const episode = runEpisode();
-
-  for (const step of episode.steps) {
-    await adapter.insertPattern({
-      id: '',
-      type: 'experience',
-      domain: 'task-domain',
-      pattern_data: JSON.stringify({
-        embedding: await computeEmbedding(JSON.stringify(step)),
-        pattern: {
-          state: step.state,
-          action: step.action,
-          reward: step.reward,
-          next_state: step.next_state,
-          done: step.done
-        }
-      }),
-      confidence: step.reward > 0 ? 0.9 : 0.5,
-      usage_count: 1,
-      success_count: step.reward > 0 ? 1 : 0,
-      created_at: Date.now(),
-      last_used: Date.now(),
-    });
-  }
-}
-```
-
-### 2. Train Model
-
-```typescript
-// Train on collected experiences
-const trainingMetrics = await adapter.train({
-  epochs: 100,
-  batchSize: 64,
-  learningRate: 0.001,
-  validationSplit: 0.2,
-});
-
-console.log('Training Metrics:', trainingMetrics);
-// {
-//   loss: 0.023,
-//   valLoss: 0.028,
-//   duration: 1523,
-//   epochs: 100
-// }
-```
-
-### 3. Evaluate Performance
-
-```typescript
-// Retrieve similar successful experiences
-const testQuery = await computeEmbedding(JSON.stringify(testState));
-const result = await adapter.retrieveWithReasoning(testQuery, {
-  domain: 'task-domain',
-  k: 10,
-  synthesizeContext: true,
-});
-
-// Evaluate action quality
-const suggestedAction = result.memories[0].pattern.action;
-const confidence = result.memories[0].similarity;
-
-console.log('Suggested Action:', suggestedAction);
-console.log('Confidence:', confidence);
-```
-
----
-
-## Advanced Training Techniques
-
-### Experience Replay
-
-```typescript
-// Store experiences in buffer
-const replayBuffer = [];
-
-// Sample random batch for training
-const batch = sampleRandomBatch(replayBuffer, batchSize: 32);
-
-// Train on batch
-await adapter.train({
-  data: batch,
-  epochs: 1,
-  batchSize: 32,
-});
-```
-
-### Prioritized Experience Replay
-
-```typescript
-// Store experiences with priority (TD error)
-await adapter.insertPattern({
-  // ... standard fields
-  confidence: tdError,  // Use TD error as confidence/priority
-  // ...
-});
-
-// Retrieve high-priority experiences
-const highPriority = await adapter.retrieveWithReasoning(queryEmbedding, {
-  domain: 'task-domain',
-  k: 32,
-  minConfidence: 0.7,  // Only high TD-error experiences
-});
-```
-
-### Multi-Agent Training
-
-```typescript
-// Collect experiences from multiple agents
-for (const agent of agents) {
-  const experience = await agent.step();
-
-  await adapter.insertPattern({
-    // ... store experience with agent ID
-    domain: `multi-agent/${agent.id}`,
-  });
-}
-
-// Train shared model
-await adapter.train({
-  epochs: 50,
-  batchSize: 64,
-});
-```
-
----
-
-## Performance Optimization
-
-### Batch Training
-
-```typescript
-// Collect batch of experiences
-const experiences = collectBatch(size: 1000);
-
-// Batch insert (500x faster)
-for (const exp of experiences) {
-  await adapter.insertPattern({ /* ... */ });
-}
-
-// Train on batch
-await adapter.train({
-  epochs: 10,
-  batchSize: 128,  // Larger batch for efficiency
-});
-```
-
-### Incremental Learning
-
-```typescript
-// Train incrementally as new data arrives
-setInterval(async () => {
-  const newExperiences = getNewExperiences();
-
-  if (newExperiences.length > 100) {
-    await adapter.train({
-      epochs: 5,
-      batchSize: 32,
-    });
-  }
-}, 60000);  // Every minute
-```
-
----
-
-## Integration with Reasoning Agents
-
-Combine learning with reasoning for better performance:
-
-```typescript
-// Train learning model
-await adapter.train({ epochs: 50, batchSize: 32 });
-
-// Use reasoning agents for inference
-const result = await adapter.retrieveWithReasoning(queryEmbedding, {
-  domain: 'decision-making',
-  k: 10,
-  useMMR: true,              // Diverse experiences
-  synthesizeContext: true,    // Rich context
-  optimizeMemory: true,       // Consolidate patterns
-});
-
-// Make decision based on learned experiences + reasoning
-const decision = result.context.suggestedAction;
-const confidence = result.memories[0].similarity;
-```
-
----
-
-## CLI Operations
-
-```bash
-# Create plugin
-npx agentdb@latest create-plugin -t decision-transformer -n my-plugin
-
-# List plugins
-npx agentdb@latest list-plugins
-
-# Get plugin info
-npx agentdb@latest plugin-info my-plugin
-
-# List templates
-npx agentdb@latest list-templates
-```
-
----
-
-## Troubleshooting
-
-### Issue: Training not converging
-```typescript
-// Reduce learning rate
-await adapter.train({
-  epochs: 100,
-  batchSize: 32,
-  learningRate: 0.0001,  // Lower learning rate
-});
-```
-
-### Issue: Overfitting
-```typescript
-// Use validation split
-await adapter.train({
-  epochs: 50,
-  batchSize: 64,
-  validationSplit: 0.2,  // 20% validation
-});
-
-// Enable memory optimization
-await adapter.retrieveWithReasoning(queryEmbedding, {
-  optimizeMemory: true,  // Consolidate, reduce overfitting
-});
-```
-
-### Issue: Slow training
-```bash
-# Enable quantization for faster inference
-# Use binary quantization (32x faster)
-```
-
----
-
-## Learn More
-
-- **Algorithm Papers**: See docs/algorithms/ for detailed papers
-- **GitHub**: https://github.com/ruvnet/agentic-flow/tree/main/packages/agentdb
-- **MCP Integration**: `npx agentdb@latest mcp`
-- **Website**: https://agentdb.ruv.io
-
----
-
-**Category**: Machine Learning / Reinforcement Learning
-**Difficulty**: Intermediate to Advanced
-**Estimated Time**: 30-60 minutes
-## Core Principles
-
-AgentDB Learning Plugins operates on 3 fundamental principles:
-
-### Principle 1: Offline Reinforcement Learning Enables Safe Learning from Logged Data
-Train agents from historical experiences without environment interaction using Decision Transformers for imitation learning and policy optimization.
-
-In practice:
-- Decision Transformers model behavior as sequence prediction (states, actions, rewards) without online exploration
-- Safe learning from expert demonstrations or logged trajectories prevents catastrophic failures during training
-- Offline RL achieves 80-95% of online RL performance while eliminating exploration risks and environment costs
-
-### Principle 2: Algorithm Selection Determines Learning Efficiency and Safety
-Match RL algorithm to problem structure: value-based (discrete actions), policy gradients (continuous control), or hybrid approaches.
-
-In practice:
-- Q-Learning for discrete decisions (navigation, resource allocation) with sample-efficient off-policy learning
-- Actor-Critic for continuous control (robotics, simulations) with variance reduction via value baseline
-- SARSA for safety-critical applications requiring on-policy conservative exploration
-
-### Principle 3: Experience Replay and Batch Training Accelerate Convergence
-Store experiences in vector database for efficient sampling, prioritization, and multi-agent training across distributed nodes.
-
-In practice:
-- Prioritized experience replay focuses on high TD-error transitions (unexpected outcomes) for faster learning
-- Batch training (32-128 samples) reduces variance and enables GPU acceleration (10-100x speedup)
-- Vector similarity enables retrieval of relevant past experiences for transfer learning and few-shot adaptation
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Online Training Without Replay Buffer** | Each experience used once then discarded, requiring 10-100x more environment interactions | Store experiences in AgentDB with embeddings; sample random batches (32-64) for training; reuse high-value transitions |
-| **Wrong Algorithm for Problem Type** | Q-Learning on continuous actions requires discretization (action space explosion), Actor-Critic on small discrete spaces wastes capacity | Match algorithm to action space: Q-Learning/SARSA for discrete (<100 actions), Actor-Critic/PPO for continuous, Decision Transformer for offline |
-| **Ignoring Confidence and Usage Tracking** | All experiences weighted equally despite varying quality and relevance | Store confidence (reward-based or TD-error), increment usage_count/success_count; prioritize high-confidence experiences; prune low-quality patterns |
-
-## Conclusion
-
-AgentDB Learning Plugins transforms static vector databases into self-improving AI systems by integrating 9 reinforcement learning algorithms with persistent memory for experience accumulation and retrieval. By storing experiences as embeddings in AgentDB, agents learn from past successes and failures, retrieve similar patterns for transfer learning, and continuously improve through offline RL without risking catastrophic exploration.
-
-Use this skill when building autonomous agents requiring continuous improvement (chatbots, recommendation systems, game AI), implementing safe learning from historical data (medical diagnosis, financial trading), or enabling multi-agent knowledge sharing through federated learning. The key insight is persistence: unlike traditional RL where experiences are discarded after training, AgentDB stores them permanently for retrieval, reuse, and transfer across tasks. Start with Decision Transformer for safe offline learning from logged data, add experience replay for sample efficiency, and enable distributed training when scaling to multiple agents or environments.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+# Show all 
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/platforms/agentdb-learning-plugins/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "agentdb-learning-plugins-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AGENTDB_LEARNING_PLUGINS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

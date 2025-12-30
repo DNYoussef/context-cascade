@@ -1,157 +1,222 @@
----
-
-## Command Purpose
-[Define what this command does - the specific action it triggers]
-
-## Input Requirements
-[Parameters and prerequisites needed to execute this command]
-
-## Expected Output
-[What artifacts, results, or state changes this command produces]
-
-## Success Indicators
-[How to verify the command executed successfully]
-
-## Error Handling
-[Common failures and recovery procedures]
-
-## Related Commands
-[Commands that work together with this one in typical workflows]
+/*============================================================================*/
+/* BUILD-FEATURE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: build-feature-benchmark-v1
-  tests:
-    - command_execution_success
-    - workflow_validation
-  success_threshold: 0.9
-namespace: "commands/delivery/essential-commands/build-feature/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [deployment-readiness, cicd-intelligent-recovery]
-  related_agents: [cicd-engineer, tester]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: build-feature
-binding: skill:feature-dev-complete
-category: essential
 version: 1.0.0
+binding: skill:build-feature
+category: delivery
 ---
 
-# /build-feature
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "build-feature",
+  binding: "skill:build-feature",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "[Define what this command does - the specific action it triggers]",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /build-feature"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Complete feature development lifecycle from research to deployment (12 stages).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/build-feature "<feature description>" [target_directory]
-```
+[define|neutral] SYNTAX := "/build-feature [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `feature_description` - Feature to build (required)
-- `target_directory` - Target directory (default: src/)
-- `--create-pr` - Create PR after completion (default: true)
-- `--deploy-after` - Deploy after PR merge (default: false)
+[define|neutral] PARAMETERS := {
+  required: {
+    feature_description: { type: "string", description: "Feature to build" }
+  },
+  optional: {
+    target_directory: { type: "string", description: "Target directory (default: src/)" }
+  },
+  flags: {
+    "--create-pr": { description: "Create PR after completion (default: true)", default: "false" },
+    "--deploy-after": { description: "Deploy after PR merge (default: false)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-**12-Stage Complete Lifecycle**:
-1. 🔍 Research best practices (Gemini Search)
-2. 📊 Analyze codebase patterns (Gemini MegaContext)
-3. 🏗️ Design architecture (Claude Architect)
-4. 🎨 Generate diagrams (Gemini Media)
-5. ⚡ Rapid prototype (Codex Auto)
-6. 🎭 Theater detection (find TODOs)
-7. ✅ Comprehensive testing (Codex iteration)
-8. 💎 Style polish (Claude)
-9. 🔒 Security review (deep scan)
-10. 📝 Documentation (multi-model)
-11. 🎯 Production readiness check
-12. 🚀 Create PR / Deploy
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "🔍 Research best practices (Gemini Search)", model: "Gemini" },
+  { stage: 2, action: "📊 Analyze codebase patterns (Gemini MegaContext)", model: "Gemini" },
+  { stage: 3, action: "🏗️ Design architecture (Claude Architect)", model: "Claude" },
+  { stage: 4, action: "🎨 Generate diagrams (Gemini Media)", model: "Gemini" },
+  { stage: 5, action: "⚡ Rapid prototype (Codex Auto)", model: "Codex" },
+  { stage: 6, action: "🎭 Theater detection (find TODOs)", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-**Multi-Model Strategy**:
-- **Gemini Search**: Latest best practices
-- **Gemini MegaContext**: Large codebase analysis
-- **Gemini Media**: Visual documentation
-- **Codex**: Rapid prototyping
-- **Claude**: Architecture & testing
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Examples
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Build complete feature
-/build-feature "User authentication with JWT and refresh tokens"
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Feature with custom target
-/build-feature "Payment processing integration" src/payments/
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Feature without PR
-/build-feature "Dark mode toggle" --create-pr false
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Feature with auto-deploy
-/build-feature "API rate limiting" --deploy-after true
-```
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-## Output
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-```
-🚀 Feature Development Complete!
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-Feature: User authentication with JWT
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-Artifacts:
-  ✅ Research (best practices documented)
-  ✅ Architecture (design + diagrams)
-  ✅ Implementation (all tests passing)
-  ✅ Documentation (comprehensive)
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-Quality Metrics:
-  - Code Quality: 92/100
-  - Test Coverage: 95%
-  - Security: No issues
-  - Performance: Within SLAs
+[define|neutral] EXAMPLES := [
+  { command: "/build-feature "User authentication with JWT and refresh tok", description: "Example usage" },
+  { command: "/build-feature "Payment processing integration" src/payments", description: "Example usage" },
+  { command: "/build-feature "Dark mode toggle" --create-pr false", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-PR Created: https://github.com/user/repo/pull/123
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-Time: 18 minutes
-```
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/build-feature -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/build-feature arg1' '/build-feature arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Chains With
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# Build feature → review → deploy
-/build-feature "feature" && /code-review \$PR && /deploy
+[define|neutral] RELATED := {
+  complementary: ["/production-readiness", "/code-review", "/quick-check"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Build multiple features in parallel
-parallel ::: \
-  "/build-feature 'feature1'" \
-  "/build-feature 'feature2'" \
-  "/build-feature 'feature3'"
-```
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## See Also
-- `/quick-check` - Fast quality check
-- `/code-review` - PR review
-- `/production-readiness` - Deployment validation
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "build-feature-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/build-feature/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["build-feature"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>BUILD_FEATURE_VERIX_COMPLIANT</promise>`*
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "build-feature-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>BUILD_FEATURE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

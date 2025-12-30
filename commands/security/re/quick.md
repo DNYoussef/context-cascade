@@ -1,193 +1,222 @@
+/*============================================================================*/
+/* RE:QUICK COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:quick
+version: 1.0.0
 binding: skill:reverse-engineering-quick
 category: reverse-engineering
-version: 1.0.0
 ---
 
-# /re:quick
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:quick",
+  binding: "skill:reverse-engineering-quick",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Level 1: String Reconnaissance (≤30 min) 1. Extract printable strings (strings -n 10) 2. Identify IOCs (URLs, IPs, email addresses) 3. Detect prot",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:quick"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Fast reverse engineering triage for rapid assessment (Levels 1-2: String Reconnaissance + Static Analysis).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: ≤2 hours
-**RE Levels**: 1 (String Reconnaissance) + 2 (Static Analysis)
+[define|neutral] SYNTAX := "/re:quick [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:quick <binary-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--level": { description: "Specific level to run: 1 (strings only) or 2 (stat", default: "false" },
+    "--output": { description: "Output directory for reports (default: re-project/", default: "false" },
+    "--min-string-length": { description: "Minimum string length for Level 1 (default: 10)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--level` - Specific level to run: 1 (strings only) or 2 (static only) or 1,2 (both, default)
-- `--output` - Output directory for reports (default: re-project/notes/)
-- `--min-string-length` - Minimum string length for Level 1 (default: 10)
-- `--store-findings` - Store findings in memory-mcp for cross-session persistence (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Quick triage of suspicious binary
-/re:quick suspicious.exe
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Extract printable strings (strings -n 10)", model: "Claude" },
+  { stage: 2, action: "Identify IOCs (URLs, IPs, email addresses)", model: "Claude" },
+  { stage: 3, action: "Detect protocol tokens (HTTP, FTP, SSH headers)", model: "Claude" },
+  { stage: 4, action: "Catalog file metadata (file, xxd, sha256sum)", model: "Claude" },
+  { stage: 5, action: "Generate strings.json with categorized findings", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# String analysis only
-/re:quick malware.bin --level 1
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Full quick analysis with custom output
-/re:quick firmware.bin --output ./analysis/quick-triage/
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Skip memory storage (ephemeral analysis)
-/re:quick test.elf --store-findings false
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Level 1: String Reconnaissance (≤30 min)
-1. Extract printable strings (strings -n 10)
-2. Identify IOCs (URLs, IPs, email addresses)
-3. Detect protocol tokens (HTTP, FTP, SSH headers)
-4. Catalog file metadata (file, xxd, sha256sum)
-5. Generate strings.json with categorized findings
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Success Criteria**:
-- ✅ URLs/IPs cataloged
-- ✅ Protocol tokens identified
-- ✅ IOCs extracted to JSON
-- ✅ File hash computed
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Level 2: Static Analysis (1-2 hrs)
-1. Disassemble binary (Ghidra headless or radare2)
-2. Map control flow graph (CFG)
-3. Identify key functions (main, init, vulnerable patterns)
-4. Detect dead code and obfuscation
-5. Generate callgraphs and decompiled code
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Success Criteria**:
-- ✅ Control flow mapped
-- ✅ Entry points identified
-- ✅ Key functions cataloged
-- ✅ Suspicious patterns flagged
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Decision Gate (Level 1 → Level 2)
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-After Level 1 completes, the skill asks:
-- **Did we find enough IOCs to answer the analytical question?**
-- **Are there suspicious strings that warrant deeper analysis?**
-- **Is static analysis necessary or can we stop here?**
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-If Level 1 answers your question → **EXIT EARLY** ✅
-If Level 1 raises more questions → **PROCEED to Level 2** 🔍
+[define|neutral] EXAMPLES := [
+  { command: "/re:quick suspicious.exe", description: "Example usage" },
+  { command: "/re:quick malware.bin --level 1", description: "Example usage" },
+  { command: "/re:quick firmware.bin --output ./analysis/quick-triage/", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Agents Involved
-- `RE-String-Analyst` - String reconnaissance specialist
-- `RE-Disassembly-Expert` - Static analysis and disassembly
-- `code-analyzer` - Code quality analysis of decompiled output
-- `graph-analyst` - Control flow and callgraph visualization
-- `memory-coordinator` - Store findings with WHO/WHEN/PROJECT/WHY
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-## MCP Servers Used
-- **memory-mcp**: Store RE findings across sessions with tags
-- **filesystem**: Access binaries and create output directories
-- **connascence-analyzer**: Analyze decompiled code quality
-- **sequential-thinking**: Decision gate reasoning
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:quick -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:quick arg1' '/re:quick arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Output Structure
-```
-re-project/
-├── input/
-│   └── suspicious.exe          # Original binary
-├── work/
-│   └── suspicious.exe          # Working copy
-├── notes/
-│   ├── 000-brief.md            # Initial assessment
-│   ├── 001-strings-l1.md       # String analysis findings
-│   ├── 002-static-l2.md        # Static analysis findings
-│   └── timeline.log            # Timestamped activity log
-├── artifacts/
-│   ├── strings.json            # Categorized strings
-│   ├── iocs.txt                # Indicators of Compromise
-│   └── metadata.json           # File metadata
-└── ghidra/
-    └── suspicious.gpr          # Ghidra project (if Level 2 ran)
-```
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-## Chains With
-- `/re:deep` - Continue to dynamic/symbolic analysis
-- `/re:firmware` - If binary is firmware/embedded
-- `/audit-pipeline` - Apply code quality to decompiled output
-- `/theater-detect` - Validate findings are real
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Integration Notes
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-### Memory-MCP Tagging
-```json
-{
-  "agent": "RE-String-Analyst",
-  "category": "reverse-engineering",
-  "intent": "quick-triage",
-  "layer": "long_term",
-  "project": "binary-analysis-2025-11-01",
-  "keywords": ["strings", "ioc", "static-analysis"],
-  "re_level": "1-2",
-  "binary_hash": "sha256:..."
-}
-```
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:quick-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:quick/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["reverse-engineering-quick"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-### Connascence Integration
-After Level 2 decompilation, automatically run:
-```bash
-connascence-analyzer.analyze_file(decompiled.c)
-```
-Detect: God Objects, Parameter Bombs, deep nesting in decompiled code
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Exit Early Philosophy
-⚠️ **CRITICAL**: Do NOT proceed through all levels automatically!
-- Level 1 is often sufficient for triage
-- Only proceed to Level 2 if analytical question unanswered
-- Time is precious - respect the timebox
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:quick-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## See Also
-- `/re:deep` - Deep analysis (Levels 3-4)
-- `/re:firmware` - Firmware extraction (Level 5)
-- `/re:strings` - String analysis only
-- `/re:static` - Static analysis only
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>QUICK_VERIX_COMPLIANT</promise>`*
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>RE:QUICK_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

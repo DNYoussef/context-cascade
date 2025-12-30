@@ -1,50 +1,60 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-
-## CRITICAL: CI/CD SAFETY GUARDRAILS
-
-**BEFORE any CI/CD operation, validate**:
-- [ ] Rollback plan documented and tested
-- [ ] Deployment window approved (avoid peak hours)
-- [ ] Health checks configured (readiness + liveness probes)
-- [ ] Monitoring alerts active for deployment metrics
-- [ ] Incident response team notified
-
-**NEVER**:
-- Deploy without rollback capability
-- Skip environment-specific validation (dev -> staging -> prod)
-- Ignore test failures in pipeline
-- Deploy outside approved maintenance windows
-- Bypass approval gates in production pipelines
-
-**ALWAYS**:
-- Use blue-green or canary deployments for zero-downtime
-- Implement circuit breakers for cascading failure prevention
-- Document deployment state changes in incident log
-- Validate infrastructure drift before deployment
-- Retain audit trail of all pipeline executions
-
-**Evidence-Based Techniques for CI/CD**:
-- **Plan-and-Solve**: Break deployment into phases (build -> test -> stage -> prod)
-- **Self-Consistency**: Run identical tests across environments (consistency = reliability)
-- **Least-to-Most**: Start with smallest scope (single pod -> shard -> region -> global)
-- **Verification Loop**: After each phase, verify expected state before proceeding
-
-name: platform-integration
-description: Enterprise platform integration orchestration with API connectivity,
-  webhook automation, data synchronization, and multi-platform coordination. Supports
-  REST, GraphQL, WebSockets, message queues, and event-driven architectures.
-tags:
-- platform
-- integration
-- api
-- webhooks
-- sync
-- essential
-- tier-2
-version: 2.0.0
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for operations workflows [ground:given] [conf:0.95] [state:confirmed]
 category: operations
-author: ruv
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic operations processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "operations",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "operations", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Platform Integration
 
@@ -170,584 +180,67 @@ authentication:
 
   token_management:
     refresh_strategy: automatic
-    expiry_buffer: 300 # seconds before expiry to refresh
-    storage: redis # or memory, database
-EOF
-
-# STAGE 3: Integration Architecture Design
-echo "[3/12] Designing integration architecture..."
-cat > "$OUTPUT_DIR/docs/architecture.md" <<EOF
-# Integration Architecture
-
-## System Overview
-\`\`\`
-┌─────────────┐      ┌──────────────┐      ┌─────────────┐
-│   Source    │─────▶│  Integration │─────▶│   Target    │
-│  Platform   │◀─────│    Layer     │◀─────│  Platform   │
-└─────────────┘      └──────────────┘      └─────────────┘
-       │                    │                      │
-       │                    ▼                      │
-       │              ┌──────────┐                 │
-       └──────────────│ Message  │─────────────────┘
-                      │  Queue   │
-                      └──────────┘
-\`\`\`
-
-## Components
-1. **API Connectors**: Platform-specific clients
-2. **Webhook Handlers**: Event processing pipeline
-3. **Sync Engine**: Bidirectional data synchronization
-4. **Error Handler**: Retry logic + dead letter queue
-5. **Monitoring**: Metrics, logging, alerts
-
-## Data Flow
-- Inbound: Webhook → Validation → Transform → Queue → Process
-- Outbound: Trigger → Fetch → Transform → API Call → Confirm
-EOF
-
-# STAGE 4: API Connector Implementation
-echo "[4/12] Implementing API connectors..."
-python3 resources/scripts/api-connector.py \
-  --mode generate \
-  --config "$PLATFORMS_CONFIG" \
-  --output "$OUTPUT_DIR/connectors/" \
-  --template resources/templates/api-connector-template.py
-
-# Generate connector for each platform
-PLATFORMS=$(cat "$PLATFORMS_CONFIG" | jq -r '.platforms[].name')
-for PLATFORM in $PLATFORMS; do
-  echo "  - Generating connector for: $PLATFORM"
-  python3 resources/scripts/api-connector.py \
-    --platform "$PLATFORM" \
-    --output "$OUTPUT_DIR/connectors/${PLATFORM}_connector.py"
-done
-
-# STAGE 5: Webhook Handler Development
-echo "[5/12] Developing webhook handlers..."
-node resources/scripts/webhook-handler.js \
-  --config "$PLATFORMS_CONFIG" \
-  --output "$OUTPUT_DIR/handlers/" \
-  --framework express # or fastify, koa
-
-# Create webhook verification
-cat > "$OUTPUT_DIR/handlers/webhook-verifier.js" <<'EOF'
-const crypto = require('crypto');
-
-class WebhookVerifier {
-  constructor(secret) {
-    this.secret = secret;
-  }
-
-  verifySignature(payload, signature, algorithm = 'sha256') {
-    const hmac = crypto.createHmac(algorithm, this.secret);
-    const expectedSignature = hmac.update(JSON.stringify(payload)).digest('hex');
-    return crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
-    );
-  }
-
-  verifyTimestamp(timestamp, maxAge = 300) {
-    const now = Math.floor(Date.now() / 1000);
-    return Math.abs(now - timestamp) <= maxAge;
-  }
-}
-
-module.exports = WebhookVerifier;
-EOF
-
-# STAGE 6: Data Transformation Pipelines
-echo "[6/12] Setting up data transformation..."
-cat > "$OUTPUT_DIR/sync/transformer.py" <<'EOF'
-from typing import Dict, Any, List, Callable
-import json
-from datetime import datetime
-
-class DataTransformer:
-    def __init__(self, mapping_config: Dict[str, Any]):
-        self.mapping = mapping_config
-        self.transforms = {
-            'uppercase': str.upper,
-            'lowercase': str.lower,
-            'timestamp': lambda x: datetime.now().isoformat(),
-            'boolean': lambda x: str(x).lower() in ['true', '1', 'yes'],
-        }
-
-    def transform(self, source_data: Dict[str, Any]) -> Dict[str, Any]:
-        result = {}
-        for target_field, mapping in self.mapping.items():
-            if isinstance(mapping, dict):
-                source_field = mapping.get('source')
-                transform = mapping.get('transform')
-                default = mapping.get('default')
-
-                value = source_data.get(source_field, default)
-
-                if transform and transform in self.transforms:
-                    value = self.transforms[transform](value)
-
-                result[target_field] = value
-            else:
-                result[target_field] = source_data.get(mapping)
-
-        return result
-
-    def bulk_transform(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-        return [self.transform(record) for record in records]
-
-EOF
-
-# STAGE 7: Synchronization Engine Setup
-echo "[7/12] Implementing synchronization engine..."
-python3 resources/scripts/sync-manager.py \
-  --config "$PLATFORMS_CONFIG" \
-  --output "$OUTPUT_DIR/sync/sync_engine.py" \
-  --strategy bidirectional
-
-# Create sync configuration
-cat > "$OUTPUT_DIR/configs/sync-config.yaml" <<EOF
-synchronization:
-  direction: bidirectional # or unidirectional
-  frequency: real_time # or cron: "0 */6 * * *"
-  batch_size: 1000
-
-  conflict_resolution: # When records differ
-    strategy: last_write_wins # or source_wins, target_wins, merge
-    merge_fields: [updated_at, status]
-
-  filters:
-    include: # Only sync records matching criteria
-      - field: status
-        operator: in
-        values: [active, pending]
-    exclude:
-      - field: deleted
-        operator: eq
-        value: true
-
-  transformations:
-    source_to_target:
-      customer_id: user_id
-      email_address: email
-      phone_number: phone
-    target_to_source:
-      user_id: customer_id
-      email: email_address
-EOF
-
-# STAGE 8: Error Handling & Retry Logic
-echo "[8/12] Implementing error handling..."
-cat > "$OUTPUT_DIR/handlers/error-handler.js" <<'EOF'
-class ErrorHandler {
-  constructor(config) {
-    this.maxRetries = config.maxRetries || 3;
-    this.retryDelay = config.retryDelay || 1000;
-    this.deadLetterQueue = config.deadLetterQueue;
-  }
-
-  async handleWithRetry(operation, context = {}) {
-    let lastError;
-
-    for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
-      try {
-        return await operation();
-      } catch (error) {
-        lastError = error;
-        console.error(\`Attempt \${attempt} failed:', error.message);
-
-        if (attempt < this.maxRetries) {
-          const delay = this.retryDelay * Math.pow(2, attempt - 1); // Exponential backoff
-          await this.sleep(delay);
-        }
-      }
-    }
-
-    // All retries failed - send to dead letter queue
-    await this.sendToDeadLetter({
-      error: lastError.message,
-      context,
-      timestamp: new Date().toISOString(),
-      attempts: this.maxRetries
-    });
-
-    throw lastError;
-  }
-
-  async sendToDeadLetter(payload) {
-    if (this.deadLetterQueue) {
-      await this.deadLetterQueue.send(payload);
-    }
-  }
-
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-}
-
-module.exports = ErrorHandler;
-EOF
-
-# STAGE 9: Monitoring & Observability
-echo "[9/12] Setting up monitoring..."
-cat > "$OUTPUT_DIR/monitoring/metrics.js" <<'EOF'
-const prometheus = require('prom-client');
-
-const register = new prometheus.Registry();
-
-// API Metrics
-const apiLatency = new prometheus.Histogram({
-  name: 'api_request_duration_seconds',
-  help: 'API request duration in seconds',
-  labelNames: ['platform', 'endpoint', 'status'],
-  buckets: [0.1, 0.5, 1, 2, 5, 10]
-});
-
-const apiErrors = new prometheus.Counter({
-  name: 'api_errors_total',
-  help: 'Total API errors',
-  labelNames: ['platform', 'error_type']
-});
-
-// Webhook Metrics
-const webhookReceived = new prometheus.Counter({
-  name: 'webhooks_received_total',
-  help: 'Total webhooks received',
-  labelNames: ['platform', 'event_type']
-});
-
-const webhookProcessingTime = new prometheus.Histogram({
-  name: 'webhook_processing_duration_seconds',
-  help: 'Webhook processing duration',
-  labelNames: ['platform', 'event_type']
-});
-
-// Sync Metrics
-const syncRecords = new prometheus.Counter({
-  name: 'sync_records_total',
-  help: 'Total records synchronized',
-  labelNames: ['direction', 'status']
-});
-
-const syncLatency = new prometheus.Histogram({
-  name: 'sync_duration_seconds',
-  help: 'Synchronization duration',
-  buckets: [1, 5, 10, 30, 60, 300]
-});
-
-[apiLatency, apiErrors, webhookReceived, webhookProcessingTime, syncRecords, syncLatency]
-  .forEach(metric => register.registerMetric(metric));
-
-module.exports = { register, apiLatency, apiErrors, webhookReceived, webhookProcessingTime, syncRecords, syncLatency };
-EOF
-
-# STAGE 10: Testing & Validation
-echo "[10/12] Creating integration tests..."
-bash resources/scripts/integration-tester.sh \
-  --connectors "$OUTPUT_DIR/connectors/" \
-  --handlers "$OUTPUT_DIR/handlers/" \
-  --output "$OUTPUT_DIR/tests/"
-
-# STAGE 11: Documentation Generation
-echo "[11/12] Generating documentation..."
-cat > "$OUTPUT_DIR/docs/INTEGRATION-GUIDE.md" <<EOF
-# Platform Integration Guide
-
-## Overview
-This integration connects multiple platforms with bidirectional data synchronization.
-
-## Setup
-
-### Prerequisites
-- Node.js 18+
-- Python 3.9+
-- Redis (for caching/queues)
-- PostgreSQL (optional, for state tracking)
-
-### Installation
-\`\`\`bash
-npm install
-pip install -r requirements.txt
-\`\`\`
-
-### Configuration
-1. Copy \`.env.example\` to \`.env\`
-2. Add platform credentials
-3. Configure sync rules in \`configs/sync-config.yaml\`
-
-## API Connectors
-
-### Available Connectors
-$(ls -1 "$OUTPUT_DIR/connectors/" | sed 's/^/- /')
-
-### Usage Example
-\`\`\`python
-from connectors.salesforce_connector import SalesforceConnector
-
-connector = SalesforceConnector(
-    client_id=os.getenv('SF_CLIENT_ID'),
-    client_secret=os.getenv('SF_CLIENT_SECRET')
-)
-
-# Fetch accounts
-accounts = connector.get_accounts(limit=100)
-
-# Create contact
-contact = connector.create_contact({
-    'FirstName': 'John',
-    'LastName': 'Doe',
-    'Email': 'john@example.com'
-})
-\`\`\`
-
-## Webhook Handlers
-
-### Registering Webhooks
-\`\`\`bash
-node handlers/register-webhooks.js \\
-  --platform stripe \\
-  --url https://your-domain.com/webhooks/stripe \\
-  --events payment_intent.succeeded,charge.failed
-\`\`\`
-
-### Handling Events
-Webhooks are automatically verified and processed by event type.
-
-## Data Synchronization
-
-### Manual Sync
-\`\`\`bash
-python sync/sync_engine.py \\
-  --source salesforce \\
-  --target hubspot \\
-  --entity contacts
-\`\`\`
-
-### Automated Sync
-Runs based on \`sync-config.yaml\` frequency.
-
-## Monitoring
-
-### Metrics Endpoint
-\`\`\`
-GET /metrics
-\`\`\`
-
-### Health Check
-\`\`\`
-GET /health
-\`\`\`
-
-### Key Metrics
-- API latency (p50, p95, p99)
-- Webhook success rate
-- Sync throughput
-- Error rate by platform
-
-## Troubleshooting
-
-### Common Issues
-1. **Authentication Failed**: Check credentials in \`.env\`
-2. **Webhook Verification Failed**: Verify webhook secret matches
-3. **Sync Conflicts**: Review conflict resolution strategy
-4. **Rate Limiting**: Implement backoff in connector
-
-### Logs
-\`\`\`bash
-tail -f logs/integration.log
-\`\`\`
-
----
-🤖 Generated by Platform Integration Skill
-EOF
-
-# STAGE 12: Production Deployment
-echo "[12/12] Preparing production deployment..."
-
-# Create Docker configuration
-cat > "$OUTPUT_DIR/Dockerfile" <<'EOF'
-FROM node:18-alpine
-
-WORKDIR /app
-
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY . .
-
-ENV NODE_ENV=production
-EXPOSE 3000
-
-CMD ["node", "server.js"]
-EOF
-
-cat > "$OUTPUT_DIR/docker-compose.yml" <<'EOF'
-version: '3.8'
-
-services:
-  integration:
-    build: .
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - REDIS_URL=redis://redis:6379
-    depends_on:
-      - redis
-    restart: unless-stopped
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis-data:/data
-
-volumes:
-  redis-data:
-EOF
-
-# Production readiness check
-echo ""
-echo "================================================================"
-echo "Platform Integration Complete!"
-echo "================================================================"
-echo ""
-echo "Artifacts in: $OUTPUT_DIR/"
-echo "- Connectors: connectors/ ($(ls -1 "$OUTPUT_DIR/connectors/" | wc -l) platforms)"
-echo "- Handlers: handlers/ (webhook processing)"
-echo "- Sync Engine: sync/ (bidirectional sync)"
-echo "- Tests: tests/ (integration suite)"
-echo "- Configs: configs/ (YAML configurations)"
-echo "- Documentation: docs/INTEGRATION-GUIDE.md"
-echo "- Monitoring: monitoring/ (Prometheus metrics)"
-echo ""
-echo "Next Steps:"
-echo "1. Configure credentials in .env"
-echo "2. Run tests: npm test"
-echo "3. Start services: docker-compose up -d"
-echo "4. Register webhooks: node handlers/register-webhooks.js"
-echo "5. Monitor: http://localhost:3000/metrics"
-echo ""
-```
-
-## Integration Points
-
-### Cascades
-- Part of `/enterprise-integration` cascade
-- Used by `/api-orchestration` cascade
-- Invokes `/monitoring-setup` cascade
-
-### Commands
-- Uses: `/api-connector`, `/webhook-handler`
-- Uses: `/sync-manager`, `/integration-tester`
-- Creates: `/health-check`, `/metrics-endpoint`
-
-### Other Skills
-- Invokes: `security` (for auth/secrets)
-- Invokes: `monitoring` (for observability)
-- Output to: `documentation` (for API docs)
-
-## Usage Example
-
-```bash
-# Full platform integration
-platform-integration full platforms-config.json
-
-# API-only integration
-platform-integration api_integration platforms-config.json
-
-# Webhook automation
-platform-integration webhook_automation platforms-config.json
-
-# Data synchronization only
-platform-integration data_sync platforms-config.json
-```
-
-## Failure Modes
-
-- **Auth failure**: Verify credentials, check token expiry
-- **Webhook verification failed**: Check secret configuration
-- **Sync conflicts**: Review conflict resolution strategy
-- **Rate limiting**: Implement exponential backoff
-- **Network timeout**: Increase timeout, check connectivity
-- **Data transformation error**: Validate mapping configuration
-
-## Advanced Features
-
-### Multi-Region Deployment
-```yaml
-regions:
-  - name: us-east-1
-    primary: true
-  - name: eu-west-1
-    failover: true
-```
-
-### Event Streaming
-```yaml
-streaming:
-  provider: kafka
-  topics:
-    - platform-events
-    - sync-updates
-```
-
-### Custom Transformations
-```python
-def custom_transform(data):
-    # Your transformation logic
-    return transformed_data
-
-transformer.register_custom('my_transform', custom_transform)
-```
----
-
-## Core Principles
-
-Platform Integration operates on 3 fundamental principles:
-
-### Principle 1: Event-Driven Architecture Over Polling
-Polling APIs for changes creates latency, wastes API quota, and misses real-time updates. Event-driven webhooks provide immediate notifications with zero polling overhead.
-
-In practice:
-- Webhook handlers for real-time events (order placed, user updated, payment completed)
-- Message queues for reliable event processing with retry logic
-- WebSockets for bidirectional real-time communication (chat, live updates)
-
-### Principle 2: Idempotent Operations Prevent Duplicate Processing
-Network failures and retry logic can cause duplicate events. Without idempotency, webhooks can trigger duplicate orders, double charges, or inconsistent data states.
-
-In practice:
-- Webhook handlers use idempotency keys to deduplicate events
-- Database operations use unique constraints to prevent duplicate records
-- API calls include idempotency tokens for safe retries
-
-### Principle 3: Circuit Breakers Prevent Cascading Failures
-When an integrated platform fails, naive retry logic can amplify failures across your entire system. Circuit breakers isolate failures and enable graceful degradation.
-
-In practice:
-- After 5 consecutive API failures, circuit opens (stop calling failing service)
-- Fallback to cached data or default behavior during circuit open state
-- Exponential backoff with jitter prevents thundering herd on recovery
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Poll Every N Seconds** | Polling Stripe API every 10s for payment updates. Wastes 99% of API calls on "no changes". Hits rate limits during high traffic. | Use Stripe webhooks for payment events. Only poll as fallback for missed webhooks (check once after 5 minutes if webhook not received). |
-| **Retry Forever** | API call fails, retry immediately forever. Downstream service outage causes infinite retry storm, exhausting database connections and amplifying failures. | Implement exponential backoff with max retries (3-5). After max retries, send to dead letter queue for manual review. Use circuit breaker to stop retries during sustained outages. |
-| **No Webhook Verification** | Accept webhooks without signature verification. Attacker sends fake "payment completed" webhooks, triggering order fulfillment for unpaid orders. | Verify webhook signatures using HMAC-SHA256 with shared secret. Reject webhooks with invalid signatures. Verify timestamp to prevent replay attacks (max age 5 minutes). |
-
-## Conclusion
-
-Platform Integration provides a comprehensive framework for building production-grade integrations with external platforms (SaaS APIs, payment gateways, cloud services). The skill generates API connectors, webhook handlers, data transformation pipelines, and synchronization engines with built-in error handling, monitoring, and security.
-
-Use this skill when integrating with external platforms (Stripe, Salesforce, Shopify, AWS, etc.) requiring bidirectional data flow, real-time event processing, or complex data transformations. The framework supports REST, GraphQL, WebSockets, and message queue patterns, with automatic retry logic, circuit breakers, and observability.
-
-The key architectural principle is event-driven design - webhooks and message queues provide real-time updates with better reliability and lower latency than polling. All webhook handlers include signature verification, idempotency checks, and dead letter queues for failed events.
-
-Success requires understanding the target platform's API patterns (REST vs GraphQL, webhook formats, rate limits, authentication methods) and designing integration architecture that handles failures gracefully. The framework provides production-ready templates for common platforms, reducing integration time from weeks to days while avoiding common pitfalls like duplicate processing, cascading failures, and security vulnerabilities.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+    expiry_buffer: 300 # seconds before ex
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/operations/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

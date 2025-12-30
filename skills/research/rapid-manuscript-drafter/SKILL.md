@@ -1,50 +1,61 @@
----
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-- Drafting academic papers for NeurIPS/ICML/CVPR submission
-- Generating research papers from completed Deep Research SOP pipelines
-- Creating reproducibility reports with ACM artifact badging
-- Writing technical reports with comprehensive methodology documentation
-- Preparing grant proposals requiring academic rigor
-
-### When NOT to Use This Skill
-- Blog posts or non-academic writing (use documentation skills)
-- When full Deep Research SOP has not been completed
-- Informal technical documentation (use comprehensive-documentation)
-- When peer review is not the target venue
-
-### Success Criteria
-- [assert|neutral] Complete manuscript with standard sections (Abstract, Intro, Related Work, Methods, Results, Discussion, Conclusion) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All claims cited with proper references (BibTeX generated) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Figures and tables properly formatted (captions, labels) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Reproducibility section included (code, data, hyperparameters) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Word count matches venue requirements (8 pages NeurIPS, 12 CVPR) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] LaTeX source compiles without errors [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases & Limitations
-- Over page limit: prioritize core contributions, move details to appendix
-- Missing experimental results: flag incomplete sections, suggest placeholder data
-- Weak related work: expand literature synthesis, add 10+ recent papers
-- Unclear methodology: add algorithmic pseudocode, detailed architecture diagrams
-- Insufficient ablations: document need for additional experiments
-
-### Critical Guardrails
-- NEVER submit drafts with uncited claims (verify all assertions have references)
-- ALWAYS include reproducibility section (code, data, hyperparameters, seeds)
-- NEVER fabricate experimental results (use real data from method-development)
-- ALWAYS verify venue formatting guidelines (check template, page limits)
-- NEVER skip statistical validation (p-values, CIs, effect sizes)
-
-### Evidence-Based Validation
-- Validate citation completeness: search for all claims, verify references exist
-- Cross-check reproducibility: can experiments be rerun from manuscript alone?
-- Test figure quality: are plots high-resolution (300+ DPI), axes labeled, legends clear?
-- Verify statistical rigor: are all p-values, CIs, effect sizes reported?
-- Confirm template compliance: does LaTeX compile, match venue style exactly?
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
 
 ---
+name: SKILL
+version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for research workflows [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "research",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "research", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
+
 name: rapid-manuscript-drafter
 description: Generate structured research manuscript drafts in 10-15 minutes with
   proper academic sections (Abstract, Introduction, Methods, Results, Discussion).
@@ -188,460 +199,67 @@ Create hierarchical document structure:
 ```markdown
 ## Manuscript Outline: [TITLE]
 
-### 1. Abstract (~250 words)
-- Background context (1-2 sentences)
-- Research gap/problem (1 sentence)
-- Methodology summary (1-2 sentences)
-- Key findings (2-3 sentences)
-- Implications (1 sentence)
-
-### 2. Introduction (~800-1000 words)
-- 2.1 Opening hook and context
-- 2.2 Background and related work
-- 2.3 Research gap identification
-- 2.4 Research questions/hypotheses
-- 2.5 Contribution statement
-- 2.6 Paper organization
-
-### 3. Related Work (~600-800 words)
-- 3.1 [Theme 1 from literature]
-- 3.2 [Theme 2 from literature]
-- 3.3 Gap analysis and positioning
-
-### 4. Methodology (~800-1200 words)
-- 4.1 Research design overview
-- 4.2 Data collection
-- 4.3 Analysis approach
-- 4.4 Validation strategy
-
-### 5. Results (~600-1000 words)
-- 5.1 [Finding 1 - placeholder]
-- 5.2 [Finding 2 - placeholder]
-- 5.3 Summary of findings
-
-### 6. Discussion (~800-1000 words)
-- 6.1 Interpretation of results
-- 6.2 Comparison with prior work
-- 6.3 Implications
-- 6.4 Limitations
-- 6.5 Future work
-
-### 7. Conclusion (~200-300 words)
-- Summary
-- Key contributions
-- Call to action
-
-### References
-- [Placeholder for bibliography]
-```
-
-## SOP Phase 2: Section Drafting
-
-### Abstract Template
-
-```markdown
-## Abstract
-
-[BACKGROUND CONTEXT - 1-2 sentences about the field and why it matters]
-
-[RESEARCH GAP - 1 sentence identifying the specific problem addressed]
-
-In this work, we [METHODOLOGY SUMMARY - brief description of approach].
-
-[KEY FINDINGS - use provided findings or placeholder]:
-- [FINDING 1: YOUR_RESULT_HERE]
-- [FINDING 2: YOUR_RESULT_HERE]
-
-Our results demonstrate [IMPLICATION - how this advances the field].
-
-**Keywords**: [keyword1], [keyword2], [keyword3], [keyword4], [keyword5]
-```
-
-### Introduction Template
-
-```markdown
-## 1. Introduction
-
-[HOOK - Opening sentence that captures attention and establishes importance]
-
-### Background and Context
-
-[BACKGROUND PARAGRAPH 1 - Establish the broader research area]
-The field of [DOMAIN] has seen significant advances in recent years,
-particularly in [SPECIFIC AREA] (Author1 et al., YEAR; Author2 et al., YEAR).
-
-[BACKGROUND PARAGRAPH 2 - Narrow to specific topic]
-Within this context, [SPECIFIC TOPIC] has emerged as a critical challenge
-because [REASON FOR IMPORTANCE].
-
-### Research Gap
-
-Despite these advances, [RESEARCH GAP STATEMENT]. Current approaches
-[LIMITATION 1] and [LIMITATION 2]. This limitation is significant because
-[WHY IT MATTERS].
-
-### Research Questions
-
-This work addresses the following research questions:
-- RQ1: [RESEARCH QUESTION 1]
-- RQ2: [RESEARCH QUESTION 2]
-
-### Contributions
-
-The main contributions of this paper are:
-1. [CONTRIBUTION 1]
-2. [CONTRIBUTION 2]
-3. [CONTRIBUTION 3]
-
-### Paper Organization
-
-The remainder of this paper is organized as follows. Section 2 reviews
-related work. Section 3 describes our methodology. Section 4 presents
-results. Section 5 discusses implications, and Section 6 concludes.
-```
-
-### Methodology Template
-
-```markdown
-## 3. Methodology
-
-### 3.1 Research Design Overview
-
-[METHODOLOGY DESCRIPTION - from user input]
-
-Figure 1 illustrates our overall approach.
-
-[FIGURE 1 PLACEHOLDER: Insert methodology flowchart here]
-
-### 3.2 Data Collection
-
-**Dataset/Participants**: [YOUR_DATA_DESCRIPTION_HERE]
-- Sample size: [N = YOUR_NUMBER]
-- Collection period: [YOUR_DATES]
-- Selection criteria: [YOUR_CRITERIA]
-
-**Data Sources**:
-- Source 1: [DESCRIPTION]
-- Source 2: [DESCRIPTION]
-
-### 3.3 Analysis Approach
-
-[ANALYSIS DESCRIPTION]
-
-The key steps in our analysis are:
-1. [STEP 1]
-2. [STEP 2]
-3. [STEP 3]
-
-### 3.4 Validation Strategy
-
-To ensure validity, we [VALIDATION APPROACH].
-
-- Internal validity: [YOUR_APPROACH]
-- External validity: [YOUR_APPROACH]
-- Reliability: [YOUR_APPROACH]
-```
-
-### Results Template
-
-```markdown
-## 4. Results
-
-### 4.1 [Finding Category 1]
-
-[YOUR RESULTS PARAGRAPH HERE]
-
-Table 1 summarizes [WHAT TABLE SHOWS].
-
-**[TABLE 1 PLACEHOLDER]**
-| Metric | Baseline | Proposed | Improvement |
-|--------|----------|----------|-------------|
-| [Metric 1] | [YOUR_DATA] | [YOUR_DATA] | [YOUR_DATA] |
-| [Metric 2] | [YOUR_DATA] | [YOUR_DATA] | [YOUR_DATA] |
-
-### 4.2 [Finding Category 2]
-
-[YOUR RESULTS PARAGRAPH HERE]
-
-Figure 2 illustrates [WHAT FIGURE SHOWS].
-
-**[FIGURE 2 PLACEHOLDER]**: [Description of figure to insert]
-
-### 4.3 Summary of Findings
-
-In summary, our results show:
-1. [FINDING SUMMARY 1 - YOUR_TEXT]
-2. [FINDING SUMMARY 2 - YOUR_TEXT]
-3. [FINDING SUMMARY 3 - YOUR_TEXT]
-```
-
-### Discussion Template
-
-```markdown
-## 5. Discussion
-
-### 5.1 Interpretation of Results
-
-Our findings demonstrate [MAIN INTERPRETATION]. This is significant
-because [SIGNIFICANCE].
-
-The result that [SPECIFIC FINDING] suggests [INTERPRETATION]. This
-aligns with / contradicts [PRIOR WORK] who found [PRIOR FINDING].
-
-### 5.2 Comparison with Prior Work
-
-Compared to [RELATED WORK 1], our approach [COMPARISON]. Unlike
-[RELATED WORK 2], we [DIFFERENTIATION].
-
-Table X compares our results with prior work.
-
-**[TABLE X PLACEHOLDER: Comparison with prior work]**
-
-### 5.3 Implications
-
-**Theoretical Implications**: [YOUR_THEORETICAL_IMPLICATIONS]
-
-**Practical Implications**: [YOUR_PRACTICAL_IMPLICATIONS]
-
-### 5.4 Limitations
-
-This work has several limitations:
-1. [LIMITATION 1] - [MITIGATION OR FUTURE WORK]
-2. [LIMITATION 2] - [MITIGATION OR FUTURE WORK]
-3. [LIMITATION 3] - [MITIGATION OR FUTURE WORK]
-
-### 5.5 Future Work
-
-Future research directions include:
-- [FUTURE DIRECTION 1]
-- [FUTURE DIRECTION 2]
-- [FUTURE DIRECTION 3]
-```
-
-### Conclusion Template
-
-```markdown
-## 6. Conclusion
-
-This paper addressed [RESEARCH PROBLEM] by [APPROACH SUMMARY].
-
-Our key contributions include:
-1. [CONTRIBUTION 1]
-2. [CONTRIBUTION 2]
-3. [CONTRIBUTION 3]
-
-The results demonstrate [MAIN FINDING SUMMARY]. This work advances
-[FIELD] by [HOW IT ADVANCES].
-
-Future work will explore [FUTURE DIRECTION].
-
-[OPTIONAL: Call to action or broader impact statement]
-```
-
-## SOP Phase 3: Writing Tips Insertion
-
-Add contextual writing guidance:
-
-```markdown
-<!-- WRITING TIP: Introduction Hook -->
-Start with a compelling fact, statistic, or scenario that immediately
-demonstrates why this research matters. Avoid generic openings like
-"In recent years..." when possible.
-
-<!-- WRITING TIP: Results Section -->
-Lead with your most important finding. Use topic sentences that state
-the finding, then provide evidence. Don't interpret here - save that
-for Discussion.
-
-<!-- WRITING TIP: Placeholder Completion -->
-Replace [YOUR_DATA] placeholders with actual values. Ensure all claims
-are supported by your actual results.
-```
-
-## SOP Phase 4: Quality Checklist
-
-Generate completion checklist:
-
-```markdown
-## Manuscript Completion Checklist
-
-### Structure
-- [ ] All sections present and in correct order
-- [ ] Logical flow between sections
-- [ ] Appropriate section lengths for venue
-
-### Content
-- [ ] Abstract accurately summarizes paper
-- [ ] Introduction clearly states gap and contributions
-- [ ] Methodology reproducible from description
-- [ ] Results support claims made
-- [ ] Discussion interprets (not repeats) results
-- [ ] Limitations honestly acknowledged
-- [ ] Conclusion doesn't introduce new material
-
-### Placeholders to Complete
-- [ ] [YOUR_DATA] - X occurrences
-- [ ] [FIGURE] - X occurrences
-- [ ] [TABLE] - X occurrences
-- [ ] [CITATION] - X occurrences
-
-### Final Polish
-- [ ] Check word count against venue limit
-- [ ] Verify citation format matches venue
-- [ ] Proofread for clarity and grammar
-- [ ] Get feedback from collaborators
-```
-
-## Example Execution
-
-**Input**:
-```yaml
-manuscript_type: research_article
-research_content:
-  title: "Improving Drug Discovery with Graph Neural Networks"
-  research_question: "Can graph neural networks improve molecular property
-    prediction compared to traditional fingerprint-based methods?"
-  methodology_description: "We train GNN models on molecular graphs and
-    compare against random forest baselines on three benchmark datasets"
-  contribution_claims:
-    - "Novel GNN architecture for molecular property prediction"
-    - "Comprehensive benchmark on 3 public datasets"
-    - "Interpretability analysis of learned representations"
-literature_context:
-  research_gap: "Existing GNN approaches lack interpretability for
-    domain experts in pharmaceutical settings"
-target_venue:
-  name: "Journal of Chemical Information and Modeling"
-  word_limit: 8000
-  style: acs
-```
-
-**Output** (abbreviated):
-```markdown
-# Improving Drug Discovery with Graph Neural Networks
-
-## Abstract
-Drug discovery remains a costly and time-consuming process, with
-molecular property prediction serving as a critical bottleneck...
-
-[KEY FINDINGS PLACEHOLDER: YOUR_ACCURACY_IMPROVEMENT_HERE]
-
-## 1. Introduction
-The pharmaceutical industry faces unprecedented challenges...
-
-[Full scaffolded manuscript with placeholders]
-
-## Completion Status
-- Sections drafted: 7/7
-- Placeholders remaining: 12
-- Estimated completion: 60%
-- Next steps: Add experimental results, figures, citations
-```
-
-## Integration Points
-
-### Receives From
-- **rapid-idea-generator**: Research ideas to write up
-- **research-gap-visualizer**: Gap evidence for introduction
-- **literature-synthesis**: Related work content
-- **visual-asset-generator**: Figures and tables
-
-### Feeds Into
-- **research-publication**: Final manuscript preparation
-- **gate-validation**: Quality gate for publication readiness
-
-## Feature Comparison
-
-| Feature | Basic Tools | This Skill |
-|---------|--------|------------|
-| Speed | 5 min | 10-15 min |
-| Data fabrication | YES (problematic) | NO (placeholders) |
-| Section structure | Yes | Yes (IMRaD) |
-| Writing tips | No | Yes |
-| Completion checklist | No | Yes |
-| Venue customization | No | Yes |
-| Citation placeholders | Fake citations | [CITATION NEEDED] markers |
-| Figures/tables | Fabricated | Placeholders with descriptions |
-
-## Success Criteria
-
-- [ ] All sections generated with appropriate structure
-- [ ] No fabricated data or results
-- [ ] Placeholders clearly marked
-- [ ] Writing tips contextually relevant
-- [ ] Completion checklist accurate
-- [ ] Word count appropriate for venue
-- [ ] Logical argument flow maintained
-
-## Ethical Guidelines
-
-1. **Placeholders over fabrication** - Always use [YOUR_DATA] instead of making up numbers
-2. **Honest scaffolding** - Structure guides writing, doesn't replace research
-3. **Clear marking** - All placeholders clearly identifiable
-4. **Academic integrity** - Draft is a tool, not a substitute for research
-
----
-
-**Version**: 1.0.0
-**Category**: Research / Writing
-**Time**: 10-15 minutes for full draft
-**Output**: Scaffolded manuscript with placeholders
-**Design**: Ethical scaffolding with placeholder-based content
-
----
-
-## Core Principles
-
-### 1. Scaffolding Over Fabrication
-Academic writing tools must never cross the line from assistance to deception. This skill creates structural frameworks that guide authentic research communication.
-
-**In practice:**
-- Generate document outlines with proper academic section hierarchy (Abstract, IMRaD)
-- Create writing prompts that help articulate genuine research contributions
-- Provide templates that organize thoughts without replacing original thinking
-- Use placeholders like [YOUR_DATA] to mark where real content must be inserted
-- Flag sections requiring user input with specific guidance on what information belongs
-
-### 2. Speed Without Sacrifice of Integrity
-Rapid drafting should accelerate the mechanical aspects of writing while preserving the essential human elements of research communication - original thought, data interpretation, and scholarly argumentation.
-
-**In practice:**
-- Reduce time on boilerplate structure (paper organization, section transitions)
-- Automate citation placeholder insertion ([Author, Year] markers)
-- Generate section templates based on venue requirements (page limits, formatting)
-- Preserve researcher control over all substantive claims and findings
-- Maintain clear separation between auto-generated structure and required user content
-
-### 3. Transparency in Assistance
-Users must always know what is generated versus what requires their expertise. The boundary between tool-assisted and human-created content must be unmistakable.
-
-**In practice:**
-- Mark all generated content with clear indicators (<!-- AI-GENERATED TEMPLATE -->)
-- Use distinctive placeholder syntax that cannot be mistaken for real content
-- Include metadata showing what sections are complete vs scaffolded
-- Generate completion checklists highlighting all areas needing user input
-- Provide "generation time" metrics so users understand the tool's contribution
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| Fabricating experimental results | Violates research integrity; creates fake data that appears legitimate but has no basis in actual experiments | Use explicit placeholders like [YOUR_RESULT: Mean accuracy = ?] instead of generating plausible-looking numbers. Add warnings that placeholders must be replaced before submission. |
-| Generic template overload | Produces formulaic writing that lacks domain-specific depth; all papers sound identical regardless of field or contribution | Customize templates based on research type (experimental, theoretical, review). Include field-specific writing tips. Generate domain-appropriate example text that researchers can adapt. |
-| Hiding AI contribution | Creates ethical ambiguity about authorship; users may unknowingly submit AI-generated text as their own work | Add metadata footer to drafts: "Generated with rapid-manuscript-drafter v1.0.0". Mark all AI-generated sections. Include ethics statement template about tool use. |
-
----
-
-## Conclusion
-
-The rapid-manuscript-drafter skill addresses a critical bottleneck in academic publishing: the time-consuming process of transforming completed research into properly structured manuscripts. By automating the mechanical aspects of academic writing while preserving the essential human elements of scholarship, this skill enables researchers to focus on what matters most - articulating genuine insights and contributions.
-
-The ethical foundation of this skill rests on an unwavering commitment to transparency and integrity. Unlike tools that fabricate plausible-sounding content, rapid-manuscript-drafter creates honest scaffolds that make the writing process more efficient without compromising authenticity. Every placeholder is clearly marked, every template is customizable, and every generated structure serves to guide rather than replace human expertise. This approach respects both the researcher's intellectual contribution and the academic community's standards for scholarly communication.
-
-As research demands accelerate while publication standards remain rigorous, tools that accelerate legitimate scholarship become increasingly valuable. The rapid-manuscript-drafter skill demonstrates that speed and integrity are not opposing forces - when properly designed, automation can enhance both the efficiency and the quality of academic writing. By reducing the friction of manuscript preparation, this skill allows researchers to spend more time on the substance of their work and less time wrestling with formatting, structure, and organization.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+### 1.
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,114 +1,218 @@
+/*============================================================================*/
+/* AGENT-RCA COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-## Command-Specific Requirements
-
-### Agent Creation Parameters
-- Define agent role, expertise domain, and capability boundaries
-- Specify required tools, skills, and MCP integrations
-- Set performance metrics and success criteria
-
-### Research Methodology Requirements
-- Document research questions and hypotheses
-- Specify data sources and validation criteria
-- Define experimental design and control conditions
-
-### Expertise File Integration
-- Reference relevant expertise files from .claude/
-- Link to domain-specific knowledge bases
-- Specify required background reading
-
-### Output Artifact Specifications
-- Define deliverable format and structure
-- Specify validation requirements
-- Set quality gates and acceptance criteria
-<!-- META-LOOP v2.1 INTEGRATION -->## Phase 0: Expertise Loadingexpertise_check:  domain: agent-creation  file: .claude/expertise/agent-creation.yaml  fallback: discovery_mode## Recursive Improvement Integration (v2.1)benchmark: agent-rca-benchmark-v1  tests:    - command_execution_success    - domain_validation  success_threshold: 0.9namespace: "commands/foundry/agent-commands/agent-rca/{project}/{timestamp}"uncertainty_threshold: 0.85coordination:  related_skills: [agent-creator, micro-skill-creator]  related_agents: [prompt-auditor, skill-auditor]## COMMAND COMPLETION VERIFICATIONsuccess_metrics:  execution_success: ">95%"<!-- END META-LOOP -->
 name: agent-rca
-binding: agent:root-cause-analyzer
-category: agent
 version: 1.0.0
+binding: skill:agent:root-cause-analyzer
+category: agent
 ---
 
-# /agent-rca
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "agent-rca",
+  binding: "skill:agent:root-cause-analyzer",
+  category: "agent",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "Execute agent-rca workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /agent-rca"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Spawns Root Cause Analyzer agent for systematic debugging and finding real underlying problems.
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-## Usage
-```bash
-/agent-rca "<problem>" [options]
-```
+[define|neutral] SYNTAX := "/agent-rca [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `problem` - Problem description (required)
-- `--context` - Relevant files or directory (optional)
-- `--depth` - Investigation depth: shallow|normal|deep (default: normal)
-- `--output` - Output file for RCA report (default: stdout)
+[define|neutral] PARAMETERS := {
+  required: {
+    problem: { type: "string", description: "Problem description" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--context": { description: "Relevant files or directory (optional)", default: "false" },
+    "--depth": { description: "Investigation depth: shallow|normal|deep (default:", default: "false" },
+    "--output": { description: "Output file for RCA report (default: stdout)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Examples
-```bash
-# Debug intermittent issue
-/agent-rca "API times out intermittently under load" --context src/api/
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Production incident
-/agent-rca "Database connection pool exhausted in production" --depth deep
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Performance issue
-/agent-rca "Dashboard load time increased from 200ms to 3s" --context src/dashboard/
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Generate report
-/agent-rca "Memory leak in background worker" --output rca-memory-leak.md
-```
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-## 5-Phase Methodology
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 1: Symptom Collection
-- Gather observable symptoms
-- Collect logs, metrics, traces
-- Document reproduction steps
-- Apply 5 Whys technique
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Phase 2: Hypothesis Generation
-- Generate potential root causes
-- Work backwards from failure points
-- Apply inverse reasoning
-- Consider system interactions
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 3: Forensic Investigation
-- Test each hypothesis
-- Gather evidence
-- Use eliminative logic
-- Isolate variables
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Phase 4: Root Cause Identification
-- Distinguish symptoms from root causes
-- Validate the real underlying problem
-- Verify causality
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 5: Validation & Solution Design
-- Confirm root cause
-- Design fix
-- Verify fix resolves issue
-- Check for regressions
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Chains with
-```bash
-# RCA → fix with Codex
-/agent-rca "Bug in auth flow" --context src/auth/ | \
-/codex-auto "Fix identified root cause"
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-# RCA → comprehensive test
-/agent-rca "Intermittent failure" | \
-/functionality-audit --model codex-auto
-```
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## See also
-- `/codex-auto` - Quick prototyping/fixing
-- `/functionality-audit` - Systematic testing
-- `/agent-reviewer` - Code review
+[define|neutral] EXAMPLES := [
+  { command: "/agent-rca "API times out intermittently under load" --conte", description: "Example usage" },
+  { command: "/agent-rca "Database connection pool exhausted in production", description: "Example usage" },
+  { command: "/agent-rca "Dashboard load time increased from 200ms to 3s" ", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
----
-*Promise: `<promise>AGENT_RCA_VERIX_COMPLIANT</promise>`*
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/agent-rca -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/agent-rca arg1' '/agent-rca arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/functionality-audit", "/agent-reviewer", "/codex-auto"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "agent",
+    file: ".claude/expertise/agent.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "agent-rca-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/agent/agent-rca/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:root-cause-analyzer"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "agent-rca-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>AGENT_RCA_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

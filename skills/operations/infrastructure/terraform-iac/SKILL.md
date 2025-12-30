@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* TERRAFORM-IAC SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: terraform-iac
-description: Terraform infrastructure as code specialist for multi-cloud deployments (AWS/GCP/Azure), state management with remote backends, module development, drift detection, policy as code with Sentinel/OPA, and GitOps workflows. Use when provisioning cloud infrastructure, managing infrastructure state, implementing IaC best practices, or requiring Terraform expertise. Handles workspaces, dynamic blocks, for_each loops, and production-grade Terraform configurations.
+version: 1.0.0
+description: |
+  [assert|neutral] Terraform infrastructure as code specialist for multi-cloud deployments (AWS/GCP/Azure), state management with remote backends, module development, drift detection, policy as code with Sentinel/OPA, a [ground:given] [conf:0.95] [state:confirmed]
 category: Infrastructure
-complexity: High
-triggers: ["terraform", "iac", "infrastructure as code", "terraform state", "terraform modules", "multi-cloud", "terraform plan", "terraform apply", "hcl"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute terraform-iac workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Infrastructure processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "terraform-iac",
+  category: "Infrastructure",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["terraform-iac", "Infrastructure", "workflow"],
+  context: "user needs terraform-iac capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Terraform Infrastructure as Code Specialist
 
@@ -187,359 +237,67 @@ resource "aws_instance" "app" {
 
   tags = {
     Name = "${var.environment}-app-${each.key}"
-    AZ   = each.value
-  }
-}
-```
-
-### Workflow 3: Remote State and Data Sources
-
-```hcl
-# Reference remote state from another workspace
-data "terraform_remote_state" "vpc" {
-  backend = "s3"
-  config = {
-    bucket = "my-terraform-state"
-    key    = "network/terraform.tfstate"
-    region = "us-east-1"
-  }
-}
-
-# Use outputs from remote state
-resource "aws_instance" "app" {
-  subnet_id = data.terraform_remote_state.vpc.outputs.private_subnet_ids[0]
-  # ...
-}
-
-# Data source for existing resources
-data "aws_ami" "ubuntu" {
-  most_recent = true
-  owners      = ["099720109477"] # Canonical
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
-  }
-}
-```
-
-### Workflow 4: Workspaces for Environments
-
-```bash
-# Create workspaces
-terraform workspace new dev
-terraform workspace new staging
-terraform workspace new production
-
-# List workspaces
-terraform workspace list
-
-# Switch workspace
-terraform workspace select production
-
-# Use workspace in configuration
-resource "aws_instance" "app" {
-  instance_type = terraform.workspace == "production" ? "t3.large" : "t3.micro"
-
-  tags = {
-    Environment = terraform.workspace
-  }
-}
-```
-
-### Workflow 5: GitOps Workflow
-
-```bash
-# 1. Initialize Terraform
-terraform init
-
-# 2. Format code
-terraform fmt -recursive
-
-# 3. Validate configuration
-terraform validate
-
-# 4. Plan changes
-terraform plan -out=tfplan
-
-# 5. Review plan
-terraform show tfplan
-
-# 6. Apply changes (in CI/CD)
-terraform apply tfplan
-
-# 7. Check for drift
-terraform plan -detailed-exitcode
-# Exit code 2 means drift detected
-```
-
-**GitHub Actions CI/CD**
-
-```yaml
-# .github/workflows/terraform.yml
-name: Terraform
-on:
-  pull_request:
-    branches: [main]
-  push:
-    branches: [main]
-
-jobs:
-  terraform:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.5.0
-
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Format
-        run: terraform fmt -check -recursive
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Plan
-        run: terraform plan -no-color
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
-```
-
-## Best Practices
-
-**1. Remote State with Locking**
-```hcl
-# ✅ GOOD: S3 backend with DynamoDB locking
-terraform {
-  backend "s3" {
-    bucket         = "terraform-state"
-    key            = "prod/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-lock"  # Prevents concurrent modifications
-  }
-}
-
-# ❌ BAD: Local state (not suitable for teams)
-terraform {
-  backend "local" {
-    path = "terraform.tfstate"
-  }
-}
-```
-
-**2. Use Modules for Reusability**
-```hcl
-# ✅ GOOD: Reusable module
-module "web_app" {
-  source = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.0.0"
-
-  name = "web-app"
-  # ...
-}
-
-# ❌ BAD: Copy-pasting resource definitions
-```
-
-**3. Variables with Validation**
-```hcl
-variable "instance_type" {
-  type        = string
-  default     = "t3.micro"
-
-  validation {
-    condition     = can(regex("^t3\\.", var.instance_type))
-    error_message = "Instance type must be from the t3 family."
-  }
-}
-```
-
-**4. Sensitive Data**
-```hcl
-# Mark sensitive outputs
-output "db_password" {
-  value     = aws_db_instance.main.password
-  sensitive = true
-}
-
-# Use AWS Secrets Manager
-data "aws_secretsmanager_secret_version" "db_password" {
-  secret_id = "prod/db/password"
-}
-
-resource "aws_db_instance" "main" {
-  password = data.aws_secretsmanager_secret_version.db_password.secret_string
-  # ...
-}
-```
-
-**5. Tagging Strategy**
-```hcl
-locals {
-  common_tags = {
-    Environment = var.environment
-    ManagedBy   = "Terraform"
-    Project     = var.project_name
-    CostCenter  = var.cost_center
-  }
-}
-
-resource "aws_instance" "app" {
-  tags = merge(local.common_tags, {
-    Name = "app-server"
-  })
-}
-```
-
-## Quality Criteria
-
-- ✅ Remote state with locking configured
-- ✅ All resources tagged consistently
-- ✅ Modules used for reusable components
-- ✅ Variables have descriptions and types
-- ✅ Sensitive data marked as sensitive
-- ✅ terraform fmt passes
-- ✅ terraform validate passes
-- ✅ No hardcoded credentials
-
-## Common Commands
-
-```bash
-# Initialize
-terraform init
-
-# Plan changes
-terraform plan
-terraform plan -out=tfplan
-
-# Apply changes
-terraform apply
-terraform apply tfplan
-terraform apply -auto-approve
-
-# Destroy infrastructure
-terraform destroy
-
-# Format code
-terraform fmt -recursive
-
-# Validate configuration
-terraform validate
-
-# Show current state
-terraform show
-
-# List resources
-terraform state list
-
-# Import existing resource
-terraform import aws_instance.app i-1234567890abcdef0
-
-# Refresh state
-terraform refresh
-
-# Check for drift
-terraform plan -detailed-exitcode
-```
-
-## Troubleshooting
-
-**Issue**: State lock timeout
-**Solution**: Check DynamoDB table for stuck locks, force-unlock with caution: `terraform force-unlock <LOCK_ID>`
-
-**Issue**: Resource already exists
-**Solution**: Import existing resource: `terraform import <resource_type>.<name> <id>`
-
-**Issue**: Drift detected
-**Solution**: Review `terraform plan`, update code or manually fix infrastructure
-
-## Related Skills
-
-- `aws-specialist`: AWS-specific resources
-- `kubernetes-specialist`: EKS clusters with Terraform
-- `docker-containerization`: Infrastructure for containers
-
-## Tools
-
-- Terraform Cloud: SaaS for state management
-- Terragrunt: Terraform wrapper for DRY configs
-- tfsec: Security scanner for Terraform
-- Checkov: Policy-as-code scanner
-- Infracost: Cost estimation for Terraform
-
-## MCP Tools
-
-- `mcp__flow-nexus__sandbox_execute` for Terraform commands
-- `mcp__memory-mcp__memory_store` for IaC patterns
-
-## Success Metrics
-- [assert|neutral] Infrastructure drift: 0% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Deployment time: <15 minutes [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Code reuse: ≥70% via modules [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Test coverage: 100% of modules [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Core Principles
-
-Terraform Infrastructure as Code operates on 3 fundamental principles:
-
-### Principle 1: State is the Single Source of Truth
-Terraform state file is the authoritative record of infrastructure. State management directly impacts collaboration, drift detection, and disaster recovery capabilities. This principle ensures consistency across teams and environments.
-
-In practice:
-- Always use remote backends (S3, Terraform Cloud, GCS) for team collaboration
-- Enable state locking with DynamoDB or equivalent to prevent concurrent modifications
-- Encrypt state files as they contain sensitive values (passwords, keys)
-- Never edit state files manually - use terraform state commands for modifications
-
-### Principle 2: Modules Enable DRY Infrastructure
-Reusable modules encapsulate infrastructure patterns, enforce best practices, and eliminate copy-paste errors. Well-designed modules are the foundation of maintainable infrastructure at scale. This principle promotes consistency and reduces technical debt.
-
-In practice:
-- Create modules for common patterns (VPC, EKS cluster, RDS database)
-- Publish internal modules to version-controlled registries
-- Use semantic versioning for module releases to enable safe upgrades
-- Document module inputs, outputs, and examples for discoverability
-
-### Principle 3: Immutable Infrastructure Through Versioning
-Infrastructure should be versioned like application code. Changes are deployed as new versions, not in-place modifications. This principle enables rollbacks, auditability, and reproducibility.
-
-In practice:
-- Tag all infrastructure changes with semantic versions in VCS (Git)
-- Use terraform plan before apply to review changes
-- Implement GitOps workflows where merged PRs trigger automated deployments
-- Maintain separate state files for dev/staging/prod using workspaces or directory structure
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Local State Files** | Team members have divergent state, leading to conflicting changes, inability to collaborate, and lost infrastructure knowledge when developers leave. | Configure remote backend (S3 with DynamoDB locking). Store state in version-controlled backend configuration. Enable state encryption for sensitive data. |
-| **Hardcoded Credentials** | Embedding AWS keys, passwords, or API tokens in .tf files exposes secrets in version control and Terraform state files visible to all operators. | Use environment variables (AWS_ACCESS_KEY_ID) or IAM roles. Store secrets in AWS Secrets Manager/Vault and reference with data sources. Mark outputs as sensitive. |
-| **No Variable Validation** | Missing validation allows invalid values (typos, wrong formats) to pass through, causing runtime failures after expensive infrastructure provisioning. | Add validation blocks to variables with condition checks and error messages. Use type constraints (string, number, list, map) to enforce structure. |
-| **Monolithic Configurations** | Single massive main.tf file becomes unmaintainable, has blast radius affecting all infrastructure, and prevents parallel team workflows on different components. | Split into logical modules (networking, compute, database). Use separate state files for independent stacks. Implement directory structure by environment and component. |
-| **Ignoring Drift Detection** | Manual changes via console or API create drift between code and reality. Terraform loses track of actual state, and subsequent applies can cause outages. | Run terraform plan regularly in CI/CD to detect drift. Use terraform refresh to update state. Implement policy-as-code (OPA, Sentinel) to prevent manual changes. |
-
-## Conclusion
-
-The Terraform Infrastructure as Code skill empowers you to provision and manage cloud infrastructure across AWS, GCP, Azure, and multi-cloud environments with consistency, repeatability, and auditability. By adhering to the three core principles of state management, modular design, and infrastructure versioning, you transform infrastructure from brittle manual processes into reliable, automated deployments.
-
-The workflows provided cover the full lifecycle from initial resource provisioning to GitOps-driven continuous deployment. The emphasis on remote state with locking, comprehensive variable validation, and drift detection ensures that your infrastructure remains consistent with your codebase. The anti-patterns table serves as a critical checklist to avoid common pitfalls that lead to production outages and security vulnerabilities.
-
-This skill is particularly valuable when building cloud-native applications, migrating from manual infrastructure to IaC, or implementing multi-environment deployments with shared infrastructure patterns. Whether you're provisioning a simple EC2 instance or orchestrating a complex multi-region Kubernetes cluster with networking, databases, and observability infrastructure, the patterns and best practices documented here provide a solid foundation. Combined with the troubleshooting guide and tool references (Terragrunt, tfsec, Checkov), you have everything needed to build production-grade infrastructure as code at enterprise scale.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+    AZ   = each.v
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Infrastructure/terraform-iac/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "terraform-iac-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>TERRAFORM_IAC_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,255 +1,222 @@
+/*============================================================================*/
+/* RE:FIRMWARE COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:firmware
+version: 1.0.0
 binding: skill:reverse-engineering-firmware
 category: reverse-engineering
-version: 1.0.0
 ---
 
-# /re:firmware
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:firmware",
+  binding: "skill:reverse-engineering-firmware",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Phase 1: Firmware Extraction (30 min - 2 hrs) 1. Identify firmware type and architecture 2. Extract filesystem using binwalk -Me 3. Unsquash/unpac",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:firmware"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Firmware extraction and embedded system analysis for IoT, routers, and embedded devices (Level 5: Firmware Analysis).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: 2-8 hours
-**RE Level**: 5 (Firmware Analysis)
+[define|neutral] SYNTAX := "/re:firmware [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:firmware <firmware-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    firmware-path: { type: "string", description: "Path to firmware image/binary" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--extract-only": { description: "Only extract filesystem, skip analysis (default: f", default: "false" },
+    "--filesystem-type": { description: "Expected FS type: squashfs, jffs2, cramfs, auto (d", default: "false" },
+    "--output": { description: "Output directory (default: re-project/)", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `firmware-path` - Path to firmware image/binary (required)
-- `--extract-only` - Only extract filesystem, skip analysis (default: false)
-- `--filesystem-type` - Expected FS type: squashfs, jffs2, cramfs, auto (default: auto)
-- `--output` - Output directory (default: re-project/)
-- `--analyze-services` - Analyze init scripts and services (default: true)
-- `--store-findings` - Store in memory-mcp (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Full firmware analysis
-/re:firmware router-firmware.bin
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Identify firmware type and architecture", model: "Claude" },
+  { stage: 2, action: "Extract filesystem using binwalk -Me", model: "Claude" },
+  { stage: 3, action: "Unsquash/unpack compressed sections", model: "Claude" },
+  { stage: 4, action: "Catalog extracted files and directory structure", model: "Claude" },
+  { stage: 5, action: "Identify bootloader, kernel, rootfs components", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# Extract filesystem only
-/re:firmware iot-device.img --extract-only
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Specify filesystem type
-/re:firmware embedded.bin --filesystem-type squashfs
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Custom output directory
-/re:firmware camera-fw.bin --output ./firmware-analysis/
-```
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-### Phase 1: Firmware Extraction (30 min - 2 hrs)
-1. Identify firmware type and architecture
-2. Extract filesystem using binwalk -Me
-3. Unsquash/unpack compressed sections
-4. Catalog extracted files and directory structure
-5. Identify bootloader, kernel, rootfs components
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-**Success Criteria**:
-- ✅ Filesystem extracted successfully
-- ✅ File tree cataloged
-- ✅ Architecture identified (ARM, MIPS, x86, etc.)
-- ✅ Components separated (bootloader, kernel, rootfs)
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-**Tools**: binwalk, unsquashfs, file carving tools
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 2: Service Analysis (1-3 hrs)
-1. Analyze init scripts (/etc/init.d/, /etc/rc.d/)
-2. Identify running services and daemons
-3. Map network listeners and open ports
-4. Extract hardcoded credentials (grep for passwords)
-5. Find configuration files and sensitive data
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-**Success Criteria**:
-- ✅ Services mapped
-- ✅ Network attack surface identified
-- ✅ Hardcoded credentials extracted
-- ✅ Config files reviewed
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-### Phase 3: Vulnerability Assessment (1-3 hrs)
-1. Check for outdated libraries (CVE scanning)
-2. Identify command injection points (system(), popen())
-3. Find buffer overflow vulnerabilities
-4. Detect insecure crypto usage (hardcoded keys)
-5. Generate vulnerability report
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-**Success Criteria**:
-- ✅ CVEs cataloged
-- ✅ Injection points identified
-- ✅ Security issues documented
-- ✅ Recommendations provided
+[define|neutral] EXAMPLES := [
+  { command: "/re:firmware router-firmware.bin", description: "Example usage" },
+  { command: "/re:firmware iot-device.img --extract-only", description: "Example usage" },
+  { command: "/re:firmware embedded.bin --filesystem-type squashfs", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Firmware Types Supported
-- **IoT Devices**: Smart cameras, sensors, home automation
-- **Network Equipment**: Routers, switches, access points
-- **Embedded Systems**: Industrial controllers, automotive
-- **Consumer Electronics**: TVs, set-top boxes, printers
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Agents Involved
-- `RE-Firmware-Analyst` - Firmware extraction and analysis specialist
-- `security-manager` - Vulnerability detection
-- `system-architect` - Service architecture mapping
-- `dependency-conflict-detector` - Library version analysis
-- `code-analyzer` - Analyze extracted binaries
-- `memory-coordinator` - Store findings
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:firmware -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:firmware arg1' '/re:firmware arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## MCP Servers Used
-- **memory-mcp**: Store firmware analysis findings
-- **filesystem**: Access and navigate extracted filesystem
-- **connascence-analyzer**: Analyze extracted C code
-- **sequential-thinking**: Complex decision trees for service mapping
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-## Output Structure
-```
-re-project/
-├── input/
-│   └── router-firmware.bin      # Original firmware image
-├── work/
-│   └── router-firmware.bin      # Working copy
-├── firmware/
-│   ├── extracted/               # binwalk extraction output
-│   │   ├── _router-firmware.extracted/
-│   │   │   ├── squashfs-root/
-│   │   │   │   ├── bin/
-│   │   │   │   ├── etc/
-│   │   │   │   ├── lib/
-│   │   │   │   ├── sbin/
-│   │   │   │   └── usr/
-│   │   │   └── bootloader.bin
-│   ├── analysis/
-│   │   ├── filesystem-tree.txt  # Complete directory listing
-│   │   ├── services.json        # Service inventory
-│   │   ├── network-listeners.txt # Open ports
-│   │   ├── credentials.txt      # Hardcoded passwords
-│   │   └── config-files/        # Extracted configs
-│   └── vulnerabilities/
-│       ├── cve-report.json      # CVE scan results
-│       ├── injection-points.txt # Command injection risks
-│       └── crypto-issues.txt    # Insecure crypto usage
-├── notes/
-│   ├── 005-firmware-l5.md       # Firmware analysis findings
-│   └── executive-summary.md     # High-level summary
-└── artifacts/
-    └── exploits/                # POC exploits if vulns found
-```
+[define|neutral] RELATED := {
+  complementary: ["/security-review"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## Common Findings in Firmware
-- 🔓 **Hardcoded Credentials**: admin/admin, root/password
-- 🌐 **Exposed Services**: Telnet, FTP, HTTP on 0.0.0.0
-- 💉 **Command Injection**: system($user_input) without sanitization
-- 🔑 **Weak Crypto**: Hardcoded AES keys, use of MD5/SHA1
-- 📦 **Outdated Libraries**: OpenSSL 1.0.1 (CVE-2014-0160 Heartbleed)
-- 🚪 **Debug Interfaces**: UART, JTAG left enabled in production
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-## Apply Levels 1-4 to Extracted Components
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:firmware-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:firmware/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["reverse-engineering-firmware"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-After firmware extraction, you can apply RE Levels 1-4 to extracted binaries:
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-```bash
-# String analysis on web server binary
-/re:strings ./firmware/extracted/squashfs-root/usr/sbin/httpd
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:firmware-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Static analysis on service daemon
-/re:static ./firmware/extracted/squashfs-root/sbin/telnetd
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Dynamic analysis in QEMU emulation (advanced)
-/re:dynamic ./firmware/extracted/squashfs-root/bin/busybox --args "ls -la"
-```
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-## Chains With
-- `/re:quick` - Analyze extracted binaries
-- `/re:deep` - Deep dive on suspicious services
-- `/audit-pipeline` - Code quality on extracted C files
-- `/security-review` - Comprehensive security assessment
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Integration Notes
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Memory-MCP Tagging
-```json
-{
-  "agent": "RE-Firmware-Analyst",
-  "category": "reverse-engineering",
-  "intent": "firmware-analysis",
-  "layer": "long_term",
-  "project": "firmware-analysis-2025-11-01",
-  "keywords": ["firmware", "iot", "embedded", "binwalk"],
-  "re_level": "5",
-  "firmware_hash": "sha256:...",
-  "device_type": "router",
-  "architecture": "mips"
-}
-```
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-### Security Manager Integration
-```python
-# Automated CVE scanning
-security-manager.scan_vulnerabilities(
-    filesystem_root="./firmware/extracted/squashfs-root",
-    library_scan=True,
-    credential_scan=True,
-    crypto_scan=True
-)
-```
-
-### Connascence Integration
-After extracting C source files or decompiling binaries:
-```bash
-connascence-analyzer.analyze_workspace(./firmware/extracted/squashfs-root)
-```
-
-## Performance Notes
-- **Extraction**: 30 min - 2 hrs (depends on firmware size)
-- **Analysis**: 1-3 hrs per phase
-- **Total**: 2-8 hours for complete firmware analysis
-- Use `--extract-only` for quick filesystem access
-
-## See Also
-- `/re:quick` - Fast binary triage
-- `/re:deep` - Deep binary analysis
-- `/re:strings` - String analysis on extracted binaries
-- `/security-review` - Security audit
-
-
----
-*Promise: `<promise>FIRMWARE_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>RE:FIRMWARE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

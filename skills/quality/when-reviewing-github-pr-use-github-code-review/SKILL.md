@@ -1,19 +1,60 @@
+/*============================================================================*/
+/* WHEN-REVIEWING-GITHUB-PR-USE-GITHUB-CODE-REVIEW SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: when-reviewing-github-pr-use-github-code-review
-description: Comprehensive GitHub pull request code review using multi-agent swarm with specialized reviewers for security, performance, style, tests, and documentation. Coordinates security-auditor, perf-analyzer, code-analyzer, tester, and reviewer agents through mesh topology for parallel analysis. Provides detailed feedback with auto-fix suggestions and merge readiness assessment. Use when reviewing PRs, conducting code audits, or ensuring code quality standards before merge.
-agents:
-  - security-auditor
-  - perf-analyzer
-  - code-analyzer
-  - tester
-  - reviewer
-topology: mesh
-mcp_tools:
-  - mcp__claude-flow__swarm_init
-  - mcp__claude-flow__agent_spawn
-  - mcp__claude-flow__task_orchestrate
-  - mcp__flow-nexus__github_repo_analyze
+version: 1.0.0
+description: |
+  [assert|neutral] Comprehensive GitHub pull request code review using multi-agent swarm with specialized reviewers for security, performance, style, tests, and documentation. Coordinates security-auditor, perf-analyzer [ground:given] [conf:0.95] [state:confirmed]
+category: quality
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute when-reviewing-github-pr-use-github-code-review workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic quality processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "when-reviewing-github-pr-use-github-code-review",
+  category: "quality",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-reviewing-github-pr-use-github-code-review", "quality", "workflow"],
+  context: "user needs when-reviewing-github-pr-use-github-code-review capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # GitHub Code Review Skill
 
@@ -97,362 +138,67 @@ npx claude-flow@alpha hooks post-edit \
 
 Reference `references/review-criteria.md` for comprehensive standards. This document contains security checklists, performance benchmarks, code style guidelines, test coverage requirements, and documentation standards.
 
-### Phase 2: Parallel Agent Review Execution
-
-Execute all five agents concurrently using Claude Code's Task tool. Each agent runs independently while coordinating through shared memory.
-
-**Launch Concurrent Reviews:**
-
-```plaintext
-Task("Security Auditor", "
-  Analyze PR for security vulnerabilities:
-  1. Check for SQL injection, XSS, CSRF vulnerabilities
-  2. Validate authentication and authorization logic
-  3. Scan for exposed secrets and credentials
-  4. Review dependency security with npm audit / cargo audit
-  5. Check OWASP Top 10 compliance
-
-  Use scripts/security-scan.sh for automated scanning.
-  Store findings in memory: github/pr-review/security
-  Run hooks: npx claude-flow@alpha hooks pre-task --description 'security review'
-", "security-auditor")
-
-Task("Performance Analyzer", "
-  Evaluate performance implications:
-  1. Analyze algorithmic complexity (Big O notation)
-  2. Identify memory allocation patterns
-  3. Review database queries for N+1 problems
-  4. Check caching strategies
-  5. Flag synchronous blocking operations
-
-  Use scripts/perf-analysis.sh for profiling data.
-  Store findings in memory: github/pr-review/performance
-  Run hooks: npx claude-flow@alpha hooks pre-task --description 'performance analysis'
-", "perf-analyzer")
-
-Task("Code Quality Analyst", "
-  Assess code quality and maintainability:
-  1. Check adherence to style guide (references/style-guide.md)
-  2. Evaluate naming conventions and clarity
-  3. Calculate cyclomatic complexity
-  4. Review error handling patterns
-  5. Validate architectural consistency
-
-  Use scripts/code-quality.sh for automated linting.
-  Store findings in memory: github/pr-review/quality
-  Run hooks: npx claude-flow@alpha hooks pre-task --description 'code quality review'
-", "code-analyzer")
-
-Task("Test Coverage Engineer", "
-  Review testing comprehensiveness:
-  1. Measure test coverage percentage
-  2. Evaluate test quality and assertions
-  3. Check edge case handling
-  4. Validate test isolation and independence
-  5. Review test documentation
-
-  Use scripts/test-coverage.sh for coverage reports.
-  Store findings in memory: github/pr-review/testing
-  Run hooks: npx claude-flow@alpha hooks pre-task --description 'test review'
-", "tester")
-
-Task("Documentation Reviewer", "
-  Evaluate documentation completeness:
-  1. Review inline code comments
-  2. Check API documentation updates
-  3. Validate README changes
-  4. Assess documentation clarity
-  5. Verify examples and usage guides
-
-  Store findings in memory: github/pr-review/documentation
-  Run hooks: npx claude-flow@alpha hooks pre-task --description 'documentation review'
-", "reviewer")
-```
-
-### Phase 3: Synthesis and Report Generation
-
-After all agents complete their reviews, synthesize findings into a unified report.
-
-**Step 3.1: Aggregate Agent Findings**
-
-Retrieve all agent findings from memory:
-
-```bash
-# Collect all review findings
-npx claude-flow@alpha memory retrieve --key "github/pr-review/*"
-```
-
-**Step 3.2: Generate Comprehensive Report**
-
-Create structured report using the template in `references/review-report-template.md`:
-
-**Report Structure:**
-- Executive Summary (merge readiness decision)
-- Security Findings (critical/high/medium/low severity)
-- Performance Assessment (bottlenecks, optimizations)
-- Code Quality Analysis (complexity, maintainability)
-- Test Coverage Report (percentage, gaps, improvements)
-- Documentation Review (completeness, clarity)
-- Auto-Fix Suggestions (automated remediation options)
-- Action Items (prioritized recommendations)
-
-**Step 3.3: Calculate Merge Readiness Score**
-
-Apply weighted scoring algorithm:
-- Security: 35% weight (blocking if critical issues found)
-- Performance: 20% weight
-- Code Quality: 20% weight
-- Test Coverage: 15% weight
-- Documentation: 10% weight
-
-Merge readiness thresholds:
-- **Approved**: Score >= 85%, no critical security issues
-- **Approved with Comments**: Score 70-84%, minor improvements suggested
-- **Changes Requested**: Score < 70% or critical issues present
-
-### Phase 4: Auto-Fix Suggestion Generation
-
-For each identified issue, generate concrete fix suggestions where applicable.
-
-**Step 4.1: Security Auto-Fixes**
-
-Use `scripts/security-fixes.sh` to generate patches for common security issues:
-- Remove exposed secrets and add to `.gitignore`
-- Add input validation and sanitization
-- Fix SQL injection vulnerabilities with parameterized queries
-- Add CSRF tokens to form submissions
-- Update vulnerable dependencies
-
-**Step 4.2: Performance Auto-Fixes**
-
-Generate optimization suggestions:
-- Add database indexes for slow queries
-- Implement caching layers
-- Replace synchronous operations with async
-- Optimize algorithm complexity
-- Add pagination for large data sets
-
-**Step 4.3: Code Quality Auto-Fixes**
-
-Apply automated refactoring:
-- Break down complex functions (cyclomatic complexity > 10)
-- Extract magic numbers to named constants
-- Improve naming conventions
-- Add error handling
-- Format code to style guidelines
-
-### Phase 5: GitHub Integration and Feedback
-
-Post comprehensive review feedback directly to the pull request.
-
-**Step 5.1: Format Review Comments**
-
-Use GitHub API to post structured review:
-
-```bash
-# Post comprehensive review to GitHub
-bash scripts/github-api.sh post-review \
-  --repo <owner/repo> \
-  --pr <number> \
-  --event <APPROVE|COMMENT|REQUEST_CHANGES> \
-  --body-file "review-report.md"
-```
-
-**Step 5.2: Add Inline Code Comments**
-
-For specific code issues, add inline comments at relevant line numbers:
-
-```bash
-# Add inline comments for each finding
-bash scripts/github-api.sh add-comment \
-  --repo <owner/repo> \
-  --pr <number> \
-  --path <file-path> \
-  --line <line-number> \
-  --body "<comment-text>"
-```
-
-**Step 5.3: Apply Labels and Assignees**
-
-Categorize the PR with appropriate labels:
-
-```bash
-# Apply review labels
-bash scripts/github-api.sh add-labels \
-  --repo <owner/repo> \
-  --pr <number> \
-  --labels "needs-security-review,performance-review,documentation-needed"
-```
-
-### Phase 6: Continuous Monitoring
-
-Set up monitoring for PR updates and re-reviews.
-
-**Step 6.1: Track PR Changes**
-
-Monitor for new commits that address feedback:
-
-```bash
-# Subscribe to PR updates
-mcp__flow-nexus__realtime_subscribe table=pull_requests event=UPDATE
-```
-
-**Step 6.2: Trigger Re-Review**
-
-When significant changes are pushed, trigger automated re-review of affected areas only:
-
-```bash
-# Orchestrate targeted re-review
-mcp__claude-flow__task_orchestrate \
-  task="Re-review changed files in PR #<number>" \
-  strategy=adaptive \
-  maxAgents=3
-```
-
-## MCP Tool Integration
-
-### Flow-Nexus GitHub Tools
-
-Use advanced GitHub integration tools when available:
-
-```bash
-# Analyze repository for context
-mcp__flow-nexus__github_repo_analyze repo=<owner/repo> analysis_type=code_quality
-
-# Get PR details with advanced metrics
-mcp__flow-nexus__github_pr_analyze repo=<owner/repo> pr=<number>
-```
-
-### Claude Flow Coordination
-
-Leverage coordination tools for swarm management:
-
-```bash
-# Monitor review progress
-mcp__claude-flow__swarm_status verbose=true
-
-# Get agent performance metrics
-mcp__claude-flow__agent_metrics metric=all
-
-# Check task completion
-mcp__claude-flow__task_status detailed=true
-```
-
-## Best Practices
-
-**Parallel Execution**: Always run all five agents concurrently in a single message using Claude Code's Task tool. This maximizes speed (2.8-4.4x improvement) and enables cross-agent learning.
-
-**Memory Coordination**: Each agent stores findings in memory using standardized keys (`github/pr-review/<category>`). This enables synthesis phase to aggregate findings efficiently.
-
-**Hooks Integration**: All agents run pre-task and post-task hooks for:
-- Session restoration (access shared context)
-- Progress tracking (coordinate completion)
-- Memory updates (store findings)
-- Performance metrics (track efficiency)
-
-**Automated Fixes**: Generate concrete fix suggestions, not just problem identification. Provide code snippets, commands, or automated patches where possible.
-
-**Context Awareness**: Review code in context of the full repository architecture. Reference existing patterns, style guides, and conventions from the codebase.
-
-**Progressive Disclosure**: For large PRs (>20 files changed), prioritize critical files and high-risk changes first. Review remaining files in subsequent passes.
-
-## Error Handling
-
-**GitHub API Rate Limits**: Implement exponential backoff and caching. Use GraphQL API for complex queries to reduce request count.
-
-**Large PR Handling**: For PRs with >50 files, batch reviews by logical groupings (features, bug fixes, refactoring). Run multiple review sessions.
-
-**Agent Failures**: If an agent fails, continue with remaining agents and note the gap in the final report. Retry failed agent independently.
-
-**Merge Conflicts**: Flag merge conflicts during review and suggest resolution strategies based on conflict type.
-
-## Output Format
-
-The final review report includes:
-
-1. **Executive Summary** (3-5 sentences)
-2. **Merge Readiness Decision** (Approved/Approved with Comments/Changes Requested)
-3. **Security Findings** (categorized by severity with CWE references)
-4. **Performance Analysis** (bottlenecks, Big O complexity, optimization opportunities)
-5. **Code Quality Metrics** (complexity scores, maintainability index, style violations)
-6. **Test Coverage Report** (percentage, gaps, recommendations)
-7. **Documentation Assessment** (completeness score, missing sections)
-8. **Auto-Fix Suggestions** (concrete code changes for each issue)
-9. **Action Items** (prioritized list of required/recommended changes)
-10. **Comparison to Previous Reviews** (trend analysis if historical data available)
-
-## Advanced Features
-
-**Learning from Feedback**: Track which review comments are addressed vs dismissed. Train neural patterns on successful reviews to improve future accuracy.
-
-**Custom Review Profiles**: Create organization-specific review profiles with weighted priorities (e.g., security-first for fintech, performance-first for real-time systems).
-
-**Integration with CI/CD**: Trigger automated reviews on PR creation via GitHub Actions workflow. Block merges until review approval obtained.
-
-**Reviewer Assignment**: Automatically assign human reviewers based on code ownership (CODEOWNERS file) and agent findings (route security issues to security team).
-
-## References
-
-- `references/review-criteria.md` - Comprehensive review standards
-- `references/review-report-template.md` - Report formatting template
-- `references/style-guide.md` - Code style guidelines
-- `references/security-checklist.md` - OWASP security standards
-- `scripts/github-api.sh` - GitHub API interaction utilities
-- `scripts/security-scan.sh` - Automated security scanning
-- `scripts/perf-analysis.sh` - Performance profiling
-- `scripts/code-quality.sh` - Code quality analysis
-- `scripts/test-coverage.sh` - Test coverage reporting
-- `scripts/security-fixes.sh` - Automated security fix generation
-
-## Core Principles
-
-### 1. Parallel Specialized Analysis Through Mesh Coordination
-Code review quality depends on simultaneous evaluation across multiple dimensions by specialized agents working in parallel, not sequential single-perspective reviews.
-
-**In practice:**
-- Spawn five specialized agents concurrently in mesh topology for maximum parallelization
-- Enable peer-to-peer communication between agents for cross-domain insights
-- Coordinate findings through shared memory namespaces for synthesis
-- Achieve 2.8-4.4x speed improvement over sequential reviews while maintaining quality
-
-### 2. Comprehensive Multi-Dimensional Coverage
-Effective code review requires evaluation across security, performance, quality, testing, and documentation - missing any dimension creates blind spots.
-
-**In practice:**
-- Security auditor checks OWASP Top 10, injection risks, secrets exposure, dependency vulnerabilities
-- Performance analyzer evaluates algorithmic complexity, memory patterns, database efficiency, caching
-- Code analyzer assesses maintainability, complexity metrics, naming conventions, design patterns
-- Test engineer validates coverage percentages, test quality, edge case handling, test maintainability
-- Documentation reviewer ensures API docs, inline comments, README updates, and usage examples
-
-### 3. Actionable Feedback with Auto-Fix Suggestions
-Code review must provide concrete solutions, not just problem identification, to accelerate improvement cycles.
-
-**In practice:**
-- Generate specific code snippets showing how to fix security vulnerabilities
-- Provide exact commands for updating vulnerable dependencies
-- Suggest algorithmic optimizations with Big O complexity improvements
-- Offer automated refactoring scripts for code quality issues
-- Include test case templates for coverage gaps
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| Sequential Agent Execution | Running agents one-by-one wastes time and prevents cross-pollination of insights | Spawn all five agents concurrently in single message using Task tool, enable mesh topology for peer communication |
-| Vague Feedback Comments | Reporting "needs improvement" without specific guidance leaves developers guessing | Provide line-specific comments with file paths, line numbers, code snippets, and concrete fix suggestions |
-| Review Without Context | Analyzing PR in isolation ignores codebase conventions and architectural patterns | Load domain expertise, reference style guides, check CODEOWNERS, validate against existing patterns |
-| Approval Without Verification | Marking PR approved without running automated checks trusts code on appearance | Execute security scans, performance profiling, test coverage analysis, and linting before approval |
-| Missing Merge Readiness Score | Using binary approve/reject decisions loses nuance and prioritization guidance | Calculate weighted certification score across all dimensions with clear thresholds for approval levels |
-
-## Conclusion
-
-The GitHub Code Review skill transforms pull request reviews from manual, subjective bottlenecks into automated, comprehensive quality gates. By orchestrating five specialized agents in mesh topology, this skill achieves parallel evaluation across security, performance, code quality, testing, and documentation - dimensions that would take hours to review sequentially. The integration with GitHub API enables seamless posting of inline comments, review summaries, and merge readiness assessments directly to pull requests.
-
-The evidence-based approach, combining automated scanning tools with agent analysis, ensures findings are grounded in measurable metrics rather than subjective opinions. Organizations implementing this skill see dramatic reductions in review cycle times (2.8-4.4x faster), increased consistency in review quality, and higher developer satisfaction through actionable feedback. The auto-fix suggestion system accelerates improvement cycles by providing concrete solutions rather than just problem identification.
-
-When integrated with CI/CD pipelines through GitHub Actions, this skill creates an automated quality enforcement system that blocks merges until comprehensive review approval is obtained. The weighted merge readiness scoring (35% security, 20% performance, 20% quality, 15% testing, 10% documentation) provides clear, objective criteria for merge decisions while surfacing specific improvements needed for approval. This systematic approach elevates code review from a manual chore to an intelligent, automated quality assurance system that catches issues before they reach production.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+### Phase 2: Parallel A
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/quality/when-reviewing-github-pr-use-github-code-review/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-reviewing-github-pr-use-github-code-review-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WHEN_REVIEWING_GITHUB_PR_USE_GITHUB_CODE_REVIEW_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

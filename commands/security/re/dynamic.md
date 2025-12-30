@@ -1,244 +1,220 @@
+/*============================================================================*/
+/* RE:DYNAMIC COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
+
 ---
-
-Key quality/security command improvements:
-- Audit scope definition
-- Quality thresholds
-- Security scan parameters
-- Report output format
-
-
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: security
-  file: .claude/expertise/security.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: FILENAME-benchmark-v1
-  tests:
-    - audit_validation
-    - quality_gate_pass
-  success_threshold: 0.9
-namespace: "commands/security/SUBDIR/FILENAME/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [reverse-engineering-quick-triage]
-  related_agents: [soc-compliance-auditor, penetration-testing-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
 name: re:dynamic
-binding: agent:RE-Runtime-Tracer
-category: reverse-engineering
 version: 1.0.0
+binding: skill:agent:RE-Runtime-Tracer
+category: reverse-engineering
 ---
 
-# /re:dynamic
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[define|neutral] COMMAND := {
+  name: "re:dynamic",
+  binding: "skill:agent:RE-Runtime-Tracer",
+  category: "reverse-engineering",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
 
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
 
+[assert|neutral] PURPOSE := {
+  action: "### Phase 1: Preparation 1. **Load Binary**: Import into sandbox environment 2. **Set Breakpoints**: Auto-detect interesting functions or use manual a",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /re:dynamic"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-Dynamic analysis with runtime execution and debugging (RE Level 3 only).
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
 
-**Timebox**: ≤1 hour
-**RE Level**: 3 (Dynamic Analysis)
+[define|neutral] SYNTAX := "/re:dynamic [args]" [ground:given] [conf:1.0] [state:confirmed]
 
-## Usage
-```bash
-/re:dynamic <binary-path> [options]
-```
+[define|neutral] PARAMETERS := {
+  required: {
+    binary-path: { type: "string", description: "Path to binary/executable to analyze" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--args": { description: "Arguments to pass to binary (default: "")", default: "false" },
+    "--input": { description: "Input file or stdin data (default: none)", default: "false" },
+    "--breakpoints": { description: "Comma-separated addresses/symbols for breakpoints ", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Parameters
-- `binary-path` - Path to binary/executable to analyze (required)
-- `--args` - Arguments to pass to binary (default: "")
-- `--input` - Input file or stdin data (default: none)
-- `--breakpoints` - Comma-separated addresses/symbols for breakpoints (default: auto)
-- `--trace` - Enable full execution trace (default: false, can be slow)
-- `--sandbox` - Run in isolated sandbox (default: true)
-- `--output` - Output directory (default: re-project/dbg/)
-- `--store-findings` - Store in memory-mcp (default: true)
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Examples
-```bash
-# Basic dynamic analysis
-/re:dynamic binary.exe
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "**Load Binary**: Import into sandbox environment", model: "Claude" },
+  { stage: 2, action: "**Set Breakpoints**: Auto-detect interesting functions or us", model: "Claude" },
+  { stage: 3, action: "**Configure Environment**: Setup LD_PRELOAD, env vars, worki", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
 
-# With command-line arguments
-/re:dynamic server.elf --args "--port 8080 --debug"
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# With input file
-/re:dynamic parser.bin --input malformed.dat
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
 
-# Set breakpoints at specific addresses
-/re:dynamic crackme.exe --breakpoints 0x401234,0x401500,main
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-# Full execution trace (slow but detailed)
-/re:dynamic suspicious.elf --trace true
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Disable sandbox (trusted binaries only!)
-/re:dynamic my-tool.exe --sandbox false
-```
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## What It Does
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
 
-### Phase 1: Preparation
-1. **Load Binary**: Import into sandbox environment
-2. **Set Breakpoints**: Auto-detect interesting functions or use manual addresses
-   - Entry point (main, _start, WinMain)
-   - Key functions from static analysis
-   - Crypto operations, network calls, file I/O
-3. **Configure Environment**: Setup LD_PRELOAD, env vars, working directory
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
 
-### Phase 2: Execution
-1. **Launch with GDB+GEF/Pwndbg**: Attach debugger with enhanced features
-2. **Execute Until Breakpoint**: Run binary with provided args/input
-3. **Capture State at Each Break**:
-   - **Registers**: RAX, RBX, RCX, RDX, RSI, RDI, RBP, RSP, RIP
-   - **Stack**: Dump stack contents (hexdump + ASCII)
-   - **Heap**: Dump heap allocations
-   - **Memory Mappings**: /proc/self/maps
-4. **Continue Execution**: Resume until next breakpoint or exit
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
 
-### Phase 3: Analysis
-1. **Extract Secrets**: Search memory dumps for passwords, keys, tokens
-2. **Analyze Crashes**: Stack traces, segfault addresses
-3. **Track System Calls**: ltrace/strace output
-4. **Monitor Network**: Capture outbound connections
-5. **File I/O**: Log file reads/writes
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
 
-### Phase 4: Reporting
-1. **Generate Runtime Report**: Findings, register states, memory dumps
-2. **Compare with Static**: Differences between static and dynamic behavior
-3. **Detect Anti-Analysis**: IsDebuggerPresent(), timing checks
-4. **Store in memory-mcp**: Tag with WHO/WHEN/PROJECT/WHY
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
 
-## Success Criteria
-- [assert|neutral] ✅ Binary executed safely in sandbox [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Runtime state captured at key points [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Secrets extracted from memory [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Crash points identified (if any) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ System calls logged [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+[define|neutral] EXAMPLES := [
+  { command: "/re:dynamic binary.exe", description: "Example usage" },
+  { command: "/re:dynamic server.elf --args "--port 8080 --debug"", description: "Example usage" },
+  { command: "/re:dynamic parser.bin --input malformed.dat", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
 
-## Output Structure
-```
-re-project/
-├── dbg/
-│   ├── gdb-session.log          # Full GDB session transcript
-│   ├── breakpoints.txt          # Breakpoint script for GDB
-│   ├── traces.log               # Execution trace
-│   ├── memory-dumps/            # Memory snapshots
-│   │   ├── 0x401000-stack-bp1.bin
-│   │   ├── 0x401500-stack-bp2.bin
-│   │   └── 0x601000-heap.bin
-│   ├── registers/               # Register state at each breakpoint
-│   │   ├── bp1-registers.txt
-│   │   └── bp2-registers.txt
-│   ├── syscalls.log             # strace/ltrace output
-│   ├── network-traffic.pcap     # Captured network activity
-│   └── runtime-secrets.txt      # Extracted passwords/keys
-├── notes/
-│   └── 003-dynamic-l3.md        # Dynamic analysis findings
-└── artifacts/
-    └── core-dump               # If binary crashed
-```
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
 
-## Agents Used
-- `RE-Runtime-Tracer` - GDB scripting and runtime tracing specialist
-- `debugger` - General debugging assistance
-- `sandbox-validator` - Safe binary execution
-- `root-cause-detective` - Crash analysis
-- `error-message-analyzer` - Stack trace parsing
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/re:dynamic -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/re:dynamic arg1' '/re:dynamic arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
 
-## MCP Servers Used
-- **memory-mcp**: Store runtime findings
-- **filesystem**: Access binary and sandbox files
-- **sequential-thinking**: Complex debugging decision trees
-- **focused-changes**: Track execution paths
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
 
-## GDB Commands Used
-```gdb
-# Set breakpoints
-break main
-break *0x401234
-break check_password
+[define|neutral] RELATED := {
+  complementary: ["/sandbox-validator"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
 
-# Examine registers
-info registers
-print $rax
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
 
-# Examine memory
-x/100x $rsp          # Dump stack
-x/s 0x601000         # String at address
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "reverse-engineering",
+    file: ".claude/expertise/reverse-engineering.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "re:dynamic-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/reverse-engineering/re:dynamic/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["agent:RE-Runtime-Tracer"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
 
-# Dump memory to file
-dump binary memory stack.bin $rsp $rsp+0x1000
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
 
-# Continue execution
-continue
-step
-next
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "re:dynamic-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-# Advanced GEF commands
-vmmap                 # Memory mappings
-heap chunks           # Heap analysis
-checksec              # Binary security features
-```
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
 
-## Security Warning ⚠️
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-**ALWAYS run untrusted binaries in sandbox!**
-- Default: `--sandbox true` ✅
-- Dynamic analysis EXECUTES potentially malicious code
-- Sandbox isolates: filesystem, network, processes
-- Review sandbox logs after execution
-- NEVER disable sandbox for untrusted binaries
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Common Findings
-- 🔑 **Hardcoded Keys**: AES keys, RSA private keys in memory
-- 🔐 **Passwords**: Plaintext passwords in registers/stack
-- 🌐 **C2 Servers**: Network connections to command & control
-- 📞 **API Calls**: Interesting Windows API calls (CreateRemoteThread, VirtualAllocEx)
-- 💥 **Vulnerabilities**: Buffer overflows, use-after-free crashes
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-## Anti-Analysis Detection
-- **IsDebuggerPresent()**: Detects GDB attachment
-- **Timing Checks**: Measures execution time to detect debugger
-- **PTRACE Detection**: Checks if already being traced
-- **Self-Modifying Code**: Code that changes at runtime
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-**Countermeasures**:
-- Patch anti-debug checks
-- Use hardware breakpoints instead of software
-- GEF/Pwndbg have anti-anti-debug features
-
-## When to Use This vs /re:deep
-- Use `/re:dynamic` when: Only need runtime analysis (no symbolic execution)
-- Use `/re:deep` when: Need both dynamic AND symbolic analysis
-
-## Chains With
-- `/re:static` - Start with static analysis first
-- `/re:symbolic` - Follow up with symbolic execution
-- `/re:deep` - Run full Level 3+4 workflow
-- `/functionality-audit` - Validate reverse-engineered logic
-
-## Performance Notes
-- **Without tracing**: ≤30 minutes (fast execution)
-- **With tracing** (`--trace true`): 30-60 minutes (slow, detailed)
-- **Multiple runs**: Set different breakpoints for each run
-- **Use `/re:deep`** for comprehensive analysis (includes symbolic)
-
-## See Also
-- `/re:deep` - Deep analysis (Levels 3-4)
-- `/re:static` - Static analysis
-- `/re:symbolic` - Symbolic execution
-- `/sandbox-validator` - Safe execution
-
-
----
-*Promise: `<promise>DYNAMIC_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>RE:DYNAMIC_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

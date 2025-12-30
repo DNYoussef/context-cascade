@@ -1,45 +1,63 @@
+/*============================================================================*/
+/* WHEN-OPTIMIZING-AGENT-LEARNING-USE-REASONINGBANK-INTELLIGENCE SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
 name: when-optimizing-agent-learning-use-reasoningbank-intelligence
 version: 1.0.0
-description: Implement adaptive learning with ReasoningBank for pattern recognition,
-  strategy optimization, and continuous improvement
+description: |
+  [assert|neutral] Implement adaptive learning with ReasoningBank for pattern recognition, strategy optimization, and continuous improvement [ground:given] [conf:0.95] [state:confirmed]
 category: utilities
 tags:
 - machine-learning
 - adaptive-learning
 - pattern-recognition
 - optimization
-agents:
-- safla-neural
-- ml-developer
-- performance-analyzer
-difficulty: advanced
-estimated_duration: 30-45min
-success_criteria:
-- Learning system initialized
-- Patterns captured and analyzed
-- Performance improvement > 15%
-- Strategies optimized
-validation_method: performance_benchmark
-dependencies:
-- claude-flow@alpha
-- reasoningbank
-- agentdb (optional for 150x faster vector ops)
-outputs:
-- Trained learning model
-- Pattern library
-- Performance metrics
-- Optimization recommendations
-triggers:
-- Need for agent improvement
-- Repetitive task optimization
-- Strategy refinement required
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute when-optimizing-agent-learning-use-reasoningbank-intelligence workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic utilities processes"
 ---
 
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
 
+[define|neutral] SKILL := {
+  name: "when-optimizing-agent-learning-use-reasoningbank-intelligence",
+  category: "utilities",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["when-optimizing-agent-learning-use-reasoningbank-intelligence", "utilities", "workflow"],
+  context: "user needs when-optimizing-agent-learning-use-reasoningbank-intelligence capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 ## When to Use This Skill
 
@@ -141,608 +159,67 @@ const learningSystem = new ReasoningBank({
 });
 
 await learningSystem.init();
-await memory.store('reasoningbank/system', learningSystem.config);
-```
-
-**Step 1.2: Define Trajectory Schema**
-```javascript
-const trajectorySchema = {
-  id: 'uuid',
-  timestamp: 'datetime',
-  context: {
-    task: 'string',
-    environment: 'object',
-    constraints: 'array'
-  },
-  reasoning: [
-    {
-      step: 'number',
-      thought: 'string',
-      action: 'string',
-      observation: 'string'
-    }
-  ],
-  outcome: {
-    success: 'boolean',
-    metrics: 'object',
-    verdict: 'string'
-  }
-};
-
-await learningSystem.registerSchema('trajectory', trajectorySchema);
-```
-
-**Step 1.3: Configure Verdict Criteria**
-```javascript
-const verdictCriteria = {
-  success: {
-    thresholds: {
-      performance: 0.8,
-      efficiency: 0.75,
-      quality: 0.9
-    },
-    weights: {
-      performance: 0.4,
-      efficiency: 0.3,
-      quality: 0.3
-    }
-  },
-  failure: {
-    reasons: [
-      'timeout',
-      'error',
-      'poor_quality',
-      'resource_exhaustion'
-    ]
-  }
-};
-
-await learningSystem.configureVerdicts(verdictCriteria);
-```
-
-### Validation Criteria
-- [ ] ReasoningBank initialized
-- [ ] Trajectory schema registered
-- [ ] Verdict criteria configured
-- [ ] Storage backend ready
-
-### Hooks Integration
-```bash
-npx claude-flow@alpha hooks pre-task \
-  --description "Initialize ReasoningBank learning system" \
-  --complexity "high"
-
-npx claude-flow@alpha hooks post-task \
-  --task-id "reasoningbank-init" \
-  --memory-key "reasoningbank/initialization"
-```
-
-## Phase 2: Capture Patterns (10 min)
-
-### Objective
-Record agent decisions and outcomes for learning
-
-### Agent: SAFLA-Neural
-
-**Step 2.1: Track Trajectories**
-```javascript
-async function trackTrajectory(task, agent) {
-  const trajectory = {
-    id: generateUUID(),
-    timestamp: new Date(),
-    context: {
-      task: task.description,
-      environment: getEnvironment(),
-      constraints: task.constraints
-    },
-    reasoning: []
-  };
-
-  // Hook into agent execution
-  agent.on('thought', (thought) => {
-    trajectory.reasoning.push({
-      step: trajectory.reasoning.length + 1,
-      thought: thought.text,
-      action: null,
-      observation: null
-    });
-  });
-
-  agent.on('action', (action) => {
-    const lastStep = trajectory.reasoning[trajectory.reasoning.length - 1];
-    lastStep.action = action.description;
-  });
-
-  agent.on('observation', (obs) => {
-    const lastStep = trajectory.reasoning[trajectory.reasoning.length - 1];
-    lastStep.observation = obs.result;
-  });
-
-  agent.on('complete', async (result) => {
-    trajectory.outcome = {
-      success: result.success,
-      metrics: result.metrics,
-      verdict: await evaluateVerdict(result)
-    };
-
-    await learningSystem.storeTrajectory(trajectory);
-  });
-
-  return trajectory;
-}
-```
-
-**Step 2.2: Evaluate Verdicts**
-```javascript
-async function evaluateVerdict(result) {
-  const scores = {
-    performance: result.metrics.score,
-    efficiency: result.metrics.duration / result.metrics.expectedDuration,
-    quality: result.metrics.qualityScore
-  };
-
-  const weightedScore = Object.keys(scores).reduce((sum, key) => {
-    return sum + scores[key] * verdictCriteria.success.weights[key];
-  }, 0);
-
-  const verdict = {
-    score: weightedScore,
-    passed: weightedScore >= Object.values(verdictCriteria.success.thresholds)
-      .reduce((sum, t) => sum + t, 0) / 3,
-    breakdown: scores,
-    reasoning: generateVerdictReasoning(scores, weightedScore)
-  };
-
-  await learningSystem.recordVerdict(result.id, verdict);
-  return verdict;
-}
-```
-
-**Step 2.3: Pattern Extraction**
-```javascript
-async function extractPatterns() {
-  // Get all successful trajectories
-  const successfulTrajectories = await learningSystem.query({
-    'outcome.verdict.passed': true
-  });
-
-  // Extract common patterns using AgentDB vector similarity
-  const patterns = await learningSystem.analyzePatterns({
-    trajectories: successfulTrajectories,
-    similarity: {
-      method: 'cosine',
-      threshold: 0.85,
-      index: 'hnsw' // 150x faster
-    },
-    clustering: {
-      algorithm: 'dbscan',
-      minSamples: 3,
-      epsilon: 0.15
-    }
-  });
-
-  await memory.store('reasoningbank/patterns', patterns);
-  return patterns;
-}
-```
-
-### Validation Criteria
-- [ ] Trajectories captured
-- [ ] Verdicts evaluated
-- [ ] Patterns extracted
-- [ ] Similarity clustering complete
-
-## Phase 3: Optimize Strategies (10 min)
-
-### Objective
-Apply learned patterns to improve future decisions
-
-### Agent: Performance-Analyzer
-
-**Step 3.1: Train Decision Model**
-```javascript
-async function trainDecisionModel(patterns) {
-  // Use Decision Transformer (from ReasoningBank's 9 RL algorithms)
-  const model = await learningSystem.createModel({
-    algorithm: 'decision-transformer',
-    config: {
-      hiddenSize: 256,
-      numLayers: 4,
-      numHeads: 8,
-      maxTrajectoryLength: 50,
-      learningRate: 0.0001
-    }
-  });
-
-  // Prepare training data from successful patterns
-  const trainingData = patterns.map(pattern => ({
-    states: pattern.reasoning.map(r => r.thought),
-    actions: pattern.reasoning.map(r => r.action),
-    rewards: calculateRewards(pattern.outcome),
-    returns: calculateReturnsToGo(pattern.outcome)
-  }));
-
-  // Train with batch operations (AgentDB optimization)
-  await model.train({
-    data: trainingData,
-    epochs: 100,
-    batchSize: 32,
-    validation: 0.2,
-    callbacks: {
-      onEpoch: (epoch, metrics) => {
-        console.log(`Epoch ${epoch}: loss=${metrics.loss}, accuracy=${metrics.accuracy}`);
-      }
-    }
-  });
-
-  await learningSystem.saveModel('decision-model', model);
-  return model;
-}
-```
-
-**Step 3.2: Generate Strategy Recommendations**
-```javascript
-async function generateRecommendations() {
-  const patterns = await memory.retrieve('reasoningbank/patterns');
-
-  const recommendations = patterns.map(pattern => {
-    const frequency = pattern.instances.length;
-    const avgScore = pattern.instances.reduce((sum, i) =>
-      sum + i.outcome.verdict.score, 0) / frequency;
-
-    return {
-      pattern: {
-        description: summarizePattern(pattern),
-        reasoning: pattern.commonReasoning,
-        actions: pattern.commonActions
-      },
-      metrics: {
-        frequency,
-        avgScore,
-        consistency: calculateConsistency(pattern.instances)
-      },
-      recommendation: {
-        applicability: identifyApplicableContexts(pattern),
-        priority: calculatePriority(frequency, avgScore),
-        implementation: generateImplementationGuide(pattern)
-      }
-    };
-  }).sort((a, b) => b.recommendation.priority - a.recommendation.priority);
-
-  await memory.store('reasoningbank/recommendations', recommendations);
-  return recommendations;
-}
-```
-
-**Step 3.3: Apply Optimizations**
-```javascript
-async function applyOptimizations(agent, recommendations) {
-  // Apply top 5 recommendations
-  const topRecommendations = recommendations.slice(0, 5);
-
-  for (const rec of topRecommendations) {
-    // Update agent strategy
-    await agent.updateStrategy({
-      pattern: rec.pattern,
-      priority: rec.recommendation.priority,
-      applicableContexts: rec.recommendation.applicability
-    });
-
-    console.log(`✅ Applied: ${rec.pattern.description}`);
-  }
-
-  // Update agent's decision model
-  const model = await learningSystem.loadModel('decision-model');
-  agent.setDecisionModel(model);
-
-  await memory.store('reasoningbank/applied-optimizations', topRecommendations);
-}
-```
-
-### Validation Criteria
-- [ ] Model trained successfully
-- [ ] Recommendations generated
-- [ ] Top strategies identified
-- [ ] Optimizations applied
-
-## Phase 4: Validate Learning (10 min)
-
-### Objective
-Measure improvement from adaptive learning
-
-### Agent: Performance-Analyzer
-
-**Step 4.1: Benchmark Performance**
-```javascript
-async function benchmarkPerformance(agent, testCases) {
-  const results = {
-    baseline: [],
-    optimized: []
-  };
-
-  // Baseline: Agent without learning
-  const baselineAgent = agent.clone({ useLearning: false });
-  for (const testCase of testCases) {
-    const result = await baselineAgent.execute(testCase);
-    results.baseline.push({
-      testId: testCase.id,
-      metrics: result.metrics,
-      success: result.success
-    });
-  }
-
-  // Optimized: Agent with learning
-  const optimizedAgent = agent.clone({ useLearning: true });
-  for (const testCase of testCases) {
-    const result = await optimizedAgent.execute(testCase);
-    results.optimized.push({
-      testId: testCase.id,
-      metrics: result.metrics,
-      success: result.success
-    });
-  }
-
-  await memory.store('reasoningbank/benchmark-results', results);
-  return results;
-}
-```
-
-**Step 4.2: Calculate Improvement Metrics**
-```javascript
-function calculateImprovement(results) {
-  const baselineAvg = calculateAverage(results.baseline.map(r => r.metrics.score));
-  const optimizedAvg = calculateAverage(results.optimized.map(r => r.metrics.score));
-
-  const improvement = {
-    scoreImprovement: ((optimizedAvg - baselineAvg) / baselineAvg * 100).toFixed(2) + '%',
-    successRateImprovement: calculateSuccessRateImprovement(results),
-    efficiencyImprovement: calculateEfficiencyImprovement(results),
-    qualityImprovement: calculateQualityImprovement(results)
-  };
-
-  return improvement;
-}
-```
-
-**Step 4.3: Validate Patterns**
-```javascript
-async function validatePatterns(patterns, testResults) {
-  const validation = patterns.map(pattern => {
-    // Find test results that used this pattern
-    const patternResults = testResults.optimized.filter(r =>
-      r.usedPattern === pattern.id
-    );
-
-    const successRate = patternResults.filter(r => r.success).length / patternResults.length;
-
-    return {
-      pattern: pattern.description,
-      timesUsed: patternResults.length,
-      successRate,
-      avgScore: calculateAverage(patternResults.map(r => r.metrics.score)),
-      validated: successRate > 0.8
-    };
-  });
-
-  await memory.store('reasoningbank/pattern-validation', validation);
-  return validation;
-}
-```
-
-### Validation Criteria
-- [ ] Benchmarks completed
-- [ ] Improvement > 15%
-- [ ] Patterns validated
-- [ ] Success rate improved
-
-## Phase 5: Deploy Optimizations (5 min)
-
-### Objective
-Integrate learned strategies into production agents
-
-### Agent: ML-Developer
-
-**Step 5.1: Export Learned Model**
-```javascript
-async function exportModel() {
-  const model = await learningSystem.loadModel('decision-model');
-  const patterns = await memory.retrieve('reasoningbank/patterns');
-  const recommendations = await memory.retrieve('reasoningbank/recommendations');
-
-  const exportPackage = {
-    version: '1.0.0',
-    timestamp: new Date(),
-    model: {
-      weights: await model.exportWeights(),
-      config: model.config,
-      performance: await memory.retrieve('reasoningbank/benchmark-results')
-    },
-    patterns: patterns.map(p => ({
-      id: p.id,
-      description: p.description,
-      reasoning: p.commonReasoning,
-      actions: p.commonActions,
-      metrics: p.metrics
-    })),
-    recommendations: recommendations
-  };
-
-  await fs.writeFile(
-    '/tmp/reasoningbank-export.json',
-    JSON.stringify(exportPackage, null, 2)
-  );
-
-  console.log('✅ Model exported to: /tmp/reasoningbank-export.json');
-}
-```
-
-**Step 5.2: Create Integration Guide**
-```markdown
-# ReasoningBank Integration Guide
-
-## Installation
-\`\`\`bash
-npm install reasoningbank
-\`\`\`
-
-## Import Learned Model
-\`\`\`javascript
-const { ReasoningBank } = require('reasoningbank');
-const learnedModel = require('./reasoningbank-export.json');
-
-const agent = new Agent({
-  decisionModel: learnedModel.model,
-  patterns: learnedModel.patterns,
-  recommendations: learnedModel.recommendations
-});
-\`\`\`
-
-## Usage
-\`\`\`javascript
-// Agent automatically uses learned strategies
-const result = await agent.execute(task);
-\`\`\`
-
-## Performance Gains
-${improvement.scoreImprovement} average improvement
-${improvement.successRateImprovement} success rate increase
-```
-
-**Step 5.3: Generate Learning Report**
-```javascript
-const learningReport = {
-  summary: {
-    totalTrajectories: await learningSystem.countTrajectories(),
-    patternsIdentified: patterns.length,
-    recommendationsGenerated: recommendations.length,
-    improvement: improvement
-  },
-  topPatterns: patterns.slice(0, 10),
-  performanceMetrics: {
-    baseline: baselineMetrics,
-    optimized: optimizedMetrics,
-    improvement: improvement
-  },
-  nextSteps: [
-    'Continue collecting trajectories for ongoing learning',
-    'Monitor production performance',
-    'Retrain model quarterly',
-    'A/B test new patterns'
-  ]
-};
-
-await fs.writeFile(
-  '/tmp/learning-report.json',
-  JSON.stringify(learningReport, null, 2)
-);
-```
-
-### Validation Criteria
-- [ ] Model exported
-- [ ] Integration guide created
-- [ ] Learning report generated
-- [ ] Ready for production
-
-## Success Metrics
-
-- Performance improvement > 15%
-- Pattern recognition accuracy > 85%
-- Model training successful
-- Production integration ready
-
-## Memory Schema
-
-```javascript
-{
-  "reasoningbank/": {
-    "session-${id}/": {
-      "system": {},
-      "patterns": [],
-      "recommendations": [],
-      "benchmark-results": {},
-      "pattern-validation": [],
-      "applied-optimizations": []
-    }
-  }
-}
-```
-
-## Integration with AgentDB
-
-For 150x faster operations:
-
-```javascript
-const AgentDB = require('agentdb');
-
-const db = new AgentDB({
-  quantization: 'int8',
-  indexing: 'hnsw',
-  caching: true
-});
-
-await learningSystem.useVectorDB(db);
-```
-
-## Skill Completion
-
-Outputs:
-1. **reasoningbank-export.json**: Trained model and patterns
-2. **learning-report.json**: Performance analysis
-3. **integration-guide.md**: Implementation instructions
-4. **pattern-library.json**: Validated patterns
-
-Complete when improvement > 15% and ready for production deployment.
-
-## Core Principles
-
-### 1. Experience-Driven Optimization
-Pattern recognition from actual agent execution, not theoretical assumptions.
-
-In practice:
-- Track every decision trajectory with context, reasoning, and outcomes
-- Store trajectories in AgentDB with HNSW indexing for 150x faster similarity search
-- Use verdict scoring (performance + efficiency + quality) to identify successful patterns
-- Extract patterns only from trajectories with verdict scores > 80% threshold
-
-### 2. Continuous Feedback Loops
-Learning is iterative - agents improve through repeated execution and pattern refinement.
-
-In practice:
-- Benchmark baseline agent performance on standardized test cases
-- Apply learned strategies and re-measure with same test cases
-- Calculate delta improvements (score, success rate, efficiency, quality)
-- Require > 15% improvement threshold before deployment
-- Retrain quarterly with accumulated trajectories
-
-### 3. Evidence-Based Strategy Selection
-Choose strategies based on empirical performance data, not intuition.
-
-In practice:
-- Use Decision Transformer (one of ReasoningBank's 9 RL algorithms) for trajectory-to-action learning
-- Weight strategies by frequency (how often pattern succeeded) and consistency (variance in outcomes)
-- Rank recommendations by priority score combining frequency, average verdict score, and applicability
-- Apply top 5 recommendations only - avoid strategy overload
-- A/B test new patterns against baseline before production
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|-------------|---------|----------|
-| Learning from failures | Training on low-scoring trajectories creates harmful patterns | Filter for verdict.passed = true and verdict.score > 0.8 before pattern extraction |
-| Insufficient trajectory data | Training Decision Transformer with < 20 trajectories causes overfitting | Collect minimum 50 successful trajectories before model training. Use data augmentation if needed. |
-| Ignoring context | Patterns applied to wrong situations degrade performance | Store context (task, environment, constraints) with each trajectory. Match new tasks to similar contexts using vector similarity (cosine > 0.85) |
-| No validation baseline | Cannot prove learning improved performance | Always run A/B tests: baseline agent vs optimized agent on same test cases. Require statistically significant improvement (p < 0.05) |
-| Static patterns | Patterns become outdated as requirements change | Retrain model quarterly. Track pattern effectiveness over time. Deprecate patterns with declining success rates. |
-| Missing error attribution | When learned strategies fail, no root cause analysis | Store failure analysis with each low-scoring trajectory. Build failure pattern library. Use adversarial validation to test pattern robustness. |
-
-## Conclusion
-
-ReasoningBank Intelligence transforms agents from static executors into self-improving systems through systematic learning from experience. By capturing decision trajectories, evaluating outcomes with weighted verdict scoring, and extracting successful patterns through vector similarity clustering, agents accumulate meta-cognitive knowledge that generalizes across tasks.
-
-The key insight is that adaptive learning requires three components: (1) comprehensive trajectory tracking with full context preservation, (2) rigorous verdict evaluation combining multiple metrics with configurable weights, and (3) evidence-based pattern application validated through A/B testing against baseline performance. This skill implements all three using ReasoningBank's Decision Transformer architecture and AgentDB's optimized vector operations.
-
-Most importantly, this is not one-time optimization but a continuous improvement loop. Agents that use ReasoningBank Intelligence become progressively more effective over time, learning from every execution to refine their decision-making strategies. The 15% improvement threshold ensures only validated learnings are deployed to production, creating a self-reinforcing cycle where each successful execution contributes to future performance gains. This approach scales from individual agent optimization to fleet-wide learning, where patterns discovered by one agent can benefit the entire agent ecosystem through the shared pattern library.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+await memory.store('reaso
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/utilities/when-optimizing-agent-learning-use-reasoningbank-intelligence/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "when-optimizing-agent-learning-use-reasoningbank-intelligence-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>WHEN_OPTIMIZING_AGENT_LEARNING_USE_REASONINGBANK_INTELLIGENCE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

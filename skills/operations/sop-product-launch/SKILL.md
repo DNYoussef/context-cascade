@@ -1,46 +1,60 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-
-## CRITICAL: DEPLOYMENT SAFETY GUARDRAILS
-
-**BEFORE any deployment, validate**:
-- [ ] All tests passing (unit, integration, E2E, load)
-- [ ] Security scan completed (SAST, DAST, dependency audit)
-- [ ] Infrastructure capacity verified (CPU, memory, disk, network)
-- [ ] Database migrations tested on production-like data volume
-- [ ] Rollback procedure documented with time estimates
-
-**NEVER**:
-- Deploy without comprehensive monitoring (metrics, logs, traces)
-- Skip load testing for high-traffic services
-- Deploy breaking changes without backward compatibility
-- Ignore security vulnerabilities in production dependencies
-- Deploy without incident response plan
-
-**ALWAYS**:
-- Validate deployment checklist before proceeding
-- Use feature flags for risky changes (gradual rollout)
-- Monitor error rates, latency p99, and saturation metrics
-- Document deployment in runbook with troubleshooting steps
-- Retain deployment artifacts for forensic analysis
-
-**Evidence-Based Techniques for Deployment**:
-- **Chain-of-Thought**: Trace deployment flow (code -> artifact -> registry -> cluster -> pods)
-- **Program-of-Thought**: Model deployment as state machine (pre-deploy -> deploy -> post-deploy -> verify)
-- **Reflection**: After deployment, analyze what worked vs assumptions
-- **Retrieval-Augmented**: Query past incidents for similar deployment patterns
-
-name: sop-product-launch
-description: Complete product launch workflow coordinating 15+ specialist agents across
-  research, development, marketing, sales, and operations. Uses sequential and parallel
-  orchestration for 10-week launch timeline.
+name: SKILL
 version: 1.0.0
+description: |
+  [assert|neutral] SKILL skill for operations workflows [ground:given] [conf:0.95] [state:confirmed]
 category: operations
 tags:
-- operations
-- deployment
-- infrastructure
-author: ruv
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic operations processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "operations",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "operations", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # SOP: Product Launch Workflow
 
@@ -212,414 +226,67 @@ await Promise.all([backend, frontend, mobile, database, security, tester]);
 
 **Sequential Workflow**:
 
-```javascript
-// Step 1: System Integration
-await Task("System Integrator", `
-Integrate all components:
-- Backend API + Frontend web
-- Backend API + Mobile apps
-- Payment gateway integration
-- Third-party services
-
-Run integration tests
-Store integration report: integration/product-launch-2024/report
-`, "reviewer");
-
-// Step 2: Performance Optimization
-await Task("Performance Optimizer", `
-Optimize system performance:
-- API response time < 200ms
-- Frontend load time < 2s
-- Mobile app startup < 1s
-- Database query optimization
-
-Run benchmarks
-Store metrics: performance/product-launch-2024/metrics
-`, "perf-analyzer");
-
-// Step 3: Security Audit
-await Task("Security Auditor", `
-Final security audit:
-- Vulnerability scanning
-- Penetration testing
-- Compliance check (GDPR, CCPA)
-- Security best practices review
-
-Generate compliance report
-Store: security/product-launch-2024/final-audit
-`, "security-manager");
-```
-
-**Deliverables**:
-- Production-ready application (Web + Mobile)
-- API documentation
-- Security audit report
-- Performance benchmarks
-
----
-
-## Phase 3: Marketing & Sales Prep (Week 5-8)
-
-### Week 5-6: Marketing Campaign
-
-**Parallel Workflow**:
-
-```javascript
-const [campaign, content, seo] = await Promise.all([
-  Task("Marketing Specialist", `
-Using product strategy: product-strategy/product-launch-2024/plan
-
-Create launch campaign:
-- Multi-channel campaign (email, social, paid ads)
-- Audience segmentation and targeting
-- Campaign timeline and budget
-- KPI tracking setup
-
-Store campaign: marketing/product-launch-2024/campaign
-`, "researcher"),  // Note: Will use marketing-specialist when rewritten
-
-  Task("Content Creator", `
-Create launch content:
-- Product landing page copy
-- Blog posts (3-5 pre-launch, 10+ post-launch)
-- Social media content (50+ posts)
-- Email sequences (welcome, onboarding, nurture)
-- Video demos and tutorials
-
-Store content: marketing/product-launch-2024/content
-`, "coder"),  // Note: Will use content-specialist when created
-
-  Task("SEO Specialist", `
-Optimize for search:
-- Keyword research and mapping
-- On-page SEO (meta tags, headers, schema)
-- Content optimization
-- Link building strategy
-
-Store SEO plan: marketing/product-launch-2024/seo
-`, "code-analyzer")  // Note: Will use seo-specialist when created
-]);
-```
-
-### Week 7-8: Sales & Support Preparation
-
-**Sequential Workflow**:
-
-```javascript
-// Step 1: Sales Materials
-await Task("Sales Operations", `
-Create sales enablement:
-- Product demo scripts
-- Sales deck and pitch materials
-- Pricing calculator and proposals
-- Objection handling guide
-- CRM setup and automation
-
-Store sales kit: sales/product-launch-2024/enablement
-`, "planner");  // Note: Will use sales-specialist when rewritten
-
-// Step 2: Support Documentation
-await Task("Documentation Specialist", `
-Create support resources:
-- User documentation (Getting Started, FAQs, Tutorials)
-- API documentation
-- Admin guide
-- Troubleshooting guide
-- Video tutorials
-
-Store docs: docs/product-launch-2024/support
-`, "api-docs");
-
-// Step 3: Customer Support Setup
-await Task("Support Operations", `
-Set up support infrastructure:
-- Help desk software configuration
-- Support ticket workflows
-- Knowledge base articles (50+)
-- Support team training materials
-- Escalation procedures
-
-Store support setup: support/product-launch-2024/infrastructure
-`, "planner");  // Note: Will use support-specialist when rewritten
-```
-
-**Deliverables**:
-- Marketing campaign (ready to execute)
-- Content library (landing page, blog, social, email)
-- Sales enablement kit
-- Support documentation and infrastructure
-
----
-
-## Phase 4: Launch Execution (Week 9)
-
-### Launch Week: Coordinated Execution
-
-**Sequential + Parallel**:
-
-```javascript
-// Day 1: Final Pre-Launch Checks
-await Task("Production Validator", `
-Final validation checklist:
-- All tests passing (unit, integration, E2E)
-- Security audit complete and passed
-- Performance benchmarks met
-- Monitoring and alerting active
-- Backup and recovery tested
-- Rollback plan ready
-
-Generate go/no-go report
-Store: validation/product-launch-2024/final-check
-`, "production-validator");
-
-// Day 2: Deployment
-await Task("DevOps Engineer", `
-Production deployment:
-- Deploy backend to production (blue-green)
-- Deploy frontend to CDN
-- Submit mobile apps to App Store + Play Store
-- Configure production databases
-- Enable monitoring and alerting
-
-Store deployment report: devops/product-launch-2024/deployment
-`, "cicd-engineer");
-
-// Day 3-4: Launch Marketing (Parallel)
-const [emailCampaign, socialCampaign, paidAds, prOutreach] = await Promise.all([
-  Task("Email Marketing", `
-Execute email campaign:
-- Send launch announcement to existing list
-- Trigger automated welcome sequences
-- Monitor open rates, click rates
-
-Store metrics: marketing/product-launch-2024/email-metrics
-`, "researcher"),
-
-  Task("Social Media", `
-Execute social campaign:
-- Post launch announcements (all channels)
-- Engage with audience comments
-- Share user testimonials and demos
-
-Store metrics: marketing/product-launch-2024/social-metrics
-`, "researcher"),
-
-  Task("Paid Advertising", `
-Launch paid campaigns:
-- Google Ads (Search + Display)
-- Facebook/Instagram Ads
-- LinkedIn Ads (if B2B)
-- Monitor ROI and adjust bids
-
-Store metrics: marketing/product-launch-2024/ad-metrics
-`, "researcher"),
-
-  Task("PR Outreach", `
-Media and influencer outreach:
-- Send press releases
-- Influencer partnerships
-- Product Hunt launch
-- Tech blog features
-
-Store coverage: marketing/product-launch-2024/pr-coverage
-`, "researcher")
-]);
-
-// Day 5: Monitor and Optimize
-await Task("Analytics Monitor", `
-Real-time monitoring:
-- Application performance and uptime
-- User signups and activation rates
-- Marketing campaign performance
-- Customer support ticket volume
-- Revenue and conversion tracking
-
-Generate daily reports
-Store: analytics/product-launch-2024/daily-metrics
-`, "performance-monitor");
-```
-
-**Deliverables**:
-- Live production application
-- Active marketing campaigns across all channels
-- Sales team actively selling
-- Support team handling inquiries
-
----
-
-## Phase 5: Post-Launch Monitoring (Week 10+)
-
-### Continuous Optimization
-
-**Weekly Workflow**:
-
-```javascript
-// Every Monday: Weekly Review
-await Task("Weekly Review Coordinator", `
-Aggregate and analyze:
-- User metrics: memory_retrieve('analytics/product-launch-2024/daily-metrics')
-- Marketing performance: memory_retrieve('marketing/product-launch-2024/*-metrics')
-- Sales pipeline: memory_retrieve('sales/product-launch-2024/pipeline')
-- Support issues: memory_retrieve('support/product-launch-2024/tickets')
-- Revenue: memory_retrieve('finance/product-launch-2024/revenue')
-
-Generate insights and recommendations
-Identify issues requiring attention
-
-Store weekly report: reports/product-launch-2024/week-${weekNum}
-`, "analyst");
-
-// Based on insights, spawn specialist agents for optimization
-// Example: If conversion rate is low
-await Task("Conversion Optimizer", `
-Improve conversion rate:
-- A/B testing on landing page
-- Funnel analysis and optimization
-- Pricing test variations
-- Checkout flow improvements
-
-Store optimization results: optimization/product-launch-2024/conversion
-`, "researcher");
-
-// Example: If support ticket volume is high
-await Task("Support Optimizer", `
-Reduce support burden:
-- Identify common issues
-- Create self-service solutions
-- Improve documentation
-- Proactive user education
-
-Store support improvements: optimization/product-launch-2024/support
-`, "planner");
-```
-
-**Deliverables**:
-- Weekly performance reports
-- Continuous product improvements
-- Optimized marketing campaigns
-- Improved customer experience
-
----
-
-## Success Metrics
-
-### Technical Metrics
-- **Uptime**: 99.9%+
-- **API Response Time**: < 200ms (p95)
-- **Page Load Time**: < 2s
-- **Error Rate**: < 0.1%
-- **Test Coverage**: > 90%
-
-### Business Metrics
-- **User Signups**: Target (defined in strategy)
-- **Activation Rate**: > 40%
-- **Conversion Rate**: > 2.5%
-- **Customer Acquisition Cost**: < $X (defined)
-- **Monthly Recurring Revenue**: Target (defined)
-- **Churn Rate**: < 5%
-
-### Marketing Metrics
-- **Campaign ROI**: > 3:1
-- **Email Open Rate**: > 25%
-- **Social Engagement**: > 5%
-- **Paid Ad CTR**: > 2%
-- **Organic Traffic Growth**: > 20% MoM
-
-### Support Metrics
-- **Response Time**: < 2 hours
-- **Resolution Time**: < 24 hours
-- **Customer Satisfaction**: > 4.5/5
-- **Self-Service Rate**: > 60%
-
----
-
-## Agent Coordination Summary
-
-**Total Agents Used**: 15+
-**Execution Pattern**: Sequential + Parallel
-**Timeline**: 10 weeks
-**Memory Namespaces**: 20+ (organized by domain/task/data)
-
-**Key Agents**:
-1. researcher - Market analysis, campaign execution
-2. analyst - Business analysis, weekly reviews
-3. planner - Product strategy, sales operations, support setup
-4. backend-dev - API development
-5. coder - Frontend development
-6. mobile-dev - Mobile app development
-7. code-analyzer - Database architecture, SEO
-8. reviewer - Security, system integration
-9. tester - QA and testing
-10. perf-analyzer - Performance optimization
-11. security-manager - Security audits
-12. production-validator - Final validation
-13. cicd-engineer - Deployment
-14. performance-monitor - Analytics monitoring
-15. api-docs - Documentation
-
----
-
-## Usage
-
-```javascript
-// Invoke this SOP skill
-Skill("sop-product-launch")
-
-// Or use with Claude Code Task tool for full orchestration
-Task("Product Launch Orchestrator", "Execute complete product launch using SOP", "planner")
-```
-
----
-
-**Status**: Production-ready SOP
-**Complexity**: High (15+ agents, 10 weeks)
-**Pattern**: Hybrid sequential + parallel orchestration
----
-
-## Core Principles
-
-SOP: Product Launch operates on 3 fundamental principles:
-
-### Principle 1: Coordinated Multi-Channel Execution
-Product launches require simultaneous coordination across technical development, marketing campaigns, sales enablement, and operational readiness. Sequential execution creates gaps where momentum is lost.
-
-In practice:
-- Development, marketing, and sales work streams run in parallel phases
-- Coordination through shared memory namespaces ensures alignment
-- Phase gates prevent downstream teams from blocking on incomplete upstream work
-
-### Principle 2: Evidence-Based Milestone Validation
-Each phase must produce measurable artifacts that validate readiness for the next phase. Subjective "done" assessments lead to launch failures.
-
-In practice:
-- Technical gates: All tests passing, security audit complete, performance benchmarks met
-- Marketing gates: Campaign assets complete, A/B tests run, analytics configured
-- Sales gates: Enablement materials ready, CRM configured, support trained
-
-### Principle 3: Rollback-First Deployment Strategy
-Launch failures are inevitable. The difference between recoverable incidents and catastrophic failures is having tested rollback procedures before deployment.
-
-In practice:
-- Blue-green deployments with instant traffic switching
-- Database migration rollback scripts tested in staging
-- Communication templates pre-written for rollback scenarios
-
-## Common Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| **Waterfall Launch** | Development completes, THEN marketing starts, THEN sales prepares. Launch delayed by 2-3x. | Run development, marketing, and sales in parallel phases (Week 3-8). Use memory coordination for dependencies. |
-| **Launch Without Metrics** | "We launched!" but no way to measure success. Teams argue about what worked. | Configure analytics, monitoring, and dashboards BEFORE launch (Week 7-8). Define success metrics in Week 1. |
-| **No Rollback Plan** | Launch fails, team scrambles to fix in production. Downtime extends for hours/days. | Document and TEST rollback procedures in Week 8. Practice rollback in staging environment. |
-
-## Conclusion
-
-SOP: Product Launch provides a battle-tested 10-week framework for coordinating 15+ specialist agents across research, development, marketing, sales, and operations. The key insight is parallelization - development, marketing, and sales work streams run concurrently, coordinated through shared memory namespaces and phase gates. This reduces launch timeline from 18-24 weeks (sequential) to 10 weeks (parallel).
-
-Use this skill when launching new products, major features, or market expansions requiring cross-functional coordination. The hybrid sequential-parallel pattern ensures critical dependencies are respected (research before development) while maximizing throughput (backend + frontend + mobile development in parallel).
-
-The framework scales from MVP launches (6-8 weeks, 10 agents) to enterprise launches (12-16 weeks, 20+ agents) by adjusting phase durations and agent counts. Success requires rigorous milestone validation at each phase gate - subjective "done" assessments are the primary cause of launch delays and failures.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+```javascr
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/operations/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

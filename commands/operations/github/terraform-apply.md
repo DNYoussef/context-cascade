@@ -1,601 +1,216 @@
-# Terraform Infrastructure Command
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Command Context
-- GitHub API integration requirements: Requires GitHub CLI (gh) or GitHub API token for authentication
-- Authentication/token requirements: Use GITHUB_TOKEN env var or gh auth login for GitHub operations
-- Expected PR/issue/workflow outputs: JSON responses, PR/issue URLs, workflow run IDs, status codes
-- Automation trigger conditions: Webhook events, schedule triggers, manual dispatch, PR/issue state changes
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: terraform-apply-benchmark-v1
-  tests:
-    - github_integration_success
-    - automation_validation
-  success_threshold: 0.9
-namespace: "commands/operations/github/terraform-apply/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [github-workflow-automation, github-release-management]
-  related_agents: [github-actions-specialist, release-orchestration-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-
-**Category**: External Integrations
-**Phase**: 4 - Deployment & Integration
-**Complexity**: High
-
-## Purpose
-
-Infrastructure as Code (IaC) deployment using Terraform with state management, drift detection, and multi-cloud support.
-
-## Usage
-
-```bash
-/terraform-apply [action] [options]
-
-Actions:
-  init                Initialize Terraform
-  plan                Preview changes
-  apply               Apply changes
-  destroy             Destroy infrastructure
-  validate            Validate configuration
-  state               Manage state
-  import              Import existing resources
-  drift-detect        Detect configuration drift
-
-Options:
-  --workspace <name>  Terraform workspace (dev|staging|prod)
-  --target <resource> Target specific resource
-  --var-file <path>   Variable file path
-  --auto-approve      Skip confirmation
-  --destroy           Destroy infrastructure
-  --backend <type>    Backend type (s3|gcs|azurerm|local)
-```
-
-## Examples
-
-```bash
-# Initialize Terraform with remote backend
-/terraform-apply init --backend s3 --workspace prod
-
-# Preview infrastructure changes
-/terraform-apply plan --workspace staging --var-file vars/staging.tfvars
-
-# Apply changes with auto-approval
-/terraform-apply apply --workspace prod --auto-approve
-
-# Target specific resource
-/terraform-apply apply --target aws_instance.web --workspace dev
-
-# Destroy all infrastructure
-/terraform-apply destroy --workspace dev --auto-approve
-
-# Detect configuration drift
-/terraform-apply drift-detect --workspace prod
-
-# Import existing AWS EC2 instance
-/terraform-apply import --resource aws_instance.web --id i-1234567890abcdef0
-
-# Validate configuration
-/terraform-apply validate
-```
-
-## Terraform Configuration Structure
-
-```
-terraform/
-├── main.tf              # Main configuration
-├── variables.tf         # Input variables
-├── outputs.tf           # Output values
-├── providers.tf         # Provider configuration
-├── backend.tf           # Backend configuration
-├── versions.tf          # Terraform/provider versions
-├── modules/             # Reusable modules
-│   ├── vpc/
-│   ├── ec2/
-│   └── rds/
-├── environments/
-│   ├── dev.tfvars
-│   ├── staging.tfvars
-│   └── prod.tfvars
-└── .terraform/          # Terraform state (gitignored)
-```
-
-## AWS Multi-Tier Infrastructure Example
-
-### 1. Provider Configuration
-
-```hcl
-# providers.tf
-terraform {
-  required_version = ">= 1.5.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-
-  backend "s3" {
-    bucket         = "mycompany-terraform-state"
-    key            = "infrastructure/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
-  }
-}
-
-provider "aws" {
-  region = var.aws_region
-
-  default_tags {
-    tags = {
-      Environment = var.environment
-      ManagedBy   = "Terraform"
-      Project     = var.project_name
-    }
-  }
-}
-```
-
-### 2. VPC and Network
-
-```hcl
-# main.tf - VPC
-module "vpc" {
-  source = "terraform-aws-modules/vpc/aws"
-
-  name = "${var.project_name}-vpc"
-  cidr = var.vpc_cidr
-
-  azs             = var.availability_zones
-  private_subnets = var.private_subnet_cidrs
-  public_subnets  = var.public_subnet_cidrs
-
-  enable_nat_gateway   = true
-  enable_dns_hostnames = true
-  enable_dns_support   = true
-
-  tags = {
-    Name = "${var.project_name}-vpc"
-  }
-}
-```
-
-### 3. Security Groups
-
-```hcl
-# Security group for web servers
-resource "aws_security_group" "web" {
-  name        = "${var.project_name}-web-sg"
-  description = "Security group for web servers"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
-# Security group for database
-resource "aws_security_group" "database" {
-  name        = "${var.project_name}-db-sg"
-  description = "Security group for RDS"
-  vpc_id      = module.vpc.vpc_id
-
-  ingress {
-    from_port       = 5432
-    to_port         = 5432
-    protocol        = "tcp"
-    security_groups = [aws_security_group.web.id]
-  }
-}
-```
-
-### 4. EC2 Auto Scaling
-
-```hcl
-# Launch template
-resource "aws_launch_template" "web" {
-  name_prefix   = "${var.project_name}-web-"
-  image_id      = data.aws_ami.amazon_linux_2.id
-  instance_type = var.instance_type
-
-  vpc_security_group_ids = [aws_security_group.web.id]
-
-  user_data = base64encode(templatefile("${path.module}/user-data.sh", {
-    db_endpoint = aws_db_instance.main.endpoint
-  }))
-
-  iam_instance_profile {
-    name = aws_iam_instance_profile.web.name
-  }
-
-  tag_specifications {
-    resource_type = "instance"
-    tags = {
-      Name = "${var.project_name}-web"
-    }
-  }
-}
-
-# Auto Scaling Group
-resource "aws_autoscaling_group" "web" {
-  name                = "${var.project_name}-web-asg"
-  vpc_zone_identifier = module.vpc.private_subnets
-  target_group_arns   = [aws_lb_target_group.web.arn]
-  health_check_type   = "ELB"
-
-  min_size         = var.asg_min_size
-  max_size         = var.asg_max_size
-  desired_capacity = var.asg_desired_capacity
-
-  launch_template {
-    id      = aws_launch_template.web.id
-    version = "$Latest"
-  }
-}
-```
-
-### 5. Application Load Balancer
-
-```hcl
-resource "aws_lb" "web" {
-  name               = "${var.project_name}-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.web.id]
-  subnets            = module.vpc.public_subnets
-}
-
-resource "aws_lb_target_group" "web" {
-  name     = "${var.project_name}-tg"
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = module.vpc.vpc_id
-
-  health_check {
-    path                = "/health"
-    healthy_threshold   = 2
-    unhealthy_threshold = 10
-  }
-}
-
-resource "aws_lb_listener" "web" {
-  load_balancer_arn = aws_lb.web.arn
-  port              = 443
-  protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-TLS-1-2-2017-01"
-  certificate_arn   = aws_acm_certificate.main.arn
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.web.arn
-  }
-}
-```
-
-### 6. RDS Database
-
-```hcl
-resource "aws_db_instance" "main" {
-  identifier     = "${var.project_name}-db"
-  engine         = "postgres"
-  engine_version = "16.1"
-  instance_class = var.db_instance_class
-
-  allocated_storage     = 20
-  max_allocated_storage = 100
-  storage_encrypted     = true
-
-  db_name  = var.db_name
-  username = var.db_username
-  password = var.db_password
-
-  vpc_security_group_ids = [aws_security_group.database.id]
-  db_subnet_group_name   = aws_db_subnet_group.main.name
-
-  backup_retention_period = 7
-  backup_window          = "03:00-04:00"
-  maintenance_window     = "mon:04:00-mon:05:00"
-
-  skip_final_snapshot = var.environment != "prod"
-}
-```
-
-### 7. Variables
-
-```hcl
-# variables.tf
-variable "aws_region" {
-  description = "AWS region"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "environment" {
-  description = "Environment name"
-  type        = string
-  validation {
-    condition     = contains(["dev", "staging", "prod"], var.environment)
-    error_message = "Environment must be dev, staging, or prod"
-  }
-}
-
-variable "vpc_cidr" {
-  description = "VPC CIDR block"
-  type        = string
-  default     = "10.0.0.0/16"
-}
-
-variable "instance_type" {
-  description = "EC2 instance type"
-  type        = string
-  default     = "t3.medium"
-}
-```
-
-### 8. Outputs
-
-```hcl
-# outputs.tf
-output "vpc_id" {
-  description = "VPC ID"
-  value       = module.vpc.vpc_id
-}
-
-output "load_balancer_dns" {
-  description = "Load balancer DNS name"
-  value       = aws_lb.web.dns_name
-}
-
-output "database_endpoint" {
-  description = "RDS endpoint"
-  value       = aws_db_instance.main.endpoint
-  sensitive   = true
-}
-```
-
-## State Management
-
-### Remote Backend (S3)
-
-```hcl
-# backend.tf
-terraform {
-  backend "s3" {
-    bucket         = "mycompany-terraform-state"
-    key            = "infrastructure/terraform.tfstate"
-    region         = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "terraform-locks"
-
-    # State locking
-    role_arn = "arn:aws:iam::123456789012:role/TerraformBackend"
-  }
-}
-```
-
-### State Commands
-
-```bash
-# List state resources
-terraform state list
-
-# Show resource details
-terraform state show aws_instance.web
-
-# Move resource
-terraform state mv aws_instance.web aws_instance.web_server
-
-# Remove resource from state
-terraform state rm aws_instance.old
-
-# Import existing resource
-terraform import aws_instance.web i-1234567890abcdef0
-
-# Pull remote state
-terraform state pull > terraform.tfstate.backup
-
-# Push local state
-terraform state push terraform.tfstate
-```
-
-## Workspaces
-
-```bash
-# Create workspace
-terraform workspace new staging
-
-# List workspaces
-terraform workspace list
-
-# Select workspace
-terraform workspace select prod
-
-# Show current workspace
-terraform workspace show
-
-# Delete workspace
-terraform workspace delete dev
-```
-
-## Drift Detection
-
-```bash
-# Detect drift (plan without changes)
-terraform plan -detailed-exitcode
-
-# Output:
-# 0 = No changes
-# 1 = Error
-# 2 = Changes detected (drift)
-
-# Automated drift detection
-terraform plan -no-color | grep -q "No changes" && echo "No drift" || echo "Drift detected!"
-```
-
-## GitHub Actions Integration
-
-```yaml
-name: Terraform CI/CD
-
-on:
-  push:
-    branches: [main]
-    paths: ['terraform/**']
-  pull_request:
-    paths: ['terraform/**']
-
-env:
-  TF_VERSION: '1.5.0'
-
-jobs:
-  terraform:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./terraform
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: ${{ env.TF_VERSION }}
-
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
-    - name: Terraform Format
-      run: terraform fmt -check
-
-    - name: Terraform Init
-      run: terraform init
-
-    - name: Terraform Validate
-      run: terraform validate
-
-    - name: Terraform Plan
-      run: terraform plan -out=tfplan
-
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve tfplan
-```
-
-## Best Practices
-
-1. **Remote State**: Always use remote backend (S3, GCS, Azure Blob)
-2. **State Locking**: Enable locking with DynamoDB or backend support
-3. **Workspaces**: Separate environments (dev/staging/prod)
-4. **Modules**: Reuse code with Terraform modules
-5. **Version Pinning**: Pin Terraform and provider versions
-6. **Secrets Management**: Use AWS Secrets Manager, Vault, or encrypted vars
-7. **Plan Before Apply**: Always run `terraform plan` first
-8. **Drift Detection**: Regularly check for infrastructure drift
-9. **CI/CD Integration**: Automate with GitHub Actions/GitLab CI
-10. **Tagging**: Tag all resources for cost tracking and management
-
-## Security
-
-```hcl
-# Enable encryption
-resource "aws_s3_bucket" "state" {
-  bucket = "terraform-state"
-
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
-  versioning {
-    enabled = true
-  }
-}
-
-# Use IAM roles for authentication
-provider "aws" {
-  assume_role {
-    role_arn = "arn:aws:iam::123456789012:role/TerraformRole"
-  }
-}
-```
-
-## Integration Points
-
-- **/aws-deploy** - AWS deployment
-- **/github-actions** - CI/CD automation
-- **/ansible-deploy** - Configuration management
-- **/docker-compose** - Container orchestration
-
-## Agent Integration
-
-```javascript
-// Planner: Design infrastructure
-mcp__ruv-swarm__agent_spawn({
-  type: "researcher",
-  capabilities: ["terraform", "aws-architecture"]
-})
-
-// Optimizer: Cost optimization
-mcp__ruv-swarm__agent_spawn({
-  type: "optimizer",
-  capabilities: ["cloud-cost-optimization"]
-})
-```
-
-## Related Commands
-
-- `/aws-deploy` - AWS deployment
-- `/ansible-deploy` - Configuration management
-- `/github-actions` - CI/CD workflows
+/*============================================================================*/
+/* TERRAFORM-APPLY COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-
-**Implementation Status**: Production-Ready
-**Last Updated**: 2025-11-01
-**Maintainer**: Integration Specialist
-
-
+name: terraform-apply
+version: 1.0.0
+binding: skill:terraform-apply
+category: delivery
 ---
-*Promise: `<promise>TERRAFORM_APPLY_VERIX_COMPLIANT</promise>`*
+
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "terraform-apply",
+  binding: "skill:terraform-apply",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "Execute terraform-apply workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /terraform-apply"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/terraform-apply [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/terraform-apply init --backend s3 --workspace prod", description: "Example usage" },
+  { command: "/terraform-apply plan --workspace staging --var-file vars/st", description: "Example usage" },
+  { command: "/terraform-apply apply --workspace prod --auto-approve", description: "Example usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/terraform-apply -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/terraform-apply arg1' '/terraform-apply arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/ansible-deploy", "/aws-deploy", "/github-actions"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "terraform-apply-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/terraform-apply/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["terraform-apply"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "terraform-apply-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>TERRAFORM_APPLY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

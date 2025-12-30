@@ -1,8 +1,60 @@
+/*============================================================================*/
+/* OBSERVABILITY SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: observability
 version: 2.1.0
-description: Observability specialists hub for monitoring, logging, tracing, and alerting. Routes to specialists for metrics collection, log aggregation, distributed tracing, and incident response. Use for system observability, debugging production issues, and performance monitoring.
+description: |
+  [assert|neutral] Observability specialists hub for monitoring, logging, tracing, and alerting. Routes to specialists for metrics collection, log aggregation, distributed tracing, and incident response. Use for system  [ground:given] [conf:0.95] [state:confirmed]
+category: research
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: evidential
+  goal_analysis:
+    first_order: "Execute observability workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic research processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "observability",
+  category: "research",
+  version: "2.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["observability", "research", "workflow"],
+  context: "user needs observability capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Observability
 
@@ -176,36 +228,67 @@ Alerting must be driven by Service Level Objectives that reflect actual user imp
 **In practice:**
 - Define SLIs (Service Level Indicators) that measure user-facing behavior (p99 latency, error rate)
 - Set SLOs (Service Level Objectives) based on business requirements (99% requests < 200ms)
-- Configure alerts to fire when SLO burn rate exceeds acceptable thresholds
-- Implement multi-window alerting to distinguish temporary spikes from sustained degradation
+- Configure alerts to fire when SLO burn rate
 
-### 3. Context-Aware Monitoring with Dynamic Baselines
-Effective monitoring adapts to changing system behavior through machine learning baselines, not static thresholds that break during normal traffic variations.
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-**In practice:**
-- Use anomaly detection algorithms to learn normal behavior patterns
-- Implement seasonal baselines that adjust for daily/weekly traffic cycles
-- Correlate metrics across services to identify cascading failures
-- Apply intelligent noise reduction to focus on actionable signals
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-## Anti-Patterns
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-| Anti-Pattern | Problem | Solution |
-|--------------|---------|----------|
-| Metric-Only Monitoring | Collecting metrics without logs or traces misses critical context for debugging failures | Implement all three pillars with correlation, use traces to investigate metric anomalies |
-| Alert Fatigue from Static Thresholds | Setting fixed thresholds generates false alarms during traffic variations, causing alert fatigue | Use SLO-based alerting with burn rate calculations and dynamic baselines that adapt to traffic patterns |
-| Unstructured Logging | Free-form log messages prevent automated analysis and correlation across services | Adopt structured logging with JSON format, include correlation IDs, define standard log levels |
-| Missing Sampling Strategies | Tracing 100% of requests creates performance overhead and storage costs | Implement adaptive sampling: high rates for errors/slow requests, low rates for successful fast requests |
-| Dashboard Proliferation | Creating dozens of uncategorized dashboards makes critical information undiscoverable | Organize dashboards by audience (SRE, developers, business), implement role-based access, standardize layouts |
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-## Conclusion
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-The Observability skill establishes comprehensive system visibility through unified metrics, logs, and traces coordinated with intelligent alerting and dynamic monitoring. By implementing all three pillars with proper correlation, organizations gain the ability to debug complex distributed systems, proactively detect degradation, and understand user impact. The integration with tools like Prometheus for metrics, ELK/Loki for logs, and Jaeger/OpenTelemetry for traces provides production-grade observability infrastructure.
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/research/observability/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-The SLO-based alerting framework transforms monitoring from reactive firefighting into proactive quality management. By defining Service Level Objectives that reflect actual business requirements and configuring alerts based on SLO burn rates, teams receive actionable notifications about genuine user impact rather than noisy metric threshold violations. The recursive improvement integration through benchmark evaluation ensures observability implementations meet quality standards for monitoring coverage and alert quality.
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "observability-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-Organizations implementing this skill benefit from faster incident detection and resolution, reduced mean time to recovery (MTTR), and deeper understanding of system behavior under load. The expertise-aware workflow enables teams to leverage documented monitoring patterns and alerting rules specific to their infrastructure, preventing common pitfalls and accelerating observability maturity. When coordinated with infrastructure, deployment-readiness, and performance-analysis skills, observability creates a complete operational excellence framework.
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>OBSERVABILITY_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

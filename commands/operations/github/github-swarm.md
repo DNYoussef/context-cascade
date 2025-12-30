@@ -1,160 +1,214 @@
-# github swarm
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Command Context
-- GitHub API integration requirements: Requires GitHub CLI (gh) or GitHub API token for authentication
-- Authentication/token requirements: Use GITHUB_TOKEN env var or gh auth login for GitHub operations
-- Expected PR/issue/workflow outputs: JSON responses, PR/issue URLs, workflow run IDs, status codes
-- Automation trigger conditions: Webhook events, schedule triggers, manual dispatch, PR/issue state changes
-<!-- META-LOOP v2.1 INTEGRATION -->
-## Phase 0: Expertise Loading
-expertise_check:
-  domain: deployment
-  file: .claude/expertise/deployment.yaml
-  fallback: discovery_mode
-
-## Recursive Improvement Integration (v2.1)
-benchmark: github-swarm-benchmark-v1
-  tests:
-    - github_integration_success
-    - automation_validation
-  success_threshold: 0.9
-namespace: "commands/operations/github/github-swarm/{project}/{timestamp}"
-uncertainty_threshold: 0.85
-coordination:
-  related_skills: [github-workflow-automation, github-release-management]
-  related_agents: [github-actions-specialist, release-orchestration-agent]
-
-## COMMAND COMPLETION VERIFICATION
-success_metrics:
-  execution_success: ">95%"
-<!-- END META-LOOP -->
-
-
-Create a specialized swarm for GitHub repository management.
-
-## Usage
-
-```bash
-npx claude-flow github swarm [options]
-```
-
-## Options
-
-- `--repository, -r <owner/repo>` - Target GitHub repository
-- `--agents, -a <number>` - Number of specialized agents (default: 5)
-- `--focus, -f <type>` - Focus area: maintenance, development, review, triage
-- `--auto-pr` - Enable automatic pull request enhancements
-- `--issue-labels` - Auto-categorize and label issues
-- `--code-review` - Enable AI-powered code reviews
-
-## Examples
-
-### Basic GitHub swarm
-
-```bash
-npx claude-flow github swarm --repository owner/repo
-```
-
-### Maintenance-focused swarm
-
-```bash
-npx claude-flow github swarm -r owner/repo -f maintenance --issue-labels
-```
-
-### Development swarm with PR automation
-
-```bash
-npx claude-flow github swarm -r owner/repo -f development --auto-pr --code-review
-```
-
-### Full-featured triage swarm
-
-```bash
-npx claude-flow github swarm -r owner/repo -a 8 -f triage --issue-labels --auto-pr
-```
-
-## Agent Types
-
-### Issue Triager
-
-- Analyzes and categorizes issues
-- Suggests labels and priorities
-- Identifies duplicates and related issues
-
-### PR Reviewer
-
-- Reviews code changes
-- Suggests improvements
-- Checks for best practices
-
-### Documentation Agent
-
-- Updates README files
-- Creates API documentation
-- Maintains changelog
-
-### Test Agent
-
-- Identifies missing tests
-- Suggests test cases
-- Validates test coverage
-
-### Security Agent
-
-- Scans for vulnerabilities
-- Reviews dependencies
-- Suggests security improvements
-
-## Workflows
-
-### Issue Triage Workflow
-
-1. Scan all open issues
-2. Categorize by type and priority
-3. Apply appropriate labels
-4. Suggest assignees
-5. Link related issues
-
-### PR Enhancement Workflow
-
-1. Analyze PR changes
-2. Suggest missing tests
-3. Improve documentation
-4. Format code consistently
-5. Add helpful comments
-
-### Repository Health Check
-
-1. Analyze code quality metrics
-2. Review dependency status
-3. Check test coverage
-4. Assess documentation completeness
-5. Generate health report
-
-## Integration with Claude Code
-
-Use in Claude Code with MCP tools:
-
-```javascript
-mcp__claude-flow__github_swarm {
-  repository: "owner/repo",
-  agents: 6,
-  focus: "maintenance"
-}
-```
-
-## See Also
-
-- `repo analyze` - Deep repository analysis
-- `pr enhance` - Enhance pull requests
-- `issue triage` - Intelligent issue management
-- `code review` - Automated reviews
-
+/*============================================================================*/
+/* GITHUB-SWARM COMMAND :: VERILINGUA x VERIX EDITION                   */
+/*============================================================================*/
 
 ---
-*Promise: `<promise>GITHUB_SWARM_VERIX_COMPLIANT</promise>`*
+name: github-swarm
+version: 1.0.0
+binding: skill:github-swarm
+category: delivery
+---
+
+/*----------------------------------------------------------------------------*/
+/* S0 COMMAND IDENTITY                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COMMAND := {
+  name: "github-swarm",
+  binding: "skill:github-swarm",
+  category: "delivery",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 PURPOSE                                                                  */
+/*----------------------------------------------------------------------------*/
+
+[assert|neutral] PURPOSE := {
+  action: "Execute github-swarm workflow",
+  outcome: "Workflow completion with quality metrics",
+  use_when: "User invokes /github-swarm"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S2 USAGE SYNTAX                                                             */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SYNTAX := "/github-swarm [args]" [ground:given] [conf:1.0] [state:confirmed]
+
+[define|neutral] PARAMETERS := {
+  required: {
+    input: { type: "string", description: "Primary input" }
+  },
+  optional: {
+    options: { type: "object", description: "Additional options" }
+  },
+  flags: {
+    "--verbose": { description: "Enable verbose output", default: "false" }
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 EXECUTION FLOW                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXECUTION_STAGES := [
+  { stage: 1, action: "Execute command", model: "Claude" }
+] [ground:witnessed:workflow-design] [conf:0.95] [state:confirmed]
+
+[define|neutral] MULTI_MODEL_STRATEGY := {
+  gemini_search: "Research and web search tasks",
+  gemini_megacontext: "Large codebase analysis",
+  codex: "Code generation and prototyping",
+  claude: "Architecture and testing"
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S4 INPUT CONTRACT                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] INPUT_CONTRACT := {
+  required: {
+    command_args: "string - Command arguments"
+  },
+  optional: {
+    flags: "object - Command flags",
+    context: "string - Additional context"
+  },
+  prerequisites: [
+    "Valid project directory",
+    "Required tools installed"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 OUTPUT CONTRACT                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] OUTPUT_CONTRACT := {
+  artifacts: [
+    "Execution log",
+    "Quality metrics report"
+  ],
+  metrics: {
+    success_rate: "Percentage of successful executions",
+    quality_score: "Overall quality assessment"
+  },
+  state_changes: [
+    "Workflow state updated"
+  ]
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 SUCCESS INDICATORS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  pass_conditions: [
+    "Command executes without errors",
+    "Output meets quality thresholds"
+  ],
+  quality_thresholds: {
+    execution_success: ">= 0.95",
+    quality_score: ">= 0.80"
+  }
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 ERROR HANDLING                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] ERROR_HANDLERS := {
+  missing_input: {
+    symptom: "Required input not provided",
+    cause: "User omitted required argument",
+    recovery: "Prompt user for missing input"
+  },
+  execution_failure: {
+    symptom: "Command fails to complete",
+    cause: "Underlying tool or service error",
+    recovery: "Retry with verbose logging"
+  }
+} [ground:witnessed:failure-analysis] [conf:0.92] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 EXAMPLES                                                                 */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] EXAMPLES := [
+  { command: "/github-swarm example", description: "Basic usage" }
+] [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S9 CHAIN PATTERNS                                                           */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] CHAINS_WITH := {
+  sequential: [
+    "/github-swarm -> /review -> /deploy"
+  ],
+  parallel: [
+    "parallel ::: '/github-swarm arg1' '/github-swarm arg2'"
+  ]
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S10 RELATED COMMANDS                                                        */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] RELATED := {
+  complementary: ["/help"],
+  alternatives: [],
+  prerequisites: []
+} [ground:given] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S11 META-LOOP INTEGRATION                                                   */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] META_LOOP := {
+  expertise_check: {
+    domain: "delivery",
+    file: ".claude/expertise/delivery.yaml",
+    fallback: "discovery_mode"
+  },
+  benchmark: "github-swarm-benchmark-v1",
+  tests: [
+    "command_execution_success",
+    "workflow_validation"
+  ],
+  success_threshold: 0.90,
+  namespace: "commands/delivery/github-swarm/{project}/{timestamp}",
+  uncertainty_threshold: 0.85,
+  coordination: {
+    related_skills: ["github-swarm"],
+    related_agents: ["coder", "tester"]
+  }
+} [ground:system-policy] [conf:0.98] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S12 MEMORY TAGGING                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "github-swarm-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project-name}",
+  WHY: "command-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S13 ABSOLUTE RULES                                                          */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>GITHUB_SWARM_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

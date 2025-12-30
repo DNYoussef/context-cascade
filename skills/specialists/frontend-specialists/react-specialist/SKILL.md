@@ -1,10 +1,60 @@
+/*============================================================================*/
+/* REACT-SPECIALIST SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
 name: react-specialist
-description: Modern React development specialist for React 18+ with hooks, context, suspense, server components (Next.js 13+), state management (Redux/Zustand/Jotai), performance optimization (React.memo, useMemo, useCallback), and component library development. Use when building React applications, optimizing rendering performance, implementing complex state management, or creating reusable component libraries.
+version: 1.0.0
+description: |
+  [assert|neutral] Modern React development specialist for React 18+ with hooks, context, suspense, server components (Next.js 13+), state management (Redux/Zustand/Jotai), performance optimization (React.memo, useMemo, [ground:given] [conf:0.95] [state:confirmed]
 category: Frontend Specialists
-complexity: Medium
-triggers: ["react", "react 18", "hooks", "next.js", "redux", "zustand", "react performance", "server components", "suspense", "react testing library"]
+tags:
+- general
+author: system
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute react-specialist workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic Frontend Specialists processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "react-specialist",
+  category: "Frontend Specialists",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["react-specialist", "Frontend Specialists", "workflow"],
+  context: "user needs react-specialist capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # React Specialist
 
@@ -171,420 +221,67 @@ export const useUserStore = create<UserState>()(
       (set) => ({
         users: [],
         addUser: (user) => set((state) => ({
-          users: [...state.users, user]
-        })),
-        removeUser: (id) => set((state) => ({
-          users: state.users.filter(u => u.id !== id)
-        })),
-        clearUsers: () => set({ users: [] }),
-      }),
-      { name: 'user-storage' }
-    )
-  )
-);
-```
-
-**Step 3: Use Store in Components**
-
-```tsx
-// components/user-manager.tsx
-'use client';
-
-import { useUserStore } from '@/stores/user-store';
-
-export function UserManager() {
-  const users = useUserStore((state) => state.users);
-  const addUser = useUserStore((state) => state.addUser);
-  const removeUser = useUserStore((state) => state.removeUser);
-
-  return (
-    <div>
-      <button onClick={() => addUser({ id: Date.now(), name: 'New User' })}>
-        Add User
-      </button>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.name}
-            <button onClick={() => removeUser(user.id)}>Remove</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
-
-### Workflow 3: Performance Optimization
-
-**Step 1: Memoize Expensive Computations**
-
-```tsx
-import { useMemo } from 'react';
-
-function DataTable({ data }: { data: Item[] }) {
-  // ✅ Memoize expensive filtering/sorting
-  const sorted = useMemo(() => {
-    return data.sort((a, b) => a.value - b.value);
-  }, [data]);
-
-  return <table>{/* render sorted */}</table>;
-}
-```
-
-**Step 2: Prevent Unnecessary Re-renders**
-
-```tsx
-import { memo, useCallback } from 'react';
-
-interface ChildProps {
-  onAction: () => void;
-}
-
-// ✅ Memoize component
-const Child = memo(function Child({ onAction }: ChildProps) {
-  return <button onClick={onAction}>Action</button>;
-});
-
-function Parent() {
-  // ✅ Stable callback reference
-  const handleAction = useCallback(() => {
-    console.log('Action triggered');
-  }, []);
-
-  return <Child onAction={handleAction} />;
-}
-```
-
-**Step 3: Code Splitting with Lazy Loading**
-
-```tsx
-import { lazy, Suspense } from 'react';
-
-const HeavyComponent = lazy(() => import('./heavy-component'));
-
-function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <HeavyComponent />
-    </Suspense>
-  );
-}
-```
-
-**Step 4: Optimize Re-renders with React DevTools Profiler**
-
-```tsx
-import { Profiler } from 'react';
-
-function onRenderCallback(
-  id: string,
-  phase: 'mount' | 'update',
-  actualDuration: number
-) {
-  console.log(`${id} (${phase}) took ${actualDuration}ms`);
-}
-
-function App() {
-  return (
-    <Profiler id="App" onRender={onRenderCallback}>
-      <MyComponent />
-    </Profiler>
-  );
-}
-```
-
-### Workflow 4: Testing with React Testing Library
-
-**Step 1: Write Component Tests**
-
-```tsx
-// __tests__/user-list.test.tsx
-import { render, screen, fireEvent } from '@testing-library/react';
-import { UserList } from '@/components/user-list';
-
-describe('UserList', () => {
-  const mockUsers = [
-    { id: 1, name: 'Alice', email: 'alice@example.com' },
-    { id: 2, name: 'Bob', email: 'bob@example.com' },
-  ];
-
-  it('renders user list', () => {
-    render(<UserList users={mockUsers} />);
-    expect(screen.getByText('Alice')).toBeInTheDocument();
-    expect(screen.getByText('Bob')).toBeInTheDocument();
-  });
-
-  it('filters users by name', () => {
-    render(<UserList users={mockUsers} />);
-    const input = screen.getByPlaceholderText('Filter users...');
-
-    fireEvent.change(input, { target: { value: 'alice' } });
-
-    expect(screen.getByText('Alice')).toBeInTheDocument();
-    expect(screen.queryByText('Bob')).not.toBeInTheDocument();
-  });
-});
-```
-
-**Step 2: Test Hooks with `renderHook`**
-
-```tsx
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from '@/hooks/use-counter';
-
-describe('useCounter', () => {
-  it('increments counter', () => {
-    const { result } = renderHook(() => useCounter(0));
-
-    expect(result.current.count).toBe(0);
-
-    act(() => {
-      result.current.increment();
-    });
-
-    expect(result.current.count).toBe(1);
-  });
-});
-```
-
-## Best Practices
-
-**1. Server Components by Default (Next.js 13+)**
-```tsx
-// ✅ Server Component (default in app/ directory)
-async function ServerComponent() {
-  const data = await fetchData();
-  return <div>{data}</div>;
-}
-
-// Only use 'use client' when needed
-'use client';
-function ClientComponent() {
-  const [state, setState] = useState(0);
-  return <button onClick={() => setState(state + 1)}>{state}</button>;
-}
-```
-
-**2. Avoid Prop Drilling, Use Context Strategically**
-```tsx
-// ✅ GOOD: Context for global UI state
-const ThemeContext = createContext<'light' | 'dark'>('light');
-
-// ❌ BAD: Don't pass props through 5+ levels
-<A><B><C><D><E prop={value} /></D></C></B></A>
-```
-
-**3. Custom Hooks for Reusable Logic**
-```tsx
-// hooks/use-fetch.ts
-function useFetch<T>(url: string) {
-  const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch(url)
-      .then(res => res.json())
-      .then(setData)
-      .finally(() => setLoading(false));
-  }, [url]);
-
-  return { data, loading };
-}
-```
-
-**4. TypeScript for Props**
-```tsx
-interface ButtonProps {
-  variant: 'primary' | 'secondary';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
-  onClick?: () => void;
-}
-
-function Button({ variant, size = 'md', children, onClick }: ButtonProps) {
-  return <button onClick={onClick}>{children}</button>;
-}
-```
-
-**5. Accessibility (a11y)**
-```tsx
-// ✅ GOOD: Semantic HTML, ARIA labels, keyboard support
-<button
-  aria-label="Close modal"
-  onClick={onClose}
-  onKeyDown={(e) => e.key === 'Escape' && onClose()}
->
-  <CloseIcon aria-hidden="true" />
-</button>
-
-// ❌ BAD: Non-semantic, no ARIA
-<div onClick={onClose}>
-  <CloseIcon />
-</div>
-```
-
-## Quality Criteria
-
-- ✅ TypeScript strict mode enabled
-- ✅ No prop drilling beyond 3 levels
-- ✅ Performance: Lighthouse score ≥90
-- ✅ Test coverage ≥80%
-- ✅ Accessibility: WCAG 2.1 AA compliance
-- ✅ Bundle size: <200KB initial load (gzipped)
-
-## Common Patterns
-
-**Pattern 1: Compound Components**
-```tsx
-interface TabsContextValue {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
-
-const TabsContext = createContext<TabsContextValue | null>(null);
-
-function Tabs({ children }: { children: React.ReactNode }) {
-  const [activeTab, setActiveTab] = useState('tab1');
-  return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      {children}
-    </TabsContext.Provider>
-  );
-}
-
-function TabList({ children }: { children: React.ReactNode }) {
-  return <div role="tablist">{children}</div>;
-}
-
-function Tab({ value, children }: { value: string; children: React.ReactNode }) {
-  const { activeTab, setActiveTab } = useContext(TabsContext)!;
-  return (
-    <button
-      role="tab"
-      aria-selected={activeTab === value}
-      onClick={() => setActiveTab(value)}
-    >
-      {children}
-    </button>
-  );
-}
-
-// Usage
-<Tabs>
-  <TabList>
-    <Tab value="tab1">Tab 1</Tab>
-    <Tab value="tab2">Tab 2</Tab>
-  </TabList>
-</Tabs>
-```
-
-**Pattern 2: Render Props**
-```tsx
-interface DataFetcherProps<T> {
-  url: string;
-  children: (data: T | null, loading: boolean) => React.ReactNode;
-}
-
-function DataFetcher<T>({ url, children }: DataFetcherProps<T>) {
-  const { data, loading } = useFetch<T>(url);
-  return <>{children(data, loading)}</>;
-}
-
-// Usage
-<DataFetcher<User[]> url="/api/users">
-  {(users, loading) => loading ? <Spinner /> : <UserList users={users!} />}
-</DataFetcher>
-```
-
-## Troubleshooting
-
-**Issue**: "Hydration mismatch" errors in Next.js
-**Solution**: Ensure server and client render the same initial HTML. Use `suppressHydrationWarning` for time-dependent content.
-
-**Issue**: Slow performance with large lists
-**Solution**: Use virtualization (react-window or react-virtual) to render only visible items.
-
-**Issue**: State updates not batching in React 18
-**Solution**: Use `flushSync` sparingly; React 18 auto-batches by default.
-
-## Related Skills
-
-- `typescript-specialist`: TypeScript patterns
-- `wcag-accessibility`: Accessibility compliance
-- `testing-quality`: Advanced testing strategies
-- `docker-containerization`: Containerizing Next.js apps
-
-## Tools
-
-- **Frameworks**: Next.js, Remix, Gatsby
-- **State**: Zustand, Jotai, Redux Toolkit, TanStack Query
-- **Testing**: React Testing Library, Jest, Vitest, Playwright
-- **Performance**: React DevTools Profiler, Lighthouse
-
-## MCP Tools
-
-- `mcp__flow-nexus__sandbox_create` with `template: "react"` for isolated testing
-- `mcp__playwright__browser_snapshot` for visual testing
-- `mcp__memory-mcp__memory_store` for persisting React patterns
-
-## Success Metrics
-- [assert|neutral] Component creation: 10-15 minutes [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Feature with tests: 1-2 hours [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Lighthouse performance: ≥90 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Test coverage: ≥80% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Bundle size: <200KB (gzipped) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Skill Version**: 1.0.0 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Last Updated**: 2025-11-02 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Maintained By**: react-specialist agent [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Core Principles
-
-### 1. Server Components First - Optimize by Default
-React Server Components (RSC) in Next.js 13+ enable zero-JavaScript rendering for non-interactive parts, dramatically improving performance.
-
-**In practice**:
-- Default to Server Components (async functions, direct data fetching)
-- Use 'use client' directive only when state, effects, or event handlers are needed
-- Fetch data on the server to reduce client bundle size and improve SEO
-- Example: Product listing page fetches data server-side (no JS sent), only filter UI is client component
-
-### 2. Memoization for Performance - Prevent Unnecessary Work
-React re-renders components when props or state change. Memoization prevents expensive computations and renders when inputs haven't changed.
-
-**In practice**:
-- Use useMemo for expensive calculations (sorting, filtering large arrays)
-- Use useCallback to stabilize function references passed to child components
-- Use React.memo to prevent child re-renders when props are identical
-- Example: useMemo prevents re-sorting 10,000 items on every parent state change, only when data actually changes
-
-### 3. Accessibility by Default - Build for Everyone
-Accessibility is not optional. Semantic HTML, ARIA labels, and keyboard navigation ensure applications work for all users.
-
-**In practice**:
-- Use semantic HTML (button, nav, main) instead of divs for interactive elements
-- Add ARIA labels for screen readers (aria-label, aria-describedby)
-- Support keyboard navigation (Enter, Escape, Tab, Arrow keys)
-- Example: Modal dialog uses role="dialog", traps focus, and closes on Escape key
-
-## Anti-Patterns
-
-| Anti-Pattern | Problem | Solution |
-|-------------|---------|----------|
-| **'use client' Everywhere** | Marking all components as client components sends unnecessary JavaScript to browser, slowing page loads | Keep Server Components by default, only use 'use client' for interactive parts (forms, buttons, state management) |
-| **Prop Drilling 5+ Levels** | Passing props through multiple intermediate components creates fragile code and makes refactoring difficult | Use React Context for global UI state (theme, user) or composition patterns to avoid intermediate components |
-| **Inline Functions in JSX** | Creating new function references on every render causes child components to re-render unnecessarily | Use useCallback to memoize callbacks, or define handlers outside render if they don't depend on state |
-| **useState for Server Data** | Using useState for API data misses built-in features like caching, revalidation, and error handling | Use TanStack Query (React Query) for server state, or Next.js fetch with revalidation for Server Components |
-| **Non-Semantic HTML** | Using div and span for interactive elements breaks accessibility (screen readers, keyboard navigation) | Use semantic HTML (button, a, nav, main) and add ARIA attributes where needed for complex widgets |
-
-## Conclusion
-
-Modern React development prioritizes performance, type safety, and developer experience through Server Components, strict TypeScript, and comprehensive testing. The shift to Next.js App Router with React Server Components represents a fundamental change in how React applications are architected, moving computation to the server where possible and sending minimal JavaScript to clients.
-
-Performance optimization in React is achieved through strategic memoization, code splitting, and lazy loading. React.memo prevents unnecessary child re-renders, useMemo caches expensive computations, and useCallback stabilizes function references. Combined with React Suspense for loading states and Server Components for data fetching, modern React applications achieve Lighthouse scores above 90 while maintaining complex interactivity.
-
-Type safety through TypeScript strict mode catches errors at compile time rather than runtime. Proper typing of props, hooks, and API responses provides confidence during refactoring and enables powerful IDE features like autocomplete and inline documentation. Combined with Zod or Pydantic for runtime validation, TypeScript ensures data flowing through React applications matches expected shapes. Testing with React Testing Library focuses on user behavior rather than implementation details, creating maintainable test suites that survive refactoring. This comprehensive approach to React development produces applications that are fast, accessible, type-safe, and maintainable.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+          users: [...state.users,
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/Frontend Specialists/react-specialist/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "react-specialist-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>REACT_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

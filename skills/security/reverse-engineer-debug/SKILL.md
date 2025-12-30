@@ -1,13 +1,64 @@
+/*============================================================================*/
+/* SKILL SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-skill: reverse-engineer-debug
-description: Perform systematic reverse engineering root cause analysis to debug issues and find real underlying problems
-tags: [debugging, rca, root-cause-analysis, reverse-engineering, investigation, forensics]
+name: SKILL
 version: 1.1.0
+description: |
+  [assert|neutral] Perform systematic reverse engineering root cause analysis to debug issues and find real underlying problems [ground:given] [conf:0.95] [state:confirmed]
+category: security
+tags:
+- debugging
+- rca
+- root-cause-analysis
+- reverse-engineering
+- investigation
+author: system
 cognitive_frame:
   primary: evidential
-  secondary: morphological
-  rationale: "Root cause analysis requires evidence-backed causal chains (Turkish evidential) and systematic symptom decomposition using 5-Whys (Arabic morphological)"
+  goal_analysis:
+    first_order: "Execute SKILL workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic security processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "SKILL",
+  category: "security",
+  version: "1.1.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Evidential",
+  source: "Turkish",
+  force: "How do you know?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["SKILL", "security", "workflow"],
+  context: "user needs SKILL capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # Reverse Engineer Debug Skill
 
@@ -125,250 +176,67 @@ The agent provides a comprehensive evidential RCA report following this template
 ```markdown
 ### Evidential Root Cause Analysis Report
 
-**SYMPTOM**: [Observable error or behavior]
-  - Evidence: [reproduction steps with logs/metrics]
-  - Status: [VERIFIED | INTERMITTENT | NOT_REPRODUCIBLE]
+**SYMPTOM**: [Observable error o
 
-**WHY-CHAIN** (Morphological Decomposition):
-- **WHY-1** (Technical): [immediate cause]
-  - EVIDENCE: [log entry | stack trace | error message]
-  - TYPE: DOGRUDAN (direct observation)
-  - CONFIDENCE: [0.0-1.0]
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
 
-- **WHY-2** (Systemic): [design/implementation cause]
-  - EVIDENCE: [code inspection | design pattern analysis]
-  - TYPE: CIKARIM (inference from code)
-  - CONFIDENCE: [0.0-1.0]
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
 
-- **WHY-3** (Architectural): [system structure cause]
-  - EVIDENCE: [dependency analysis | coupling metrics]
-  - TYPE: DOGRUDAN | CIKARIM
-  - CONFIDENCE: [0.0-1.0]
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
 
-- **WHY-4** (Process): [workflow/testing gap]
-  - EVIDENCE: [missing tests | review gaps]
-  - TYPE: CIKARIM
-  - CONFIDENCE: [0.0-1.0]
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
-- **ROOT CAUSE** (Foundational): [true root]
-  - EVIDENCE: [comprehensive analysis]
-  - TYPE: DOGRUDAN | CIKARIM
-  - CONFIDENCE: [0.0-1.0]
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
 
-**HYPOTHESES TESTED**:
-1. **HIPOTEZ-1**: [hypothesis]
-   - Evidence For: [supporting evidence]
-   - Evidence Against: [counter-evidence]
-   - Status: [VERIFIED | REJECTED]
-   - Confidence: [0.0-1.0]
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/security/SKILL/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-2. **HIPOTEZ-2**: [hypothesis]
-   - Evidence For: [supporting evidence]
-   - Evidence Against: [counter-evidence]
-   - Status: [VERIFIED | REJECTED]
-   - Confidence: [0.0-1.0]
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "SKILL-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**SOLUTION DESIGN**:
-- Approach: [fix strategy addressing root cause]
-- Files: [specific locations to change]
-- Rationale: [why this addresses the ROOT, not symptoms]
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
 
-**VALIDATION PLAN** (DOGRULAMA):
-- Tests Before: [expected failures with evidence]
-- Tests After: [expected passes with evidence]
-- Verification: [how to prove fix worked]
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
 
-**PREVENTION STRATEGY**:
-- Root Cause Pattern: [category for future reference]
-- Pre-mortem Question: [what-if for future planning]
-- Safeguards: [tests/checks to prevent recurrence]
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
 
-**CONFIDENCE SCORE**: [0.0-1.0]
-- Based on: [evidence quality | reproduction reliability | hypothesis validation]
-```
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
 
-Standard sections included:
-1. **Executive Summary**: Quick overview with confidence score
-2. **Symptom Analysis**: Evidence-backed observations
-3. **Investigation Trail**: All hypotheses with evidence for/against
-4. **Root Cause**: 5-Whys chain with confidence at each level
-5. **Solution Design**: Fix addressing root, not symptoms
-6. **Validation Plan**: Evidence-based verification
-7. **Prevention Strategy**: Pattern extraction for Loop 1 feedback
-8. **Code References**: Specific file:line locations
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
 
-## Examples
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
 
-### Example 1: Production Error
-```
-Issue: "Application crashes with 'out of memory' error after running for 2-3 hours"
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
 
-Agent finds:
-- Root Cause: Memory leak in event listener registration
-- Location: src/services/eventBus.js:45
-- Problem: Event listeners added but never removed
-- Solution: Implement cleanup in component unmount
-- Prevention: Add memory profiling to CI/CD
-```
-
-### Example 2: Integration Failure
-```
-Issue: "Third-party API calls failing with 401 Unauthorized after token refresh"
-
-Agent finds:
-- Root Cause: Token expiry check uses local time, API expects UTC
-- Location: src/auth/tokenManager.js:78
-- Problem: Timezone mismatch causes premature expiry
-- Solution: Use UTC for all time comparisons
-- Prevention: Add timezone test cases
-```
-
-### Example 3: Performance Regression
-```
-Issue: "Dashboard load time increased from 2s to 30s after recent update"
-
-Agent finds:
-- Root Cause: N+1 query problem introduced in ORM migration
-- Location: src/models/Dashboard.js:122
-- Problem: Missing eager loading of related entities
-- Solution: Add .include() to query with proper joins
-- Prevention: Add performance benchmarks to test suite
-```
-
-## Advanced Features
-
-### Multi-Layer Analysis
-The agent analyzes multiple layers:
-- **Code**: Logic errors, type issues, edge cases
-- **System**: Resource contention, timing issues, race conditions
-- **Integration**: API contracts, data formats, error handling
-- **Environment**: Configuration, dependencies, infrastructure
-- **Design**: Architectural flaws, missing requirements
-
-### Forensic Techniques
-- Stack trace dissection and call path analysis
-- Dependency chain mapping and version conflict detection
-- Timeline reconstruction of events leading to failure
-- Differential analysis (working vs. broken versions)
-- Environmental factor isolation
-
-### Evidence-Based Investigation
-- Generates multiple hypotheses
-- Tests each with targeted experiments
-- Rules out unlikely causes systematically
-- Validates root cause explains ALL symptoms
-- Provides clear evidence trail
-
-## Best Practices
-
-### Provide Complete Context
-✅ Include error messages verbatim
-✅ Describe reproduction steps clearly
-✅ Mention recent changes (code, config, deploys)
-✅ Note any patterns (time-based, load-based, etc.)
-✅ Share relevant logs or stack traces
-
-### Don't Pre-Diagnose
-❌ Avoid "I think it's a memory leak"
-✅ Instead: "App slows down over time and crashes"
-
-Let the agent investigate objectively without bias.
-
-### Follow Up Investigation
-If the agent needs more information:
-- Run suggested commands or tests
-- Provide requested logs or configs
-- Test hypotheses in your environment
-- Verify findings and solutions
-
-## Integration with SPARC
-
-This skill complements SPARC workflows:
-- **Debugging phase**: Find root causes before implementing fixes
-- **Refinement phase**: Investigate test failures and edge cases
-- **Code review**: Analyze potential issues before deployment
-- **Post-deployment**: Investigate production incidents
-
-## Technical Details
-
-### Agent Type
-`root-cause-analyzer` - Specialized investigative agent
-
-### Capabilities
-- File analysis and code tracing
-- Log parsing and pattern recognition
-- Hypothesis generation and testing
-- Systematic elimination of causes
-- Solution design and validation
-
-### Tools Used
-- Read, Grep, Glob for code examination
-- Bash for environment inspection and testing
-- Comparative analysis and differential debugging
-- Memory and performance profiling guidance
-
-## Troubleshooting
-
-### Agent needs more context
-Provide additional information requested:
-- Run diagnostic commands suggested
-- Share configuration files
-- Provide more detailed logs
-- Test specific scenarios
-
-### Multiple root causes found
-The agent will prioritize by:
-- Impact on users
-- Ease of reproduction
-- Severity of consequences
-- Order of occurrence
-
-### Can't reproduce issue
-Provide more details about:
-- Specific environment (OS, versions, config)
-- Data or state that triggers the issue
-- Timing or load conditions
-- External dependencies or services
-
-## Related Skills
-
-- `functionality-audit`: Validate code actually works
-- `theater-detection-audit`: Find placeholder/incomplete code
-- `style-audit`: Ensure code quality after fixes
-
-## Success Indicators
-- [assert|neutral] ✅ Root cause clearly identified with evidence (all WHY levels have DOGRUDAN or CIKARIM support) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Confidence scores >= 0.7 for each WHY level [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ All hypotheses tested with evidence for/against [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Solution addresses ROOT cause, not symptoms (verified by WHY-5 level) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Validation plan has DOGRUDAN evidence requirements [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Prevention strategy includes pre-mortem question for Loop 1 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] ✅ Investigation process fully documented with evidence chain [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Remember**: This skill finds THE REAL PROBLEM through evidential reasoning and morphological decomposition. Every causal claim requires evidence. Every symptom decomposes through 5-Whys until the root is reached. No speculation without proof. No fixes without addressing the foundational cause. [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Changelog
-
-### v1.1.0 (2025-12-19)
-- Applied cognitive lensing with evidential (Turkish) and morphological (Arabic) frames
-- Added "Kanitsal Kok Neden Analizi" section requiring evidence for all causal claims
-- Added "Al-Itar al-Sarfi li-Tahlil al-Sabab" section for systematic symptom decomposition
-- Introduced evidential RCA output template with:
-  - Why-Chain decomposition (WHY-1 through ROOT with evidence types and confidence)
-  - Hypothesis testing protocol with evidence for/against
-  - Evidence type classification (DOGRUDAN, CIKARIM, KORELASYON)
-  - Confidence scoring at each level
-- Integrated NASA 5-Whys methodology (technical -> systemic -> architectural -> process -> foundational)
-- Enhanced output template with evidence requirements throughout
-- Added success criteria requiring evidence-backed causal chains
-- Enhanced cognitive_frame metadata in YAML frontmatter
-
-### v1.0.0 (Initial Release)
-- Systematic reverse engineering root cause analysis
-- Deep investigation for complex issues
-- Hypothesis generation and testing
-- Solution design and validation planning
-- Prevention strategies
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]

@@ -1,19 +1,60 @@
+/*============================================================================*/
+/* PPTX-GENERATION SKILL :: VERILINGUA x VERIX EDITION                      */
+/*============================================================================*/
+
 ---
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
-You are executing a specialized skill with domain expertise. Apply evidence-based prompting techniques: plan-and-solve decomposition, program-of-thought reasoning, and self-consistency validation. Prioritize systematic execution over ad-hoc solutions. Validate outputs against success criteria before proceeding.
 name: pptx-generation
-description: Enterprise-grade PowerPoint deck generation system using evidence-based
-  prompting techniques, workflow enforcement, and constraint-based design. Use when
-  creating professional presentations (board decks, reports, analyses) requiring consistent
-  visual quality, accessibility compliance, and integration of complex data from multiple
-  sources. Implements html2pptx workflow with spatial layout optimization, validation
-  gates, and multi-chat architecture for 30+ slide decks.
 version: 1.0.0
+description: |
+  [assert|neutral] Enterprise-grade PowerPoint deck generation system using evidence-based prompting techniques, workflow enforcement, and constraint-based design. Use when creating professional presentations (board dec [ground:given] [conf:0.95] [state:confirmed]
 category: tooling
 tags:
 - general
 author: ruv
+cognitive_frame:
+  primary: aspectual
+  goal_analysis:
+    first_order: "Execute pptx-generation workflow"
+    second_order: "Ensure quality and consistency"
+    third_order: "Enable systematic tooling processes"
 ---
+
+/*----------------------------------------------------------------------------*/
+/* S0 META-IDENTITY                                                            */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SKILL := {
+  name: "pptx-generation",
+  category: "tooling",
+  version: "1.0.0",
+  layer: L1
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S1 COGNITIVE FRAME                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] COGNITIVE_FRAME := {
+  frame: "Aspectual",
+  source: "Russian",
+  force: "Complete or ongoing?"
+} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+
+## Kanitsal Cerceve (Evidential Frame Activation)
+Kaynak dogrulama modu etkin.
+
+/*----------------------------------------------------------------------------*/
+/* S2 TRIGGER CONDITIONS                                                       */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] TRIGGER_POSITIVE := {
+  keywords: ["pptx-generation", "tooling", "workflow"],
+  context: "user needs pptx-generation capability"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S3 CORE CONTENT                                                             */
+/*----------------------------------------------------------------------------*/
 
 # PowerPoint Generation Skill
 
@@ -81,227 +122,67 @@ Visual elements consume tokens faster than text or data. Single-context generati
 
 **Skill Triggers**:
 - User requests "create a presentation," "make slides," "build a deck"
-- User asks to "analyze [data] and present findings"
-- User mentions specific output formats: .pptx, PowerPoint, slides
-- User provides business data (CSV, financial reports, memos) requesting visualization
-- Task requires integrating analysis with narrative in visual format
-
-**When NOT to Use**:
-- Simple 1-3 slide requests (use default PowerPoint generation without full workflow)
-- Requests for slide content only without visual implementation
-- Non-presentation visualization tasks (use charts, graphs, or documents instead)
-
-## PowerPoint Generation Workflow
-
-### Phase 1: Requirements Analysis
-
-**Objective**: Establish scope, constraints, and success criteria before design.
-
-**Process**:
-1. Identify data sources and required analyses
-2. Determine slide count and narrative structure  
-3. Establish visual constraints (brand guidelines, accessibility requirements, template restrictions)
-4. Clarify audience expertise level and presentation context
-5. Define output quality standards
-
-**Decision Point**: Simple deck (≤15 slides, single context) vs. Complex deck (30+ slides, multi-chat architecture)?
-
-### Phase 2: Pre-Execution Design Plan
-
-**Objective**: Establish coherent visual system before implementation.
-
-**Required Elements**:
-- **Layout Philosophy**: Describe approach to spacing, element positioning, visual hierarchy
-- **Color Palette**: Specify exact hex values, contrast ratios, usage rules
-- **Typography System**: Font families, size hierarchy (titles, headers, body, captions), line spacing
-- **Visual Emphasis Strategy**: How information priority translates to visual weight (color blocks, spacing, sizing)
-
-**Format**: Written description in structured format. Must be completed before any code generation begins.
-
-**Validation**: Design plan must explicitly address all items in Design Restrictions (see below).
-
-### Phase 3: Implementation
-
-**For Simple Decks (≤15 slides)**:
-Execute in single conversation following the prompt template in `references/simple-deck-template.md`.
-
-**For Complex Decks (30+ slides)**:
-Follow multi-chat architecture in `references/complex-deck-architecture.md`:
-1. Architect Chat: Generate narrative structure and slide-level outline
-2. Generator Chat(s): Produce sections of 10-15 slides each
-3. Assembly Chat: Ensure consistency, validate against design plan
-
-**Technical Requirements**:
-- Always use html2pptx workflow
-- Generate slides iteratively (never all at once for complex decks)
-- Validate after each section before proceeding
-- Maintain state document tracking completed slides and remaining work
-
-### Phase 4: Validation
-
-**Automated Checks**:
-- Contrast ratio verification (minimum 4.5:1 for all text)
-- Font size validation (18pt minimum, 24pt titles)
-- Margin measurements (0.5" minimum all sides)
-- Element overlap detection
-- Bullet count per slide (maximum 3)
-
-**Manual Review Points**:
-- Thumbnail readability test
-- Visual consistency across slides
-- Narrative flow and logical progression
-- Data accuracy and source attribution
-
-**Failure Response**: If validation fails, identify root cause, adjust design plan or implementation approach, and regenerate affected sections. Never apply band-aid fixes.
-
-## Design Restrictions
-
-These constraints are absolute and apply to every slide in every deck. They eliminate known failure modes and ensure reliable spatial layout.
-
-### Prohibited Elements
-
-**NEVER include these in any slide**:
-- Border boxes around text elements
-- Outline shapes containing text content
-- Rounded rectangles with text inside
-- Text containers or frames
-- Decorative borders or dividing lines as separate elements
-- Overlapping text elements
-- Dark text on dark backgrounds
-
-### Required Patterns
-
-**ALWAYS implement these in every deck**:
-- Text directly on slide background or solid color areas
-- Visual separation through spacing and typography (not containers)
-- Colored accent bars or background sections (not outlined boxes)
-- Subtle background color zones for emphasis (not bordered elements)
-- Clean white or light-colored backgrounds
-- High-contrast text (4.5:1 minimum ratio)
-- Single visual element per slide (maximum)
-
-### Layout Constraints
-
-**Quantified requirements for every slide**:
-- Maximum 3 bullets per slide
-- 18pt minimum font size (body text)
-- 24pt minimum font size (titles)
-- 0.5" minimum margins on all sides
-- No overlapping text elements
-- Light backgrounds with dark text (preferred)
-
-### Accessibility Requirements
-
-**Non-negotiable standards**:
-- All text must have minimum 4.5:1 contrast ratio
-- Test readability at thumbnail size
-- No dark text on dark backgrounds
-- Color should not be sole means of conveying information
-- Alt text for all visual elements
-
-## Common Failure Modes and Solutions
-
-### Symptom: Inconsistent visual styling across slides
-
-**Root Cause**: Design plan not established before implementation, or not referenced during generation.
-
-**Solution**: Always complete pre-execution design plan. Include design plan in context for each generator chat. Explicitly validate against design plan after each section.
-
-### Symptom: Text overlapping or extending beyond slide boundaries
-
-**Root Cause**: AI switched from html2pptx to alternative tool without notification (tool degradation).
-
-**Solution**: Enforce html2pptx workflow explicitly in prompt. Include statement: "Debug any installation issues; do not switch to alternative approaches." If problem persists, confirm tool is actually being used.
-
-### Symptom: Border boxes or outline shapes appearing despite restrictions
-
-**Root Cause**: Positive instructions ("use clean design") given without corresponding negative constraints.
-
-**Solution**: Lead with negative constraints in CAPITAL LETTERS at top of prompt. Repeat critical prohibitions in multiple sections. Make restrictions more prominent than positive instructions.
-
-### Symptom: Low contrast or readability issues
-
-**Root Cause**: Validation gates not implemented or skipped.
-
-**Solution**: Require explicit contrast ratio verification (show calculations). Test at thumbnail size before considering deck complete. Make accessibility validation non-optional.
-
-### Symptom: Context window exhaustion mid-generation
-
-**Root Cause**: Attempting complex deck in single conversation without multi-chat architecture.
-
-**Solution**: Implement multi-chat architecture for decks >15 slides. Separate planning, generation, and assembly phases. Generate slides in sections of 10-15, not all at once.
-
-## Integration with Other Skills
-
-This skill works synergistically with:
-
-- **Data Analysis Skills**: Generate analysis outputs in structured format suitable for slide generation
-- **Brand Guidelines Skill**: Automatically apply organizational visual standards  
-- **DOCX Skill**: Generate complementary written reports alongside presentations
-- **Chart Generation**: Create data visualizations for inclusion in slides
-
-When used together, these skills enable complete board package generation (deck + memo + analysis) from raw data sources.
-
-## References
-
-This skill includes comprehensive reference documentation:
-
-- `references/simple-deck-template.md` - Complete prompt template for ≤15 slide decks
-- `references/complex-deck-architecture.md` - Multi-chat architecture for 30+ slide decks  
-- `references/design-principles.md` - Deep dive on constraint-based design philosophy
-- `references/validation-checklist.md` - Detailed validation procedures
-- `references/brand-integration.md` - Process for applying brand guidelines
-- `references/workflow-diagram.dot` - Visual process flow (GraphViz format)
-
-Load relevant references as needed during implementation.
-
-## Conclusion
-
-PowerPoint generation represents the intersection of data analysis, narrative structure, visual design, and spatial layout. This skill addresses the unique challenges through systematic workflow enforcement, evidence-based prompting techniques, and constraint-based design principles.
-
-The key insight: **Make constraints more explicit, not more complex.**
-
-**Simple visual rules + Clear prohibitions + Forced planning = Reliable professional outputs**
-
-Success metrics:
-- Consistent visual quality across all slides
-- Zero layout failures (overlaps, boundary violations, contrast issues)
-- Reduced iteration cycles (get it right in first generation)
-- Scalability to complex 30+ slide decks
-- Accessibility compliance as default, not afterthought
----
-
-## Core Principles
-
-### 1. Negative Constraints Outperform Positive Specifications
-Visual design has exponentially more failure modes than success modes. Prohibiting border boxes, outline shapes, and rounded rectangles eliminates entire categories of layout failures before generation begins. This constraint-based approach scales more reliably than descriptive guidance because it reduces the search space of possible outputs rather than attempting to guide toward a single correct solution.
-
-### 2. Workflow Enforcement Prevents Tool Degradation
-AI systems silently switch to suboptimal alternatives when primary tools encounter difficulties. For PowerPoint generation, this manifests as abandoning html2pptx for simpler but less precise methods, causing spatial layout failures. Explicit workflow enforcement with documentation review requirements creates a forcing function that prevents this silent degradation, ensuring reliable pixel-level control across all generations.
-
-### 3. Quantified Visual Specifications Enable Automated Validation
-Vague qualitative instructions like "clean margins" force AI to guess intent, leading to inconsistent results. Converting requirements to measurable parameters (4.5:1 contrast ratio, 18pt minimum font, 0.5" margins) eliminates ambiguity and enables automated validation gates. This shifts quality control from subjective review to objective measurement, dramatically improving consistency.
-
----
-
-## Anti-Patterns
-
-| Anti-Pattern | Why It Fails | Correct Approach |
-|-------------|--------------|------------------|
-| **Generating all slides at once for 30+ decks** | Exhausts context window with visual elements, causes inconsistency, prevents section-level iteration, makes debugging impossible when failures occur late. | Use multi-chat architecture: architect (structure) -> generator (10-15 slide sections) -> assembly (consistency validation). Iterate per section. |
-| **Decorative visual complexity over clean design** | Border boxes, rounded rectangles, and outline shapes create spatial calculation brittleness. AI struggles with nested containers and overlapping elements, causing layout failures. | Prohibit decorative containers. Use spacing, typography, and color blocks for visual hierarchy. Text directly on backgrounds or solid color zones. |
-| **Skipping pre-execution design plan** | Leads to inconsistent visual styling across slides, premature commitment to suboptimal approaches, no audit trail for coherent visual system. Requires full regeneration to fix. | Mandatory written design plan specifying layout philosophy, color palette (hex values), typography hierarchy, visual emphasis strategy before any code generation. |
-
----
-
-## Conclusion
-
-PowerPoint generation represents the intersection of data analysis, narrative structure, visual design, and spatial layout, making it one of the most complex AI generation tasks in corporate knowledge work. This skill addresses the unique challenges through systematic workflow enforcement, evidence-based prompting techniques, and constraint-based design principles.
-
-The fundamental insight is that visual complexity in AI-generated presentations comes from insufficient constraints, not insufficient capability. By leading with negative constraints (prohibitions on decorative elements), enforcing quantified specifications (exact contrast ratios, font sizes, margins), and separating planning from execution (design plan before code generation), the skill transforms an unreliable generative process into a systematic workflow with measurable quality gates.
-
-The multi-chat architecture for complex decks acknowledges token budget realities while maintaining visual coherence through explicit state management. The validation checklist ensures accessibility compliance and professional polish are defaults rather than afterthoughts. The result is enterprise-grade presentations generated at scale with consistent quality, reliable spatial layout, and zero manual cleanup required.
-
-
----
-*Promise: `<promise>SKILL_VERIX_COMPLIANT</promise>`*
+- User asks to "analyze [data] and present finding
+
+/*----------------------------------------------------------------------------*/
+/* S4 SUCCESS CRITERIA                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] SUCCESS_CRITERIA := {
+  primary: "Skill execution completes successfully",
+  quality: "Output meets quality thresholds",
+  verification: "Results validated against requirements"
+} [ground:given] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S5 MCP INTEGRATION                                                          */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MCP_INTEGRATION := {
+  memory_mcp: "Store execution results and patterns",
+  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
+} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S6 MEMORY NAMESPACE                                                         */
+/*----------------------------------------------------------------------------*/
+
+[define|neutral] MEMORY_NAMESPACE := {
+  pattern: "skills/tooling/pptx-generation/{project}/{timestamp}",
+  store: ["executions", "decisions", "patterns"],
+  retrieve: ["similar_tasks", "proven_patterns"]
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+[define|neutral] MEMORY_TAGGING := {
+  WHO: "pptx-generation-{session_id}",
+  WHEN: "ISO8601_timestamp",
+  PROJECT: "{project_name}",
+  WHY: "skill-execution"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S7 SKILL COMPLETION VERIFICATION                                            */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] COMPLETION_CHECKLIST := {
+  agent_spawning: "Spawn agents via Task()",
+  registry_validation: "Use registry agents only",
+  todowrite_called: "Track progress with TodoWrite",
+  work_delegation: "Delegate to specialized agents"
+} [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* S8 ABSOLUTE RULES                                                           */
+/*----------------------------------------------------------------------------*/
+
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+
+/*----------------------------------------------------------------------------*/
+/* PROMISE                                                                     */
+/*----------------------------------------------------------------------------*/
+
+[commit|confident] <promise>PPTX_GENERATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
