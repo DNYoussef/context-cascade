@@ -1,6 +1,38 @@
-# 12-Factor Agents Plugin Marketplace
+# Context Cascade - AI Development System
 
-Production-grade AI development system with **100% 12-Factor compliance**, **271 visual workflows**, and proven **2.5-4x speedup**.
+Production-grade AI development system with **100% 12-Factor compliance**, **271 visual workflows**, **MCP Session Manager**, and proven **2.5-4x speedup**.
+
+## NEW: MCP Session Manager
+
+Manage your MCP servers before Claude sessions to **save context tokens**:
+
+```bash
+# Start the admin dashboard
+node dependencies/start-dashboard.cjs
+
+# Access at:
+# Dashboard:       http://localhost:8765/
+# Session Manager: http://localhost:8765/session
+# Health Check:    http://localhost:8765/health
+```
+
+**Features**:
+- 19 MCP servers in catalog with context cost estimates
+- 7 pre-configured profiles (minimal, core, research, code-review, automation, orchestration, full-power)
+- Enable/disable MCPs before starting Claude to reduce context overhead
+- Health monitoring with auto-restart
+- OpenTelemetry-compatible telemetry
+
+**Profiles**:
+| Profile | MCPs | Est. Tokens | Use Case |
+|---------|------|-------------|----------|
+| minimal | 0 | 0 | Maximum context |
+| core | 2 | 2,800 | Daily work |
+| research | 4 | 4,800 | Web research |
+| code-review | 4 | 5,100 | Code quality |
+| full-power | 12 | 16,100 | Everything enabled |
+
+---
 
 ## 🚀 Quick Start
 
@@ -159,6 +191,8 @@ claude mcp add flow-nexus npx flow-nexus@latest mcp start
 |--------|-------------|
 | **12-FA Compliance** | 100% ✅ |
 | **Security Score** | 100% (0 vulnerabilities) ✅ |
+| **MECE Audit Tests** | 201/201 (100% pass) ✅ |
+| **MCP Catalog** | 19 servers, 7 profiles |
 | **Speed Improvement** | 2.5-4x average |
 | **Parallel Speedup** | 6.75-8.3x |
 | **Failure Rate** | <3% |
@@ -214,18 +248,52 @@ MIT - See [LICENSE](https://github.com/DNYoussef/ruv-sparc-three-loop-system/blo
 
 ---
 
-## 🎉 What's New in v3.0.0
+## 🎉 What's New in v3.1.0
 
-- ✅ **Official Claude Code Plugin Support** (October 2025)
+### MCP Session Manager
+- ✅ **Admin Dashboard** - Web UI at localhost:8765
+- ✅ **19 MCP Catalog** - All servers with context cost estimates
+- ✅ **7 Profiles** - One-click MCP configuration
+- ✅ **Health Monitoring** - Auto-restart on failures
+- ✅ **Gateway Proxy** - Centralized MCP routing
+
+### MECE Remediation (201 Tests, 100% Pass)
+- ✅ **Phase 1: Security** - Token manager, RBAC, checksum validation (15 tests)
+- ✅ **Phase 2: Safety** - Constitution, guardian, auto-rollback (23 tests)
+- ✅ **Phase 3: Terminology** - Ground truth, registry sync (20 tests)
+- ✅ **Phase 4: Architecture** - Archetypes, providers, state (28 tests)
+- ✅ **Phase 5: Quality** - Unit, integration, E2E tests (67 tests)
+- ✅ **Phase 6: Dependencies** - Lockfile, gateway, telemetry (48 tests)
+
+### Previous (v3.0.0)
+- ✅ **Official Claude Code Plugin Support**
 - ✅ **Modular Marketplace** - 5 installable plugins
 - ✅ **100% 12-Factor Compliance** - Perfect score achieved
 - ✅ **271 Graphviz Diagrams** - Complete visual documentation
 - ✅ **Security Hardening** - 6 enterprise components
 - ✅ **Zero Vulnerabilities** - 100% security score
-- ✅ **Production Certified** - Ready for enterprise deployment
 
 ---
 
-**Version**: 3.0.0
+## 📂 New Directory Structure
+
+```
+context-cascade/
+  dependencies/           # MCP infrastructure
+    admin/               # Dashboard + Session Manager
+    gateway/             # MCP gateway proxy
+    health/              # Health monitoring
+    observability/       # Telemetry
+    version-lock/        # MCP lockfile
+  security/              # Token, RBAC, sandbox
+  safety/                # Constitution, guardian
+  quality/               # Test suites
+  architecture/          # Archetypes, state
+  terminology/           # Registry sync
+```
+
+---
+
+**Version**: 3.1.0
 **Author**: DNYoussef
-**Last Updated**: November 1, 2025
+**Last Updated**: December 31, 2025
