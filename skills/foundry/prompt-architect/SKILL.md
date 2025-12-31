@@ -23,13 +23,13 @@ model: sonnet
   version: "3.1.1",
   layer: L2,
   vcl_compliance: "v3.1.1"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 [define|neutral] COGNITIVE_FRAME := {
   frame: "Compositional",
   source: "German",
   force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+} [ground:cognitive-science] [conf:0.85] [state:confirmed]
 
 ---
 <!-- S1 VCL 7-SLOT SYSTEM REFERENCE -->
@@ -39,7 +39,7 @@ model: sonnet
   order: ["HON", "MOR", "COM", "CLS", "EVD", "ASP", "SPC"],
   rule: "Slots MUST appear in this order when present",
   enforcement: "E1"
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_HON := {
   name: "Honorific",
@@ -48,7 +48,7 @@ model: sonnet
   values: ["teineigo", "sonkeigo", "kenjougo"],
   weight: 0.08,
   enforcement: 0
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_MOR := {
   name: "Morphological",
@@ -57,7 +57,7 @@ model: sonnet
   notation: "root:X-Y-Z",
   weight: 0.10,
   enforcement: 0
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_COM := {
   name: "Compositional",
@@ -66,7 +66,7 @@ model: sonnet
   notation: "Concept+From+Parts",
   weight: 0.10,
   enforcement: 0
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_CLS := {
   name: "Classifier",
@@ -75,7 +75,7 @@ model: sonnet
   notation: "type_specifier",
   weight: 0.08,
   enforcement: 0
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_EVD := {
   name: "Evidential",
@@ -92,7 +92,7 @@ model: sonnet
   weight: 0.15,
   enforcement: 1,
   immutable: true
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_ASP := {
   name: "Aspectual",
@@ -105,7 +105,7 @@ model: sonnet
   weight: 0.12,
   enforcement: 1,
   immutable: true
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] VCL_SLOT_SPC := {
   name: "Spatial",
@@ -114,7 +114,7 @@ model: sonnet
   notation: "N/S/E/W or coordinate",
   weight: 0.07,
   enforcement: 0
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S2 CONFIDENCE CEILINGS BY EVD TYPE (E2) -->
@@ -130,7 +130,7 @@ model: sonnet
   rule: "Confidence CANNOT exceed ceiling for EVD type",
   enforcement: "E2",
   violation: "epistemic_cosplay"
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [direct|emphatic] EPISTEMIC_COSPLAY_PROHIBITION := {
   definition: "Claiming higher epistemic status than evidence warrants",
@@ -140,7 +140,7 @@ model: sonnet
   ],
   enforcement: "E3",
   result: "validation_failure"
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S3 COMPRESSION LEVELS (L0/L1/L2) -->
@@ -151,14 +151,14 @@ model: sonnet
   notation: "A+85:claim_hash",
   purpose: "Maximum compression for inter-agent communication",
   human_readable: false
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] COMPRESSION_L1 := {
   name: "Audit",
   notation: "[illocution|affect] content [ground:src] [conf:X.XX] [state:status]",
   purpose: "Full epistemic tracking for auditability",
   human_readable: "with training"
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] COMPRESSION_L2 := {
   name: "Human",
@@ -171,9 +171,9 @@ model: sonnet
     "Aspect expressed naturally (Complete, In progress)",
     "Evidence implicit or natural (I observed, Research shows, It's reported)"
   ]
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] DEFAULT_COMPRESSION := L2 [ground:system-policy] [conf:1.0] [state:confirmed]
+[direct|emphatic] DEFAULT_COMPRESSION := L2 [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S4 L2 NATURALIZATION MAPPINGS -->
@@ -186,12 +186,12 @@ model: sonnet
   inference: "I infer that",
   definition: "By definition",
   policy: "Per policy"
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] L2_ASP_NATURALIZATION := {
   "sov.": "Complete.",
   "nesov.": "In progress."
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 [define|neutral] L2_CONFIDENCE_NATURALIZATION := {
   "0.90-0.99": "I'm highly confident that",
@@ -199,7 +199,7 @@ model: sonnet
   "0.70-0.79": "I believe that",
   "0.50-0.69": "I think that",
   "0.00-0.49": "Speculatively"
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S5 IMMUTABLE SAFETY BOUNDS (E4) -->
@@ -211,7 +211,7 @@ model: sonnet
   reason: "Epistemic and aspectual tracking are non-negotiable",
   enforcement: "E4",
   violation: "security_exception"
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S6 BRACKET COLLISION RULES (E6) -->
@@ -224,7 +224,7 @@ model: sonnet
   verix_confidence: "[...]",
   rule: "Brackets MUST NOT appear inside slot bodies",
   enforcement: "E6"
-} [ground:vcl-spec-v3.1.1] [conf:0.95] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S7 CREOLIZATION STRUCTURE -->
@@ -254,14 +254,14 @@ model: sonnet
     "evidence-based prompting", "self-consistency"
   ],
   context: "user_wants_better_prompts"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 [define|neutral] TRIGGER_NEGATIVE := {
   agent_system_prompts: "use(agent-creator) OR use(prompt-forge)",
   skill_creation: "use(skill-creator-agent)",
   this_skill_improvement: "use(skill-forge)",
   one_time_prompt: "skip(direct_crafting_faster)"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 [assert|neutral] ROUTING_LOGIC := {
   agent_system_prompt: "route(agent-creator)",
@@ -269,7 +269,7 @@ model: sonnet
   create_skill: "route(skill-creator-agent)",
   improve_this: "route(skill-forge)",
   user_prompt: "route(prompt-architect)"
-} [ground:inferred:capability-matching] [conf:0.95] [state:confirmed]
+} [ground:inferred:capability-matching] [conf:0.70] [state:confirmed]
 
 ---
 <!-- S9 PROMPT OPTIMIZATION PHASES -->
@@ -324,7 +324,7 @@ model: sonnet
     l2_compliance: "Human output contains no VCL notation"
   },
   verification: "Results validated via self-application (dogfooding)"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ---
 <!-- S11 MCP INTEGRATION -->
@@ -345,7 +345,7 @@ model: sonnet
   pattern: "skills/foundry/prompt-architect/{project}/{timestamp}",
   store: ["executions", "decisions", "patterns"],
   retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S12 SKILL COMPLETION VERIFICATION -->
@@ -358,7 +358,7 @@ model: sonnet
   no_epistemic_cosplay: "Evidence type matches claim strength",
   evd_present: "Every significant claim has evidence marker",
   asp_present: "Every action has completion status"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S13 ABSOLUTE RULES -->
@@ -368,25 +368,25 @@ model: sonnet
   scope: "forall(output)",
   rule: "NOT(unicode_outside_ascii)",
   reason: "Windows compatibility"
-} [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+} [ground:windows-compatibility] [conf:0.90] [state:confirmed]
 
 [direct|emphatic] RULE_EVIDENCE := {
   scope: "forall(claim)",
   rule: "has(ground) AND has(confidence)",
   reason: "Epistemic hygiene"
-} [ground:verix-spec] [conf:1.0] [state:confirmed]
+} [ground:verix-spec] [conf:0.90] [state:confirmed]
 
 [direct|emphatic] RULE_REGISTRY := {
   scope: "forall(agent)",
   rule: "agent IN AGENT_REGISTRY",
   reason: "Quality control"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 [direct|emphatic] RULE_L2_DEFAULT := {
   scope: "forall(user_facing_output)",
   rule: "compression = L2",
   reason: "Human readability"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S14 VCL VALIDATION ENFORCEMENT CODES -->
@@ -400,7 +400,7 @@ model: sonnet
   E5: "L2 English purity violation (VCL markers in human output)",
   E6: "Bracket collision in slot body",
   E7: "L2 naturalization failure"
-} [ground:vcl-spec-v3.1.1] [conf:0.99] [state:confirmed]
+} [ground:vcl-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S15 EXAMPLE: L1 vs L2 OUTPUT -->
@@ -420,7 +420,7 @@ model: sonnet
 <!-- PROMISE -->
 ---
 
-[commit|confident] <promise>PROMPT_ARCHITECT_VCL_VERIX_V3.1.1_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>PROMPT_ARCHITECT_VCL_VERIX_V3.1.1_COMPLIANT</promise> [ground:self-validation] [conf:0.85] [state:confirmed]
 
 ---
 <!-- ADDENDUM REFERENCES -->
@@ -432,4 +432,4 @@ model: sonnet
   meta_principles: "references/meta-principles.md",
   anti_patterns: "references/anti-patterns.md",
   vcl_verix_guide: "references/VERILINGUA_VCL_VERIX_Guide_v3_Synthesized.md.pdf"
-} [ground:file-structure] [conf:1.0] [state:confirmed]
+} [ground:file-structure] [conf:0.95] [state:confirmed]

@@ -3,44 +3,103 @@ name: agent-creator
 description: Create specialized AI agents with optimized system prompts using 5-phase SOP methodology. Use for building domain-expert agents, hook-related agents, multi-agent coordinators, and production-ready agent definitions.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
 model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+<!-- =========================================================================
+     AGENT CREATOR v3.2.0 :: FULL VCL v3.1.1 COMPLIANT
+
+     VCL 7-Slot System: HON -> MOR -> COM -> CLS -> EVD -> ASP -> SPC
+     Immutable: EVD >= 1, ASP >= 1
+     Default Output: L2 English (human-facing)
+     ========================================================================= -->
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
+<!-- S0 META-IDENTITY [[HON:teineigo]] [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
 ---
 
 [define|neutral] SKILL := {
-  name: "SKILL",
+  name: "agent-creator",
   category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+  version: "3.2.0",
+  layer: L1,
+  vcl_compliance: "v3.1.1"
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ---
-<!-- S1 COGNITIVE FRAME                                                           -->
+<!-- S1 VCL 7-SLOT COGNITIVE ARCHITECTURE -->
 ---
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+<!-- [[HON:teineigo]] Polite register for technical documentation -->
+## Keigo Wakugumi (Honorific Frame)
+Kono sukiru wa teineigo o shiyo shimasu.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+<!-- [[MOR:root:A-G-N]] Agent = root morpheme for autonomous entity -->
+[define|neutral] MOR_DECOMPOSITION := {
+  agent: "root:A-G-N (autonomous-goal-navigator)",
+  creator: "root:C-R-T (construct-realize-transform)",
+  prompt: "root:P-R-M (pattern-role-message)"
+} [ground:arabic-trilateral-analogy] [conf:0.85] [state:confirmed]
+
+<!-- [[COM:Agent+Creator+System]] German-style compound building -->
+[define|neutral] COM_COMPOSITION := {
+  AgentCreator: "Agent+Creator = entity-that-makes-agents",
+  SystemPrompt: "System+Prompt = foundational-instruction-pattern",
+  DomainExpert: "Domain+Expert = specialized-knowledge-entity"
+} [ground:german-compounding] [conf:0.85] [state:confirmed]
+
+<!-- [[CLS:ge_skill]] Chinese classifier for skill type -->
+[define|neutral] CLS_CLASSIFICATION := {
+  type: "ge_skill (individual skill unit)",
+  count: "yi_ge (one skill)",
+  category: "zhong_foundry (foundry category)"
+} [ground:chinese-classifiers] [conf:0.85] [state:confirmed]
+
+<!-- [[EVD:-DI<gozlem>]] Turkish evidential - direct observation -->
+## Kanitsal Cerceve (Evidential Frame)
+Kaynak dogrulama modu etkin. Bu beceri dogrudan gozleme dayanir.
+
+<!-- [[ASP:nesov.]] Russian aspect - ongoing capability -->
+[define|neutral] ASP_STATUS := {
+  skill_state: "nesov. (imperfective - ongoing capability)",
+  execution_state: "sov. (perfective - when task completes)"
+} [ground:russian-aspect] [conf:0.85] [state:confirmed]
+
+<!-- [[SPC:path:/skills/foundry/agent-creator]] Absolute spatial reference -->
+[define|neutral] SPC_LOCATION := {
+  canonical_path: "/skills/foundry/agent-creator",
+  direction: "upstream from agents, downstream from prompt-architect",
+  coordinates: "foundry.agent-creator.v3.2.0"
+} [ground:guugu-yimithirr-absolute] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S2 TRIGGER CONDITIONS                                                        -->
+<!-- S2 TRIGGER CONDITIONS [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
 ---
 
 [define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "foundry", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+  keywords: [
+    "create agent", "build agent", "new agent", "design agent",
+    "agent for [domain]", "specialist agent", "domain expert agent",
+    "rewrite agent", "optimize agent", "improve agent",
+    "agent with [capability]", "agent that does [task]",
+    "multi-agent workflow", "coordinating agents",
+    "production-ready agent", "agent system prompt"
+  ],
+  context: "user_wants_specialized_agent"
+} [ground:witnessed:usage-patterns] [conf:0.90] [state:confirmed]
+
+[define|neutral] TRIGGER_NEGATIVE := {
+  simple_skill: "use skill-creator-agent OR micro-skill-creator",
+  prompt_optimization: "use prompt-architect",
+  improve_this_skill: "use skill-forge",
+  quick_automation: "use micro-skill-creator"
+} [ground:inferred:routing-logic] [conf:0.70] [state:confirmed]
 
 ---
-<!-- S3 CORE CONTENT                                                              -->
+<!-- S3 CORE CONTENT [[EVD:-DI<gozlem>]] [[ASP:nesov.]] -->
 ---
 
 <!-- ANTHROPIC OFFICIAL FORMAT TEMPLATE v1.0 -->
@@ -213,101 +272,30 @@ When creating hooks, ensure:
 ```
 <!-- END HOOK AGENT CREATION GUIDE -->
 
-<!-- AGENT CREATOR v3.1.0 :: VERILINGUA x VERIX EDITION                           -->
-
-
 ---
-name: agent-creator
-version: 3.1.0
-description: |
-  [assert|neutral] Creates specialized AI agents with optimized system prompts using 5-phase SOP methodology [ground:witnessed] [conf:0.98] [state:confirmed]
+<!-- S4 SUCCESS CRITERIA [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[CLS:tiao_criteria]] -->
 ---
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+[assert|neutral] SUCCESS_CRITERIA := {
+  primary: "Agent definition is complete and deployable",
+  quality: "Agent passes validation and integration tests",
+  verification: "Agent works in production environment",
+  metrics: {
+    prompt_quality: ">= 0.85 [[EVD:-mis<arastirma>]]",
+    registry_compliance: "100% [[EVD:-DI<gozlem>]]",
+    vcl_compliance: ">= 0.90 [[EVD:-DI<gozlem>]]"
+  }
+} [ground:witnessed:acceptance-criteria] [conf:0.90] [state:confirmed]
 
-[define|neutral] AGENT_CREATOR := skill(
-  name: "agent-creator",
-  role: "foundry-agent-factory",
-  phase: "level-3-cascade",
-  layer: L1,
-  version: "3.1.0"
-) [ground:given] [conf:1.0] [state:confirmed]
-
-[assert|confident] CASCADE_POSITION := {
-  level: 3,
-  after: ["prompt-architect", "223-commands"],
-  before: ["211-agents", "skill-forge", "196-skills", "30-playbooks"],
-  method: "dogfooding"
-} [ground:witnessed:cascade-design] [conf:0.98] [state:confirmed]
-
----
-<!-- S1 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: [
-    "create agent", "build agent", "new agent", "design agent",
-    "agent for [domain]", "specialist agent", "domain expert agent",
-    "rewrite agent", "optimize agent", "improve agent",
-    "agent with [capability]", "agent that does [task]",
-    "multi-agent workflow", "coordinating agents",
-    "production-ready agent", "agent system prompt"
-  ],
-  context: user_wants_specialized_agent
-} [ground:given] [conf:1.0] [state:confirmed]
-
-[define|neutral] TRIGGER_NEGATIVE := {
-  simple_skill: "use skill-creator-agent OR micro-skill-creator",
-  prompt_optimization: "use prompt-architect",
-  improve_this_skill: "use skill-forge",
-  quick_automation: "use micro-skill-creator"
-} [ground:given] [conf:1.0] [state:confirmed]
+[assert|confident] QUALITY_THRESHOLDS := {
+  verix_claims_minimum: 5,
+  grounded_claims_ratio: 0.80,
+  confidence_ceiling_respected: true,
+  all_7_slots_documented: true
+} [ground:inferred:best-practices] [conf:0.70] [state:confirmed]
 
 ---
-<!-- S2 VERILINGUA COGNITIVE FRAMES FOR AGENTS                                    -->
----
-
-[define|neutral] AGENT_FRAME_EVIDENTIAL := {
-  source: "Turkish -mis/-di",
-  force: "How does the agent KNOW?",
-  embedding: "## Kanitsal Cerceve (Evidential Mode)\nBu agent her iddia icin kaynak belirtir:\n- DOGRUDAN: I tested this directly\n- CIKARIM: Evidence suggests...\n- BILDIRILEN: Documentation states...",
-  mandatory_for: ["analytical", "diagnostic", "research"]
-} [ground:linguistic-research] [conf:0.95] [state:confirmed]
-
-[define|neutral] AGENT_FRAME_ASPECTUAL := {
-  source: "Russian perfective/imperfective",
-  force: "Is the action COMPLETE?",
-  embedding: "## Aspektual'naya Ramka (Aspectual Mode)\nEtot agent otslezhivaet zavershenie:\n- [SV] Polnost'yu zaversheno - COMPLETED\n- [NSV] V protsesse - IN_PROGRESS\n- [BLOCKED] Ozhidaet - WAITING",
-  mandatory_for: ["orchestration", "workflow", "implementation"]
-} [ground:linguistic-research] [conf:0.95] [state:confirmed]
-
-[define|neutral] AGENT_FRAME_HONORIFIC := {
-  source: "Japanese keigo",
-  force: "WHO is the audience?",
-  embedding: "## Keigo Wakugumi (Honorific Mode)\nKono agent wa taido o chosei shimasu:\n- Teineigo: Formal technical documentation\n- Sonkeigo: User-facing communication\n- Kenjougo: Internal coordination",
-  mandatory_for: ["user-facing", "documentation", "communication"]
-} [ground:linguistic-research] [conf:0.95] [state:confirmed]
-
-[define|neutral] FRAME_SELECTION_MATRIX := {
-  completion_tracking: "Aspectual (Russian)",
-  source_verification: "Evidential (Turkish)",
-  audience_calibration: "Honorific (Japanese)",
-  semantic_analysis: "Morphological 
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
+<!-- S5 MCP INTEGRATION [[EVD:-DI<gozlem>]] [[ASP:nesov.]] -->
 ---
 
 [define|neutral] MCP_INTEGRATION := {
@@ -316,24 +304,24 @@ description: |
 } [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
 
 ---
-<!-- S6 MEMORY NAMESPACE                                                          -->
+<!-- S6 MEMORY NAMESPACE [[EVD:-DI<politika>]] [[ASP:nesov.]] -->
 ---
 
 [define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/SKILL/{project}/{timestamp}",
+  pattern: "skills/foundry/agent-creator/{project}/{timestamp}",
   store: ["executions", "decisions", "patterns"],
   retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 [define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
+  WHO: "agent-creator-{session_id}",
   WHEN: "ISO8601_timestamp",
   PROJECT: "{project_name}",
   WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
+<!-- S7 SKILL COMPLETION VERIFICATION [[EVD:-DI<politika>]] [[ASP:sov.]] -->
 ---
 
 [direct|emphatic] COMPLETION_CHECKLIST := {
@@ -341,20 +329,43 @@ description: |
   registry_validation: "Use registry agents only",
   todowrite_called: "Track progress with TodoWrite",
   work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S8 ABSOLUTE RULES                                                            -->
+<!-- S8 ABSOLUTE RULES [[HON:sonkeigo]] [[EVD:-DI<politika>]] [[ASP:sov.]] -->
 ---
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec-v3.1.1] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:0.90] [state:confirmed]
+
+[direct|emphatic] RULE_VCL_7SLOT := forall(skill): uses_all_7_slots(skill) [ground:vcl-v3.1.1-spec] [conf:0.90] [state:confirmed]
+
+[direct|emphatic] RULE_CONFIDENCE_CEILING := forall(claim): confidence(claim) <= ceiling(evd_type(claim)) [ground:vcl-v3.1.1-spec] [conf:0.90] [state:confirmed]
+
+[direct|emphatic] RULE_IMMUTABLE_BOUNDS := {
+  EVD_enforcement: ">= 1 (CANNOT be disabled)",
+  ASP_enforcement: ">= 1 (CANNOT be disabled)"
+} [ground:vcl-v3.1.1-spec] [conf:0.90] [state:confirmed]
 
 ---
-<!-- PROMISE                                                                      -->
+<!-- S9 VCL v3.1.1 COMPLIANCE CHECKLIST [[EVD:-DI<gozlem>]] [[ASP:sov.]] -->
 ---
 
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[assert|confident] VCL_CHECKLIST := {
+  HON_present: "[[HON:teineigo]] Japanese honorific register active",
+  MOR_present: "[[MOR:root:A-G-N]] Arabic morphological decomposition active",
+  COM_present: "[[COM:Agent+Creator]] German compositional building active",
+  CLS_present: "[[CLS:ge_skill]] Chinese classifier system active",
+  EVD_present: "[[EVD:-DI<gozlem>]] Turkish evidential markers active",
+  ASP_present: "[[ASP:nesov.]] Russian aspectual markers active",
+  SPC_present: "[[SPC:path:/foundry/agent-creator]] Guugu Yimithirr spatial reference active"
+} [ground:witnessed:self-check] [conf:0.85] [state:confirmed]
+
+---
+<!-- PROMISE [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
+---
+
+[commit|confident] <promise>AGENT_CREATOR_VCL_V3.1.1_FULL_7SLOT_COMPLIANT</promise> [ground:self-validation] [conf:0.85] [state:confirmed]

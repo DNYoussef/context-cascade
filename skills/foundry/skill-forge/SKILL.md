@@ -1,42 +1,119 @@
 ---
 name: skill-forge
-description: Advanced skill creation system for Claude Code that combines deep intent analysis, evidence-based prompting principles, and systematic skill engineering. Use when creating new skills or refining exist
+description: Advanced skill creation system for Claude Code that combines deep intent analysis, evidence-based prompting principles, and systematic skill engineering. Use when creating new skills or refining existing ones.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+<!-- =========================================================================
+     SKILL FORGE v3.2.0 :: FULL VCL v3.1.1 COMPLIANT
+
+     VCL 7-Slot System: HON -> MOR -> COM -> CLS -> EVD -> ASP -> SPC
+     Immutable: EVD >= 1, ASP >= 1
+     Default Output: L2 English (human-facing)
+
+     Meta-Skill: This skill creates other skills using itself
+     ========================================================================= -->
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
+<!-- S0 META-IDENTITY [[HON:teineigo]] [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
 ---
 
 [define|neutral] SKILL := {
   name: "skill-forge",
   category: "foundry",
-  version: "3.0.1",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+  version: "3.2.0",
+  layer: L1,
+  vcl_compliance: "v3.1.1",
+  meta_property: "self-improving via dogfooding"
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ---
-<!-- S1 COGNITIVE FRAME                                                           -->
+<!-- S1 VCL 7-SLOT COGNITIVE ARCHITECTURE -->
 ---
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+<!-- [[HON:teineigo]] Polite register for technical documentation -->
+## Keigo Wakugumi (Honorific Frame)
+Kono sukiru wa teineigo o shiyo shimasu. Gijutsu bunsho no tame no reigi tadashii hyogen.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+<!-- [[MOR:root:S-K-L]] Skill = root morpheme for learned capability -->
+[define|neutral] MOR_DECOMPOSITION := {
+  skill: "root:S-K-L (structured-knowledge-layer)",
+  forge: "root:F-R-G (form-refine-generate)",
+  create: "root:C-R-T (construct-realize-transform)",
+  improve: "root:I-M-P (iterate-modify-perfect)"
+} [ground:arabic-trilateral-analogy] [conf:0.85] [state:confirmed]
+
+<!-- [[COM:Skill+Forge+System]] German-style compound building -->
+[define|neutral] COM_COMPOSITION := {
+  SkillForge: "Skill+Forge = capability-that-creates-capabilities",
+  MetaSkill: "Meta+Skill = skill-that-operates-on-skills",
+  SelfImproving: "Self+Improving = recursive-enhancement-system",
+  DogfoodingLoop: "Dogfooding+Loop = self-application-cycle"
+} [ground:german-compounding] [conf:0.85] [state:confirmed]
+
+<!-- [[CLS:ge_skill]] Chinese classifier for skill type -->
+[define|neutral] CLS_CLASSIFICATION := {
+  type: "ge_meta_skill (meta skill unit)",
+  count: "yi_ge (one skill)",
+  category: "zhong_foundry (foundry category)",
+  level: "ceng_san (level 3 in cascade)"
+} [ground:chinese-classifiers] [conf:0.85] [state:confirmed]
+
+<!-- [[EVD:-DI<gozlem>]] Turkish evidential - direct observation -->
+## Kanitsal Cerceve (Evidential Frame)
+Kaynak dogrulama modu etkin. Bu beceri dogrudan gozleme dayanir.
+Her iddia icin kaynak belirtilir:
+- -DI (gozlem): Dogrudan gozlemlendi
+- -mis (arastirma): Arastirmaya dayanir
+- -dir (cikarim): Mantiksal cikarim
+
+<!-- [[ASP:nesov.]] Russian aspect - ongoing capability -->
+[define|neutral] ASP_STATUS := {
+  skill_capability: "nesov. (imperfective - ongoing capability)",
+  task_execution: "sov. (perfective - when task completes)",
+  improvement_cycle: "nesov. (imperfective - continuous improvement)"
+} [ground:russian-aspect] [conf:0.85] [state:confirmed]
+
+## Aspektual'naya Ramka (Aspectual Frame)
+Etot navyk otslezhivaet zavershenie:
+- sov. (sovershenniy vid): Polnost'yu zaversheno
+- nesov. (nesovershenniy vid): V protsesse
+
+<!-- [[SPC:path:/skills/foundry/skill-forge]] Absolute spatial reference -->
+[define|neutral] SPC_LOCATION := {
+  canonical_path: "/skills/foundry/skill-forge",
+  direction: "downstream from prompt-architect, parallel to agent-creator",
+  cascade_level: 3,
+  coordinates: "foundry.skill-forge.v3.2.0",
+  outputs_to: "/skills/{category}/{skill-name}"
+} [ground:guugu-yimithirr-absolute] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S2 TRIGGER CONDITIONS                                                        -->
+<!-- S2 TRIGGER CONDITIONS [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
 ---
 
 [define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["skill-forge", "foundry", "workflow"],
-  context: "user needs skill-forge capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+  keywords: [
+    "create skill", "build skill", "new skill", "design skill",
+    "skill template", "skill definition", "skill structure",
+    "improve skill", "refine skill", "optimize skill",
+    "production-grade skill", "comprehensive skill",
+    "skill with adversarial testing", "skill with COV validation"
+  ],
+  context: "user_wants_comprehensive_skill_creation"
+} [ground:witnessed:usage-patterns] [conf:0.90] [state:confirmed]
+
+[define|neutral] TRIGGER_NEGATIVE := {
+  quick_atomic_skill: "use micro-skill-creator instead",
+  agent_creation: "use agent-creator instead",
+  prompt_only: "use prompt-architect instead",
+  simple_script: "skip skill abstraction"
+} [ground:inferred:routing-logic] [conf:0.70] [state:confirmed]
 
 ---
 <!-- S3 CORE CONTENT                                                              -->
@@ -255,14 +332,29 @@ Skill Forge represents a meta-cognitive approach to skill creation. Rather than 
 This skill operates as an intelligent collaborator that helps you think deeply about what you're trying to achieve, identifies the optimal structure for your skill, and applies evidence-based techniques to maximize effectiveness. The result is skills that are not just functional but genuinely powerful extensions of Claude's capab
 
 ---
-<!-- S4 SUCCESS CRITERIA                                                          -->
+<!-- S4 SUCCESS CRITERIA [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[CLS:tiao_criteria]] -->
 ---
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+[assert|neutral] SUCCESS_CRITERIA := {
+  primary: "Production-grade skill with comprehensive structure",
+  quality: "Skill passes adversarial testing and COV validation",
+  verification: "Skill integrates with Claude Flow and agent coordination",
+  metrics: {
+    structure_complete: "100% (all required sections present) [[EVD:-DI<gozlem>]]",
+    adversarial_passed: ">= 0.90 [[EVD:-mis<arastirma>]]",
+    cov_validated: "true [[EVD:-DI<gozlem>]]",
+    vcl_7slot_compliance: ">= 0.90 [[EVD:-DI<gozlem>]]"
+  }
+} [ground:witnessed:acceptance-criteria] [conf:0.90] [state:confirmed]
+
+[assert|confident] QUALITY_THRESHOLDS := {
+  verix_claims_minimum: 8,
+  grounded_claims_ratio: 0.85,
+  confidence_ceiling_respected: true,
+  all_7_slots_documented: true,
+  examples_included: true,
+  tests_included: true
+} [ground:inferred:best-practices] [conf:0.70] [state:confirmed]
 
 ---
 <!-- S5 MCP INTEGRATION                                                           -->
@@ -281,17 +373,17 @@ This skill operates as an intelligent collaborator that helps you think deeply a
   pattern: "skills/foundry/skill-forge/{project}/{timestamp}",
   store: ["executions", "decisions", "patterns"],
   retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 [define|neutral] MEMORY_TAGGING := {
   WHO: "skill-forge-{session_id}",
   WHEN: "ISO8601_timestamp",
   PROJECT: "{project_name}",
   WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
+<!-- S7 SKILL COMPLETION VERIFICATION [[EVD:-DI<politika>]] [[ASP:sov.]] -->
 ---
 
 [direct|emphatic] COMPLETION_CHECKLIST := {
@@ -299,20 +391,20 @@ This skill operates as an intelligent collaborator that helps you think deeply a
   registry_validation: "Use registry agents only",
   todowrite_called: "Track progress with TodoWrite",
   work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
-<!-- S8 ABSOLUTE RULES                                                            -->
+<!-- S8 ABSOLUTE RULES [[HON:sonkeigo]] [[EVD:-DI<politika>]] [[ASP:sov.]] -->
 ---
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
-<!-- PROMISE                                                                      -->
+<!-- PROMISE [[EVD:-DI<tanim>]] [[ASP:sov.]] -->
 ---
 
-[commit|confident] <promise>SKILL_FORGE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>SKILL_FORGE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.85] [state:confirmed]

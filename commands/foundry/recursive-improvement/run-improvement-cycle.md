@@ -17,7 +17,7 @@ category: delivery
   binding: "skill:run-improvement-cycle",
   category: "delivery",
   layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S1 PURPOSE                                                                  */
@@ -27,13 +27,13 @@ category: delivery
   action: "Execute run-improvement-cycle workflow",
   outcome: "Workflow completion with quality metrics",
   use_when: "User invokes /run-improvement-cycle"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S2 USAGE SYNTAX                                                             */
 /*----------------------------------------------------------------------------*/
 
-[define|neutral] SYNTAX := "/run-improvement-cycle [args]" [ground:given] [conf:1.0] [state:confirmed]
+[define|neutral] SYNTAX := "/run-improvement-cycle [args]" [ground:given] [conf:0.95] [state:confirmed]
 
 [define|neutral] PARAMETERS := {
   required: {
@@ -45,7 +45,7 @@ category: delivery
   flags: {
     "--verbose": { description: "Enable verbose output", default: "false" }
   }
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S3 EXECUTION FLOW                                                           */
@@ -78,7 +78,7 @@ category: delivery
     "Valid project directory",
     "Required tools installed"
   ]
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S5 OUTPUT CONTRACT                                                          */
@@ -96,7 +96,7 @@ category: delivery
   state_changes: [
     "Workflow state updated"
   ]
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S6 SUCCESS INDICATORS                                                       */
@@ -111,7 +111,7 @@ category: delivery
     execution_success: ">= 0.95",
     quality_score: ">= 0.80"
   }
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S7 ERROR HANDLING                                                           */
@@ -138,7 +138,7 @@ category: delivery
   { command: "/run-improvement-cycle .claude/skills/micro-skill-creator/SK", description: "Example usage" },
   { command: "/run-improvement-cycle .claude/skills/recursive-improvement/", description: "Example usage" },
   { command: "/run-improvement-cycle .claude/skills/skill-forge/SKILL.md", description: "Example usage" }
-] [ground:given] [conf:1.0] [state:confirmed]
+] [ground:given] [conf:0.95] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S9 CHAIN PATTERNS                                                           */
@@ -185,7 +185,7 @@ category: delivery
     related_skills: ["run-improvement-cycle"],
     related_agents: ["coder", "tester"]
   }
-} [ground:system-policy] [conf:0.98] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S12 MEMORY TAGGING                                                          */
@@ -196,20 +196,20 @@ category: delivery
   WHEN: "ISO8601_timestamp",
   PROJECT: "{project-name}",
   WHY: "command-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* S13 ABSOLUTE RULES                                                          */
 /*----------------------------------------------------------------------------*/
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:0.90] [state:confirmed]
 
 /*----------------------------------------------------------------------------*/
 /* PROMISE                                                                     */
 /*----------------------------------------------------------------------------*/
 
-[commit|confident] <promise>RUN_IMPROVEMENT_CYCLE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>RUN_IMPROVEMENT_CYCLE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.85] [state:confirmed]

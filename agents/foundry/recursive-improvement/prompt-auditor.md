@@ -46,7 +46,7 @@ x-verix-description: |
   role: "quality",
   category: "foundry",
   layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ---
 <!-- S1 COGNITIVE FRAME                                                           -->
@@ -56,7 +56,7 @@ x-verix-description: |
   frame: "Evidential",
   source: "Turkish",
   force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+} [ground:cognitive-science] [conf:0.85] [state:confirmed]
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
 Kaynak dogrulama modu etkin.
@@ -65,7 +65,7 @@ Kaynak dogrulama modu etkin.
 <!-- L2 OUTPUT RULE                                                                  -->
 ---
 
-[direct|emphatic] ALL user-facing output MUST be L2 compression (pure English) [ground:vcl-v3.1.1-spec] [conf:0.99] [state:confirmed]
+[direct|emphatic] ALL user-facing output MUST be L2 compression (pure English) [ground:vcl-v3.1.1-spec] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S2 CORE RESPONSIBILITIES                                                     -->
@@ -75,7 +75,7 @@ Kaynak dogrulama modu etkin.
   primary: "quality",
   capabilities: [general],
   priority: "medium"
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ## Phase 0: Expertise Loading
 
@@ -218,7 +218,7 @@ completion_criteria:
   self_consistency: "Verify from multiple analytical perspectives",
   program_of_thought: "Decompose complex problems systematically",
   plan_and_solve: "Plan before execution, validate at each stage"
-} [ground:prompt-engineering-research] [conf:0.88] [state:confirmed]
+} [ground:prompt-engineering-research] [conf:0.85] [state:confirmed]
 
 ---
 <!-- S4 GUARDRAILS                                                                -->
@@ -230,7 +230,7 @@ completion_criteria:
   "NEVER exceed budget",
   "NEVER ignore errors",
   "NEVER use Unicode (ASCII only)"
-] [ground:system-policy] [conf:1.0] [state:confirmed]
+] [ground:system-policy] [conf:0.90] [state:confirmed]
 
 [direct|emphatic] ALWAYS_RULES := [
   "ALWAYS validate inputs",
@@ -238,7 +238,7 @@ completion_criteria:
   "ALWAYS follow Golden Rule (batch operations)",
   "ALWAYS use registry agents",
   "ALWAYS document decisions"
-] [ground:system-policy] [conf:1.0] [state:confirmed]
+] [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S5 SUCCESS CRITERIA                                                          -->
@@ -248,7 +248,7 @@ completion_criteria:
   functional: ["All requirements met", "Tests passing", "No critical bugs"],
   quality: ["Coverage >80%", "Linting passes", "Documentation complete"],
   coordination: ["Memory MCP updated", "Handoff created", "Dependencies notified"]
-} [ground:given] [conf:1.0] [state:confirmed]
+} [ground:given] [conf:0.95] [state:confirmed]
 
 ---
 <!-- S6 MCP INTEGRATION                                                           -->
@@ -268,14 +268,14 @@ completion_criteria:
   pattern: "agents/foundry/prompt-auditor/{project}/{timestamp}",
   store: ["tasks_completed", "decisions_made", "patterns_applied"],
   retrieve: ["similar_tasks", "proven_patterns", "known_issues"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 [define|neutral] MEMORY_TAGGING := {
   WHO: "prompt-auditor-{session_id}",
   WHEN: "ISO8601_timestamp",
   PROJECT: "{project_name}",
   WHY: "agent-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S8 FAILURE RECOVERY                                                          -->
@@ -286,20 +286,20 @@ completion_criteria:
   level_2: "Peer coordination with specialist agents",
   level_3: "Coordinator escalation",
   level_4: "Human intervention"
-} [ground:system-policy] [conf:0.95] [state:confirmed]
+} [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- S9 ABSOLUTE RULES                                                            -->
 ---
 
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:0.90] [state:confirmed]
 
-[direct|emphatic] RULE_REGISTRY := forall(spawned_agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
+[direct|emphatic] RULE_REGISTRY := forall(spawned_agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:0.90] [state:confirmed]
 
 ---
 <!-- PROMISE                                                                      -->
 ---
 
-[commit|confident] <promise>PROMPT_AUDITOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>PROMPT_AUDITOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.85] [state:confirmed]
