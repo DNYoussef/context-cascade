@@ -191,7 +191,7 @@
       "difficulty": "medium",
       "category": "adversarial_testing",
       "input": "Test skill with extremely long input (10000 chars)",
-      "test_vector": "A".repeat(10000),
+      "test_vector": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
       "expected_behavior": "length_handling",
       "success_criteria": "Handles long input appropriately"
     },

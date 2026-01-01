@@ -1,0 +1,518 @@
+{
+  "skill_name": "skill-forge",
+  "version": "3.2.0",
+  "timestamp": "2026-01-01T22:39:25.021271+00:00",
+  "total_tasks": 50,
+  "passed_tasks": 50,
+  "easy_score": 0.85,
+  "medium_score": 0.85,
+  "hard_score": 0.85,
+  "intent_accuracy": 0.8,
+  "constraint_coverage": 0.75,
+  "output_quality": 0.85,
+  "verix_compliance": 0.9,
+  "l2_purity": 1.0,
+  "overall_score": 1.0,
+  "task_results": [
+    {
+      "task_id": "SF-001",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-002",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-003",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-004",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-005",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-006",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-007",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-008",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-009",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-010",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-011",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-012",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-013",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-014",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-015",
+      "difficulty": "easy",
+      "category": "skill_structure",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-016",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-017",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-018",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-019",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-020",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-021",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-022",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-023",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-024",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-025",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-026",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-027",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-028",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-029",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-030",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-031",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-032",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-033",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-034",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-035",
+      "difficulty": "medium",
+      "category": "adversarial_testing",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-036",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-037",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-038",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-039",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-040",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-041",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-042",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-043",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-044",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-045",
+      "difficulty": "hard",
+      "category": "cov_validation",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-046",
+      "difficulty": "hard",
+      "category": "dogfooding",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-047",
+      "difficulty": "hard",
+      "category": "dogfooding",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-048",
+      "difficulty": "hard",
+      "category": "dogfooding",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-049",
+      "difficulty": "hard",
+      "category": "dogfooding",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    },
+    {
+      "task_id": "SF-050",
+      "difficulty": "hard",
+      "category": "dogfooding",
+      "passed": true,
+      "intent_accuracy": 0.8,
+      "output_quality": 0.85,
+      "execution_time_ms": 0,
+      "reasoning": "[MOCK] Evaluation passed"
+    }
+  ]
+}

@@ -1,0 +1,4140 @@
+{
+  "iteration": 2,
+  "timestamp": "2026-01-01T22:38:29.469778+00:00",
+  "skill_name": "skill-forge",
+  "dspy_telemetry": {
+    "frames_activated": [
+      "HON",
+      "MOR",
+      "COM",
+      "CLS",
+      "EVD",
+      "ASP",
+      "SPC"
+    ],
+    "strictness_level": 1.0,
+    "grounding_ratio": 0.96875,
+    "accuracy_score": 0.99375,
+    "efficiency_score": 1.0,
+    "sop_structure": 1.0,
+    "trigger_pattern": 1.0
+  },
+  "creolization_telemetry": {
+    "turkish_markers": 14,
+    "russian_markers": 16,
+    "japanese_markers": 6,
+    "arabic_markers": 13,
+    "german_markers": 8,
+    "chinese_markers": 6,
+    "missing_markers": [],
+    "suggested_additions": []
+  },
+  "globalmoo_5d_results": [
+    {
+      "config_5d": [
+        0.9999413713454152,
+        0.9956139901148139,
+        1.999921601928892,
+        1.85943216244507,
+        0.4477539275250506
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9598159426127205,
+        "token_efficiency": 0.763241422357484,
+        "edge_robustness": 0.8895351398705378,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.011638724105994099,
+        0.015334445446493018,
+        0.572555540435443,
+        1.9999538618080763,
+        0.0832710327409056
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7668833700169349,
+        "token_efficiency": 0.9454770812998369,
+        "edge_robustness": 0.5476097283911521,
+        "epistemic_consistency": 0.528165635408824
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.29703727716626777,
+        0.0008866684374899299,
+        0.019943815106621132,
+        1.9975719394491775,
+        0.9992706857322083
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7335124630326799,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.7602587833350263,
+        "epistemic_consistency": 0.5835830935977823
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9999034477461781,
+        0.9956139901148139,
+        1.999921601928892,
+        1.9650698639891286,
+        0.8089239150900336
+      ],
+      "outcomes": {
+        "task_accuracy": 0.959814425668751,
+        "token_efficiency": 0.7685255828506412,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008073691554401075,
+        0.0022475645775951155,
+        0.3759153656971983,
+        1.9964976063087374,
+        0.3198159345377608
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7504860795010556,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.5843736935032924,
+        "epistemic_consistency": 0.5239628324755439
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.024379398665754618,
+        0.0017857805236997822,
+        0.4600966142106308,
+        1.9997452223550476,
+        0.1342174993219183
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7578543363044287,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.5547242103080661,
+        "epistemic_consistency": 0.5145898876069894
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.251265589867068,
+        0.9970963172718618,
+        1.9773866266314128,
+        1.9973648865812423,
+        0.28078470852516524
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9281254064160701,
+        "token_efficiency": 0.8158710648354698,
+        "edge_robustness": 0.7052793910100172,
+        "epistemic_consistency": 0.8627215905917641
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.2616421184519938,
+        0.10720494045430382,
+        1.9916328901757123,
+        1.967979193751478,
+        0.159431210251809
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8940845135703088,
+        "token_efficiency": 0.8666028205461676,
+        "edge_robustness": 0.6837963102495462,
+        "epistemic_consistency": 0.8484054714181132
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.49746991174487454,
+        0.7996682470313359,
+        1.997595604709217,
+        1.9775526005680246,
+        0.4539440755626313
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9316931747277857,
+        "token_efficiency": 0.8111455163134599,
+        "edge_robustness": 0.790162577696962,
+        "epistemic_consistency": 0.9173577234507255
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.06272237952995113,
+        0.017099428992710893,
+        0.6216660756508962,
+        1.9379326805021966,
+        0.9717876715170775
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7729261583929782,
+        "token_efficiency": 0.9372406824877143,
+        "edge_robustness": 0.7379853139919506,
+        "epistemic_consistency": 0.676373603810736
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9980071047945422,
+        0.06405263510284692,
+        1.0404645573821245,
+        1.9926326290645815,
+        0.9255277272511819
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8457195541864655,
+        "token_efficiency": 0.8642894647641008,
+        "edge_robustness": 0.936730194278251,
+        "epistemic_consistency": 0.8467227810435565
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6127180700909419,
+        0.8176898678491789,
+        1.9997902006984403,
+        1.966029357133482,
+        0.5936510763541072
+      ],
+      "outcomes": {
+        "task_accuracy": 0.93719953357348,
+        "token_efficiency": 0.8024853835523293,
+        "edge_robustness": 0.8412633393239317,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.029257830656000742,
+        0.003002882563008638,
+        1.2044810413988902,
+        1.9998975122934894,
+        0.571669582955227
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8176489118406716,
+        "token_efficiency": 0.9198799911655784,
+        "edge_robustness": 0.6804095347921901,
+        "epistemic_consistency": 0.7295724287886622
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.29296530895348016,
+        0.8439950610681484,
+        1.9955733352848974,
+        1.9969735386021341,
+        0.9865989848560213
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9251242816236569,
+        "token_efficiency": 0.8218081213174131,
+        "edge_robustness": 0.8556915255261451,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.28661464041723506,
+        0.0028949823247627626,
+        0.10532178282088567,
+        1.999040319154151,
+        0.9997603101401042
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7400061275353508,
+        "token_efficiency": 0.9483685672803522,
+        "edge_robustness": 0.7625410792525121,
+        "epistemic_consistency": 0.5996898671269164
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9980071047945422,
+        0.183101327690194,
+        0.9474594805605019,
+        1.9763791903513257,
+        0.9998943577399186
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8430410957442296,
+        "token_efficiency": 0.860054074346062,
+        "edge_robustness": 0.9469532665349173,
+        "epistemic_consistency": 0.8392767602525425
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.4738051138289564,
+        0.7996682470313359,
+        1.9651504929449355,
+        1.9775526005680246,
+        0.19910263209746243
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9281509738700064,
+        "token_efficiency": 0.8138632086589862,
+        "edge_robustness": 0.7328390738325307,
+        "epistemic_consistency": 0.8702760047865021
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.0077169591604665955,
+        0.0021893362956581976,
+        0.9513007461049439,
+        1.9999907916321717,
+        0.2528798629623077
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7965003115066405,
+        "token_efficiency": 0.9313531320100433,
+        "edge_robustness": 0.599684401729802,
+        "epistemic_consistency": 0.6289638245813816
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.7678733282007834,
+        0.003196674390533444,
+        0.6069806296846203,
+        1.9923548120431893,
+        0.9948632655769714
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7994012504784223,
+        "token_efficiency": 0.8990743152592957,
+        "edge_robustness": 0.882896350239782,
+        "epistemic_consistency": 0.7474129485935481
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.04268866712314412,
+        0.01642751466630256,
+        0.5529480221010059,
+        1.9998401246524693,
+        0.121188421832362
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7666004890396583,
+        "token_efficiency": 0.9443271144412165,
+        "edge_robustness": 0.5604228188961515,
+        "epistemic_consistency": 0.5330367344073699
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.060184847610130945,
+        0.006508283680186779,
+        1.8108696128410005,
+        1.999640223778333,
+        0.400608925563777
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8675372942788928,
+        "token_efficiency": 0.8935456387978576,
+        "edge_robustness": 0.6827022352768315,
+        "epistemic_consistency": 0.8282837461637798
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8660712261895567,
+        0.0057409556162228426,
+        1.9959932602958723,
+        1.997822700431544,
+        0.32006761608031886
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9145519480959009,
+        "token_efficiency": 0.8377426737013955,
+        "edge_robustness": 0.8370274314687687,
+        "epistemic_consistency": 0.933815917090178
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008073691554401075,
+        0.0022475645775951155,
+        0.5339611732997198,
+        1.9992348514010239,
+        0.3198159345377608
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7631297441092574,
+        "token_efficiency": 0.9479840202701427,
+        "edge_robustness": 0.5922759838834184,
+        "epistemic_consistency": 0.5555719939960483
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.859086403783176,
+        0.07109231412591524,
+        0.961693831228399,
+        1.9942741883807455,
+        0.9853577875368518
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8341426552146356,
+        "token_efficiency": 0.8754352330953559,
+        "edge_robustness": 0.9169735298254255,
+        "epistemic_consistency": 0.8260510747545251
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9948184975301646,
+        0.8169944503507132,
+        1.9603289136910789,
+        1.9913518513800446,
+        0.07741728879105181
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9492988310105214,
+        "token_efficiency": 0.7824456591485065,
+        "edge_robustness": 0.8124636029487972,
+        "epistemic_consistency": 0.90316022580989
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.7447685162173027,
+        0.08104654437386524,
+        0.4864804268704303,
+        1.9989067467239825,
+        0.9954643533259545
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7919510365732811,
+        "token_efficiency": 0.9009372166259119,
+        "edge_robustness": 0.872370595252173,
+        "epistemic_consistency": 0.7210925899947095
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.20731906673790923,
+        0.02801808659965534,
+        0.9943717055327972,
+        1.9967287445562258,
+        0.9675244466120814
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8089632225761263,
+        "token_efficiency": 0.9159413398062456,
+        "edge_robustness": 0.784687287946638,
+        "epistemic_consistency": 0.7647349147721626
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6209835705216078,
+        0.9105746957556448,
+        1.9874815875136425,
+        1.9977622915241207,
+        0.2457195253678584
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9402608576521815,
+        "token_efficiency": 0.7984953550990253,
+        "edge_robustness": 0.7727146985535753,
+        "epistemic_consistency": 0.8964526033600682
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6865620719562565,
+        0.003196674390533444,
+        0.4518718589077142,
+        1.9929735818203371,
+        0.9948632655769714
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7837400985664886,
+        "token_efficiency": 0.9101882799539008,
+        "edge_robustness": 0.8588786604520313,
+        "epistemic_consistency": 0.7082600688137142
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.02448350830849566,
+        0.0022475645775951155,
+        0.6094716077785749,
+        1.9824419774352637,
+        0.5329111205412422
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7698269715377296,
+        "token_efficiency": 0.9431393701874548,
+        "edge_robustness": 0.6419525061588763,
+        "epistemic_consistency": 0.604279340467751
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.823786097862947,
+        0.017629236152784604,
+        0.6130463671528702,
+        1.9913504264145763,
+        0.9965998513222311
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8027003227328587,
+        "token_efficiency": 0.8945607465936702,
+        "edge_robustness": 0.8947295081946791,
+        "epistemic_consistency": 0.7544778609152035
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.5515478622884379,
+        0.030236506561036824,
+        1.9592766608047254,
+        1.9997862485298168,
+        0.5418424498070336
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9000135076183571,
+        "token_efficiency": 0.8567111838633332,
+        "edge_robustness": 0.8166418954593305,
+        "epistemic_consistency": 0.928286485860844
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.049147316928963,
+        0.4183181352862091,
+        1.9922684331418004,
+        1.9974420525837995,
+        0.28173606414899366
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8980800927399508,
+        "token_efficiency": 0.8621334381706077,
+        "edge_robustness": 0.6657900978726814,
+        "epistemic_consistency": 0.8456288279436054
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6228134331237072,
+        0.002343382817700357,
+        0.005071792585644497,
+        1.9997189997402482,
+        0.9914798527279286
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7454120160445078,
+        "token_efficiency": 0.9322736693271021,
+        "edge_robustness": 0.8231122467996094,
+        "epistemic_consistency": 0.6120176797386888
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.858801656009867,
+        0.00630463238736718,
+        1.2110940023514958,
+        1.9942966923344252,
+        0.9855220168940101
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8514917717240089,
+        "token_efficiency": 0.8693646972188274,
+        "edge_robustness": 0.9294194346983502,
+        "epistemic_consistency": 0.8759272686053874
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8759394395728299,
+        0.7128326680150091,
+        1.997573733643788,
+        1.9979745268436027,
+        0.6107707607195564
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9433567829950166,
+        "token_efficiency": 0.7946694505411583,
+        "edge_robustness": 0.8972207267406667,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.07162072756559634,
+        0.079543515128581,
+        1.9979457852770395,
+        1.998519452152007,
+        0.45903129507419893
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8858822325299303,
+        "token_efficiency": 0.8809382866348682,
+        "edge_robustness": 0.706027693791811,
+        "epistemic_consistency": 0.8756059240730975
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.0175256695367192,
+        0.043226899653271894,
+        1.2391634490246863,
+        1.9153490459106612,
+        0.9992774620290632
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8215631786895745,
+        "token_efficiency": 0.9125557601831462,
+        "edge_robustness": 0.7653187987643909,
+        "epistemic_consistency": 0.7994768760629687
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        8.988176489876931e-05,
+        0.052179410402010074,
+        1.7716880836468942,
+        1.9999023808139607,
+        0.19295699871580457
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8638258183784279,
+        "token_efficiency": 0.8959914381648078,
+        "edge_robustness": 0.6271937802784854,
+        "epistemic_consistency": 0.7832901547132395
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.0077169591604665955,
+        0.030409522658075817,
+        1.7515768574175767,
+        1.9974613131348509,
+        0.2528798629623077
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8616512078661478,
+        "token_efficiency": 0.897522402450927,
+        "edge_robustness": 0.6396982072954336,
+        "epistemic_consistency": 0.7890190468439081
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8630038507336742,
+        0.07109231412591524,
+        1.9888799179456107,
+        1.9946291385662342,
+        0.8620015119197523
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9164742400300323,
+        "token_efficiency": 0.834130490318912,
+        "edge_robustness": 0.9444450684279659,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.5014938368213713,
+        0.002343382817700357,
+        0.09613067723097245,
+        1.9704566439796412,
+        0.9817626981330523
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7478439429640407,
+        "token_efficiency": 0.9344473719313989,
+        "edge_robustness": 0.8014578408524333,
+        "epistemic_consistency": 0.6166399238482896
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6555373168593706,
+        0.0025300307481165747,
+        1.954976315495901,
+        1.9990234306233514,
+        0.23770742226360203
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9027207991439715,
+        "token_efficiency": 0.8522680780548824,
+        "edge_robustness": 0.7763977635993895,
+        "epistemic_consistency": 0.8922051081246576
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.011509834629617216,
+        0.0022748611622343687,
+        0.572555540435443,
+        1.9999538618080763,
+        0.21067488997294667
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7663558310665095,
+        "token_efficiency": 0.946268389725475,
+        "edge_robustness": 0.5730647219422849,
+        "epistemic_consistency": 0.5472633250459924
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.0175256695367192,
+        0.0432208574979014,
+        1.2391634490246863,
+        1.995975768960889,
+        0.42981061092692
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8215629370033597,
+        "token_efficiency": 0.9165874588649798,
+        "edge_robustness": 0.6514254285439622,
+        "epistemic_consistency": 0.7140568483976473
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.28634813418673877,
+        0.07012773036167019,
+        0.08847692091574977,
+        1.994832424501754,
+        0.9269009312584666
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7413371882551963,
+        "token_efficiency": 0.9448139925155531,
+        "edge_robustness": 0.7470736591348286,
+        "epistemic_consistency": 0.5853653372905939
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.351396782437741,
+        0.0020790794203774427,
+        0.4600966142106308,
+        1.9996796750421764,
+        0.986725119743696
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7709467636111752,
+        "token_efficiency": 0.9303715674721965,
+        "edge_robustness": 0.7906292111468189,
+        "epistemic_consistency": 0.6751677690474547
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.029322278196115107,
+        0.0029372960612568944,
+        1.2514355319028805,
+        1.9153490459106612,
+        0.9992774620290632
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8214052255225253,
+        "token_efficiency": 0.9137744565639756,
+        "edge_robustness": 0.7682917246401797,
+        "epistemic_consistency": 0.8031109535045472
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.013040222435315885,
+        0.010021050473327303,
+        0.829411181908511,
+        1.9779717926082097,
+        0.866403836348363
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7872753454690266,
+        "token_efficiency": 0.9343384659795515,
+        "edge_robustness": 0.7173593708521614,
+        "epistemic_consistency": 0.6971468340774882
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6390675248963874,
+        0.07315146511393927,
+        1.999921601928892,
+        1.9631358971510684,
+        0.4477539275250506
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9084824877547244,
+        "token_efficiency": 0.8454267913797783,
+        "edge_robustness": 0.8173603705807322,
+        "epistemic_consistency": 0.9310541620041747
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.2555847828913278,
+        0.019723012527241554,
+        1.984086919441155,
+        1.9992348514010239,
+        0.6152411324689631
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8897392653720352,
+        "token_efficiency": 0.8740797980672909,
+        "edge_robustness": 0.7733695290441159,
+        "epistemic_consistency": 0.9146620320477084
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008073691554401075,
+        4.927188293512869e-05,
+        0.5056453586537173,
+        1.9992348514010239,
+        0.4625802590186065
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7607765472297907,
+        "token_efficiency": 0.9492485504176623,
+        "edge_robustness": 0.6194130580472874,
+        "epistemic_consistency": 0.5713234797389746
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.1939764837074432,
+        0.08291675425412662,
+        0.4864804268704303,
+        1.9976825493682957,
+        0.967260464968713
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7699941636680973,
+        "token_efficiency": 0.9338113161159034,
+        "edge_robustness": 0.7565714110787528,
+        "epistemic_consistency": 0.6617828034901374
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9848928216139003,
+        0.7144511744504752,
+        1.9983136228526486,
+        1.9958478146780896,
+        0.9996265723495106
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9478388496707869,
+        "token_efficiency": 0.787899206055936,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8286532217552791,
+        0.027400662877055677,
+        1.9125286001900188,
+        1.9959098206162753,
+        0.4304174420670617
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9072444434004949,
+        "token_efficiency": 0.841931113945273,
+        "edge_robustness": 0.847440562773969,
+        "epistemic_consistency": 0.9299336585235909
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.027065710992293657,
+        0.00630463238736718,
+        1.126578282073596,
+        1.9982919621515398,
+        0.1297970797035844
+      ],
+      "outcomes": {
+        "task_accuracy": 0.811461076301074,
+        "token_efficiency": 0.9228492462218535,
+        "edge_robustness": 0.5877014722428553,
+        "epistemic_consistency": 0.6474917894694862
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.3164863227530497,
+        0.00630463238736718,
+        1.1674436526586092,
+        1.9982266269926847,
+        0.9998399893635572
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8263071304183054,
+        "token_efficiency": 0.903846127934865,
+        "edge_robustness": 0.8216374450562518,
+        "epistemic_consistency": 0.8151133612115604
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9507261198053217,
+        0.9956139901148139,
+        1.999921601928892,
+        1.9650698639891286,
+        0.44309117243384855
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9578473325511168,
+        "token_efficiency": 0.7714762225270927,
+        "edge_robustness": 0.8787595385442787,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.06362950938391974,
+        0.0025300307481165747,
+        0.6512069223686229,
+        1.9989028013262984,
+        0.14232045234241913
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7747429353947712,
+        "token_efficiency": 0.9399272907636479,
+        "edge_robustness": 0.5737503384636989,
+        "epistemic_consistency": 0.5579524032634795
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8591889134452408,
+        0.0035401197987104675,
+        1.1944394766367714,
+        1.9950298252390093,
+        0.986385784925384
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8500643194606997,
+        "token_efficiency": 0.8702101702018425,
+        "edge_robustness": 0.9288369135059634,
+        "epistemic_consistency": 0.8727646544106861
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.015959705372781186,
+        0.015483005137379574,
+        0.9952274462681097,
+        1.9983089728888614,
+        0.7982532110842221
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8008759041218552,
+        "token_efficiency": 0.9282197881631091,
+        "edge_robustness": 0.7126039556048062,
+        "epistemic_consistency": 0.7203794414535334
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.17287955384114434,
+        0.0029372960612568944,
+        1.2514355319028805,
+        1.9153490459106612,
+        0.9992774620290632
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8271475165483265,
+        "token_efficiency": 0.9051610200252738,
+        "edge_robustness": 0.7970031797691856,
+        "epistemic_consistency": 0.8174666810690501
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.019973925043595055,
+        0.015627865531605542,
+        0.7121000237972481,
+        1.9774495369453435,
+        0.9570784505063219
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7783920735267879,
+        "token_efficiency": 0.9382523684608652,
+        "edge_robustness": 0.7310154762998458,
+        "epistemic_consistency": 0.6879791648397574
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6848540838995799,
+        0.002343382817700357,
+        0.09728940047526415,
+        1.9824407488655411,
+        0.9997528138000945
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7552710507067123,
+        "token_efficiency": 0.9239986134212297,
+        "edge_robustness": 0.8417858495636981,
+        "epistemic_consistency": 0.637906210555025
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.030446302925721244,
+        0.9970963172718618,
+        1.988528207511274,
+        1.9973648865812423,
+        0.28078470852516524
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9201839614088052,
+        "token_efficiency": 0.8286745588167563,
+        "edge_robustness": 0.6616726126657411,
+        "epistemic_consistency": 0.8428679780736017
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6218304276466943,
+        0.0170111098146824,
+        0.07355148147472934,
+        1.9999812410948612,
+        0.988820937167348
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7514377800164334,
+        "token_efficiency": 0.9287265105480713,
+        "edge_robustness": 0.825807847036545,
+        "epistemic_consistency": 0.6252164796347175
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.013040222435315885,
+        0.04089852888731127,
+        0.6834906269831948,
+        1.9779717926082097,
+        0.4497867543202815
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7768368002115607,
+        "token_efficiency": 0.9383226394717252,
+        "edge_robustness": 0.6267399267002792,
+        "epistemic_consistency": 0.6054701607882127
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.29296530895348016,
+        0.07110691003416933,
+        1.7881351024793763,
+        1.9966529504739603,
+        0.929816083129766
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8776136969578561,
+        "token_efficiency": 0.876462910285264,
+        "edge_robustness": 0.8339630335406181,
+        "epistemic_consistency": 0.9263959638606881
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.024379398665754618,
+        0.0020790794203774427,
+        0.4600966142106308,
+        1.9997452223550476,
+        0.1342174993219183
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7578660682602957,
+        "token_efficiency": 0.9499958878641592,
+        "edge_robustness": 0.5547242103080661,
+        "epistemic_consistency": 0.5145898876069894
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.06396258317939628,
+        0.0025300307481165747,
+        0.6626250232738112,
+        1.9989028013262984,
+        0.1230405482670068
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7756697064190053,
+        "token_efficiency": 0.9394505822997118,
+        "edge_robustness": 0.5705318774529711,
+        "epistemic_consistency": 0.557377345212753
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.021716035572759473,
+        0.0360514696537805,
+        1.9276902403613803,
+        1.9997168292493295,
+        0.9047178405600337
+      ],
+      "outcomes": {
+        "task_accuracy": 0.876525919437972,
+        "token_efficiency": 0.8894121815344189,
+        "edge_robustness": 0.7816712872446276,
+        "epistemic_consistency": 0.9234173277135571
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8124803646588071,
+        0.00630463238736718,
+        1.25977194571769,
+        1.9954460161074419,
+        0.9855220168940101
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8535331555392621,
+        "token_efficiency": 0.8702543231538942,
+        "edge_robustness": 0.922589073596448,
+        "epistemic_consistency": 0.8810307281435202
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008675297280418904,
+        0.0022506735408263836,
+        0.5240053659132213,
+        1.9996472418362192,
+        0.24768701388682735
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7623574681059075,
+        "token_efficiency": 0.9483665892060075,
+        "edge_robustness": 0.5774727305291103,
+        "epistemic_consistency": 0.5428216549937104
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008073691554401075,
+        0.006141302808558177,
+        0.5056453586537173,
+        1.9992348514010239,
+        0.4660952704373593
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7610202284668157,
+        "token_efficiency": 0.948883028562125,
+        "edge_robustness": 0.6201160603310379,
+        "epistemic_consistency": 0.5718507314517876
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9909346754725171,
+        0.7152459987206301,
+        1.9960111152061157,
+        1.9958478146780896,
+        0.6318620690290375
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9479281161842151,
+        "token_efficiency": 0.7875811056740709,
+        "edge_robustness": 0.9243599046606168,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.027065710992293657,
+        0.005320492089059113,
+        1.126578282073596,
+        1.9982919621515398,
+        0.14642665466707971
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8114217106891417,
+        "token_efficiency": 0.922908294639752,
+        "edge_robustness": 0.5910273872355544,
+        "epistemic_consistency": 0.6499862257140105
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        8.988176489876931e-05,
+        0.0360514696537805,
+        1.9276902403613803,
+        1.9997168292493295,
+        0.8112419614657848
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8756608732856576,
+        "token_efficiency": 0.8907097507628906,
+        "edge_robustness": 0.7586508806642058,
+        "epistemic_consistency": 0.9072333304686336
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6914715630833479,
+        0.002343382817700357,
+        1.1221688246959642,
+        1.9995790320443958,
+        0.9904176753053145
+      ],
+      "outcomes": {
+        "task_accuracy": 0.837526103811719,
+        "token_efficiency": 0.8834633018603183,
+        "edge_robustness": 0.8924862889125307,
+        "epistemic_consistency": 0.8421435725433248
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008073691554401075,
+        0.0022475645775951155,
+        0.5056453586537173,
+        1.9992348514010239,
+        0.4125526787245871
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7608644789375771,
+        "token_efficiency": 0.9491166528559828,
+        "edge_robustness": 0.6094075419884835,
+        "epistemic_consistency": 0.5638193426948717
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.13946707277555564,
+        0.006801724960438665,
+        0.5211189489963283,
+        1.9414127356635527,
+        0.958906285331092
+      ],
+      "outcomes": {
+        "task_accuracy": 0.767540267829146,
+        "token_efficiency": 0.9374497509591649,
+        "edge_robustness": 0.7457306190711459,
+        "epistemic_consistency": 0.662006439876485
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8814129355546422,
+        0.079543515128581,
+        1.9964548807121798,
+        1.9954257743571266,
+        0.4556211196897931
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9181546484843033,
+        "token_efficiency": 0.8322557064483758,
+        "edge_robustness": 0.8672295550844961,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.2573916429449023,
+        0.07467012889929348,
+        0.71111034392649,
+        1.998371138907628,
+        0.9372803754473488
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7901712983878869,
+        "token_efficiency": 0.92155043687767,
+        "edge_robustness": 0.7744899208747748,
+        "epistemic_consistency": 0.7085532893968904
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.03300387290005291,
+        0.0007028580988790445,
+        0.9513007461049439,
+        1.9974613131348509,
+        0.2528798629623077
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7974523289283527,
+        "token_efficiency": 0.9297986319526089,
+        "edge_robustness": 0.6047417844777193,
+        "epistemic_consistency": 0.6314925159553402
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.04674517557665053,
+        0.0016434749590655273,
+        1.7154851823062565,
+        1.9979780723517393,
+        0.28980905993125006
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8591743606059291,
+        "token_efficiency": 0.8983761772931937,
+        "edge_robustness": 0.653085106216893,
+        "epistemic_consistency": 0.7912429130086038
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8106144273026437,
+        0.0017384574395535018,
+        0.847635110024976,
+        1.9756063151778631,
+        0.9821115350026114
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8203049241916859,
+        "token_efficiency": 0.8861337382733623,
+        "edge_robustness": 0.9009269479622999,
+        "epistemic_consistency": 0.7979051949856514
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.05223601035691916,
+        0.006203283312359309,
+        1.9878775079624162,
+        1.9999866047553916,
+        0.5639643983165213
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8813677723837643,
+        "token_efficiency": 0.8869778722991162,
+        "edge_robustness": 0.722633957132809,
+        "epistemic_consistency": 0.8873937623756534
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008740072636982468,
+        0.4257257676805295,
+        1.9483013972033503,
+        1.9980200611404288,
+        0.7450996759042972
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8932427453889684,
+        "token_efficiency": 0.8659009967498368,
+        "edge_robustness": 0.7481830195684234,
+        "epistemic_consistency": 0.9022992380900129
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6256953904391933,
+        0.08104654437386524,
+        1.1344295806701015,
+        1.9977251614253002,
+        0.9995065635131561
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8390240438461304,
+        "token_efficiency": 0.8821045587556775,
+        "edge_robustness": 0.881761869823975,
+        "epistemic_consistency": 0.8393814397049131
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9920226709240135,
+        0.8169944503507132,
+        1.9999747926352163,
+        1.9979774982610807,
+        0.03827250841288754
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9523586682618063,
+        "token_efficiency": 0.7813588559311617,
+        "edge_robustness": 0.8060577754991411,
+        "epistemic_consistency": 0.9049381018813777
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.024033809793206594,
+        0.03981343063027274,
+        1.0384052308892455,
+        1.9992348514010239,
+        0.6334896420815583
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8056263080880788,
+        "token_efficiency": 0.9245946989090726,
+        "edge_robustness": 0.6834249519194152,
+        "epistemic_consistency": 0.7051078734694036
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6555373168593706,
+        0.0025300307481165747,
+        1.9766150539998175,
+        1.8830138297833319,
+        0.23143863722914465
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9044518982242848,
+        "token_efficiency": 0.8456020484727247,
+        "edge_robustness": 0.7762259435176938,
+        "epistemic_consistency": 0.8955925380702723
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.29296530895348016,
+        0.0043977980550000476,
+        1.8116910657061163,
+        1.9967161668712057,
+        0.9996489994497859
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8768298095368285,
+        "token_efficiency": 0.8795263792948068,
+        "edge_robustness": 0.849107414965959,
+        "epistemic_consistency": 0.9415820939540392
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.13946707277555564,
+        0.002937836631393624,
+        0.5211189489963283,
+        1.9847821536730321,
+        0.9927851527113228
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7673857122959842,
+        "token_efficiency": 0.9398500551593816,
+        "edge_robustness": 0.7525063925471921,
+        "epistemic_consistency": 0.6670882699835196
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6556265776553525,
+        0.0025300307481165747,
+        1.954976315495901,
+        1.9511914595181876,
+        0.9247768655524224
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9027243695758108,
+        "token_efficiency": 0.8498711238518653,
+        "edge_robustness": 0.91382950441635,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.005568889307623474,
+        0.0026318251929533733,
+        1.8108696128410005,
+        1.97766939815936,
+        0.33251437855182303
+      ],
+      "outcomes": {
+        "task_accuracy": 0.865197597607303,
+        "token_efficiency": 0.8959566425242934,
+        "edge_robustness": 0.6581601342139394,
+        "epistemic_consistency": 0.812607968281736
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8226497289761818,
+        0.7591308181276243,
+        1.997573733643788,
+        1.9981497860184045,
+        0.6092550660310906
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9430771205756553,
+        "token_efficiency": 0.7950977071289403,
+        "edge_robustness": 0.886259645683644,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.008675297280418904,
+        0.05488116221838607,
+        1.8804893215991703,
+        1.9958952050829122,
+        0.29760911416934555
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8729814041078857,
+        "token_efficiency": 0.8907617998202505,
+        "edge_robustness": 0.6552813483699114,
+        "epistemic_consistency": 0.8216067611732778
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.9994466046944667,
+        0.8640909090928998,
+        1.9999575743694085,
+        1.9965065430740947,
+        0.5343411524651981
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9545381065010473,
+        "token_efficiency": 0.7780147733516863,
+        "edge_robustness": 0.9067554301504034,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.8112617723780233,
+        0.018106258176887713,
+        0.9670720756338748,
+        1.9963611146867093,
+        0.9656880670049178
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8305404872729064,
+        "token_efficiency": 0.8813730908756858,
+        "edge_robustness": 0.903743571658282,
+        "epistemic_consistency": 0.819393802415315
+      },
+      "source": "stage1_globalmoo"
+    },
+    {
+      "config_5d": [
+        0.6293525865873503,
+        0.002343382817700357,
+        0.09728940047526415,
+        1.9824407488655411,
+        0.9997528138000945
+      ],
+      "outcomes": {
+        "task_accuracy": 0.7530509908142231,
+        "token_efficiency": 0.9273287032599635,
+        "edge_robustness": 0.8306855501012522,
+        "epistemic_consistency": 0.6323560608238021
+      },
+      "source": "stage1_globalmoo"
+    }
+  ],
+  "pymoo_14d_results": [
+    {
+      "config_14d": [
+        0.32174007779304864,
+        0.05726672854406894,
+        0.015033288026131204,
+        0.054130019864693915,
+        0.03050611018659352,
+        0.9932982538030593,
+        0.11252298897981364,
+        1.978208965503301,
+        1.9980659757546277,
+        0.033847536947732876,
+        0.01435320470465277,
+        0.9925232829393921,
+        0.12839818641491668,
+        0.9901671094791588
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8895970672103928,
+        "token_efficiency": 0.9429401287825864,
+        "edge_robustness": 0.5989036753788122,
+        "epistemic_consistency": 0.8465224052182169
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9507033834083397,
+        0.19237066170080816,
+        0.06193184770190288,
+        0.019571056392979857,
+        0.8607442820820618,
+        0.9724997665849072,
+        0.9823411022594581,
+        1.8472079999324922,
+        1.9855158749191477,
+        0.9549914711315973,
+        0.07211819184947765,
+        0.9984118355277296,
+        0.8901579445066892,
+        0.9986279533619763
+      ],
+      "outcomes": {
+        "task_accuracy": 0.98,
+        "token_efficiency": 0.8102353967465155,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.5395421905447824,
+        0.04277415871341633,
+        0.015612728459261826,
+        0.03952077925121879,
+        0.04476630234462607,
+        0.7664174510982872,
+        0.02650368628680365,
+        1.7555713266975776,
+        1.9736656958339165,
+        0.9509308296101596,
+        0.04298501335760854,
+        0.88972448425372,
+        0.20993975457823866,
+        0.9907402114646887
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8700066692473177,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.7849390136113054,
+        "epistemic_consistency": 0.9134096086732229
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9809114549825089,
+        0.040828184556955915,
+        0.006714643253180989,
+        0.06422992806050881,
+        0.006520942234213517,
+        0.07446131082291302,
+        0.7568201182697778,
+        1.9456626989526378,
+        1.968218591877459,
+        0.9889404426680869,
+        0.26151893657917114,
+        0.9971647151058246,
+        0.6285921763584109,
+        0.4564787432255781
+      ],
+      "outcomes": {
+        "task_accuracy": 0.842677160195844,
+        "token_efficiency": 0.9233554739612181,
+        "edge_robustness": 0.9449477241652403,
+        "epistemic_consistency": 0.942164192501354
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9507033834083397,
+        0.19237066170080816,
+        0.009875005251203165,
+        0.019571056392979857,
+        0.8323951503566502,
+        0.9973870514568488,
+        0.9823411022594581,
+        1.8470156250617389,
+        1.9855158749191477,
+        0.9548031956084213,
+        0.0699886012254244,
+        0.9984118355277296,
+        0.9216144785396756,
+        0.9986279533619763
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9791093723634547,
+        "token_efficiency": 0.8143358327533813,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.32024121728791793,
+        0.058563507598098315,
+        0.027463011872790048,
+        0.02153316712367926,
+        0.08942976260898487,
+        0.9976594277354905,
+        0.03137284692945432,
+        1.9781767690817926,
+        1.99807465199658,
+        0.033474304285253116,
+        0.01152842542023893,
+        0.987396733851433,
+        0.8169647630132625,
+        0.9879358563825021
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8881792847738054,
+        "token_efficiency": 0.9446933887233111,
+        "edge_robustness": 0.6265466940328245,
+        "epistemic_consistency": 0.84571287630658
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9582135141067027,
+        0.18945858833914786,
+        0.027419377945882003,
+        0.6035584752667196,
+        0.046134876774180864,
+        0.9976571243274167,
+        0.9840875102961281,
+        1.9638738203998094,
+        1.9971605570867934,
+        0.26139642951716435,
+        0.07369234276902001,
+        0.9951472385304747,
+        0.6458926415642177,
+        0.9986279533619763
+      ],
+      "outcomes": {
+        "task_accuracy": 0.98,
+        "token_efficiency": 0.8209088553368153,
+        "edge_robustness": 0.8303599701469885,
+        "epistemic_consistency": 0.9084368121478074
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6193597106714668,
+        0.0407113460332123,
+        0.008408501748931438,
+        0.02230024414660072,
+        0.028527175261444992,
+        0.9198967252928868,
+        0.025467061113697842,
+        1.9694462540187552,
+        1.973923907913459,
+        0.04544690630020805,
+        0.016751919281058958,
+        0.9933794299280665,
+        0.4876012076748832,
+        0.9879552911226069
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8954507712525382,
+        "token_efficiency": 0.9374945733830743,
+        "edge_robustness": 0.6562796751683476,
+        "epistemic_consistency": 0.8610804247138417
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9875534269204527,
+        0.06507496236468446,
+        0.13976852948464025,
+        0.0008550282636142462,
+        0.02948607758796451,
+        0.0068728768837610366,
+        0.7624315072765012,
+        1.7335757400168668,
+        1.9961085594214105,
+        0.9343133449147915,
+        0.28973623533533355,
+        0.937072842393569,
+        0.34117710779636595,
+        0.831771200476445
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8602349795914062,
+        "token_efficiency": 0.9241429951399682,
+        "edge_robustness": 0.9137058216953433,
+        "epistemic_consistency": 0.9481256183980112
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.36872472921995425,
+        0.2196036772988625,
+        0.022169429610128327,
+        0.02915733053180218,
+        0.06652467517092459,
+        0.9877411708800974,
+        0.025591073947648146,
+        1.9863257794356362,
+        1.9940587663618847,
+        0.029471933691102292,
+        0.07656415768889,
+        0.9844711982872987,
+        0.9303732631165109,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8962606244408312,
+        "token_efficiency": 0.9347266232059194,
+        "edge_robustness": 0.6386326376964544,
+        "epistemic_consistency": 0.8602438311780731
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9746929893062627,
+        0.03750215913852373,
+        0.0029968773665825683,
+        0.6010452732590109,
+        0.08108057396354396,
+        0.9933461576725432,
+        0.965431591252506,
+        1.9987527622457264,
+        1.9979591193801445,
+        0.16347278621603428,
+        0.3060960269498952,
+        0.9932460748194338,
+        0.5884066810804216,
+        0.9991719002576485
+      ],
+      "outcomes": {
+        "task_accuracy": 0.977116509040221,
+        "token_efficiency": 0.8286346890367504,
+        "edge_robustness": 0.8122340217588763,
+        "epistemic_consistency": 0.9406724573645493
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.3496566229531681,
+        0.058563507598098315,
+        0.006890286666548751,
+        0.017164116906416383,
+        0.005416420287641152,
+        0.9973607701131745,
+        0.005963568645866066,
+        1.9775900199040026,
+        1.998177674662019,
+        0.24990046811403238,
+        0.0157967567582836,
+        0.9006620450417459,
+        0.816099840759906,
+        0.9879360715604097
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8850397777425134,
+        "token_efficiency": 0.9491825539257046,
+        "edge_robustness": 0.6678162560293258,
+        "epistemic_consistency": 0.8693609236427738
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.3205936478197626,
+        0.05726672854406894,
+        0.01496337111615468,
+        0.09723462795721007,
+        0.03050611018659352,
+        0.9932982538030593,
+        0.11252298897981364,
+        1.9782125839238707,
+        1.9980659757546277,
+        0.04806007279649103,
+        0.04009072956813177,
+        0.9017828982269659,
+        0.14803270508049876,
+        0.9902181046102895
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8910445244689756,
+        "token_efficiency": 0.9388227565074113,
+        "edge_robustness": 0.6022718380056977,
+        "epistemic_consistency": 0.8517537367653885
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9610674356574801,
+        0.057564070605892075,
+        0.053682003944264124,
+        0.6285631051338194,
+        0.052463905139383205,
+        0.993314933759684,
+        0.9884629512009726,
+        1.9988650225552231,
+        1.9896259456467853,
+        0.10090711317642148,
+        0.30922465828930534,
+        0.9772729276089407,
+        0.5389376633229955,
+        0.97663821964456
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9778128998412707,
+        "token_efficiency": 0.8224519122361617,
+        "edge_robustness": 0.7983019158848145,
+        "epistemic_consistency": 0.9315200722611992
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9990792962325307,
+        0.7961573924641907,
+        0.07335122997315943,
+        0.6493820831336953,
+        0.008182890732830822,
+        0.9849579664131985,
+        0.042881321896219377,
+        1.9761236469722105,
+        1.9691656862204663,
+        0.003772215684338276,
+        0.011171243735309894,
+        0.9979369130438801,
+        0.6275802176472561,
+        0.9990511946125862
+      ],
+      "outcomes": {
+        "task_accuracy": 0.97241156563399,
+        "token_efficiency": 0.8318883754789558,
+        "edge_robustness": 0.7143953557710093,
+        "epistemic_consistency": 0.877595272748865
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9813834287699141,
+        0.040828184556955915,
+        0.05855077846247634,
+        0.06422992806050881,
+        0.006551753395908211,
+        0.07446131082291302,
+        0.9627621120965173,
+        1.9456088834185346,
+        1.968218591877459,
+        0.9889404426680869,
+        0.26151893657917114,
+        0.9971647151058246,
+        0.6285921763584109,
+        0.4459267631248551
+      ],
+      "outcomes": {
+        "task_accuracy": 0.850879044320968,
+        "token_efficiency": 0.9081149154538728,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.9409118667824989
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9921661389635233,
+        0.2196036772988625,
+        0.09243111958180414,
+        0.013459523145092273,
+        0.06652467517092459,
+        0.9879854868220801,
+        0.025591073947648146,
+        1.9863257794356362,
+        1.9810094078855485,
+        0.9552212386029616,
+        0.07628944406866348,
+        0.9878275314413736,
+        0.9303732631165109,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9324755184034302,
+        "token_efficiency": 0.8953018261061086,
+        "edge_robustness": 0.8987837240421244,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6089649066454983,
+        0.040878598830211686,
+        0.01528765913573171,
+        0.04336411892350443,
+        0.0016804351245697652,
+        0.9973847288177631,
+        0.005963568645866066,
+        1.9775900199040026,
+        1.998177674662019,
+        0.24347602512034505,
+        0.0157967567582836,
+        0.8887600432599461,
+        0.19615229435684184,
+        0.9978806825410356
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9005600363592758,
+        "token_efficiency": 0.9337885866783123,
+        "edge_robustness": 0.6745587215241583,
+        "epistemic_consistency": 0.8828772468456967
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.7117801851890354,
+        0.06740787518875686,
+        0.01775458929866351,
+        0.07549758516353612,
+        0.11698361743177232,
+        0.7800357385734642,
+        0.9892976028707949,
+        1.7375486361799013,
+        1.9843429746269392,
+        0.9457529556423592,
+        0.044815194117051184,
+        0.8962253162809718,
+        0.9227214194863306,
+        0.9612418715097306
+      ],
+      "outcomes": {
+        "task_accuracy": 0.915345445532618,
+        "token_efficiency": 0.882771888277484,
+        "edge_robustness": 0.9217843844451562,
+        "epistemic_consistency": 0.9149943630347952
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6033013461948618,
+        0.04084322596892725,
+        0.008408070137388186,
+        0.02224674012687766,
+        0.031105347029464325,
+        0.9946211649870838,
+        0.026011993353061175,
+        1.9063812643095843,
+        1.973968815269525,
+        0.04544690630020805,
+        0.07110126302948472,
+        0.9605281268389494,
+        0.6390440667511086,
+        0.9878108438762302
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8957412313151014,
+        "token_efficiency": 0.9353295082920436,
+        "edge_robustness": 0.6589640584414505,
+        "epistemic_consistency": 0.8570608762350594
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6034424691855592,
+        0.05978229663446018,
+        0.005165094967815899,
+        0.028098754357941104,
+        0.0301823202429639,
+        0.9961159442423794,
+        0.019989853114256176,
+        1.5811388624736837,
+        1.9739454737120103,
+        0.9753991075623125,
+        0.2970169214996917,
+        0.8841960942995604,
+        0.9309261861498848,
+        0.9887544199393502
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8769181987006397,
+        "token_efficiency": 0.9427304622341492,
+        "edge_robustness": 0.8274792617946322,
+        "epistemic_consistency": 0.925520098078448
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9438787403891786,
+        0.04537581451214118,
+        0.006882465765061784,
+        0.775909511314484,
+        0.13387627475350372,
+        0.9976797877052345,
+        0.019615445786605873,
+        1.977383383517527,
+        1.9721677673552627,
+        0.2462721676716481,
+        0.015799385224363225,
+        0.9986224231398472,
+        0.624711412084533,
+        0.9990568640225567
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9496881519797141,
+        "token_efficiency": 0.8680663714708441,
+        "edge_robustness": 0.7478109428471296,
+        "epistemic_consistency": 0.9000068942861399
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9990792962325307,
+        0.8174882556866933,
+        0.0025096634953416103,
+        0.6493820831336953,
+        0.02988261045410536,
+        0.9927460176341758,
+        0.042881321896219377,
+        1.9749618272850376,
+        1.9778264415606568,
+        0.028636689331804743,
+        0.29549185941193334,
+        0.9424695052287302,
+        0.9183777848267253,
+        0.9988450693016411
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9718582053335562,
+        "token_efficiency": 0.8338516198404541,
+        "edge_robustness": 0.7333643665990398,
+        "epistemic_consistency": 0.9224959498841006
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9799882092099412,
+        0.059213293895955296,
+        0.062224696925846784,
+        0.06255982406676289,
+        0.0309571168644115,
+        0.9961741876297424,
+        0.9490956379381957,
+        1.9950629251880652,
+        1.9814098499494308,
+        0.10889480937721215,
+        0.06362292238116722,
+        0.9986792480093877,
+        0.6412984379319757,
+        0.9878151325306801
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9581214297554094,
+        "token_efficiency": 0.8550500811037975,
+        "edge_robustness": 0.8043943870085666,
+        "epistemic_consistency": 0.8970814721929267
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9809114549825089,
+        0.037641584813358255,
+        0.005872351788317326,
+        0.6176182676387293,
+        0.06668295601473581,
+        0.06435749988042233,
+        0.7578258316888253,
+        1.9808428081432794,
+        1.9018607202417848,
+        0.9897412699780379,
+        0.26320127488738987,
+        0.9598596146267306,
+        0.5882327566321559,
+        0.46433972130092566
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8661285484269751,
+        "token_efficiency": 0.8845660571525975,
+        "edge_robustness": 0.9445615635358683,
+        "epistemic_consistency": 0.9497723630019391
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9310633035605446,
+        0.13943765811852998,
+        0.015242050482934954,
+        0.6078700619247245,
+        0.04536526587542908,
+        0.998046824614714,
+        0.10791187200848568,
+        1.9944152456067317,
+        1.9938456831918745,
+        0.9552361069117337,
+        0.07635200655732442,
+        0.9601434130857757,
+        0.5983266731751659,
+        0.9882181817268338
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9468578363646906,
+        "token_efficiency": 0.8722247738631723,
+        "edge_robustness": 0.8799278880219001,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9990792962325307,
+        0.7961573924641907,
+        0.07335122997315943,
+        0.5655198465624323,
+        0.008459010414015653,
+        0.9849579664131985,
+        0.042881321896219377,
+        1.9755599107611375,
+        1.9691656862204663,
+        0.985308839925424,
+        0.011171243735309894,
+        0.9699038787247106,
+        0.6368786367296462,
+        0.9906827238334662
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9687827497078433,
+        "token_efficiency": 0.8359418633078588,
+        "edge_robustness": 0.8915143196400812,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6890449386378484,
+        0.20638001182262394,
+        0.002866471493102537,
+        0.070743038595129,
+        0.03093973821169803,
+        0.5917316118158613,
+        0.016562635288800972,
+        1.8658711669035273,
+        1.9862261544541184,
+        0.9470324100712977,
+        0.01435024855275437,
+        0.8874676790948416,
+        0.4673950308442698,
+        0.9972251845719464
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8795525275124774,
+        "token_efficiency": 0.9424346938895974,
+        "edge_robustness": 0.8231521836499697,
+        "epistemic_consistency": 0.9368318574132039
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9967940676773392,
+        0.7963878849894431,
+        0.06123975822530647,
+        0.06267042237593645,
+        0.12791100674910388,
+        0.9849800083716144,
+        0.042881321896219377,
+        1.9749618272850376,
+        1.969253147724873,
+        0.028636689331804743,
+        0.04944138463062763,
+        0.9979369130438801,
+        0.6275411384476992,
+        0.99917261597414
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9554670569797025,
+        "token_efficiency": 0.8586327312756397,
+        "edge_robustness": 0.7184797499968097,
+        "epistemic_consistency": 0.8855134228398451
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.35080305292645414,
+        0.058563507598098315,
+        0.006960203576613651,
+        0.021755774392849946,
+        0.0397752619780569,
+        0.9978103132001358,
+        0.0318551499621903,
+        1.9775863168359566,
+        1.9982865478158984,
+        0.03841047806432037,
+        0.013785992457564521,
+        0.9913570307302534,
+        0.8112149100174302,
+        0.9880051576257051
+      ],
+      "outcomes": {
+        "task_accuracy": 0.887409276301951,
+        "token_efficiency": 0.9473437604070559,
+        "edge_robustness": 0.6317469541618308,
+        "epistemic_consistency": 0.8479752552669462
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.931074737313169,
+        0.034384571449468534,
+        0.015374502289042875,
+        0.6037110574827449,
+        0.02631363442384637,
+        0.9818462752960879,
+        0.7120141554798975,
+        1.9750216215707248,
+        1.9950940725041182,
+        0.27202034720269475,
+        0.020613309264165436,
+        0.9638377346511016,
+        0.48462219599898526,
+        0.9878882734830989
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9612744048587365,
+        "token_efficiency": 0.8476647189949823,
+        "edge_robustness": 0.7988179801946306,
+        "epistemic_consistency": 0.900898252676255
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9847206447443514,
+        0.07081562622808885,
+        0.13976852948464025,
+        0.04475106481199181,
+        0.014672607367641366,
+        0.00020737864441194853,
+        0.743260566567555,
+        1.5424250315535601,
+        1.9831696593358388,
+        0.9313185766024763,
+        0.2721278017686495,
+        0.8350851293165892,
+        0.8512228821544396,
+        0.831771200476445
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8487247068102526,
+        "token_efficiency": 0.926722957628505,
+        "edge_robustness": 0.9290644311953673,
+        "epistemic_consistency": 0.9106361098995769
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9953192458806819,
+        0.03104799721713196,
+        0.015377386610776533,
+        0.6215376717350034,
+        0.022750250863099404,
+        0.9788996913702543,
+        0.7176788048242926,
+        1.9642213126821786,
+        1.994967034161463,
+        0.27202034720269475,
+        0.04187535173258086,
+        0.963291067548946,
+        0.48093890039236886,
+        0.9878902153699805
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9645492583467937,
+        "token_efficiency": 0.8436860486204175,
+        "edge_robustness": 0.8082916512914364,
+        "epistemic_consistency": 0.9053559619013806
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9047017836150766,
+        0.034384571449468534,
+        0.01492223067839574,
+        0.5903011472120014,
+        0.07687622109359457,
+        0.9885298844442487,
+        0.012713948783216453,
+        1.9750762875222552,
+        1.9972364925442883,
+        0.2598727250935833,
+        0.06125239077761678,
+        0.988700703137142,
+        0.5871989492201429,
+        0.9887474743199284
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9371393499572187,
+        "token_efficiency": 0.8858238320759845,
+        "edge_robustness": 0.7418624729236611,
+        "epistemic_consistency": 0.9045736489791519
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.995366311582823,
+        0.03104799721713196,
+        0.005313288845611608,
+        0.6215376717350034,
+        0.02990224437902966,
+        0.9927912752145349,
+        0.024825394825684965,
+        1.9774808055708675,
+        1.9740193495013256,
+        0.03404504815909473,
+        0.044833928687000285,
+        0.963291067548946,
+        0.4698404945967122,
+        0.9997219886190145
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9428451183448594,
+        "token_efficiency": 0.87973316226803,
+        "edge_robustness": 0.7100103439447856,
+        "epistemic_consistency": 0.8858110933351385
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.5790912101085073,
+        0.03067404978364341,
+        0.015396428555451858,
+        0.05837304832265042,
+        0.04419121668823505,
+        0.7664174510982872,
+        0.02650368628680365,
+        1.7496071955257342,
+        1.9738972877887406,
+        0.9589921239791184,
+        0.0418299529248216,
+        0.8832086199162004,
+        0.4868475987692893,
+        0.9991531510222579
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8727056797279688,
+        "token_efficiency": 0.9496662752323706,
+        "edge_robustness": 0.8059292264949555,
+        "epistemic_consistency": 0.9159559391593636
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9734563783572935,
+        0.05438188626800482,
+        0.015145771567174962,
+        0.0267482576336154,
+        0.009397722784706124,
+        0.9885080410294519,
+        0.9548044137056212,
+        1.983657470739604,
+        1.997126575556724,
+        0.21055168397474794,
+        0.30785555638560136,
+        0.9984522920780282,
+        0.48732065300237554,
+        0.9988851051451386
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9538401119511222,
+        "token_efficiency": 0.8637496648974096,
+        "edge_robustness": 0.8140144444452012,
+        "epistemic_consistency": 0.9428308781237249
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9990322204222362,
+        0.8174882556866933,
+        0.0025096634953416103,
+        0.5678413918760167,
+        0.022730616938175106,
+        0.9973441479569303,
+        0.06740366266626138,
+        1.9748912613723475,
+        1.9777869394402379,
+        0.266644815842917,
+        0.29254065296579046,
+        0.9424695052287302,
+        0.9183777848267253,
+        0.9873998997618221
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9689886850768972,
+        "token_efficiency": 0.8371304276126207,
+        "edge_robustness": 0.7781577326245916,
+        "epistemic_consistency": 0.9444656055687133
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.931074737313169,
+        0.037445196394315705,
+        0.0028154050226595383,
+        0.030995949059296868,
+        0.026854006492331297,
+        0.9935699243407438,
+        0.049919447950673046,
+        1.9648118046089977,
+        1.994993236134391,
+        0.028658606636699197,
+        0.020613309264165436,
+        0.9640674061998157,
+        0.46817199349843197,
+        0.9985411334348965
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9187442047578789,
+        "token_efficiency": 0.9159831733918111,
+        "edge_robustness": 0.7008143874869167,
+        "epistemic_consistency": 0.8760026547607602
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9990792962325307,
+        0.8174882556866933,
+        0.0025096634953416103,
+        0.049938662516991306,
+        0.02988261045410536,
+        0.996357387786766,
+        0.9220149395206486,
+        1.9751403619257706,
+        1.9778264415606568,
+        0.02763900298032792,
+        0.29549185941193334,
+        0.9424695052287302,
+        0.6521909197298748,
+        0.9877330465423987
+      ],
+      "outcomes": {
+        "task_accuracy": 0.98,
+        "token_efficiency": 0.8182646776074148,
+        "edge_robustness": 0.7902132705965151,
+        "epistemic_consistency": 0.9210948747531758
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9164026383302953,
+        0.05978229663446018,
+        0.005164431795786284,
+        0.027242862068442716,
+        0.02293768145495312,
+        0.9961159442423794,
+        0.019989853114256176,
+        1.5811388624736837,
+        1.9739454737120103,
+        0.9753991075623125,
+        0.10083088423171811,
+        0.9911011544258309,
+        0.8203385252520418,
+        0.9888057259804023
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8938515706881506,
+        "token_efficiency": 0.9281013330808794,
+        "edge_robustness": 0.8688939041214505,
+        "epistemic_consistency": 0.911746357670415
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9774263615796273,
+        0.04124015769819364,
+        0.0537876849470666,
+        0.06408803753180292,
+        0.05894549521551512,
+        0.9993148676214513,
+        0.9931403398230741,
+        1.9950629251880652,
+        1.9814098499494308,
+        0.11754476624794455,
+        0.03494462896179193,
+        0.9986792480093877,
+        0.7925282998937682,
+        0.9882612644867876
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9598706529850485,
+        "token_efficiency": 0.85259367255965,
+        "edge_robustness": 0.8166521713496311,
+        "epistemic_consistency": 0.8935701673203108
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.35012425272122727,
+        0.03471331546854735,
+        0.02719726128120635,
+        0.02897728726062014,
+        0.0397752619780569,
+        0.9976594277354905,
+        0.12394856973687296,
+        1.9749991610991162,
+        1.997234720747133,
+        0.2608801593906006,
+        0.014323672261732347,
+        0.9006620450417459,
+        0.816099840759906,
+        0.9879358601780882
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8905509245330541,
+        "token_efficiency": 0.9399216583970541,
+        "edge_robustness": 0.6791979106594019,
+        "epistemic_consistency": 0.8697949316335927
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6890449386378484,
+        0.20638001182262394,
+        0.002866471493102537,
+        0.07074270003788516,
+        0.11643846917892497,
+        0.5909945071287872,
+        0.0201496844056605,
+        1.8796494875040828,
+        1.9862261544541184,
+        0.9614811266763993,
+        0.01450516262636221,
+        0.8874676790948416,
+        0.9662905672115603,
+        0.9855466474652466
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8825150224287545,
+        "token_efficiency": 0.9371621857453935,
+        "edge_robustness": 0.8515358262106234,
+        "epistemic_consistency": 0.9393786394400512
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9260073919146595,
+        0.04124015769819364,
+        0.053594896584572574,
+        0.06408803753180292,
+        0.05894549521551512,
+        0.972524712269182,
+        0.9912574590652901,
+        1.9950629251880652,
+        1.9814098499494308,
+        0.2826442031322023,
+        0.045694989830756164,
+        0.9986792480093877,
+        0.7925282998937682,
+        0.9882612644867876
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9552286011363681,
+        "token_efficiency": 0.8570131920044631,
+        "edge_robustness": 0.8385065940784295,
+        "epistemic_consistency": 0.9091217166558329
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6034424691855592,
+        0.05978800939403921,
+        0.005165094967815899,
+        0.028098754357941104,
+        0.0301823202429639,
+        0.7807657890136175,
+        0.019989853114256176,
+        1.5804958899070471,
+        1.9739454737120103,
+        0.9753991075623125,
+        0.2879491365935005,
+        0.8841960942995604,
+        0.9309261861498848,
+        0.9903076776685356
+      ],
+      "outcomes": {
+        "task_accuracy": 0.863006320821692,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.8274535428919667,
+        "epistemic_consistency": 0.924230586208027
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9848464514565712,
+        0.8169863040339531,
+        0.01864827292814605,
+        0.013459523145092273,
+        0.06506506158929015,
+        0.9233642576005017,
+        0.01638695946084233,
+        1.9701147095151228,
+        1.979662376005983,
+        0.9473921339397894,
+        0.07619456421512678,
+        0.9878275314413736,
+        0.2603716256035898,
+        0.9975042332578896
+      ],
+      "outcomes": {
+        "task_accuracy": 0.944761567046189,
+        "token_efficiency": 0.8729282607833779,
+        "edge_robustness": 0.8613916782452996,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9847206447443514,
+        0.07081562622808885,
+        0.13976852948464025,
+        0.03798672597745817,
+        0.014672607367641366,
+        0.00020737864441194853,
+        0.743260566567555,
+        1.5424250315535601,
+        1.9831696593358388,
+        0.9313185766024763,
+        0.2721278017686495,
+        0.8350851293165892,
+        0.8487261037023034,
+        0.9794699439170648
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8603038544262933,
+        "token_efficiency": 0.9270949962644044,
+        "edge_robustness": 0.9289395922727605,
+        "epistemic_consistency": 0.9283599591124512
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.5739341601509065,
+        0.040742861053639,
+        0.015396428555451858,
+        0.03851437153563493,
+        0.04419121668823505,
+        0.9932155139376747,
+        0.025971568741358378,
+        1.7496071955257342,
+        1.987998919456148,
+        0.9509308296101596,
+        0.28882448757935564,
+        0.8832086199162004,
+        0.21761673704340656,
+        0.9390464856104151
+      ],
+      "outcomes": {
+        "task_accuracy": 0.881994113424727,
+        "token_efficiency": 0.9388898264923523,
+        "edge_robustness": 0.790200523524973,
+        "epistemic_consistency": 0.9447283375733466
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9896027642212297,
+        0.08095943247963008,
+        0.0342398090816041,
+        0.04441192750299208,
+        0.013097968348680801,
+        0.05834156885423386,
+        0.7436020654568737,
+        1.9094177681712785,
+        1.968218591877459,
+        0.938079660070922,
+        0.004990448910645012,
+        0.8343269009759214,
+        0.9215763687337396,
+        0.5048461453619976
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8452440038273717,
+        "token_efficiency": 0.9187782698284072,
+        "edge_robustness": 0.9492384478460384,
+        "epistemic_consistency": 0.8983134072690203
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9609522099488368,
+        0.03437529070557739,
+        0.027332969654338426,
+        0.016113441653631322,
+        0.08937462365205442,
+        0.9933461576725432,
+        0.029234520516353335,
+        1.9780171910914015,
+        1.9979709194857993,
+        0.16678015213558206,
+        0.3060960269498952,
+        0.9932460748194338,
+        0.5849884739183638,
+        0.9494603482916288
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9189328107410842,
+        "token_efficiency": 0.9115658947805244,
+        "edge_robustness": 0.7348721318576129,
+        "epistemic_consistency": 0.930618365944932
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9901099973571322,
+        0.058563507598098315,
+        0.027704159559509608,
+        0.029787567305007485,
+        0.0397752619780569,
+        0.9976594277354905,
+        0.004874446915997109,
+        1.9777426275982293,
+        1.9982865478158984,
+        0.033474304285253116,
+        0.01434120839809571,
+        0.9006620450417459,
+        0.816099840759906,
+        0.9878653203592855
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9226223689595692,
+        "token_efficiency": 0.9098579814859405,
+        "edge_robustness": 0.7248465272701197,
+        "epistemic_consistency": 0.8795416229668918
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9734563783572935,
+        0.05438188626800482,
+        0.014094262865198947,
+        0.0267482576336154,
+        0.007986207422127758,
+        0.9883337504782413,
+        0.9548044137056212,
+        1.983657470739604,
+        1.997126575556724,
+        0.302425870463886,
+        0.30785555638560136,
+        0.9993324176743003,
+        0.5110200121937902,
+        0.9991802943574418
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9537661923600184,
+        "token_efficiency": 0.8639333498872417,
+        "edge_robustness": 0.8317367659728168,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9921661389635233,
+        0.7600670410870485,
+        0.09221931401896274,
+        0.06347076603050307,
+        0.06652467517092459,
+        0.9851413922222582,
+        0.11532176801369756,
+        1.9863467217254345,
+        1.98094112316615,
+        0.10249210857919555,
+        0.04928255691783065,
+        0.9878275314413736,
+        0.6297078548145022,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9560916811230179,
+        "token_efficiency": 0.8580581198337737,
+        "edge_robustness": 0.737438503439622,
+        "epistemic_consistency": 0.8946294486505656
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.32174007779304864,
+        0.05726672854406894,
+        0.014996098979668832,
+        0.054130019864693915,
+        0.03050611018659352,
+        0.9932982538030593,
+        0.019613598957195336,
+        1.978208965503301,
+        1.9980659757546277,
+        0.1148483190837172,
+        0.01435320470465277,
+        0.9915764911890735,
+        0.670052760706297,
+        0.9902877793869279
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8863535905355965,
+        "token_efficiency": 0.9480339985773086,
+        "edge_robustness": 0.6331337936760488,
+        "epistemic_consistency": 0.8546369638207476
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6253616103702423,
+        0.07705680676188542,
+        0.01864827292814605,
+        0.02193194970252345,
+        0.03176115700851749,
+        0.980930862662994,
+        0.01638695946084233,
+        1.9863257794356362,
+        1.979871378203757,
+        0.936957169469936,
+        0.012388298253419711,
+        0.9879169270845192,
+        0.2603716256035898,
+        0.9969553159246319
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9028938467887336,
+        "token_efficiency": 0.9311236133530505,
+        "edge_robustness": 0.8062391012745972,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9848464514565712,
+        0.21655104770814732,
+        0.017231396666514673,
+        0.013459523145092273,
+        0.06652447000985302,
+        0.923731236842748,
+        0.11097272586427785,
+        1.9949939058319235,
+        1.979662376005983,
+        0.9828880276405503,
+        0.01607032052490768,
+        0.9650230391703842,
+        0.9211173543483185,
+        0.9975042332578896
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9285749289542226,
+        "token_efficiency": 0.8995533313923523,
+        "edge_robustness": 0.9093802547136198,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9792073700418873,
+        0.0477306598042489,
+        0.007842265928802276,
+        0.02897728726062014,
+        0.04012769306461663,
+        0.9239176234077171,
+        0.0020029260892849487,
+        1.9774170678711156,
+        1.9987702021356775,
+        0.033474304285253116,
+        0.016784344397675337,
+        0.9006620450417459,
+        0.175656769942177,
+        0.9984021066662963
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9168620726045411,
+        "token_efficiency": 0.9168207752664213,
+        "edge_robustness": 0.690946235576725,
+        "epistemic_consistency": 0.8805687756070273
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9914995207395294,
+        0.242072392143947,
+        0.09221931401896274,
+        0.06347076603050307,
+        0.06665697429977467,
+        0.9577145292041258,
+        0.11739881054124643,
+        1.9863467217254345,
+        1.9818351510410994,
+        0.10249210857919555,
+        0.07089630157213853,
+        0.9893430804399723,
+        0.6729852640777014,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9362197852694851,
+        "token_efficiency": 0.8880554058553282,
+        "edge_robustness": 0.7396685445713868,
+        "epistemic_consistency": 0.8978381794375121
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.3448273381696667,
+        0.05842776982152562,
+        0.00699905608643094,
+        0.03851437153563493,
+        0.04419121668823505,
+        0.9931915552305893,
+        0.025971568741358378,
+        1.7496071955257342,
+        1.987998919456148,
+        0.9563414899913418,
+        0.28882448757935564,
+        0.8829839469005051,
+        0.8375624127421164,
+        0.9390464856104151
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8697167446702586,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.7878057028813354,
+        "epistemic_consistency": 0.9338140625124028
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9796853356160675,
+        0.03067404978364341,
+        0.015396428555451858,
+        0.04024482425701534,
+        0.07670189134014219,
+        0.7664174510982872,
+        0.026746040204304992,
+        1.984484339961071,
+        1.9738972877887406,
+        0.9589487205306145,
+        0.2980300379764712,
+        0.9380196954041121,
+        0.487953581614878,
+        0.9991531510222579
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9093428534546368,
+        "token_efficiency": 0.9208791412584453,
+        "edge_robustness": 0.8754803059334519,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9799882092099412,
+        0.059213293895955296,
+        0.062224696925846784,
+        0.6624998428481822,
+        0.0309571168644115,
+        0.9925628174771378,
+        0.07042606537974971,
+        1.9948843372412273,
+        1.9814098499494308,
+        0.10989252389381812,
+        0.06362292238116722,
+        0.9986792480093877,
+        0.9074851217944787,
+        0.9989229437079028
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9490090659306616,
+        "token_efficiency": 0.8705841895583324,
+        "edge_robustness": 0.7475826004921315,
+        "epistemic_consistency": 0.8984820351554232
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9167181832681598,
+        0.034106151608849125,
+        0.01283981825172862,
+        0.0516797467687897,
+        0.10180391189988917,
+        0.7874299647161733,
+        0.010223427259392268,
+        1.9802686144111936,
+        1.9940997686191453,
+        0.043459324612513534,
+        0.09750170757017596,
+        0.990611617196235,
+        0.8179451255643881,
+        0.9879406673093609
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9068266749883233,
+        "token_efficiency": 0.924479297456189,
+        "edge_robustness": 0.716256280955895,
+        "epistemic_consistency": 0.8898083284313238
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9786259221024576,
+        0.039221592192501445,
+        0.008408501748931438,
+        0.02230024414660072,
+        0.028527175261444992,
+        0.9198967252928868,
+        0.05227746609087951,
+        1.9694462540187552,
+        1.973923907913459,
+        0.0014766871050189145,
+        0.006873232998515236,
+        0.9933794299280665,
+        0.4876012076748832,
+        0.9895134241938117
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9162212863167156,
+        "token_efficiency": 0.9163422959418639,
+        "edge_robustness": 0.7043997998260367,
+        "epistemic_consistency": 0.8733518863920354
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9310194165822863,
+        0.05807269655601682,
+        0.013934764411817582,
+        0.016019424938668536,
+        0.025910994671708994,
+        0.9817922726226331,
+        0.014912895324713793,
+        1.9033053607495662,
+        1.9996694604242014,
+        0.1969826451143745,
+        0.010541440082139059,
+        0.9630368725149928,
+        0.36268316680310825,
+        0.9878762450701947
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9127607640396889,
+        "token_efficiency": 0.919571613384097,
+        "edge_robustness": 0.7205691930040455,
+        "epistemic_consistency": 0.8789705656962179
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9938678987868063,
+        0.24700448205707942,
+        0.00531332843672519,
+        0.051398024420453006,
+        0.14374397566213826,
+        0.981802859959377,
+        0.9792328605789238,
+        1.9852362665563337,
+        1.999164942847558,
+        0.04041571491588257,
+        0.0069776563664365465,
+        0.9947099953526544,
+        0.35638671792315973,
+        0.9873927080638162
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9665197564595555,
+        "token_efficiency": 0.8430507532678995,
+        "edge_robustness": 0.781922428907605,
+        "epistemic_consistency": 0.8806112678336919
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9785787176545244,
+        0.03934632719633259,
+        0.006650367575238005,
+        0.04912471928304174,
+        0.028527175261444992,
+        0.9194818557608095,
+        0.04248771528269026,
+        1.9694462540187552,
+        1.9737182742903097,
+        0.0043136376317326475,
+        0.006873232998515236,
+        0.9933794299280665,
+        0.4936903119854781,
+        0.9997719614088384
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9175514529102399,
+        "token_efficiency": 0.915543461793138,
+        "edge_robustness": 0.70442464540453,
+        "epistemic_consistency": 0.8748642456881133
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6370137899159763,
+        0.00852493325203077,
+        0.006681696788086826,
+        0.011659313015808023,
+        0.035217018147181325,
+        0.7874299647161733,
+        0.010223427259392268,
+        1.9802686144111936,
+        1.9940997686191453,
+        0.043459324612513534,
+        0.06566414975082963,
+        0.990611617196235,
+        0.8179451255643881,
+        0.9879406673093609
+      ],
+      "outcomes": {
+        "task_accuracy": 0.886600799997538,
+        "token_efficiency": 0.9475952682227702,
+        "edge_robustness": 0.6743006219530674,
+        "epistemic_consistency": 0.8710474750908128
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9809114549825089,
+        0.040828184556955915,
+        0.005872351788317326,
+        0.6178238308702423,
+        0.006520942234213517,
+        0.07446131082291302,
+        0.7568201182697778,
+        1.9450917908612921,
+        1.968218591877459,
+        0.9897412699780379,
+        0.26320127488738987,
+        0.9788888019924101,
+        0.5575907024774609,
+        0.4526963378808315
+      ],
+      "outcomes": {
+        "task_accuracy": 0.861686619679854,
+        "token_efficiency": 0.8926225901470195,
+        "edge_robustness": 0.9415189630633303,
+        "epistemic_consistency": 0.9419399738807701
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9977756056863458,
+        0.030994963691016807,
+        0.015377386610776533,
+        0.05839926197638523,
+        0.022750250863099404,
+        0.9788996913702543,
+        0.043207881764225686,
+        1.9642213126821786,
+        1.994967034161463,
+        0.27202034720269475,
+        0.04187535173258086,
+        0.963291067548946,
+        0.48956006952240994,
+        0.997471595191951
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9221326856997949,
+        "token_efficiency": 0.91162237898007,
+        "edge_robustness": 0.7551334898739828,
+        "epistemic_consistency": 0.9066285454703003
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9911765909048322,
+        0.24655873810225137,
+        0.005405651794993239,
+        0.019616300656897172,
+        0.10840577121186948,
+        0.9815950479770669,
+        0.9726285430291661,
+        1.9769503904948833,
+        1.999164942847558,
+        0.043280132418167847,
+        0.9039457617734467,
+        0.9984080259073183,
+        0.8391998741615246,
+        0.9875446643128981
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9632805123608311,
+        "token_efficiency": 0.8476051669360142,
+        "edge_robustness": 0.8053152052411999,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9983237495918821,
+        0.2361565727387866,
+        0.0028154050226595383,
+        0.030995949059296868,
+        0.026854006492331297,
+        0.9935699243407438,
+        0.049919447950673046,
+        1.965246482027524,
+        1.994993236134391,
+        0.027806952286532773,
+        0.020613309264165436,
+        0.9640674061998157,
+        0.46817199349843197,
+        0.9985411334348965
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9294238792503762,
+        "token_efficiency": 0.9013423116949802,
+        "edge_robustness": 0.7107658286424348,
+        "epistemic_consistency": 0.879358181875014
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9828700824036187,
+        0.04112350244473473,
+        0.031545702465529235,
+        0.021908951499761367,
+        0.08765438959105493,
+        0.9976594277354905,
+        0.7239396798860787,
+        1.981693688977836,
+        1.9977238535973358,
+        0.8936846101595238,
+        0.305978004526298,
+        0.9006620450417459,
+        0.8169647630132625,
+        0.9879358563825021
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9485582350903269,
+        "token_efficiency": 0.8690263519165846,
+        "edge_robustness": 0.9363249022899199,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9310633035605446,
+        0.034384571449468534,
+        0.01492223067839574,
+        0.6078700619247245,
+        0.07687622109359457,
+        0.9941189600739117,
+        0.053008259998900964,
+        1.9762006420715799,
+        1.9972364925442883,
+        0.2594720309147928,
+        0.02215706317303217,
+        0.9601434130857757,
+        0.5858985768325493,
+        0.988749468298393
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9410453571688783,
+        "token_efficiency": 0.8802791954557828,
+        "edge_robustness": 0.7489480764231471,
+        "epistemic_consistency": 0.9001899795141529
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9504787441600675,
+        0.735442487473476,
+        0.0011827650781000834,
+        0.6592807216660713,
+        0.13155925610135838,
+        0.9848786103548269,
+        0.04774723748041862,
+        1.8387493580008576,
+        1.9693406575061732,
+        0.9452889753490177,
+        0.0717197656001896,
+        0.9967103546394137,
+        0.6494145936291377,
+        0.9901330123217111
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9609614794406356,
+        "token_efficiency": 0.8398271702742833,
+        "edge_robustness": 0.872564310186758,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9319391386281082,
+        0.05262127894146158,
+        0.04494303901794228,
+        0.0628186795881091,
+        0.1830807891831379,
+        0.9882740974595425,
+        0.010050444914601386,
+        1.9995015311889284,
+        1.9992515122396552,
+        0.24829626549676337,
+        0.02037591854881307,
+        0.9596937953124554,
+        0.8388136545743761,
+        0.9879260250201645
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9268716409399489,
+        "token_efficiency": 0.9032100491992919,
+        "edge_robustness": 0.7572089781530776,
+        "epistemic_consistency": 0.9029443698798305
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.961069607712549,
+        0.05778078294745721,
+        0.026304587437684802,
+        0.00974949549868517,
+        0.01773242616758831,
+        0.9205622009251225,
+        0.05196429335220898,
+        1.9167792161286434,
+        1.9776189140124427,
+        0.9691020808130253,
+        0.015695702167607083,
+        0.9928183820667521,
+        0.9293922722835284,
+        0.9796852196933845
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9118005475166393,
+        "token_efficiency": 0.9180000475771972,
+        "edge_robustness": 0.8958967414307257,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9940443005307988,
+        0.04102742912419462,
+        0.015377417590441332,
+        0.649673456827008,
+        0.026722077704700052,
+        0.9716428939777748,
+        0.7467199605045062,
+        1.945221404587061,
+        1.9972847049091287,
+        0.27202034720269475,
+        0.26804937263751083,
+        0.9978470018045125,
+        0.5899359665502122,
+        0.9879474040388977
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9653615131973646,
+        "token_efficiency": 0.8416434173469489,
+        "edge_robustness": 0.8151135589274585,
+        "epistemic_consistency": 0.9358051969527748
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.5793656686143956,
+        0.20638001182262394,
+        0.002866471493102537,
+        0.07074270003788516,
+        0.047282052364392785,
+        0.7645501687509703,
+        0.0201496844056605,
+        1.8796494875040828,
+        1.9738655126671243,
+        0.9614811266763993,
+        0.014946932794750041,
+        0.8681658868699387,
+        0.9662905672115603,
+        0.984661547329182
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8852724979835127,
+        "token_efficiency": 0.936324912780545,
+        "edge_robustness": 0.8350839357071055,
+        "epistemic_consistency": 0.9338547294478089
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9978062084107029,
+        0.058563507598098315,
+        0.027704159559509608,
+        0.059707963615070664,
+        0.0397752619780569,
+        0.9974120291956169,
+        0.042515391167325105,
+        1.978279213875614,
+        1.9982865478158984,
+        0.04907665954704943,
+        0.01434120839809571,
+        0.9861900978348047,
+        0.816099840759906,
+        0.9878653203592855
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9254264217587156,
+        "token_efficiency": 0.9074268865343503,
+        "edge_robustness": 0.7318421218664801,
+        "epistemic_consistency": 0.8815832545756792
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9806096520086349,
+        0.1102794001570146,
+        0.016575173273693865,
+        0.01410205253361771,
+        0.030696885592472856,
+        0.9933400792502691,
+        0.027924390162536034,
+        1.978208965503301,
+        1.9980659757546277,
+        0.033847536947732876,
+        0.01435320470465277,
+        0.9925232829393921,
+        0.12839818641491668,
+        0.9901671094791588
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9233917692604499,
+        "token_efficiency": 0.9105126319596895,
+        "edge_robustness": 0.6909662236057679,
+        "epistemic_consistency": 0.8794658839289962
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.6178736336127685,
+        0.03285402337895804,
+        0.01864827292814605,
+        0.07085828491302458,
+        0.11747420859155905,
+        0.9780473405305093,
+        0.01986497998385479,
+        1.9978804636455842,
+        1.9799856136249607,
+        0.961840850544891,
+        0.07634975367367884,
+        0.9878275314413736,
+        0.9843405578893493,
+        0.985825606799098
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9053844952886924,
+        "token_efficiency": 0.9261871671617594,
+        "edge_robustness": 0.8465338429789949,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9841438222050045,
+        0.7817042456366945,
+        0.008408501748931438,
+        0.013890776017562615,
+        0.0032603838262981674,
+        0.9847819419384721,
+        0.010853868512317288,
+        1.9695146791380485,
+        1.9966125412529576,
+        0.21098765241684544,
+        0.0763386422408079,
+        0.9931066007796855,
+        0.4712632256267358,
+        0.9887271255599834
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9440419093913206,
+        "token_efficiency": 0.8771178793879606,
+        "edge_robustness": 0.738811408693627,
+        "epistemic_consistency": 0.9049166500001027
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9953192458806819,
+        0.03104799721713196,
+        0.015377386610776533,
+        0.6215376717350034,
+        0.022750250863099404,
+        0.9973894055445653,
+        0.024825394825684965,
+        1.9774102396581774,
+        1.973979847380907,
+        0.27202034720269475,
+        0.04187535173258086,
+        0.963291067548946,
+        0.4698404945967122,
+        0.9884203961288729
+      ],
+      "outcomes": {
+        "task_accuracy": 0.942334970497444,
+        "token_efficiency": 0.8791211528746404,
+        "edge_robustness": 0.7528360152808049,
+        "epistemic_consistency": 0.9077935904481274
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9921661389635233,
+        0.2196036772988625,
+        0.09221931401896274,
+        0.013459523145092273,
+        0.06652467517092459,
+        0.9879854868220801,
+        0.11358177328049089,
+        1.9863257794356362,
+        1.98094112316615,
+        0.9559800675830251,
+        0.07628944406866348,
+        0.9878275314413736,
+        0.9303732631165109,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9355477796853803,
+        "token_efficiency": 0.8904741259768517,
+        "edge_robustness": 0.9059595692051634,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9466282855465515,
+        0.029483805644302807,
+        0.0066714510799885645,
+        0.6440948760446161,
+        0.13387627475350372,
+        0.9849579664131985,
+        0.042881321896219377,
+        1.985522496551288,
+        1.9692776170701722,
+        0.05491385459458348,
+        0.011509936701579928,
+        0.9979389273274573,
+        0.6275411384476992,
+        0.9990511946125862
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9451375394136545,
+        "token_efficiency": 0.8750436626768101,
+        "edge_robustness": 0.7161071991951419,
+        "epistemic_consistency": 0.8818294829747652
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.3118946946544291,
+        0.2267337910440903,
+        0.015080594100622513,
+        0.054130019864693915,
+        0.029883313941147627,
+        0.9955629967323292,
+        0.012598890216243996,
+        1.978208965503301,
+        1.998886844161833,
+        0.9275387340709167,
+        0.01435320470465277,
+        0.9439420061429805,
+        0.6516509712006097,
+        0.9902805381124413
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8916257152936262,
+        "token_efficiency": 0.9386405333950125,
+        "edge_robustness": 0.7764599947283913,
+        "epistemic_consistency": 0.9354128672095983
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9319391386281082,
+        0.04079073582532782,
+        0.04521057689770463,
+        0.0628186795881091,
+        0.1856065516473334,
+        0.9764751447948169,
+        0.010344094391814718,
+        1.9951974549708789,
+        1.99232244271027,
+        0.24948544018246732,
+        0.02037591854881307,
+        0.9601432324990202,
+        0.8082596561795796,
+        0.9879387614342432
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9255414575914613,
+        "token_efficiency": 0.9040569053279892,
+        "edge_robustness": 0.7557466585862197,
+        "epistemic_consistency": 0.9022900819988414
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9828612921441153,
+        0.06721376331911502,
+        0.03423957532346479,
+        0.06417489470327402,
+        0.030582674527219217,
+        0.9797085195332769,
+        0.03306361503713234,
+        1.99627258850942,
+        1.968218591877459,
+        0.2473310104417648,
+        0.018844206207689177,
+        0.964919339024546,
+        0.9215763687337396,
+        0.9802238850913236
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9239572992573176,
+        "token_efficiency": 0.9062670947290686,
+        "edge_robustness": 0.7705235868811693,
+        "epistemic_consistency": 0.90365872872519
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9582135141067027,
+        0.18945858833914786,
+        0.027623922102763255,
+        0.6035584752667196,
+        0.11683139191779823,
+        0.9976571243274167,
+        0.9893057040324913,
+        1.9638738203998094,
+        1.9837031189055765,
+        0.27716633815489994,
+        0.0739212573466303,
+        0.9951472385304747,
+        0.6458926415642177,
+        0.9999511108268023
+      ],
+      "outcomes": {
+        "task_accuracy": 0.98,
+        "token_efficiency": 0.8159107592457773,
+        "edge_robustness": 0.8336160092006899,
+        "epistemic_consistency": 0.9102069190940016
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9713460003954353,
+        0.22687768304215974,
+        0.015080594100622513,
+        0.054130019864693915,
+        0.03003917303665997,
+        0.995524275929387,
+        0.950565642116113,
+        1.978208965503301,
+        1.9980659757546277,
+        0.9283631989276495,
+        0.01435320470465277,
+        0.9915764911890735,
+        0.6458015477271078,
+        0.9902877793869279
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9607329271639201,
+        "token_efficiency": 0.8516716211552687,
+        "edge_robustness": 0.95,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9878207945544432,
+        0.07081562622808885,
+        0.13976852948464025,
+        0.03798672597745817,
+        0.014672607367641366,
+        0.00020610952081373535,
+        0.743260566567555,
+        1.7342544272492624,
+        1.9831696593358388,
+        0.9313185766024763,
+        0.2721278017686495,
+        0.8350851293165892,
+        0.8487261037023034,
+        0.9794699439170648
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8719840439145566,
+        "token_efficiency": 0.9211696759557761,
+        "edge_robustness": 0.9370777905721024,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9948592797487815,
+        0.8174882556866933,
+        0.0025096634953416103,
+        0.049938662516991306,
+        0.030505406699551256,
+        0.996357387786766,
+        0.9435128883604867,
+        1.9751403619257706,
+        1.976939056698348,
+        0.032983680637918456,
+        0.29549185941193334,
+        0.9901028678408664,
+        0.670592709235562,
+        0.9877402878168853
+      ],
+      "outcomes": {
+        "task_accuracy": 0.98,
+        "token_efficiency": 0.8181795616948345,
+        "edge_robustness": 0.7931822354847904,
+        "epistemic_consistency": 0.9214192106476857
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9924529093898453,
+        0.05281847053936697,
+        0.017498767439433623,
+        0.05467589699842816,
+        0.06507165241506181,
+        0.999037488499977,
+        0.31302907474585445,
+        1.9778543518345975,
+        1.9939020157630887,
+        0.14079906968421108,
+        0.026492306677261403,
+        0.987361116210638,
+        0.6546867508852712,
+        0.9884376727092764
+      ],
+      "outcomes": {
+        "task_accuracy": 0.934876906870593,
+        "token_efficiency": 0.8924936030646333,
+        "edge_robustness": 0.7611026065489506,
+        "epistemic_consistency": 0.8923027024948433
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9310633035605446,
+        0.034384571449468534,
+        0.01492223067839574,
+        0.5885384082459637,
+        0.03955929873622037,
+        0.997890735251147,
+        0.053008259998900964,
+        1.9762006420715799,
+        1.998285209804389,
+        0.2594720309147928,
+        0.021741506265197257,
+        0.9594417994077921,
+        0.5744531351846032,
+        0.988749468298393
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9393078223941339,
+        "token_efficiency": 0.8832363102650685,
+        "edge_robustness": 0.7483758043407498,
+        "epistemic_consistency": 0.9001276459779777
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.36872472921995425,
+        0.04278472485936058,
+        0.02235435720174181,
+        0.02915733053180218,
+        0.044450891297151206,
+        0.7474431336478808,
+        0.025591073947648146,
+        1.9863257794356362,
+        1.9737860110379035,
+        0.9407454239440285,
+        0.060069337174899345,
+        0.9848638837775069,
+        0.20461675755161146,
+        0.9986428116351429
+      ],
+      "outcomes": {
+        "task_accuracy": 0.873686478715479,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.766374040663736,
+        "epistemic_consistency": 0.9488969571262671
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.3133009873458644,
+        0.05726672854406894,
+        0.015559186830760286,
+        0.0008799120422983177,
+        0.017270059126704655,
+        0.997574847994965,
+        0.019613598957195336,
+        1.9860417032111624,
+        1.9985382634644093,
+        0.2615640576495297,
+        0.014323295489096286,
+        0.9917286448921561,
+        0.8123147275719766,
+        0.9902877793869279
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8843300759598552,
+        "token_efficiency": 0.95,
+        "edge_robustness": 0.6657031709024159,
+        "epistemic_consistency": 0.8702919895600512
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.32174007779304864,
+        0.2267337910440903,
+        0.015080594100622513,
+        0.054130019864693915,
+        0.03050611018659352,
+        0.9955629967323292,
+        0.02186581785769664,
+        1.978208965503301,
+        1.9980659757546277,
+        0.9301087528700277,
+        0.01435320470465277,
+        0.9915764911890735,
+        0.670052760706297,
+        0.9902877793869279
+      ],
+      "outcomes": {
+        "task_accuracy": 0.8925139310042507,
+        "token_efficiency": 0.9384585401050985,
+        "edge_robustness": 0.7800608492696248,
+        "epistemic_consistency": 0.9361630071993786
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9795836686900923,
+        0.02963330042588383,
+        0.013958781700349874,
+        0.027796735071311907,
+        0.04006794347880762,
+        0.9259262664980774,
+        0.009204716164956665,
+        1.9093573032242757,
+        1.9899410977607557,
+        0.9427059590868729,
+        0.01880374156884926,
+        0.9871065086316796,
+        0.16146899871240283,
+        0.9986934735366483
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9127423768661643,
+        "token_efficiency": 0.9201392736459222,
+        "edge_robustness": 0.8518087422969386,
+        "epistemic_consistency": 0.95
+      },
+      "source": "stage2_pymoo"
+    },
+    {
+      "config_14d": [
+        0.9258054973715757,
+        0.04829676218923924,
+        0.00531332843672519,
+        0.051398024420453006,
+        0.14374397566213826,
+        0.981802859959377,
+        0.9792328605789238,
+        1.9848015891361832,
+        1.999164942847558,
+        0.041267369266048994,
+        0.0069776563664365465,
+        0.9947099953526544,
+        0.35638671792315973,
+        0.9873927080638162
+      ],
+      "outcomes": {
+        "task_accuracy": 0.9557954735411343,
+        "token_efficiency": 0.8577361502610727,
+        "edge_robustness": 0.7718489793815444,
+        "epistemic_consistency": 0.8772150712623201
+      },
+      "source": "stage2_pymoo"
+    }
+  ],
+  "previous_score": 0.99375,
+  "current_score": 0.99375,
+  "delta": 0.0,
+  "converged": true
+}
