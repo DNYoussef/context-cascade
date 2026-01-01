@@ -1,10 +1,15 @@
 #!/bin/bash
 # user-prompt-submit.sh
 # Hook: UserPromptSubmit
-# Purpose: Initialize workflow state and inject 5-phase reminder
+# Purpose: Initialize workflow state, match skills, and inject context
+#
+# INTEGRATED SKILL ROUTER - Matches user request to relevant skills
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_DIR="${SCRIPT_DIR%/hooks/enforcement}"
 STATE_TRACKER="$SCRIPT_DIR/state-tracker.sh"
+SKILL_ROUTER="$PLUGIN_DIR/scripts/skill-index/route-skill.sh"
+SKILL_INDEX="$PLUGIN_DIR/scripts/skill-index/skill-index.json"
 
 # Read user message from stdin
 USER_MESSAGE=$(cat)
@@ -55,81 +60,95 @@ for pattern in "${NONTRIVIAL_PATTERNS[@]}"; do
     fi
 done
 
-# For non-trivial requests, initialize state and display enforcement
+# For non-trivial requests, initialize state and run skill router
 if [ "$IS_TRIVIAL" = false ]; then
     # Initialize workflow state
-    bash "$STATE_TRACKER" init_state
+    if [ -f "$STATE_TRACKER" ]; then
+        bash "$STATE_TRACKER" init_state 2>/dev/null
+    fi
 
-    # Display 5-phase enforcement reminder
-    cat << 'EOF'
+    # Run skill router if available
+    SKILL_MATCHES=""
+    if [ -f "$SKILL_ROUTER" ] && [ -f "$SKILL_INDEX" ]; then
+        SKILL_MATCHES=$(bash "$SKILL_ROUTER" "$MESSAGE_TEXT" 2>/dev/null)
+    fi
+
+    # Check if we got skill matches
+    if [ -n "$SKILL_MATCHES" ] && ! echo "$SKILL_MATCHES" | grep -q "No matching skills"; then
+        # Display matched skills with routing info
+        cat << EOF
 
 ================================================================
-!! 5-PHASE WORKFLOW ENFORCEMENT ACTIVE !!
+!! SKILL ROUTER + 5-PHASE WORKFLOW ACTIVE !!
 ================================================================
 
-This is a NON-TRIVIAL request. MANDATORY 5-phase workflow:
+MATCHED SKILLS FOR YOUR REQUEST:
 
-PHASE 1: INTENT ANALYSIS
-  Tool: Skill("intent-analyzer")
-  Output: Understood intent + confidence score
-  Gate: If confidence < 80%, ask clarifying questions
+$SKILL_MATCHES
 
-PHASE 2: PROMPT OPTIMIZATION
-  Tool: Skill("prompt-architect")
-  Output: Optimized request + success criteria
+================================================================
+WORKFLOW INSTRUCTIONS:
+================================================================
 
-PHASE 3: STRATEGIC PLANNING
-  Tool: Skill("research-driven-planning") OR Skill("planner")
-  Output: Task breakdown + dependencies + parallelization
+1. LOAD TOP SKILL(S) - Read the SKILL.md from path shown above
+   Also read: ANTI-PATTERNS.md, README.md, examples/ if they exist
 
-PHASE 4: PLAYBOOK/SKILL ROUTING
-  Action: Match tasks to playbooks/skills from catalog
-  Output: Routing decisions for each task
+2. FOLLOW THE SKILL'S SOP - Each skill defines HOW to accomplish the task
 
-PHASE 5: EXECUTION
-  Tools: Skill() -> Task() -> TodoWrite()
-  Pattern: Skills define SOP, Task spawns agents, TodoWrite tracks
-  Golden Rule: 1 MESSAGE = ALL PARALLEL OPERATIONS
-
-CRITICAL CHECKS BEFORE EXECUTION:
-
-1. DOMAIN EXPERTISE CHECK
-   Location: .claude/expertise/{domain}.yaml
-   If EXISTS: Load and validate BEFORE Phase 3
-   If MISSING: Agent discovers and creates during execution
-
-2. AGENT REGISTRY ENFORCEMENT
-   Registry: claude-code-plugins/ruv-sparc-three-loop-system/agents/
-   Count: 206 agents in 10 categories
+3. SPAWN AGENTS via Task() - Use agents from registry only:
+   Registry: claude-code-plugins/context-cascade/agents/
    Categories: delivery, foundry, operations, orchestration,
-               platforms, quality, research, security,
-               specialists, tooling
-   Fallbacks: coder, researcher, tester, reviewer
-   NEVER use generic/made-up agent types
+               platforms, quality, research, security, specialists, tooling
+   Fallbacks if unsure: coder, researcher, tester, reviewer
 
-3. SOP COMPLIANCE PATTERN
-   Skill() -> Define how to accomplish task
+4. TRACK PROGRESS via TodoWrite() - Create 5-10 todos for the work
+
+EXECUTION PATTERN:
+  Read(skill_path + "SKILL.md")   // Load the SOP
        |
        v
-   Task() -> Spawn registry agents to execute
+  Task("Agent", "...", "type")    // Execute via registry agent
        |
        v
-   TodoWrite() -> Track progress with 5-10 todos
+  TodoWrite({ todos: [...] })     // Track progress
 
-4. PARALLEL EXECUTION RULE
-   WRONG: Spawn agent 1, wait, spawn agent 2
-   RIGHT: Single message with ALL Task() calls
+GOLDEN RULE: 1 MESSAGE = ALL PARALLEL Task() CALLS
+================================================================
 
-STATE TRACKING ACTIVE:
-  - All skill invocations logged
-  - All agent spawns tracked
-  - Violations detected and recorded
-  - Compliance checked at each step
-
-DO NOT skip phases. DO NOT use generic agents. DO NOT forget TodoWrite.
+EOF
+    else
+        # No skill matches - show generic 5-phase
+        cat << 'EOF'
 
 ================================================================
+!! 5-PHASE WORKFLOW ACTIVE !!
+================================================================
+
+No specific skills matched. Use general 5-phase workflow:
+
+1. INTENT ANALYSIS - Understand what user wants
+2. PLANNING - Break down into tasks
+3. SKILL ROUTING - Find relevant skills in:
+   skills/delivery/     - Feature implementation
+   skills/quality/      - Testing, auditing
+   skills/security/     - Security tasks
+   skills/research/     - Research tasks
+   skills/orchestration/ - Multi-agent coordination
+   skills/operations/   - DevOps, deployment
+   skills/platforms/    - Platform-specific
+   skills/foundry/      - Creating new skills/agents
+   skills/specialists/  - Domain experts
+   skills/tooling/      - Tool integrations
+
+4. EXECUTION - Skill -> Task -> TodoWrite pattern
+5. VERIFICATION - Check outputs against requirements
+
+Agent Registry: claude-code-plugins/context-cascade/agents/
+Fallbacks: coder, researcher, tester, reviewer
+================================================================
+
 EOF
+    fi
 fi
 
 # Always exit 0 (never block)
