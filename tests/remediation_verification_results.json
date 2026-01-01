@@ -1,0 +1,35 @@
+{
+  "passed": 7,
+  "failed": 0,
+  "errors": [],
+  "details": {
+    "FIX-1: Skill Trigger Matching": {
+      "status": "PASS",
+      "message": "Found 980 skills, 10/10 samples have trigger/pattern keywords"
+    },
+    "FIX-2: Frame Weight Policy": {
+      "status": "PASS",
+      "message": "EVIDENTIAL_MINIMUM=0.3, evidential weight=0.95"
+    },
+    "FIX-3: MCP Integration": {
+      "status": "PASS",
+      "message": "PromptBuilder works (MCP integration is optional)"
+    },
+    "FIX-4: Mode Selector Integration": {
+      "status": "PASS",
+      "message": "PromptBuilder has mode_selector (auto_select=True)"
+    },
+    "FIX-5: Bidirectional Bridge": {
+      "status": "PASS",
+      "message": "FrameValidationBridge created with all required methods"
+    },
+    "FIX-6: Ralph Persistence": {
+      "status": "PASS",
+      "message": "Ralph persistence configured: ralph-session-manager.cjs"
+    },
+    "FIX-7: Telemetry Steering": {
+      "status": "PASS",
+      "message": "TelemetrySteeringEngine works, TelemetryAwareModeSelector available"
+    }
+  }
+}

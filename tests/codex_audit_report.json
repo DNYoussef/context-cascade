@@ -1,0 +1,78 @@
+{
+  "audit": {
+    "scope": [
+      "core/frame_validation_bridge.py",
+      "optimization/telemetry_steering.py",
+      "modes/selector.py",
+      "core/prompt_builder.py"
+    ],
+    "status": "issues_found",
+    "findings": [
+      {
+        "id": "FVB-RACE",
+        "file": "core/frame_validation_bridge.py:190",
+        "severity": "high",
+        "category": "race_condition",
+        "details": "validate_and_feedback mutates shared feedback_history, correlations, and live config weights without locking",
+        "recommendation": "Add threading.Lock for shared state access"
+      },
+      {
+        "id": "FVB-MEM",
+        "file": "core/frame_validation_bridge.py:230",
+        "severity": "medium_high",
+        "category": "memory_leak",
+        "details": "feedback_history appended without pruning in memory",
+        "recommendation": "Use collections.deque(maxlen=1000)"
+      },
+      {
+        "id": "FVB-IO",
+        "file": "core/frame_validation_bridge.py:400",
+        "severity": "medium",
+        "category": "error_handling",
+        "details": "_save_history performs raw file writes without try/except",
+        "recommendation": "Wrap I/O in try/except with logging"
+      },
+      {
+        "id": "TSE-PARETO",
+        "file": "optimization/telemetry_steering.py:100",
+        "severity": "high",
+        "category": "algorithm_correctness",
+        "details": "ParetoPoint only considers accuracy and efficiency, ignoring consistency",
+        "recommendation": "Extend ParetoPoint to include consistency dimension"
+      },
+      {
+        "id": "TSE-RANK",
+        "file": "optimization/telemetry_steering.py:393",
+        "severity": "medium_high",
+        "category": "logic_bug",
+        "details": "Weighted score computed but ignored in sorting",
+        "recommendation": "Use weighted score in sort key"
+      },
+      {
+        "id": "PB-STICKY-MODE",
+        "file": "core/prompt_builder.py:180",
+        "severity": "high",
+        "category": "logic_bug",
+        "details": "_mode_applied never reset after build(), causing stale mode reuse",
+        "recommendation": "Reset _mode_applied at end of build()"
+      },
+      {
+        "id": "PB-TASKTYPE",
+        "file": "core/prompt_builder.py:198",
+        "severity": "medium",
+        "category": "defensive_programming",
+        "details": "task_type argument ignored in TaskContext creation",
+        "recommendation": "Pass task_type to TaskContext"
+      },
+      {
+        "id": "PB-TELEMETRY",
+        "file": "core/prompt_builder.py:150",
+        "severity": "medium",
+        "category": "integration_gap",
+        "details": "Defaults to plain ModeSelector instead of TelemetryAwareModeSelector",
+        "recommendation": "Default to TelemetryAwareModeSelector"
+      }
+    ],
+    "timestamp": "2026-01-01T14:15:00Z"
+  }
+}

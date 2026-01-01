@@ -29,10 +29,11 @@ from .verilingua import FrameRegistry, CognitiveFrame, get_combined_activation_i
 from .frame_validation_bridge import FrameValidationBridge, ValidationFeedback
 
 # Import ModeSelector for FIX-4
+# FIX: Import TelemetryAwareModeSelector for PB-TELEMETRY
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from modes.selector import ModeSelector, TaskContext, select_mode
+from modes.selector import ModeSelector, TelemetryAwareModeSelector, TaskContext, TaskDomain, select_mode
 from modes.library import Mode
 
 logger = logging.getLogger(__name__)
@@ -148,7 +149,15 @@ class PromptBuilder:
         self._cluster_key = VectorCodec.cluster_key(config)
 
         # FIX-4: Mode selection integration
-        self.mode_selector = mode_selector or ModeSelector()
+        # FIX: Default to TelemetryAwareModeSelector for closed feedback loop (PB-TELEMETRY)
+        if mode_selector is None:
+            try:
+                self.mode_selector = TelemetryAwareModeSelector()
+            except Exception:
+                # Graceful fallback if telemetry unavailable
+                self.mode_selector = ModeSelector()
+        else:
+            self.mode_selector = mode_selector
         self.auto_select_mode = auto_select_mode
         self._selected_mode: Optional[Mode] = None
         self._mode_applied: bool = False
@@ -193,6 +202,9 @@ class PromptBuilder:
         system_prompt = self._assemble_system_prompt(components)
         user_prompt = self._assemble_user_prompt(components)
 
+        # FIX: Reset mode selection for next build to prevent stale mode reuse (PB-STICKY-MODE)
+        self._mode_applied = False
+
         return system_prompt, user_prompt
 
     def _select_and_apply_mode(self, task: str, task_type: str) -> None:
@@ -204,8 +216,21 @@ class PromptBuilder:
             task_type: Task category
         """
         try:
-            # Create task context for mode selection
-            context = TaskContext.from_task(task)
+            # FIX: Map task_type to domain for accurate mode selection (PB-TASKTYPE)
+            task_type_to_domain = {
+                "coding": TaskDomain.CODING,
+                "research": TaskDomain.RESEARCH,
+                "analysis": TaskDomain.ANALYSIS,
+                "creative": TaskDomain.CREATIVE,
+                "support": TaskDomain.SUPPORT,
+                "security": TaskDomain.SECURITY,
+                "documentation": TaskDomain.DOCUMENTATION,
+                "reasoning": TaskDomain.ANALYSIS,  # Map reasoning to analysis
+            }
+            domain = task_type_to_domain.get(task_type.lower(), TaskDomain.GENERAL)
+
+            # Create task context for mode selection with explicit domain
+            context = TaskContext.from_task(task, domain=domain)
 
             # Select optimal mode
             self._selected_mode = self.mode_selector.select(context)

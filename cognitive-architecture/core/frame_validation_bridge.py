@@ -25,10 +25,12 @@ evolve based on actual output quality.
 
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional, Tuple
+from collections import deque
 from enum import Enum
 import logging
 import time
 import json
+import threading
 from pathlib import Path
 
 from .verix import VerixClaim, VerixValidator, VerixParser
@@ -159,8 +161,12 @@ class FrameValidationBridge:
         self.verix_validator = VerixValidator(config.prompt)
         self.verix_parser = VerixParser(config.prompt)
 
-        # Feedback history (in-memory buffer)
-        self.feedback_history: List[ValidationFeedback] = []
+        # FIX: Thread safety lock for shared state (FVB-RACE)
+        self._lock = threading.Lock()
+
+        # FIX: Bounded feedback history to prevent memory leak (FVB-MEM)
+        # Using deque with maxlen=1000 to match persistence policy
+        self.feedback_history: deque = deque(maxlen=1000)
 
         # Frame correlations
         self.correlations: Dict[str, FrameCorrelation] = {
@@ -227,19 +233,21 @@ class FrameValidationBridge:
             task_type=task_type,
         )
 
-        # Record feedback
-        self.feedback_history.append(feedback)
+        # FIX: Use lock for thread-safe shared state mutation (FVB-RACE)
+        with self._lock:
+            # Record feedback
+            self.feedback_history.append(feedback)
 
-        # Update correlations
-        self._update_correlations(feedback)
+            # Update correlations
+            self._update_correlations(feedback)
 
-        # Auto-adjust if enabled and enough samples
-        if self.auto_adjust and len(self.feedback_history) >= self.MIN_SAMPLES_FOR_ADJUSTMENT:
-            self._apply_adjustments()
+            # Auto-adjust if enabled and enough samples
+            if self.auto_adjust and len(self.feedback_history) >= self.MIN_SAMPLES_FOR_ADJUSTMENT:
+                self._apply_adjustments()
 
-        # Persist feedback periodically
-        if len(self.feedback_history) % 10 == 0:
-            self._save_history()
+            # Persist feedback periodically
+            if len(self.feedback_history) % 10 == 0:
+                self._save_history()
 
         logger.info(
             f"Validation feedback: score={compliance_score:.2f}, "
@@ -401,8 +409,9 @@ class FrameValidationBridge:
         """Save feedback history to disk."""
         history_file = self.feedback_dir / "feedback_history.json"
 
-        # Only keep last 1000 entries
-        recent_history = self.feedback_history[-1000:]
+        # FIX: Create immutable snapshot for thread-safe persistence (FVB-RACE)
+        # deque already bounds to 1000, just copy for thread safety
+        recent_history = list(self.feedback_history)
 
         data = {
             "history": [fb.to_dict() for fb in recent_history],
@@ -419,8 +428,12 @@ class FrameValidationBridge:
             "saved_at": time.time(),
         }
 
-        with open(history_file, "w") as f:
-            json.dump(data, f, indent=2)
+        # FIX: Wrap I/O in try/except for defensive programming (FVB-IO)
+        try:
+            with open(history_file, "w") as f:
+                json.dump(data, f, indent=2)
+        except (IOError, OSError, json.JSONEncodeError) as e:
+            logger.warning(f"Could not save feedback history: {e}")
 
     def _load_history(self):
         """Load feedback history from disk."""
@@ -433,10 +446,13 @@ class FrameValidationBridge:
             with open(history_file) as f:
                 data = json.load(f)
 
-            self.feedback_history = [
+            # FIX: Populate deque properly (FVB-MEM)
+            loaded_entries = [
                 ValidationFeedback.from_dict(fb)
                 for fb in data.get("history", [])
             ]
+            self.feedback_history.clear()
+            self.feedback_history.extend(loaded_entries)
 
             for name, corr_data in data.get("correlations", {}).items():
                 if name in self.correlations:
