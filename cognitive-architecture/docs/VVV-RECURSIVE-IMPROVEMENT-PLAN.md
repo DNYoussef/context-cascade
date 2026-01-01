@@ -378,6 +378,7 @@ All items from REMEDIATION-PLAN + HOFSTADTER-SPEC + VVV-PLAN:
 ### Infrastructure
 - [x] CALIBRATION.md (commit 95ad023)
 - [x] CI workflow (commit 460fe0d)
+- [x] CI fix: Add PyYAML dependency (missing `yaml` module)
 - [ ] Task corpus (150 tasks)
 - [ ] DeepEval setup
 - [ ] Error handling tests
