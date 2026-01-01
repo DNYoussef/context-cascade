@@ -13,7 +13,7 @@
 |-------|--------|-------|
 | Phase 1 | COMPLETE | Medium bugs fixed (case sensitivity, thread safety) |
 | Phase 2 | COMPLETE | Low bugs fixed (to_l2, httpx leak) |
-| Phase 3 | PARTIAL | 1 of 3 cascade files consolidated, 2 remain |
+| Phase 3 | REVISED | Issue 3.1: cascade files intentionally separate (different purposes) |
 | Phase 4 | PARTIAL | Holdout validation exists, needs real evaluator |
 | Phase 5 | PARTIAL | Tests pass, needs CI workflow + CALIBRATION.md |
 | Phase 6 | PENDING | Final audit not started |
@@ -165,18 +165,34 @@ class GlobalMOOClient:
 
 ### Issue 3.1: Cascade Implementation Consolidation
 
-**Problem**: 3 files with overlapping functionality
+**Original Problem**: 3 files assumed to have overlapping functionality
 - `optimization/cascade.py` (558 lines)
 - `optimization/cascade_optimizer.py` (718 lines)
 - `optimization/real_cascade_optimizer.py` (601 lines)
 
-**Fix**: Consolidate into single `cascade.py` with clear responsibilities
+**REVISED ASSESSMENT (2026-01-01)**:
+
+After code analysis, these files serve **DIFFERENT purposes**:
+
+1. `cascade.py` (567 lines): **Three-MOO PHASES** (A, B, C)
+   - Phase A: Framework structure optimization
+   - Phase B: Edge case discovery
+   - Phase C: Production frontier refinement
+   - Classes: ThreeMOOCascade, CascadePhase, CascadeResult
+
+2. `cascade_optimizer.py` (721 lines): **Cascade LEVELS** optimization
+   - Level tracking: Command -> Agent -> Skill -> Playbook
+   - Execution monitoring and feedback collection
+   - Classes: CascadeOptimizer, CascadeLevel, CascadeLevelStats
+
+3. `real_cascade_optimizer.py`: **REMOVED** (consolidated previously)
+
+**DECISION**: Keep separate - not redundant. Merging would create 1300+ line file mixing unrelated concerns. The docstrings explicitly state "THIS MODULE: ... DIFFERENT FROM: ..."
 
 ```
 optimization/
-  cascade.py          # Core CASCADE algorithm (KEEP, enhance)
-  cascade_optimizer.py   # DELETE (merge into cascade.py)
-  real_cascade_optimizer.py  # DELETE (merge into cascade.py)
+  cascade.py           # Phase-based MOO (A, B, C) - KEEP AS IS
+  cascade_optimizer.py # Level-based execution tracking - KEEP AS IS
 ```
 
 ### Issue 3.2: Agent Cognitive Frame Template
@@ -210,13 +226,13 @@ def save_cascade_result(result):
 ```
 
 ### Verification Checklist
-- [ ] Single cascade.py with all functionality (PARTIAL: real_cascade_optimizer.py removed, 2 files remain)
+- [x] Cascade files analyzed (real_cascade_optimizer.py removed, 2 remaining files serve DIFFERENT purposes - KEEP SEPARATE)
 - [ ] Agent template working (NOT STARTED)
 - [ ] Storage uses delta compression (NOT STARTED - 16 cascade storage files exist)
-- [ ] All imports updated
-- [ ] Tests still pass (480/480)
+- [x] All imports verified (existing imports work correctly)
+- [x] Tests still pass (480/480)
 
-**STATUS: PHASE 3 PARTIAL** (real_cascade_optimizer.py consolidated, 2 files remain)
+**STATUS: PHASE 3 REVISED** (Issue 3.1 closed as "intentional separation", Issues 3.2-3.3 pending)
 
 ---
 
