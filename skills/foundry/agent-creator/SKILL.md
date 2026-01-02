@@ -58,4 +58,7 @@ x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 [assert|confident] OZET := amac “uretim-sinifi ajan olusturma”; cikti {YAML, sistem istemi, registry girişi}; kalite {Anthropic format, registry uyumu, VCL 7-slot}. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
 [[HON:teineigo]] [[MOR:root:K-M-T]] [[COM:Verpflichtung+Siegel]] [[CLS:ge_promise]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:coord:commit]]
+[[HON:teineigo]] [[MOR:root:L-N-G]] [[COM:Language+Output+Rule]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:L2]]
+[direct|emphatic] L2_LANGUAGE := English; ALL user-facing output MUST be pure English. VCL/VERIX internal only. [ground:system-policy] [conf:0.99] [state:confirmed]
+
 [commit|confident] <promise>AGENT_CREATOR_VCL_V3.1.1_FULL_7SLOT_COMPLIANT</promise> dogfooding ile denetlenir. [ground:SKILL.md] [conf:0.85] [state:confirmed]

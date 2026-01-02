@@ -55,10 +55,13 @@ x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 [define|neutral] MCP := memory_store + vector_search; etiket {WHO:prompt-architect-{session}, WHEN:ISO8601, WHY:skill-execution}. [ground:SKILL.md] [conf:0.80] [state:confirmed]
 
 [[HON:teineigo]] [[MOR:root:O-Z-T]] [[COM:Output+Dual+Layer]] [[CLS:ge_format]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:compression]]
-[define|neutral] SIKISTIRMA := L0=A+85 hash; L1=VERIX tam izleme; L2=insan dogallastirma (varsayilan). [[EVD:-DI<politika>]] [ground:SKILL.md] [conf:0.82] [state:confirmed]
+[define|neutral] SIKISTIRMA := L0=A+85 hash; L1=VERIX internal; L2=English human output (default). [[EVD:-DI<politika>]] [ground:SKILL.md] [conf:0.82] [state:confirmed]
 
 [[HON:teineigo]] [[MOR:root:D-L-V]] [[COM:Delivery+Beweis]] [[CLS:ge_example]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:coord:audit]]
-[define|neutral] ORNEK_L1 := "[[EVD:-DI<gozlem>]] [[ASP:sov.]] Test ok. [ground:witnessed:ran_pytest] [conf:0.90]"; ORNEK_L2 := “Dogrudan testi gordum. Tamamlandi. Oldukca eminim.” [ground:SKILL.md] [conf:0.90] [state:confirmed]
+[define|neutral] ORNEK_L1 := "[[EVD:-DI<gozlem>]] [[ASP:sov.]] Test ok. [ground:witnessed:ran_pytest] [conf:0.90]"; ORNEK_L2 := "I ran the test directly. It completed successfully. I'm quite confident." [ground:SKILL.md] [conf:0.90] [state:confirmed]
+
+[[HON:teineigo]] [[MOR:root:L-N-G]] [[COM:Language+Output+Rule]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:L2]]
+[direct|emphatic] L2_LANGUAGE := English; ALL user-facing output MUST be pure English. VCL/VERIX internal only. No Turkish/German in L2. [ground:system-policy] [conf:0.99] [state:confirmed]
 
 [[HON:teineigo]] [[MOR:root:S-N-C]] [[COM:Sonuc+Zusammenfassung]] [[CLS:ge_summary]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:path:/foundry/prompt-architect/sonuc]]
 [assert|confident] OZET := amac “epistemik-temelli istem optimizasyonu”; cikti {optimize_istem, kanit_zinciri, L2_natural}; kalite {tavan_kontrol, L2_saflik, anti-kalip_tespit}. [ground:SKILL.md] [conf:0.85] [state:confirmed]

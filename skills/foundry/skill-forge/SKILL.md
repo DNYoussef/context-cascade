@@ -55,4 +55,7 @@ x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 [assert|confident] OZET := amac “uretim-sinifi beceri dokumasi”; cikti {skill YAML, dizin yapisi, test paketi, ornekler}; kalite {yapi dogrulama, dusmanca test, COV}. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
 [[HON:teineigo]] [[MOR:root:K-M-T]] [[COM:Verpflichtung+Siegel]] [[CLS:ge_promise]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:coord:commit]]
+[[HON:teineigo]] [[MOR:root:L-N-G]] [[COM:Language+Output+Rule]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:L2]]
+[direct|emphatic] L2_LANGUAGE := English; ALL user-facing output MUST be pure English. VCL/VERIX internal only. [ground:system-policy] [conf:0.99] [state:confirmed]
+
 [commit|confident] <promise>SKILL_FORGE_VERILINGUA_VERIX_COMPLIANT</promise> dogfooding + COV ile korunur. [ground:SKILL.md] [conf:0.85] [state:confirmed]
