@@ -44,7 +44,7 @@ L2 (User):     Pure English        // ALL responses to user
 
 | Component | Count | Evidence |
 |-----------|-------|----------|
-| Skills | 226 | [witnessed:glob-count] |
+| Skills | 237 | [witnessed:glob-count] |
 | Agents | 217 | [witnessed:registry-scan] |
 | Commands | 245 | [witnessed:command-index] |
 | Playbooks | 7 | [witnessed:playbook-dir] |
