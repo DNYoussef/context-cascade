@@ -1,44 +1,9 @@
-# Network Security Setup - Detailed Process
+# Network Security Setup Routing Process
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+1. **Scope**: Gather HARD/SOFT/INFERRED constraints (environment, allowlists, proxy needs, TLS requirements).
+2. **Safety**: Confirm authorization, isolation, deny-by-default stance, and change logging.
+3. **Execute**: Trigger `network-security-setup` SOP; tag MCP (`WHO=network-security-setup-{session}`, `WHY=skill-execution`).
+4. **Validate**: Test allowed vs. blocked connectivity and TLS posture; capture evidence with confidence ceilings.
+5. **Deliver**: Policy pack + validation log saved at `skills/security/specialized-tools/when-setting-network-security-use-network-security-setup/{project}/{timestamp}`.
 
-
-
-## Architecture
-
-```
-Application → Firewall → Trusted Domains
-            ↓
-         DNS Filter → Block Malicious
-            ↓
-         Rate Limiter → Prevent Abuse
-```
-
-## Phases
-
-1. **Audit** (5-10 min): Identify requirements
-2. **Design** (5-10 min): Create policies
-3. **Implement** (10-15 min): Deploy rules
-4. **Test** (3-5 min): Validate policies
-5. **Document** (2-5 min): Create docs
-
-## Memory Keys
-
-- `network/requirements`
-- `network/policies`
-- `network/config`
-- `network/tests`
-- `network/complete`
-
-## Best Practices
-
-- Whitelist trusted domains
-- Monitor continuously
-- Test regularly
-- Document changes
-- Review quarterly
-
-
----
-*Promise: `<promise>PROCESS_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) - Process updated to mirror the network-security-setup SOP.

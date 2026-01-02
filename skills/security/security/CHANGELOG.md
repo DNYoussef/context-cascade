@@ -5,14 +5,12 @@ Kaynak dogrulama modu etkin.
 
 
 
-## [2.1.0] - 2024-12-15
+## [3.2.0] - 2025-02-15
 
-### Added
-- Phase 0: Expertise Loading
-- Recursive Improvement Integration (v2.1)
-- OWASP Top 10 documentation
-- Secure coding patterns
-- SKILL COMPLETION VERIFICATION
+### Changed
+- Rebuilt SKILL, README, and QUICK-REFERENCE with skill-forge structure-first and prompt-architect constraint/confidence overlays.
+- Added explicit routing to specialized security skills and MCP tagging guidance.
+- Updated guardrails to enforce authorization, evidence, and confidence ceilings.
 
 ## [1.0.0] - 2024-11-02
 

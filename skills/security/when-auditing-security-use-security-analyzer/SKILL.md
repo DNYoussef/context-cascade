@@ -1,154 +1,66 @@
 ---
-name: security-analyzer
-description: Comprehensive security auditing across static analysis, dynamic testing, dependency vulnerabilities, secrets detection, and OWASP compliance
+name: when-auditing-security-use-security-analyzer
+description: Routing skill that activates the security analyzer workflow for audits, vulnerability reviews, and remediation planning.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## Purpose
+Provide a clear entry point to security audits using the security analyzer stack. Encodes **skill-forge** structure-first expectations and **prompt-architect** constraint/confidence practices to route, scope, and validate audits.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## Use When / Redirect When
+- **Use when:** a user asks for a security audit, vulnerability review, or remediation plan for code/services/infrastructure.
+- **Redirect when:** network/sandbox policy setup (`network-security-setup`, `sandbox-configurator`) or reverse engineering tasks (`reverse-engineering-*`).
 
-[define|neutral] SKILL := {
-  name: "when-auditing-security-use-security-analyzer",
-  category: "security",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## Guardrails
+- Operate only with written authorization and defined scope.
+- Collect evidence for every claim; no speculative vulnerabilities.
+- Respect deny-by-default for active testing; isolate from production unless approved.
+- Confidence ceilings enforced (inference/report ≤0.70, research 0.85, observation/definition 0.95).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+## Prompt Architecture Overlay
+1. Capture HARD/SOFT/INFERRED constraints (assets, environments, risk tolerance, timelines).
+2. Two-pass refinement: structure (routing, coverage) then epistemic (evidence, ceilings).
+3. English-only outputs with explicit confidence line.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+## SOP (Audit Routing Loop)
+1. **Intake & Routing**
+   - Confirm authorization, assets, and objectives (assessment vs. remediation).
+   - Choose downstream paths: `security`, `network-security-setup`, `sandbox-configurator`, or reverse-engineering skills.
+2. **Plan**
+   - Define test modes (static, dynamic, supply-chain) and safety controls.
+   - Establish evidence plan (PoC/logs/config snapshots) and MCP tags (`WHO=security-analyzer-{session}`, `WHY=skill-execution`).
+3. **Execute**
+   - Trigger security analyzer processes (scans, code review, dependency checks) with deny-by-default networking.
+4. **Validate**
+   - Require dual validation for critical/high findings; map to CVE/CWE/OWASP.
+   - Confirm confidence ceilings and note gaps/false positives.
+5. **Deliver**
+   - Findings register, remediation backlog, and executive summary; archive to `skills/security/when-auditing-security-use-security-analyzer/{project}/{timestamp}`.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Deliverables
+- Scoped audit plan with safety controls.
+- Findings + remediation with evidence and severity.
+- Validation log and residual risk summary.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+## Quality Gates
+- Structure-first documentation; missing resources/examples/tests logged.
+- Authorization and isolation confirmed.
+- Evidence + confidence ceiling for each claim; dual validation on critical/high.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-auditing-security-use-security-analyzer", "security", "workflow"],
-  context: "user needs when-auditing-security-use-security-analyzer capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Anti-Patterns
+- Running scans without approval or isolation.
+- Reporting without evidence or remediation guidance.
+- Over-claiming severity/confidence.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Audit plan, routed skills, and executed checks.
+- Findings/remediations and validation summary.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-## When to Use This Skill
-
-Use this skill when conducting comprehensive security audits, performing vulnerability assessments, analyzing application security posture, identifying security misconfigurations, validating security controls, or preparing for penetration testing engagements.
-
-## When NOT to Use This Skill
-
-Do NOT use for compliance audits (use compliance skill instead), unauthorized security testing, production system scanning without approval, vulnerability exploitation (only identification), or automated scanning without manual validation. Avoid for code quality audits unrelated to security.
-
-## Success Criteria
-- [assert|neutral] All security vulnerabilities identified with CVSS scores and remediation guidance [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Security misconfigurations documented with severity ratings [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Attack surface mapped (exposed services, authentication mechanisms, data flows) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Security controls validated (authentication, authorization, encryption, logging) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Vulnerability remediation plan created with prioritization [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Zero critical/high vulnerabilities remaining after remediation [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Security findings validated through manual testing (not just automated scans) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Penetration testing readiness achieved (all low-hanging fruit addressed) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases & Challenges
-
-- False positives from automated security scanners
-- Zero-day vulnerabilities without CVE mappings
-- Business logic vulnerabilities requiring manual analysis
-- Authentication bypass through indirect paths
-- Encrypted communications requiring SSL interception
-- Cloud-specific security misconfigurations (S3 buckets, IAM roles)
-- Supply chain vulnerabilities in dependencies
-- Time-of-check to time-of-use (TOCTOU) race conditions
-
-## Guardrails (CRITICAL SECURITY RULES)
-- [assert|emphatic] NEVER: exploit vulnerabilities beyond proof-of-concept validation [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: conduct security testing on unauthorized systems [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: exfiltrate sensitive data during security assessments [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: cause denial-of-service or system instability [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: share vulnerability details publicly before responsible disclosure [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: obtain written authorization before security testing [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: document findings with remediation guidance [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate vulnerabilities through manual testing [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: follow responsible disclosure timelines (90 days standard) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: maintain confidentiality of security findings [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use non-destructive testing methods where possible [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: preserve audit trails of security testing activities [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validation
-
-All security findings MUST be validated through:
-1. **Automated scanning** - Multiple tools confirm vulnerability (
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/security/when-auditing-security-use-security-analyzer/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-auditing-security-use-security-analyzer-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_AUDITING_SECURITY_USE_SECURITY_ANALYZER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - Audit routing skill aligned with skill-forge structure and prompt-architect constraint handling.

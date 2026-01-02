@@ -1,224 +1,70 @@
 ---
 name: reverse-engineer-debug
-description: Perform systematic reverse engineering root cause analysis to debug issues and find real underlying problems
+description: Rapid triage and debug of binaries or artifacts with static + light dynamic analysis for safe insights.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
-
-
----
-<!-- S0 META-IDENTITY                                                             -->
----
-
-[define|neutral] SKILL := {
-  name: "SKILL",
-  category: "security",
-  version: "1.1.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
-
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "security", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# Reverse Engineer Debug Skill
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Kanitsal Kok Neden Analizi (Evidential Root Cause Analysis)
-
-Every causal link in the investigation MUST have supporting evidence. No speculation without proof.
-
-**Evidence Requirements**:
-- **DOGRUDAN** (Direct): Direct observation, log entry, stack trace, metric
-- **CIKARIM** (Inference): Pattern-based inference from multiple signals
-- **KORELASYON** (Correlation): Time-based correlation (not causation, flag as hypothesis)
-
-**Evidential Investigation Protocol**:
-```markdown
-WHY-1: [immediate cause]
-  - EVIDENCE: [log entry | stack trace | metric | observation]
-  - CONFIDENCE: [0.0-1.0]
-  - TYPE: DOGRUDAN | CIKARIM | KORELASYON
-
-WHY-2: [deeper cause]
-  - EVIDENCE: [code inspection | config analysis | dependency check]
-  - CONFIDENCE: [0.0-1.0]
-  - TYPE: DOGRUDAN | CIKARIM | KORELASYON
-
-WHY-N: [ROOT CAUSE]
-  - EVIDENCE: [comprehensive analysis supporting root diagnosis]
-  - CONFIDENCE: [0.0-1.0]
-  - TYPE: DOGRUDAN | CIKARIM
-```
-
-## Al-Itar al-Sarfi li-Tahlil al-Sabab (Morphological Decomposition)
-
-Symptoms compose into causes through systematic decomposition. Each "Why?" peels away one layer.
-
-**Morphological Structure**:
-```
-SYMPTOM (Observable Error)
-  |
-  +-- WHY-1 (Technical Layer: immediate code failure)
-      |
-      +-- WHY-2 (Design Layer: why code was written this way)
-          |
-          +-- WHY-3 (Architectural Layer: why design exists)
-              |
-              +-- WHY-4 (Organizational Layer: process/culture)
-                  |
-                  +-- WHY-5 (ROOT: foundational assumption or requirement)
-```
-
-**NASA 5-Whys Integration**:
-1. **Technical**: Code-level failure (syntax, runtime, logic)
-2. **Systemic**: Design pattern or implementation choice
-3. **Architectural**: System structure or coupling decisions
-4. **Process**: Development workflow or testing gaps
-5. **Foundational**: Core requirements or assumptions
 
 ## Purpose
-This skill performs deep reverse engineering root cause analysis (RCA) to debug complex issues, trace problems to their source, and identify the real underlying causes rather than surface symptoms.
+Provide quick-turn reverse engineering triage (strings, headers, symbols, lightweight emulation) to answer “what is this binary doing?” without deep instrumentation. Aligns with **skill-forge** structure-first and **prompt-architect** constraint/evidence rules.
 
-## When to Use
-- Debugging mysterious or intermittent bugs
-- Investigating production incidents
-- Analyzing system failures or crashes
-- Finding root causes of performance issues
-- Reverse engineering legacy code problems
-- Tracing error propagation through systems
-- Understanding why something broke after changes
-- Investigating integration or deployment failures
+## Use When / Redirect When
+- **Use when:** you need rapid classification, capability hints, or safe behavior summaries.
+- **Redirect when:** deep dynamic work (`reverse-engineering-deep`), firmware (`reverse-engineering-firmware`), or quick IOC-only triage (`reverse-engineering-quick`).
 
-## How It Works
-This skill spawns a specialized **Root Cause Analyzer Agent** that:
-1. Systematically collects symptoms and evidence
-2. Works backwards from failure points to root causes
-3. Generates and tests multiple hypotheses
-4. Distinguishes symptoms from true root causes
-5. Provides actionable solutions and prevention strategies
+## Guardrails
+- Analyze only in isolated sandboxes with no production connectivity.
+- Never execute unknown binaries outside instrumentation; prefer emulation/snapshots.
+- Strip/neutralize secrets; avoid uploading malware to third-party services.
+- Confidence ceilings: inference/report ≤0.70, research 0.85, observation/definition 0.95.
 
-## Usage
+## Prompt Architecture Overlay
+1. HARD/SOFT/INFERRED constraints (platform, architecture, goals, allowed tooling, time budget).
+2. Two passes: structure (coverage, safety) then epistemic (evidence, ceilings).
+3. English-only output with explicit confidence line.
 
-### Basic Investigation
-```
-/reverse-engineer-debug
-```
-You'll be prompted to describe the issue, or you can provide it directly:
+## SOP (Triage Loop)
+1. **Scope & Safety**
+   - Confirm authorization, sample hashes, and isolation settings.
+   - Select toolchain (strings, objdump, yara, ghidra-lite, qemu/strace in safe mode).
+2. **Static Recon**
+   - Identify format/arch, imports/exports, packers/obfuscation, and suspicious strings/URLs.
+   - Run YARA/signature checks and entropy/section analysis.
+3. **Light Dynamic**
+   - Use emulation or sandboxed execution with blocked network; capture syscalls, file/registry/process activity.
+   - Stop if behavior exceeds scope (spawn self-modifying code, persistence attempts).
+4. **Assessment**
+   - Summarize capabilities, indicators (IOCs), and risk level.
+   - Recommend next steps (deep analysis, memory dump, firmware path).
+5. **Validation & Delivery**
+   - Cross-check static vs. dynamic observations; ensure evidence per claim.
+   - Archive artifacts under `skills/security/reverse-engineer-debug/{project}/{timestamp}` with MCP tags (`WHO=reverse-engineer-debug-{session}`, `WHY=skill-execution`).
 
-### With Issue Description
-```
-/reverse-engineer-debug "Users report timeout errors on checkout page after latest deployment"
-```
+## Deliverables
+- Capability summary, IOC list (hashes/domains/paths), and risk assessment.
+- Evidence bundle (tool outputs, hashes, logs) with timestamps.
+- Recommended follow-up (e.g., deep analysis, detonation plan).
 
-### With Detailed Context
-```
-/reverse-engineer-debug "API returning 500 errors intermittently. Error: 'Cannot read property 'id' of undefined' in user service. Started after database migration yesterday. Affects ~10% of requests."
-```
+## Quality Gates
+- Structure-first documentation; missing resources/examples/tests noted for follow-up.
+- Evidence attached to every claim; confidence ceiling stated.
+- Safety controls verified (network blocked or allowlisted, snapshots taken).
+- Triaged within agreed time budget; escalation path documented.
 
-## Input Requirements
+## Anti-Patterns
+- Running unknown binaries with unrestricted network access.
+- Publishing results without hashes or evidence.
+- Overstating confidence beyond ceiling.
+- Skipping routing to deeper skills when needed.
 
-The skill works best when you provide:
-- **Error Messages**: Exact error text and stack traces
-- **Reproduction Steps**: How to trigger the issue
-- **Context**: What changed recently (deployments, configs, dependencies)
-- **Frequency**: How often it occurs and any patterns
-- **Environment**: Where it happens (dev, staging, production)
-- **Logs**: Relevant log excerpts if available
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Findings (static + light dynamic) with evidence and IOCs.
+- Next-step recommendations and safety notes.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-## Output
-
-The agent provides a comprehensive evidential RCA report following this template:
-
-```markdown
-### Evidential Root Cause Analysis Report
-
-**SYMPTOM**: [Observable error o
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/security/SKILL/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.71 (ceiling: inference 0.70) - Triage SOP rebuilt with skill-forge structure and prompt-architect constraint discipline.

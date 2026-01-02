@@ -1,153 +1,71 @@
 ---
 name: sandbox-configurator
-description: Configure Claude Code sandbox security with file system and network isolation boundaries
+description: Secure sandbox policy design (filesystem, network, secrets, observability) with auditable guardrails for development runtimes.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## Purpose
+Configure sandbox environments with least-privilege controls across filesystem, network, processes, and secrets. Built on **skill-forge** structure-first delivery and **prompt-architect** constraint/confidence practices.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## Use When / Redirect When
+- **Use when:** defining sandbox policies, tightening egress, mounting read-only assets, and setting observability for development tasks.
+- **Redirect when:** broader network design (`network-security-setup`) or general security triage (`security`).
 
-[define|neutral] SKILL := {
-  name: "sandbox-configurator",
-  category: "security",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## Guardrails
+- Authorized scopes only; deny-by-default for network and filesystem writes.
+- No plaintext secrets; use ephemeral tokens or secret stores.
+- Capture audit logs for policy changes; include rollback steps.
+- Confidence ceilings: inference/report ≤0.70, research 0.85, observation/definition 0.95.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+## Prompt Architecture Overlay
+1. HARD/SOFT/INFERRED constraints (runtime, language, network needs, mounts, secrets, observability).
+2. Two-pass refinement (structure → epistemic) to ensure coverage and evidence.
+3. English-only outputs with explicit confidence line.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+## SOP (Sandbox Hardening Loop)
+1. **Scope & Inventory**
+   - Identify runtime (node/python/etc.), required tools, artifacts, and allowed destinations.
+   - Decide filesystem mounts (read-only vs. writable) and secrets injection method.
+2. **Policy Design**
+   - Network: deny-by-default with allowlist; integrate with `network-security-setup` if needed.
+   - Filesystem: read-only code, isolated writable temp, blocked sensitive paths.
+   - Process: limit capabilities, resource quotas, and disallow dangerous syscalls where possible.
+   - Observability: enable logging/metrics for policy hits/misses.
+3. **Implementation**
+   - Apply configs/scripts; record changes and approvals.
+   - Inject secrets via environment/secret store with rotation notes.
+4. **Validation**
+   - Test allowed workflows succeed; confirm blocked actions fail.
+   - Run regression for dependency installs and common developer actions.
+5. **Delivery**
+   - Provide policy bundle, runbook, and rollback steps.
+   - Archive artifacts at `skills/security/sandbox-configurator/{project}/{timestamp}` with MCP tags (`WHO=sandbox-configurator-{session}`, `WHY=skill-execution`).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Deliverables
+- Sandbox policy pack (network, filesystem, process, secrets) and change log.
+- Validation log (allowed vs. blocked tests) with evidence.
+- Runbook (operations, monitoring, rollback) and secret handling notes.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+## Quality Gates
+- Structure-first documentation; missing resources/examples/tests noted.
+- Deny-by-default enforced; secrets handled securely.
+- Evidence attached to claims with confidence ceilings.
+- Rollback path verified and documented.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["sandbox-configurator", "security", "workflow"],
-  context: "user needs sandbox-configurator capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Anti-Patterns
+- Granting blanket write access or unrestricted network.
+- Hardcoding secrets or disabling logging.
+- Skipping rollback testing.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Policy summary with validation results and evidence.
+- Runbook pointers and residual risks.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-## When to Use This Skill
-
-Use this skill when configuring sandbox network isolation, setting up trusted domain whitelists, implementing zero-trust network policies for AI code execution, configuring corporate proxies and internal registries, or preventing data exfiltration through network controls.
-
-## When NOT to Use This Skill
-
-Do NOT use for production network security (use infrastructure-as-code instead), configuring firewall rules on live systems, bypassing organizational network policies, or setting up VPNs and network routing (use networking specialists). Avoid for troubleshooting network connectivity issues unrelated to sandbox security.
-
-## Success Criteria
-- [assert|neutral] Trusted domain whitelist validated (all required domains accessible, untrusted blocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Network isolation prevents data exfiltration attacks (tested with simulated exfil) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Internal registries accessible through proper proxy configuration [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Environment variables secured (no secrets in config files) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Zero false positives (legitimate development work unblocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Package installations succeed from approved registries [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Build and deployment commands execute without network errors [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Validation tests pass (npm install, git clone, API calls to approved domains) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases & Challenges
-
-- Corporate proxies requiring NTLM authentication
-- Split-tunnel VPNs with mixed internal/external traffic
-- CDN domains changing dynamically (*.cloudfront.net wildcards)
-- WebSocket connections requiring separate allowlisting
-- DNS resolution failures in isolated environments
-- IPv6 vs IPv4 routing differences
-- Localhost binding restrictions breaking development servers
-- Proxy auto-configuration (PAC) files with complex logic
-
-## Guardrails (CRITICAL SECURITY RULES)
-- [assert|emphatic] NEVER: disable network isolation without security review [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: add untrusted domains to whitelist without validation [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: store secrets (API keys, passwords) in sandbox configuration files [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: bypass proxy settings to access restricted resources [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: allow wildcard domain patterns without justification (*.com = insecure) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate domain ownership before whitelisting [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use HTTPS for external domains (enforce TLS) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: document why each domain is trusted (justification required) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: test that untrusted domains are blocked (negative testing) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use environment variable references for secrets (not plaintext) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: maintain audit logs of network policy changes [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate network policies after configuration changes [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validation
-
-All network security configurations MUST be validate
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/security/sandbox-configurator/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "sandbox-configurator-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SANDBOX_CONFIGURATOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - Sandbox SOP rewritten with skill-forge structure and prompt-architect constraint handling.

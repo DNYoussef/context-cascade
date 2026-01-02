@@ -1,68 +1,13 @@
-# Sandbox Security Configuration - Quick Start
+# When Configuring Sandbox Security, Use Sandbox Configurator
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Purpose
+Route sandbox security requests into the updated `sandbox-configurator` SOP with clear scope, safety, and evidence expectations. Anchored in **skill-forge** structure-first and **prompt-architect** constraint/confidence practices.
 
+## Quick Flow
+1. Capture constraints (runtime, mounts, network allowlist, secrets, observability) as HARD/SOFT/INFERRED.
+2. Enforce safety: isolation, deny-by-default network, secure secret handling, rollback plan.
+3. Invoke `sandbox-configurator`; log MCP tags (`WHO=sandbox-configurator-{session}`, `WHY=skill-execution`).
+4. Validate allowed vs. blocked behaviors and record evidence with confidence ceilings.
+5. Deliver policy pack + validation log under `skills/security/specialized-tools/when-configuring-sandbox-security-use-sandbox-configurator/{project}/{timestamp}`.
 
-
-Configure Claude Code sandbox security with file system and network isolation.
-
-## Quick Start
-
-```bash
-# 1. Assess requirements
-Review sandbox-security/docs/REQUIREMENTS.md
-
-# 2. Configure file isolation
-./sandbox-security/config/configure-file-isolation.sh
-
-# 3. Configure network isolation
-./sandbox-security/config/configure-network-isolation.sh
-
-# 4. Test security
-./sandbox-security/tests/security-tests.sh
-
-# 5. Deploy monitoring
-./sandbox-security/monitoring/start-monitoring.sh
-```
-
-## What This Skill Does
-
-- **Assess**: Identify security requirements and threats
-- **File Isolation**: Configure file system boundaries
-- **Network Isolation**: Setup network restrictions
-- **Testing**: Validate security configurations
-- **Monitoring**: Deploy continuous security monitoring
-
-## When to Use
-
-- Setting up secure sandboxes
-- Compliance requirements (SOC2, GDPR)
-- Multi-tenant environments
-- Production deployments
-- Security-sensitive workloads
-
-## Agents Involved
-
-- **security-manager**: Security architecture and policies
-- **cicd-engineer**: Implementation and deployment
-
-## Success Criteria
-- [assert|neutral] All security tests passing [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] File/network isolation active [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Monitoring operational [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Documentation complete [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Duration
-
-20-40 minutes
-
-## See Also
-
-- Full SOP: [SKILL.md](SKILL.md)
-- Detailed Process: [PROCESS.md](PROCESS.md)
-- Visual Workflow: [process-diagram.gv](process-diagram.gv)
-
-
----
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) - README aligned with the refreshed sandbox-configurator workflow.

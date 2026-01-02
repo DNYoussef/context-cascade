@@ -1,151 +1,70 @@
 ---
 name: reverse-engineering-firmware
-description: Firmware extraction and IoT security analysis (RE Level 5) for routers and embedded systems. Use when analyzing IoT firmware, extracting embedded filesystems (SquashFS/JFFS2/CramFS), finding hardcoded
+description: Firmware-focused reverse engineering for embedded/IoT images with extraction, partition analysis, and secure handling.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## Purpose
+Analyze firmware images (routers/IoT/embedded) to extract file systems, configs, and vulnerabilities. Built with **skill-forge** structure-first discipline and **prompt-architect** constraint/confidence hygiene.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## Use When / Redirect When
+- **Use when:** handling BIN/IMG/IPK/UPK firmware for security review, vulnerability hunting, or SBOM extraction.
+- **Redirect when:** generic binaries (`reverse-engineer-debug`/`-deep`) or quick IOC triage (`reverse-engineering-quick`).
 
-[define|neutral] SKILL := {
-  name: "reverse-engineering-firmware-analysis",
-  category: "IoT Security, Embedded Systems, Firmware Reverse Engineering",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## Guardrails
+- Authorized hardware/firmware only; respect licensing and export controls.
+- Work in isolated environments; never flash to production devices.
+- Sanitize secrets; avoid external uploads without approval.
+- Confidence ceilings enforced (inference/report ≤0.70, research 0.85, observation/definition 0.95).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+## Prompt Architecture Overlay
+1. HARD/SOFT/INFERRED constraints (device model, architecture, target findings, tool allowlist).
+2. Two-pass refinement: structure (coverage + safety) then epistemic (evidence + ceilings).
+3. English-only output with explicit confidence line.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+## SOP (Firmware Loop)
+1. **Scope & Preparation**
+   - Confirm authorization, obtain hashes, and identify format/architecture.
+   - Gather available docs/bootloader info; set isolated workspace.
+2. **Extraction**
+   - Use binwalk/dd to extract partitions; identify file systems (squashfs/ubifs/jffs2).
+   - Rebuild file systems read-only; catalog binaries/configs/scripts.
+3. **Static Analysis**
+   - Search for credentials/keys, hardcoded endpoints, and unsafe services.
+   - Review init scripts/startup flows; map attack surface (ports, daemons, update paths).
+4. **Dynamic/Emulation (if allowed)**
+   - Emulate with qemu/chroot; monitor network/IPC/filesystem changes in isolation.
+   - Capture logs/traces for services; test update/rollback paths safely.
+5. **Validation & Delivery**
+   - Cross-check static vs. dynamic findings; map to CVE/CWE/OWASP IoT.
+   - Deliver report, IOC set, remediation plan, and SBOM; archive to `skills/security/reverse-engineering-firmware/{project}/{timestamp}` with MCP tags (`WHO=reverse-engineering-firmware-{session}`, `WHY=skill-execution`).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Deliverables
+- Firmware report (attack surface, findings, CVE/CWE map) and SBOM.
+- Evidence bundle (extraction logs, configs, hashes) with timestamps.
+- Remediation and hardening recommendations; safe update/rollback guidance.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+## Quality Gates
+- Structure-first documentation; missing resources/examples/tests noted for backlog.
+- Chain-of-custody recorded (hashes, env, tools).
+- Evidence + confidence ceiling per claim; dual validation for critical/high.
+- No dynamic execution without isolation and approval.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["reverse-engineering-firmware-analysis", "IoT Security, Embedded Systems, Firmware Reverse Engineering", "workflow"],
-  context: "user needs reverse-engineering-firmware-analysis capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Anti-Patterns
+- Flashing unknown firmware to production hardware.
+- Publishing secrets or proprietary code.
+- Assuming architecture without verification.
+- Skipping SBOM or attack-surface mapping.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Extraction summary, findings (with evidence), and SBOM/high-level IOCs.
+- Remediation and validation log.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-## When to Use This Skill
-
-Use this skill when analyzing malware samples, reverse engineering binaries for security research, conducting vulnerability assessments, extracting IOCs from suspicious files, validating software for supply chain security, or performing CTF challenges and binary exploitation research.
-
-## When NOT to Use This Skill
-
-Do NOT use for unauthorized reverse engineering of commercial software, analyzing binaries on production systems, reversing software without legal authorization, violating terms of service or EULAs, or analyzing malware outside isolated environments. Avoid for simple string extraction (use basic tools instead).
-
-## Success Criteria
-- [assert|neutral] All security-relevant behaviors identified (network, file, registry, process activity) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Malicious indicators extracted with confidence scores (IOCs, C2 domains, encryption keys) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Vulnerabilities documented with CVE mapping where applicable [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Analysis completed within sandbox environment (VM/container with snapshots) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Findings validated through multiple analysis methods (static + dynamic + symbolic) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Complete IOC report generated (STIX/MISP format for threat intelligence sharing) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Zero false positives in vulnerability assessments [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Exploitation proof-of-concept created (if vulnerability research) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases & Challenges
-
-- Anti-analysis techniques (debugger detection, VM detection, timing checks)
-- Obfuscated or packed binaries requiring unpacking
-- Multi-stage malware with encrypted payloads
-- Kernel-mode rootkits requiring specialized analysis
-- Symbolic execution state explosion (>10,000 paths)
-- Binary analysis timeout on complex programs (>24 hours)
-- False positives from legitimate software behavior
-- Encrypted network traffic requiring SSL interception
-
-## Guardrails (CRITICAL SECURITY RULES)
-- [assert|emphatic] NEVER: execute unknown binaries on host systems (ONLY in isolated VM/sandbox) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: analyze malware without proper containment (air-gapped lab preferred) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: reverse engineer software without legal authorization [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: share extracted credentials or encryption keys publicly [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: bypass licensing mechanisms for unauthorized use [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use sandboxed environments with network monitoring [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: take VM snapshots before executing suspicious binaries [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate findings through multiple analysis methods [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: document analysis methodology with timestamps [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: assume binaries are malicious until proven safe [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use network isolation to prevent malware communication [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: sanitize IOCs before sharing (redact internal IP addresses) [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validati
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/IoT Security, Embedded Systems, Firmware Reverse Engineering/reverse-engineering-firmware-analysis/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "reverse-engineering-firmware-analysis-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>REVERSE_ENGINEERING_FIRMWARE_ANALYSIS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - Firmware SOP rebuilt with skill-forge structure and prompt-architect constraint handling.

@@ -1,57 +1,37 @@
-# Security - Quick Reference v2.1.0
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
+# Security Quick Reference v3.2.0
 
 ## Purpose
-Application security and vulnerability management.
+Fast reminders for operating the security hub with **skill-forge** structure-first rules and **prompt-architect** constraint/confidence discipline.
 
-## OWASP Top 10
+## Routing
+- Reverse engineering → `reverse-engineering-quick` / `-deep` / `-firmware`.
+- Sandbox hardening → `sandbox-configurator`.
+- Network lockdown → `network-security-setup`.
+- Compliance → `compliance`.
 
-| Code | Vulnerability |
-|------|---------------|
-| A01 | Broken Access Control |
-| A02 | Cryptographic Failures |
-| A03 | Injection |
-| A04 | Insecure Design |
-| A05 | Security Misconfiguration |
+## Guardrails
+- Authorized scope only; isolate from production unless approved.
+- Evidence required for every claim; attach confidence ceilings (inference/report ≤0.70, research 0.85, observation/definition 0.95).
+- Deny-by-default network posture; protect secrets.
 
-## Quick Commands
+## Core Steps
+1. Scope assets, objectives, and constraints (HARD/SOFT/INFERRED).
+2. Run two-pass refinement (structure → epistemic).
+3. Analyze (static/dynamic/supply-chain) with evidence capture.
+4. Validate (dual validation on critical/high); map to CVE/CWE/OWASP.
+5. Deliver findings, remediation plan, validation log, and confidence line.
 
-```bash
-# Security audit
-Use security audit: [code path]
-
-# Fix vulnerability
-Use security fix: [vuln description]
-
-# Harden config
-Use security harden: [config path]
+## Finding Template
+```
+- Title / severity (CVSS vector)
+- Location (file:line/service)
+- Evidence (PoC/log/config)
+- Root cause vs. derived issue
+- Remediation + verification steps
+- Confidence: X.XX (ceiling: TYPE Y.YY) - reason
 ```
 
-## Secure Coding
+## MCP Paths
+- Store artifacts under `skills/security/security/{project}/{timestamp}` with tags `WHO=security-{session}`, `WHY=skill-execution`.
 
-- Validate all inputs
-- Parameterize queries
-- Encode outputs
-- Use strong crypto
-- Implement least privilege
-
-## Tools
-
-- SAST: Semgrep, CodeQL
-- DAST: OWASP ZAP
-- SCA: npm audit, Snyk
-- Secrets: GitLeaks
-
-## Related Skills
-
-- **code-review-assistant**
-- **compliance**
-- **deployment-readiness**
-
-
----
-*Promise: `<promise>QUICK_REFERENCE_VERIX_COMPLIANT</promise>`*
+Confidence: 0.71 (ceiling: inference 0.70) - Quick reference synchronized with the updated security SOP.

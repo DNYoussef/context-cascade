@@ -1,82 +1,9 @@
-# Sandbox Security Configuration - Detailed Process
+# Sandbox Configurator Routing Process
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+1. **Scope**: Gather HARD/SOFT/INFERRED constraints (runtime, mounts, network, secrets, observability).
+2. **Safety**: Enforce isolation, deny-by-default networking, secure secrets, and rollback path.
+3. **Execute**: Trigger `sandbox-configurator` SOP; tag MCP (`WHO=sandbox-configurator-{session}`, `WHY=skill-execution`).
+4. **Validate**: Test allowed vs. blocked behaviors; capture evidence with confidence ceilings.
+5. **Deliver**: Policy pack + validation log stored at `skills/security/specialized-tools/when-configuring-sandbox-security-use-sandbox-configurator/{project}/{timestamp}`.
 
-
-
-## Security Architecture
-
-```
-┌──────────────────────────────────────────┐
-│         Claude Code Sandbox              │
-│                                          │
-│  ┌────────────────────────────────────┐ │
-│  │   Application Layer                │ │
-│  └────────────┬───────────────────────┘ │
-│               │                          │
-│  ┌────────────▼───────────────────────┐ │
-│  │   Security Controls                │ │
-│  │  - File Isolation                  │ │
-│  │  - Network Isolation               │ │
-│  │  - Resource Limits                 │ │
-│  │  - Audit Logging                   │ │
-│  └────────────┬───────────────────────┘ │
-│               │                          │
-│  ┌────────────▼───────────────────────┐ │
-│  │   Host System                      │ │
-│  └────────────────────────────────────┘ │
-└──────────────────────────────────────────┘
-```
-
-## Phase Breakdown
-
-### Phase 1: Assess (5-10 min)
-- Document requirements
-- Create threat model
-- Define risk matrix
-- Prioritize controls
-
-### Phase 2: File Isolation (5-10 min)
-- Define file policy
-- Configure boundaries
-- Set access rules
-- Test restrictions
-
-### Phase 3: Network Isolation (5-10 min)
-- Define network policy
-- Configure firewall
-- Whitelist domains
-- Block malicious sites
-
-### Phase 4: Testing (3-5 min)
-- Create test suite
-- Run security tests
-- Validate policies
-- Log results
-
-### Phase 5: Deploy (2-5 min)
-- Deploy configuration
-- Start monitoring
-- Document deployment
-- Final validation
-
-## Memory Keys
-
-- `sandbox/requirements`
-- `sandbox/file-policy`
-- `sandbox/network-policy`
-- `sandbox/security-tests`
-- `sandbox/workflow-complete`
-
-## Best Practices
-
-1. Defense in depth
-2. Whitelist approach
-3. Continuous testing
-4. Regular audits
-5. Comprehensive logging
-
-
----
-*Promise: `<promise>PROCESS_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) - Process updated to mirror the sandbox-configurator SOP.

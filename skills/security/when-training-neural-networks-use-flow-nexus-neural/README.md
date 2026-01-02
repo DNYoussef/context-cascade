@@ -1,70 +1,18 @@
-# Flow Nexus Neural Network Training - Quick Start
+# When Training Neural Networks, Use Flow Nexus Neural
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Purpose
+Route ML training/fine-tuning requests through the secure Flow Nexus neural pipeline with sandboxing, data governance, and safety checks. Uses **skill-forge** structure-first discipline and **prompt-architect** explicit constraints/confidence ceilings.
 
+## Quick Flow
+1. **Intake**: Authorization, data classification/licensing, objectives (train/fine-tune/eval), and environment.
+2. **Plan**: Select Flow Nexus neural workflow, resources, checkpoints, and data ingress/egress controls.
+3. **Execute**: Run pipeline in isolated/sandboxed environment with deny-by-default networking and encrypted storage.
+4. **Validate**: Review logs/metrics, run safety/adversarial checks, and confirm no PII leakage or license violations.
+5. **Deliver**: Training summary, artifact locations, evaluation metrics, and risks. Archive at `skills/security/when-training-neural-networks-use-flow-nexus-neural/{project}/{timestamp}` with MCP tags (`WHO=flow-nexus-neural-{session}`, `WHY=skill-execution`).
 
+## Guardrails
+- Approved data only; verify provenance and licensing.
+- Isolated compute with controlled network; protect secrets and keys.
+- Evidence + confidence ceiling for every claim; safety evals required.
 
-Train and deploy neural networks using Flow Nexus platform with distributed E2B sandboxes.
-
-## Quick Start
-
-```bash
-# 1. Authenticate with Flow Nexus
-mcp__flow-nexus__user_login
-
-# 2. Initialize neural cluster
-mcp__flow-nexus__neural_cluster_init {
-  "name": "my-cluster",
-  "architecture": "transformer"
-}
-
-# 3. Configure and train
-# Edit neural/configs/architecture.json
-# Run training script
-
-# 4. Deploy
-./neural/scripts/deploy.sh
-```
-
-## What This Skill Does
-
-- **Setup:** Authenticate and initialize Flow Nexus neural training environment
-- **Configure:** Design network architecture and deploy training nodes
-- **Train:** Execute distributed training across cluster
-- **Validate:** Run benchmarks and performance tests
-- **Deploy:** Package and deploy to production with monitoring
-
-## When to Use
-
-- Training neural networks at scale
-- Distributed training across multiple nodes
-- Cloud-based ML model deployment
-- Performance-critical inference needs
-- Production ML pipelines
-
-## Agents Involved
-
-- **ml-developer**: Design architecture, optimize hyperparameters
-- **flow-nexus-neural**: Coordinate distributed training
-- **cicd-engineer**: Deploy and monitor in production
-
-## Success Criteria
-- [assert|neutral] Model accuracy ≥85% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Inference latency <100ms [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Successful deployment [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Monitoring active [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Duration
-
-45-90 minutes (depends on model complexity and dataset size)
-
-## See Also
-
-- Full SOP: [SKILL.md](SKILL.md)
-- Detailed Process: [PROCESS.md](PROCESS.md)
-- Visual Workflow: [process-diagram.gv](process-diagram.gv)
-
-
----
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) - README aligned to the Flow Nexus neural routing SOP.

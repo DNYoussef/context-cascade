@@ -1,44 +1,38 @@
-# Compliance Skill - Regulatory Standards Validation
+# Compliance Skill (Security Group)
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Purpose
+Deliver audit-ready compliance packages for GDPR, HIPAA, SOC 2, PCI-DSS, and ISO 27001 by combining structure-first checklists from **skill-forge** with explicit constraint handling and confidence ceilings from **prompt-architect**.
 
+## Use This Skill When
+- You need certification prep, readiness assessments, or remediation planning.
+- Evidence must be mapped to controls with timestamps and reviewers.
+- Continuous compliance monitoring or multi-framework alignment is required.
 
-
-## Overview
-
-The **compliance** skill provides comprehensive regulatory compliance validation and documentation for major frameworks including GDPR, HIPAA, SOC 2, PCI-DSS, and ISO 27001. This skill helps implement compliance controls, prepare for audits, conduct compliance assessments, and maintain ongoing regulatory adherence.
+## Avoid / Redirect
+- General security triage → use `security`.
+- Sandbox or network hardening → use `sandbox-configurator` or `network-security-setup`.
+- Any request without authorization or scope → pause until approval is logged.
 
 ## Quick Start
+1. **Scope**: List frameworks, systems in scope, data types (PII/PHI/PCI), jurisdictions, and objectives (audit vs. readiness).
+2. **Collect Evidence**: Run approved scanners, export configs/logs, capture screenshots; tag with source, timestamp, environment, reviewer.
+3. **Analyze & Rate**: Map requirements → controls → evidence; rate findings (critical/high/medium/low) and cite the regulation.
+4. **Validate**: Retest fixes, cross-validate with a second method, and record coverage >90% for scoped controls.
+5. **Deliver**: Ship control matrix, findings report, remediation backlog, and executive summary. Store under `skills/security/compliance/{project}/{timestamp}` with MCP tags (`WHO=compliance-{session}`, `WHY=skill-execution`).
 
-### Basic Usage
+## Guardrails
+- Never fabricate or reuse evidence across environments.
+- Protect PII/PHI with encryption and least privilege.
+- Perform testing only in authorized, isolated environments.
+- Every claim carries a confidence statement with ceiling notation.
 
-```bash
-# Identify compliance requirements for your project
-"What GDPR requirements apply to user data in our application?"
+## Output Expectations
+- Constraints table (HARD/SOFT/INFERRED with confirmations).
+- Control/evidence matrix and remediation queue.
+- Validation log (dual validation on critical/high, coverage percentage).
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-# Implement specific controls
-"Implement HIPAA safeguards for PHI data storage and transmission"
-
-# Run compliance audit
-"Conduct SOC 2 compliance audit for our cloud infrastructure"
-
-# Prepare for certification
-"Generate ISO 27001 compliance documentation and evidence"
-```
-
-### When to Use This Skill
-
-- **Regulated Industries**: Healthcare, finance, e-commerce, SaaS platforms
-- **Audit Preparation**: Pre-certification assessments, evidence collection
-- **Incident Response**: Breach notification, compliance reporting
-- **Ongoing Compliance**: Continuous monitoring, control validation
-- **Documentation**: Policy creation, procedure documentation
-
-## Supported Compliance Frameworks
-
-### 1. GDPR (General Data Protection Regulation)
-
+Confidence: 0.71 (ceiling: inference 0.70) - README rebuilt to mirror the new compliance SOP with prompt-architect constraint handling and skill-forge structure-first rules.
 **Scope**: EU data privacy and protection
 
 **Key Requirements**:

@@ -1,242 +1,66 @@
 ---
-name: flow-nexus-neural
-description: SKILL skill for security workflows
+name: when-training-neural-networks-use-flow-nexus-neural
+description: Routing and safety skill for neural network training that enforces secure sandboxing, data governance, and Flow Nexus neural workflows.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## Purpose
+Ensure ML training requests invoke the Flow Nexus neural pipeline with proper security, compliance, and sandbox controls. Applies **skill-forge** structure-first requirements and **prompt-architect** constraint/confidence rules.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## Use When / Redirect When
+- **Use when:** a user requests neural network training, fine-tuning, or data prep and needs secure routing to Flow Nexus neural tooling.
+- **Redirect when:** general security triage (`security`) or sandbox/network policy setup (`sandbox-configurator`, `network-security-setup`).
 
-[define|neutral] SKILL := {
-  name: "SKILL",
-  category: "security",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## Guardrails
+- Require explicit authorization and data handling policy (PII/PHI/licensing).
+- Enforce sandbox isolation and network allowlists; prefer offline/controlled data ingress.
+- Verify dataset provenance and license; avoid unapproved external uploads.
+- Confidence ceilings enforced (inference/report ≤0.70, research 0.85, observation/definition 0.95).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+## Prompt Architecture Overlay
+1. HARD/SOFT/INFERRED constraints (task type, model family, data sensitivity, infra, timelines).
+2. Two-pass refinement: structure (routing, coverage) then epistemic (evidence, ceilings).
+3. English-only outputs with explicit confidence line.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+## SOP (Flow Nexus Neural Routing)
+1. **Intake & Safety**
+   - Confirm authorization, data classifications, and allowed environments.
+   - Choose sandbox + network profile; tag MCP (`WHO=flow-nexus-neural-{session}`, `WHY=skill-execution`).
+2. **Plan**
+   - Select Flow Nexus neural workflow (training/fine-tune/eval), resource needs, and checkpoints.
+   - Define data ingress/egress controls, encryption, and retention.
+3. **Execute**
+   - Invoke Flow Nexus neural pipeline; monitor resource use and compliance gates.
+4. **Validate**
+   - Verify training logs, metrics, and guardrails (no PII leakage, license compliance).
+   - Run adversarial/safety evaluations as applicable.
+5. **Deliver**
+   - Provide run summary, model artifacts/locations, evaluation metrics, and risks; archive under `skills/security/when-training-neural-networks-use-flow-nexus-neural/{project}/{timestamp}`.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Deliverables
+- Training plan and safety controls.
+- Execution log with metrics and checkpoints.
+- Evaluation results and risk summary with mitigation steps.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+## Quality Gates
+- Structure-first documentation; missing resources/examples/tests noted.
+- Data governance verified (provenance, licensing, PII/PHI handling).
+- Evidence + confidence ceiling for every claim; safety evals recorded.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "security", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Anti-Patterns
+- Using unvetted datasets or licenses.
+- Training in non-isolated environments with unrestricted egress.
+- Skipping safety/adversarial evaluations.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Plan, executed steps, metrics, and safety checks.
+- Risks, mitigations, and artifact locations.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-# Flow Nexus Neural Network Training SOP
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-```yaml
-metadata:
-  skill_name: when-training-neural-networks-use-flow-nexus-neural
-  version: 1.0.0
-  category: platform-integration
-  difficulty: advanced
-  estimated_duration: 45-90 minutes
-  trigger_patterns:
-    - "train neural network"
-    - "machine learning model"
-    - "distributed training"
-    - "flow nexus neural"
-    - "E2B sandbox training"
-  dependencies:
-    - flow-nexus MCP server
-    - E2B account (optional for cloud)
-    - Claude Flow hooks
-  agents:
-    - ml-developer (primary model architect)
-    - flow-nexus-neural (platform coordinator)
-    - cicd-engineer (deployment specialist)
-  success_criteria:
-    - Model training completes successfully
-    - Validation accuracy meets requirements (>85%)
-    - Performance benchmarks within thresholds
-    - Cloud deployment verified
-    - Documentation generated
-```
-
-## Overview
-
-This SOP provides a systematic workflow for training and deploying neural networks using Flow Nexus platform with distributed E2B sandboxes. It covers architecture selection, distributed training, validation, and production deployment.
-
-## Prerequisites
-
-**Required:**
-- Flow Nexus MCP server installed
-- Basic understanding of neural network architectures
-- Authentication credentials (if using cloud features)
-
-**Optional:**
-- E2B account for cloud sandboxes
-- GPU resources for training
-- Pre-trained model weights
-
-**Verification:**
-```bash
-# Check Flow Nexus availability
-npx flow-nexus@latest --version
-
-# Verify MCP connection
-claude mcp list | grep flow-nexus
-```
-
-## Agent Responsibilities
-
-### ml-developer (Primary Model Architect)
-**Role:** Design neural network architecture, select hyperparameters, optimize model performance
-
-**Expertise:**
-- Neural network architectures (Transformer, CNN, RNN, GAN, etc.)
-- Training optimization and hyperparameter tuning
-- Model evaluation and validation strategies
-- Transfer learning and fine-tuning
-
-**Output:** Model architecture design, training configuration, performance analysis
-
-### flow-nexus-neural (Platform Coordinator)
-**Role:** Coordinate distributed training across cloud infrastructure, manage resources
-
-**Expertise:**
-- Flow Nexus platform APIs and capabilities
-- Distributed training coordination
-- E2B sandbox management
-- Resource optimization
-
-**Output:** Training orchestration, resource allocation, deployment configuration
-
-### cicd-engineer (Deployment Specialist)
-**Role:** Deploy trained models to production, setup monitoring and scaling
-
-**Expertise:**
-- Model serving infrastructure
-- Docker containerization
-- CI/CD pipelines
-- Monitoring and observability
-
-**Output:** Deployment scripts, monitoring dashboards, production configuration
-
-## Phase 1: Setup Flow Nexus
-
-**Objective:** Authenticate with Flow Nexus platform and initialize neural training environment
-
-**Evidence-Based Validation:**
-- Authentication token obtained and verified
-- MCP tools responding correctly
-- Training environment initialized
-
-**ml-developer Actions:**
-```bash
-# Pre-task coordination hook
-npx claude-flow@alpha hooks pre-task --description "Setup Flow Nexus for neural training"
-
-# Restore session context
-npx claude-flow@alpha hooks session-restore --session-id "neural-training-$(date +%s)"
-```
-
-**flow-nexus-neural Actions:**
-```bash
-# Check authentication status
-mcp__flow-nexus__auth_status { "detailed": true }
-
-# If not authenticated, register/login
-# mcp__flow-nexus__user_register { "email": "user@example.com", "password": "secure_pass" }
-# mcp__flow-nexus__user_login { "email": "user@example.com", "password": "secure_pass" }
-
-# Initialize neural training cluster
-mcp__flow-nexus__neural_cluster_init {
-  "name": "neural-training-cluster",
-  "architecture": "transformer",
-  "topology": "mesh",
-  "daaEnabled": true,
-  "wasmOptimization": true,
-  "consensus": "proof-of-learning"
-}
-
-# Store cluster ID in memory
-npx claude-flow@alpha memory s
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/security/SKILL/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - Flow Nexus neural routing aligned with skill-forge and prompt-architect standards.

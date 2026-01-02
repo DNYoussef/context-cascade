@@ -1,153 +1,71 @@
 ---
 name: network-security-setup
-description: Configure Claude Code sandbox network isolation with trusted domains, custom access policies, and environment variables
+description: Network isolation, allow/deny policy design, and TLS posture for sandboxes and CI with auditable enforcement.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: security
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## Purpose
+Design and deploy defense-in-depth network controls (deny-by-default, trusted domain allowlists, TLS hardening, monitoring) for sandboxes and pipelines. Applies **skill-forge** structure-first requirements and **prompt-architect** explicit constraints/confidence ceilings.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## Use When / Redirect When
+- **Use when:** locking down egress/ingress, configuring proxies, setting TLS baselines, or verifying network controls before development tasks.
+- **Redirect when:** sandbox policy authoring (`sandbox-configurator`) or general security triage (`security`).
 
-[define|neutral] SKILL := {
-  name: "network-security-setup",
-  category: "security",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## Guardrails
+- Enforce authorized scopes; never run active scans against unknown targets.
+- Default to deny-all with explicit allowlists; keep change log and approvals.
+- Protect credentials and certificates; rotate and store securely.
+- Confidence ceilings: inference/report ≤0.70, research 0.85, observation/definition 0.95.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+## Prompt Architecture Overlay
+1. HARD/SOFT/INFERRED constraints with sources (targets, allowed domains, proxy rules, TLS requirements).
+2. Two-pass refinement: structure (coverage + routing) then epistemic (evidence + ceilings).
+3. English-only outputs with explicit confidence line.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+## SOP (Network Hardening Loop)
+1. **Scope & Inputs**
+   - Define environment (sandbox/CI/prod-like), trust zones, proxy requirements, and approved destinations.
+   - Inventory credentials/certs and designate storage/rotation approach.
+2. **Design**
+   - Choose isolation mode (offline, trusted allowlist, custom).
+   - Draft firewall rules, egress controls, DNS policy, and TLS posture (min version, ciphers, OCSP/HSTS).
+3. **Implementation**
+   - Apply scripts/templates (firewall, proxy, SSL setup) with change logging.
+   - Generate certificates as needed; install to trust stores.
+4. **Validation**
+   - Connectivity tests for allowed targets; ensure blocked paths fail.
+   - Run compliance checks (NIST/CIS baseline), certificate validation, and regression tests for existing services.
+5. **Monitoring & Handoff**
+   - Configure logging/metrics (allowed vs blocked, cert expiry, proxy health).
+   - Deliver runbook, rule set, and rollback steps; store artifacts at `skills/security/network-security-setup/{project}/{timestamp}` with MCP tags (`WHO=network-security-setup-{session}`, `WHY=skill-execution`).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+## Deliverables
+- Network policy pack (allowlist/deny rules, proxy settings, DNS policy).
+- TLS profile (min versions, ciphers, renewal plan) and certificate bundle.
+- Validation log (tests executed, results, regressions, evidence).
+- Runbook covering operations, rollbacks, and monitoring hooks.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+## Quality Gates
+- Structure-first documentation present; missing resources/examples/tests are logged.
+- Deny-by-default enforced; no unapproved domains/IPs.
+- Validation covers connectivity, block testing, TLS checks, and logging.
+- Evidence attached with confidence ceiling per claim.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["network-security-setup", "security", "workflow"],
-  context: "user needs network-security-setup capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## Anti-Patterns
+- Allowing “*” domains or bypassing controls for convenience.
+- Running scans without scoping/approval.
+- Leaving certificates untracked or without rotation dates.
+- Omitting rollback steps or monitoring hooks.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+## Output Format
+- Scope + constraints table (HARD/SOFT/INFERRED).
+- Final rule set and TLS profile with evidence of enforcement.
+- Validation summary and runbook pointers.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
-## When to Use This Skill
-
-Use this skill when configuring sandbox network isolation, setting up trusted domain whitelists, implementing zero-trust network policies for AI code execution, configuring corporate proxies and internal registries, or preventing data exfiltration through network controls.
-
-## When NOT to Use This Skill
-
-Do NOT use for production network security (use infrastructure-as-code instead), configuring firewall rules on live systems, bypassing organizational network policies, or setting up VPNs and network routing (use networking specialists). Avoid for troubleshooting network connectivity issues unrelated to sandbox security.
-
-## Success Criteria
-- [assert|neutral] Trusted domain whitelist validated (all required domains accessible, untrusted blocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Network isolation prevents data exfiltration attacks (tested with simulated exfil) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Internal registries accessible through proper proxy configuration [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Environment variables secured (no secrets in config files) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Zero false positives (legitimate development work unblocked) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Package installations succeed from approved registries [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Build and deployment commands execute without network errors [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Validation tests pass (npm install, git clone, API calls to approved domains) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases & Challenges
-
-- Corporate proxies requiring NTLM authentication
-- Split-tunnel VPNs with mixed internal/external traffic
-- CDN domains changing dynamically (*.cloudfront.net wildcards)
-- WebSocket connections requiring separate allowlisting
-- DNS resolution failures in isolated environments
-- IPv6 vs IPv4 routing differences
-- Localhost binding restrictions breaking development servers
-- Proxy auto-configuration (PAC) files with complex logic
-
-## Guardrails (CRITICAL SECURITY RULES)
-- [assert|emphatic] NEVER: disable network isolation without security review [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: add untrusted domains to whitelist without validation [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: store secrets (API keys, passwords) in sandbox configuration files [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: bypass proxy settings to access restricted resources [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: allow wildcard domain patterns without justification (*.com = insecure) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate domain ownership before whitelisting [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use HTTPS for external domains (enforce TLS) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: document why each domain is trusted (justification required) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: test that untrusted domains are blocked (negative testing) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: use environment variable references for secrets (not plaintext) [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: maintain audit logs of network policy changes [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate network policies after configuration changes [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validation
-
-All network security configurations MUST be validate
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/security/network-security-setup/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "network-security-setup-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>NETWORK_SECURITY_SETUP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - SOP rewritten with skill-forge structure, prompt-architect constraint handling, and network hardening guardrails.
