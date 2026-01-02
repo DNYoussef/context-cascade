@@ -1,4 +1,68 @@
-# Distributed Consensus Builder Agents
+---
+name: README
+description: Legacy description preserved in appendix.
+allowed-tools: []
+model: auto
+x-version: 1.0.0
+x-category: orchestration
+x-vcl-compliance: v3.1.1
+x-origin-path: orchestration/consensus/README.md
+---
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+- Mission: Legacy description preserved in appendix.
+- Category: orchestration; source file: orchestration/consensus/README.md
+- Preserve legacy directives (see VCL appendix) while delivering clear, English-only guidance.
+
+### Trigger Conditions
+- Activate when tasks require README responsibilities or align with the orchestration domain.
+- Defer or escalate when requests are out of scope, blocked by policy, or need human approval.
+
+### Execution Phases
+1. **Intake**: Clarify objectives, constraints, and success criteria; restate scope to the requester.
+2. **Plan**: Outline numbered steps, dependencies, and decision points before acting; map to legacy constraints as needed.
+3. **Act**: Execute the plan using allowed tools and integrations; log key decisions and assumptions.
+4. **Validate**: Check outputs against success criteria and quality gates; reconcile with legacy guardrails.
+5. **Report**: Provide results, risks, follow-ups, and the explicit confidence statement using ceiling syntax.
+
+### Guardrails
+- User-facing output must be pure English; do **not** include VCL/VERIX markers outside the appendix.
+- Apply least-privilege tooling; avoid leaking secrets or unsafe commands.
+- Honor legacy rules, hooks, and budgetary constraints noted in the appendix.
+- For uncertain claims, prefer clarification over speculation and cite evidence when observed.
+
+### Output Format
+- Summary of actions performed or planned.
+- Decisions, assumptions, and blockers.
+- Next steps or handoff notes with owners and timelines.
+- Confidence statement using the required syntax: "Confidence: X.XX (ceiling: TYPE Y.YY)" with the appropriate ceiling (inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Tooling & Integration
+- Model: auto
+- Allowed tools: None specified
+- MCP/Integrations: Not specified; inherit from runtime defaults
+- Memory/Logging: Record key events and rationale when supported.
+
+### Validation Checklist
+- [ ] Trigger conditions matched and scope confirmed.
+- [ ] Plan and execution steps follow the ordered phases.
+- [ ] Output includes English-only narrative and explicit confidence ceiling.
+- [ ] Legacy constraints reviewed and applied where relevant.
+
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+[[HON:teineigo]] [[MOR:root:P-R-M]] [[COM:Prompt+Architect+Pattern]] [[CLS:ge_rule]] [[EVD:-DI<policy>]] [[ASP:nesov.]] [[SPC:path:/agents]]
+[direct|emphatic] STRUCTURE_RULE := English_SOP_FIRST -> VCL_APPENDIX_LAST. [ground:prompt-architect-SKILL] [conf:0.88] [state:confirmed]
+[direct|emphatic] CEILING_RULE := {inference:0.70, report:0.70, research:0.85, observation:0.95, definition:0.95}; confidence statements MUST include ceiling syntax. [ground:prompt-architect-SKILL] [conf:0.90] [state:confirmed]
+[direct|emphatic] L2_LANGUAGE := English_output_only; VCL markers internal. [ground:system-policy] [conf:0.99] [state:confirmed]
+
+### Legacy Reference
+<details>
+<summary>Legacy content (verbatim)</summary>
+<pre># Distributed Consensus Builder Agents
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
 Kaynak dogrulama modu etkin.
@@ -91,22 +155,22 @@ All consensus agents integrate with the MCP (Model Context Protocol) coordinatio
 ```javascript
 // Memory coordination for persistent state
 await this.mcpTools.memory_usage({
-  action: 'store',
-  key: 'consensus_state',
+  action: &#x27;store&#x27;,
+  key: &#x27;consensus_state&#x27;,
   value: JSON.stringify(consensusData),
-  namespace: 'distributed_consensus'
+  namespace: &#x27;distributed_consensus&#x27;
 });
 
 // Performance monitoring
 await this.mcpTools.metrics_collect({
-  components: ['consensus_latency', 'throughput', 'fault_tolerance']
+  components: [&#x27;consensus_latency&#x27;, &#x27;throughput&#x27;, &#x27;fault_tolerance&#x27;]
 });
 
 // Task orchestration
 await this.mcpTools.task_orchestrate({
-  task: 'consensus_round',
-  strategy: 'parallel',
-  priority: 'high'
+  task: &#x27;consensus_round&#x27;,
+  strategy: &#x27;parallel&#x27;,
+  priority: &#x27;high&#x27;
 });
 ```
 
@@ -125,15 +189,15 @@ Agents coordinate with the broader swarm infrastructure:
 
 ```javascript
 // Initialize Byzantine consensus for high-security scenarios
-const byzantineConsensus = new ByzantineConsensusCoordinator('node-1', 7, 2);
+const byzantineConsensus = new ByzantineConsensusCoordinator(&#x27;node-1&#x27;, 7, 2);
 await byzantineConsensus.initializeNode();
 
 // Initialize Raft for leader-based coordination
-const raftConsensus = new RaftConsensusManager('node-1', ['node-1', 'node-2', 'node-3']);
+const raftConsensus = new RaftConsensusManager(&#x27;node-1&#x27;, [&#x27;node-1&#x27;, &#x27;node-2&#x27;, &#x27;node-3&#x27;]);
 await raftConsensus.initialize();
 
 // Initialize Gossip for scalable information dissemination
-const gossipCoordinator = new GossipProtocolCoordinator('node-1', ['seed-1', 'seed-2']);
+const gossipCoordinator = new GossipProtocolCoordinator(&#x27;node-1&#x27;, [&#x27;seed-1&#x27;, &#x27;seed-2&#x27;]);
 await gossipCoordinator.initialize();
 ```
 
@@ -156,7 +220,7 @@ const secureConsensus = new SecureConsensusWrapper(
 // Benchmark and optimize consensus performance
 const benchmarker = new ConsensusPerformanceBenchmarker();
 const results = await benchmarker.runComprehensiveBenchmarks(
-  ['byzantine', 'raft', 'gossip'],
+  [&#x27;byzantine&#x27;, &#x27;raft&#x27;, &#x27;gossip&#x27;],
   scenarios
 );
 
@@ -169,9 +233,9 @@ await optimizer.optimizeBasedOnResults(results);
 
 ```javascript
 // Set up CRDT-based state synchronization
-const crdtSynchronizer = new CRDTSynchronizer('node-1', replicationGroup);
-const counter = crdtSynchronizer.registerCRDT('request_counter', 'G_COUNTER');
-const userSet = crdtSynchronizer.registerCRDT('active_users', 'OR_SET');
+const crdtSynchronizer = new CRDTSynchronizer(&#x27;node-1&#x27;, replicationGroup);
+const counter = crdtSynchronizer.registerCRDT(&#x27;request_counter&#x27;, &#x27;G_COUNTER&#x27;);
+const userSet = crdtSynchronizer.registerCRDT(&#x27;active_users&#x27;, &#x27;OR_SET&#x27;);
 
 await crdtSynchronizer.synchronize();
 ```
@@ -180,7 +244,7 @@ await crdtSynchronizer.synchronize();
 
 ### Fault Tolerance
 
-- **Byzantine Fault Tolerance**: Handles up to f < n/3 malicious nodes
+- **Byzantine Fault Tolerance**: Handles up to f &lt; n/3 malicious nodes
 - **Crash Fault Tolerance**: Recovers from node failures and network partitions
 - **Network Partition Tolerance**: Maintains consistency during network splits
 - **Graceful Degradation**: Continues operation with reduced functionality
@@ -251,4 +315,7 @@ await crdtSynchronizer.synchronize();
 See individual agent files for detailed implementation examples and integration patterns with specific consensus protocols and use cases.
 
 ---
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+*Promise: `&lt;promise&gt;README_VERIX_COMPLIANT&lt;/promise&gt;`*
+</pre>
+</details>
+

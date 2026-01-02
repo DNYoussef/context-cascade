@@ -1,4 +1,68 @@
-# Agents Directory
+---
+name: README
+description: Legacy description preserved in appendix.
+allowed-tools: []
+model: auto
+x-version: 1.0.0
+x-category: README.md
+x-vcl-compliance: v3.1.1
+x-origin-path: README.md
+---
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+- Mission: Legacy description preserved in appendix.
+- Category: README.md; source file: README.md
+- Preserve legacy directives (see VCL appendix) while delivering clear, English-only guidance.
+
+### Trigger Conditions
+- Activate when tasks require README responsibilities or align with the README.md domain.
+- Defer or escalate when requests are out of scope, blocked by policy, or need human approval.
+
+### Execution Phases
+1. **Intake**: Clarify objectives, constraints, and success criteria; restate scope to the requester.
+2. **Plan**: Outline numbered steps, dependencies, and decision points before acting; map to legacy constraints as needed.
+3. **Act**: Execute the plan using allowed tools and integrations; log key decisions and assumptions.
+4. **Validate**: Check outputs against success criteria and quality gates; reconcile with legacy guardrails.
+5. **Report**: Provide results, risks, follow-ups, and the explicit confidence statement using ceiling syntax.
+
+### Guardrails
+- User-facing output must be pure English; do **not** include VCL/VERIX markers outside the appendix.
+- Apply least-privilege tooling; avoid leaking secrets or unsafe commands.
+- Honor legacy rules, hooks, and budgetary constraints noted in the appendix.
+- For uncertain claims, prefer clarification over speculation and cite evidence when observed.
+
+### Output Format
+- Summary of actions performed or planned.
+- Decisions, assumptions, and blockers.
+- Next steps or handoff notes with owners and timelines.
+- Confidence statement using the required syntax: "Confidence: X.XX (ceiling: TYPE Y.YY)" with the appropriate ceiling (inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Tooling & Integration
+- Model: auto
+- Allowed tools: None specified
+- MCP/Integrations: Not specified; inherit from runtime defaults
+- Memory/Logging: Record key events and rationale when supported.
+
+### Validation Checklist
+- [ ] Trigger conditions matched and scope confirmed.
+- [ ] Plan and execution steps follow the ordered phases.
+- [ ] Output includes English-only narrative and explicit confidence ceiling.
+- [ ] Legacy constraints reviewed and applied where relevant.
+
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+[[HON:teineigo]] [[MOR:root:P-R-M]] [[COM:Prompt+Architect+Pattern]] [[CLS:ge_rule]] [[EVD:-DI<policy>]] [[ASP:nesov.]] [[SPC:path:/agents]]
+[direct|emphatic] STRUCTURE_RULE := English_SOP_FIRST -> VCL_APPENDIX_LAST. [ground:prompt-architect-SKILL] [conf:0.88] [state:confirmed]
+[direct|emphatic] CEILING_RULE := {inference:0.70, report:0.70, research:0.85, observation:0.95, definition:0.95}; confidence statements MUST include ceiling syntax. [ground:prompt-architect-SKILL] [conf:0.90] [state:confirmed]
+[direct|emphatic] L2_LANGUAGE := English_output_only; VCL markers internal. [ground:system-policy] [conf:0.99] [state:confirmed]
+
+### Legacy Reference
+<details>
+<summary>Legacy content (verbatim)</summary>
+<pre># Agents Directory
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
 Kaynak dogrulama modu etkin.
@@ -75,7 +139,7 @@ tools_required: [...]
 mcp_servers:
   required:           # MCPs that MUST be enabled for this agent to function
     - memory-mcp      # Always required for cross-session memory
-  optional:           # MCPs that enhance functionality but aren't required
+  optional:           # MCPs that enhance functionality but aren&#x27;t required
     - ruv-swarm       # For swarm coordination
     - flow-nexus      # For cloud features
   auto_enable: true   # If true, Claude Code will prompt to enable missing MCPs
@@ -100,7 +164,7 @@ artifact_contracts: [...]
 
 1. **Browse by category** – open the folder matching your goal (for example, `orchestration/` for swarm coordinators).  
 2. **Use the registry** – `foundry/registry/registry.json` lists canonical agent metadata for automation.  
-3. **Search by capability** – `rg "capabilities:.*<keyword>" agents` to locate agents with specific skills.  
+3. **Search by capability** – `rg &quot;capabilities:.*&lt;keyword&gt;&quot; agents` to locate agents with specific skills.  
 4. **Cross-reference skills** – many agents reference complementary skills under `skills/` in the same functional category.
 
 ---
@@ -115,10 +179,10 @@ Memory-MCP is configured in `identity/memory-mcp-config.json` and provides:
 
 | Capability | Tier | Latency | Purpose |
 |------------|------|---------|---------|
-| `kv_store` | 1 | <1ms | O(1) preference lookups |
-| `vector_search` | 3 | <100ms | Semantic search via embeddings |
-| `graph_service` | 4 | <50ms | Entity relationship graphs |
-| `event_log` | 5 | <10ms | Temporal event logging |
+| `kv_store` | 1 | &lt;1ms | O(1) preference lookups |
+| `vector_search` | 3 | &lt;100ms | Semantic search via embeddings |
+| `graph_service` | 4 | &lt;50ms | Entity relationship graphs |
+| `event_log` | 5 | &lt;10ms | Temporal event logging |
 | `query_router` | - | - | Polyglot tier selection |
 
 ### Tagging Protocol (Required)
@@ -126,10 +190,10 @@ Memory-MCP is configured in `identity/memory-mcp-config.json` and provides:
 All memory writes MUST include these tags:
 
 ```yaml
-WHO: "{agent-type}:{agent-id}"    # e.g., "code-analyzer:601c545c"
-WHEN: "{ISO-8601-timestamp}"      # e.g., "2025-12-28T09:47:04.638Z"
-PROJECT: "{project-name}"         # e.g., "memory-mcp-triple-system"
-WHY: "{purpose}"                  # e.g., "analysis", "implementation", "bugfix"
+WHO: &quot;{agent-type}:{agent-id}&quot;    # e.g., &quot;code-analyzer:601c545c&quot;
+WHEN: &quot;{ISO-8601-timestamp}&quot;      # e.g., &quot;2025-12-28T09:47:04.638Z&quot;
+PROJECT: &quot;{project-name}&quot;         # e.g., &quot;memory-mcp-triple-system&quot;
+WHY: &quot;{purpose}&quot;                  # e.g., &quot;analysis&quot;, &quot;implementation&quot;, &quot;bugfix&quot;
 ```
 
 ### Memory Namespaces
@@ -156,23 +220,23 @@ WHY: "{purpose}"                  # e.g., "analysis", "implementation", "bugfix"
 
 ```python
 # Store a finding
-kv_store.set_json('findings:code-analyzer:high:GOD-001', {
-    'WHO': 'code-analyzer:601c545c',
-    'WHEN': datetime.now().isoformat(),
-    'PROJECT': 'my-project',
-    'WHY': 'analysis',
-    'content': 'Found God Object with 0.26 cohesion',
-    'severity': 'high'
+kv_store.set_json(&#x27;findings:code-analyzer:high:GOD-001&#x27;, {
+    &#x27;WHO&#x27;: &#x27;code-analyzer:601c545c&#x27;,
+    &#x27;WHEN&#x27;: datetime.now().isoformat(),
+    &#x27;PROJECT&#x27;: &#x27;my-project&#x27;,
+    &#x27;WHY&#x27;: &#x27;analysis&#x27;,
+    &#x27;content&#x27;: &#x27;Found God Object with 0.26 cohesion&#x27;,
+    &#x27;severity&#x27;: &#x27;high&#x27;
 })
 
 # Build knowledge graph
-graph.add_relationship('finding:GOD-001', 'fixed_by', 'pattern:facade')
+graph.add_relationship(&#x27;finding:GOD-001&#x27;, &#x27;fixed_by&#x27;, &#x27;pattern:facade&#x27;)
 
 # Log event
 event_log.log_event(EventType.QUERY_EXECUTED, {
-    'agent': 'researcher',
-    'query': 'similar issues',
-    'results': 5
+    &#x27;agent&#x27;: &#x27;researcher&#x27;,
+    &#x27;query&#x27;: &#x27;similar issues&#x27;,
+    &#x27;results&#x27;: 5
 })
 ```
 
@@ -206,4 +270,7 @@ This organisation mirrors the skills directory, making it easier to align agents
 
 
 ---
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+*Promise: `&lt;promise&gt;README_VERIX_COMPLIANT&lt;/promise&gt;`*
+</pre>
+</details>
+

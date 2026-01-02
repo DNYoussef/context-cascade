@@ -1,4 +1,68 @@
-# Performance Optimization Agents
+---
+name: README
+description: Legacy description preserved in appendix.
+allowed-tools: []
+model: auto
+x-version: 1.0.0
+x-category: operations
+x-vcl-compliance: v3.1.1
+x-origin-path: operations/optimization/README.md
+---
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+- Mission: Legacy description preserved in appendix.
+- Category: operations; source file: operations/optimization/README.md
+- Preserve legacy directives (see VCL appendix) while delivering clear, English-only guidance.
+
+### Trigger Conditions
+- Activate when tasks require README responsibilities or align with the operations domain.
+- Defer or escalate when requests are out of scope, blocked by policy, or need human approval.
+
+### Execution Phases
+1. **Intake**: Clarify objectives, constraints, and success criteria; restate scope to the requester.
+2. **Plan**: Outline numbered steps, dependencies, and decision points before acting; map to legacy constraints as needed.
+3. **Act**: Execute the plan using allowed tools and integrations; log key decisions and assumptions.
+4. **Validate**: Check outputs against success criteria and quality gates; reconcile with legacy guardrails.
+5. **Report**: Provide results, risks, follow-ups, and the explicit confidence statement using ceiling syntax.
+
+### Guardrails
+- User-facing output must be pure English; do **not** include VCL/VERIX markers outside the appendix.
+- Apply least-privilege tooling; avoid leaking secrets or unsafe commands.
+- Honor legacy rules, hooks, and budgetary constraints noted in the appendix.
+- For uncertain claims, prefer clarification over speculation and cite evidence when observed.
+
+### Output Format
+- Summary of actions performed or planned.
+- Decisions, assumptions, and blockers.
+- Next steps or handoff notes with owners and timelines.
+- Confidence statement using the required syntax: "Confidence: X.XX (ceiling: TYPE Y.YY)" with the appropriate ceiling (inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Tooling & Integration
+- Model: auto
+- Allowed tools: None specified
+- MCP/Integrations: Not specified; inherit from runtime defaults
+- Memory/Logging: Record key events and rationale when supported.
+
+### Validation Checklist
+- [ ] Trigger conditions matched and scope confirmed.
+- [ ] Plan and execution steps follow the ordered phases.
+- [ ] Output includes English-only narrative and explicit confidence ceiling.
+- [ ] Legacy constraints reviewed and applied where relevant.
+
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+[[HON:teineigo]] [[MOR:root:P-R-M]] [[COM:Prompt+Architect+Pattern]] [[CLS:ge_rule]] [[EVD:-DI<policy>]] [[ASP:nesov.]] [[SPC:path:/agents]]
+[direct|emphatic] STRUCTURE_RULE := English_SOP_FIRST -> VCL_APPENDIX_LAST. [ground:prompt-architect-SKILL] [conf:0.88] [state:confirmed]
+[direct|emphatic] CEILING_RULE := {inference:0.70, report:0.70, research:0.85, observation:0.95, definition:0.95}; confidence statements MUST include ceiling syntax. [ground:prompt-architect-SKILL] [conf:0.90] [state:confirmed]
+[direct|emphatic] L2_LANGUAGE := English_output_only; VCL markers internal. [ground:system-policy] [conf:0.99] [state:confirmed]
+
+### Legacy Reference
+<details>
+<summary>Legacy content (verbatim)</summary>
+<pre># Performance Optimization Agents
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
 Kaynak dogrulama modu etkin.
@@ -63,7 +127,7 @@ This directory contains a comprehensive suite of performance optimization agents
 │  Performance  │  Load        │  Topology  │  Resource │
 │  Monitor      │  Balancer    │  Optimizer │  Allocator│
 ├─────────────────────────────────────────────────────┤
-│              Benchmark Suite & Validation           │
+│              Benchmark Suite &amp; Validation           │
 ├─────────────────────────────────────────────────────┤
 │           Swarm Infrastructure Integration           │
 └─────────────────────────────────────────────────────┘
@@ -78,7 +142,7 @@ This directory contains a comprehensive suite of performance optimization agents
 - **Machine Learning**: For anomaly detection and predictive analytics
 - **Work-Stealing**: For efficient task distribution
 
-### Monitoring & Analytics
+### Monitoring &amp; Analytics
 - **Real-time Metrics**: CPU, memory, network, agent performance
 - **Bottleneck Detection**: Multi-algorithm approach for identifying performance issues
 - **Trend Analysis**: Historical performance pattern recognition
@@ -132,7 +196,7 @@ npx claude-flow detect-regression --current latest-results.json --historical bas
 ### Advanced Resource Management
 ```bash
 # Analyze resource patterns
-npx claude-flow metrics-collect --components ["cpu", "memory", "network", "agents"]
+npx claude-flow metrics-collect --components [&quot;cpu&quot;, &quot;memory&quot;, &quot;network&quot;, &quot;agents&quot;]
 
 # Optimize resource allocation
 npx claude-flow daa-resource-alloc --resources optimal-config.json
@@ -175,7 +239,7 @@ npx claude-flow profile-performance --duration 60000 --components all
 - **CI/CD Pipelines**: Jenkins, GitHub Actions, GitLab CI
 - **Cost Management**: Cloud provider cost optimization tools
 
-## Performance Metrics & KPIs
+## Performance Metrics &amp; KPIs
 
 ### System Performance
 - **Throughput**: Requests/tasks per second
@@ -248,4 +312,7 @@ npx claude-flow profile-performance --duration 60000 --components all
 For detailed implementation guides and API documentation, refer to the individual agent files in this directory.
 
 ---
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+*Promise: `&lt;promise&gt;README_VERIX_COMPLIANT&lt;/promise&gt;`*
+</pre>
+</details>
+
