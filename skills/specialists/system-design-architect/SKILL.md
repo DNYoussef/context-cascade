@@ -1,230 +1,68 @@
 ---
 name: system-design-architect
-description: Comprehensive system design methodology using Dr. Synthara's organism-based approach. Treats systems as living organisms with specialized organs (API, DB, cache, queues), circulation (load balancing),
+description: Architect scalable, reliable, and cost-aware systems with clear constraints and validation plans.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Design end-to-end systems (APIs, services, data stores, observability) with explicit tradeoffs, capacity plans, and risk controls.
 
-[define|neutral] SKILL := {
-  name: "system-design-architect",
-  category: "specialists",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Requests for architecture/design docs, capacity/scale planning, reliability/resiliency improvements, migration blueprints.
+- **Negative:** Single-component coding tasks (route to component specialist) or pure prompt rewrites (prompt-architect).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: ensure `SKILL.md`, `readme`, `examples/`, and `tests/` exist; add missing docs before delivery.
+- Constraint extraction: HARD/SOFT/INFERRED (SLOs, scale targets, budgets, compliance, deadlines).
+- Validation planning: include load, failure-injection, and rollback testing.
+- Explicit confidence with ceiling (inference/report 0.70; research 0.85; observation/definition 0.95).
+- Cost/reliability balance: document tradeoffs; no hidden assumptions.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake & Goals**
+   - Capture SLO/SLI targets, traffic models, data constraints, compliance, and timelines.
+   - Map dependencies and integration boundaries.
+2. **Architecture & Decisions**
+   - Propose candidate architectures with tradeoffs; select patterns (CQRS, event-driven, micro/monolith) based on constraints.
+   - Define data model, storage choices, caching strategy, and consistency model.
+3. **Reliability & Operations**
+   - Plan observability (logs/metrics/traces), rollout/rollback, and incident response hooks.
+   - Include capacity planning (baseline + surge) and cost guardrails.
+4. **Validation Plan**
+   - Specify tests: load/perf, chaos/failure-injection, DR/backup restore, schema migration rehearsals.
+   - Identify acceptance criteria and exit checks.
+5. **Delivery**
+   - Produce architecture doc, sequence/data-flow diagrams, runbooks, and phased rollout plan.
+   - Recommend owners and next steps; tag MCP memory (`WHO=system-design-architect-{session}`, `WHY=skill-execution`).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Request summary with constraints (HARD/SOFT/INFERRED).
+- Final architecture choice with rationale and tradeoffs.
+- Validation plan and rollout/rollback steps.
+- Risks, mitigations, and ownership.
+- Confidence statement with ceiling.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Constraints captured and confirmed.
+- [ ] Tradeoffs documented for chosen architecture.
+- [ ] Observability + SLO/SLA mapping defined.
+- [ ] Load/failure/rollback tests planned.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["system-design-architect", "specialists", "workflow"],
-  context: "user needs system-design-architect capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:S-S-T]] [[COM:Sistem+Tasarim]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/system-design-architect]]
+[assert|neutral] SISTEM_MIMARI := olceklenebilirlik + dayanıklılık kararlarini tradeoff ile yazar; yapi-oncelikli teslim eder. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; tum ciktilarda acik. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# System Design Architect
+[commit|confident] <promise>SYSTEM_DESIGN_ARCHITECT_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-A comprehensive system design skill using the organism-based mental model: systems are living creatures with organs, circulation, immune systems, and survival mechanisms.
-
-## SKILL-SPECIFIC GUIDANCE
-
-### When to Use This Skill
-
-- Designing new systems from scratch
-- System design interviews (FAANG-level)
-- Architecture reviews and evolution planning
-- Scaling existing systems (10x, 100x)
-- Production readiness assessments
-- Identifying and removing SPOFs
-
-### When NOT to Use This Skill
-
-- Simple CRUD applications with no scale needs
-- Prototypes where architecture doesn't matter yet
-- When requirements are completely undefined
-- Premature optimization scenarios
-
-### Success Criteria
-- [assert|neutral] Clear non-negotiable invariants defined [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All SPOFs identified and mitigated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Decision trees applied for each component choice [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Trade-offs explicitly documented [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] 90-second narrative can explain the design [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] - [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Phase 0: Pin the Target Before Drawing Boxes
-
-**You are designing for constraints, not for tech.**
-
-### Constraint Extraction Checklist
-
-| Constraint | Questions to Ask |
-|------------|------------------|
-| **Users & Usage** | DAU/MAU? Peak QPS? Read/write ratio? Payload sizes? |
-| **Latency Target** | p50/p95/p99? Mobile vs desktop? Global vs local? |
-| **Availability** | SLO (99.9? 99.99?)? RTO/RPO? |
-| **Consistency** | Strong vs eventual? Where does correctness matter? |
-| **Data Shape** | Relational? Document? Graph? Hot keys? |
-| **Security** | Auth model? Threat surface? Compliance? |
-| **Growth Path** | What changes if traffic 10x? 100x? |
-
-### What I'm Thinking as a Designer
-
-"What are the non-negotiable invariants?"
-
-Examples:
-- "No double-charging" (payments)
-- "Messages never delivered out of order per conversation" (chat)
-- "Inventory can't go negative" (e-commerce)
-- "Tokens must be revocable" (auth)
-
----
-
-## Phase 1: Baseline Single-Server Organism
-
-Start with a simple diagram you can explain in 30 seconds:
-
-```
-Domain -> DNS -> Server IP
-Client -> HTTPS -> Server
-Server -> Business Logic -> DB -> Response
-```
-
-This sets a clean foundation to EVOLVE from, instead of prematurely microservicing.
-
----
-
-## Phase 2: First Evolution - Split Tiers
-
-Split into:
-- **Web/App Tier**: Stateless compute (horizontally scalable by default)
-- **Data Tier**: Database + durable storage
-
-**Design Rule**: The web/app tier should be horizontally scalable BY DEFAULT.
-
-**What I'm Thinking**: "Where is state living? Where does it need to live?"
-
-If state lives in app memory, scaling breaks it.
-
----
-
-## Decision Tree 1: Scaling
-
-```
-Need to handle more load?
-|
-+-- Mostly CPU/RAM bound + small scale + OK if brief downtime?
-|   +-- Vertical scale (scale up) as short-term patch
-|
-+-- Need high availability OR growth beyond one machine?
-    +-- Horizontal scale (scale out)
-        +-- Add load balancer
-        +-- Make app tier stateless
-        +-- Move state to shared systems (DB/cache/object storage)
-```
-
-**System-Designer Thought**: Vertical scaling is a DELAY TACTIC; horizontal scaling is an ARCHITECTURE CHOICE.
-
----
-
-## Decision Tree 2: Database Choice
-
-```
-What is the data + correctness need?
-|
-+-- Strong transactions / invariants (money, inventory, ledgers)?
-|   +-- SQL (Postgres/MySQL) + ACID + constraints
-|
-+-- Clear relationships + joins matter?
-|   +-- SQL (normalized + indexes)
-|
-+-- Semi-structured JSON + evolving schema + high scale writes?
-|   +-- Document or wide-co
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/specialists/system-design-architect/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "system-design-architect-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SYSTEM_DESIGN_ARCHITECT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - SOP rewritten with prompt-architect constraint clarity and skill-forge structure-first guardrails.

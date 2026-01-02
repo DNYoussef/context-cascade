@@ -1,241 +1,56 @@
 ---
 name: python-specialist
-description: Expert Python development specialist for backend APIs, async/await optimization, Django/Flask/FastAPI frameworks, type hints, packaging, and performance profiling. Use when building Python backend ser
+description: Deliver production-quality Python solutions with framework-aware patterns and tests.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Implement and review Python code across web services, data/ML tooling, and automation with robust testing and packaging.
 
-[define|neutral] SKILL := {
-  name: "python-specialist",
-  category: "Language Specialists",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Python feature work, API/services, CLIs, packaging/publishing, testing/CI setup, performance tuning.
+- **Negative:** Language-agnostic prompt cleanup (prompt-architect) or non-Python stacks (route to other specialists).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: keep `SKILL.md`, `readme`, `examples/`, `tests/`, and `resources/` current.
+- Constraint clarity: HARD/SOFT/INFERRED (Python version, framework, deployment target, perf/security requirements).
+- Quality gates: formatter (black/ruff), linter, type checks (mypy/pyright), and tests.
+- Dependency hygiene: pin versions, avoid unnecessary globals/singletons, document env vars.
+- Confidence ceiling: inference/report 0.70; research 0.85; observation/definition 0.95.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake**: Identify stack (FastAPI/Django/Flask/CLI), runtime, and constraints.
+2. **Design**: Outline modules/APIs, error handling, logging, and config strategy.
+3. **Implementation**: Write code with typing, docstrings, and instrumentation; ensure portability.
+4. **Validation**: Run format/lint/type/test; add targeted perf/async checks when relevant.
+5. **Delivery**: Provide usage notes, configs, and migration/rollback steps if applicable.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Summary of request and constraints.
+- Design decisions and code pointers.
+- Test results and remaining risks.
+- Confidence with ceiling.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Constraints confirmed (version/framework/runtime).
+- [ ] Format/lint/type/test executed or planned.
+- [ ] Security/perf considerations addressed where relevant.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["python-specialist", "Language Specialists", "workflow"],
-  context: "user needs python-specialist capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:P-Y]] [[COM:Python+Usta]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/language-specialists/python-specialist]]
+[assert|neutral] PY_UZMAN := Python cozumlerini test + kalite kapisi ile uretir; yapi-oncelik korunur. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; tum ciktilara uygulanir. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# Python Specialist
+[commit|confident] <promise>PYTHON_SPECIALIST_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Expert Python development for modern backend systems, API development, and high-performance applications.
-
-## Purpose
-
-This skill provides comprehensive Python expertise across frameworks, async patterns, type safety, and production deployment. It ensures Python code follows best practices, leverages modern features (Python 3.10+), and achieves optimal performance.
-
-## When to Use This Skill
-
-Activate this skill when:
-- Building backend APIs with Django REST Framework, FastAPI, or Flask
-- Implementing async/await patterns with asyncio or trio
-- Optimizing Python performance (cProfile, memory_profiler, line_profiler)
-- Setting up Python projects with proper dependency management
-- Writing type-safe code with type hints and mypy validation
-- Creating Python packages with setuptools or poetry
-- Debugging production Python issues
-- Migrating from Python 2 to Python 3 or upgrading to modern Python
-
-## Prerequisites
-
-**Required Knowledge**:
-- Python 3.10+ syntax and standard library
-- Virtual environment concepts (venv, virtualenv, conda)
-- Basic understanding of HTTP and REST principles
-
-**Required Tools**:
-- Python 3.10+ installed
-- pip and venv available
-- Code editor with Python support
-
-**Agent Assignments**:
-- `backend-dev`: Primary Python implementation
-- `coder`: General coding and refactoring
-- `tester`: pytest test suite creation
-- `code-analyzer`: Code quality and connascence analysis
-- `perf-analyzer`: Performance optimization
-
-## Core Workflows
-
-### Workflow 1: FastAPI REST API Development
-
-**Step 1: Initialize Project Structure**
-
-Create a production-ready FastAPI project with proper organization:
-
-```bash
-# Create project structure
-mkdir -p my_api/{app,tests,alembic}
-cd my_api
-
-# Initialize virtual environment
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-
-# Install dependencies
-pip install fastapi uvicorn[standard] pydantic pydantic-settings sqlalchemy alembic pytest pytest-asyncio httpx
-```
-
-**Step 2: Define Data Models with Pydantic**
-
-Create type-safe models with validation:
-
-```python
-# app/models.py
-from pydantic import BaseModel, Field, ConfigDict
-from typing import Optional
-from datetime import datetime
-
-class UserBase(BaseModel):
-    email: str = Field(..., description="User email address")
-    username: str = Field(..., min_length=3, max_length=50)
-
-class UserCreate(UserBase):
-    password: str = Field(..., min_length=8)
-
-class UserResponse(UserBase):
-    id: int
-    created_at: datetime
-
-    model_config = ConfigDict(from_attributes=True)
-```
-
-**Step 3: Implement API Routes with Dependency Injection**
-
-```python
-# app/main.py
-from fastapi import FastAPI, Depends, HTTPException, status
-from typing import Annotated
-from .models import UserCreate, UserResponse
-from .dependencies import get_db, get_current_user
-
-app = FastAPI(title="My API", version="1.0.0")
-
-@app.post("/users", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
-async def create_user(
-    user: UserCreate,
-    db: Annotated[AsyncSession, Depends(get_db)]
-) -> UserResponse:
-    """Create a new user with email validation."""
-    # Implementation
-    return user_response
-
-@app.get("/users/me", response_model=UserResponse)
-async def read_current_user(
-    current_user: Annotated[User, Depends(get_current_user)]
-) -> UserResponse:
-    """Get current authenticated user."""
-    return current_user
-```
-
-**Step 4: Add Database Integration with SQLAlchemy**
-
-```python
-# app/database.py
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from sqlalchemy.orm import DeclarativeBase
-
-SQLALCHEMY_DATABASE_URL = "postgresql+asyncpg://user:pass@localhost/dbname"
-
-engine = create_async_engine(SQLALCHEMY_DATABASE_URL, echo=True)
-async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
-
-class Base(DeclarativeBase):
-    pass
-
-async def get_db():
-    async with as
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/Language Specialists/python-specialist/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "python-specialist-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>PYTHON_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - SOP rewritten with prompt-architect constraint framing and skill-forge structure/validation rules.

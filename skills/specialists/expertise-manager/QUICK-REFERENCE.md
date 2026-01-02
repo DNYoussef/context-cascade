@@ -1,160 +1,32 @@
-# Expertise Manager - Quick Reference v2.1.0
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
+# Expertise Manager Quick Reference
 
 ## Purpose
-Manages .claude/expertise/ YAML files for domain-specific configurations.
+Route requests to the right specialist, keep coverage maps healthy, and surface gaps before execution begins.
 
-## Expertise File Location
+## Rapid Intake
+1. Classify the request domain (e.g., ML build, ML debugging, system design, frontend, language).
+2. Extract constraints: HARD / SOFT / INFERRED; confirm inferred constraints with the requester.
+3. Check registry for matching skills and note missing docs or tests.
 
-```
-.claude/expertise/
-  |-- {domain}.yaml         # Domain expertise
-  |-- {project-name}.yaml   # Project-specific
-  |-- {framework}.yaml      # Framework patterns
-  |-- expertise-index.yaml  # Index of all expertise
-```
+## Routing Matrix (Examples)
+- **Implementation-heavy ML:** `ml-expert` (fallback: `ml`).
+- **Training incidents/debug:** `ml-training-debugger` → `ml-expert` if code changes follow.
+- **System design & capacity:** `system-design-architect`.
+- **Frontend delivery:** `frontend-specialists` → `react-specialist` for React stacks.
+- **Language-specific:** `language-specialists` → `python-specialist` or `typescript-specialist`.
+- **Data layer:** `sql-database-specialist`.
+- **Hook work:** `hook-creator`.
 
-## Operations
+## Guardrails (Skill-Forge + Prompt-Architect)
+- Structure-first: ensure each skill has `SKILL.md`, examples, tests, and resource docs.
+- Adversarial validation: test ambiguous routing and overlapping ownership.
+- Explicit confidence ceiling in every decision note.
+- MCP tagging: `WHO=expertise-manager-{session}`, `WHY=skill-execution`.
 
-| Operation | Command | Result |
-|-----------|---------|--------|
-| Create | `Create expertise for: {domain}` | New YAML file |
-| Update | `Update expertise: {domain}` | Merge changes |
-| Query | `Get expertise for: {domain}` | Return config |
-| List | `List all expertise` | Index contents |
-| Delete | `Remove expertise: {domain}` | Archive & delete |
+## Decision Output Template
+- Request summary and constraints.
+- Assigned specialist(s) + backup + SLA.
+- Validation notes (edge cases probed, missing docs flagged).
+- Confidence: `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
-## Expertise YAML Schema
-
-```yaml
-# .claude/expertise/{domain}.yaml
-domain: string           # Domain identifier
-version: semver          # Schema version
-last_updated: ISO8601    # Last modification
-
-file_locations:          # Known file paths
-  config: "path/to/config"
-  tests: "path/to/tests"
-
-patterns:                # Domain patterns
-  naming: "camelCase"
-  structure: "layered"
-
-conventions:             # Coding conventions
-  imports: "absolute"
-  exports: "named"
-
-known_issues:            # Common pitfalls
-  - issue: "description"
-    solution: "how to fix"
-
-tools:                   # Preferred tools
-  linter: "eslint"
-  formatter: "prettier"
-
-integrations:            # External systems
-  - name: "system"
-    endpoint: "url"
-```
-
-## Quick Commands
-
-```bash
-# Create new expertise
-Use expertise-manager to create expertise for: React TypeScript project
-
-# Update existing
-Use expertise-manager to update: react-typescript
-
-# Query for loading
-Use expertise-manager to get: react-typescript
-
-# Validate expertise
-Use expertise-manager to validate: react-typescript
-```
-
-## Phase 0 Integration
-
-All skills use expertise in Phase 0:
-
-```yaml
-Phase 0: Expertise Loading
-  1. Detect domain from task
-  2. Check: .claude/expertise/{domain}.yaml
-  3. If exists: Load configuration
-  4. Apply: Use for informed execution
-```
-
-## Expertise Categories
-
-| Category | Use For |
-|----------|---------|
-| Language | JavaScript, Python, Rust, etc. |
-| Framework | React, Next.js, FastAPI, etc. |
-| Platform | AWS, GCP, Vercel, etc. |
-| Domain | Healthcare, Finance, Gaming, etc. |
-| Project | Specific project configurations |
-
-## Index File Format
-
-```yaml
-# .claude/expertise/expertise-index.yaml
-version: "1.0.0"
-last_scan: "2025-01-15T10:00:00Z"
-
-expertise_files:
-  - domain: "react-typescript"
-    path: "react-typescript.yaml"
-    updated: "2025-01-14"
-
-  - domain: "python-fastapi"
-    path: "python-fastapi.yaml"
-    updated: "2025-01-10"
-```
-
-## Validation Rules
-
-| Rule | Check |
-|------|-------|
-| Schema | Valid YAML structure |
-| Required Fields | domain, version present |
-| Paths | Referenced files exist |
-| Patterns | Valid regex/glob patterns |
-| Versions | Valid semver format |
-
-## Usage by Other Skills
-
-Skills that use expertise:
-- agent-selector (domain matching)
-- code-review-assistant (conventions)
-- clarity-linter (patterns)
-- cicd-intelligent-recovery (known issues)
-- All skills with Phase 0
-
-## Creating Expertise from Codebase
-
-```bash
-# Auto-generate expertise
-Use expertise-manager to analyze: ./project-root
-
-# Output: .claude/expertise/{detected-domain}.yaml
-# Populated with:
-#   - File structure patterns
-#   - Detected conventions
-#   - Tool configurations
-#   - Framework signatures
-```
-
-## Related Skills
-
-- **agent-selector** - Uses expertise for matching
-- **skill-forge** - Creates skills with expertise loading
-- **research-driven-planning** - Informs expertise creation
-
-
----
-*Promise: `<promise>QUICK_REFERENCE_VERIX_COMPLIANT</promise>`*
+Confidence: 0.71 (ceiling: inference 0.70) - Quick reference rebuilt with the skill-forge routing and prompt-architect constraint format.

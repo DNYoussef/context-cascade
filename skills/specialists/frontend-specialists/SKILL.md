@@ -1,210 +1,55 @@
 ---
 name: frontend-specialists
-description: Comprehensive frontend development system with specialist agents for React, Vue, UI components, CSS styling, accessibility, and performance optimization. Use when building modern web applications, com
+description: Deliver resilient frontend solutions with performance, accessibility, and UX guardrails.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Plan and implement frontend features and architectures with strong accessibility, performance, and reliability practices.
 
-[define|neutral] SKILL := {
-  name: "frontend-specialists",
-  category: "Frontend Development",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Frontend feature work, performance tuning, accessibility audits, design-to-dev translation, state management decisions.
+- **Negative:** Pure backend/system design (route elsewhere) or prompt rewrites (prompt-architect).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: maintain `SKILL.md`, `examples/`, `tests/`, `resources/`, and `react-specialist` docs; fill gaps before work.
+- Constraint clarity: HARD/SOFT/INFERRED (framework, bundle budget, perf targets, accessibility requirements, release cadence).
+- Quality gates: lint/format, type-check, tests (unit/e2e), accessibility/perf checks.
+- Confidence ceiling enforced (inference/report 0.70; research 0.85; observation/definition 0.95).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake**: Capture framework (React/Next/etc.), design assets, perf/a11y targets, and release constraints.
+2. **Design**: Choose state management, routing, data-fetching strategy; define component contracts and error handling.
+3. **Implementation**: Build components with accessibility defaults, performance safeguards (code-splitting, memoization), and logging.
+4. **Validation**: Run lint/format/type/test; measure Core Web Vitals and a11y checks; run regression snapshots where applicable.
+5. **Delivery**: Provide changelog, release plan, monitoring hooks, and rollback steps.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Request summary + constraints.
+- Architecture/component plan and rationale.
+- Validation results and risks.
+- Confidence with ceiling.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Constraints confirmed and design assets referenced.
+- [ ] Perf/a11y targets defined and measured.
+- [ ] Lint/format/type/test run.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["frontend-specialists", "Frontend Development", "workflow"],
-  context: "user needs frontend-specialists capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:F-R-N]] [[COM:Frontend+Usta]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/frontend-specialists]]
+[assert|neutral] FRONTEND_UZMAN := a11y + perf odakli arayuz uretir; yapi-oncelik + kalite kapi uygular. [ground:SKILL.md] [conf:0.83] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; tum ciktilar tavani bildirir. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# Frontend Specialists
+[commit|confident] <promise>FRONTEND_SPECIALISTS_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-
-## When to Use This Skill
-
-- **React/Vue/Angular Development**: Building modern frontend applications
-- **Component Development**: Creating reusable UI components
-- **State Management**: Implementing Redux, Zustand, Pinia, or other state solutions
-- **Performance Optimization**: Improving render performance or bundle size
-- **Accessibility**: Implementing WCAG-compliant interfaces
-- **Responsive Design**: Building mobile-first or adaptive layouts
-
-## When NOT to Use This Skill
-
-- **Backend APIs**: Server-side logic or database operations
-- **Static Sites**: Simple HTML/CSS without framework complexity
-- **Native Mobile**: React Native, Flutter, Swift, Kotlin (use mobile specialist)
-- **Design Work**: Visual design or UI/UX research (use designer)
-
-## Success Criteria
-
-- [ ] Components render correctly across browsers (Chrome, Firefox, Safari, Edge)
-- [ ] Responsive design works on mobile, tablet, desktop
-- [ ] Accessibility score >90 (axe-core, Lighthouse)
-- [ ] Performance budget met (FCP <2s, LCP <2.5s, CLS <0.1)
-- [ ] Unit tests passing for components
-- [ ] E2E tests passing for user flows
-- [ ] TypeScript types accurate with no any types
-- [ ] Bundle size within limits
-
-## Edge Cases to Handle
-
-- **Hydration Mismatches**: SSR/SSG content differing from client render
-- **Browser Differences**: Vendor prefixes, polyfills, or feature detection
-- **Offline Support**: Service workers or offline-first functionality
-- **Memory Leaks**: Event listeners, subscriptions, or timers not cleaned up
-- **Large Lists**: Virtualization for rendering 1000+ items
-- **Form Validation**: Complex multi-step forms with async validation
-
-## Guardrails
-
-- **NEVER** mutate state directly (use immutable updates)
-- **ALWAYS** clean up effects (removeEventListener, unsubscribe)
-- **NEVER** store sensitive data in localStorage
-- **ALWAYS** sanitize user input before rendering (prevent XSS)
-- **NEVER** skip key prop on list items
-- **ALWAYS** use semantic HTML and ARIA labels
-- **NEVER** block main thread with heavy computation (use Web Workers)
-
-## Evidence-Based Validation
-
-- [ ] Lighthouse audit score >90 in all categories
-- [ ] React DevTools Profiler shows no unnecessary re-renders
-- [ ] Bundle analyzer shows no duplicate dependencies
-- [ ] axe-core accessibility scan passes
-- [ ] Visual regression tests pass (Percy, Chromatic)
-- [ ] Cross-browser testing (BrowserStack, Playwright)
-- [ ] Console shows no errors or warnings
-
-A comprehensive frontend development system combining specialized agents, production scripts, and reusable templates for modern web application development.
-
-## Purpose
-
-Provide complete frontend development capabilities through specialized agents and tools. Each specialist focuses on a specific domain (React, Vue, UI components, CSS, accessibility, performance) while sharing common scripts and templates for rapid development.
-
-## System Architecture
-
-```
-frontend-specialists/
-├── skill.md (this file)
-├── react-specialist/      # React 18+ specialist
-├── vue-specialist/        # Vue 3 specialist (future)
-├── ui-component-builder/  # Component library specialist (future)
-├── resources/
-│   ├── scripts/           # Production automation scripts
-│   │   ├── component-generator.js
-│   │   ├── bundle-analyzer.js
-│   │   ├── a11y-checker.js
-│   │   └── performance-profiler.js
-│   └── templates/         # Reusable component templates
-│       ├── react-component.tsx
-│       ├── vue-component.vue
-│       └── component.config.json
-└── tests/                 # Comprehensive test suites
-    ├── component-generator.test.js
-    ├── bundle-analyzer.test.js
-    └── a11y-checker.test.js
-```
-
-## Available Specialists
-
-### 1. React Specialist (`react-specialist`)
-**Triggers**: "React", "React 18", "Next.js", "hooks", "server components"
-
-**Capabilities**:
-- React 18+ with concurrent rendering
-- Next.js 13+ App Router with Server Components
-- S
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/Frontend Development/frontend-specialists/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "frontend-specialists-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>FRONTEND_SPECIALISTS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.71 (ceiling: inference 0.70) - SOP refreshed with prompt-architect constraint handling and skill-forge structure-first rules.

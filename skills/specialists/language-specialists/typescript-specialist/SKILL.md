@@ -1,249 +1,56 @@
 ---
 name: typescript-specialist
-description: Modern TypeScript development specialist for Node.js backends, Express/Nest.js frameworks, type-safe frontend development, npm package creation, and monorepo management with Turborepo/nx. Use when bui
+description: Build and review TypeScript applications and libraries with strong typing, tooling, and delivery quality.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Deliver robust TypeScript code for APIs, frontends, CLIs, and libraries with strict typing, testing, and build hygiene.
 
-[define|neutral] SKILL := {
-  name: "typescript-specialist",
-  category: "Language Specialists",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** TypeScript feature development, API/SDK creation, React/Node services, build/CI setup, performance hardening.
+- **Negative:** Non-TS stacks (route elsewhere) or pure prompt rewrites (prompt-architect).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: maintain `SKILL.md`, `examples/`, `tests/`, `resources/`, and `readme` docs.
+- Constraint clarity: HARD/SOFT/INFERRED (runtime: Node/browser, framework: React/Nest/Next, build: tsconfig/eslint/bundler, perf/security needs).
+- Quality gates: strict TS config, eslint/formatter, test matrix (unit/e2e as needed).
+- Dependency hygiene: pin critical versions; tree-shake and avoid polyfill drift; document env vars.
+- Confidence ceiling enforced (inference/report 0.70; research 0.85; observation/definition 0.95).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake**: Capture runtime, framework, build pipeline, and constraints.
+2. **Design**: Define module boundaries, types/interfaces, error handling, and dependency strategy.
+3. **Implementation**: Code with strict types, guards, and logging; align with chosen framework patterns.
+4. **Validation**: Run type-check, lint/format, tests; measure bundle size/perf where applicable.
+5. **Delivery**: Provide build/run instructions, env var docs, and rollout/rollback notes.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Request summary + constraints.
+- Design choices and code entry points.
+- Validation results and risks.
+- Confidence with ceiling.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Constraints confirmed (runtime/framework/build).
+- [ ] Type-check + lint/format + tests executed.
+- [ ] Perf/security concerns addressed where relevant.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["typescript-specialist", "Language Specialists", "workflow"],
-  context: "user needs typescript-specialist capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:T-Y-P]] [[COM:TypeScript+Usta]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/language-specialists/typescript-specialist]]
+[assert|neutral] TS_UZMAN := TypeScript kodunu siki tip + kalite kapi ile teslim eder; yapi-oncelik korunur. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; ciktilar tavani bildirir. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# TypeScript Specialist
+[commit|confident] <promise>TYPESCRIPT_SPECIALIST_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Expert TypeScript development for type-safe, scalable backend and full-stack applications with modern tooling.
-
-## Purpose
-
-This skill provides comprehensive TypeScript expertise including advanced type systems, modern Node.js patterns, framework integration (Express, Nest.js), and production-grade TypeScript configuration. It ensures TypeScript code leverages the full power of static typing while maintaining developer productivity.
-
-## When to Use This Skill
-
-Activate this skill when:
-- Building backend APIs with Express or Nest.js
-- Creating type-safe frontend applications
-- Developing npm packages or libraries
-- Setting up monorepos with Turborepo or nx
-- Migrating JavaScript projects to TypeScript
-- Configuring strict TypeScript compiler options
-- Implementing advanced TypeScript patterns (generics, mapped types, conditional types)
-- Optimizing TypeScript build performance
-
-## Prerequisites
-
-**Required Knowledge**:
-- JavaScript ES6+ syntax and concepts
-- Node.js runtime and npm/yarn/pnpm
-- Basic understanding of static typing
-
-**Required Tools**:
-- Node.js 18+ installed
-- npm, yarn, or pnpm package manager
-- Code editor with TypeScript support (VS Code recommended)
-
-**Agent Assignments**:
-- `backend-dev`: Primary TypeScript API implementation
-- `coder`: General TypeScript development
-- `base-template-generator`: Project scaffolding
-- `tester`: Jest/Vitest test suite creation
-- `code-analyzer`: Type safety and quality analysis
-
-## Core Workflows
-
-### Workflow 1: Nest.js Backend API Development
-
-**Step 1: Initialize Nest.js Project**
-
-Create a production-ready Nest.js project with TypeScript:
-
-```bash
-# Install Nest CLI globally
-npm install -g @nestjs/cli
-
-# Create new project
-nest new my-api --package-manager pnpm
-
-# Navigate to project
-cd my-api
-
-# Install additional dependencies
-pnpm add @nestjs/config @nestjs/typeorm typeorm pg class-validator class-transformer
-pnpm add -D @types/node
-```
-
-**Step 2: Configure TypeScript Strict Mode**
-
-```json
-// tsconfig.json
-{
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "strictBindCallApply": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
-}
-```
-
-**Step 3: Create Type-Safe DTOs with Class Validator**
-
-```typescript
-// src/users/dto/create-user.dto.ts
-import { IsEmail, IsString, MinLength, MaxLength } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-
-export class CreateUserDto {
-  @ApiProperty({ description: 'User email address' })
-  @IsEmail()
-  email: string;
-
-  @ApiProperty({ description: 'Username', minLength: 3, maxLength: 50 })
-  @IsString()
-  @MinLength(3)
-  @MaxLength(50)
-  username: string;
-
-  @ApiProperty({ description: 'User password', minLength: 8 })
-  @IsString()
-  @MinLength(8)
-  password: string;
-}
-```
-
-**Step 4: Implement Service with Dependency Injection**
-
-```typescript
-// src/users/users.service.ts
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-
-@Injectable()
-export class UsersService {
-  constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: Repository<User>,
-  ) {}
-
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    const user = this.usersRepository.create(createUserDto);
-    return await this.usersReposi
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/Language Specialists/typescript-specialist/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "typescript-specialist-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>TYPESCRIPT_SPECIALIST_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.72 (ceiling: inference 0.70) - SOP rewritten with prompt-architect clarity and skill-forge structure/validation guardrails.

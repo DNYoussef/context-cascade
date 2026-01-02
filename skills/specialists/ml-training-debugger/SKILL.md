@@ -1,204 +1,68 @@
 ---
 name: ml-training-debugger
-description: **Version**: 1.0.0
+description: Diagnose and stabilize ML training runs, recover from failures, and deliver validated fixes.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Rapidly triage ML training incidents (instability, divergence, degraded metrics) and deliver validated remediations with traceable evidence.
 
-[define|neutral] SKILL := {
-  name: "ml-training-debugger",
-  category: "specialists",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Failing/unstable training runs, unexplained metric drops, NaNs/exploding gradients, data/label issues, reproducibility gaps.
+- **Negative:** New model development without incident (route to `ml-expert`) or lightweight prototyping (route to `ml`).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: ensure `SKILL.md`, `README`, `examples/`, `tests/`, `resources/`, and `agents/` exist; create missing docs before work.
+- Constraint extraction: clarify environment (hardware/framework), data provenance, metric targets, and incident timeline.
+- Validation discipline: reproduce issue, isolate variables (data/model/optim), run minimal change tests; adversarially probe for leakage and nondeterminism.
+- Confidence ceiling enforced (inference/report 0.70; research 0.85; observation/definition 0.95) with evidence per finding.
+- Safety: preserve checkpoints/logs; avoid destructive changes; keep rollback path ready.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake & Evidence Gathering**
+   - Collect logs, metrics, configs, seeds, hardware info, and recent code changes.
+   - Confirm baseline vs expected behavior and incident start time.
+2. **Reproduction & Isolation**
+   - Reproduce on smallest dataset slice; fix seeds; disable randomness.
+   - Binary-search variables: data batches, preprocessing, model changes, optimizer settings.
+3. **Hypothesis & Experiment Plan**
+   - Form hypotheses (data corruption, label leakage, optimizer instability, precision issues).
+   - Plan targeted experiments with success/fail criteria.
+4. **Fix & Validation**
+   - Implement minimal fixes; run controlled tests (train/val curves, gradient norms, loss stats).
+   - Validate against performance/latency targets; ensure no regression on baseline metrics.
+5. **Handoff & Prevention**
+   - Document root cause, applied fixes, and remaining risks.
+   - Add monitors/tests to prevent recurrence; package rollback instructions.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Incident summary and constraints.
+- Reproduction steps, hypotheses, and experiments run.
+- Fixes applied with before/after metrics.
+- Prevention plan and owners.
+- Confidence statement with ceiling.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Issue reproduced with fixed seeds and minimal data slice.
+- [ ] Hypotheses tested; experiments documented.
+- [ ] Metrics reported per split; gradients/loss inspected where relevant.
+- [ ] Regression checks executed; rollback path documented.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["ml-training-debugger", "specialists", "workflow"],
-  context: "user needs ml-training-debugger capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:H-T-A]] [[COM:Hata+Teshis+Analiz]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/ml-training-debugger]]
+[assert|neutral] ML_DEBUG := egitim arizalarini kopyalar, izole eder, minimum fix + dogrulama ile teslim eder. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; tum bulgular tavanla birlikte raporlanir. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# ML Training Debugger
+[commit|confident] <promise>ML_TRAINING_DEBUGGER_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-
-## When to Use This Skill
-
-- **Model Training**: Training neural networks or ML models
-- **Hyperparameter Tuning**: Optimizing model performance
-- **Model Debugging**: Diagnosing training issues (overfitting, vanishing gradients)
-- **Data Pipeline**: Building training/validation data pipelines
-- **Experiment Tracking**: Managing ML experiments and metrics
-- **Model Deployment**: Serving models in production
-
-## When NOT to Use This Skill
-
-- **Data Analysis**: Exploratory data analysis or statistics (use data scientist)
-- **Data Engineering**: Large-scale ETL or data warehouse (use data engineer)
-- **Research**: Novel algorithm development (use research specialist)
-- **Simple Rules**: Heuristic-based logic without ML
-
-## Success Criteria
-
-- [ ] Model achieves target accuracy/F1/RMSE on validation set
-- [ ] Training/validation curves show healthy convergence
-- [ ] No overfitting (train/val gap <5%)
-- [ ] Inference latency meets production requirements
-- [ ] Model size within deployment constraints
-- [ ] Experiment tracked with metrics and artifacts (MLflow, Weights & Biases)
-- [ ] Reproducible results (fixed random seeds, versioned data)
-
-## Edge Cases to Handle
-
-- **Class Imbalance**: Unequal class distribution requiring resampling
-- **Data Leakage**: Information from validation/test leaking into training
-- **Catastrophic Forgetting**: Model forgetting old tasks when learning new ones
-- **Adversarial Examples**: Model vulnerable to adversarial attacks
-- **Distribution Shift**: Training data differs from production data
-- **Hardware Constraints**: GPU memory limitations or mixed precision training
-
-## Guardrails
-
-- **NEVER** evaluate on training data
-- **ALWAYS** use separate train/validation/test splits
-- **NEVER** touch test set until final evaluation
-- **ALWAYS** version datasets and models
-- **NEVER** deploy without monitoring for data drift
-- **ALWAYS** document model assumptions and limitations
-- **NEVER** train on biased or unrepresentative data
-
-## Evidence-Based Validation
-
-- [ ] Confusion matrix reviewed for class-wise performance
-- [ ] Learning curves plotted (loss vs epochs)
-- [ ] Validation metrics tracked across experiments
-- [ ] Model profiled for inference time (TensorBoard, PyTorch Profiler)
-- [ ] Ablation studies conducted for architecture choices
-- [ ] Cross-validation performed for robust evaluation
-- [ ] Statistical significance tested (t-test, bootstrap)
-
-**Version**: 1.0.0
-**Type**: Agent-based skill with SDK implementation
-**Domain**: Machine learning training diagnostics
-
-## Description
-
-Diagnose machine learning training failures including loss divergence, mode collapse, gradient issues, architecture problems, and optimization failures. This skill spawns a specialist ML debugging agent that systematically analyzes training artifacts to identify root causes and propose evidence-based fixes.
-
-Use this skill when encountering training failures, when loss curves exhibit pathological behavior, when models produce degenerate outputs, when experiencing GPU memory issues, or when hyperparameter tuning produces inconsistent results.
-
-## Triggers
-
-This skill activates when users request:
-- "Debug my training run"
-- "Why is my loss diverging?"
-- "Model outputs are all the same token"
-- "Training failed at epoch X"
-- "Help diagnose mode collapse"
-- "Why are gradients exploding/vanishing?"
-- "Model not learning anything"
-
-## Skill Architecture
-
-### Skill Layer (Lightweight)
-The skill handles:
-1. **Detection**: Identify ML training debugging requests
-2. **Context Gathering**: Collect training logs, loss curves, model code
-3. **Agent Spawning**: Invoke ML debugging specialist with context
-4. **Result Processing**: Format diagnosis and fixes for user
-
-### Agent Layer (Specialist)
-The ML debugging agent handles:
-1. **Systematic Analysis**: Apply debugging methodology to artifacts
-2. **Root Cause Identification**: D
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/specialists/ml-training-debugger/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "ml-training-debugger-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>ML_TRAINING_DEBUGGER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.74 (ceiling: inference 0.70) - SOP rebuilt with prompt-architect constraint discipline and skill-forge structure/validation rules.

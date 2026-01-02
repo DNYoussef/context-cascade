@@ -1,205 +1,72 @@
 ---
 name: ml-expert
-description: **Version**: 1.0.0
+description: Design, implement, and optimize production-grade ML models and training pipelines.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Ship resilient ML systems: architecture design, training pipelines, optimization, and deployment readiness with explicit guardrails.
 
-[define|neutral] SKILL := {
-  name: "ml-expert",
-  category: "specialists",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Implementing architectures, training/tuning models, fixing training instabilities, optimizing inference, translating research into code.
+- **Negative:** Pure data analysis (route to data scientist) or root-cause training incidents (prefer `ml-training-debugger` first).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: maintain `SKILL.md`, `examples/`, `tests/`, `resources/`, and `agents/`; backfill missing docs before execution.
+- Constraint hygiene (prompt-architect): collect HARD/SOFT/INFERRED requirements (targets, latency, memory, compliance).
+- Validation discipline (skill-forge): adversarial tests for data leakage, class imbalance, and distribution shift; always run baseline + ablations.
+- Evidence + confidence ceiling: report metrics with data splits and `Confidence: X.XX (ceiling: TYPE Y.YY)` (inference/report 0.70; research 0.85; observation/definition 0.95).
+- Safety: never evaluate on train data; never touch test set until final validation; document assumptions and monitoring plan.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake & Goals**
+   - Identify objective, metrics (accuracy/F1/RMSE/latency), constraints (hardware, model size, privacy).
+   - Confirm data availability, provenance, and allowed tooling.
+2. **Design**
+   - Choose architecture and loss/optimization strategy; plan data splits and augmentation; define monitoring signals.
+   - Draft experiment plan with baseline + targeted variants.
+3. **Implementation**
+   - Build reproducible pipelines (seed control, config versioning); implement training loop with logging (TensorBoard/MLflow/W&B).
+   - Enforce safe defaults: mixed precision gated by tests, gradient clipping where appropriate, checkpointing with retention policy.
+4. **Validation**
+   - Run baseline then ablations; check class-wise metrics, calibration, and drift sensitivity.
+   - Profile training/inference latency; quantify memory footprint.
+   - Security checks: adversarial probes, prompt/feature injection handling for LLM/vision models.
+5. **Deployment Readiness**
+   - Package artifacts (model weights, config, preprocessing, schema); provide rollout + rollback steps.
+   - Attach monitoring plan (drift, performance, cost) and ownership.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Request summary and constraints (HARD/SOFT/INFERRED).
+- Architecture + data plan, experiment matrix, and validation results.
+- Deployment checklist with monitoring hooks and rollback path.
+- Confidence statement with ceiling and evidence source.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Data splits clean (no leakage) and documented.
+- [ ] Baseline + ablations executed; metrics reported with variance.
+- [ ] Latency/memory within targets; profiling attached.
+- [ ] Safety checks run (bias, drift, adversarial probes) or noted N/A.
+- [ ] Reproducibility ensured (seeds/configs/versioning).
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["ml-expert", "specialists", "workflow"],
-  context: "user needs ml-expert capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:M-L]] [[COM:Model+Schmiede]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/ml-expert]]
+[assert|neutral] ML_UZMAN := uretiyim seviyesi egitim + optimizasyon yapar; yapi-oncelikli + dusmanca test zorunlu. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; metrik raporlarinda belirtilir. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# ML Expert - Machine Learning Implementation Specialist
+[[HON:teineigo]] [[MOR:root:S-F-T]] [[COM:Safety+Test]] [[CLS:ge_guardrail]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
+[assert|neutral] GUARD := veri_sızıntısı_yok + test_set_son + drift/advaryel prob; ihlal deploy yasak. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[commit|confident] <promise>ML_EXPERT_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-
-
-
-## When to Use This Skill
-
-- **Model Training**: Training neural networks or ML models
-- **Hyperparameter Tuning**: Optimizing model performance
-- **Model Debugging**: Diagnosing training issues (overfitting, vanishing gradients)
-- **Data Pipeline**: Building training/validation data pipelines
-- **Experiment Tracking**: Managing ML experiments and metrics
-- **Model Deployment**: Serving models in production
-
-## When NOT to Use This Skill
-
-- **Data Analysis**: Exploratory data analysis or statistics (use data scientist)
-- **Data Engineering**: Large-scale ETL or data warehouse (use data engineer)
-- **Research**: Novel algorithm development (use research specialist)
-- **Simple Rules**: Heuristic-based logic without ML
-
-## Success Criteria
-
-- [ ] Model achieves target accuracy/F1/RMSE on validation set
-- [ ] Training/validation curves show healthy convergence
-- [ ] No overfitting (train/val gap <5%)
-- [ ] Inference latency meets production requirements
-- [ ] Model size within deployment constraints
-- [ ] Experiment tracked with metrics and artifacts (MLflow, Weights & Biases)
-- [ ] Reproducible results (fixed random seeds, versioned data)
-
-## Edge Cases to Handle
-
-- **Class Imbalance**: Unequal class distribution requiring resampling
-- **Data Leakage**: Information from validation/test leaking into training
-- **Catastrophic Forgetting**: Model forgetting old tasks when learning new ones
-- **Adversarial Examples**: Model vulnerable to adversarial attacks
-- **Distribution Shift**: Training data differs from production data
-- **Hardware Constraints**: GPU memory limitations or mixed precision training
-
-## Guardrails
-
-- **NEVER** evaluate on training data
-- **ALWAYS** use separate train/validation/test splits
-- **NEVER** touch test set until final evaluation
-- **ALWAYS** version datasets and models
-- **NEVER** deploy without monitoring for data drift
-- **ALWAYS** document model assumptions and limitations
-- **NEVER** train on biased or unrepresentative data
-
-## Evidence-Based Validation
-
-- [ ] Confusion matrix reviewed for class-wise performance
-- [ ] Learning curves plotted (loss vs epochs)
-- [ ] Validation metrics tracked across experiments
-- [ ] Model profiled for inference time (TensorBoard, PyTorch Profiler)
-- [ ] Ablation studies conducted for architecture choices
-- [ ] Cross-validation performed for robust evaluation
-- [ ] Statistical significance tested (t-test, bootstrap)
-
-**Version**: 1.0.0
-**Type**: Agent-based skill with SDK implementation
-**Domain**: Machine learning model implementation, training, and optimization
-
-## Description
-
-Implement machine learning solutions including model architectures, training pipelines, optimization strategies, and performance improvements. This skill spawns a specialist ML implementation agent with deep expertise in PyTorch, deep learning architectures, training techniques, and production ML systems.
-
-Use this skill when implementing new ML models, fixing training issues, optimizing performance, implementing research papers, or building production ML pipelines.
-
-## Triggers
-
-This skill activates when users request:
-- "Implement this ML architecture"
-- "Fix the training code"
-- "Optimize model performance"
-- "Implement [paper/technique]"
-- "Build a training pipeline for..."
-- "Add [feature] to the model"
-- "Improve inference speed"
-
-## Skill Architecture
-
-### Skill Layer (Lightweight)
-The skill handles:
-1. **Detection**: Identify ML implementation requests
-2. **Context Gathering**: Collect requirements, existing code, constraints
-3. **Agent Spawning**: Invoke ML expert specialist with context
-4. **Result Processing**: Validate and format implementation
-
-### Agent Layer (Specialist)
-The ML expert agent handles:
-1. **Architecture Design**: Create model structures following best practices
-2. **Implementation**: Write production-quality PyTorch code
-3. **
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/specialists/ml-expert/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "ml-expert-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>ML_EXPERT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.74 (ceiling: inference 0.70) - SOP rebuilt with prompt-architect constraints and skill-forge validation loops while preserving ML execution depth.

@@ -1,237 +1,71 @@
 ---
 name: expertise-manager
-description: Manages domain expertise files for Agent Experts-style learning. Handles expertise creation, validation, pre-action loading, and post-build auto-updates. Enables agents to accumulate persistent domain
+description: Route, calibrate, and continuously improve specialist coverage across domains.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-category: specialists
+x-version: 1.1.0
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Coordinate specialist skills, ensure the right agent is activated, and maintain coverage maps, playbooks, and improvement plans.
 
-[define|neutral] SKILL := {
-  name: "expertise-manager",
-  category: "foundry",
-  version: "2.1.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Triggers
+- **Positive:** Requests to assign specialists, audit coverage, resolve overlaps/gaps, or design delegation plans.
+- **Negative:** Single-agent prompt rewrites (use prompt-architect) or new skill authoring (use skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Structure-first: maintain `SKILL.md`, `QUICK-REFERENCE.md`, `CHANGELOG.md`, and `process.dot`; ensure examples/tests exist or are planned.
+- Constraint clarity: extract HARD/SOFT/INFERRED constraints from the request; confirm inferred items.
+- Adversarial validation: test routing logic with ambiguous, conflicting, and under-specified tasks.
+- Confidence ceilings: state confidence with ceiling (inference/report 0.70, research 0.85, observation/definition 0.95).
+- Registry safety: only route to skills present in the registry and with intact docs.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Phases
+1. **Intake & Framing**
+   - Identify target domain(s), urgency, and deliverables (plan, roster, or execution schedule).
+   - Map constraints and risks (bandwidth, dependencies, compliance).
+2. **Coverage Mapping**
+   - Inventory available specialists and maturity; flag missing docs or absent tests and schedule remediation.
+   - Align triggers to skills (e.g., ml-expert vs ml-training-debugger vs system-design-architect).
+3. **Routing & Delegation Plan**
+   - Produce assignment matrix (owner, backup, decision SLAs) and escalation paths.
+   - Include MCP tagging (`WHO=expertise-manager-{session}`, `WHY=skill-execution`).
+4. **Validation & Simulation**
+   - Run adversarial scenarios (conflicting owners, missing skill docs, overloaded specialists).
+   - Confirm success criteria and rollback/contingency steps.
+5. **Delivery & Follow-up**
+   - Share final roster, delegation checklist, and monitoring hooks.
+   - Capture improvement deltas and append to CHANGELOG.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Current request summary and constraints.
+- Assignment matrix and routing rules.
+- Validation outcomes and open risks.
+- Next actions with owners and due dates.
+- **Confidence:** `Confidence: X.XX (ceiling: TYPE Y.YY) - reason`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- [ ] Constraints categorized and confirmed.
+- [ ] Registry-only routing; missing docs flagged and scheduled.
+- [ ] Delegation and escalation paths defined.
+- [ ] Adversarial cases exercised.
+- [ ] Confidence ceiling stated.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["expertise-manager", "foundry", "workflow"],
-  context: "user needs expertise-manager capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal)
+[[HON:teineigo]] [[MOR:root:U-Z-M]] [[COM:Uzman+Yonetim]] [[CLS:ge_meta_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/specialists/expertise-manager]]
+[assert|neutral] UZMAN_YONETICI := kapsama haritasi + yonlendirme matrisi olusturur; skill-forge ilke_p1 (yapi), ilke_p2 (dusmanca test), ilke_p3 (oz-iyilestirme) uygular. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Epistemik+Tavan]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] TAVAN := {inference/report:0.70, research:0.85, observation/definition:0.95}; tavan belirtilmeden cikti yok. [ground:PA+SkillForge] [conf:0.90] [state:confirmed]
 
-# Expertise Manager
+[[HON:teineigo]] [[MOR:root:R-T-G]] [[COM:Routing+Safe]] [[CLS:ge_guardrail]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:safety]]
+[assert|neutral] ROUTE_SAFE := yalniz kayitli becerilere yetki ver; belgesiz veya eksik testli beceriler once remediye edilir. [ground:SKILL.md] [conf:0.83] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[commit|confident] <promise>EXPERTISE_MANAGER_VCL_VERIX_COMPLIANT</promise> [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-
-
-## Phase 0: Expertise Loading
-
-Before managing expertise:
-
-1. **Detect Domain**: Identify the domain for expertise management
-2. **Check Expertise**: Look for `.claude/expertise/meta-expertise.yaml`
-3. **Load Context**: If exists, load expertise schema and validation rules
-4. **Apply Configuration**: Use meta-expertise for management operations
-
-## Purpose
-
-Enable Agent Experts-style learning in the ruv-sparc three-loop system by managing domain expertise files - persistent mental models that agents read BEFORE acting and auto-update AFTER successful builds.
-
-**Key Innovation**: Agents don't just execute and forget. They execute, learn, and reuse their expertise.
-
-## When to Use This Skill
-
-Activate this skill when:
-- Creating a new domain expertise file for a codebase area
-- Validating existing expertise against current code
-- Loading domain context BEFORE implementation tasks
-- Auto-updating expertise AFTER successful Loop 2 builds
-- Analyzing expertise accuracy and learning history
-
-**DO NOT** use this skill for:
-- Quick one-off tasks (expertise overhead not worth it)
-- Non-code tasks (expertise is code-focused)
-- Tasks outside defined expertise domains
-
-## MCP Requirements
-
-### Memory MCP (Required)
-
-**Purpose**: Persist expertise across sessions, enable cross-agent knowledge sharing.
-
-**Tools Used**:
-- `mcp__memory-mcp__memory_store`: Store expertise state and learning history
-- `mcp__memory-mcp__vector_search`: Find relevant expertise for current task
-
-**Activation**:
-```bash
-claude mcp add memory-mcp npx @modelcontextprotocol/server-memory
-```
-
----
-
-## Core Operations
-
-### Operation 1: Create Expertise File
-
-**Command**: `/expertise-create <domain>`
-
-**SOP**:
-```javascript
-// PHASE 1: DISCOVERY - Scan codebase for domain
-Task("Codebase Scanner",
-  `Scan codebase to discover ${domain} domain structure:
-   1. Find primary source directory (src/${domain}/, lib/${domain}/, etc.)
-   2. Find test directory (tests/${domain}/, __tests__/${domain}/, etc.)
-   3. Find config files related to ${domain}
-   4. Identify key files (index, main exports, types)
-
-   Output: .claude/.artifacts/expertise-discovery-${domain}.json`,
-  "code-analyzer")
-
-// PHASE 2: PATTERN EXTRACTION - Understand how domain works
-Task("Pattern Extractor",
-  `Extract patterns from ${domain} codebase:
-   1. Architecture pattern (MVC, Clean Architecture, etc.)
-   2. Data flow patterns (how data moves)
-   3. Error handling patterns
-   4. Validation patterns
-   5. Key entities (classes, functions, types)
-
-   Output: .claude/.artifacts/expertise-patterns-${domain}.json`,
-  "analyst")
-
-// PHASE 3: RELATIONSHIP MAPPING - Find dependencies
-Task("Dependency Mapper",
-  `Map relationships for ${domain}:
-   1. What domains does ${domain} depend on?
-   2. What domains depend on ${domain}?
-   3. What external services does ${domain} use?
-   4. What are the coupling strengths?
-
-   Output: .claude/.artifacts/expertise-relationships-${domain}.json`,
-  "analyst")
-
-// PHASE 4: SYNTHESIS - Create expertise file
-Task("Expertise Synthesizer",
-  `Synthesize expertise file for ${domain}:
-   1. Load discovery, patterns, relationships from artifacts
-   2. Generate .claude/expertise/${domain}.yaml
-   3. Create initial validation rules
-   4. Set metadata (created_by, timestamps)
-   5. Store in Memory MCP: expertise/${domain}
-
-   Output: .claude/expertise/${domain}.yaml`,
-  "knowledge-manager")
-```
-
----
-
-### Operation 2: Validate Expertise (Pre-Action)
-
-**Command**: `/expertise-validate <domain>`
-
-**Purpose**: Verify expertise file matches current code reality BEFORE acting.
-
-**SOP**:
-```javascript
-// PHASE 1: LOAD EXPERTISE
-const expertise = loadExpertiseFile(domain);
-if (!expertise) {
-  console.log("No expertise file found. Run /expertise-create first.");
-  return;
-}
-
-// PHASE 2: RUN VALIDATION RULES
-Task("Validation Runner",
-  `Validate expertise for ${domain}:
-
-   For each validation_
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/expertise-manager/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "expertise-manager-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>EXPERTISE_MANAGER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.73 (ceiling: inference 0.70) - SOP rewritten with prompt-architect clarity and skill-forge guardrails while retaining routing focus.
