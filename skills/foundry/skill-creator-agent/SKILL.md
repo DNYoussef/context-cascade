@@ -1,185 +1,96 @@
 ---
 name: skill-creator-agent
-description: Creates Claude Code skills where each skill is tied to a specialist agent optimized with evidence-based prompting techniques. Use this skill when users need to create reusable skills that leverage spe
+description: Pair skills with specialist agents, generating both the skill spec and the agent system prompt with validation and routing notes.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reorganized the skill into the Skill Forge section pattern and added joint outputs for skill specs and agents.
+- Applied prompt-architect ceilings, constraint extraction, and adversarial validation to both artifacts.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "skill-creator-agent",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Create skills that come packaged with a dedicated specialist agent, including SKILL.md content, agent prompt, and integration hooks for registry use.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: request to build a reusable skill that relies on a specialist agent, or to retrofit an existing skill with a dedicated agent.
+- Negative/reroute: generic prompt tuning (prompt-architect), pure skill scaffolding (skill-builder), or standalone agent creation (agent-creator).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Deliver both artifacts: SKILL.md and agent spec with frontmatter; no status-only responses.
+- Use English outputs with explicit confidence ceilings.
+- Ensure agent scope matches skill scope; avoid duplicated capabilities.
+- Run at least one validation scenario that exercises the skill+agent pair.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Scoping**: Capture skill purpose, triggers, constraints, and domain; classify HARD/SOFT/INFERRED.
+2. **Skill Drafting**: Author SKILL.md with SOP, guardrails, integrations, and IO contracts following Skill Forge.
+3. **Agent Drafting**: Create agent prompt, tools, and refusal policy aligned to the skill.
+4. **Validation**: Test the pair together (happy + edge cases) and record evidence with ceilings.
+5. **Delivery**: Provide artifacts, routing metadata, and next-step improvements.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Tool-driven skills → agent should manage tool orchestration and error handling.
+- Review/analysis skills → agent must enforce evidence and ceiling discipline.
+- Integration-heavy skills → include latency and timeout guidance in both artifacts.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["skill-creator-agent", "foundry", "workflow"],
-  context: "user needs skill-creator-agent capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use few-shot examples shared between skill and agent for consistency.
+- Add capability tags so agent-selector can route correctly.
+- Capture reusable snippets for meta-tools to compose in other skills.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Skill and agent scopes diverge, causing confusion.
+- Missing tests for the combined flow.
+- Absent confidence ceilings or unclear output formats.
 
-<!-- SKILL SOP IMPROVEMENT v1.0 -->
-## Skill Execution Criteria
+### Practical Guidelines
+- Keep the agent persona pragmatic; focus on behaviors and contracts.
+- Explicitly document inputs/outputs and refusal criteria in both artifacts.
+- Provide registry path suggestions and tagging.
 
-### When to Use This Skill
-- [AUTO-EXTRACTED from skill description and content]
-- [Task patterns this skill is optimized for]
-- [Workflow contexts where this skill excels]
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clarity; skill-builder/skill-forge for structure.
+- Downstream: agent-selector for routing; recursive-improvement for ongoing tuning; meta-tools for tool wiring.
 
-### When NOT to Use This Skill
-- [Situations where alternative skills are better suited]
-- [Anti-patterns that indicate wrong skill choice]
-- [Edge cases this skill doesn't handle well]
+### MCP Requirements
+- Document any MCP/tool dependencies and tags; tag WHO=skill-creator-agent-{session}, WHY=skill-execution if memory used.
 
-### Success Criteria
-- primary_outcome: "[SKILL-SPECIFIC measurable result based on skill purpose]"
-- [assert|neutral] quality_threshold: 0.85 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- verification_method: "[How to validate skill executed correctly and produced expected outcome]"
+### Input/Output Contracts
+```yaml
+inputs:
+  skill_goal: string  # required objective
+  domain: string  # required domain or category
+  tools: list[string]  # optional tools/MCP servers
+  constraints: list[string]  # optional constraints
+outputs:
+  skill_spec: file  # SKILL.md content
+  agent_spec: file  # agent prompt with frontmatter
+  validation: file  # tests and results for the pair
+```
 
-### Edge Cases
-- case: "Ambiguous or incomplete input"
-  handling: "Request clarification, document assumptions, proceed with explicit constraints"
-- case: "Conflicting requirements or constraints"
-  handling: "Surface conflict to user, propose resolution options, document trade-offs"
-- case: "Insufficient context for quality execution"
-  handling: "Flag missing information, provide template for needed context, proceed with documented limitations"
+### Recursive Improvement
+- Use recursive-improvement on both artifacts together; stop when deltas < 2% or risks logged.
 
-### Skill Guardrails
-NEVER:
-  - "[SKILL-SPECIFIC anti-pattern that breaks methodology]"
-  - "[Common mistake that degrades output quality]"
-  - "[Shortcut that compromises skill effectiveness]"
-ALWAYS:
-  - "[SKILL-SPECIFIC requirement for successful execution]"
-  - "[Critical step that must not be skipped]"
-  - "[Quality check that ensures reliable output]"
+### Examples
+- Build a log-analysis skill with an observability agent handling query composition and summarization.
+- Pair a security-advisory skill with an agent that enforces CVE evidence and refusal policy.
 
-### Evidence-Based Execution
-self_consistency: "After completing this skill, verify output quality by [SKILL-SPECIFIC validation approach]"
-program_of_thought: "Decompose this skill execution into: [SKILL-SPECIFIC sequential steps]"
-plan_and_solve: "Plan: [SKILL-SPECIFIC planning phase] -> Execute: [SKILL-SPECIFIC execution phase] -> Verify: [SKILL-SPECIFIC verification phase]"
-<!-- END SKILL SOP IMPROVEMENT -->
+### Troubleshooting
+- Agent oversteps scope → tighten persona and refusal rules.
+- Skill unclear → rerun constraint extraction and simplify outputs.
+- Tool errors → add retries and error handling in agent prompt; document limits in skill.
 
-# Skill Creator with Agent Specialization
+### Completion Verification
+- [ ] SKILL.md and agent spec delivered with aligned scope.
+- [ ] Validation evidence recorded with ceilings.
+- [ ] Tool/MCP dependencies documented; routing metadata provided.
+- [ ] Examples provided demonstrating combined use.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-n## Trigger Keywords
-
-**USE WHEN user mentions:**
-- "create skill", "build skill", "new skill", "design skill"
-- "skill that spawns agent", "agent-based skill"
-- "reusable skill", "skill for [domain]", "professional skill"
-- "skill with specialist agent", "complex skill"
-- "skill for team", "skill library", "skill template"
-- "skill using Claude Agent SDK"
-
-**DO NOT USE when:**
-- User wants just an AGENT (not skill wrapper) - use agent-creator
-- User wants simple atomic skill without agent - use micro-skill-creator
-- User wants to improve existing skill - use skill-forge
-- User wants prompt optimization - use prompt-architect
-- Task is one-off without reuse value - direct implementation better
-
-**Instead use:**
-- agent-creator when building agents directly (no skill layer needed)
-- micro-skill-creator when creating simple, atomic skills
-- skill-forge when improving existing skills
-- cascade-orchestrator when composing existing skills into workflows
-
-
-This skill extends the standard skill creation process by tying each skill to a specialist agent that is invoked when the skill is triggered. Rather than having Claude Code directly execute skill instructions, this approach spawns a specialized agent configured with optimal prompting patterns, domain expertise, and communication protocols. The result is more consistent, higher-quality outputs and better separation of concerns.
-
-## When to Use This Skill
-
-Use the skill-creator-agent skill when creating skills for complex domains where specialist expertise significantly improves outcomes, when building skills that require consistent behavior across many invocations, when creating skills for team use where quality consistency matters, or when the skill involves multi-step processes that benefit from structured cognitive frameworks. This skill is particularly valuable when building professional-grade tools rather than simple helper scripts.
-
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/skill-creator-agent/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "skill-creator-agent-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_CREATOR_AGENT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Skill Creator Agent SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

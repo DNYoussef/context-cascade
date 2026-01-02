@@ -1,186 +1,96 @@
 ---
 name: base-template-generator
-description: Generate clean, production-ready boilerplate templates for Node.js, Python, Go, React, Vue, and other frameworks. Use when starting new projects or creating consistent foundational code structures. Pr
+description: Generate production-ready project boilerplates with linting, testing, and minimal dependencies for common stacks.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Standardized the SOP with Skill Forge required sections and explicit completion checks for scaffolds.
+- Added prompt-architect style constraint capture and safety rails to avoid bloated or insecure templates.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "base-template-generator",
-  category: "foundry",
-  version: "2.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Deliver clean starter templates for Node.js, Python, Go, React, Vue, and similar stacks with opinionated defaults for security, testing, and DX.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: starting a new project, creating reproducible boilerplates, aligning teams on baseline configs.
+- Negative/reroute: small code snippets (use prompt-architect) or full platform scaffolds (consider meta-tools/platform skills).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Keep dependencies minimal and well-justified; avoid framework lock-in unless requested.
+- Include linting, formatting, testing, and basic CI hooks; no silent TODO omissions.
+- Output English documentation with explicit confidence ceilings.
+- Surface security defaults (env handling, secrets, supply-chain hygiene).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intake**: Capture stack, language, package manager, deployment target, and constraints; classify hard/soft.
+2. **Design**: Select template baseline, directory layout, and required tooling (lint, test, CI, containerization).
+3. **Generate**: Produce files with sensible defaults, comments, and quickstart instructions.
+4. **Validate**: Run static checks (lint/test) where feasible; note gaps and risks.
+5. **Deliver**: Summarize outputs, commands to run, and next-step hardening items.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- API services → emphasize routing, logging, error handling, health checks.
+- Frontend apps → focus on routing, state management, accessibility, testing harness.
+- Libraries/SDKs → prioritize typing, semantic versioning, and publishing workflows.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["base-template-generator", "foundry", "workflow"],
-  context: "user needs base-template-generator capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Provide switchable presets (secure-by-default vs minimal) with rationale.
+- Include container artifacts (Dockerfile/compose) when deployment hints are given.
+- Offer optional observability hooks (metrics/logging) without hard dependencies.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Bundling unnecessary dependencies or example code that hides defects.
+- Omitting env handling or secret management guidance.
+- Shipping without runnable tests or lint configs.
 
-<!-- SKILL SOP IMPROVEMENT v1.0 -->
-## Skill Execution Criteria
+### Practical Guidelines
+- Prefer explicit scripts in package manifests for onboarding.
+- Keep README quickstart under 10 steps; include expected tool versions.
+- Document how to extend the template safely.
 
-### When to Use This Skill
-- Starting new projects requiring solid foundational structure
-- Creating consistent boilerplate across team projects
-- Scaffolding microservices or API backends
-- Setting up frontend applications with modern tooling
-- Need Docker and CI/CD ready out-of-box
-- Require automated validation and quality checks
+### Cross-Skill Coordination
+- Upstream: prompt-architect to refine requirements; skill-builder/skill-forge for directory structure alignment.
+- Downstream: delivery/operations skills for deployment; security skills for threat modeling.
 
-### When NOT to Use This Skill
-- For existing projects (use refactoring skills instead)
-- When custom architecture is required (templates enforce patterns)
-- For prototypes that won't reach production
-- When dependencies must be minimized beyond template defaults
+### MCP Requirements
+- Optional: filesystem + command MCP for scaffolding and verification; tag WHO=base-template-generator-{session}, WHY=skill-execution.
 
-### Success Criteria
-- [assert|neutral] primary_outcome: "Production-ready project template with modern tooling, automated validation, Docker support, and CI/CD integration" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] quality_threshold: 0.88 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] verification_method: "Template generates successfully, passes validation scripts, builds without errors, includes working tests and CI/CD pipeline" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+### Input/Output Contracts
+```yaml
+inputs:
+  stack: string  # required technology stack
+  project_type: string  # api, frontend, library, cli
+  constraints: list[string]  # optional hard/soft/inferred constraints
+  ci_target: string  # optional platform (github-actions, gitlab, etc)
+outputs:
+  template_files: list[file]  # generated boilerplate
+  quickstart: file  # README with setup/run/test steps
+  validation: summary  # checks executed and gaps
+```
 
-### Edge Cases
-- case: "Template type not supported (not in 6 core types)"
-  handling: "Identify closest template match, customize post-generation, or request new template type"
-- case: "Conflicting dependency requirements"
-  handling: "Document conflicts, provide manual override instructions, suggest alternative template"
-- case: "Custom project structure needed"
-  handling: "Use base template as starting point, document customizations, consider creating new template variant"
+### Recursive Improvement
+- Run recursive-improvement using feedback from initial runs to trim bloat and improve defaults.
 
-### Skill Guardrails
-NEVER:
-  - "Generate templates with excessive dependencies (minimal deps philosophy)"
-  - "Skip validation scripts (automated quality checks required)"
-  - "Omit Docker/CI/CD support (production-readiness requirement)"
-  - "Use outdated patterns (modern best practices enforced)"
-ALWAYS:
-  - "Include automated validation tools and quality checks"
-  - "Provide Docker support and CI/CD integration out-of-box"
-  - "Use modern ES modules, async/await, type hints per language"
-  - "Follow standard layout (cmd/internal/pkg for Go, src/tests for others)"
-  - "Include comprehensive README with setup and usage instructions"
+### Examples
+- Create a Node.js REST API template with TypeScript, eslint, vitest, and OpenAPI stub.
+- Build a React SPA starter with Vite, eslint, prettier, testing-library, and accessibility checks.
 
-### Evidence-Based Execution
-self_consistency: "After template generation, validate structure matches specification, all scripts execute successfully, and quality checks pass"
-program_of_thought: "Decompose generation into: 1) Select template type, 2) Generate base structure, 3) Configure tooling, 4) Add validation, 5) Setup Docker/CI/CD, 6) Validate output"
-plan_and_solve: "Plan: Identify project requirements + select template -> Execute: Generate + configure + validate -> Verify: Build success + tests pass + CI/CD ready"
-<!-- END SKILL SOP IMPROVEMENT -->
+### Troubleshooting
+- Dependency conflicts → downgrade to stable LTS or pin versions and document.
+- Missing tests → scaffold minimal smoke tests and mark TODO with next steps.
+- CI not available → provide local validation commands and stub workflows.
 
-# Base Template Generator (Gold Tier)
+### Completion Verification
+- [ ] Template includes lint/test/config with commands documented.
+- [ ] Quickstart provided; env/secrets guidance included.
+- [ ] Confidence ceiling stated with any TODOs noted.
+- [ ] Directory layout matches requested stack.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Generate clean, production-ready foundational code templates for modern development frameworks with automated validation, Docker support, and CI/CD integration.
-
-## When to Use This Skill
-
-Use this skill when:
-- Starting new projects that need solid foundational structure
-- Creating consistent boilerplate across team projects
-- Scaffolding microservices or API backends
-- Setting up frontend applications with modern tooling
-- Need Docker and CI/CD ready out-of-box
-- Require automated validation and quality checks
-
-## Template Types (6 Supported)
-
-### Backend Templates
-- **Node.js with Express** - ES modules, modern async/await, minimal deps
-- **Python with FastAPI** - Type hints, async, Pydantic validation
-- **Go with standard library** - Standard layout (cmd/internal/pkg), minimal deps
-
-### Frontend Templates
-- **React 18 with Vite** - TypeScript, fast HMR, modern tooling
-- **Vue 3 Composition API** - TypeScript, Pinia, modern patterns
-- *
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/base-template-generator/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "base-template-generator-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>BASE_TEMPLATE_GENERATOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Template SOP rewritten with Skill Forge and prompt-architect scaffolding.

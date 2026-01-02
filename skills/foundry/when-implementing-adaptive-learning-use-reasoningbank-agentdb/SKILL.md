@@ -1,262 +1,96 @@
 ---
 name: reasoningbank-agentdb
-description: ReasoningBank Adaptive Learning with AgentDB skill for agentdb workflows
+description: Apply ReasoningBank adaptive learning patterns with AgentDB for training, feedback capture, and policy updates.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: agentdb
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the guidance into Skill Forge required sections with clear learning loops, validation, and ceilings.
+- Added prompt-architect constraint capture and MCP tagging for adaptive learning pipelines.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "ReasoningBank Adaptive Learning with AgentDB",
-  category: "agentdb",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Guide adaptive learning setups using ReasoningBank with AgentDB, covering data capture, policy updates, evaluation, and safety controls.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: building or tuning adaptive learning loops, adding feedback-driven updates, or integrating ReasoningBank with AgentDB.
+- Negative/reroute: static semantic search (agentdb-vector-search) or non-AgentDB learning stacks.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Enforce data provenance and consent for training data.
+- Separate training/eval datasets; avoid feedback loops without validation.
+- Keep outputs English-only with explicit confidence ceilings.
+- Document rollback and freeze mechanisms for regressions.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Design**: Capture objectives, signals, constraints, and safety requirements; classify HARD/SOFT/INFERRED.
+2. **Data Pipeline**: Define data ingestion, labeling, and storage schemas in AgentDB; ensure privacy controls.
+3. **Learning Loop**: Configure ReasoningBank policies, update cadence, and gating criteria.
+4. **Evaluation**: Run offline/online tests with guardrails for regressions; record metrics and ceilings.
+5. **Deployment**: Roll out updates with monitoring, rollback triggers, and documentation.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Feedback classification tasks → emphasize label quality and disagreement handling.
+- Policy tuning → use holdout sets and staged rollout with kill switches.
+- Safety-sensitive domains → require human-in-loop checkpoints.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["ReasoningBank Adaptive Learning with AgentDB", "agentdb", "workflow"],
-  context: "user needs ReasoningBank Adaptive Learning with AgentDB capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use bandit-style experiments for gradual deployment.
+- Capture feature importance and drift signals for monitoring.
+- Automate regression alarms tied to AgentDB metrics.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Updating policies without eval or rollback plans.
+- Mixing training and eval data.
+- Missing consent or privacy controls on captured data.
 
-# ReasoningBank Adaptive Learning with AgentDB
+### Practical Guidelines
+- Version datasets, models, and policies; store metadata in AgentDB.
+- Limit update frequency based on risk; document thresholds.
+- Keep a change log with timestamps, metrics, and ceilings.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clear objectives; recursive-improvement for hypothesis testing.
+- Parallel: agentdb-learning for RL-style training; agentdb-optimization for retrieval tuning if needed.
+- Downstream: agent-creator embedding updated policies into agents.
 
+### MCP Requirements
+- Requires AgentDB storage; tag WHO=reasoningbank-agentdb-{session}, WHY=skill-execution for traceability.
 
-
-## Overview
-
-Implement ReasoningBank adaptive learning with AgentDB's 150x faster vector database for trajectory tracking, verdict judgment, memory distillation, and pattern recognition. Build self-learning agents that improve decision-making through experience.
-
-## SOP Framework: 5-Phase Adaptive Learning
-
-### Phase 1: Initialize ReasoningBank (1-2 hours)
-- Setup AgentDB with ReasoningBank
-- Configure trajectory tracking
-- Initialize verdict system
-
-### Phase 2: Track Trajectories (2-3 hours)
-- Record agent decisions
-- Store reasoning paths
-- Capture context and outcomes
-
-### Phase 3: Judge Verdicts (2-3 hours)
-- Evaluate decision quality
-- Score reasoning paths
-- Identify successful patterns
-
-### Phase 4: Distill Memory (2-3 hours)
-- Extract learned patterns
-- Consolidate successful strategies
-- Prune ineffective approaches
-
-### Phase 5: Apply Learning (1-2 hours)
-- Use learned patterns in decisions
-- Improve future reasoning
-- Measure improvement
-
-## Quick Start
-
-```typescript
-import { AgentDB, ReasoningBank } from 'reasoningbank-agentdb';
-
-// Initialize
-const db = new AgentDB({
-  name: 'reasoning-db',
-  dimensions: 768,
-  features: { reasoningBank: true }
-});
-
-const reasoningBank = new ReasoningBank({
-  database: db,
-  trajectoryWindow: 1000,
-  verdictThreshold: 0.7
-});
-
-// Track trajectory
-await reasoningBank.trackTrajectory({
-  agent: 'agent-1',
-  decision: 'action-A',
-  reasoning: 'Because X and Y',
-  context: { state: currentState },
-  timestamp: Date.now()
-});
-
-// Judge verdict
-const verdict = await reasoningBank.judgeVerdict({
-  trajectory: trajectoryId,
-  outcome: { success: true, reward: 10 },
-  criteria: ['efficiency', 'correctness']
-});
-
-// Learn patterns
-const patterns = await reasoningBank.distillPatterns({
-  minSupport: 0.1,
-  confidence: 0.8
-});
-
-// Apply learning
-const decision = await reasoningBank.makeDecision({
-  context: currentContext,
-  useLearned: true
-});
+### Input/Output Contracts
+```yaml
+inputs:
+  objective: string  # required
+  data_sources: list[string]  # required
+  constraints: list[string]  # optional safety/privacy constraints
+outputs:
+  learning_plan: file  # pipeline design and schedules
+  eval_report: file  # metrics, tests, and ceilings
+  rollout_plan: summary  # deployment, monitoring, rollback steps
 ```
 
-## ReasoningBank Components
+### Recursive Improvement
+- Feed eval regressions and user feedback into recursive-improvement to refine policies and data quality steps.
 
-### Trajectory Tracking
-```typescript
-const trajectory = {
-  agent: 'agent-1',
-  steps: [
-    { state: s0, action: a0, reasoning: r0 },
-    { state: s1, action: a1, reasoning: r1 }
-  ],
-  outcome: { success: true, reward: 10 }
-};
+### Examples
+- Set up adaptive summarization tuning with feedback scoring and staged rollout.
+- Configure a classification policy update with drift monitoring and human approval gates.
 
-await reasoningBank.storeTrajectory(trajectory);
-```
+### Troubleshooting
+- Regressions detected → freeze updates, rollback to last good version, and analyze drift.
+- Noisy feedback → improve labeling, add consensus rules, or weight trusted signals.
+- Slow learning → adjust cadence or expand data coverage.
 
-### Verdict Judgment
-```typescript
-const verdict = await reasoningBank.judge({
-  trajectory: trajectory,
-  criteria: {
-    efficiency: 0.8,
-    correctness: 0.9,
-    novelty: 0.6
-  }
-});
-```
+### Completion Verification
+- [ ] Data pipeline defined with privacy and provenance controls.
+- [ ] Learning loop configured with eval + rollback plans.
+- [ ] Metrics and ceilings recorded; change log updated.
+- [ ] Monitoring and feedback routes documented.
 
-### Memory Distillation
-```typescript
-const distilled = await reasoningBank.distill({
-  trajectories: recentTrajectories,
-  method: 'pattern-mining',
-  compression: 0.1 // Keep top 10%
-});
-```
-
-### Pattern Application
-```typescript
-const enhanced = await reasoningBank.enhance({
-  query: newProblem,
-  patterns: learnedPatterns,
-  strategy: 'case-based'
-});
-```
-
-## Success Metrics
-- [assert|neutral] Trajectory tracking accuracy > 95% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Verdict judgment accuracy > 90% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Pattern learning efficiency [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Decision quality improvement over time [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] 150x faster than traditional approaches [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## MCP Requirements
-
-This skill operates using AgentDB's npm package and API only. No additional MCP servers required.
-
-All AgentDB/ReasoningBank operations are performed through:
-- npm CLI: `npx agentdb@latest`
-- TypeScript/JavaScript API: `import { AgentDB, ReasoningBank } from 'reasoningbank-agentdb'`
-
-## Additional Resources
-
-- Full docs: SKILL.md
-- ReasoningBank Guide: https://reasoningbank.dev
-- AgentDB Integration: https://agentdb.dev/docs/reasoningbank
-
----
-
-## Core Principl
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/agentdb/ReasoningBank Adaptive Learning with AgentDB/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "ReasoningBank Adaptive Learning with AgentDB-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>REASONINGBANK ADAPTIVE LEARNING WITH AGENTDB_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - ReasoningBank AgentDB SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

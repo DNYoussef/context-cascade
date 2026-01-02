@@ -1,86 +1,47 @@
 # Playbook Architect
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-A foundry skill for creating, analyzing, and optimizing playbooks that orchestrate skill sequences.
+Design, refactor, and validate operational playbooks with phased steps, evidence checkpoints, and rollback paths. This readme mirrors the Skill Forge-aligned SKILL.md and highlights quick-start usage.
 
 ## Quick Start
-
 ```javascript
-// Invoke when creating or improving playbooks
 Skill("playbook-architect")
 ```
+Use when creating a new playbook or tightening an existing one; reroute prompt-only requests to `prompt-architect` or agent design to `agent-creator`/`agent-creation`.
 
-## When to Use
+## Core Principles
+- **Structure-first**: Define phases with entry/exit criteria, roles, and success metrics before detailing steps.
+- **Safety-first**: Include rollback/abort conditions and evidence checkpoints in every phase.
+- **Confidence discipline**: State confidence with ceilings (inference/report 0.70; research 0.85; observation/definition 0.95).
+- **Validation**: Table-top or dry-run each playbook and record gaps.
 
-- Creating new playbooks for recurring workflow patterns
-- Improving existing playbooks with suboptimal routing
-- Building playbook libraries for team standardization
-- Gap analysis (MECE coverage of user intents)
-
-## Key Features
-
-### 7-Dimensional Playbook Analysis
-1. Intent Mapping Assessment
-2. Skill Sequence Validation
-3. Dependency Analysis
-4. MCP Requirements Evaluation
-5. Success Criteria Definition
-6. Failure Mode Detection
-7. Complexity and Timing Assessment
-
-### 4-Phase Creation Methodology
-1. **Workflow Analysis** (15-30 min) - Understand the orchestration
-2. **Playbook Architecture** (20-30 min) - Design the structure
-3. **Success Criteria & Guardrails** (15-20 min) - Define quality
-4. **Integration & Testing** (20-30 min) - Validate in practice
-
-## Playbook Template
-
+## Minimal Playbook Template
 ```yaml
-playbook: [name]
-version: 1.0.0
-
+playbook: <name>
+version: 3.2.0
 triggers:
-  keywords: [trigger keywords]
-  negative: [exclusion keywords]
-
+  positive: [keywords]
+  negative: [reroute conditions]
 phases:
-  - name: "Phase 1"
-    type: sequential
-    skills: [skill-list]
-
-  - name: "Phase 2"
-    type: parallel
-    prerequisites: [Phase 1]
-    skills: [skill-list]
-
+  - name: Phase 1
+    entry: [signals]
+    exit: [evidence]
+    roles: [owner, reviewer]
+    steps: [ordered actions]
+    rollback: [conditions]
 success_criteria:
-  primary: "[measurable outcome]"
-  acceptance_gates: [list]
-
+  primary: <measurable outcome>
+  evidence: [artifacts to collect]
 guardrails:
-  NEVER: [anti-patterns]
-  ALWAYS: [requirements]
-
-mcp_requirements:
-  required: [mcps]
-  optional: [mcps]
+  always: [requirements]
+  never: [anti-patterns]
 ```
 
-## Related Files
+## Cross-Skill Coordination
+- Upstream: `prompt-architect` for constraint clarity.
+- Downstream: `agent-selector`/`agent-creator` when automation is required; `recursive-improvement` for postmortem tuning.
 
-- **Skill Definition**: `skill.md`
-- **Playbook Guardrails**: `docs/PLAYBOOK-META-LOOP-GUARDRAILS.md`
-- **Quick Reference**: `docs/PLAYBOOK-QUICK-REFERENCE-V3.0.md`
-- **Enhanced System**: `docs/ENHANCED-PLAYBOOK-SYSTEM.md`
+## Files
+- `SKILL.md` – full SOP and completion checklist.
+- `README.md` – quick start and template (this file).
 
-## Success Metrics
-- [assert|neutral] Playbook routes correctly >95% of time [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Execution completes without manual intervention [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Time estimate within 20% of actual [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] All guardrails enforced [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Promise: `<promise>README_VERIX_COMPLIANT</promise>`* [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+Confidence: 0.70 (ceiling: inference 0.70) - README rewritten to match Skill Forge cadence and prompt-architect ceilings.

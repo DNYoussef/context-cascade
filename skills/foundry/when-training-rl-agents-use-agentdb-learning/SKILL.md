@@ -1,258 +1,97 @@
 ---
 name: agentdb-learning
-description: AgentDB Reinforcement Learning Training skill for agentdb workflows
+description: Use AgentDB-supported reinforcement learning workflows for training agents with safe reward handling, evaluation, and deployment controls.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: agentdb
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Translated RL guidance into Skill Forge required sections with explicit safety rails and evaluation gates.
+- Added prompt-architect constraint capture, confidence ceilings, and rollout controls for RL agents.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "AgentDB Reinforcement Learning Training",
-  category: "agentdb",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Train and deploy reinforcement-learning-driven agents using AgentDB for experience storage, evaluation, and controlled rollout.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: RL training requests, policy tuning, or logging rollouts with AgentDB-backed storage.
+- Negative/reroute: static prompt tuning (prompt-architect) or non-RL retrieval optimization (agentdb-optimization/vector-search).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Define reward functions and safety constraints before training.
+- Separate train/validation/test splits and avoid reward hacking; monitor for exploitative behaviors.
+- Keep outputs English-only with explicit confidence ceilings.
+- Require rollback/freeze plans for policies that regress or behave unsafely.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Objective & Constraints**: Capture reward signals, environment, success criteria, and safety bounds; classify HARD/SOFT/INFERRED.
+2. **Data & Storage**: Configure AgentDB for trajectory storage, metadata tags, and access controls.
+3. **Training Plan**: Choose algorithms, hyperparameters, and curriculum strategy; define logging and checkpoints.
+4. **Evaluation**: Run offline and online tests with metrics (reward stability, safety violations); document ceilings.
+5. **Deployment**: Stage rollout with canaries, monitoring, and rollback; keep changelog of policy versions.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Sparse rewards → use shaping or curriculum learning.
+- Safety-critical tasks → incorporate constraints/penalties and human oversight.
+- Non-stationary environments → schedule periodic retraining and drift monitoring.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["AgentDB Reinforcement Learning Training", "agentdb", "workflow"],
-  context: "user needs AgentDB Reinforcement Learning Training capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Off-policy evaluation to reduce risk before deployment.
+- Ensemble or policy distillation to stabilize behavior.
+- Counterfactual logging for safer experimentation.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Deploying policies without evaluation or monitoring.
+- Unbounded exploration causing unsafe actions.
+- Missing audit trail for policy versions.
 
-# AgentDB Reinforcement Learning Training
+### Practical Guidelines
+- Tag data: WHO=agentdb-learning-{session}, WHY=skill-execution, WHEN=timestamp, ENV=environment.
+- Limit learning rate of change in production; gate by metrics and reviews.
+- Document reward definitions and known exploits.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clear goals; reasoningbank-agentdb for adaptive learning signals.
+- Parallel: agentdb-memory for trajectory storage; recursive-improvement for postmortem analysis.
+- Downstream: agent-creator embedding trained policies; agent-selector for routing policies.
 
+### MCP Requirements
+- Requires AgentDB storage with appropriate permissions; ensure encryption and retention rules for trajectory data.
 
-
-## Overview
-
-Train AI learning plugins with AgentDB's 9 reinforcement learning algorithms including Decision Transformer, Q-Learning, SARSA, Actor-Critic, PPO, and more. Build self-learning agents, implement RL, and optimize agent behavior through experience.
-
-## When to Use This Skill
-
-Use this skill when you need to:
-- Train autonomous agents that learn from experience
-- Implement reinforcement learning systems
-- Optimize agent behavior through trial and error
-- Build self-improving AI systems
-- Deploy RL agents in production environments
-- Benchmark and compare RL algorithms
-
-## Available RL Algorithms
-
-1. **Q-Learning** - Value-based, off-policy
-2. **SARSA** - Value-based, on-policy
-3. **Deep Q-Network (DQN)** - Deep RL with experience replay
-4. **Actor-Critic** - Policy gradient with value baseline
-5. **Proximal Policy Optimization (PPO)** - Trust region policy optimization
-6. **Decision Transformer** - Offline RL with transformers
-7. **Advantage Actor-Critic (A2C)** - Synchronous advantage estimation
-8. **Twin Delayed DDPG (TD3)** - Continuous control
-9. **Soft Actor-Critic (SAC)** - Maximum entropy RL
-
-## SOP Framework: 5-Phase RL Training Deployment
-
-### Phase 1: Initialize Learning Environment (1-2 hours)
-
-**Objective:** Setup AgentDB learning infrastructure with environment configuration
-
-**Agent:** ml-developer
-
-**Steps:**
-
-1. **Install AgentDB Learning Module**
-```bash
-npm install agentdb-learning@latest
-npm install @agentdb/rl-algorithms @agentdb/environments
+### Input/Output Contracts
+```yaml
+inputs:
+  objective: string  # required
+  environment: string  # required description
+  reward_design: string  # required reward definition
+  constraints: list[string]  # optional safety constraints
+outputs:
+  training_plan: file  # algorithms, hyperparameters, checkpoints
+  eval_report: file  # metrics, safety findings, ceilings
+  rollout_plan: summary  # deployment stages, monitoring, rollback
 ```
 
-2. **Initialize learning database**
-```typescript
-import { AgentDB, LearningPlugin } from 'agentdb-learning';
+### Recursive Improvement
+- Feed evaluation regressions or incidents into recursive-improvement to adjust rewards, hyperparameters, or data quality.
 
-const learningDB = new AgentDB({
-  name: 'rl-training-db',
-  dimensions: 512, // State embedding dimension
-  learning: {
-    enabled: true,
-    persistExperience: true,
-    replayBufferSize: 100000
-  }
-});
+### Examples
+- Train an RL policy for API request routing with safety caps and latency targets.
+- Tune a recommendation agent with counterfactual logging and staged rollout.
 
-await learningDB.initialize();
+### Troubleshooting
+- Reward hacking → adjust reward shaping and add constraints; review logs.
+- Performance instability → retune hyperparameters, add regularization, or ensemble.
+- Safety violations → freeze deployment, rollback, and add stricter constraints.
 
-// Create learning plugin
-const learningPlugin = new LearningPlugin({
-  database: learningDB,
-  algorithms: ['q-learning', 'dqn', 'ppo', 'actor-critic'],
-  config: {
-    batchSize: 64,
-    learningRate: 0.001,
-    discountFactor: 0.99,
-    explorationRate: 1.0,
-    explorationDecay: 0.995
-  }
-});
+### Completion Verification
+- [ ] Rewards and constraints defined with audit trail.
+- [ ] Training/eval plans executed; metrics and ceilings recorded.
+- [ ] Rollout/rollback plan documented with monitoring hooks.
+- [ ] Policy versions and changelog updated.
 
-await learningPlugin.initialize();
-```
-
-3. **Define environment**
-```typescript
-import { Environment } from '@agentdb/environments';
-
-const environment = new Environment({
-  name: 'grid-world',
-  stateSpace: {
-    type: 'continuous',
-    shape: [10, 10],
-    bounds: [[0, 10], [0, 10]]
-  },
-  actionSpace: {
-    type: 'discrete',
-    actions: ['up', 'down', 'left', 'right']
-  },
-  rewardFunction: (state, action, nextState) => {
-    // Distance to goal reward
-    const goalDistance = Math.sqrt(
-      Math.pow(nextState[0] - 9, 2) +
-      Math.pow(nextState[1] - 9, 2)
-    );
-    return -goalDistance + (goalDistance === 0 ? 100 : 0);
-  },
-  terminalCondition: (state) => {
-    return state[0] === 9 && state[1] === 9; // Reached goal
-  }
-});
-
-await environment.initialize();
-```
-
-4. **Setup monitoring**
-```typescript
-const monitor = learningPlugin.createMonitor({
-  metrics: ['reward', 'loss', 'exploration-rate', 'episode-length'],
-  logInterval: 100, // Log every 100 episodes
-  saveCheckpoints: true,
-  checkpointInterval: 1000
-});
-
-monitor.on('episode-complete', (episode) => {
-  console.log('Episode:', episode.number, 'Reward:', episode.totalReward);
-});
-```
-
-**Memory Pattern:**
-```typescript
-await agentDB.memory.store('agentdb/learning/environment', {
-  name: environment.name,
-  stateSpace: environment.stateSpace,
-  actionSpace: environment.actionSpace,
-  initialized: Date.now()
-});
-```
-
-**Validation:**
-- Learning database initialized
-- Environment configured and tested
-- Monitor capturing metrics
-- Configuration stored in memory
-
-### Phase 2: Configure RL Algorithm (1-2 hours)
-
-**Objective:** Select and configure RL algorithm for the learning task
-
-**Agent:** ml-developer
-
-**Steps:**
-
-1. **Select algo
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/agentdb/AgentDB Reinforcement Learning Training/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "AgentDB Reinforcement Learning Training-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENTDB REINFORCEMENT LEARNING TRAINING_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - AgentDB learning SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

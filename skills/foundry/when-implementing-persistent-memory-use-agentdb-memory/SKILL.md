@@ -1,242 +1,97 @@
 ---
 name: agentdb-memory
-description: AgentDB Persistent Memory Patterns skill for agentdb workflows
+description: Apply AgentDB persistent memory patterns for durable context storage, retrieval, and lifecycle management.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: agentdb
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the memory guidance into Skill Forge required sections with explicit contracts and validation steps.
+- Added prompt-architect constraint capture, confidence ceilings, and safety controls for data retention.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "AgentDB Persistent Memory Patterns",
-  category: "agentdb",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Design persistent memory strategies with AgentDB, covering namespaces, retention policies, retrieval contracts, and safety/privacy requirements.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: implementing long-term memory, audit trails, or context recall for agents/workflows using AgentDB.
+- Negative/reroute: ephemeral caches or non-AgentDB storage solutions; vector search tuning (agentdb-vector-search).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Define retention, encryption, and access controls before enabling writes.
+- Separate memory namespaces per project/session; tag writes for traceability.
+- Include data minimization and deletion workflows; avoid storing secrets in plain text.
+- Maintain English outputs with explicit confidence ceilings.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Planning**: Capture use case, sensitivity, retention needs, and constraints; classify HARD/SOFT/INFERRED.
+2. **Schema & Namespaces**: Define record schema, namespace patterns, tags (WHO/WHY/WHEN/PROJECT), and indexing needs.
+3. **Write/Read Paths**: Specify APIs for writes, retrieval, and pruning; include rate/size limits and error handling.
+4. **Validation**: Test CRUD operations, access controls, and retention enforcement; log results with ceilings.
+5. **Operations**: Document monitoring, backup/restore, and incident response for memory misuse.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Conversation memory → chunk + summarize with time decay.
+- Audit/history → append-only with strong access control and integrity checks.
+- Feature store → schema evolution and validation pipelines.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["AgentDB Persistent Memory Patterns", "agentdb", "workflow"],
-  context: "user needs AgentDB Persistent Memory Patterns capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use tiered storage (hot/warm/cold) with TTL policies.
+- Apply summarization to reduce footprint while preserving evidence.
+- Add anomaly detection on access patterns for security.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Storing sensitive data without encryption or retention limits.
+- Mixing unrelated contexts in one namespace causing leakage.
+- No deletion/rotation plan.
 
-# AgentDB Persistent Memory Patterns
+### Practical Guidelines
+- Standardize tags: WHO=agentdb-memory-{session}, WHY=skill-execution, WHEN=timestamp, PROJECT=name.
+- Document maximum record sizes and throttling behavior.
+- Provide fallback behavior when reads miss (e.g., regenerate or request input).
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clarity on memory scope; skill-builder for scaffolding.
+- Parallel: agentdb-vector-search for retrieval, agentdb-optimization for performance.
+- Downstream: agent-creator/agent-selector using memory configs; recursive-improvement to refine retention.
 
+### MCP Requirements
+- Requires AgentDB memory MCP with proper credentials and permissions; tag writes as above for auditability.
 
-
-## Overview
-
-Implement persistent memory patterns for AI agents using AgentDB - session memory, long-term storage, pattern learning, and context management for stateful agents, chat systems, and intelligent assistants.
-
-## SOP Framework: 5-Phase Memory Implementation
-
-### Phase 1: Design Memory Architecture (1-2 hours)
-- Define memory schemas (episodic, semantic, procedural)
-- Plan storage layers (short-term, working, long-term)
-- Design retrieval mechanisms
-- Configure persistence strategies
-
-### Phase 2: Implement Storage Layer (2-3 hours)
-- Create memory stores in AgentDB
-- Implement session management
-- Build long-term memory persistence
-- Setup memory indexing
-
-### Phase 3: Test Memory Operations (1-2 hours)
-- Validate store/retrieve operations
-- Test memory consolidation
-- Verify pattern recognition
-- Benchmark performance
-
-### Phase 4: Optimize Performance (1-2 hours)
-- Implement caching layers
-- Optimize retrieval queries
-- Add memory compression
-- Performance tuning
-
-### Phase 5: Document Patterns (1 hour)
-- Create usage documentation
-- Document memory patterns
-- Write integration examples
-- Generate API documentation
-
-## Quick Start
-
-```typescript
-import { AgentDB, MemoryManager } from 'agentdb-memory';
-
-// Initialize memory system
-const memoryDB = new AgentDB({
-  name: 'agent-memory',
-  dimensions: 768,
-  memory: {
-    sessionTTL: 3600,
-    consolidationInterval: 300,
-    maxSessionSize: 1000
-  }
-});
-
-const memoryManager = new MemoryManager({
-  database: memoryDB,
-  layers: ['episodic', 'semantic', 'procedural']
-});
-
-// Store memory
-await memoryManager.store({
-  type: 'episodic',
-  content: 'User preferred dark theme',
-  context: { userId: '123', timestamp: Date.now() }
-});
-
-// Retrieve memory
-const memories = await memoryManager.retrieve({
-  query: 'user preferences',
-  type: 'episodic',
-  limit: 10
-});
+### Input/Output Contracts
+```yaml
+inputs:
+  use_case: string  # required
+  sensitivity: string  # required data classification
+  retention: string  # required policy
+  constraints: list[string]  # optional
+outputs:
+  memory_plan: file  # schema, namespace, and policy definitions
+  validation_report: file  # access/retention tests
+  runbook: summary  # monitoring, backup, and deletion steps
 ```
 
-## Memory Patterns
+### Recursive Improvement
+- Feed incidents or retrieval misses into recursive-improvement to adjust schemas, retention, or access controls.
 
-### Session Memory
-```typescript
-const session = await memoryManager.createSession('user-123');
-await session.store('conversation', messageHistory);
-await session.store('preferences', userPrefs);
-const context = await session.getContext();
-```
+### Examples
+- Configure long-term memory for customer support agents with redaction and TTL policies.
+- Set up audit-friendly memory for deployment history with access controls and backups.
 
-### Long-Term Storage
-```typescript
-await memoryManager.consolidate({
-  from: 'working-memory',
-  to: 'long-term-memory',
-  strategy: 'importance-based'
-});
-```
+### Troubleshooting
+- Retrieval misses → verify namespaces/tags, reindex, or adjust queries.
+- Storage bloat → enable TTL, summarize, or archive cold data.
+- Access issues → audit permissions and rotate credentials.
 
-### Pattern Learning
-```typescript
-const patterns = await memoryManager.learnPatterns({
-  memory: 'episodic',
-  algorithm: 'clustering',
-  minSupport: 0.1
-});
-```
+### Completion Verification
+- [ ] Schema, namespaces, and tagging defined.
+- [ ] Retention, encryption, and deletion policies documented and tested.
+- [ ] Confidence ceilings stated for reliability/safety claims.
+- [ ] Runbook provided for monitoring and incidents.
 
-## Success Metrics
-- [assert|neutral] Memory persists across agent restarts [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Retrieval latency < 50ms (p95) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Pattern recognition accuracy > 85% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Context maintained with 95% accuracy [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Memory consolidation working [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## MCP Requirements
-
-This skill operates using AgentDB's npm package and API only. No additional MCP servers required.
-
-All AgentDB memory operations are performed through:
-- npm CLI: `npx agentdb@latest`
-- TypeScript/JavaScript API: `import { AgentDB, MemoryManager } from 'agentdb-memory'`
-
-## Additional Resources
-
-- Full documentation: SKILL.md
-- Process guide: PROCESS.md
-- AgentDB Memory Docs: https://agentdb.dev/docs/memory
-
-## Core Principles
-
-AgentDB Persistent Memory Patterns operates on 3 fundamental principles:
-
-### Principle 1: Memory Layering - Separate Short-Term, Working, and Long-Term Storage
-
-Memory systems mirror human cognition by organizing information across distinct temporal layers. Short-term memory handles immediate context (current conversation), working memory maintains active task state, and long-term memory co
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/agentdb/AgentDB Persistent Memory Patterns/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "AgentDB Persistent Memory Patterns-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENTDB PERSISTENT MEMORY PATTERNS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - AgentDB memory SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

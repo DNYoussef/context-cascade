@@ -1,239 +1,97 @@
 ---
 name: skill-builder
-description: Create new Claude Code Skills with proper YAML frontmatter, progressive disclosure structure, and complete directory organization. Use when you need to build custom skills for specific workflows, gene
+description: Scaffold new Claude Code skills with correct frontmatter, directory layout, contracts, and validation assets.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the builder SOP using the Skill Forge required sections and structure-first guardrails.
+- Added prompt-architect constraint extraction, confidence ceilings, and completion checks for every artifact.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "Skill Builder",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Create or template skills with complete SKILL.md content, examples, tests, references, and metadata aligned to Skill Forge standards.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: requests to create a new skill template, reorganize an existing skill, or ensure compliance with required sections.
+- Negative/reroute: prompt tuning only (prompt-architect/prompt-forge) or agent design (agent-creator/agent-creation).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Always generate SKILL.md with YAML frontmatter, SOP, integration, and closure sections; no skeleton-only outputs unless explicitly timeboxed.
+- Provide English outputs with explicit confidence ceilings.
+- Include directory scaffolding: examples/, tests/, resources/, references/ as appropriate.
+- Record any missing sections as TODO with remediation steps.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Scoping**: Capture skill name, category, purpose, triggers, and constraints; classify HARD/SOFT/INFERRED.
+2. **Structure**: Lay out directories and placeholder files as needed; ensure SKILL.md includes required sections (Purpose → Completion Verification).
+3. **Content Authoring**: Fill SOP, guardrails, integrations, and contracts with skill-specific details.
+4. **Validation**: Check section completeness against Skill Forge required sections; run sanity tests/examples where applicable.
+5. **Delivery**: Summarize outputs, open gaps, and confidence ceilings; register in indexes if required.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- New greenfield skill → start from base template and focus on purpose/triggers first.
+- Migrating legacy skill → map old sections to required ones and fill gaps.
+- Skill extension → add integrations and recursive-improvement hooks.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["Skill Builder", "foundry", "workflow"],
-  context: "user needs Skill Builder capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use checklists from REQUIRED-SECTIONS.md to avoid omissions.
+- Pre-fill anti-patterns and guidelines to set expectations for maintainers.
+- Reuse prompt-architect output to tighten instructions and refusal policy.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Missing closure sections (examples, troubleshooting, completion verification).
+- Over-general descriptions without IO contracts.
+- Forgetting to add validation/test scaffolds.
 
-## Phase 0: Expertise Loading
+### Practical Guidelines
+- Keep SKILL.md concise but complete; link to references for depth.
+- Prefer stable versioning (x-version) and compliance markers.
+- Document memory/tags if MCP is expected.
 
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clarity; skill-forge for meta quality gates.
+- Parallel: cognitive-lensing for alternative approaches; meta-tools for supporting utilities.
+- Downstream: agent-creator/agent-selector using the resulting skills.
 
-# Skill Builder
+### MCP Requirements
+- Optional memory/vector MCP to store templates; tag WHO=skill-builder-{session}, WHY=skill-execution.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## What This Skill Does
-
-Creates production-ready Claude Code Skills with proper YAML frontmatter, progressive disclosure architecture, and complete file/folder structure. This skill guides you through building skills that Claude can autonomously discover and use across all surfaces (Claude.ai, Claude Code, SDK, API).
-
-## Prerequisites
-
-- Claude Code 2.0+ or Claude.ai with Skills support
-- Basic understanding of Markdown and YAML
-- Text editor or IDE
-
-## Quick Start
-
-### Creating Your First Skill
-
-```bash
-# 1. Create skill directory (MUST be at top level, NOT in subdirectories!)
-mkdir -p ~/.claude/skills/my-first-skill
-
-# 2. Create SKILL.md with proper format
-cat > ~/.claude/skills/my-first-skill/SKILL.md << 'EOF'
----
-name: "My First Skill"
-description: "Brief description of what this skill does and when Claude should use it. Maximum 1024 characters."
----
-
-# My First Skill
-
-## What This Skill Does
-[Your instructions here]
-
-## Quick Start
-[Basic usage]
-EOF
-
-# 3. Verify skill is detected
-# Restart Claude Code or refresh Claude.ai
-```
-
----
-
-## Complete Specification
-
-### 📋 YAML Frontmatter (REQUIRED)
-
-Every SKILL.md **must** start with YAML frontmatter containing exactly two required fields:
-
+### Input/Output Contracts
 ```yaml
----
-name: "Skill Name"                    # REQUIRED: Max 64 chars
-description: "What this skill does    # REQUIRED: Max 1024 chars
-and when Claude should use it."       # Include BOTH what & when
----
+inputs:
+  skill_name: string  # required name
+  category: string  # required category
+  purpose: string  # required description
+  constraints: list[string]  # optional constraints or policies
+outputs:
+  skill_files: list[file]  # SKILL.md and supporting scaffolds
+  validation_report: summary  # checklist of required sections
+  next_steps: list[string]  # follow-up improvements
 ```
 
-#### Field Requirements
+### Recursive Improvement
+- Run recursive-improvement to close checklist gaps and refine guidance after initial usage feedback.
 
-**`name`** (REQUIRED):
-- **Type**: String
-- **Max Length**: 64 characters
-- **Format**: Human-friendly display name
-- **Usage**: Shown in skill lists, UI, and loaded into Claude's system prompt
-- **Best Practice**: Use Title Case, be concise and descriptive
-- **Examples**:
-  - ✅ "API Documentation Generator"
-  - ✅ "React Component Builder"
-  - ✅ "Database Schema Designer"
-  - ❌ "skill-1" (not descriptive)
-  - ❌ "This is a very long skill name that exceeds sixty-four characters" (too long)
+### Examples
+- Scaffold a security-audit skill with SKILL.md, examples, and tests for dependency review.
+- Convert a legacy orchestration skill to the Skill Forge section model with completion checklist.
 
-**`description`** (REQUIRED):
-- **Type**: String
-- **Max Length**: 1024 characters
-- **Format**: Plain text or minimal markdown
-- **Content**: MUST include:
-  1. **What** the skill does (functionality)
-  2. **When** Claude should invoke it (trigger conditions)
-- **Usage**: Loaded into Claude's system prompt for autonomous matching
-- **Best Practice**: Front-load key trigger words, be specific about use cases
-- **Examples**:
-  - ✅ "Generate OpenAPI 3.0 documentation from Express.js routes. Use when creating API docs, documenting endpoints, or building API specifications."
-  - ✅ "Create React functional components with TypeScript, hooks, and tests. Use when scaffolding new components or converting class components."
-  - ❌ "A comprehensive guide to API documentation" (no "when" clause)
-  - ❌ "Documentation tool" (too vague)
+### Troubleshooting
+- Missing section → reference REQUIRED-SECTIONS.md and add content or TODO with owner.
+- Directory not created → regenerate scaffolding and verify permissions.
+- Ambiguous constraints → rerun constraint extraction and confirm with requester.
 
-#### YAML Formatting Rules
+### Completion Verification
+- [ ] SKILL.md includes all required sections and frontmatter.
+- [ ] Directory scaffolding created (examples/tests/resources/references as needed).
+- [ ] Confidence ceiling stated; validation checklist completed.
+- [ ] Registration or index updates noted.
 
-```yaml
----
-# ✅ CORRECT: Simple string
-name: "API Builder"
-description: "Creates REST APIs with Express and TypeScript."
-
-# ✅ CORRECT: Multi-line description
-name: "Full-Stack Generator"
-description: "Generates full-stack applications with React frontend and Node.js backend. Use when starting new projects or scaffolding applications."
-
-# ✅ CORRECT: Special characters quoted
-name: "JSON:API Builder"
-description: "Creates JSON:API compliant endpoints: pagination, filtering, relationships."
-
-# ❌ WRONG: Missing quotes with special chars
-name: API:Builder  # YAML parse error!
-
-# ❌ WRONG: Extra fields (ignored but discouraged)
-name: "My Skill"
-description: "My description"
-version: "1.0.0"       # NOT part of spec
-author: "Me"           # NOT part of spec
-tags: ["dev", "api"]   # NOT part of spec
----
-```
-
-**Critical**: Only `name` and `description` are used by Claude. Additional fields are ignored.
-
----
-
-### 📂 Directory Structure
-
-#### Minimal Skill (Required)
-```
-~/.claude/skills/                    # Personal skills location
-└── my-skill/              
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/Skill Builder/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "Skill Builder-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL BUILDER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Skill Builder SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

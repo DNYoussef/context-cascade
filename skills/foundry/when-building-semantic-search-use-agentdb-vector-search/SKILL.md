@@ -1,225 +1,96 @@
 ---
 name: agentdb-vector-search
-description: AgentDB Semantic Vector Search skill for agentdb workflows
+description: Use AgentDB semantic vector search patterns when designing or tuning semantic search experiences.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: agentdb
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Refactored into the Skill Forge required sections with clear triggers, contracts, and validation for AgentDB search flows.
+- Added prompt-architect ceilings, constraint capture, and integration checklists for vector search deployments.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "AgentDB Semantic Vector Search",
-  category: "agentdb",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Guide teams to implement semantic search using AgentDB vector search with correct indexing, query tuning, and evaluation practices.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: building or optimizing semantic search, troubleshooting retrieval quality, or selecting embeddings/index params.
+- Negative/reroute: non-AgentDB search stacks, unrelated prompt tuning (prompt-architect), or database persistence patterns (agentdb-memory).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Ensure embeddings and metadata schemas are defined before ingest.
+- Enforce evaluation with relevance metrics (nDCG/MRR) and adversarial queries.
+- Keep outputs in English with explicit confidence ceilings; document parameter choices.
+- Avoid overfitting to small eval sets; prefer reusable harnesses.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Scoping**: Capture corpus type, domains, latency targets, and constraints; classify HARD/SOFT/INFERRED.
+2. **Index Design**: Choose embedding model, dimension, metadata, and filters; set up ingestion plan.
+3. **Query Strategy**: Define similarity metrics, top-k, filters, and rerankers; plan for miss cases.
+4. **Evaluation**: Build/query eval sets (happy/edge/adversarial); measure precision/recall-like metrics.
+5. **Delivery**: Document configuration, sample queries, failure handling, and maintenance routines.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Short text search → prioritize fast embeddings and higher k with reranking.
+- Long-form docs → chunking strategy with overlap and metadata facets.
+- Safety-critical domains → add blocklists and human-in-the-loop review for low-confidence hits.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["AgentDB Semantic Vector Search", "agentdb", "workflow"],
-  context: "user needs AgentDB Semantic Vector Search capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Hybrid retrieval combining dense + keyword filters.
+- Dynamic top-k based on query entropy or user tier.
+- Logging-based feedback loops feeding recursive-improvement and reindexing.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Ingesting without schema leading to noisy metadata.
+- No evaluation harness; relying on spot checks.
+- Ignoring miss cases or silent failures.
 
-# AgentDB Semantic Vector Search
+### Practical Guidelines
+- Version embedding models and indexes; record config hashes.
+- Include retry/backoff for upstream embedding services.
+- Document cold-start guidance and reindex cadence.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect for query clarity; base-template-generator for scaffolds.
+- Parallel: agentdb-optimization for tuning; agentdb-advanced for complex filters; recursive-improvement for ongoing evaluation.
+- Downstream: agent-creator embedding search behaviors into agents.
 
+### MCP Requirements
+- Requires AgentDB vector search MCP; tag WHO=agentdb-vector-search-{session}, WHY=skill-execution for memory traces.
 
-
-## Overview
-
-Implement semantic vector search with AgentDB for intelligent document retrieval, similarity matching, and context-aware querying. Build RAG systems, semantic search engines, and knowledge bases.
-
-## SOP Framework: 5-Phase Semantic Search
-
-### Phase 1: Setup Vector Database (1-2 hours)
-- Initialize AgentDB
-- Configure embedding model
-- Setup database schema
-
-### Phase 2: Embed Documents (1-2 hours)
-- Process document corpus
-- Generate embeddings
-- Store vectors with metadata
-
-### Phase 3: Build Search Index (1-2 hours)
-- Create HNSW index
-- Optimize search parameters
-- Test retrieval accuracy
-
-### Phase 4: Implement Query Interface (1-2 hours)
-- Create REST API endpoints
-- Add filtering and ranking
-- Implement hybrid search
-
-### Phase 5: Refine and Optimize (1-2 hours)
-- Improve relevance
-- Add re-ranking
-- Performance tuning
-
-## Quick Start
-
-```typescript
-import { AgentDB, EmbeddingModel } from 'agentdb-vector-search';
-
-// Initialize
-const db = new AgentDB({ name: 'semantic-search', dimensions: 1536 });
-const embedder = new EmbeddingModel('openai/ada-002');
-
-// Embed documents
-for (const doc of documents) {
-  const embedding = await embedder.embed(doc.text);
-  await db.insert({
-    id: doc.id,
-    vector: embedding,
-    metadata: { title: doc.title, content: doc.text }
-  });
-}
-
-// Search
-const query = 'machine learning tutorials';
-const queryEmbedding = await embedder.embed(query);
-const results = await db.search({
-  vector: queryEmbedding,
-  topK: 10,
-  filter: { category: 'tech' }
-});
+### Input/Output Contracts
+```yaml
+inputs:
+  corpus_description: string  # required
+  embedding_model: string  # optional preference
+  constraints: list[string]  # optional performance/safety constraints
+outputs:
+  search_plan: file  # index/query configuration and rationale
+  eval_plan: file  # test cases, metrics, and results
+  runbook: summary  # monitoring and maintenance steps
 ```
 
-## Features
+### Recursive Improvement
+- Feed retrieval errors and user feedback into recursive-improvement to retune chunking, filters, or scoring weights.
 
-- **Semantic Search**: Meaning-based retrieval
-- **Hybrid Search**: Vector + keyword search
-- **Filtering**: Metadata-based filtering
-- **Re-ranking**: Improve result relevance
-- **RAG Integration**: Context for LLMs
+### Examples
+- Configure semantic search for product docs with metadata facets and hybrid retrieval.
+- Tune Q&A search for support tickets with adversarial queries covering ambiguous intents.
 
-## Success Metrics
-- [assert|neutral] Retrieval accuracy > 90% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Query latency < 100ms [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Relevant results in top-10: > 95% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] API uptime > 99.9% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+### Troubleshooting
+- Low relevance → adjust chunking, filters, and rerankers; expand eval set.
+- Latency spikes → tune top-k and prefiltering; cache frequent queries.
+- Skewed results → review embedding choice and retrain on in-domain data if available.
 
-## MCP Requirements
+### Completion Verification
+- [ ] Index/query design documented with parameters and rationale.
+- [ ] Evaluation harness executed; metrics and ceilings recorded.
+- [ ] Safety/edge handling noted (miss cases, blocklists, fallbacks).
+- [ ] Monitoring and maintenance steps delivered.
 
-This skill operates using AgentDB's npm package and API only. No additional MCP servers required.
-
-All AgentDB operations are performed through:
-- npm CLI: `npx agentdb@latest`
-- TypeScript/JavaScript API: `import { AgentDB } from 'agentdb-vector-search'`
-
-## Additional Resources
-
-- Full docs: SKILL.md
-- AgentDB Vector Search: https://agentdb.dev/docs/vector-search
-
----
-
-## Core Principles
-
-AgentDB Semantic Vector Search operates on 3 fundamental principles for building intelligent document retrieval systems:
-
-### Principle 1: Meaning Over Keywords
-
-Semantic search retrieves documents based on meaning similarity rather than exact keyword matching, enabling context-aware retrieval.
-
-In practice:
-- Generate embeddings for documents using models like OpenAI ada-002 (1536 dimensions) to capture semantic meaning
-- Store vectors with rich metadata (title, content, category, tags) to enable hybrid search combining semantic and keyword filters
-- Search using query embeddings to find semantically similar documents even when exact keywords differ
-- Implement distance metrics (cosine similarity, euclidean) to rank results by semantic relevance rather than keyword frequency
-
-### Principle 2: Performance Through Indexing
-
-Build HNSW indexes for 150x faster vector search compared to exhaustive search, essential for production-scale retrieval.
-
-In practice:
-- Create HNSW (Hierarchical Navigable Small World) indexes after document ingestion to enable fast approximate nearest neighbor search
-- Optimize search parameters (ef_construction, M) based on accuracy vs speed tradeoffs for your use case
-- Test retrieval accuracy with evaluation datasets to en
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/agentdb/AgentDB Semantic Vector Search/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "AgentDB Semantic Vector Search-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENTDB SEMANTIC VECTOR SEARCH_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - AgentDB vector search SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

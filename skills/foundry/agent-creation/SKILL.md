@@ -1,190 +1,99 @@
 ---
 name: agent-creation
-description: Systematic agent creation using evidence-based prompting principles and 4-phase SOP methodology. Use when creating new specialist agents, refining existing agent prompts, or designing multi-agent syst
+description: Systematically design and validate specialist agents with evidence-based prompting, tooling contracts, and adversarial evaluation.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rebuilt the skill to follow the Skill Forge section cadence with explicit guardrails, validation hooks, and confidence ceilings.
+- Added prompt-architect style constraint extraction, contract-first design, and adversarial testing steps to avoid shallow agent definitions.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "agent-creation",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Create production-ready specialist agents with clear personas, tool wiring, evaluation scaffolding, and documentation that can be routed by orchestration layers.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: requests to create or refine an agent, multi-agent system design, agent prompt hardening, adding new tools to an agent.
+- Negative/reroute: single-turn tasks better handled by micro-skill-creator, standalone prompt tuning handled by prompt-architect, or skill structure requests handled by skill-builder/skill-forge.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Use English-first outputs with explicit confidence ceilings following prompt-architect rules.
+- Structure-first: deliver the agent spec (frontmatter + body), examples, and validation notes; avoid "created" confirmations without artifacts.
+- Avoid duplication: check existing registry entries; prefer specialization over overlap.
+- Run adversarial probes (boundary, failure, misuse) before considering the agent production-ready.
+- Respect hooks latency targets from Skill Forge: pre_hook_target_ms 20/100 max; post_hook_target_ms 100/1000 max.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Discovery**: Capture intent, domain, constraints (hard/soft/inferred), tools, and expected outputs.
+2. **Design**: Define persona, responsibilities, tool permissions, memory strategy, and decision checkpoints.
+3. **Prompt Construction**: Author the system prompt with role, inputs, outputs, style, and escalation rules; add few-shot patterns if helpful.
+4. **Validation**: Create test cases (happy path + edge), run self-consistency checks, and document evaluation results with confidence ceilings.
+5. **Delivery**: Package the agent spec, integration notes, and next-step risks; register metadata for agent-selector routing.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Greenfield agent for new domain → emphasize constraint extraction and baseline tests.
+- Refining underperforming agent → capture failure cases and add targeted guardrails.
+- Multi-agent topology → design interaction contracts, escalation paths, and boundaries between agents.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["agent-creation", "foundry", "workflow"],
-  context: "user needs agent-creation capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use program-of-thought to decompose complex roles into capabilities and checkpoints.
+- Apply contrastive prompting to defend against prompt drift and misuse.
+- Capture evaluation harness steps so skill-forge or CI can rerun them.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Shipping an agent without tool/contracts defined.
+- Using generic personas without domain evidence or examples.
+- Skipping adversarial tests or confidence ceilings.
 
-<!-- SKILL SOP IMPROVEMENT v1.0 -->
-## Skill Execution Criteria
+### Practical Guidelines
+- Prefer specific tool verbs over open-ended "help" instructions.
+- Keep output formats deterministic (JSON or structured text) to ease downstream parsing.
+- Record INFERRED constraints and seek confirmation before finalizing.
 
-### When to Use This Skill
-- Creating new specialist agents with domain-specific expertise
-- Refining existing agent system prompts for better performance
-- Designing multi-agent coordination systems
-- Implementing role-based agent hierarchies
-- Building production-ready agents with embedded domain knowledge
+### Cross-Skill Coordination
+- Upstream: prompt-architect for constraint extraction and clarity; skill-builder for directory scaffolding.
+- Parallel: cognitive-lensing for alternative reasoning frames; meta-tools for tooling composition.
+- Downstream: agent-selector for routing; recursive-improvement for iterative hardening.
 
-### When NOT to Use This Skill
-- For simple one-off tasks that don't need agent specialization
-- When existing agents already cover the required domain
-- For casual conversational interactions without systematic requirements
-- When the task is better suited for a slash command or micro-skill
+### MCP Requirements
+- Optional memory/vector MCP for loading prior agent outcomes; tag sessions with WHO=agent-creation-{session}, WHY=skill-execution.
+- If external tools are added, document authentication and rate-limit assumptions in the agent spec.
 
-### Success Criteria
-- [assert|neutral] primary_outcome: "Production-ready agent with optimized system prompt, clear role definition, and validated performance" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] quality_threshold: 0.9 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] verification_method: "Agent successfully completes domain-specific tasks with consistent high-quality output, passes validation tests, and integrates with Claude Agent SDK" [ground:acceptance-criteria] [conf:0.90] [state:provisional]
+### Input/Output Contracts
+```yaml
+inputs:
+  task: string  # required description of the agent's job
+  domain: string  # required domain or vertical
+  tools: list[string]  # optional tools or MCP servers to integrate
+  constraints: list[string]  # optional hard/soft/inferred constraints
+outputs:
+  agent_spec: file  # system prompt with frontmatter and body
+  eval_notes: file  # tests, adversarial cases, and results
+  integration: summary  # how to register and route the new agent
+```
 
-### Edge Cases
-- case: "Vague agent requirements"
-  handling: "Use Phase 1 (Initial Analysis) to research domain, identify patterns, and clarify scope before proceeding"
-- case: "Overlapping agent capabilities"
-  handling: "Conduct agent registry search, identify gaps vs duplicates, propose consolidation or specialization"
-- case: "Agent needs multiple conflicting personas"
-  handling: "Decompose into multiple focused agents with clear coordination pattern"
+### Recursive Improvement
+- Run recursive-improvement with failure cases and evaluation deltas; iterate until improvement delta < 2% or risks are documented.
 
-### Skill Guardrails
-NEVER:
-  - "Create agents without deep domain research (skipping Phase 1 undermines quality)"
-  - "Use generic prompts without evidence-based techniques (CoT, few-shot, role-based)"
-  - "Skip validation testing (Phase 3) before considering agent production-ready"
-  - "Create agents that duplicate existing registry agents without justification"
-ALWAYS:
-  - "Complete all 4 phases: Analysis -> Prompt Engineering -> Testing -> Integration"
-  - "Apply evidence-based prompting: Chain-of-Thought for reasoning, few-shot for patterns, clear role definition"
-  - "Validate with diverse test cases and measure against quality criteria"
-  - "Document agent capabilities, limitations, and integration points"
+### Examples
+- Create a compliance-review agent with SOC2/GDPR guardrails and audit-ready outputs.
+- Refine an existing API-tester agent to add contract testing and retry logic for flaky endpoints.
 
-### Evidence-Based Execution
-self_consistency: "After agent creation, test with same task multiple times to verify consistent outputs and reasoning quality"
-program_of_thought: "Decompose agent creation into: 1) Domain analysis, 2) Capability mapping, 3) Prompt architecture, 4) Test design, 5) Validation, 6) Integration"
-plan_and_solve: "Plan: Research domain + identify capabilities -> Execute: Build prompts + test cases -> Verify: Multi-run consistency + edge case handling"
-<!-- END SKILL SOP IMPROVEMENT -->
+### Troubleshooting
+- Ambiguous scope → rerun constraint extraction and confirm hard vs soft requirements.
+- Overlapping agents → consult registry and propose consolidation or specialization.
+- Tool misfires → add error-handling branches and safe defaults in the prompt body.
 
-# Agent Creation - Systematic Agent Design
+### Completion Verification
+- [ ] Agent spec delivered with persona, contracts, and escalation rules.
+- [ ] Tests and adversarial probes executed with recorded results.
+- [ ] Confidence ceiling stated; memory/tags applied if MCP used.
+- [ ] Registry metadata prepared for agent-selector.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Evidence-based agent creation following best practices for prompt engineering and agent specialization.
-
----
-
-## When to Use This Skill
-
-Use when creating new specialist agents for specific domains, refining existing agent capabilities, designing multi-agent coordination systems, or implementing role-based agent hierarchies.
-
----
-
-## 4-Phase Agent Creation SOP
-
-### Phase 1: Specification
-- Define agent purpose and domain
-- Identify core capabilities needed
-- Determine input/output formats
-- Specify quality criteria
-
-**Tools**: Use `resources/scripts/generate_agent.sh` for automated generation
-
-### Phase 2: Prompt Engineering
-- Apply evidence-based prompting principles
-- Use Chain-of-Thought for reasoning tasks
-- Implement few-shot learning with examples (2-5 examples)
-- Define role and persona clearly
-
-**Reference**: See `references/prompting-principles.md` for detailed techniques
-
-### Phase 3: Testing & Vali
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/agent-creation/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "agent-creation-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENT_CREATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - SOP rewritten with Skill Forge structure and prompt-architect guardrails.

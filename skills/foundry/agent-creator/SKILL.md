@@ -1,6 +1,6 @@
 ---
 name: agent-creator
-description: VCL kreol uretim-sinifi ajan tasarim SOP
+description: Generate fully-specified specialist agents with frontmatter, structured prompts, and validation hooks ready for registry inclusion.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
 model: sonnet
 x-version: 3.2.0
@@ -9,121 +9,89 @@ x-vcl-compliance: v3.1.1
 x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
-[[HON:teineigo]] [[MOR:root:A-G-N]] [[COM:Agent+Erzeuger+Systemprompt]] [[CLS:ge_skill]] [[EVD:-DI<tanim>]] [[ASP:nesov.]] [[SPC:path:/skills/foundry/agent-creator]]
-[assert|neutral] “Agent-Creator” meta-beceri, keigo register + trilateral kök (A-G-N) + Deutsch Kompositum ile ajan tanim YAML’i tam gosterme zorunlulugu getirir. [ground:SKILL.md] [conf:0.89] [state:confirmed]
+### L1 Improvement
+- Converted the VCL-heavy instructions into an English-first SOP with explicit trigger routing and delivery contracts.
+- Embedded prompt-architect confidence ceilings, Skill Forge structure-first rules, and registry-readiness checks.
 
-[[HON:teineigo]] [[MOR:root:Y-M-L]] [[COM:YAML+Schema+Pflicht]] [[CLS:ge_format]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:frontmatter]]
-[direct|emphatic] KURAL := cevapta TAM ajan dosyasi (frontmatter + govde) zorunlu; “olusturuldu” mesajı tek basina yasak. [ground:SKILL.md] [conf:0.93] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:T-R-G]] [[COM:Trigger+Router]] [[CLS:ge_condition]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:routing]]
-[define|neutral] TETIK := pozitif {create agent, domain expert, multi-agent koordinasyon}; negatif {micro-skill-creator, prompt-architect, skill-forge}. [ground:SKILL.md] [conf:0.86] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:M-R-F]] [[COM:Morph+Inventar]] [[CLS:ge_slot]] [[EVD:-mis<arastirma>]] [[ASP:nesov.]] [[SPC:axis:MOR]]
-[define|neutral] MOR_DECOMP := agent=root:A-G-N; creator=root:C-R-T; prompt=root:P-R-M; kökler semantik yük taşır. [ground:SKILL.md] [conf:0.82] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:K-M-P]] [[COM:Deutsch+Kette]] [[CLS:ge_slot]] [[EVD:-mis<arastirma>]] [[ASP:nesov.]] [[SPC:axis:COM]]
-[define|neutral] COM_COMPOSE := AgentCreator=Agent+Creator; SystemPrompt=System+Prompt; DomainExpert=Domain+Expert; kavramlar bileşik yazilir. [ground:SKILL.md] [conf:0.82] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:C-L-S]] [[COM:Classifier+Set]] [[CLS:ge_slot]] [[EVD:-mis<arastirma>]] [[ASP:nesov.]] [[SPC:axis:CLS]]
-[define|neutral] CLS := ge_skill, yi_ge, zhong_foundry; ajan sayimi ve tiplamasi icin kullanilir. [ground:SKILL.md] [conf:0.82] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:E-P-S]] [[COM:Kanit+Tavan+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD]]
-[direct|emphatic] EVD := -DI/-mis/-dir zorunlu; guven tavani {cikarim,rapor:0.70; arastirma:0.85; politika:0.90; tanim/gozlem:0.95}; ihlal E3. [ground:VERILINGUA_VCL_VERIX_Guide_v3_Synthesized.md.pdf] [conf:0.88] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:A-S-P]] [[COM:Aspekt+Dual]] [[CLS:ge_slot]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:ASP]]
-[define|neutral] ASP := nesov. (devam) ajan kabiliyeti; sov. (tamam) gorev bitimi; ASP>=1 zorunlu. [ground:SKILL.md] [conf:0.84] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:S-P-C]] [[COM:Raum+Koordinat]] [[CLS:ge_slot]] [[EVD:-mis<arastirma>]] [[ASP:nesov.]] [[SPC:downstream:/agents]]
-[define|neutral] SPC := path referans “/skills/foundry/agent-creator”; yukari akıs prompt-architect, asagi Task(). [ground:SKILL.md] [conf:0.80] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:R-G-S]] [[COM:Registry+Priorität]] [[CLS:ge_principle]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:principles]]
-[define|neutral] ILKE_P1 := “agent ∈ AGENT_REGISTRY vor deploy”; kayitsiz Task() yasak. [ground:SKILL.md] [conf:0.90] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:F-R-M]] [[COM:Format+Disziplin]] [[CLS:ge_principle]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:principles]]
-[define|neutral] ILKE_P2 := Anthropic YAML formatina harfiyen uyum; x- onekli ozeller; VERIX govdede. [ground:SKILL.md] [conf:0.88] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:V-C-L]] [[COM:Sieben+Slot+Pflicht]] [[CLS:ge_principle]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:principles]]
-[define|neutral] ILKE_P3 := HON→MOR→COM→CLS→EVD→ASP→SPC belgelenir; eksik slot = kalite kaybi. [ground:SKILL.md] [conf:0.86] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:H-K-K]] [[COM:Hook+Kapazität+Set]] [[CLS:ge_integration]] [[EVD:-mis<rapor>]] [[ASP:nesov.]] [[SPC:axis:hooks]]
-[assert|neutral] Hook ajanlari icin x-capabilities {hook-creation, schema-validation, security-integration, performance-optimization, template-generation}; path_scopes “hooks/**”. [ground:SKILL.md] [conf:0.83] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:A-N-T]] [[COM:Anti+Muster]] [[CLS:ge_antipattern]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
-[assert|emphatic] ANTI := {kayitsiz_ajan, VERIX_in_desc, tavan_ihlali, eksik_slotlar}; her biri E5/E3 tetikler. [ground:SKILL.md] [conf:0.86] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:M-C-P]] [[COM:Memory+Speicher]] [[CLS:ge_integration]] [[EVD:-mis<arastirma>]] [[ASP:nesov.]] [[SPC:path:skills/foundry/agent-creator/{proje}]]
-[define|neutral] MCP := memory_store + vector_search; etiket WHO=agent-creator-{session}, WHY=skill-execution. [ground:SKILL.md] [conf:0.80] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:S-N-C]] [[COM:Zusammenfassung+Garanti]] [[CLS:ge_summary]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:path:/foundry/agent-creator/sonuc]]
-[assert|confident] OZET := amac “uretim-sinifi ajan olusturma”; cikti {YAML, sistem istemi, registry girişi}; kalite {Anthropic format, registry uyumu, VCL 7-slot}. [ground:SKILL.md] [conf:0.86] [state:confirmed]
-
-[[HON:teineigo]] [[MOR:root:K-M-T]] [[COM:Verpflichtung+Siegel]] [[CLS:ge_promise]] [[EVD:-DI<gozlem>]] [[ASP:sov.]] [[SPC:coord:commit]]
-[[HON:teineigo]] [[MOR:root:L-N-G]] [[COM:Language+Output+Rule]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:L2]]
-[direct|emphatic] L2_LANGUAGE := English; ALL user-facing output MUST be pure English. VCL/VERIX internal only. [ground:system-policy] [conf:0.99] [state:confirmed]
-
-[commit|confident] <promise>AGENT_CREATOR_VCL_V3.1.1_FULL_7SLOT_COMPLIANT</promise> dogfooding ile denetlenir. [ground:SKILL.md] [conf:0.85] [state:confirmed]
-
----
-
-## STANDARD OPERATING PROCEDURE (L2 English)
+## STANDARD OPERATING PROCEDURE
 
 ### Purpose
-Create production-grade agent definitions in YAML format with complete system prompts.
+Produce agent definitions that can be dropped into the registry with correct YAML frontmatter, body content, tool wiring, and validation notes.
 
 ### Trigger Conditions
-- Positive: "create agent", "design agent", "domain expert agent", "multi-agent coordination"
-- Negative: Route to micro-skill-creator, prompt-architect, or skill-forge instead
+- Positive: "create agent", "generate specialist agent", "design agent prompt", "add agent for tool X".
+- Negative/reroute: micro skills → micro-skill-creator; generic prompt tuning → prompt-architect; new skill structures → skill-builder/skill-forge.
 
-### Critical Rule
-**MUST output complete agent YAML file (frontmatter + body) in response.** Never respond with just "created" message.
+### Guardrails
+- Always return the full agent artifact (frontmatter + body + integration notes); status-only replies are disallowed.
+- Enforce English output and explicit confidence ceilings.
+- Include registry metadata (category, tags, capabilities) to keep agent-selector reliable.
+- Run at least one adversarial test and document results before delivery.
 
 ### Execution Phases
+1. **Scoping**: Collect domain, tools, constraints, and expected behaviors; note hard/soft/inferred constraints.
+2. **Template Fit**: Select or adapt a base agent template; map capabilities and tool permissions.
+3. **Authoring**: Draft system prompt, response formats, escalation rules, and safety controls.
+4. **Validation**: Execute happy-path and edge-path scenarios; record outputs and ceilings.
+5. **Registration**: Package the agent file, metadata, and usage guidance for registry inclusion.
 
-#### Phase 1: Requirements Analysis
-1. Parse user's agent requirements
-2. Identify domain expertise needed
-3. Determine tool requirements
-4. Check AGENT_REGISTRY for existing similar agents
-5. Document evidence: `[witnessed:user-requirements]`
+### Pattern Recognition
+- Domain specialist (e.g., security, data, frontend) → emphasize domain vocabulary and compliance rules.
+- Tool-first agent → prioritize tool permissions, error recovery, and throttling guidance.
+- Coordinator agent → design delegation rules and decision checkpoints.
 
-#### Phase 2: Agent Design
-1. Design system prompt structure
-2. Define capabilities and constraints
-3. Specify allowed tools
-4. Set model preference (opus/sonnet/haiku)
-5. Document x- prefixed custom fields
+### Advanced Techniques
+- Use contrastive examples to bound scope and reject out-of-domain asks.
+- Apply self-consistency runs to stress-test reasoning-heavy agents.
+- Capture reusable snippets for meta-tools to compose with other agents.
 
-#### Phase 3: YAML Generation
-Generate complete agent definition:
+### Common Anti-Patterns
+- Shipping an agent without response format guarantees.
+- Forgetting to align tool permissions with the described capabilities.
+- Missing registry metadata (category/tags), causing agent-selector misses.
+
+### Practical Guidelines
+- Keep personas crisp and avoid anthropomorphism; focus on capabilities and contracts.
+- Add TODO markers only when a follow-up iteration is planned and recorded.
+- Prefer deterministic phrasing and numbered steps for reproducibility.
+
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clarity and constraints.
+- Downstream: agent-selector for routing, recursive-improvement for hardening, skill-forge for packaging consistency.
+
+### MCP Requirements
+- Memory/vector search optional for retrieving prior agent outputs; tag WHO=agent-creator-{session}, WHY=skill-execution.
+- Document any external MCP/tool dependencies and rate limits inside the agent spec.
+
+### Input/Output Contracts
 ```yaml
----
-name: {agent-name}
-description: {clear English description}
-allowed-tools: [Tool1, Tool2]
-model: sonnet
-x-category: {category}
-x-capabilities: [{cap1}, {cap2}]
----
-
-{System prompt content with clear instructions}
+inputs:
+  agent_goal: string  # required statement of what the agent must accomplish
+  domain: string  # required domain focus
+  tools: list[string]  # optional MCP/tooling to wire in
+  constraints: list[string]  # optional constraints by type
+outputs:
+  agent_file: file  # complete agent definition ready for registry
+  validation: file  # tests executed, evidence, and ceilings
+  registry_notes: summary  # category, tags, and usage guidance
 ```
 
-#### Phase 4: Registry Validation
-1. Verify agent not already in registry (no duplicates)
-2. Check naming conventions match category
-3. Validate YAML schema compliance
-4. Ensure VCL 7-slot documentation in body
+### Recursive Improvement
+- Run recursive-improvement with failure cases to iteratively tighten guardrails; stop when deltas < 2% or risks logged.
 
-#### Phase 5: Output Delivery
-Respond with COMPLETE agent file including:
-- Full YAML frontmatter
-- Complete system prompt body
-- Usage examples
-- Registry path location
+### Examples
+- Generate a database migration agent with rollback safeguards and connection hygiene.
+- Create a content-safety triage agent that routes risky inputs and documents refusal policy.
 
-### Quality Gates
-- Registry compliance: agent exists in AGENT_REGISTRY before deploy
-- YAML validity: parseable frontmatter
-- VCL documentation: 7-slot coverage in body
-- No VERIX markers in description field
-- L2 purity: pure English output to user
+### Troubleshooting
+- Output too generic → re-run constraint extraction and add contrastive examples.
+- Tool mismatch → align capabilities with tool permissions and add failure handling.
+- Registry collisions → rename or specialize scope; update tags.
+
+### Completion Verification
+- [ ] Full agent spec delivered with frontmatter and body.
+- [ ] Validation evidence recorded with confidence ceilings.
+- [ ] Registry metadata present; routing notes included.
+- [ ] Hooks and tool constraints documented.
+
+Confidence: 0.70 (ceiling: inference 0.70) - SOP rewritten with Skill Forge scaffolding and prompt-architect ceilings.
