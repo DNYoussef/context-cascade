@@ -1,241 +1,64 @@
 ---
 name: method-development
-description: SKILL skill for research workflows
+description: Design and iterate on new research methods with structured checkpoints, baselines, and validation.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: research
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+- Develop, refine, and validate novel methods anchored to baselines and constraints.
+- Apply constraint hygiene and explicit ceilings to prevent premature claims.
+- Keep structure-first artifacts current for handoff and reproducibility.
 
-[define|neutral] SKILL := {
-  name: "SKILL",
-  category: "research",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** creating or adapting algorithms/pipelines; designing ablations; exploring new research ideas.
+- **Negative:** pure replication (use `baseline-replication`) or publication packaging (`research-publication`).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- HARD / SOFT / INFERRED constraint buckets (compute, data, metrics, ethics) with sources.
+- Two-pass refinement on designs: structure vs. baselines, then epistemic/risks.
+- Require baseline parity before claiming improvements; document variance sources.
+- Confidence ceilings enforced per claim.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Inputs
+- Problem statement and success metrics.
+- Baselines to beat and constraints (data, compute, deadlines).
+- Risk tolerances and evaluation protocols.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Workflow
+1. **Problem Framing**: Capture objectives, constraints, and baselines; confirm INFERRED assumptions.
+2. **Design Options**: Propose candidates with expected impact; map to constraints.
+3. **Experiment Plan**: Define ablations, datasets, metrics, and stopping rules.
+4. **Run & Observe**: Execute experiments, log configs/seeds; compare to baselines.
+5. **Validate & Iterate**: Analyze results, run adversarial checks, and refine or stop.
+6. **Package**: Summarize findings, risks, and next steps; store artifacts and update references/examples.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation & Quality Gates
+- Baseline beat or variance explained; claims tied to evidence with ceilings.
+- Ablations cover key hypotheses; failures documented.
+- Reproducibility assets stored (configs, logs, seeds).
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "research", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Response Template
+```
+**Objective & Constraints**
+- HARD / SOFT / INFERRED.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+**Design Candidates**
+- Option → rationale → expected impact.
 
-name: method-development
-description: Develop novel machine learning methods with rigorous ablation studies
-  for Deep Research SOP Pipeline D. Use after baseline replication passes Quality
-  Gate 1, when creating new algorithms, proposing modifications to existing methods,
-  or conducting systematic experimental validation. Includes architectural innovation,
-  hyperparameter optimization, and component-wise ablation analysis leading to Quality
-  Gate 2.
-version: 1.0.0
-category: research
-tags:
-- research
-- analysis
-- planning
-author: ruv
----
+**Experiment Status**
+- Runs, metrics vs. baseline, issues.
 
-# Method Development
+**Next Steps**
+- Iterate, stop, or expand.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Systematically develop and validate novel machine learning methods through controlled experimentation, ablation studies, and architectural innovation following Deep Research SOP Pipeline D.
-
-## Overview
-
-**Purpose**: Develop novel ML methods with rigorous experimental validation after baseline replication
-
-**When to Use**:
-- Quality Gate 1 (baseline replication) has APPROVED status
-- Proposing architectural modifications to baseline methods
-- Developing new training algorithms or optimization strategies
-- Creating novel model components or attention mechanisms
-- Systematic hyperparameter optimization required
-- Ablation studies needed to validate design choices
-
-**Quality Gate**: Leads to Quality Gate 2 (Model & Evaluation Validation)
-
-**Prerequisites**:
-- Baseline replication completed with ±1% tolerance (Quality Gate 1 passed)
-- Baseline reproducibility package available
-- Statistical analysis framework in place
-- Docker environment configured
-- GPU resources allocated (4-8 GPUs recommended)
-
-**Outputs**:
-- Novel method implementation with complete codebase
-- Ablation study results (minimum 5 components tested)
-- Performance comparison vs. baseline (statistical significance)
-- Architectural diagrams and design documentation
-- Hyperparameter sensitivity analysis
-- Quality Gate 2 checklist (model validation requirements)
-
-**Time Estimate**: 3-7 days (varies by complexity)
-- Phase 1 (Architecture Design): 4-8 hours
-- Phase 2 (Prototype Implementation): 1-2 days
-- Phase 3 (Ablation Studies): 2-3 days
-- Phase 4 (Optimization): 1-2 days
-- Phase 5 (Comparative Evaluation): 4-8 hours
-- Phase 6 (Documentation): 2-4 hours
-- Phase 7 (Gate 2 Validation): 2-4 hours
-
-**Agents Used**: system-architect, coder, tester, ethics-agent, reviewer, archivist, evaluator
-
----
-
-## Quick Start
-
-### 1. Prerequisites Check
-```bash
-# Verify baseline replication passed Gate 1
-npx claude-flow@alpha memory retrieve --key "sop/gate-1/status"
-
-# Load baseline reproducibility package
-cd baseline-replication-package/
-docker build -t baseline:latest .
-
-# Verify baseline results
-python scripts/verify_baseline_results.py --tolerance 0.01
+Confidence: 0.80 (ceiling: research 0.85) - based on current evidence and validation checks.
 ```
 
-### 2. Initialize Method Development
-```bash
-# Run architecture design workflow
-npx claude-flow@alpha hooks pre-task \
-  --description "Method development: Novel attention mechanism"
-
-# Create method development workspace
-mkdir -p novel-method/{src,experiments,ablations,docs}
-cd novel-method/
-```
-
-### 3. Design Novel Architecture
-```bash
-# Invoke system-architect agent
-# Document architectural decisions
-# Create comparison diagrams (baseline vs. novel)
-```
-
-### 4. Run Ablation Studies
-```bash
-# Minimum 5 component ablations required
-python scripts/run_ablations.py \
-  --components "attention,normalization,residual,activation,pooling" \
-  --baseline baseline:latest \
-  --runs 3 \
-  --seeds 42,123,456
-```
-
-### 5. Statistical Validation
-```bash
-# Compare novel method vs. baseline
-python scripts/statistical_comparison.py \
-  --method novel-method \
-  --baseline baseline \
-  --test paired-ttest \
-  --significance 0.05
-```
-
-### 6. Quality Gate 2 Validation
-```bash
-# Validate Gate 2 requirements
-npx claude-flow@alpha sparc run evaluator \
-  "/validate-gate-2 --pipeline E --method novel-method"
-```
-
----
-
-## Detailed Instructions
-
-### Phase 1: Architecture Design (4-8 hours)
-
-**Agent**: system-
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/research/SKILL/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.80 (ceiling: research 0.85) - reflects validated comparisons to baselines and logged experiments.

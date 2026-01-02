@@ -1,222 +1,62 @@
 ---
 name: researcher
-description: SKILL skill for research workflows
+description: Execute focused research tasks end-to-end with clear constraints, evidence tracking, and confidence ceilings.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: research
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+- Act as the default researcher for scoped tasks that need rapid evidence gathering and synthesis.
+- Apply prompt-architect constraint hygiene and confidence ceilings.
+- Keep structure-first artifacts updated for reuse.
 
-[define|neutral] SKILL := {
-  name: "SKILL",
-  category: "research",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** targeted questions, short investigations, or quick evidence pulls.
+- **Negative:** large orchestrations (`deep-research-orchestrator`) or pure brainstorming (`rapid-idea-generator`).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- Capture constraints in HARD / SOFT / INFERRED buckets with sources.
+- Two-pass process: (1) collect/structure evidence; (2) epistemic validation and synthesis.
+- Cite sources, avoid overclaims, and state confidence ceilings.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Inputs
+- Research question and decision context.
+- Timebox, depth requirements, and output format.
+- Seed sources (if any) and exclusions.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Workflow
+1. **Frame**: Define the question, decision, and constraint buckets; confirm INFERRED assumptions.
+2. **Gather**: Collect high-quality sources; log provenance.
+3. **Analyze**: Extract claims, compare, and mark conflicts/gaps.
+4. **Synthesize**: Summarize findings aligned to constraints and decision needs.
+5. **Validate & Deliver**: Check coverage, note risks, and provide outputs with confidence ceilings; store artifacts.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation & Quality Gates
+- Minimum two passes with documented deltas.
+- Evidence linked to sources; conflicts surfaced.
+- Confidence ceilings aligned to evidence type.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "research", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Response Template
+```
+**Question & Constraints**
+- HARD / SOFT / INFERRED.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+**Findings**
+- Claim → evidence → confidence ceiling.
 
-name: researcher
-description: Multi-level research with Gemini Search integration supporting 3 research
-  depths. Use when gathering information, conducting systematic analysis, or synthesizing
-  knowledge from multiple sources. Applies 90%+ credibility scoring and comprehensive
-  source evaluation.
-version: 1.0.0
-category: research
-tags:
-- research
-- analysis
-- planning
-author: ruv
----
+**Gaps / Risks**
+- ...
 
-# Researcher - Systematic Information Gathering
+**Next Steps**
+- ...
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+Confidence: 0.79 (ceiling: inference 0.70) - based on gathered evidence and synthesis.
+```
 
-
-
-Systematic multi-level research with integrated Gemini Search for comprehensive knowledge synthesis.
-
-## When to Use This Skill
-
-Use when conducting technical research, gathering information on unfamiliar topics, comparing technologies or approaches, validating claims with credible sources, or building comprehensive knowledge bases.
-
-## 3-Level Research Methodology
-
-### Level 1: Basic Research (< 5 minutes)
-- Quick factual queries
-- Single-source validation
-- Surface-level understanding
-- Immediate answers needed
-
-**Process**:
-1. Query Gemini Search for primary information
-2. Validate source credibility (>70%)
-3. Extract key facts
-4. Provide concise summary
-
-### Level 2: Multi-Source Research (15-30 minutes)
-- Cross-reference multiple sources
-- Deeper analysis required
-- Technical understanding needed
-- Comprehensive overview desired
-
-**Process**:
-1. Query 3-5 authoritative sources
-2. Compare and contrast findings
-3. Identify consensus and disagreements
-4. Synthesize into coherent analysis
-5. Score sources for credibility (>85%)
-
-### Level 3: Deep Dive Research (1+ hours)
-- Extensive investigation
-- Academic rigor required
-- Complex topic with nuances
-- Publication-ready research
-
-**Process**:
-1. Systematic literature review
-2. Query 10+ diverse sources
-3. Analyze methodology and evidence
-4. Identify research gaps
-5. Synthesize comprehensive report
-6. Ensure 90%+ source credibility
-
-## Source Evaluation Criteria
-
-### Credibility Scoring (0-100%)
-- **Authority** (30%): Expert author, institutional backing
-- **Accuracy** (25%): Fact-checked, peer-reviewed, verifiable
-- **Objectivity** (20%): Minimal bias, balanced perspective
-- **Currency** (15%): Recent publication, up-to-date information
-- **Coverage** (10%): Comprehensive treatment of topic
-
-### Source Types by Reliability
-1. **Tier 1 (90-100%)**: Peer-reviewed journals, official documentation
-2. **Tier 2 (75-89%)**: Industry reports, credible news outlets
-3. **Tier 3 (60-74%)**: Blog posts from experts, technical forums
-4. **Tier 4 (<60%)**: Unverified sources, opinion pieces
-
-## Gemini Search Integration
-
-- Use `gemini-search` skill for web queries
-- Enable grounded search for factual accuracy
-- Leverage Google Search API for broad coverage
-- Apply source verification automatically
-
-## Output Formats
-
-- **Summary**: Key findings in bullet points
-- **Synthesis**: Coherent narrative combining sources
-- **Bibliography**: Annotated source list with credibility scores
-- **Analysis**: Detailed evaluation with evidence
-## Core Principles
-
-Researcher operates on 3 fundamental principles:
-
-### Principle 1: Credibility-First Source Evaluation
-Every source is scored using a multi-dimensional rubric (Authority, Accuracy, Objectivity, Currency, Coverage) before incorporation. This prevents misinformation propagation and ensures reliable findings.
-
-In practice:
-- Tier 1 sources (90-100%) prioritized for critical claims
-- Cross-validation required when using Tier 3 sources (60-74%)
-- Automatic rejection of sources scoring below 60% credibility
-
-### Principle 2: Multi-Source Triangulation
-Claims are validated through independent corroboration from 3+ sources at different tiers. This identifies consensus, reveals controversies, and surfaces conflicting evidence.
-
-In practice:
-- Key technical findings backed by peer-reviewed journals plus official documentation
-- Contradictory evidence explicitly reported with analysis of disagreement sources
-- Single-source claims flagged and ma
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/research/SKILL/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.79 (ceiling: inference 0.70) - reflects validated quick research delivery.
