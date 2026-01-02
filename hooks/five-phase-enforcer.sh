@@ -7,7 +7,7 @@
 # for non-trivial tasks, ensuring Claude follows the SOP.
 
 # Read the user's message from stdin
-USER_MESSAGE=$(cat)
+USER_MESSAGE=$(timeout 5 cat 2>/dev/null || echo '{}')
 
 # Extract the actual message text
 MESSAGE_TEXT=$(echo "$USER_MESSAGE" | jq -r '.message // empty' 2>/dev/null || echo "$USER_MESSAGE")

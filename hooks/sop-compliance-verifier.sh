@@ -7,7 +7,7 @@
 #   Skill -> Task (spawn agents) -> TodoWrite (track progress)
 
 # Read tool execution data from stdin
-TOOL_DATA=$(cat)
+TOOL_DATA=$(timeout 3 cat 2>/dev/null || echo '{}')
 
 # Extract tool name and result
 TOOL_NAME=$(echo "$TOOL_DATA" | jq -r '.tool_name // empty' 2>/dev/null)

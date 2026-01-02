@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STATE_TRACKER="$SCRIPT_DIR/state-tracker.sh"
 
 # Read tool execution data from stdin
-TOOL_DATA=$(cat)
+TOOL_DATA=$(timeout 3 cat 2>/dev/null || echo '{}')
 
 # Extract tool name
 TOOL_NAME=$(echo "$TOOL_DATA" | jq -r '.tool_name // empty' 2>/dev/null)

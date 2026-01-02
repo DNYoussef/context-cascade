@@ -15,7 +15,7 @@ ROUTER="$PLUGIN_DIR/scripts/skill-index/route-skill.sh"
 INDEX_FILE="$PLUGIN_DIR/scripts/skill-index/skill-index.json"
 
 # Read the user's message from stdin
-USER_MESSAGE=$(cat)
+USER_MESSAGE=$(timeout 5 cat 2>/dev/null || echo '{}')
 
 # Extract the actual message text
 MESSAGE_TEXT=$(echo "$USER_MESSAGE" | jq -r '.message // empty' 2>/dev/null || echo "$USER_MESSAGE")

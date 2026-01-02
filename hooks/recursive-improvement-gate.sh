@@ -7,7 +7,7 @@
 # agent-creator, eval-harness) go through proper evaluation.
 
 # Read tool input from stdin
-TOOL_INPUT=$(cat)
+TOOL_INPUT=$(timeout 5 cat 2>/dev/null || echo '{}')
 
 # Extract file path
 FILE_PATH=$(echo "$TOOL_INPUT" | jq -r '.tool_input.file_path // .tool_input.path // empty' 2>/dev/null)

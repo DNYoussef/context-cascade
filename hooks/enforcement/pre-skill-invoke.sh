@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STATE_TRACKER="$SCRIPT_DIR/state-tracker.sh"
 
 # Read tool data from stdin
-TOOL_DATA=$(cat)
+TOOL_DATA=$(timeout 3 cat 2>/dev/null || echo '{}')
 
 # Extract skill name from tool input
 # NOTE: This tries to parse the skill parameter, but hooks have limited access
