@@ -1,36 +1,12 @@
-# Interactive Requirements Planning - Quick Start
+# When Gathering Requirements, Use Interactive Planner
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+Lightweight router that ensures requirement-gathering requests go through the interactive-planner SOP with constraint clarity and confidence ceilings.
 
+## How to Use
+1. Confirm the task is requirement gathering; otherwise reroute to the right skill.
+2. Capture HARD / SOFT / INFERRED requirements with sources.
+3. Hand off to `interactive-planner` with goals, stakeholders, and timelines.
+4. Verify outputs include milestones, risks, and a confidence ceiling.
+5. Store the brief and outputs for reuse.
 
-
-Gather requirements using Claude Code's interactive question tool.
-
-## Quick Start
-
-1. Use AskUserQuestion for initial discovery
-2. Follow up with detailed questions
-3. Structure into specification document
-4. Validate with stakeholders
-5. Create action plan
-
-## Duration
-
-15-30 minutes
-
-## Agents
-
-- planner: Requirements orchestration
-- researcher: Domain expertise
-- system-architect: Technical feasibility
-
-## See Also
-
-- Full SOP: [SKILL.md](SKILL.md)
-- Detailed Process: [PROCESS.md](PROCESS.md)
-- Visual Workflow: [process-diagram.gv](process-diagram.gv)
-
-
----
-*Promise: `<promise>README_VERIX_COMPLIANT</promise>`*
+Confidence: 0.75 (ceiling: inference 0.70) - based on the routing and constraint-capture steps.
