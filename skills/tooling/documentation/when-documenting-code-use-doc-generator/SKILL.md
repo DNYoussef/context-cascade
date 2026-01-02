@@ -1,234 +1,69 @@
 ---
-name: doc-generator
-description: Automated comprehensive code documentation generation with API docs, README files, inline comments, and architecture diagrams
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+name: when-documenting-code-use-doc-generator
+description: Generate READMEs, API docs, inline comments, and process docs with constraint-first prompts and validation gates.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling/documentation
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the doc-generator SOP using Prompt Architect clarity and Skill Forge guardrails.
+- Added routing, safety (no hallucinated APIs), confidence ceilings, and memory tagging.
+- Simplified slash-command references and process steps.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Produce accurate documentation (README, API docs, inline comments) from code and requirements with clear provenance and validation.
+
+### Trigger Conditions
+- **Positive:** requests to document code, generate README/API/inline docs, or refresh docs after changes.
+- **Negative:** strategy-only doc planning (use documentation hub) or non-code content.
+
+### Guardrails
+- Evidence-first: cite file paths/lines; avoid unverified APIs.
+- Confidence ceilings mandatory; flag uncertain areas for human review.
+- Structure-first docs (SKILL, README, PROCESS, subagent notes) kept current.
+- Memory tagging for outputs and commands used.
+
+### Execution Phases
+1. **Intent & Scope** – Identify doc type, audience, and coverage; confirm source files.
+2. **Source Review** – Read code and existing docs; extract constraints and terminology.
+3. **Drafting** – Generate docs with progressive disclosure (overview → setup → workflows → references).
+4. **Validation** – Cross-check against code, run doc lint if available, verify links/examples.
+5. **Delivery** – Provide updated files, diffs, validation notes, and confidence ceiling; store in memory.
+
+### Output Format
+- Doc type, scope, sources, and assumptions.
+- Drafted/updated content with paths.
+- Validation results and open questions.
+- Confidence: X.XX (ceiling: TYPE Y.YY) + memory namespace.
+
+### Validation Checklist
+- [ ] Sources cited; no hallucinated APIs.
+- [ ] Audience/terminology aligned; links/examples verified.
+- [ ] Memory tagged; confidence ceiling declared.
+
+### Integration
+- **Slash commands:** see accompanying scripts for API/inline/README generation.
+- **Memory MCP:** `skills/tooling/when-documenting-code-use-doc-generator/{project}/{timestamp}` (mirror when nested).
+
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect clarity and Skill Forge guardrails.
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
----
 
-[define|neutral] SKILL := {
-  name: "when-documenting-code-use-doc-generator",
-  category: "tooling",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+[[HON:teineigo]] [[MOR:root:D-K-M]] [[COM:Doc+Uretici]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/when-documenting-code-use-doc-generator]]
+[define|neutral] DOC_GENERATOR := kaynak koddan README/API/inline dokuman uretir; kanit ve guven tavani zorunlu. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+[[HON:teineigo]] [[MOR:root:S-R-C]] [[COM:Source+Referans]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
+[direct|emphatic] SOURCE_RULE := path/line referansi olmadan cikti yok; belirsiz kisimlar bayraklanir. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; ciktiya yazilir. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-documenting-code-use-doc-generator", "tooling", "workflow"],
-  context: "user needs when-documenting-code-use-doc-generator capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# When Documenting Code - Use Doc Generator
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-This skill provides automated, comprehensive documentation generation for codebases. It analyzes code structure, generates API documentation, creates README files, adds inline comments, and produces architecture diagrams using evidence-based documentation patterns.
-
-## MCP Requirements
-
-This skill operates using Claude Code's built-in tools only. No additional MCP servers required.
-
-## Core Capabilities
-
-1. **Code Analysis**: Extract APIs, functions, classes, types, and dependencies
-2. **API Documentation**: Generate OpenAPI, JSDoc, TypeDoc, and Python docstrings
-3. **README Generation**: Create comprehensive project documentation
-4. **Inline Comments**: Add missing documentation with context-aware comments
-5. **Diagram Generation**: Produce architecture and flow diagrams (Graphviz, Mermaid)
-
-## SPARC Methodology: Documentation Generation
-
-### Phase 1: SPECIFICATION - Analyze Documentation Requirements
-
-**Objective**: Understand the codebase structure and documentation needs
-
-**Actions**:
-1. Scan project structure and identify file types
-2. Detect programming languages and frameworks
-3. Identify existing documentation (README, API docs, comments)
-4. Analyze documentation gaps and missing coverage
-5. Determine documentation standards (JSDoc, TSDoc, Python docstrings)
-
-**Deliverables**:
-- Project structure analysis
-- Documentation gap report
-- Recommended documentation strategy
-- Style guide selection
-
-**Agent**: `code-analyzer`
-
-**Example Analysis**:
-```
-Project: express-api-server
-Languages: JavaScript (TypeScript), 85% | JSON 10% | Markdown 5%
-Frameworks: Express.js, Jest
-Current Documentation:
-  - README.md: Exists (outdated, 3 months old)
-  - API Docs: None
-  - Inline Comments: 12% coverage
-  - Type Definitions: 45% coverage
-
-Gaps Identified:
-  - ❌ No API documentation (12 endpoints undocumented)
-  - ❌ Missing installation instructions
-  - ❌ No architecture diagrams
-  - ⚠️  Low inline comment coverage
-  - ✅ Package.json well-documented
-
-Recommended Strategy:
-  1. Generate OpenAPI 3.0 spec for REST API
-  2. Add JSDoc comments to all public functions
-  3. Create comprehensive README with badges
-  4. Generate architecture diagram (system overview)
-  5. Add usage examples for main features
-```
-
-### Phase 2: PSEUDOCODE - Design Documentation Structure
-
-**Objective**: Plan documentation hierarchy and templates
-
-**Actions**:
-1. Design documentation structure (README, API, guides)
-2. Define comment style and conventions
-3. Create templates for each documentation type
-4. Plan diagram types and structure
-5. Define metadata and frontmatter standards
-
-**Deliverables**:
-- Documentation structure outline
-- Template designs for each type
-- Comment convention guide
-- Diagram specifications
-
-**Example Structure**:
-```
-Documentation Hierarchy:
-
-docs/
-├── README.md                 # Project overview
-├── INSTALLATION.md          # Setup guide
-├── API.md                   # API reference
-├── ARCHITECTURE.md          # System design
-├── CONTRIBUTING.md          # Contribution guide
-├── diagrams/
-│   ├── system-overview.svg  # High-level architecture
-│   ├── data-flow.svg        # Data flow diagram
-│   └── api-endpoints.svg    # API structure
-└── examples/
-    ├── basic-usage.md
-    └── advanced-features.md
-
-Comment Standards:
-- JSDoc for all exported functions
-- TypeDoc for TypeScript interfaces
-- File header with purpose and author
-- Inline comments for complex logic only
-
-API Documentation:
-- OpenAPI 3.0 specification
-- Example requests/responses
-- Error code documentation
-- Authentication guide
-```
-
-### Phase 3: ARCHITECTURE - Define Generation Pipeline
-
-**Objective**: Design the documentation generation workflow
-
-**Actions**:
-1. Define code parsing strategy (AST, regex, static analysis)
-2. Design template engine for documentation generation
-3. Plan diagram generation pipeline (Graphviz/Mermaid)
-4. Define
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/when-documenting-code-use-doc-generator/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-documenting-code-use-doc-generator-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_DOCUMENTING_CODE_USE_DOC_GENERATOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>DOC_GENERATOR_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

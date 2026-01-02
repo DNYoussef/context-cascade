@@ -1,59 +1,32 @@
-# Documentation - Quick Reference v2.1.0
+# Documentation Hub – Quick Reference (v3.2.0)
 
-## Keigo Wakugumi (Honorific Frame Activation)
-Taishougisha nintei moodoga yuukoudesu.
+Purpose: plan, draft, and validate docs with Prompt Architect constraint ordering and Skill Forge delivery gates.
 
+## Triggers
+- README/API/inline/changelog/architecture doc updates.
+- Route heavy generation to `when-documenting-code-use-doc-generator`.
 
+## Fast Path
+1. Confirm doc type, audience, scope, and constraints (style guide, terminology, links).
+2. Collect sources: code paths, existing docs, decisions, API schemas.
+3. Draft with progressive disclosure: overview → setup → workflows → references.
+4. Validate accuracy vs code; run doc lint or link checks when available.
+5. Deliver with risks, follow-ups, and confidence line (ceiling syntax).
 
-## Purpose
-Documentation generation and maintenance hub.
+## Inputs
+- `doc_type`: README|API|inline|changelog|guide.
+- `scope`: files/paths; `audience`: dev|ops|pm|user.
+- Options: `style_guide`, `terminology`, `report_format`.
 
-## Documentation Types
+## Outputs
+- Drafted/updated sections with file paths and diffs.
+- Validation notes and outstanding questions.
+- Memory keys used and confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY)`.
 
-| Type | Output |
-|------|--------|
-| README | Project README.md |
-| API | OpenAPI/JSDoc/Sphinx |
-| Inline | Code comments |
-| Architecture | System diagrams |
+## Validation Checklist
+- Audience/intent confirmed; routing noted.
+- Sources cited and verified.
+- Style and terminology consistent; links valid.
+- Confidence ceiling declared; memory tagged.
 
-## Quick Commands
-
-```bash
-# Generate README
-Use documentation readme for: [project path]
-
-# Generate API docs
-Use documentation api for: [api path]
-
-# Add inline comments
-Use documentation inline for: [code path]
-```
-
-## README Sections
-
-- Title & Badges
-- Description
-- Installation
-- Usage
-- API Reference
-- Contributing
-- License
-
-## Best Practices
-
-- Keep docs near code
-- Use consistent style
-- Include examples
-- Update with changes
-- Automate generation
-
-## Related Skills
-
-- **code-review-assistant**
-- **api-development**
-- **feature-dev-complete**
-
-
----
-*Promise: `<promise>QUICK_REFERENCE_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) – Quick reference rewritten to match Prompt Architect sequencing.

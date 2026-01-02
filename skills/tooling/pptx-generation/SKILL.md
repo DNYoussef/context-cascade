@@ -1,174 +1,74 @@
 ---
 name: pptx-generation
-description: Enterprise-grade PowerPoint deck generation system using evidence-based prompting techniques, workflow enforcement, and constraint-based design. Use when creating professional presentations (board dec
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Generate production-ready PowerPoint decks with structured prompts, design guardrails, and validation checkpoints.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the deck builder SOP using Prompt Architect clarity and Skill Forge structure-first guardrails.
+- Clarified design constraints, validation checks, and memory tagging with confidence ceilings.
+- Consolidated references for brand, architecture, and validation into concise checklists.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Produce clear, on-brand PowerPoint decks (simple to complex) with repeatable prompts, templates, and validation gates.
+
+### Trigger Conditions
+- **Positive:** requests for slide decks, executive summaries, architecture reviews, or training materials.
+- **Negative:** graphic design requiring manual tools; route to design specialists.
+
+### Guardrails
+- Structure-first docs kept current (SKILL, README, references, examples/tests).
+- Capture constraints: audience, tone, brand colors/fonts, slide count, deadlines.
+- Enforce design rules (contrast, spacing, hierarchy) and brand usage from references.
+- Confidence ceilings required for content accuracy and design fit.
+- Memory tagging for deck runs and assets.
+
+### Execution Phases
+1. **Intent & Brief** – Collect audience, goal, storyline, brand kit, and delivery format; pick template (simple/complex).
+2. **Outline & Storyboard** – Draft narrative arc (hook → problem → proof → plan → ask) with slide-by-slide goals.
+3. **Content Drafting** – Generate slide content (titles, bullets, visuals), referencing `references/` guidance.
+4. **Design Application** – Apply templates/resources; ensure contrast, alignment, and visual hierarchy.
+5. **Validation** – Run checklist (structure, brand compliance, accessibility, accuracy) and iterate if gaps remain.
+6. **Delivery** – Export deck, provide change log, risks, follow-ups, and confidence ceiling; store artifacts.
+
+### Output Format
+- Brief summary (audience, goal), template used, outline, and key slides.
+- Validation results and open issues.
+- Export path(s) and memory keys.
+- Confidence: X.XX (ceiling: TYPE Y.YY).
+
+### Validation Checklist
+- [ ] Storyline covers hook → problem → plan → proof → ask.
+- [ ] Brand colors/fonts applied; contrast and spacing validated.
+- [ ] Slide count/sections match brief; links/assets resolve.
+- [ ] Accessibility and readability checked; confidence ceiling recorded.
+- [ ] Memory tagged and artifacts stored.
+
+### Integration
+- **Resources:** templates and assets in `resources/`.
+- **References:** design principles and brand/architecture guidance in `references/`.
+- **Memory MCP:** `skills/tooling/pptx-generation/{project}/{timestamp}`.
+
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect sequencing and Skill Forge guardrails.
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
----
 
-[define|neutral] SKILL := {
-  name: "pptx-generation",
-  category: "tooling",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+[[HON:teineigo]] [[MOR:root:P-P-T]] [[COM:Deck+Uretimi]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/pptx-generation]]
+[define|neutral] PPTX_GEN := brife dayali storyboard + tasarim + dogrulama; marka/erisilebilirlik kurallari zorunlu. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+[[HON:teineigo]] [[MOR:root:D-Z-N]] [[COM:Design+Guardrail]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
+[direct|emphatic] DESIGN_RULES := kontrast, hizalama, hiyerarsi, bosluk; ihlal edilemez. [ground:references] [conf:0.87] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; ciktida belirtilir. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["pptx-generation", "tooling", "workflow"],
-  context: "user needs pptx-generation capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# PowerPoint Generation Skill
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-This skill implements a systematic framework for generating professional-quality PowerPoint presentations using AI. It addresses the unique challenges of PowerPoint as a medium that combines data analysis, narrative structure, visual design, and spatial layout—making it one of the most complex AI generation tasks in corporate knowledge work.
-
-The skill applies evidence-based prompting techniques (plan-and-solve, program-of-thought, self-consistency), structural optimization principles (workflow enforcement, constraint-based design, validation gates), and proven spatial layout patterns to ensure consistent, high-quality outputs.
-
-## Core Principles
-
-### 1. Workflow Enforcement
-
-AI systems exhibit tool degradation—silently switching to suboptimal alternatives when primary tools encounter difficulties. For spatial/visual tasks, this creates unreliable outputs.
-
-**Implementation**: Explicitly specify the html2pptx technical workflow and prohibit alternative approaches. Require documentation review before execution.
-
-**Rationale**: PowerPoint generation requires precise spatial calculations. The html2pptx skill provides reliable pixel-level control. Preventing tool switching eliminates the primary source of layout inconsistencies.
-
-### 2. Constraint-Based Design Over Decorative Specification
-
-Simple visual rules scale reliably; complex decorative elements create brittleness in AI generation.
-
-**Implementation**: Define what NOT to do (negative constraints) before specifying positive behaviors. Prohibit border boxes, outline shapes, and rounded rectangles. Emphasize spacing, typography, and subtle color blocks.
-
-**Rationale**: Visual design has exponentially more failure modes than success modes. Eliminating known problematic patterns focuses generative capacity within reliable boundaries. Clean design enables AI to prioritize content synthesis over visual parsing.
-
-### 3. Pre-Execution Design Planning
-
-Separating planning from execution prevents premature commitment to suboptimal visual approaches.
-
-**Implementation**: Require written design plan specifying layout approach, color palette, typography hierarchy, and visual emphasis strategy before code generation.
-
-**Rationale**: Mimics human design process. Creates audit trail for review. Establishes coherent visual system before implementation begins. Dramatically improves consistency across multi-slide decks.
-
-### 4. Quantified Visual Specifications
-
-Vague instructions ("clean margins") force the AI to guess intent. Precise specifications eliminate ambiguity.
-
-**Implementation**: Convert qualitative requirements to measurable parameters (contrast ratios, font sizes, margin measurements, element counts).
-
-**Rationale**: Spatial relationships are inherently quantitative. Explicit measurements create reproducible results and enable automated validation.
-
-### 5. Multi-Chat Architecture for Complex Decks
-
-Visual elements consume tokens faster than text or data. Single-context generation becomes unreliable beyond ~15 slides.
-
-**Implementation**: Separate architect (narrative structure), generator (slide production), and assembly (consistency validation) into distinct conversations for 30+ slide decks.
-
-**Rationale**: Manages context window limitations. Allows focused expertise in each phase. Enables section-level iteration without full deck regeneration.
-
-## When to Use This Skill
-
-**Primary Use Cases**:
-- Board decks and executive presentations requiring professional polish
-- Financial reports integrating data from multiple sources
-- Strategic analyses combining quantitative and qualitative content
-- Project updates demanding consistent visual language
-- Any presentation where visual quality impacts stakeholder perception
-
-**Skill Triggers**:
-- User requests "create a presentation," "make slides," "build a deck"
-- User asks to "analyze [data] and present finding
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/pptx-generation/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "pptx-generation-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>PPTX_GENERATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>PPTX_GENERATION_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

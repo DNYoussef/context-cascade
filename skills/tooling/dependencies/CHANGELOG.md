@@ -1,9 +1,16 @@
 # Changelog - Dependencies
 
+## [3.2.0] - 2026-01-XX
+
+### Changed
+- Rewrote SKILL and quick reference in Prompt Architect + Skill Forge format with confidence ceilings.
+- Added structure-first guardrails, memory tagging, and explicit routing to dependency-mapper.
+- Streamlined audit/graph/upgrade phases with validation checklist.
+
+---
+
 ## Kanitsal Cerceve (Evidential Frame Activation)
 Kaynak dogrulama modu etkin.
-
-
 
 ## [2.1.0] - 2024-12-15
 

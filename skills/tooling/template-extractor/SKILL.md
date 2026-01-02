@@ -1,162 +1,73 @@
 ---
 name: template-extractor
-description: Reverse-engineer document templates to extract exact design specifications and generate reusable AI prompts for pixel-perfect document recreation
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Extract reusable templates and patterns from source artifacts with structured prompts and validation checkpoints.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rebuilt the extractor SOP using Prompt Architect constraint ordering and Skill Forge structure-first guardrails.
+- Added clear triggers, input/output contracts, and confidence ceilings with memory tagging.
+- Clarified validation for fidelity (no hallucinations) and reusability.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Identify, isolate, and package reusable templates (prompts, code snippets, docs, configs) from existing artifacts while preserving fidelity and context.
+
+### Trigger Conditions
+- **Positive:** requests to extract reusable templates/patterns, generate starter kits, or refactor repetitive content.
+- **Negative:** net-new template design (route to prompt-architect/skill-forge) or full refactors without reuse focus.
+
+### Guardrails
+- Structure-first docs maintained (SKILL, README, improvement summary, references, scripts).
+- Evidence-first extraction: cite source paths and lines; avoid hallucinated additions.
+- Confidence ceilings mandatory; flag uncertain sections for review.
+- Memory tagging for extracted templates and provenance.
+
+### Execution Phases
+1. **Intent & Scope** – Define artifact type (prompt/code/doc/config), success criteria, and allowed modifications.
+2. **Source Collection** – Locate canonical files; gather context (dependencies, environment, licenses).
+3. **Extraction** – Isolate template blocks with placeholders; annotate variables and constraints.
+4. **Normalization** – Standardize structure (front matter, parameters, steps), add usage notes.
+5. **Validation** – Verify fidelity against source; run lint/tests if applicable; check licensing.
+6. **Delivery** – Provide template files, provenance, usage guidance, and confidence line.
+
+### Output Format
+- Template(s) with placeholders/parameters and usage instructions.
+- Provenance (paths/lines), constraints, and compatibility notes.
+- Validation results and open questions.
+- Confidence: X.XX (ceiling: TYPE Y.YY) and memory keys used.
+
+### Validation Checklist
+- [ ] Source paths cited; no hallucinated content.
+- [ ] Placeholders/parameters documented with defaults.
+- [ ] Licensing/compatibility noted.
+- [ ] Memory tagged and artifacts stored.
+- [ ] Confidence ceiling declared.
+
+### Integration
+- **Scripts:** automation helpers in `scripts/`.
+- **Memory MCP:** `skills/tooling/template-extractor/{project}/{timestamp}` for extracted templates and provenance.
+- **Hooks:** follow Skill Forge latency bounds; integrate with validation tools as needed.
+
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect clarity and Skill Forge guardrails.
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
----
 
-[define|neutral] SKILL := {
-  name: "template-extractor",
-  category: "tooling",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+[[HON:teineigo]] [[MOR:root:T-M-P]] [[COM:Sablon+Cikarim]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/template-extractor]]
+[define|neutral] TEMPLATE_EXTRACTOR := kaynak dogrulamalariyla tekrar kullanilabilir sablonlar cikartir; sahte icerik yasak. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+[[HON:teineigo]] [[MOR:root:F-D-L]] [[COM:Fidelity+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
+[direct|emphatic] FIDELITY_RULE := kaynaga referans (path+line) olmadan sablon yok; belirsiz kisimlar bayraklanir. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; beyan zorunlu. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["template-extractor", "tooling", "workflow"],
-  context: "user needs template-extractor capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# Template Extractor
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-Template Extractor is a systematic reverse-engineering tool that extracts precise design specifications from existing documents (DOCX, PPTX, XLSX, PDF) to enable pixel-perfect recreation. Unlike visual inspection which leads to "close enough" approximations, this skill unpacks document file structures and parses their underlying XML to extract exact font sizes, color hex codes, spacing values, and layout configurations.
-
-The skill generates two critical outputs: (1) a code-level technical specification with exact measurements and values, and (2) an AI-ready prompt that enables any language model to recreate documents in that exact style. This dual-output approach ensures both machine precision and human comprehension.
-
-By validating extracted templates through test recreation and visual comparison, Template Extractor guarantees that generated specifications are accurate and actionable, eliminating the guesswork and iteration cycles typical of manual document formatting.
-
-## When to Use
-
-**Use When**:
-- User provides a sample document (DOCX, PPTX, XLSX, or PDF) and wants to replicate its formatting exactly
-- User needs to create a reusable document style guide from an existing file without manual measurement
-- User wants to generate an AI prompt that enables consistent document generation across multiple files
-- User needs to standardize document formatting across a team by extracting a reference template
-- User is migrating from one document system to another and needs precise format specifications
-- User wants to create a branded document generator that matches corporate style guides
-- User needs to audit existing documents to document their design specifications
-- User wants to ensure document formatting consistency without manually measuring fonts and spacing
-
-**Do Not Use**:
-- User wants to create a document from scratch without a reference template (use doc-generator or pptx-generation instead)
-- User only needs to convert document formats without preserving exact styling (use standard conversion tools)
-- User wants to improve or modify existing formatting rather than replicate it exactly
-- User is working with handwritten documents or non-digital formats (no structured data to extract)
-- User needs real-time document editing rather than specification extraction
-- User's priority is content extraction rather than format specification
-
-## Core Principles
-
-### Principle 1: Systematic Extraction Over Visual Guessing
-
-Human visual inspection of documents leads to approximations: "that looks like 14pt" or "probably Arial". Template Extractor treats documents as ZIP archives containing structured XML, unpacking them to access authoritative sources like `styles.xml`, `theme1.xml`, and `document.xml`. This approach extracts definitive values rather than best guesses.
-
-**Why This Matters**: A "close enough" color (#333333 vs #1F1F1F) creates subtle inconsistency that compounds across documents. A 1pt font size difference (11pt vs 12pt) changes readability and layout flow. Manual inspection cannot reliably detect these differences, but XML parsing provides ground truth.
-
-**In Practice**:
-- Unpack DOCX/PPTX/XLSX files as ZIP archives to access internal XML structure
-- Parse `word/styles.xml` for exact heading and body text specifications
-- Extract `word/theme/theme1.xml` for color scheme definitions (hex values, not visual approximations)
-- Read `word/document.xml` for page layout settings (margins, orientation, dimensions)
-- Convert OOXML units (half-points, twips, EMUs) to standard measurements using precise formulas
-- Extract embedded media files (logos, images) from `word/media/` directories
-- For PDFs, use metadata extraction and text analysis to identify fonts and spacing patterns
-
-### Principle 2: Dual Output (Specification + Prompt)
-
-Template Extractor generates two complementary artifacts: a technical specifi
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/template-extractor/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "template-extractor-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>TEMPLATE_EXTRACTOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>TEMPLATE_EXTRACTOR_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

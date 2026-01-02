@@ -1,190 +1,72 @@
 ---
 name: web-cli-teleport
-description: Guide users on when to use Claude Code Web vs CLI and seamlessly teleport sessions between environments
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Teleport between web and CLI contexts with synchronized actions, credentials, and safety rails.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reframed the teleport skill with Prompt Architect clarity and Skill Forge guardrails.
+- Added explicit routing, safety constraints, and memory tagging.
+- Clarified output expectations and confidence ceilings.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Bridge web and CLI tasks safely—execute commands, capture outputs, and synchronize state while respecting permissions and auditability.
+
+### Trigger Conditions
+- **Positive:** need to mirror actions between browser and terminal, fetch artifacts, or reproduce web steps in CLI.
+- **Negative:** high-risk admin operations without approvals; route to platform specialists.
+
+### Guardrails
+- Structure-first docs maintained (SKILL, README, process diagram).
+- Respect credential boundaries; never store secrets in outputs.
+- Enforce safety prompts for destructive commands; prefer dry-runs first.
+- Confidence ceilings on inferred states; cite observed outputs.
+- Memory tagging for session actions.
+
+### Execution Phases
+1. **Intent & Scope** – Define goal, environments, and constraints (read-only vs write, network limits).
+2. **Context Sync** – Capture current web state (URL, form data) and CLI state (cwd, env); note assumptions.
+3. **Plan** – Map steps across web/CLI; identify risky actions and mitigations.
+4. **Execute** – Perform actions with logging; use dry-run or safe flags; verify after each step.
+5. **Validate** – Confirm state convergence (files, configs, outputs); capture evidence.
+6. **Deliver** – Summarize actions, artifacts, and confidence line; store session memory.
+
+### Output Format
+- Goal, environments, actions taken (web + CLI) with evidence and timestamps.
+- Risks handled, remaining gaps, and next steps.
+- Memory namespace and confidence: X.XX (ceiling: TYPE Y.YY).
+
+### Validation Checklist
+- [ ] Permissions/credentials confirmed; secrets not logged.
+- [ ] Risky commands gated or dry-run first.
+- [ ] Web and CLI states reconciled; evidence captured.
+- [ ] Memory tagged; confidence ceiling declared.
+
+### Integration
+- **Process:** see `web-cli-teleport-process.dot` for flow.
+- **Memory MCP:** `skills/tooling/web-cli-teleport/{project}/{timestamp}` for session logs.
+- **Hooks:** follow Skill Forge latency bounds; abort on safety violations.
+
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect clarity and Skill Forge safeguards.
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
----
 
-[define|neutral] SKILL := {
-  name: "web-cli-teleport",
-  category: "tooling",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+[[HON:teineigo]] [[MOR:root:T-L-P]] [[COM:Teleport+Kopru]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/web-cli-teleport]]
+[define|neutral] TELEPORT := web<->CLI senkronizasyonu; guvenlik/siralama kurallari ile. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+[[HON:teineigo]] [[MOR:root:S-F-T]] [[COM:Safety+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:safeguards]]
+[direct|emphatic] SAFETY := destruktif komutlar icin dry-run/onay; gizli bilgiler ciktiya yazilmaz. [ground:SKILL.md] [conf:0.88] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; belirtilir. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["web-cli-teleport", "tooling", "workflow"],
-  context: "user needs web-cli-teleport capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## When to Use This Skill
-
-- **Tool Usage**: When you need to execute specific tools, lookup reference materials, or run automation pipelines
-- **Reference Lookup**: When you need to access documented patterns, best practices, or technical specifications
-- **Automation Needs**: When you need to run standardized workflows or pipeline processes
-
-## When NOT to Use This Skill
-
-- **Manual Processes**: Avoid when manual intervention is more appropriate than automated tools
-- **Non-Standard Tools**: Do not use when tools are deprecated, unsupported, or outside standard toolkit
-
-## Success Criteria
-- [assert|neutral] *Tool Executed Correctly**: Verify tool runs without errors and produces expected output [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Reference Accurate**: Confirm reference material is current and applicable [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Pipeline Complete**: Ensure automation pipeline completes all stages successfully [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## Edge Cases
-
-- **Tool Unavailable**: Handle scenarios where required tool is not installed or accessible
-- **Outdated References**: Detect when reference material is obsolete or superseded
-- **Pipeline Failures**: Recover gracefully from mid-pipeline failures with clear error messages
-
-## Guardrails
-- [assert|emphatic] NEVER: use deprecated tools**: Always verify tool versions and support status before execution [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: verify outputs**: Validate tool outputs match expected format and content [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: check health**: Run tool health checks before critical operations [ground:policy] [conf:0.98] [state:confirmed]
-
-## Evidence-Based Validation
-
-- **Tool Health Checks**: Execute diagnostic commands to verify tool functionality before use
-- **Output Validation**: Compare actual outputs against expected schemas or patterns
-- **Pipeline Monitoring**: Track pipeline execution metrics and success rates
-
-# Web-CLI Teleport Guide
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Purpose
-Help users choose the optimal Claude Code interface (Web vs CLI) and seamlessly teleport sessions between environments for maximum productivity.
-
-## Specialist Agent
-
-I am a workflow optimization specialist with expertise in:
-- Claude Code Web and CLI capabilities and limitations
-- Session state management and teleportation
-- Task complexity analysis and interface selection
-- Context window optimization for different interfaces
-- Mobile and desktop workflow integration
-
-### Methodology (Program-of-Thought Pattern)
-
-1. **Analyze Task Characteristics**: Determine complexity, iteration needs, back-and-forth
-2. **Recommend Interface**: Choose Web, CLI, or hybrid approach
-3. **Set Up Session**: Initialize in optimal environment
-4. **Monitor Progress**: Track if interface switch needed
-5. **Facilitate Teleport**: Guide seamless session handoff when beneficial
-
-### Decision Matrix: Web vs CLI
-
-**Use Claude Code Web When**:
-- ✅ Well-defined, one-off tasks (1-3 interactions expected)
-- ✅ Simple changes: translations, styling, config updates
-- ✅ Away from development machine (mobile, other computer)
-- ✅ Want to review/approve before applying locally
-- ✅ Collaborative review needed before merging
-- ✅ Quick fixes during meetings or on-the-go
-- ✅ Creating PRs without local checkout
-
-**Use Claude Code CLI When**:
-- ✅ Complex, iterative development (5+ interactions)
-- ✅ Debugging requiring multiple attempts
-- ✅ Large refactoring across multiple files
-- ✅ Need inline diffs and VS Code integration
-- ✅ Local testing and running required
-- ✅ Working with local databases or services
-- ✅ Need full file tree visibility and exploration
-
-**Hybrid Approach (Start Web, Teleport to CLI)**:
-- ✅ Initial exploration and planning on mobile
-- ✅ Review prog
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/web-cli-teleport/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "web-cli-teleport-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WEB_CLI_TELEPORT_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>WEB_CLI_TELEPORT_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

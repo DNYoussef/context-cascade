@@ -1,268 +1,71 @@
 ---
 name: eval-harness
-description: Frozen evaluation harness that gates all self-improvement changes. Contains benchmark suites, regression tests, and human approval gates. Evaluates cognitive frame application and cross-lingual integr
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Frozen evaluation harness that gates self-improvement with benchmarks, regressions, and human approval loops.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rewrote the harness SOP in English-first Prompt Architect style with explicit confidence ceilings.
+- Clarified freeze rules, routing, and validation gates to align with Skill Forge guardrails.
+- Added memory tagging and baseline hashing to stop silent drift.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "eval-harness",
-  category: "foundry",
-  version: "1.1.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Act as the immutable anchor for recursive improvement cycles. The harness does not self-improve; it gates changes via frozen benchmarks, regression suites, and documented decisions.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- **Positive:** request to gate changes for Prompt Forge, Skill Forge, or other skills; regression checks; baseline comparisons.
+- **Negative:** exploratory evaluation design (route to test-design skills) or ad-hoc scoring without baselines.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Freeze benchmark definitions and scoring; record hash before execution.
+- Structure-first docs maintained; changes to harness require manual review and explicit versioning.
+- Confidence ceilings required for verdicts; cite evidence and observed metrics.
+- Memory tagging for every run to preserve comparables.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Scope & Baseline** – Identify target skill/build, select benchmark suites, and capture hashes of frozen assets.
+2. **Data Load** – Pull prior runs for comparables; confirm hardware/latency constraints if applicable.
+3. **Run Benchmarks** – Execute frozen suites; collect metrics, logs, and failures without mutation.
+4. **Regression Analysis** – Compare against baselines; flag degradations and confidence impacts.
+5. **Decision** – Recommend ACCEPT/REJECT/ROLLBACK with rationale, risks, and ceilings.
+6. **Archive** – Store reports, hashes, and decisions in memory; surface follow-ups.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Output Format
+- Target, suites executed, baselines/hashes, and environment notes.
+- Metrics and regressions with evidence.
+- Decision (ACCEPT/REJECT/ROLLBACK) + risks and follow-ups.
+- Confidence: X.XX (ceiling: TYPE Y.YY) and memory namespace used.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["eval-harness", "foundry", "workflow"],
-  context: "user needs eval-harness capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Validation Checklist
+- [ ] Benchmarks frozen; hashes recorded and unchanged.
+- [ ] Comparables loaded; regressions checked.
+- [ ] Decision cites evidence and confidence ceiling.
+- [ ] Memory tagged and artifacts archived.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Integration
+- **Memory MCP:** `skills/tooling/eval-harness/{project}/{timestamp}` for reports and hashes.
+- **Hooks:** follow Skill Forge latency bounds; refuse execution if harness assets are modified.
 
-# Eval Harness (Frozen Evaluation)
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Purpose
-
-Gate ALL self-improvement changes with objective evaluation.
-
-**CRITICAL**: This harness does NOT self-improve. It is manually maintained and expanded. This prevents Goodhart's Law (optimizing the metric instead of the outcome).
-
-## Core Principle
-
-> "A self-improvement loop is only as good as its evaluation harness."
-
-Without frozen evaluation:
-- Prettier prompts that are more confidently wrong
-- Overfitting to "sounds good" instead of "works better"
-- Compounding misalignment
+Confidence: 0.70 (ceiling: inference 0.70) – Harness SOP aligned to Prompt Architect clarity and Skill Forge safeguards.
 
 ---
 
-## Benchmark Suites
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-### Suite 1: Prompt Generation Quality
+[[HON:teineigo]] [[MOR:root:E-V-L]] [[COM:Degerlendirme+Ankora]] [[CLS:ge_guard]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/eval-harness]]
+[define|neutral] HARNESS := donmus benchmark/regresyon seti; kendi kendini iyilestirmez; karar kapisi gorevi gorur. [ground:SKILL.md] [conf:0.86] [state:confirmed]
 
-**ID**: `prompt-generation-benchmark-v1`
-**Purpose**: Evaluate quality of generated prompts
+[[HON:teineigo]] [[MOR:root:F-R-Z]] [[COM:Freeze+Rule]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:safeguards]]
+[direct|emphatic] FREEZE_RULE := benchmark tanimi + skorlayici degismez; degisim sadece manuel versiyonlama ile. [ground:SKILL.md] [conf:0.88] [state:confirmed]
 
-```yaml
-benchmark:
-  id: prompt-generation-benchmark-v1
-  version: 1.0.0
-  last_modified: "2025-12-15"
-  frozen: true
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; karar ciktisinda zorunlu. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
-  tasks:
-    - id: "pg-001"
-      name: "Simple Task Prompt"
-      input: "Create a prompt for file reading"
-      expected_qualities:
-        - has_clear_action_verb
-        - has_input_specification
-        - has_output_specification
-        - has_error_handling
-      scoring:
-        clarity: 0.0-1.0
-        completeness: 0.0-1.0
-        precision: 0.0-1.0
-
-    - id: "pg-002"
-      name: "Complex Workflow Prompt"
-      input: "Create a prompt for multi-step deployment"
-      expected_qualities:
-        - has_plan_and_solve_structure
-        - has_validation_gates
-        - has_rollback_instructions
-        - has_success_criteria
-      scoring:
-        clarity: 0.0-1.0
-        completeness: 0.0-1.0
-        precision: 0.0-1.0
-
-    - id: "pg-003"
-      name: "Analytical Task Prompt"
-      input: "Create a prompt for code review"
-      expected_qualities:
-        - has_self_consistency_mechanism
-        - has_multiple_perspectives
-        - has_confidence_scoring
-        - has_uncertainty_handling
-      scoring:
-        clarity: 0.0-1.0
-        completeness: 0.0-1.0
-        precision: 0.0-1.0
-
-  minimum_passing:
-    average_clarity: 0.7
-    average_completeness: 0.7
-    average_precision: 0.7
-    required_qualities_hit_rate: 0.8
-```
-
-### Suite 2: Skill Generation Quality
-
-**ID**: `skill-generation-benchmark-v1`
-**Purpose**: Evaluate quality of generated skills
-
-```yaml
-benchmark:
-  id: skill-generation-benchmark-v1
-  version: 1.0.0
-  frozen: true
-
-  tasks:
-    - id: "sg-001"
-      name: "Micro-Skill Generation"
-      input: "Create skill for JSON validation"
-      expected_qualities:
-        - has_single_responsibility
-        - has_input_output_contract
-        - has_error_handling
-        - has_test_cases
-      scoring:
-        functionality: 0.0-1.0
-        contract_compliance: 0.0-1.0
-        error_coverage: 0.0-1.0
-
-    - id: "sg-002"
-      name: "Complex Skill Generation"
-      input: "Create skill for API integration"
-      expected_qualities:
-        - has_phase_structure
-        - has_validation_gates
-        - has_logging
-        - has_rollback
-      scoring:
-        functionality: 0.0-1.0
-        structure_compliance: 0.0-1.0
-        safety_coverage: 0.0-1.0
-
-  minimum_passing:
-    average_functionality: 0.75
-    average_compliance: 0.8
-    required_qualities_hit_rate: 0.85
-```
-
-### Suite 3: Expertise File Quality
-
-**ID**: `expertise-generation-benchmark-v1`
-**Purpose**: Evaluate quality of expertise files
-
-```yaml
-benchmark:
-  id: expertise-generation-benchmark-v1
-  version: 1.0.0
-  frozen: true
-
-  tasks:
-    - id: "eg-001"
-      name: "Domain Expertise Generation"
-      input: "Create expertise for authentication domain"
-      expected_qualities:
-        - has_file_locations
-        - has_falsifiable_patterns
-        - has_validation_rules
-        - has_known_issues_section
-      scoring:
-        falsifiability_coverage: 0.0-1.0
-        pattern_precision: 0.0-1.0
-        validation_completeness: 0.0-1.0
-
-  minimum_passing:
-    falsifiability_coverage: 0.8
-    pattern_precision: 0.7
-    validation_completeness: 0.75
-```
-
-### Suite 4: Cogniti
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/eval-harness/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "eval-harness-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>EVAL_HARNESS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>EVAL_HARNESS_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

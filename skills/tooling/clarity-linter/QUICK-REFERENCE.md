@@ -1,139 +1,48 @@
-# Clarity Linter - Quick Reference v2.1.0
+# Clarity Linter – Quick Reference (v3.2.0)
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+Purpose: run a rubric-driven clarity audit, deliver focused fixes, and gate changes with evidence and confidence ceilings.
 
+## Triggers
+- Use for readability/cognitive-load audits, thin-helper detection, naming and call-depth issues.
+- Do not use for security/performance-only scans or generic lint (route elsewhere).
 
+## 3-Phase Execution (Prompt Architect framing)
+1. **Metrics Collection** (code-analyzer)
+   - AST + call depth, indirection layers, duplication/naming, comment density.
+   - Store raw metrics in memory with WHO/WHY/PROJECT tags.
+2. **Rubric Evaluation** (reviewer)
+   - Score five dimensions: indirection, function size/cohesion, call depth, duplication vs DRY, explanation quality.
+   - Verdict: ACCEPT ≥0.80, REFINE 0.60–0.79, REJECT <0.60.
+3. **Fix Generation** (coder + analyst)
+   - Produce minimal diffs with rationale and rollback notes.
+   - Rerun metrics; report deltas and confidence.
 
-## Purpose
-Machine-readable code clarity auditing with cognitive load optimization.
+## Inputs (minimum)
+- `target`: file|directory path.
+- `policy`: strict|standard|lenient (default standard).
+- Flags: `auto_fix`, `report_format` (md|json), `min_score_threshold` (default 0.60).
 
-## 3-Phase SOP
+## Outputs
+- Metrics snapshot + rubric scores + verdict.
+- Top violations with evidence and proposed/applied patches.
+- Risks, follow-ups, and memory keys used.
+- Confidence line: `Confidence: X.XX (ceiling: TYPE Y.YY)`.
 
-```
-Phase 1: METRICS COLLECTION (code-analyzer)
-  |-> Parse AST & control flow
-  |-> Measure call chain depth
-  |-> Count indirection layers
-  |-> Analyze naming quality
-  |-> Check comment coverage
-
-Phase 2: RUBRIC EVALUATION (reviewer)
-  |-> Apply clarity rubric
-  |-> Score each metric
-  |-> Identify issues
-  |-> Rank by severity
-
-Phase 3: FIX GENERATION (coder + analyst)
-  |-> Generate fix suggestions
-  |-> Estimate cognitive load reduction
-  |-> Prioritize by impact/effort
-  |-> Output SARIF report
-```
-
-## Clarity Metrics
-
-| Metric | Target | Critical |
-|--------|--------|----------|
-| Call Chain Depth | <= 3 | > 5 |
-| Indirection Layers | <= 2 | > 4 |
-| Function Length | <= 25 LOC | > 50 LOC |
-| Cyclomatic Complexity | <= 10 | > 20 |
-| Naming Score | >= 0.8 | < 0.5 |
-| Comment Ratio | 10-20% | < 5% or > 40% |
-
-## Issue Categories
-
-| Category | Description | Priority |
-|----------|-------------|----------|
-| Thin Helpers | Functions that just wrap another call | Medium |
-| Excessive Indirection | Too many abstraction layers | High |
-| Deep Call Chains | A calls B calls C calls D... | High |
-| Poor Naming | Unclear variable/function names | Medium |
-| Missing Comments | Complex logic without explanation | Low |
-| Over-Commenting | Obvious code with verbose comments | Low |
+## Validation Checklist
+- Metrics collected and stored.
+- Rubric applied with evidence per issue.
+- Re-run metrics after fixes; no regressions.
+- Confidence ceiling stated; harness hash logged if used.
 
 ## Quick Commands
-
 ```bash
-# Lint single file
-Use clarity-linter on: [file path]
+# Lint a file
+default: clarity-linter --target path/to/file --report-format markdown
 
-# Lint directory
-Use clarity-linter on: [directory path]
-
-# With specific focus
-Use clarity-linter focusing on: [call-chains|naming|indirection]
+# Lint a directory with strict policy
+clarity-linter --target src/ --policy strict --auto-fix false
 ```
 
-## Rubric Reference
+Related skills: connascence-analyzer (coupling), code-review-assistant (PR focus), performance-testing-agent (performance).
 
-Located at: `.artifacts/clarity_rubric.json`
-
-```json
-{
-  "thin_helpers": {
-    "threshold": 1,
-    "severity": "medium",
-    "description": "Function body is single line call"
-  },
-  "call_chain_depth": {
-    "threshold": 3,
-    "severity": "high",
-    "description": "Call depth exceeds threshold"
-  }
-}
-```
-
-## SARIF Output Format
-
-```json
-{
-  "runs": [{
-    "tool": { "name": "clarity-linter" },
-    "results": [{
-      "ruleId": "CLAR-001",
-      "level": "warning",
-      "message": { "text": "..." },
-      "locations": [{ "uri": "file.ts", "line": 42 }]
-    }]
-  }]
-}
-```
-
-## Fix Patterns
-
-| Issue | Fix Pattern |
-|-------|-------------|
-| Thin Helper | Inline the call |
-| Deep Chain | Extract intermediate variables |
-| Excessive Indirection | Flatten abstractions |
-| Poor Naming | Rename with semantic meaning |
-| Missing Comments | Add why-not-what comments |
-
-## Cognitive Load Estimation
-
-```
-Total Load = sum(
-  call_chain_depth * 2.0,
-  indirection_layers * 1.5,
-  cyclomatic_complexity * 1.0,
-  (1 - naming_score) * 1.5
-)
-
-Rating:
-  0-10:  Low (good)
-  11-20: Medium (acceptable)
-  21-30: High (needs work)
-  30+:   Critical (urgent refactor)
-```
-
-## Related Skills
-
-- **connascence-analyzer** - Coupling analysis (complementary)
-- **code-review-assistant** - PR review with clarity checks
-- **style-audit** - Style consistency (separate concern)
-
-
----
-*Promise: `<promise>QUICK_REFERENCE_VERIX_COMPLIANT</promise>`*
+Confidence: 0.70 (ceiling: inference 0.70) – Quick reference rewritten to Skill Forge/P.A. structure.

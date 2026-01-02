@@ -1,262 +1,70 @@
 ---
 name: ui-ux-excellence
-description: Comprehensive UI/UX enhancement cascade that transforms generic websites into polished, accessible, brand-differentiated experiences. Combines constraint-based design, WCAG accessibility, micro-intera
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Drive UI/UX audits and improvements with structured heuristics, user journeys, and validation gates.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Recast the UX skill in Prompt Architect style with clear triggers, heuristics, and confidence ceilings.
+- Added structure-first guardrails and validation steps aligned to Skill Forge.
+- Clarified outputs (audit + prioritized fixes) with memory tagging.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
-
-[define|neutral] SKILL := {
-  name: "ui-ux-excellence",
-  category: "Frontend Development",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
-
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["ui-ux-excellence", "Frontend Development", "workflow"],
-  context: "user needs ui-ux-excellence capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# UI/UX Excellence Cascade
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Transform generic websites into polished, brand-differentiated experiences through a systematic 7-phase cascade.
-
-## Purpose
-
-This skill combines insights from multiple specialized skills into a single comprehensive workflow for elevating frontend experiences:
-
-- **wcag-accessibility**: WCAG 2.1 AA compliance, ARIA, keyboard navigation
-- **react-specialist**: Modern component patterns, performance optimization
-- **style-audit**: Code quality, consistency, maintainability
-- **pptx-generation/design-principles**: Constraint-based design philosophy
-- **cascade-orchestrator**: Multi-phase workflow coordination
-
-## When to Use This Skill
-
-- Transforming MVP/prototype into production-ready frontend
-- Elevating landing pages for premium brand positioning
-- Adding micro-interactions and polish to existing sites
-- Ensuring accessibility compliance before launch
-- Creating differentiated experiences for different market segments
-- Building design systems from scratch
-
-## Prerequisites
-
-**Required**: HTML/CSS, Tailwind CSS (optional), JavaScript basics
-**Agents**: `coder`, `reviewer`, `frontend-dev`
-**MCP**: None required (operates with Claude Code built-in tools)
-
-## The 7-Phase Cascade
-
-```
-Phase 1: Brand Analysis & Design System Definition
-    |
-    v
-Phase 2: Accessibility Foundation (WCAG)
-    |
-    v
-Phase 3: Typography System Implementation
-    |
-    v
-Phase 4: Micro-interactions & Motion Design
-    |
-    v
-Phase 5: Component Enhancement & Polish
-    |
-    v
-Phase 6: Responsive & Mobile Refinement
-    |
-    v
-Phase 7: Style Audit & Validation
-```
-
----
-
-## Phase 1: Brand Analysis & Design System Definition
+## STANDARD OPERATING PROCEDURE
 
 ### Purpose
-Extract brand patterns and codify them into CSS custom properties for consistency.
+Evaluate and improve product UI/UX using heuristic reviews, user flows, accessibility checks, and prioritized fix plans.
 
-### Key Activities
+### Trigger Conditions
+- **Positive:** UX/UI audit, usability review, accessibility check, design critique, or journey optimization.
+- **Negative:** branding-only requests (route to design specialists) or backend-only tasks.
 
-1. **Identify Brand Personality**
-   - Professional vs Casual
-   - Luxury vs Accessible
-   - Bold vs Subtle
-   - Modern vs Classic
+### Guardrails
+- Maintain structure-first docs (SKILL, README, examples/tests/references).
+- Apply explicit heuristics: clarity, consistency, affordance, feedback, accessibility, performance.
+- Confidence ceilings required; cite evidence (screens, flows, metrics).
+- Memory tagging for audits and recommendations.
 
-2. **Define Color Palette**
-   ```css
-   :root {
-     <!-- Primary - Brand identity color  -->
-     --color-primary: #2563EB;
-     --color-primary-dark: #1D4ED8;
-     --color-primary-light: #3B82F6;
+### Execution Phases
+1. **Intent & Context** – Identify product area, target users, platforms, and success metrics.
+2. **Heuristic Review** – Assess clarity, consistency, affordance, feedback, and accessibility; capture screenshots/notes.
+3. **Journey Analysis** – Map critical flows; note friction points, latency, and error states.
+4. **Prioritized Plan** – Rank issues by severity/impact/effort; propose design/UX changes.
+5. **Validation** – Prototype or simulate fixes when possible; ensure accessibility (WCAG) and responsiveness.
+6. **Delivery** – Provide findings, recommended changes, and confidence ceiling with memory keys.
 
-     <!-- Accent - Call-to-action, highlights  -->
-     --color-accent: #F59E0B;
-     --color-accent-dark: #D97706;
+### Output Format
+- Audit summary, user flows assessed, key issues with evidence, and prioritized fixes.
+- Accessibility/performance notes and suggested metrics to track.
+- Confidence: X.XX (ceiling: TYPE Y.YY); memory namespace recorded.
 
-     <!-- Semantic - Success, warning, error  -->
-     --color-success: #10B981;
-     --color-warning: #F59E0B;
-     --color-error: #EF4444;
+### Validation Checklist
+- [ ] Scope and personas defined; platforms noted.
+- [ ] Heuristics applied with evidence; accessibility checked.
+- [ ] Prioritized backlog includes impact/effort/owner.
+- [ ] Confidence ceiling declared; memory tagged.
 
-     <!-- Backgrounds  -->
-     --color-bg: #FFFFFF;
-     --color-bg-dark: #0C0C0C;
-     --color-surface: #F9FAFB;
-     --color-surface-dark: #171717;
+### Integration
+- **Memory MCP:** `skills/tooling/ui-ux-excellence/{project}/{timestamp}` for audits and artifacts.
+- **Hooks:** follow Skill Forge latency bounds; integrate with screenshot tooling when available.
 
-     <!-- Text - Ensure 4.5:1 contrast ratio  -->
-     --color-text: #1F2937;
-     --color-text-dark: #FAFAF9;
-     --color-text-muted: #6B7280;
-   }
-   ```
-
-3. **Define Spacing Scale** (8px base)
-   ```css
-   :root {
-     --space-1: 0.25rem;   <!-- 4px  -->
-     --space-2: 0.5rem;    <!-- 8px  -->
-     --space-3: 0.75rem;   <!-- 12px  -->
-     --space-4: 1rem;      <!-- 16px  -->
-     --space-6: 1.5rem;    <!-- 24px  -->
-     --space-8: 2rem;      <!-- 32px  -->
-     --space-12: 3rem;     <!-- 48px  -->
-     --space-16: 4rem;     <!-- 64px  -->
-     --space-24: 6rem;     <!-- 96px  -->
-   }
-   ```
-
-4. **Define Transitions**
-   ```css
-   :root {
-     --transition-fast: 150ms ease;
-     --transition-base: 300ms ease;
-     --transition-slow: 500ms ease;
-     --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-     --transition-elegant: 800ms cubic-bezier(0.16, 1, 0.3, 1);
-   }
-   ```
-
-### Output
-- CSS custom properties file or `:root` block
-- Brand personality documentation
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect clarity and Skill Forge guardrails.
 
 ---
 
-## Phase 2: Accessibility Foundation (WCAG)
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-### Purpose
-Ensure WCAG 2.1 AA compliance for legal requirements and inclusive design.
+[[HON:teineigo]] [[MOR:root:U-X]] [[COM:Kullanici+Deneyimi]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/ui-ux-excellence]]
+[define|neutral] UI_UX := heuristik denetim + yolculuk analizi + oncelikli duzeltme planlari. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-### Key Activities
+[[HON:teineigo]] [[MOR:root:H-R-S]] [[COM:Heuristik+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:quality]]
+[direct|emphatic] HEURISTICS := {clarity, consistency, affordance, feedback, accessibility, performance}; her ciktiya kanit. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-1. **Implement Skip Link**
-   ```html
-   <a href="#main-content" class="skip-link">Skip to main content</a>
-   ```
-   ```css
-   .skip-link {
-     position: absolute;
-     top: -100%;
-     left: 50%;
-     transform: translateX(-50%);
-     z-index: 9999;
-     padding: 0.75rem 1.5rem;
-     background: v
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; ciktiya yazilir. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/Frontend Development/ui-ux-excellence/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "ui-ux-excellence-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>UI_UX_EXCELLENCE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>UI_UX_EXCELLENCE_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

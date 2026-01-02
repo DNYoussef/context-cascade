@@ -1,41 +1,7 @@
----
-name: template-extractor
-description: Reverse-engineer document templates to extract exact design specifications and generate reusable AI prompts for pixel-perfect document recreation
-category: tooling
-version: 1.1.0
-triggers:
-  - "extract template"
-  - "reverse engineer format"
-  - "document style guide"
-  - "replicate formatting"
-  - "template from document"
-  - "document specification"
-  - "format analysis"
-mcp_servers:
-  required: []
-  optional: [memory-mcp]
-  auto_enable: false
-input_contract:
-  required:
-    document_path:
-      type: string
-      description: Absolute path to source document
-    output_directory:
-      type: string
-      description: Where to save extracted specifications
-output_contract:
-  guaranteed:
-    - TEMPLATE_SPEC.md
-    - AI_PROMPT.md
-    - assets/
-    - ASSETS.md
-    - README.md
-  conditional:
-    - extraction_results.json
-    - unpacked/
-    - verification_report.md
----
+# Template Extractor – Improvement Snapshot (v3.2.0)
 
-
----
-*Promise: `<promise>SKILL_IMPROVED_VERIX_COMPLIANT</promise>`*
+- Converted to Prompt Architect constraint-first flow with Skill Forge guardrails (structure-first docs, confidence ceilings, memory tagging).
+- Clarified triggers (reuse-focused extraction) and routing (net-new templates go to prompt-architect/skill-forge).
+- Added fidelity safeguards: cite source paths/lines, flag uncertainties, and validate licensing.
+- Standardized output format: templates + provenance + validation notes + `Confidence: X.XX (ceiling: TYPE Y.YY)`.
+- Memory namespace: `skills/tooling/template-extractor/{project}/{timestamp}` for reuse patterns.

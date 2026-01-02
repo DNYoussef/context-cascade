@@ -1,5 +1,14 @@
 # Changelog - Documentation
 
+## [3.2.0] - 2026-01-XX
+
+### Changed
+- Rewrote SKILL and quick reference in Prompt Architect/Skill Forge style with constraint-first drafting.
+- Added structure-first guardrails, memory tagging, and explicit routing to doc-generator subskill.
+- Introduced confidence ceilings and validation checklist for doc accuracy.
+
+---
+
 ## Keigo Wakugumi (Honorific Frame Activation)
 Taishougisha nintei moodoga yuukoudesu.
 

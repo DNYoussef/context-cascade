@@ -1,252 +1,73 @@
 ---
 name: dependencies
-description: Dependency management and analysis hub. Map project dependencies, analyze dependency graphs, identify vulnerabilities, and manage package versions. Routes to dependency-mapper and related analysis too
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Map, assess, and remediate project dependencies with routing to dependency-mapper and security checks.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reframed the dependency hub using Prompt Architect constraint extraction and Skill Forge structure-first guardrails.
+- Added explicit routing rules (mapper vs audit), confidence ceilings, and memory tagging.
+- Simplified execution phases to keep graphing, security, and freshness checks coherent.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "dependencies",
-  category: "tooling",
-  version: "2.1.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Provide a single entry point for dependency graphing, vulnerability checks, and upgrade planning while routing specialized work to the dependency-mapper subskill when mapping is primary.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- **Positive:** dependency graph request, vulnerability/audit needs, upgrade planning, circular/unused dependency checks.
+- **Negative:** pure build failures (route to build/debug skills) or single-library research (route to language specialist).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Structure-first docs: `SKILL.md`, `README.md`, `QUICK-REFERENCE.md`, examples/tests placeholders maintained.
+- Use explicit ecosystem detection (npm/pnpm/yarn, pip/poetry, cargo, go mod, maven/gradle, composer); cite evidence.
+- Confidence ceilings enforced on findings; call out unverifiable CVEs.
+- Memory tagging required for audits and graphs.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intent & Ecosystem Detection** – Identify package managers, lockfiles, and scope; decide if routing to dependency-mapper is needed.
+2. **Data Collection** – Build graph/tree, fetch vulnerability reports, capture outdated/unused/circular signals.
+3. **Analysis** – Summarize risks (CVE, license, freshness) and stability constraints; map blast radius for upgrades.
+4. **Plan & Propose** – Recommend remediation (pin, upgrade, remove, isolate); include commands and expected impacts.
+5. **Validation** – Run audits/tests as available; ensure graph/risk deltas improve.
+6. **Delivery** – Provide findings, proposed actions, and confidence line with ceiling syntax; archive in memory.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Output Format
+- Ecosystem detection and scope.
+- Graph summary (nodes/edges/risks) and key vulnerabilities/outdated packages.
+- Remediation plan with commands, owners, and blast radius notes.
+- Confidence: X.XX (ceiling: TYPE Y.YY) and memory keys used.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["dependencies", "tooling", "workflow"],
-  context: "user needs dependencies capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Validation Checklist
+- [ ] Ecosystem detected and mapped; routing decision documented.
+- [ ] Vulnerability/freshness data captured with sources.
+- [ ] Remediation plan includes rollback/lockfile guidance.
+- [ ] Memory tags applied and reports stored.
+- [ ] Confidence ceiling declared.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Integration
+- **Subskill:** use `when-mapping-dependencies-use-dependency-mapper` for deep graph visualization.
+- **Memory MCP:** `skills/tooling/dependencies/{project}/{timestamp}` for audits, graphs, and remediation notes.
+- **Hooks:** pre/post targets aligned to Skill Forge latency bounds.
 
-# Dependencies
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Dependency management, analysis, and vulnerability detection for projects.
-
-## Phase 0: Expertise Loading
-
-```yaml
-expertise_check:
-  domain: dependencies
-  file: .claude/expertise/dependencies.yaml
-
-  if_exists:
-    - Load package ecosystems
-    - Load vulnerability databases
-    - Apply version policies
-
-  if_not_exists:
-    - Flag discovery mode
-    - Document patterns learned
-```
-
-## When to Use This Skill
-
-Use dependencies when:
-- Mapping project dependency graphs
-- Analyzing package vulnerabilities
-- Managing version upgrades
-- Identifying circular dependencies
-- Auditing security issues
-
-## Sub-Skills
-
-| Skill | Use Case |
-|-------|----------|
-| dependency-mapper | Visualize dependency graphs |
-
-## Dependency Analysis
-
-### Package Ecosystems
-```yaml
-supported:
-  - npm/yarn (JavaScript)
-  - pip/poetry (Python)
-  - cargo (Rust)
-  - go mod (Go)
-  - maven/gradle (Java)
-  - composer (PHP)
-```
-
-### Analysis Types
-```yaml
-analyses:
-  graph: "Dependency tree visualization"
-  vulnerabilities: "CVE/security scanning"
-  outdated: "Version freshness check"
-  circular: "Circular dependency detection"
-  unused: "Dead dependency identification"
-```
-
-## Commands
-
-```bash
-# Map dependencies
-npm ls --all
-pip list --format=freeze
-cargo tree
-
-# Security audit
-npm audit
-pip-audit
-cargo audit
-```
-
-## MCP Requirements
-
-- **claude-flow**: For orchestration
-- **Bash**: For package commands
-
-## Recursive Improvement Integration (v2.1)
-
-### Eval Harness Integration
-
-```yaml
-benchmark: dependencies-benchmark-v1
-  tests:
-    - dep-001: Graph generation
-    - dep-002: Vulnerability detection
-  minimum_scores:
-    graph_accuracy: 0.95
-    vuln_detection: 0.90
-```
-
-### Memory Namespace
-
-```yaml
-namespaces:
-  - dependencies/graphs/{id}: Dependency graphs
-  - dependencies/audits/{id}: Security audits
-  - improvement/audits/dependencies: Skill audits
-```
-
-### Uncertainty Handling
-
-```yaml
-confidence_check:
-  if confidence >= 0.8:
-    - Proceed with analysis
-  if confidence 0.5-0.8:
-    - Confirm package ecosystem
-  if confidence < 0.5:
-    - Ask for package.json/requirements.txt
-```
-
-### Cross-Skill Coordination
-
-Works with: **security**, **code-review-assistant**, **deployment-readiness**
+Confidence: 0.70 (ceiling: inference 0.70) – SOP rewritten to align with Prompt Architect and Skill Forge cadence.
 
 ---
 
-## !! SKILL COMPLETION VERIFICATION (MANDATORY) !!
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-- [ ] **Agent Spawning**: Spawned agent via Task()
-- [ ] **Agent Registry Validation**: Agent from registry
-- [ ] **TodoWrite Called**: Called with 5+ todos
-- [ ] **Work Delegation**: Delegated to agents
+[[HON:teineigo]] [[MOR:root:D-P-N]] [[COM:Dependency+Hub]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/dependencies]]
+[define|neutral] DEP_HUB := bagimlilik haritalama + guvenlik + versiyon tazeleme; grafik icin mapper alt-beceriye yollar. [ground:SKILL.md] [conf:0.83] [state:confirmed]
 
-**Remember: Skill() -> Task() -> TodoWrite() - ALWAYS**
+[[HON:teineigo]] [[MOR:root:R-O-T]] [[COM:Route+Mapper]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:routing]]
+[direct|emphatic] ROUTE_GRAPH := saf grafik istekleri dependency-mapper'a delege edilir; hub risk/plan ozeti saglar. [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
----
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; beyan zorunlu. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
-## Core Principles
-
-### 1. Transitive Dependency Awareness as Security Priority
-Direct dependencies are visible and reviewed, but transitive dependencies (dependencies-of-dependencies) often escape scrutiny despite comprising 80-95% of total dependency count. A single vulnerable transitive dependency deep in the graph creates exploitable attack surface. Dependency analysis must traverse the full graph, flagging high-risk transitives (unmaintained packages, known CVEs, excessive permissions) with equal priority to direct dependencies.
-
-### 2. Version Freshness Balanced Against Stability Risk
-Outdated dependencies accumulate security vulnerabilities and miss performance improvements, but aggressive version upgrades introduce breaking changes and untested code paths. The optimal strategy is risk-stratified: security patches applied immediately, minor updates batched and tested weekly, major updates evaluated for breaking changes and scheduled deliberately. Blanket "always latest" or "never update" policies fail by ignoring risk context.
-
-### 3. Circular Dependencies as Architectural Code Smell
-Circular dependencies (package A depends on B, B depends on A) indicate architectural coupling that prevents independent evolution, complicates testing, and signals unclear separation of concerns. While sometimes unavoidable in legacy codebases, new circular dependenc
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/dependencies/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "dependencies-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>DEPENDENCIES_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>DEPENDENCIES_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

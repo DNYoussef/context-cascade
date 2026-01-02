@@ -1,252 +1,88 @@
 ---
 name: bootstrap-loop
-description: Orchestrates the recursive self-improvement cycle where Prompt Forge improves Skill Forge, Skill Forge improves Prompt Forge, and both audit/improve everything else. All changes gated by frozen eval h
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Coordinate the recursive improvement loop between Prompt Forge and Skill Forge with a frozen evaluation harness and auditable checkpoints.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Converted the bootstrap loop into an English-first SOP that mirrors the Prompt Architect + Skill Forge cadence.
+- Added structure-first guardrails (SKILL.md + README + examples/tests placeholders) and explicit eval-harness boundaries.
+- Made confidence ceilings and memory tagging mandatory to prevent silent drift.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "bootstrap-loop",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Run the recursive improvement cycle where Prompt Forge analyzes, Skill Forge rebuilds, and the frozen eval harness gates changes. Keep the harness immutable to avoid Goodhart drift.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- **Positive:** recursive improvement request, "run bootstrap loop", "cross-improve prompt/skill forge", "gate changes through eval harness".
+- **Negative:** single-skill edits without evaluation (route to skill-forge or prompt-architect individually).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails (Skill Forge-aligned)
+- Structure-first: keep `SKILL.md` + `README.md` + `examples/` + `tests/` up to date; log deviations.
+- Eval harness is frozen: no self-improvement of benchmarks or scoring.
+- Confidence ceilings required on every decision: inference/report 0.70, research 0.85, observation/definition 0.95.
+- Do not bypass auditors or regression gates; rollback if metrics regress.
+- Tag MCP memory with `WHO=bootstrap-loop-{session}`, `WHY=skill-execution`, `PROJECT=<name>`, `WHEN=<iso>`.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intent & Scope**
+   - Confirm target (`prompt-forge`, `skill-forge`, or `both`), success criteria, and allowed blast radius.
+   - Load prior runs from memory for regression comparables.
+2. **Preparation**
+   - Pull latest Prompt Architect/Skill Forge SOPs.
+   - Freeze eval suites and baselines; record hash.
+3. **Cycle Design**
+   - Map phases: analyze → propose → build → test → decide → archive.
+   - Assign agents: Prompt Architect for constraint mining, Prompt Forge for proposal drafting, Skill Forge for build, eval-harness for gating.
+4. **Execution**
+   - Analyze weaknesses and constraints; document evidence.
+   - Generate proposals with deltas and risk notes.
+   - Build/apply via Skill Forge; capture artifacts and diffs.
+   - Run frozen eval + regressions; store metrics and decision logs.
+5. **Decision & Rollback**
+   - Accept only if metrics improve and safeguards intact; otherwise rollback and note blockers.
+   - Record confidence with ceiling syntax and rationale.
+6. **Delivery & Memory**
+   - Archive reports, diffs, and evaluation artifacts.
+   - Update README/examples/tests pointers; store memory vectors for future runs.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Output Format
+- Cycle ID, target, scope, and baselines referenced.
+- Proposals applied/rejected with evidence and regression deltas.
+- Eval results (benchmark + regression) and decision (ACCEPT/REJECT/ROLLBACK).
+- Risks, follow-ups, and memory keys used.
+- Confidence: X.XX (ceiling: TYPE Y.YY) with short rationale.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["bootstrap-loop", "foundry", "workflow"],
-  context: "user needs bootstrap-loop capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Validation Checklist
+- [ ] Trigger matched; reroutes handled.
+- [ ] Eval harness hash recorded; no edits to frozen suites.
+- [ ] Proposals traced to evidence; regressions checked.
+- [ ] Memory tags applied and artifacts archived.
+- [ ] Confidence ceiling stated.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Integration Notes
+- **Memory MCP (required):** store `executions/decisions/patterns` under `skills/tooling/bootstrap-loop/{project}/{timestamp}`.
+- **Hooks:** pre/post targets in Skill Forge style (`pre_hook_target_ms:20`, `post_hook_target_ms:1000`) to keep loops responsive.
 
-# Bootstrap Loop (Recursive Self-Improvement Orchestrator)
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Purpose
-
-Orchestrate the recursive improvement cycle:
-
-```
-+------------------+         +------------------+
-|   PROMPT FORGE   |-------->|   SKILL FORGE    |
-| (Meta-Prompt)    |<--------|   (Meta-Skill)   |
-+------------------+         +------------------+
-         |                            |
-         |   Improved tools audit     |
-         |   and improve everything   |
-         v                            v
-+--------------------------------------------------+
-|              AUDITOR AGENTS                       |
-|  [Prompt] [Skill] [Expertise] [Output]           |
-+--------------------------------------------------+
-         |                            |
-         |   All changes gated by     |
-         v                            v
-+--------------------------------------------------+
-|              EVAL HARNESS (FROZEN)               |
-|  Benchmarks | Regression Tests | Human Gates     |
-+--------------------------------------------------+
-```
-
-**CRITICAL**: The eval harness does NOT self-improve. It is the anchor that prevents Goodhart's Law.
-
-## When to Use
-
-- Running a recursive improvement cycle
-- Improving meta-tools (Prompt Forge, Skill Forge)
-- Auditing and improving system-wide prompts/skills
-- Measuring improvement over time
-
-## MCP Requirements
-
-### memory-mcp (Required)
-
-**Purpose**: Store proposals, test results, version history, metrics
-
-**Activation**:
-```bash
-claude mcp add memory-mcp npx @modelcontextprotocol/server-memory
-```
+Confidence: 0.70 (ceiling: inference 0.70) - English-first rewrite aligns the bootstrap loop with Prompt Architect + Skill Forge guardrails and keeps the eval harness frozen.
 
 ---
 
-## Core Operations
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-### Operation 1: Run Single Improvement Cycle
+[[HON:teineigo]] [[MOR:root:B-T-S]] [[COM:Bootstrap+Schleife]] [[CLS:ge_meta_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/bootstrap-loop]]
+[define|neutral] BOOTSTRAP_LOOP := PromptForge↔SkillForge doviz; degismez degerlendirici ile dokunur. [ground:SKILL.md] [conf:0.83] [state:confirmed]
 
-Execute one full cycle of recursive improvement.
+[[HON:teineigo]] [[MOR:root:E-V-L]] [[COM:Eval+Ankora]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:safeguards]]
+[direct|emphatic] HARNESS_FROZEN := degerlendirme paketleri otonom iyilestirilmez; hash kaydi zorunlu. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-```yaml
-cycle:
-  id: "cycle-{timestamp}"
-  target: "prompt-forge|skill-forge|all"
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; ustu yasak. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
-  phases:
-    1_analyze:
-      action: "Prompt Forge analyzes target for weaknesses"
-      output: "Analysis with improvement opportunities"
-
-    2_propose:
-      action: "Prompt Forge generates improvement proposals"
-      output: "Concrete proposals with diffs"
-
-    3_apply:
-      action: "Skill Forge applies proposals (builds new version)"
-      output: "New version of target"
-
-    4_evaluate:
-      action: "Eval Harness tests new version"
-      output: "Benchmark + regression results"
-
-    5_decide:
-      action: "Compare results, decide ACCEPT or REJECT"
-      output: "Decision with reasoning"
-
-    6_commit_or_rollback:
-      action: "If ACCEPT: commit + archive. If REJECT: rollback"
-      output: "Final state + audit log"
-```
-
-### Operation 2: Improve Prompt Forge
-
-Use Skill Forge to improve Prompt Forge.
-
-```yaml
-improve_prompt_forge:
-  process:
-    - step: "Analyze Prompt Forge with prompt-auditor"
-      agent: "prompt-auditor"
-      output: "Audit report with issues"
-
-    - step: "Generate improvement proposals"
-      agent: "prompt-forge" (self-analysis)
-      output: "Proposals for self-improvement"
-
-    - step: "Apply improvements with Skill Forge"
-      agent: "skill-forge"
-      output: "prompt-forge-v{N+1}"
-
-    - step: "Test against eval harness"
-      eval: "prompt-generation-benchmark-v1"
-      regression: "prompt-forge-regression-v1"
-
-    - step: "If improved: commit. If regressed: reject"
-
-  safeguards:
-    - "Previous version archived before changes"
-    - "Requires eval harness pass"
-    - "Rollback available for 30 days"
-    - "Auditor agents must agree on improvement"
-
-  forbidden_changes:
-    - "Removing safeguards"
-    - "Bypassing eval harness"
-    - "Modifying frozen benchmarks"
-```
-
-### Operation 3: Improve Skill Forge
-
-Use Prompt Forge to improve Skill Forge.
-
-```yaml
-improve_skill_forge:
-  process:
-    - step: "Analyze Skill Forge with skill-auditor"
-      agent: "skill-auditor"
-      output: "Audit report with issues"
-
-    - step: "Generate improvement proposals with Prompt Forge"
-      agent: "prompt-forge"
-      output: "Proposals with rationale"
-
-    - step: "Apply improvements (Skill Forge rebuilds 
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/bootstrap-loop/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "bootstrap-loop-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>BOOTSTRAP_LOOP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>BOOTSTRAP_LOOP_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

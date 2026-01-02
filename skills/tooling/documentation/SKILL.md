@@ -1,209 +1,72 @@
 ---
 name: documentation
-description: Documentation generation hub for code documentation, API docs, READMEs, and inline comments. Routes to doc-generator and related documentation tools. Use when generating or improving project documenta
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Plan, generate, and validate documentation using Prompt Architect clarity patterns and routing to doc-generator subskills.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Converted the documentation hub to an English-first SOP with structure-first guardrails and explicit routing to doc-generator.
+- Added constraint extraction (Prompt Architect) and validation hooks (Skill Forge) with confidence ceilings.
+- Clarified outputs: user-facing docs, API references, and inline comment updates.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Coordinate documentation requests—planning, drafting, and validation—while delegating inline/README/API generation to the `when-documenting-code-use-doc-generator` subskill when appropriate.
+
+### Trigger Conditions
+- **Positive:** new/updated README, API docs, inline comments, changelogs, or architecture notes.
+- **Negative:** code-only fixes without doc impact; route to implementation skills first.
+
+### Guardrails
+- Structure-first docs: `SKILL.md`, `README.md`, `QUICK-REFERENCE.md`, examples/tests placeholders.
+- Use Prompt Architect constraint extraction (audience, scope, domain terminology, success criteria).
+- Enforce confidence ceilings and cite sources/observations; avoid hallucinated APIs.
+- Memory tagging for doc runs; keep versioned outputs.
+
+### Execution Phases
+1. **Intent & Audience** – Identify doc type (README/API/inline/guide), target audience, and scope; route to subskill if generation-heavy.
+2. **Source Collection** – Gather code references, existing docs, decisions, and style guides.
+3. **Drafting** – Produce structured doc with headings, task flows, and examples; maintain progressive disclosure.
+4. **Validation** – Check accuracy against code, run doc lints if available, and ensure consistency with terminology.
+5. **Delivery** – Summarize changes, open risks, and follow-ups; include confidence with ceiling syntax and memory keys.
+
+### Output Format
+- Doc type and scope, key sources, and assumptions.
+- Drafted content or updated sections with diffs/paths.
+- Validation notes (accuracy checks, style compliance).
+- Confidence: X.XX (ceiling: TYPE Y.YY) and memory namespace used.
+
+### Validation Checklist
+- [ ] Audience and intent confirmed; routing noted.
+- [ ] Sources cited and verified against code.
+- [ ] Style/terminology aligned; links and paths validated.
+- [ ] Memory tagged and artifacts stored.
+- [ ] Confidence ceiling declared.
+
+### Integration
+- **Subskill:** `when-documenting-code-use-doc-generator` for detailed generation flows.
+- **Memory MCP:** `skills/tooling/documentation/{project}/{timestamp}` for drafts and approvals.
+- **Hooks:** Skill Forge latency bounds respected for doc generation and review.
+
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect constraint-first drafting and Skill Forge validation gates.
 
 ---
-<!-- S0 META-IDENTITY                                                             -->
----
 
-[define|neutral] SKILL := {
-  name: "documentation",
-  category: "tooling",
-  version: "2.2.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+[[HON:teineigo]] [[MOR:root:D-K-M]] [[COM:Dokuman+Merkezi]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/documentation]]
+[define|neutral] DOC_HUB := README/API/inline ciktilar icin yonetim; agir uretim doc-generator'a delege edilir. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Honorific",
-  source: "Japanese",
-  force: "Who is the audience?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+[[HON:teineigo]] [[MOR:root:R-O-T]] [[COM:Route+Generator]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:routing]]
+[direct|emphatic] ROUTE_DOC := agir uretim ve slash-komutlar doc-generator alt-becerisine aktarilir; hub planlama+dogrulama yapar. [ground:SKILL.md] [conf:0.85] [state:confirmed]
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; beyan zorunlu. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
-
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["documentation", "tooling", "workflow"],
-  context: "user needs documentation capability"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# Documentation
-
-## Keigo Wakugumi (Honorific Frame Activation)
-Taishougisha nintei moodoga yuukoudesu.
-
-
-
-Central hub for generating and maintaining project documentation.
-
-## Phase 0: Expertise Loading & Cognitive Frame Activation
-
-```yaml
-expertise_check:
-  domain: documentation
-  file: .claude/expertise/documentation.yaml
-
-  if_exists:
-    - Load documentation standards
-    - Load project conventions
-    - Apply style guides
-
-  if_not_exists:
-    - Flag discovery mode
-    - Document patterns learned
-
-cognitive_activation:
-  - Activate hierarchical documentation framework (Keigo Wakugumi)
-  - Activate morphological concept extraction (Al-Itar al-Sarfi)
-  - Map codebase to audience levels
-  - Extract documentation concepts from code structure
-```
-
-## Cognitive Frame 1: Keigo Wakugumi (Hierarchical Documentation)
-
-Documentation organized by **audience level** and **scope hierarchy** - from executive summaries to implementation details.
-
-### Rejisutaa Shurui (Audience Register Levels)
-
-**SONKEIGO (Executive/Respectful)** - High-level overview, business value:
-- **Purpose**: Explain "why this exists" for executives, product managers
-- **Content**: Business value, ROI, strategic alignment, high-level architecture
-- **Format**: Executive summary, one-page overviews, architecture diagrams
-- **Example**: "This authentication system reduces security incidents by 40% and enables SSO integration"
-
-**TEINEIGO (Developer/Polite)** - Technical details, API reference:
-- **Purpose**: Enable developers to integrate and use the system
-- **Content**: API reference, function signatures, parameters, return values, examples
-- **Format**: OpenAPI specs, JSDoc, function-level documentation
-- **Example**: "POST /api/auth/login - Accepts email/password, returns JWT token (200) or error (401)"
-
-**CASUAL (Internal/Plain)** - Implementation notes, quick reference:
-- **Purpose**: Help maintainers understand internal workings
-- **Content**: Code comments, implementation notes, architectural decisions (ADRs)
-- **Format**: Inline comments, ADRs, internal wikis
-- **Example**: "// Uses bcrypt with cost factor 12 - balances security vs performance"
-
-### Hierarchy Structure (Multi-Level Documentation)
-
-```
-LEVEL 1 (SYSTEM) - Architecture Overview
-├── What: System purpose and scope
-├── Why: Business drivers and constraints
-├── How: High-level architecture
-└── Who: Stakeholders and users
-    |
-    ├── LEVEL 2 (COMPONENT) - Module Documentation
-    |   ├── Component responsibility
-    |   ├── Dependencies and interfaces
-    |   ├── Data flow diagrams
-    |   └── Configuration options
-    |       |
-    |       ├── LEVEL 3 (INTERFACE) - API/Function Docs
-    |       |   ├── Function signatures
-    |       |   ├── Parameters and types
-    |       |   ├── Return values and errors
-    |       |   └── Usage examples
-    |       |       |
-    |       |       └── LEVEL 4 (IMPLEMENTATION) - Code Comments
-    |       |           ├── Algorithm explanations
-    |       |           ├── Edge case handling
-    |       |           ├── Performance considerations
-    |       |           └── TODO/FIXME notes
-```
-
-### Documentation Routing by Audience
-
-| Audience | Register | Level | Example |
-|----------|----------|-------|---------|
-| CTO, Product Manager | SONKEIGO | L1 System | "Reduces auth latency by 60%" |
-| External Developer | TEINEIGO | L3 Interface | "auth.login(email, password) -> Promise<Token>" |
-| Team Developer | TEINEIGO | L2 Component | "Auth module handles JWT, OAuth, SAML" |
-| Maintainer | CASUAL | L4 Implementation | "// Edge case: token refresh race condition" |
-| New Hire | TEINEIGO | L2-L3 | "Architecture + API quick start" |
-
-## Cognitive Frame 2: Al-Itar al-Sarfi lil-Tawthiq (Morphological Documentation)
-
-Documentation sections **derived from code structure** - extract concepts from patterns, root words, and compositions.
-
-### Concept Extraction Process
-
-**ROOT (Jidhir)** - Core concept identified from codebase:
-- Extracted from: Class names, module names, 
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/tooling/documentation/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "documentation-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>DOCUMENTATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>DOCUMENTATION_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

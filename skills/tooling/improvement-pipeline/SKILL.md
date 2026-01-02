@@ -1,266 +1,69 @@
 ---
 name: improvement-pipeline
-description: Executable implementation of the Propose -> Test -> Compare -> Commit -> Rollback pipeline for recursive self-improvement. Provides concrete commands and workflows for each stage.
-allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+description: Coordinate sequential improvement stages (analyze → propose → build → validate) with Prompt Architect clarity and Skill Forge guardrails.
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Simplified the pipeline into an English-first SOP aligned with Prompt Architect constraint ordering.
+- Added structure-first documentation, confidence ceilings, and memory tagging per Skill Forge.
+- Clarified validation gates and rollback expectations.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "improvement-pipeline",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Run disciplined improvement cycles for any artifact (prompt, skill, doc, script) across analyze → propose → build → validate → deliver.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- **Positive:** requests to improve/refine/upgrade an artifact with validation gates.
+- **Negative:** net-new creation (route to creation skills) or emergency fixes without evaluation.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Maintain structure-first docs (SKILL, README, examples/tests/references). Log deviations.
+- Confidence ceilings mandatory; cite evidence and baselines.
+- No skipping validation; rollback if metrics regress or confidence < threshold.
+- Memory tagging for each cycle.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intent & Constraints** – Use Prompt Architect style to extract objectives, constraints, and success metrics.
+2. **Analysis** – Review current state, gather baselines, and capture risks.
+3. **Proposals** – Generate options with deltas and blast radius notes; select path.
+4. **Build** – Implement chosen changes with minimal diffs and rollback plan.
+5. **Validation** – Run tests/benchmarks/lints; compare to baselines; document outcomes.
+6. **Delivery** – Summarize changes, decisions, metrics, and confidence ceiling; archive artifacts.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Output Format
+- Target artifact, goals, constraints, and selected proposal.
+- Changes applied with evidence of improvement vs baseline.
+- Risks, follow-ups, and rollback info.
+- Confidence: X.XX (ceiling: TYPE Y.YY) and memory keys used.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["improvement-pipeline", "foundry", "workflow"],
-  context: "user needs improvement-pipeline capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Validation Checklist
+- [ ] Constraints and success metrics captured.
+- [ ] Baseline recorded; validation executed.
+- [ ] Regression/impact analysis completed.
+- [ ] Memory tagged and artifacts stored.
+- [ ] Confidence ceiling declared.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Integration
+- **Memory MCP:** `skills/tooling/improvement-pipeline/{project}/{timestamp}`.
+- **Hooks:** align with Skill Forge latency bounds; integrate with eval-harness when gating is required.
 
-# Improvement Pipeline (Executable Stages)
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Purpose
-
-Provide concrete, executable implementation for each stage of the improvement pipeline:
-
-```
-PROPOSE -> TEST -> COMPARE -> COMMIT -> MONITOR -> ROLLBACK
-```
-
-Each stage has:
-- Clear inputs and outputs
-- Executable commands
-- Validation checks
-- Failure handling
+Confidence: 0.70 (ceiling: inference 0.70) – Pipeline rewritten to blend Prompt Architect clarity with Skill Forge delivery gates.
 
 ---
 
-## Stage 1: PROPOSE
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-Generate concrete improvement proposals with diffs.
+[[HON:teineigo]] [[MOR:root:I-Y-I]] [[COM:Improvement+Hatti]] [[CLS:ge_pipeline]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/improvement-pipeline]]
+[define|neutral] IMP_PIPE := analiz→oner→insaa→dogrula→teslim; atlama yasak. [ground:SKILL.md] [conf:0.83] [state:confirmed]
 
-### Input
-```yaml
-propose_input:
-  target: "{path to skill/prompt}"
-  audit_report: "{from prompt-auditor or skill-auditor}"
-  improvement_type: "clarity|completeness|precision|safety|technique"
-```
+[[HON:teineigo]] [[MOR:root:G-R-L]] [[COM:Guardrail]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:axis:safeguards]]
+[direct|emphatic] VAL_GATES := dogrulama ve rollback planlari olmadan gecis yok; confidence tavani beyan edilir. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-### Process
-
-```javascript
-async function generateProposal(target, auditReport) {
-  const proposal = {
-    id: `prop-${Date.now()}`,
-    target,
-    timestamp: new Date().toISOString(),
-    changes: [],
-    predicted_improvement: {},
-    risk_assessment: {}
-  };
-
-  // 1. Read current version
-  const currentContent = await readFile(target);
-
-  // 2. Identify improvement opportunities from audit
-  const opportunities = auditReport.issues
-    .filter(issue => issue.priority === 'critical' || issue.priority === 'high')
-    .slice(0, 5); // Max 5 changes per proposal
-
-  // 3. Generate changes for each opportunity
-  for (const opp of opportunities) {
-    const change = await generateChange(currentContent, opp);
-    proposal.changes.push({
-      section: opp.section,
-      location: opp.location,
-      before: change.before,
-      after: change.after,
-      rationale: change.rationale,
-      technique_applied: change.technique
-    });
-  }
-
-  // 4. Predict improvement
-  proposal.predicted_improvement = {
-    primary_metric: auditReport.lowest_score_dimension,
-    expected_delta: `+${(opportunities.length * 3)}%`, // ~3% per fix
-    confidence: 0.7
-  };
-
-  // 5. Assess risk
-  proposal.risk_assessment = {
-    regression_risk: opportunities.length > 3 ? 'medium' : 'low',
-    affected_components: findAffectedComponents(target, proposal.changes),
-    rollback_complexity: 'simple' // Always simple with archives
-  };
-
-  return proposal;
-}
-```
-
-### Output
-```yaml
-proposal:
-  id: "prop-1734567890123"
-  target: ".claude/skills/skill-forge/SKILL.md"
-  timestamp: "2025-12-15T10:30:00Z"
-
-  changes:
-    - section: "Phase 3: Structural Architecture"
-      location: "Lines 145-160"
-      before: |
-        Design the skill's structure based on progressive disclosure.
-      after: |
-        Design the skill's structure based on progressive disclosure.
-
-        ### Failure Handling (REQUIRED)
-
-        For each operation in the skill:
-        1. Identify possible failure modes
-        2. Define explicit error messages
-        3. Specify recovery actions
-        4. Include timeout handling
-
-        ```yaml
-        error_handling:
-          timeout:
-            threshold: 30s
-            action: "Return partial results with warning"
-          invalid_input:
-            detection: "Validate against schema"
-            action: "Return clear error message with fix suggestion"
-        ```
-      rationale: "Adds explicit failure handling missing from Phase 3"
-      technique_applied: "completeness_enhancement"
-
-  predicted_improvement:
-    primary_metric: "failure_coverage"
-    expected_delta: "+9%"
-    confidence: 0.7
-
-  risk_assessment:
-    regression_risk: "low"
-    affected_components: ["micro-skill-creator", "agent-creator"]
-    rollback_complexity: "simple"
-```
-
-### Validation
-```yaml
-proposal_validation:
-  required_fields:
-    - id: "Must be unique"
-    - target: "Must be valid file path"
-    - changes: "At least 1 change"
-    - predicted_improvement: "Must have primary_metric"
-    - risk_assessment: "Must have regression_risk"
-
-  change_validation:
-    - before: "Must exist in current file"
-    - after: "Must be different from before"
-    - rationale: "Must not be empty"
-```
-
----
-
-## Stage 2: TEST
-
-Run evaluation harness on proposed changes.
-
-### Input
-```yaml
-test_input:
-  proposal_id:
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/improvement-pipeline/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "improvement-pipeline-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>IMPROVEMENT_PIPELINE_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+[commit|confident] <promise>IMPROVEMENT_PIPELINE_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]

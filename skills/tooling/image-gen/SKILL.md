@@ -1,255 +1,72 @@
 ---
 name: image-gen
-description: Modular image generation - supports local SDXL Lightning, OpenAI DALL-E, Replicate, or custom providers
-allowed-tools: Bash, Read, Write, Task, TodoWrite, Glob, Grep
+description: Generate images via local SDXL Lightning, OpenAI DALL·E, Replicate, or custom providers with structured prompts and safety checks.
+allowed-tools: [Bash, Read, Write, Task, TodoWrite, Glob, Grep]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: tooling
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
-# Modular Image Generation Skill
+### L1 Improvement
+- Recast the image generation SOP using Prompt Architect clarity and Skill Forge structure-first guardrails.
+- Added provider selection rules, confidence ceilings, and memory tagging.
+- Clarified integration with visual-art-composition and safety constraints.
 
-## Purpose
+## STANDARD OPERATING PROCEDURE
 
-Generate images using the best available provider - local models (free, private) or cloud APIs (fast, paid). Fully modular architecture allows plugging in any image generation backend.
+### Purpose
+Select the best image provider (local or API) for the request, generate assets with structured prompts, and deliver reproducible outputs with safety and cost visibility.
 
-## Providers
+### Trigger Conditions
+- **Positive:** requests for illustrations, banners, UI mockups, diagrams, or concept art.
+- **Negative:** vector/icon design requiring manual tools; route to design specialists.
 
-| Provider | Type | Cost | Requirements | Quality |
-|----------|------|------|--------------|---------|
-| **SDXL Lightning** | Local | Free | 8GB VRAM, ~7GB disk | Excellent |
-| **OpenAI DALL-E 3** | API | ~$0.04/image | OPENAI_API_KEY | Excellent |
-| **Replicate** | API | ~$0.01/image | REPLICATE_API_TOKEN | Good |
-| **Custom** | Any | Varies | User-defined | Varies |
+### Guardrails
+- Structure-first docs maintained; scripts/resources referenced.
+- Provider selection uses evidence: availability, cost, latency, privacy.
+- Respect safety filters and license terms; avoid unsafe content.
+- Confidence ceilings declared for prompt-to-image fit; cite provider used.
+- Memory tagging for prompts/results to enable reuse.
 
-## When to Use
+### Execution Phases
+1. **Intent & Constraints** – Capture use case, size/aspect, style, privacy/cost limits. Pull structured prompt from visual-art-composition if available.
+2. **Provider Selection** – Choose SDXL (local, private), DALL·E (quality), Replicate (cost), or custom; log rationale.
+3. **Setup/Validation** – Ensure provider credentials/models ready; note latency/VRAM needs.
+4. **Generation** – Run prompt with seed/size/options; generate 1–N variants.
+5. **Review & Safety** – Check for content/safety violations and quality fit; rerun if needed.
+6. **Delivery** – Save paths, provider, settings, and confidence line; store in memory.
 
-### Perfect For:
-- Blog banners and social media images (LinkedIn: 1200x630)
-- Documentation diagrams and illustrations
-- UI mockups and wireframes
-- Concept visualization
-- Any image generation need
+### Output Format
+- Provider + rationale, prompt used, parameters (size, seed, steps), and file paths.
+- Quality/safety notes and follow-ups.
+- Confidence: X.XX (ceiling: TYPE Y.YY) with source of certainty (observation vs inference).
 
-### Provider Selection:
-- **Privacy required?** -> Use local SDXL
-- **No GPU?** -> Use OpenAI or Replicate API
-- **Batch generation?** -> Use local (no API costs)
-- **Highest quality?** -> DALL-E 3 or SDXL Lightning
+### Validation Checklist
+- [ ] Constraints captured; provider rationale logged.
+- [ ] Credentials/models verified; no unsafe content.
+- [ ] Outputs saved with deterministic params when possible.
+- [ ] Memory tagged; confidence ceiling declared.
 
-## Quick Start
+### Integration
+- **Pipeline:** combine with `visual-art-composition` for structured prompts.
+- **Scripts:** `scripts/multi-model/image-gen/cli.py` with `--list`, `--setup <provider>`, and generation commands.
+- **Memory MCP:** `skills/tooling/image-gen/{project}/{timestamp}` for prompts/results.
 
-### 1. Check Available Providers
-```bash
-python scripts/multi-model/image-gen/cli.py --list
-```
+Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect clarity and Skill Forge delivery.
 
-### 2. Setup Local SDXL (Recommended)
-```bash
-# First-time setup (downloads ~7GB)
-python scripts/multi-model/image-gen/cli.py --setup local
-```
+---
 
-### 3. Generate Images
-```bash
-# Auto-selects best available provider
-python scripts/multi-model/image-gen/cli.py "A sunset over mountains" output.png
+## VCL COMPLIANCE APPENDIX (Internal Reference)
 
-# LinkedIn banner size
-python scripts/multi-model/image-gen/cli.py "Tech concept" banner.png --width 1200 --height 630
+[[HON:teineigo]] [[MOR:root:I-M-G]] [[COM:Gorsel+Uretim]] [[CLS:ge_skill]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:path:/skills/tooling/image-gen]]
+[define|neutral] IMAGE_GEN := saglayici-secim + prompt-uygulama + guvenlik kontrolu; SDXL/DALL·E/Replicate/custom destekli. [ground:SKILL.md] [conf:0.84] [state:confirmed]
 
-# Specific provider
-python scripts/multi-model/image-gen/cli.py "A cat" cat.png --provider openai
-```
+[[HON:teineigo]] [[MOR:root:P-R-V]] [[COM:Provider+Secim]] [[CLS:ge_rule]] [[EVD:-DI<gozlem>]] [[ASP:nesov.]] [[SPC:axis:routing]]
+[direct|emphatic] PROVIDER_RULE := gizlilik->local; GPU yok->API; maliyet kritik->Replicate; kalite yuksek->DALL·E veya SDXL. [ground:SKILL.md] [conf:0.87] [state:confirmed]
 
-## Integration with Visual Art Composition
+[[HON:teineigo]] [[MOR:root:C-F-D]] [[COM:Ceiling+Guard]] [[CLS:ge_rule]] [[EVD:-DI<politika>]] [[ASP:nesov.]] [[SPC:coord:EVD-CONF]]
+[direct|emphatic] GUVEN_TAVANI := {cikarim:0.70, rapor:0.70, arastirma:0.85, gozlem:0.95, tanim:0.95}; ciktida belirtilir. [ground:PA/SkillForge] [conf:0.90] [state:confirmed]
 
-For professional-quality images, combine with `visual-art-composition`:
-
-```
-Step 1: visual-art-composition (Structure the prompt)
-    |
-    +---> 13-dimension aesthetic framework
-    +---> Cross-cultural synthesis
-    +---> Productive tension resolution
-    |
-    v
-Step 2: image-gen (Generate the image)
-    |
-    +---> Select best provider (local or API)
-    +---> Generate high-quality image
-    +---> Save to specified path
-```
-
-### Example Pipeline
-```bash
-# 1. Get structured prompt from visual-art-composition
-/visual-art-composition "tech dashboard for productivity app"
-
-# 2. Generate with structured prompt
-python scripts/multi-model/image-gen/cli.py \
-  "Dashboard UI with linear perspective depth, composed blues and warm golds,
-   focal hierarchy with clear primary metric, notan two-value contrast.
-   Modern professional aesthetic, clean geometric forms." \
-  docs/images/dashboard.png --width 1200 --height 630
-```
-
-## Provider Setup
-
-### Local SDXL Lightning (Recommended)
-
-**Requirements:**
-- GPU with 8GB+ VRAM (or CPU with 16GB+ RAM, slower)
-- ~7GB disk space on D: drive
-- Python with diffusers, torch
-
-**Setup:**
-```bash
-python scripts/multi-model/image-gen/cli.py --setup local
-```
-
-**Environment Variables (optional):**
-```bash
-export SDXL_MODEL_DIR="D:/AI-Models/sdxl-lightning"
-```
-
-### OpenAI DALL-E 3
-
-**Requirements:**
-- OpenAI API key
-- ~$0.04 per image
-
-**Setup:**
-```bash
-export OPENAI_API_KEY="sk-..."
-python scripts/multi-model/image-gen/cli.py --setup openai
-```
-
-### Replicate
-
-**Requirements:**
-- Replicate API token
-- ~$0.01 per image
-
-**Setup:**
-```bash
-export REPLICATE_API_TOKEN="r8_..."
-python scripts/multi-model/image-gen/cli.py --setup replicate
-```
-
-## Adding Custom Providers
-
-Create a new provider by implementing `ImageGeneratorBase`:
-
-```python
-from base import ImageGeneratorBase, ImageProvider, ProviderRegistry
-
-class MyCustomGenerator(ImageGeneratorBase):
-    provider = ImageProvider.CUSTOM
-
-    def is_available(self) -> bool:
-        # Check if provider is configured
-        return True
-
-    def setup(self) -> bool:
-        # Download models, verify API keys, etc.
-        return True
-
-    def generate(self, prompt, output_path, config=None):
-        # Generate image
-        # Return GeneratedImage
-        pass
-
-# Register
-ProviderRegistry.register(ImageProvider.CUSTOM, MyCustomGenerator)
-```
-
-## Python API
-
-```python
-from scripts.multi_model.image_gen.base import ProviderRegistry, ImageConfig
-
-# Get best available provider
-provider = ProviderRegistry.get_best_available()
-
-# Configure
-config = ImageConfig(
-    width=1200,
-    height=630,
-    num_inference_steps=4
-)
-
-# Generate
-result = provider.generate(
-    prompt="A beautiful sunset",
-    output_path="output.png",
-    config=config
-)
-
-print(f"Generated: {result.path} in {result.generation_time_seconds}s")
-```
-
-## Batch Generation
-
-```python
-prompts = [
-    "Sunset over mountains",
-    "City skyline at night",
-    "Forest in autumn"
-]
-
-results = provider.generate_batch(
-    prompts=prompts,
-    output_dir="./images/",
-    config=config
-)
-```
-
-## Best Practices
-
-### Prompt Engineering
-1. Be specific about composition, colors, style
-2. Include negative prompts for local models
-3. Use visual-art-composition for professional quality
-4. Specify aspect ratio in prompt when needed
-
-### Performance
-1. Local models: First generation is slow (model loading), subsequent are fast
-2. API models: Consistent speed, watch for rate limits
-3. Batch generation: More efficient than individual calls
-
-### Quality
-1. SDXL Lightning: 4 steps is optimal (more steps = minimal improvement)
-2. DALL-E 3: No step control, always high quality
-3. Always validate output matches intent
-
-## Related Skills
-
-- `visual-art-composition`: 13-dimension aesthetic framework for structured prompts
-- `prompt-architect`: General prompt optimization
-- `pptx-generation`: Uses images for presentation slides
-
-## Troubleshooting
-
-### "No provider available"
-- Run `--list` to see what's configured
-- Run `--setup local` to download SDXL Lightning
-- Or set API keys for cloud providers
-
-### Out of VRAM
-- Use CPU mode (slower): Set `SDXL_DEVICE=cpu`
-- Use API provider instead
-- Reduce image size
-
-### Slow First Generation
-- Normal for local models (loading ~7GB model)
-- Subsequent generations are fast (~2-5 seconds)
-
-### Poor Quality
-- Use more descriptive prompts
-- Apply visual-art-composition framework
-- Try different provider
-
-## Files
-
-- CLI: `scripts/multi-model/image-gen/cli.py`
-- Base classes: `scripts/multi-model/image-gen/base.py`
-- Local SDXL: `scripts/multi-model/image-gen/local_sdxl.py`
-- API providers: `scripts/multi-model/image-gen/api_providers.py`
+[commit|confident] <promise>IMAGE_GEN_VERIX_COMPLIANT</promise> [ground:self-check] [conf:0.85] [state:confirmed]
