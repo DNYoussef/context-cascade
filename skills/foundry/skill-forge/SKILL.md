@@ -9,6 +9,79 @@ x-vcl-compliance: v3.1.1
 x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement (English-first rewrite)
+- Reordered the skill-forge playbook to place the English SOP ahead of VCL markers for clearer execution without VERIX knowledge.
+- Consolidated the structure-first, adversarial validation, and self-dogfooding rules into explicit guardrails inside the SOP.
+- Added an explicit confidence requirement and delivery checklist to prevent silent deviations from the pattern.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Create production-grade skill definitions with a complete directory structure, validated tests, and examples while preserving self-improvement loops.
+
+### Trigger Conditions
+- **Positive:** "create skill", "optimize skill", "adversarial validation", "skill improvement".
+- **Negative:** Requests better routed to micro-skill-creator, agent-creator, or prompt-architect.
+
+### Guardrails (Apply in every run)
+- Structure-first principle: always produce `SKILL.md`, `examples/`, and `tests/`; prefer adding `resources/` and `references/`.
+- Adversarial validation is mandatory before deployment; run boundary, failure, and COV checks.
+- Self-application is required: use the dogfooding loop until improvement delta < 2%.
+- Avoid anti-patterns: skipping adversarial tests, omitting required files, generic coordination notes, or ignoring MCP integration.
+- Hooks must respect target latencies: `pre_hook_target_ms:20`, `pre_hook_max_ms:100`, `post_hook_target_ms:100`, `post_hook_max_ms:1000`.
+- MCP integration must tag sessions with `WHO=skill-forge-{session}` and `WHY=skill-execution` for recall and auditing.
+
+### Execution Phases
+1. **Requirements Analysis**
+   - Parse the requested skill, domain, and category.
+   - Capture constraints and success criteria; check existing skills for reusable patterns.
+   - Confirm triggers match; reroute if better served by another creator.
+2. **Structure Design**
+   - Instantiate the required directory layout:
+     ```
+     skills/{category}/{skill-name}/
+       SKILL.md          # REQUIRED
+       examples/         # REQUIRED
+       tests/            # REQUIRED
+       resources/        # RECOMMENDED
+       references/       # RECOMMENDED
+     ```
+   - Log any deviations and remediate before proceeding.
+3. **Skill Definition**
+   - Draft `SKILL.md` with YAML frontmatter, English SOP, and a VCL appendix.
+   - Document cognitive frames, anti-patterns, quality gates, hooks, and MCP settings.
+   - State the expected outputs and validation criteria in English.
+4. **Adversarial Validation**
+   - Run boundary cases, failure-mode probes, and the chain-of-verification circle.
+   - Perform security and performance checks; capture evidence.
+5. **Dogfooding Loop**
+   - Apply skill-forge to itself: `skill_forge.improve(skill_forge)`.
+   - Measure improvement deltas; iterate until delta < 2% or no net gain.
+   - Record convergence notes for future reuse.
+6. **Packaging & Delivery**
+   - Bundle the finalized `SKILL.md`, examples, tests, and supporting resources.
+   - Provide a delivery note summarizing changes, validation status, and open risks.
+
+### Output Format
+- Summary of the request, chosen category, and directory layout.
+- Key decisions, assumptions, and validation artifacts (tests, COV, security, performance).
+- Next steps or open risks if the dogfooding loop has remaining iterations.
+- Explicit confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` with ceilings {inference/report: 0.70, research: 0.85, observation/definition: 0.95}.
+
+### Validation Checklist
+- [ ] Trigger matched; reroutes handled.
+- [ ] Required directories created; recommended directories considered.
+- [ ] Adversarial validation and COV completed with evidence.
+- [ ] Dogfooding loop converged or documented.
+- [ ] MCP integration tags applied.
+- [ ] Output in English with confidence ceiling included.
+
+Confidence: 0.70 (ceiling: inference 0.70) - English-first rewrite preserves all original guardrails, triggers, and validation steps while moving VCL to the appendix.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
 [[HON:teineigo]] [[MOR:root:S-K-L]] [[COM:Skill+Schmiede+Meta]] [[CLS:ge_meta_skill]] [[EVD:-DI<tanim>]] [[ASP:nesov.]] [[SPC:path:/skills/foundry/skill-forge]]
 [assert|neutral] “Skill-Forge” kendi kendini dokuyan meta-beceri; trilateral kök S-K-L + F-R-G + I-M-P ile yapisal dokumayi zorunlu kilar. [ground:SKILL.md] [conf:0.89] [state:confirmed]
 
@@ -59,71 +132,3 @@ x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 [direct|emphatic] L2_LANGUAGE := English; ALL user-facing output MUST be pure English. VCL/VERIX internal only. [ground:system-policy] [conf:0.99] [state:confirmed]
 
 [commit|confident] <promise>SKILL_FORGE_VERILINGUA_VERIX_COMPLIANT</promise> dogfooding + COV ile korunur. [ground:SKILL.md] [conf:0.85] [state:confirmed]
-
----
-
-## STANDARD OPERATING PROCEDURE (L2 English)
-
-### Purpose
-Create production-grade skill definitions with complete directory structure, tests, and examples.
-
-### Trigger Conditions
-- Positive: "create skill", "optimize skill", "adversarial validation", "skill improvement"
-- Negative: Route to micro-skill-creator, agent-creator, or prompt-architect instead
-
-### Execution Phases
-
-#### Phase 1: Requirements Analysis
-1. Parse user's skill requirements
-2. Identify domain and category
-3. Determine phase structure needed
-4. Check existing skills for patterns
-5. Document evidence: `[witnessed:user-requirements]`
-
-#### Phase 2: Structure Design (Structure-First Principle)
-Required directory structure:
-```
-skills/{category}/{skill-name}/
-  SKILL.md          # Main skill definition (REQUIRED)
-  examples/         # Usage examples (REQUIRED)
-  tests/            # Test cases (REQUIRED)
-  resources/        # Supporting files (RECOMMENDED)
-  references/       # External references (RECOMMENDED)
-```
-
-#### Phase 3: Skill Definition
-Generate SKILL.md with:
-- YAML frontmatter (name, description, tools, model, x-fields)
-- VCL 7-slot cognitive frame documentation
-- Clear execution phases in English
-- Anti-pattern guards
-- Quality gates
-
-#### Phase 4: Adversarial Validation
-Before deployment:
-1. Edge case testing (boundary conditions)
-2. Failure mode analysis
-3. Chain of verification (COV) circle
-4. Security review
-5. Performance benchmarks
-
-#### Phase 5: Dogfooding Loop
-Apply skill to itself:
-1. skill_forge.improve(skill_forge)
-2. Measure improvement delta
-3. Continue until delta < 2%
-4. Document convergence
-
-### Output Format
-Deliver complete skill package:
-- SKILL.md with VCL compliance
-- Example files with usage patterns
-- Test cases covering edge cases
-- Documentation in pure English (L2)
-
-### Quality Gates
-- Structure validation: required files present
-- Adversarial testing: edge cases pass
-- COV circle: verification complete
-- MCP integration: memory persistence configured
-- L2 purity: user output in pure English

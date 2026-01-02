@@ -1,3 +1,68 @@
+---
+name: skill-forge-readme-enhanced
+description: Overview and navigation for the enhanced agent-orchestrated Skill Forge SOP
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Restructured the enhanced README into English-first SOP form with explicit triggers, phases, and outputs.
+- Preserved the 7-phase timings, agent orchestration, scripts, and diagram guidance in the appendix.
+- Added a confidence requirement to align with the confidence ceiling rule.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Guide contributors through the enhanced, agent-orchestrated Skill Forge documentation set and provide a runnable quick start.
+
+### Trigger Conditions
+- Use when starting a Skill Forge build that relies on the enhanced 7-phase SOP.
+- Defer to `SKILL-ENHANCED.md` for full phase instructions and `SKILL.md` for the legacy reference.
+
+### Execution Phases
+1. **Orient**
+   - Confirm evidential frame is active and you are using the enhanced workflow.
+   - Review the documentation map: SKILL-ENHANCED.md (primary), QUICK-REFERENCE.md, ENHANCEMENT-SUMMARY.md, README-ENHANCED.md (this file), and SKILL.md (legacy).
+2. **Prepare Environment**
+   - Install validation dependencies (`pip install pyyaml`).
+   - Optionally install GraphViz for diagrams.
+3. **Run the 7-Phase Flow**
+   - Follow phases 1–7 from SKILL-ENHANCED.md with listed agents, durations, and outputs.
+   - Initialize coordination: `npx claude-flow@alpha hooks session-start --session-id "skill-forge-$(date +%s)"`.
+4. **Validate & Package**
+   - Validate: `python resources/validate_skill.py ~/.claude/skills/{skill}`.
+   - Package: `python resources/package_skill.py ~/.claude/skills/{skill}`.
+5. **Review Artifacts**
+   - Use `skill-forge-sop-process.dot` and `skill-forge-process.dot` for process visualization.
+   - Confirm key features: agent orchestration, memory namespace `coordination/skill-forge/phase{N}/*`, evidence-based prompting, automation scripts, and validation gates.
+
+### Output Format
+- Summary of chosen documentation path and environment readiness.
+- Phase progression with agents, durations, and deliverables.
+- Validation and packaging status, plus any blockers.
+- Confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Evidential frame active; enhanced workflow confirmed.
+- [ ] Dependencies installed; GraphViz considered.
+- [ ] Phases 1–7 mapped with agents, outputs, and timings.
+- [ ] Validation and packaging commands run or queued.
+- [ ] Confidence statement present with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Enhanced README rewritten to English-first SOP while retaining agent orchestration details and resources.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+- Legacy enhanced README content is retained verbatim below for internal use. Do not expose VCL markers to users.
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Skill Forge Enhanced - Agent-Orchestrated SOP
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -157,7 +222,7 @@ xdot skill-forge-sop-process.dot  # Interactive viewer
 
 ### 5. Comprehensive Validation
 - Structural validation (files, organization)
-- Functional testing (use case verification)
+</details>
 - Clarity assessment (usability checks)
 - Anti-pattern detection (quality compliance)
 

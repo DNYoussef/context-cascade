@@ -1,3 +1,63 @@
+---
+name: skill-forge-consolidation-summary
+description: Summary of the skill-forge consolidation to the MECE universal template
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Converted the consolidation summary to English-first SOP format with explicit triggers and outputs.
+- Preserved the full historical consolidation narrative in the appendix.
+- Added confidence ceiling guidance for downstream reporting.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Document what changed during the Skill Forge consolidation to the MECE universal template and how to reuse the resulting structure.
+
+### Trigger Conditions
+- When onboarding contributors to the post-consolidation layout or validating future changes against it.
+- When auditing removals (e.g., skill-builder) or renamed assets.
+
+### Execution Phases
+1. **Establish Context**
+   - Record date, version, and completion status of the consolidation.
+   - Note removed components (e.g., skill-builder) and rationale.
+2. **Summarize Actions**
+   - Capture MECE analysis outputs, structural gaps, redundancy fixes, and validation criteria.
+   - Document before/after directory structures and renamed artifacts.
+3. **Apply Structure**
+   - Ensure required files (`skill.md`, `README.md`) and required examples directory exist.
+   - Plan optional directories (`references/`, `resources/`, `graphviz/`, `tests/`, `tmp/`) with contents and naming.
+4. **Handoff & Validation**
+   - Share location of analysis artifacts (e.g., `tmp/MECE-ANALYSIS.md`).
+   - Confirm alignment with current templates and quality gates.
+
+### Output Format
+- Date, version, and status.
+- Key consolidation actions (deleted/created/moved) and resulting structure.
+- Pointers to analysis artifacts and renamed files.
+- Confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Version and completion status recorded.
+- [ ] Deletions and creations documented with paths.
+- [ ] Current directory structure confirmed against MECE template.
+- [ ] Analysis artifacts referenced.
+- [ ] Confidence statement included with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Consolidation summary rewritten to English-first SOP with legacy narrative retained.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Skill-Forge Consolidation Summary
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -288,3 +348,5 @@ skill-forge has been successfully transformed from a skill creation guide into a
 
 ---
 *Promise: `<promise>CONSOLIDATION_SUMMARY_VERIX_COMPLIANT</promise>`*
+
+</details>

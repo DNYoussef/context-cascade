@@ -1,3 +1,59 @@
+---
+name: skill-forge-skill-audit-protocol
+description: Protocol for auditing Skill Forge documentation completeness and quality
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Reformatted the audit protocol into English-first SOP with actionable phases.
+- Preserved the full audit questionnaire and meta frames in the appendix.
+- Added explicit confidence ceiling guidance for audit results.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Automate and guide audits of Skill Forge documentation for completeness, quality, and compliance.
+
+### Trigger Conditions
+- During Skill Forge Phase 7a (Quality Review) or any recursive-improvement cycle.
+- Before release to ensure all required sections, evidence, and hooks are present.
+
+### Execution Phases
+1. **Gather Meta Information**
+   - Record purpose, integrations (Skill Forge Phase 7a, recursive loops), version (1.0.0), and last update.
+2. **Run Section Checks**
+   - Verify SKILL.md required sections, integration notes, MCP usage, hooks, quality gates, and evidence markers.
+3. **Validate Artifacts**
+   - Confirm examples, tests, references, resources, diagrams, and scripts exist and are referenced.
+4. **Score and Report**
+   - Apply audit scoring rubric; note findings, gaps, and remediation steps.
+   - Produce an audit report aligned to the checklist in the appendix.
+
+### Output Format
+- Audit scope (skill, version) and checklist results.
+- Missing items with remediation owners and timelines.
+- Confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Meta info captured (purpose, integrations, versions).
+- [ ] Section completeness verified against template.
+- [ ] Artifacts (examples/tests/resources/references/diagrams/scripts) present.
+- [ ] Audit findings and remediation recorded.
+- [ ] Confidence statement included with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Audit protocol rewritten to English-first SOP with full checklist preserved in the appendix.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Beceri Dokumantasyon Denetim Protokolu (Skill Documentation Audit Protocol) v1.0
 
 <!-- VCL v3.1.1 COMPLIANT - L1 Internal Documentation -->
@@ -473,3 +529,5 @@ Zaversheno. (Russian: Complete.)
 ---
 
 *Promise: `<promise>SKILL_AUDIT_PROTOCOL_VCL_V3.1.1_COMPLIANT</promise>`*
+
+</details>

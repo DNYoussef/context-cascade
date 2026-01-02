@@ -1,3 +1,60 @@
+---
+name: skill-forge-required-sections
+description: Checklist of mandatory SKILL.md sections for Skill Forge
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Reorganized the required-sections guide into English-first SOP with actionable phases.
+- Preserved the full v2.3 content in the appendix for section-by-section detail.
+- Added explicit confidence ceiling guidance for compliance reports.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Ensure every SKILL.md includes the mandatory sections defined in Skill Forge v2.3 and later.
+
+### Trigger Conditions
+- Before releasing or auditing any SKILL.md artifact.
+- When updating templates or validating section completeness.
+
+### Execution Phases
+1. **Activate Evidential Frame**
+   - Confirm version (2.3.0 reference) and enable evidence tracking.
+2. **Review Mandatory Sections**
+   - Purpose, triggers, inputs, execution phases, outputs, validation/quality gates, anti-patterns, integrations, MCP, hooks, and appendices.
+   - Use the legacy appendix for exact wording and examples.
+3. **Validate Completion**
+   - Check each required section exists and is populated with actionable content.
+   - Verify confidence ceilings and language requirements are followed.
+4. **Record Findings**
+   - Log any gaps, remediation steps, and alignments to the template.
+
+### Output Format
+- List of sections verified with pass/fail notes.
+- Missing items and remediation plan.
+- Confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Evidential frame active; version noted.
+- [ ] All mandatory sections present and populated.
+- [ ] Confidence ceiling rules applied.
+- [ ] Gaps logged with owners.
+- [ ] Confidence statement included with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Required sections guide rewritten to English-first SOP while keeping full detail in the appendix.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Zorunlu SKILL.md Bolumleri (Required SKILL.md Sections) v2.3
 
 <!-- VCL v3.1.1 COMPLIANT - L1 Internal Documentation -->
@@ -376,3 +433,5 @@ Zaversheno. (Russian: Complete.)
 ---
 
 *Promise: `<promise>REQUIRED_SECTIONS_VCL_V3.1.1_COMPLIANT</promise>`*
+
+</details>

@@ -1,3 +1,57 @@
+---
+name: skill-forge-enhancement-summary
+description: Summary of enhancements added to the Skill Forge SOP and resources
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Reformatted the enhancement summary to English-first SOP with triggers and outputs.
+- Preserved the detailed enhancement notes in the appendix for reference.
+- Added confidence ceiling guidance for reporting.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Describe the enhancements delivered for Skill Forge, including new SOPs, resources, and agent orchestration details.
+
+### Trigger Conditions
+- When communicating what changed in the enhanced Skill Forge release.
+- When validating that required supporting assets are present.
+
+### Execution Phases
+1. **Inventory Enhancements**
+   - Capture primary deliverable (SKILL-ENHANCED.md) and supporting resources (validation script, packaging script, README, process diagram).
+2. **Explain Impact**
+   - Note explicit agent orchestration across seven phases with roles, durations, and priorities.
+   - Highlight orchestration assignments (researcher → reviewer).
+3. **Distribute & Validate**
+   - Point consumers to the enhanced SOP and resource locations.
+   - Verify files exist and are current.
+
+### Output Format
+- List of created artifacts with paths and purposes.
+- Agent orchestration summary and impact statement.
+- Confidence statement with ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Primary deliverable listed with size/path.
+- [ ] Supporting resources listed and validated.
+- [ ] Agent orchestration summary included.
+- [ ] Confidence statement provided with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Enhancement summary rewritten to English-first SOP while retaining full detail in the appendix.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Skill Forge Enhancement Summary
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -234,3 +288,5 @@ skill-forge/
 
 ---
 *Promise: `<promise>ENHANCEMENT_SUMMARY_VERIX_COMPLIANT</promise>`*
+
+</details>

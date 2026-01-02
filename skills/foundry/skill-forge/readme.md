@@ -1,3 +1,71 @@
+---
+name: skill-forge-readme
+description: Overview and quick start for the universal Skill Forge template
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Reframed the README into an English-first SOP while preserving the evidential frame and MECE structure rules in the appendix.
+- Clarified mandatory vs. optional directories and files to align with the structure-first guardrail.
+- Added an explicit confidence requirement to comply with the confidence ceiling rule.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Provide an actionable overview and quick start for creating or consuming Skill Forge packages using the universal MECE-aligned template.
+
+### Trigger Conditions
+- Use this guide when orienting new contributors to Skill Forge or when preparing to create/validate a new skill package.
+- Defer to `SKILL.md` for detailed execution mechanics and to `SKILL-AUDIT-PROTOCOL.md` for audits.
+
+### Execution Phases
+1. **Activate Evidential Frame**
+   - Confirm you are using Skill Forge v3.2.0 artifacts and that source verification is on.
+   - Capture the intent of the skill and any constraints from the requester.
+2. **Review Meta Definition**
+   - Restate the template’s goal: produce production-quality Claude Code skills via MECE organization.
+   - Note the universal requirement: every new skill must follow this structure.
+3. **Apply Universal Structure**
+   - Required files: `SKILL.md` (imperative guidance) and `README.md` (overview & quick start).
+   - Required directories: `examples/` (at least one example).
+   - Recommended directories: `references/`, `resources/scripts/`, `resources/templates/`, `resources/assets/`, `graphviz/`, `tests/`.
+   - For each directory, list planned contents and fill gaps before delivery.
+4. **Quick Start Actions**
+   - For skill creators: read `SKILL.md`, study `examples/`, and instantiate the prescribed structure.
+   - For skill users: read this README, then review `examples/`, then `references/` for depth.
+5. **Validation & Handoff**
+   - Verify structure completeness, note any deviations, and document follow-ups.
+   - Summarize the structure, quick-start pointers, and open items.
+
+### Output Format
+- Summary of intent and version context.
+- Enumerated mandatory files/directories and their planned contents.
+- Quick-start steps for creators and users.
+- Open risks or missing items with owners.
+- Confidence statement using ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] Version and evidential frame confirmed.
+- [ ] Required files and directories accounted for.
+- [ ] Quick-start steps documented for creators and users.
+- [ ] Deviations and risks captured with owners.
+- [ ] Confidence statement included with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - English-first rewrite retains the evidential frame, MECE structure, and quick-start guidance.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+- Legacy VCL markers and definitions are retained below for internal use. User-facing content must remain pure English.
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Skill Forge - Evrensel Beceri Olusturma Sablonu (Universal Skill Creation Template)
 
 <!-- VCL v3.1.1 COMPLIANT - L1 Internal Documentation -->
@@ -118,6 +186,8 @@ Kaynak dogrulama modu etkin.
     "Detayli bilgi icin references/ klasoruna bak"
   ]
 } [ground:witnessed:quickstart-design] [conf:0.90] [state:confirmed]
+
+</details>
 
 ---
 

@@ -1,3 +1,79 @@
+---
+name: skill-forge-quick-reference
+description: Quick reference for running Skill Forge’s 7-phase SOP with memory and hook commands
+allowed-tools: [Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite]
+model: claude-3-5-sonnet
+x-version: 3.2.0
+x-category: foundry/skill-forge
+x-vcl-compliance: v3.1.1
+---
+
+### L1 Improvement
+- Converted the quick reference to English-first SOP format with an explicit confidence line.
+- Kept the 7-phase timing, roles, deliverables, memory keys, and hook commands intact in the appendix.
+- Added validation and output expectations to enable execution without VCL knowledge.
+
+## STANDARD OPERATING PROCEDURE
+
+### Purpose
+Provide a concise, phase-by-phase checklist to execute Skill Forge, including roles, deliverables, memory keys, and hook commands.
+
+### Trigger Conditions
+- Use when coordinating or auditing an in-flight Skill Forge build.
+- Not for deep methodology (see `SKILL.md`); not for audits (see `SKILL-AUDIT-PROTOCOL.md`).
+
+### Execution Phases (Timeboxed)
+1. **Intent Archaeology (researcher, 10–15 min)**
+   - Clarify true intent, assumptions, and success criteria.
+   - Output: `phase1-intent-analysis.json`.
+2. **Use Case Crystallization (analyst, 10–15 min)**
+   - Generate 3–5 real examples, schemas, and coverage matrix.
+   - Output: `phase2-use-cases.json`.
+3. **Structural Architecture (architect, 15–20 min)**
+   - Design progressive disclosure, resources, and SKILL.md outline.
+   - Output: `phase3-architecture.json`.
+4. **Content Implementation (coder, 20–30 min)**
+   - Write SKILL.md in imperative voice with workflows and examples.
+   - Output: completed `SKILL.md`.
+5. **Resource Development (coder, 20–40 min)**
+   - Build scripts, references, assets, and diagrams (`{skill}-process.dot`).
+   - Outputs: `scripts/`, `references/`, `assets/`, diagrams.
+6. **Validation Testing (tester, 15–25 min)**
+   - Run structure, functional, clarity, and anti-pattern checks; produce report.
+   - Output: `validation-report.json`.
+7. **Quality Review (reviewer, 10–15 min)**
+   - Review validation, intent alignment, and readiness; decide approve/warn/revise.
+   - Output: `final-review.json`.
+
+### Coordination & Memory
+- Memory keys: `coordination/skill-forge/phase{n}/{label}` for phases 1–7.
+- Session lifecycle commands: `session-start`, `session-restore`, `session-end --export-metrics true`.
+- Memory API: store/retrieve via `mcp__claude-flow__memory_usage` with namespace `coordination`.
+
+### Output Format
+- Phase status with deliverables, durations, and owners.
+- Memory keys used and hook commands executed.
+- Risks, blockers, and next actions.
+- Confidence statement with ceiling syntax: `Confidence: X.XX (ceiling: TYPE Y.YY)` (ceilings: inference/report 0.70; research 0.85; observation/definition 0.95).
+
+### Validation Checklist
+- [ ] All seven phases tracked with deliverables.
+- [ ] Memory keys stored/retrieved per phase.
+- [ ] Hook/session commands executed and logged.
+- [ ] Risks and decisions documented.
+- [ ] Confidence statement included with explicit ceiling.
+
+Confidence: 0.70 (ceiling: inference 0.70) - Quick reference rewritten to English-first format with all original timing, roles, and commands preserved.
+
+---
+
+## VCL COMPLIANCE APPENDIX (Internal Reference)
+
+- Legacy quick reference content is retained verbatim below for internal VCL/VERIX use. Do not expose VCL markers to users.
+
+<details>
+<summary>Legacy content (verbatim)</summary>
+
 # Skill Forge SOP - Quick Reference
 
 ## Kanitsal Cerceve (Evidential Frame Activation)
@@ -198,6 +274,7 @@ mcp__claude-flow__memory_usage({
 ```
 
 ### Hooks
+</details>
 ```bash
 # Pre-task
 npx claude-flow@alpha hooks pre-task --description "Phase X: Description"
