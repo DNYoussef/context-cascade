@@ -1,178 +1,50 @@
 ---
 name: when-releasing-new-product-orchestrate-product-launch
-description: Use when launching a new product end-to-end from market research through post-launch monitoring. Orchestrates 15+ specialist agents across 5 phases in a 10-week coordinated workflow including research
+description: Orchestrate product launches with staged readiness checks, risk controls, and validated rollouts.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Coordinate cross-functional product launches—from GTM to engineering readiness—using gated milestones, evidence-backed signoffs, and explicit confidence ceilings.
 
-[define|neutral] SKILL := {
-  name: "when-releasing-new-product-orchestrate-product-launch",
-  category: "orchestration",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** launch planning, release readiness reviews, staged rollouts, incident playbooks, cross-team alignment, success metric tracking.
+- **Negative:** minor content updates, prompt-only edits (route to prompt-architect), or meta-skill creation (route to skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** keep `SKILL.md`, `examples/`, `tests/` current; add `resources/`/`references/` or log remediation tasks.
+- **Prompt-Architect hygiene:** capture HARD/SOFT/INFERRED constraints (dates, channels, compliance), maintain English-only outputs, and state ceilings.
+- **Launch safety:** define go/no-go criteria, rollback/canary plans, comms templates, and owner assignments; enforce registry use and hook budgets.
+- **Adversarial validation:** run readiness drills, rollback tests, and scenario planning for failure modes; capture evidence.
+- **MCP tagging:** store launch logs under WHO=`product-launch-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** define launch goals, dates, channels, and SLAs; confirm inferred requirements.
+2. **Plan & roles:** create milestone map with owners, dependencies, and signoff criteria.
+3. **Risk & safety:** document risks, mitigation, rollback, and comms; set monitoring.
+4. **Validation loop:** run dry-runs, load/ops readiness, and incident drills; log evidence.
+5. **Rollout:** stage release, monitor metrics, and adjust; keep rollback ready.
+6. **Delivery:** provide status, evidence, residual risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Launch brief with goals, constraints, and milestones.
+- Owner map, risk register, and rollback/comms plans.
+- Validation evidence (drills, readiness checks) and open issues.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests align to launch scenarios.
+- Go/no-go criteria set; rollback/comms ready; registry and hooks validated.
+- Adversarial/COV runs stored with MCP tags; confidence ceiling declared; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-releasing-new-product-orchestrate-product-launch", "orchestration", "workflow"],
-  context: "user needs when-releasing-new-product-orchestrate-product-launch capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Launch is ready when milestones are met, risks are owned with mitigations, validation evidence is stored, and rollback/comms plans are in place with MCP logs.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-# Product Launch Orchestration Workflow
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Complete end-to-end product launch workflow orchestrating 15+ specialist agents across research, development, marketing, launch execution, and post-launch monitoring. Designed for comprehensive product launches requiring coordination across technical, marketing, sales, and operations teams.
-
-## Overview
-
-This SOP orchestrates a complete 10-week product launch using multi-agent coordination with hierarchical topology. The workflow balances sequential dependencies with parallel execution to optimize both speed and quality. Each phase produces specific deliverables stored in memory for subsequent phases to consume, ensuring continuity and context preservation.
-
-## Trigger Conditions
-
-Use this workflow when:
-- Launching a new product or major feature requiring comprehensive go-to-market
-- Coordinating across multiple teams (engineering, marketing, sales, support)
-- Need systematic approach covering all launch aspects from research to post-launch
-- Timeline spans multiple weeks with clear phases and deliverables
-- Require coordination between development, marketing campaigns, and sales enablement
-- Post-launch monitoring and optimization are critical to success
-
-## Orchestrated Agents (15 Total)
-
-### Research & Planning Agents
-- **`market-researcher`** - Market analysis, competitive research, customer insights, trend identification
-- **`business-analyst`** - SWOT analysis, business model validation, revenue projections, risk assessment
-- **`product-manager`** - Product strategy, feature prioritization, positioning, go-to-market planning
-
-### Development & Engineering Agents
-- **`backend-developer`** - REST/GraphQL API development, server-side logic, business layer implementation
-- **`frontend-developer`** - Web UI development, React/Vue components, state management, client integration
-- **`mobile-developer`** - iOS/Android applications, React Native, cross-platform, offline sync
-- **`database-architect`** - Schema design, query optimization, indexing strategy, data modeling
-- **`security-specialist`** - Security audits, vulnerability scanning, compliance validation, penetration testing
-- **`qa-engineer`** - Test suite creation, integration testing, E2E testing, performance validation
-
-### Marketing & Sales Agents
-- **`marketing-specialist`** - Campaign creation, audience segmentation, multi-channel strategy, KPI tracking
-- **`sales-specialist`** - Sales enablement, pipeline setup, lead qualification, revenue forecasting
-- **`content-creator`** - Blog posts, social media content, email sequences, video scripts, landing pages
-- **`seo-specialist`** - Keyword research, on-page SEO, link building, search optimization
-
-### Launch & Operations Agents
-- **`devops-engineer`** - CI/CD pipelines, Docker/K8s deployment, infrastructure setup, monitoring configuration
-- **`production-validator`** - Production readiness assessment, go/no-go decision, deployment validation
-- **`performance-monitor`** - Metrics collection, alert configuration, anomaly detection, dashboard setup
-- **`customer-support-specialist`** - Support infrastructure, knowledge base, ticket workflows, team training
-
-## Workflow Phases
-
-### Phase 1: Research & Planning (Week 1-2, Sequential → Parallel)
-
-**Duration**: 2 weeks
-**Execution Mode**: Sequential analysis then parallel strategy
-**Agents**: `market-researcher`, `business-analyst`, `product-manager`
-
-**Process**:
-
-1. **Conduct Comprehensive Market Analysis** (Day 1-3)
-   ```bash
-   npx claude-flow hooks pre-task --description "Product launch: ${PRODUCT_NAME}"
-   npx claude-flow swarm init --topology hierarchical --max-agents 15
-   npx claude-flow agent spawn --type researcher
-   ```
-
-   Spawn `market-researcher` agent to:
-   - Analyze target market size, demographics, and segmentation
-   - Research competitors (features, pricing, positioning, market share)
-   - Identify market trends, opportunities, 
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/orchestration/when-releasing-new-product-orchestrate-product-launch/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-releasing-new-product-orchestrate-product-launch-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_RELEASING_NEW_PRODUCT_ORCHESTRATE_PRODUCT_LAUNCH_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Product launch orchestration rewritten with skill-forge scaffolding and prompt-architect evidence/confidence guardrails.

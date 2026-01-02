@@ -1,158 +1,50 @@
 ---
 name: llm-council
-description: Multi-model consensus using Karpathy LLM Council pattern for critical decisions
-allowed-tools: Bash, Read, Write, TodoWrite
+description: Facilitate council-style deliberation among specialized models with structured prompts, evidence gates, and explicit confidence ceilings.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
-# LLM Council Skill
+## STANDARD OPERATING PROCEDURE
 
-## Purpose
+### Purpose
+Run council deliberations that collect diverse model opinions, enforce evidence-backed synthesis, and prevent overconfident consensus.
 
-Run 3-stage multi-model consensus for critical decisions where:
-- Single-model hallucination risk is unacceptable
-- Multiple perspectives improve decision quality
-- High-stakes choices need validation
+### Trigger Conditions
+- **Positive:** multi-model debate, comparative reasoning, adjudication of conflicting outputs, need for weighted synthesis with evidence.
+- **Negative:** single-model answers, pure prompt polishing (route to prompt-architect), or skill creation (route to skill-forge).
 
-## Architecture (Karpathy Pattern)
+### Guardrails
+- **Skill-Forge structure-first:** maintain `SKILL.md`, `examples/`, `tests/`; add `resources/` and `references/` or log remediation tasks.
+- **Prompt-Architect hygiene:** define intent and constraints per council question; capture HARD/SOFT/INFERRED assumptions; output pure English with explicit ceilings.
+- **Council safety:** assign roles (proposer, challenger, judge), enforce registry agents, timebox rounds, and ensure hook latency budgets.
+- **Adversarial validation:** require dissenting review, cross-check citations, and COV on synthesis steps; capture evidence.
+- **MCP tagging:** store council transcripts with WHO=`llm-council-{session}` and WHY=`skill-execution`.
 
-```
-STAGE 1: COLLECT
-  +---> Claude ---> Response A
-  |
-Query --+---> Gemini ---> Response B
-  |
-  +---> Codex ----> Response C
+### Execution Playbook
+1. **Intent & scope:** define the question, success metric, and constraints; confirm inferred items.
+2. **Panel setup:** select specialists, assign roles, and set scoring criteria; configure timeboxes.
+3. **Deliberation rounds:** gather proposals, run adversarial critiques, and request evidence per claim.
+4. **Synthesis:** weigh arguments, resolve conflicts, and produce a grounded recommendation with alternatives.
+5. **Validation loop:** check evidence integrity, run COV on synthesis, and record telemetry.
+6. **Delivery:** provide recommendation, rationale, dissent, risks, and confidence ceiling.
 
-STAGE 2: RANK
-  Each model reviews others (anonymized)
-  Produces rankings with rationale
+### Output Format
+- Question, constraints, and panel composition.
+- Round summaries (proposals, critiques, evidence).
+- Synthesis with chosen path, alternatives, and risk notes.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
-STAGE 3: SYNTHESIZE
-  Chairman aggregates rankings
-  Produces final answer with consensus score
-```
+### Validation Checklist
+- Structure-first assets present or planned; examples/tests updated or ticketed.
+- Roles/timeboxes enforced; evidence cited; registry-only agents used; hooks within budget.
+- Adversarial and COV results captured with MCP tags; confidence ceiling declared; English-only output.
 
-## When to Use
+### Completion Definition
+Council run is complete when a recommendation (or documented stalemate) is delivered with evidence, dissent captured, risks owned, and MCP log persisted.
 
-### Perfect For:
-- Architecture decisions
-- Technology selection
-- Critical bug triage
-- Security assessment
-- High-risk deployments
-- Contentious design choices
-
-### Don't Use When:
-- Simple, low-risk decisions
-- Time-critical responses
-- Single correct answer exists
-- Cost is a concern (3x API usage)
-
-## Usage
-
-### Basic Council
-```bash
-/llm-council "Should we use microservices or monolith for this system?"
-```
-
-### With Threshold
-```bash
-/llm-council "Which auth approach is best?" --threshold 0.75
-```
-
-### With Chairman Override
-```bash
-/llm-council "Architecture decision" --chairman gemini
-```
-
-## Command Pattern
-
-```bash
-bash scripts/multi-model/llm-council.sh "<query>" "<threshold>" "<chairman>"
-```
-
-## Configuration
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| threshold | 0.67 | Minimum consensus score |
-| chairman | claude | Model that synthesizes final answer |
-| models | [claude, gemini, codex] | Participating models |
-
-## Consensus Scoring
-
-- **>0.80**: Strong consensus - proceed with confidence
-- **0.67-0.80**: Moderate consensus - consider minority views
-- **<0.67**: Weak consensus - escalate to human review
-
-## Memory Integration
-
-Results stored to Memory-MCP:
-- Key: `multi-model/council/decisions/{query_id}`
-- Tags: WHO=llm-council, WHY=consensus-decision
-
-## Output Format
-
-```json
-{
-  "query": "Original question",
-  "final_answer": {
-    "synthesis": "Combined answer...",
-    "chairman": "claude"
-  },
-  "consensus_score": 0.85,
-  "responses": {
-    "claude": "...",
-    "gemini": "...",
-    "codex": "..."
-  },
-  "rankings": [
-    {"model": "A", "rank": 1, "rationale": "..."}
-  ]
-}
-```
-
-## Failure Modes
-
-### Deadlock (No Consensus)
-- All models disagree
-- Consensus < threshold
-- Action: Store for human review
-
-### Model Unavailable
-- One model times out
-- Action: Continue with 2 models (2/3 quorum)
-
-### Chairman Failure
-- Synthesis fails
-- Action: Fallback to highest-ranked response
-
-## Integration Examples
-
-### Architecture Decision
-```javascript
-const decision = await runCouncil(
-  "Microservices vs Monolith for our scale?",
-  { threshold: 0.75 }
-);
-
-if (decision.consensus_score >= 0.75) {
-  proceed(decision.final_answer);
-} else {
-  escalateToHuman(decision);
-}
-```
-
-### Security Assessment
-```javascript
-const assessment = await runCouncil(
-  "Is this authentication approach secure?",
-  { threshold: 0.80 }
-);
-// Higher threshold for security decisions
-```
-
-## Sources
-
-- [LLM Council by Andrej Karpathy](https://github.com/karpathy/llm-council)
-- [VentureBeat Analysis](https://venturebeat.com/ai/a-weekend-vibe-code-hack-by-andrej-karpathy-quietly-sketches-the-missing)
+Confidence: 0.70 (ceiling: inference 0.70) - Council orchestration rewritten with skill-forge scaffolding and prompt-architect constraint and confidence discipline.

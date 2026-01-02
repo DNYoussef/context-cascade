@@ -1,203 +1,50 @@
 ---
 name: ralph-multimodel
-description: Ralph Wiggum persistence loop with intelligent multi-model routing (Gemini, Codex, Claude, Council)
-allowed-tools: Bash, Read, Write, TodoWrite, Task, Glob, Grep
+description: Extend RALPH loops across multiple models, coordinating roles, evidence, and confidence ceilings per model.
+allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
-# Ralph Wiggum Multi-Model Persistence Loop
+## STANDARD OPERATING PROCEDURE
 
-## Purpose
+### Purpose
+Run multi-model RALPH flows that leverage specialized agents for reasoning, alignment, learning, planning, and handoff with controlled synthesis.
 
-Extend the Ralph Wiggum persistence pattern with intelligent model routing:
-- **Gemini** for research phases (search, megacontext, media)
-- **Codex** for autonomous iteration (yolo, full-auto, sandbox)
-- **Claude** for complex reasoning
-- **LLM Council** for critical decisions
+### Trigger Conditions
+- **Positive:** problems needing diverse model strengths, cross-model validation, parallel evidence gathering, and adjudicated synthesis.
+- **Negative:** single-model work, prompt-only edits (route to prompt-architect), or new skill creation (route to skill-forge).
 
-## Unique Capability
+### Guardrails
+- **Skill-Forge structure-first:** keep `SKILL.md`, `examples/`, `tests/` current; add `resources/`/`references/` or note gaps.
+- **Prompt-Architect hygiene:** capture HARD/SOFT/INFERRED constraints per model/phase, avoid VCL leakage, and publish ceilings for confidence.
+- **Multi-model safety:** assign roles, enforce registry usage, prevent uncontrolled self-calls, and keep hook latency within budget.
+- **Adversarial validation:** run cross-model disagreement checks, COV per synthesis, and boundary tests; document evidence.
+- **MCP tagging:** store runs with WHO=`ralph-multimodel-{session}` and WHY=`skill-execution`.
 
-**What This Adds**:
-- Automatic model selection based on task phase
-- Best-of-breed capabilities per iteration
-- Fire-and-forget with optimal tool selection
-- Multi-model consensus for critical decisions
+### Execution Playbook
+1. **Intent & roster:** define objective, select models/roles, and confirm constraints.
+2. **Phase wiring:** map RALPH phases to models, timeboxes, and success metrics.
+3. **Deliberation:** gather model outputs, run challenges, and update shared evidence.
+4. **Synthesis:** reconcile disagreements, choose outputs, and plan handoff with rollback paths.
+5. **Validation loop:** stress-test synthesis, measure performance, and log telemetry.
+6. **Delivery:** share decisions, evidence, risks, and confidence ceiling.
 
-## When to Use
+### Output Format
+- Objective, constraints, and model roster with roles.
+- Phase summaries, evidence, and dissent.
+- Handoff/rollback plan and risk register.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
-### Perfect For:
-- Complex tasks requiring multiple model strengths
-- Overnight autonomous development
-- Tasks mixing research + implementation + testing
-- Critical decisions needing consensus
-- Large codebase refactoring with validation
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests reflect multi-model paths.
+- Role boundaries enforced; registry-only agents used; hook budgets verified; rollback ready.
+- Adversarial/COV runs logged with MCP tags; confidence ceiling stated; English-only output.
 
-### Don't Use When:
-- Simple single-model tasks
-- Time-critical (model switching adds latency)
-- Need human oversight at each step
+### Completion Definition
+Flow is complete when synthesis is chosen with evidence, handoff executes, risks are owned, and logs persist in MCP with session tags.
 
-## How It Works
-
-```
-ITERATION N:
-    |
-    +---> Detect Task Phase
-    |         |
-    |         +---> Research? --> Gemini (search/megacontext)
-    |         +---> Media?    --> Gemini (imagen/veo)
-    |         +---> Iterate?  --> Codex (yolo/full-auto)
-    |         +---> Decide?   --> LLM Council (consensus)
-    |         +---> Reason?   --> Claude (agents)
-    |
-    +---> Execute with Optimal Model
-    |
-    +---> Check Completion Promise
-    |         |
-    |         +---> Found? --> EXIT SUCCESS
-    |         +---> Not found? --> CONTINUE
-    |
-    +---> ITERATION N+1 (until max)
-```
-
-## Usage
-
-### Basic Multi-Model Loop
-```bash
-/ralph-multimodel "Build REST API, research best practices, implement, test, fix failures until all pass"
-```
-
-### With Codex Sandbox Mode
-```bash
-CODEX_MODE=sandbox /ralph-multimodel "Experiment with auth refactoring, verify tests"
-```
-
-### With LLM Council for Decisions
-```bash
-USE_COUNCIL=true /ralph-multimodel "Design authentication architecture with consensus"
-```
-
-### Overnight Task
-```bash
-MAX_ITERATIONS=100 /ralph-multimodel "Complete feature X with documentation, Output <promise>DONE</promise> when finished"
-```
-
-## Command Pattern
-
-```bash
-bash scripts/multi-model/ralph-multimodel.sh "<task>" "<loop_id>"
-
-# Environment options:
-MAX_ITERATIONS=30        # Maximum loop iterations
-COMPLETION_PROMISE=DONE  # Text signaling completion
-USE_COUNCIL=false        # Use LLM Council for decisions
-CODEX_MODE=full-auto     # Codex mode: yolo, full-auto, sandbox
-```
-
-## Phase Detection & Routing
-
-| Phase Detected | Keywords | Model Used |
-|----------------|----------|------------|
-| Research | "search", "latest", "documentation", "best practices" | Gemini |
-| Megacontext | "entire codebase", "all files", "architecture overview" | Gemini --all-files |
-| Media | "diagram", "mockup", "image", "video" | Gemini (Imagen/Veo) |
-| Autonomous | "fix tests", "debug", "iterate", "prototype" | Codex (yolo/full-auto) |
-| Decision | "decide", "choose", "architecture decision" | LLM Council |
-| Reasoning | Default | Claude |
-
-## Memory Integration
-
-Results stored per iteration:
-- Gemini: `multi-model/gemini/yolo/ralph-{iteration}`
-- Codex: `multi-model/codex/yolo/ralph-{iteration}`
-- Council: `multi-model/council/decisions/ralph-{iteration}`
-
-State files:
-- `~/.claude/ralph-wiggum/loop-state.json`
-- `~/.claude/ralph-wiggum/loop-history.log`
-
-## Integration with Meta-Loop
-
-Ralph Multi-Model connects to the recursive improvement system:
-
-```
-META-LOOP INTEGRATION:
-    |
-    +---> PROPOSE (auditors detect issues)
-    |         |
-    |         +---> Ralph Multi-Model for implementation
-    |
-    +---> TEST (frozen eval harness)
-    |
-    +---> COMPARE (baseline vs candidate)
-    |
-    +---> COMMIT (if improved)
-    |
-    +---> MONITOR (7-day window)
-    |
-    +---> ROLLBACK (if regressed)
-```
-
-## Real-World Examples
-
-### Example 1: Full-Stack Feature
-```bash
-/ralph-multimodel "Build user dashboard:
-1. Research React dashboard best practices (Gemini)
-2. Generate UI mockup (Gemini Media)
-3. Implement frontend components (Claude)
-4. Build backend API (Codex yolo)
-5. Write tests (Claude)
-6. Fix all failing tests (Codex full-auto)
-Output <promise>ALL_TESTS_PASS</promise> when done"
-```
-
-### Example 2: Codebase Refactoring
-```bash
-MAX_ITERATIONS=50 CODEX_MODE=sandbox /ralph-multimodel "
-Refactor auth system:
-1. Analyze entire codebase architecture (Gemini megacontext)
-2. Identify all auth touchpoints
-3. Implement new JWT pattern in sandbox (Codex)
-4. Run tests and fix failures
-Output <promise>REFACTOR_COMPLETE</promise> when all tests pass"
-```
-
-### Example 3: Architecture Decision
-```bash
-USE_COUNCIL=true /ralph-multimodel "
-Decide database strategy:
-1. Research PostgreSQL vs MongoDB for our use case (Gemini)
-2. Get multi-model consensus on approach (Council)
-3. Document decision
-Output <promise>DECISION_MADE</promise>"
-```
-
-## Success Indicators
-
-- Loop completes with COMPLETION_PROMISE found
-- Optimal model used for each phase
-- Memory contains full iteration history
-- State files show successful completion
-
-## Troubleshooting
-
-### Loop Never Completes
-- Check COMPLETION_PROMISE is achievable
-- Increase MAX_ITERATIONS
-- Verify task includes clear completion criteria
-
-### Wrong Model Selected
-- Be more explicit in task description
-- Use phase keywords (see routing table)
-
-### Codex Failures
-- Check Codex CLI is installed
-- Verify ChatGPT Plus subscription active
-- Try different CODEX_MODE
-
-## Related Resources
-
-- Ralph Wiggum Loop: `skills/orchestration/ralph-loop/SKILL.md`
-- Multi-Model Scripts: `scripts/multi-model/`
-- Meta-Loop: `skills/recursive-improvement/`
-- Memory Namespace: `docs/MEMORY-NAMESPACE-SCHEMA.yaml`
+Confidence: 0.70 (ceiling: inference 0.70) - Multi-model RALPH doc aligned to skill-forge scaffolding and prompt-architect evidence/confidence discipline.

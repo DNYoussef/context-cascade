@@ -1,200 +1,50 @@
 ---
-name: slash-command-encoder
-description: Create ergonomic slash commands for fast access to micro-skills with auto-discovery and parameter validation
+name: when-creating-slash-commands-use-slash-command-encoder
+description: Build slash-command workflows with clear schemas, validation, and safe routing using the slash-command-encoder patterns.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Create or update slash commands with explicit constraints, security checks, and evidence-backed routing while keeping confidence ceilings clear.
 
-[define|neutral] SKILL := {
-  name: "when-creating-slash-commands-use-slash-command-encoder",
-  category: "workflow",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** new command design, schema updates, permission changes, routing to agents/actions, telemetry and validation additions.
+- **Negative:** prompt-only edits (route to prompt-architect) or new skill weaving (route to skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** ensure `SKILL.md`, `examples/`, `tests/` exist; add `resources/`/`references/` or log remediation tasks.
+- **Prompt-Architect hygiene:** capture HARD/SOFT/INFERRED constraints (auth, rate limits, payload rules), keep English-only outputs, and state ceilings.
+- **Command safety:** validate payloads, enforce authz/authn, rate limits, idempotency, and rollback; registry-only agents and hook budgets apply.
+- **Adversarial validation:** fuzz inputs, test auth failures, replay, and timeout scenarios; capture evidence.
+- **MCP tagging:** store command plans under WHO=`slash-command-workflow-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** define command purpose, permissions, and schema; confirm inferred requirements.
+2. **Design:** draft payload schema, validation messages, and UX responses.
+3. **Routing:** map to agents/actions with retries/backoff and telemetry.
+4. **Safety nets:** set authz, rate limits, idempotency, and rollback/abort behavior.
+5. **Validation loop:** run fuzzing, auth/replay tests, and latency checks; log evidence.
+6. **Delivery:** summarize command spec, evidence, risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Command intent, schema, permissions, and routing.
+- Safety controls and rollback/abort steps.
+- Validation evidence and risk register.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests aligned to command behavior.
+- Authz/rate limits/idempotency validated; registry and hooks within budgets.
+- Adversarial/COV runs stored with MCP tags; confidence ceiling declared; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-creating-slash-commands-use-slash-command-encoder", "workflow", "workflow"],
-  context: "user needs when-creating-slash-commands-use-slash-command-encoder capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Command workflow is ready when schemas and routing validate, risks are owned, evidence is stored, and MCP logs persist with session tags.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Multi-agent coordination** requiring centralized orchestration
-- **Complex workflows** with multiple dependent tasks
-- **Parallel execution** benefiting from concurrent agent spawning
-- **Quality-controlled delivery** needing validation and consensus
-- **Production workflows** requiring audit trails and state management
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination requirements
-- **Simple sequential work** completing in <30 minutes
-- **Trivial operations** with no quality gates
-- **Exploratory work** not needing formal orchestration
-
-### Success Criteria
-- [assert|neutral] *All agents complete successfully** with 100% task completion [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Coordination overhead minimal** (<20% of total execution time) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *No orphaned agents** - All spawned agents tracked and terminated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *State fully recoverable** - Can resume from any failure point [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Quality gates pass** - All validation checks successful [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Agent failures** - Detect and replace failed agents automatically
-- **Timeout scenarios** - Configure per-agent timeout with escalation
-- **Resource exhaustion** - Limit concurrent agents, queue excess work
-- **Conflicting results** - Implement conflict resolution strategy
-- **Partial completion** - Support incremental progress with rollback
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose orchestration state** - Persist to memory after each phase [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track all agents** - Maintain real-time agent registry [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: cleanup resources** - Terminate agents and free memory on completion [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip validation** - Run quality checks before marking complete [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: handle errors** - Every orchestration step needs error handling [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify all agent outputs** - Check actual results vs expected contracts
-- **Validate execution order** - Confirm dependencies respected
-- **Measure performance** - Track execution time vs baseline
-- **Check resource usage** - Monitor memory, CPU, network during execution
-- **Audit state consistency** - Verify orchestration state matches reality
-
-
-# Slash Command Encoder SOP
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-Create ergonomic slash commands (/command) for fast, unambiguous access to micro-skills with auto-discovery, intelligent routing, parameter validation, and command chaining.
-
-## Agents & Responsibilities
-
-### coder
-**Role:** Command implementation and handler logic
-**Responsibilities:**
-- Implement command handlers
-- Create validation logic
-- Build routing mechanisms
-- Test command functionality
-
-### base-template-generator
-**Role:** Generate command templates and boilerplate
-**Responsibilities:**
-- Create command templates
-- Generate documentation
-- Build example commands
-- Create test scaffolding
-
-## Phase 1: Design Command Interface
-
-### Objective
-Design command syntax, parameters, and behavior specifications.
-
-### Scripts
-
-```bash
-# Generate command template
-npx claude-flow@alpha command template \
-  --name "analyze" \
-  --description "Analyze codebase for patterns" \
-  --output commands/analyze.js
-
-# Define command schema
-cat > command-schema.json <<EOF
-{
-  "name": "analyze",
-  "alias": "a",
-  "description": "Analy
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/workflow/when-creating-slash-commands-use-slash-command-encoder/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-creating-slash-commands-use-slash-command-encoder-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_CREATING_SLASH_COMMANDS_USE_SLASH_COMMAND_ENCODER_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Slash-command workflow doc rewritten with skill-forge scaffolding and prompt-architect confidence discipline.

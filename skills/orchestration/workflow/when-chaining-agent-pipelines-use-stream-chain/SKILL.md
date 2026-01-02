@@ -1,198 +1,50 @@
 ---
-name: stream-chain
-description: Chain agent outputs as inputs in sequential or parallel pipelines for data flow orchestration
+name: when-chaining-agent-pipelines-use-stream-chain
+description: Chain agent pipelines with streaming handoffs, backpressure controls, and validated ordering.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Operate streaming agent pipelines where partial outputs flow across stages with deterministic routing, safety rails, and confidence ceilings.
 
-[define|neutral] SKILL := {
-  name: "when-chaining-agent-pipelines-use-stream-chain",
-  category: "workflow",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** chaining agents with streaming outputs, incremental validation, backpressure handling, live fan-out/fan-in.
+- **Negative:** batch-only flows, prompt-only edits (route to prompt-architect), or new skill weaving (route to skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** keep `SKILL.md`, `examples/`, `tests/` current; add `resources/`/`references/` or log remediation tasks.
+- **Prompt-Architect hygiene:** capture HARD/SOFT/INFERRED constraints (latency, ordering, chunk size), keep English-only outputs, and declare ceilings.
+- **Pipeline safety:** define buffering, retries, ordering guarantees, and rollback/compensation; enforce registry agents and hook budgets.
+- **Adversarial validation:** test slow consumers, dropped chunks, and ordering skew; capture evidence.
+- **MCP tagging:** save runs with WHO=`agent-stream-chain-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** define SLOs and delivery guarantees; confirm inferred needs.
+2. **Pipeline design:** map stages, routing, buffering, and backpressure rules.
+3. **Execution:** configure hooks, health probes, and telemetry; manage retries/backoff.
+4. **Safety nets:** set circuit breakers and rollback/compensation paths.
+5. **Validation loop:** run adversarial drills for ordering, loss, and latency; log evidence.
+6. **Delivery:** present design, validation, risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Pipeline summary with constraints and routing.
+- Backpressure/buffering rules and rollback plan.
+- Validation evidence and risks.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests reflect stream chaining.
+- Ordering/backpressure/rollback validated; registry and hooks within budgets.
+- Adversarial/COV runs stored with MCP tags; confidence ceiling declared; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-chaining-agent-pipelines-use-stream-chain", "workflow", "workflow"],
-  context: "user needs when-chaining-agent-pipelines-use-stream-chain capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Pipeline is ready when streaming SLOs are met, failure modes are contained, evidence is stored, and risks are owned with MCP logs.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Multi-agent coordination** requiring centralized orchestration
-- **Complex workflows** with multiple dependent tasks
-- **Parallel execution** benefiting from concurrent agent spawning
-- **Quality-controlled delivery** needing validation and consensus
-- **Production workflows** requiring audit trails and state management
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination requirements
-- **Simple sequential work** completing in <30 minutes
-- **Trivial operations** with no quality gates
-- **Exploratory work** not needing formal orchestration
-
-### Success Criteria
-- [assert|neutral] *All agents complete successfully** with 100% task completion [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Coordination overhead minimal** (<20% of total execution time) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *No orphaned agents** - All spawned agents tracked and terminated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *State fully recoverable** - Can resume from any failure point [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Quality gates pass** - All validation checks successful [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Agent failures** - Detect and replace failed agents automatically
-- **Timeout scenarios** - Configure per-agent timeout with escalation
-- **Resource exhaustion** - Limit concurrent agents, queue excess work
-- **Conflicting results** - Implement conflict resolution strategy
-- **Partial completion** - Support incremental progress with rollback
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose orchestration state** - Persist to memory after each phase [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track all agents** - Maintain real-time agent registry [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: cleanup resources** - Terminate agents and free memory on completion [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip validation** - Run quality checks before marking complete [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: handle errors** - Every orchestration step needs error handling [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify all agent outputs** - Check actual results vs expected contracts
-- **Validate execution order** - Confirm dependencies respected
-- **Measure performance** - Track execution time vs baseline
-- **Check resource usage** - Monitor memory, CPU, network during execution
-- **Audit state consistency** - Verify orchestration state matches reality
-
-
-# Agent Pipeline Chaining SOP
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-This skill implements agent pipeline chaining where outputs from one agent become inputs to the next, supporting both sequential and parallel execution patterns with streaming data flows.
-
-## Agents & Responsibilities
-
-### task-orchestrator
-**Role:** Pipeline coordination and orchestration
-**Responsibilities:**
-- Design pipeline architecture
-- Connect agent stages
-- Monitor data flow
-- Handle pipeline errors
-
-### memory-coordinator
-**Role:** Data flow and state management
-**Responsibilities:**
-- Store intermediate results
-- Coordinate data passing
-- Manage pipeline state
-- Ensure data consistency
-
-## Phase 1: Design Pipeline
-
-### Objective
-Design pipeline architecture with stages, data flows, and execution strategy.
-
-### Scripts
-
-```bash
-# Design pipeline architecture
-npx claude-flow@alpha pipeline design \
-  --stages "research,analyze,code,test,review" \
-  --flow sequential \
-  --output pipeline-design.json
-
-# Define data flow
-npx claude-flow@alpha pipeline dataflow \
-  --design pipeline-design.json \
-  --output data
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/workflow/when-chaining-agent-pipelines-use-stream-chain/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-chaining-agent-pipelines-use-stream-chain-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_CHAINING_AGENT_PIPELINES_USE_STREAM_CHAIN_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Stream-chain workflow doc aligned to skill-forge scaffolding and prompt-architect evidence/confidence rules.

@@ -1,192 +1,49 @@
 ---
-name: swarm-orchestration
-description: Complex multi-agent swarm orchestration with task decomposition, distributed execution, and result synthesis
+name: when-orchestrating-swarm-use-swarm-orchestration
+description: Apply swarm-orchestration patterns to general workflows with clear topology, routing, and validation.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Stand up swarms for workflow tasks with explicit roles, routing, safety rails, and confidence-aware reporting.
 
-[define|neutral] SKILL := {
-  name: "when-orchestrating-swarm-use-swarm-orchestration",
-  category: "workflow",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** multi-agent orchestration, shared-state workflows, health-aware routing, and delegated task trees.
+- **Negative:** single-agent tasks, prompt-only edits (route to prompt-architect), or new skill weaving (route to skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** keep `SKILL.md`, `examples/`, `tests/` updated; add `resources/`/`references/` or log remediation.
+- **Prompt-Architect hygiene:** gather HARD/SOFT/INFERRED constraints, maintain English-only outputs, and declare ceilings.
+- **Swarm safety:** enforce registry, health checks, rate limits, and rollback paths; honor hook latency budgets.
+- **Adversarial validation:** test churn, loss, and recovery; capture evidence.
+- **MCP tagging:** store runs under WHO=`swarm-orchestration-workflow-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** define objective, scale, and SLOs; confirm inferred needs.
+2. **Topology & roles:** select structure, assign owners, and set communication cadence.
+3. **Routing & safety:** configure sharding, retries/backoff, rollback, and escalation paths.
+4. **Validation loop:** run adversarial drills, measure SLOs, and log telemetry.
+5. **Delivery:** present topology, evidence, risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Objective, constraints, and swarm topology/roles.
+- Routing rules, safety measures, and rollback plan.
+- Validation evidence and risks.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests reflect swarm workflow.
+- Registry and health checks verified; rollback defined; hooks within budgets.
+- Adversarial/COV runs stored with MCP tags; confidence ceiling declared; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["when-orchestrating-swarm-use-swarm-orchestration", "workflow", "workflow"],
-  context: "user needs when-orchestrating-swarm-use-swarm-orchestration capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Workflow swarm is complete when routing is live, validation passes, risks are owned, and MCP logs persist with session tags.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Parallel multi-agent execution** requiring concurrent task processing
-- **Complex implementation** with 6+ independent tasks
-- **Theater-free development** requiring 0% tolerance validation
-- **Dynamic agent selection** from 86+ agent registry
-- **High-quality delivery** needing Byzantine consensus validation
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no parallelization benefit
-- **Simple sequential work** completing in <2 hours
-- **Planning phase** (use research-driven-planning first)
-- **Trivial changes** to single files
-
-### Success Criteria
-- [assert|neutral] *Agent+skill matrix generated** with optimal assignments [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Parallel execution successful** with 8.3x speedup achieved [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Theater detection passes** with 0% theater detected [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Integration tests pass** at 100% rate [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *All agents complete** with no orphaned workers [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Agent failures** - Implement agent health monitoring and replacement
-- **Task timeout** - Configure per-task timeout with escalation
-- **Consensus failure** - Have fallback from Byzantine to weighted consensus
-- **Resource exhaustion** - Limit max parallel agents, queue excess
-- **Conflicting outputs** - Implement merge conflict resolution strategy
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose agent state** - Persist agent progress to memory continuously [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track swarm health** - Monitor all agent statuses in real-time [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate consensus** - Require 4/5 agreement for theater detection [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip theater audit** - Zero tolerance, any theater blocks merge [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: cleanup workers** - Terminate agents on completion/failure [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Check all agent statuses** - Verify each agent completed successfully
-- **Validate parallel execution** - Confirm tasks ran concurrently, not sequentially
-- **Measure speedup** - Calculate actual speedup vs sequential baseline
-- **Audit theater detection** - Run 6-agent consensus, verify 0% detection
-- **Verify integration** - Execute sandbox tests, confirm 100% pass rate
-
-
-# Swarm Orchestration SOP
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-This skill implements complex multi-agent swarm orchestration with intelligent task decomposition, distributed execution, progress monitoring, and result synthesis. It enables coordinated execution of complex workflows across multiple specialized agents.
-
-## Agents & Responsibilities
-
-### task-orchestrator
-**Role:** Central orchestration and task decomposition
-**Responsibilities:**
-- Decompose complex tasks into subtasks
-- Assign tasks to appropriate agents
-- Monitor execution progress
-- Synthesize results from multiple agents
-
-### hierarchical-coordinator
-**Role:** Hierarchical task delegation and coordination
-**Responsibilities:**
-- Manage task hierarchy
-- Coordinate parent-child task relationships
-- Handle task dependencies
-- Ensure proper execution order
-
-### adaptive-coordinator
-**Role:** Dynamic workload balancing and optimization
-**Responsibilities:**
-- Monitor agent workloads
-- Rebalance task assignments
-- Optimize resource allocation
-- Adapt to changing conditions
-
-## Phase 1: Plan Orchestration
-
-### Objective
-Analyze complex task requirements and cr
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/workflow/when-orchestrating-swarm-use-swarm-orchestration/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "when-orchestrating-swarm-use-swarm-orchestration-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>WHEN_ORCHESTRATING_SWARM_USE_SWARM_ORCHESTRATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Swarm workflow doc aligned to skill-forge scaffolding and prompt-architect evidence/confidence rules.

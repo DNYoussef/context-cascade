@@ -1,197 +1,52 @@
 ---
 name: advanced-coordination
-description: Advanced multi-agent coordination patterns for complex distributed systems. Use when coordinating 5+ agents with dynamic task dependencies, implementing Byzantine fault tolerance, or managing distribu
+description: Orchestrate complex, latency-aware multi-agent work with adaptive topologies, resilient routing, and evidence-backed handoffs.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
-x-terminology-disclaimer: |
-  IMPORTANT CLARIFICATION: The terms "RAFT", "Byzantine", and "Gossip" in this skill
-  refer to CONCEPTUAL coordination patterns inspired by these protocols, NOT actual
-  implementations. There is no cryptographic message authentication, no formal
-  consensus protocols, and no academic-grade fault tolerance. The "consensus" is
-  achieved through LLM response aggregation, not protocol-level guarantees.
-  See docs/TERMINOLOGY-CLARIFICATIONS.md for full details.
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Coordinate advanced agent meshes (hierarchical, mesh, hybrid) for tasks that demand resilience, shared state, and deterministic outcomes without confidence inflation.
 
-[define|neutral] SKILL := {
-  name: "advanced-coordination",
-  category: "orchestration",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** multi-agent task graphs, consensus-heavy workflows, topology design, swarm stabilization, resilience drills.
+- **Negative:** single-agent execution, static pipelines without delegation, or requests better routed to prompt-forge/agent-creator.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** maintain `SKILL.md`, `examples/`, and `tests/`; add `resources/` and `references/` or log remediation tasks before close.
+- **Prompt-Architect hygiene:** capture intent, extract HARD/SOFT/INFERRED constraints, and deliver pure-English outputs with explicit ceilings (inference/report ≤ 0.70).
+- **Safety & registry discipline:** register every agent, block cascading failures with circuit breakers/rollback paths, and keep hook latencies under pre/post targets.
+- **Adversarial validation:** exercise boundary cases (partition, drop, retry), run COV, and record evidence before marking done.
+- **MCP tagging:** persist orchestration notes with WHO=`advanced-coordination-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** identify objective, environment, SLOs, and non-negotiables; flag inferred constraints for confirmation.
+2. **Topology & roles:** choose topology, assign owners, define state channels, retries, and escalation thresholds.
+3. **Delegation plan:** break work into routable units, set acceptance criteria per agent, and align timers/quotas.
+4. **Safety nets:** pre-mortem failure points, configure rate limits/backoff, and define rollback/abort steps.
+5. **Validation loop:** run adversarial drills, measure latency/throughput, verify registry health, and capture telemetry.
+6. **Delivery:** summarize decisions, surface risks, enumerate follow-ups, and provide confidence with ceiling notation.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Activation summary (intent, constraints, triggers).
+- Selected topology with roles, data pathways, and guardrails.
+- Delegation and timeline with ownership.
+- Validation evidence (latency, retries, failure drills) and residual risks.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests updated or TODO assigned.
+- Constraints addressed; registry and hooks within budget; rollback defined.
+- Adversarial and COV runs captured with evidence; telemetry stored with MCP tags.
+- Confidence ceiling stated; outputs in pure English without VCL leakage.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["advanced-coordination", "orchestration", "workflow"],
-  context: "user needs advanced-coordination capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Work is complete when topology is live, agents are healthy, validation results are recorded, residual risks are noted with owners, and MCP notes persist under the session tag.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Multi-agent coordination** requiring topology-aware task distribution
-- **Cloud-based orchestration** with Flow Nexus platform integration
-- **Event-driven workflows** needing message-based coordination
-- **Distributed systems** spanning multiple execution environments
-- **Scalable swarms** with adaptive topology management
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination overhead
-- **Local-only execution** not using cloud features
-- **Simple sequential work** without event-driven needs
-- **Static topologies** not requiring adaptive scaling
-
-### Success Criteria
-- [assert|neutral] *Coordination topology established** (mesh/hierarchical/star) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *All agents registered** in coordination namespace [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Event routing functional** with <50ms message latency [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *No coordination deadlocks** - All agents progressing [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Scalability validated** - Handles target agent count [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Network partitions** - Implement partition tolerance with eventual consistency
-- **Message loss** - Add message acknowledgment and retry logic
-- **Agent disconnection** - Detect disconnects, redistribute work
-- **Topology reconfiguration** - Support live topology changes without restart
-- **Rate limiting** - Handle cloud API rate limits with backoff
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose coordination state** - Persist topology and agent registry [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate topology** - Check for cycles, orphaned nodes [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: monitor message queues** - Prevent queue overflow [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip health checks** - Continuous agent liveness monitoring [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: handle failures gracefully** - No cascading failures [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify topology structure** - Validate graph properties (connected, acyclic if needed)
-- **Check message delivery** - Confirm all messages reached targets
-- **Measure coordination overhead** - Calculate % time spent on coordination vs work
-- **Validate agent reachability** - Ping all agents, verify responses
-- **Audit scalability** - Test with max agent count, measure performance
-
-
-# Advanced Coordination - Distributed Agent Management
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Sophisticated coordination protocols for large-scale multi-agent systems with fault tolerance and consensus requirements.
-
-## When to Use This Skill
-
-Use when coordinating complex multi-agent workflows with 5+ concurrent agents, implementing fault-tolerant distributed systems, managing dynamic task dependencies across agents, or requiring consensus protocols (RAFT, Byzantine, Gossip).
-
-## Coordination Strategies
-
-### RAFT Consensus
-- Leader election among agents
-- Replicated log consistency
-- Fault tolerance for N/2+1 failures
-- Strong consistency guarantees
-
-### Gossip Protocol
-- Peer-to-peer agent communication
-- Eventually consistent state sharing
-- Highly scalable (100+ agents)
-- Network partition resilient
-
-### Byzantine Fault Tolerance
-- Malicious or faulty agent detection
-- 3F+1 redundancy for F failures
-- Cryptographic verification
-- Critical system integrity
-
-## Process
-
-1. **Analyze coordination requirements**
-   - Determine number of agents needed
-   - Identify fault tolerance needs
-   - Assess consistency requirem
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/orchestration/advanced-coordination/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "advanced-coordination-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>ADVANCED_COORDINATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Rewrite applies skill-forge structure, prompt-architect clarity, and orchestration safety for resilient execution.

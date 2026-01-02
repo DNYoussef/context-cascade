@@ -1,201 +1,50 @@
 ---
 name: stream-chain
-description: Stream-JSON chaining for multi-agent pipelines, data transformation, and sequential workflows
+description: Chain streaming workflows with deterministic routing, backpressure controls, and evidence-backed checkpoints.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Design and operate stream-first chains where partial outputs are consumed live, errors are contained, and confidence ceilings stay explicit.
 
-[define|neutral] SKILL := {
-  name: "stream-chain",
-  category: "workflow",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** streaming pipelines, incremental emission, backpressure handling, live fan-out/fan-in, partial-result validation.
+- **Negative:** batch-only flows, prompt-only edits (route to prompt-architect), or new skill weaving (route to skill-forge).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** ensure `SKILL.md`, `examples/`, `tests/` exist; add `resources/`/`references/` or document remediation.
+- **Prompt-Architect hygiene:** capture HARD/SOFT/INFERRED constraints (latency, chunk size, ordering), keep English-only outputs, and declare ceilings.
+- **Streaming safety:** define buffering, ordering, and retry semantics; enforce registry use; keep hook latency budgets.
+- **Adversarial validation:** simulate slow consumers, dropped chunks, and ordering skew; capture evidence.
+- **MCP tagging:** store run logs with WHO=`stream-chain-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & constraints:** set latency/SLOs, chunk policy, and delivery guarantees; confirm inferred constraints.
+2. **Chain design:** map stages, owners, and routing; define backpressure and retry rules.
+3. **Implementation:** configure streaming hooks, health checks, and telemetry.
+4. **Safety nets:** set circuit breakers, buffering thresholds, and rollback/compensation steps.
+5. **Validation loop:** run adversarial drills for slow/failing nodes, check ordering, and log metrics.
+6. **Delivery:** summarize design, evidence, risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Pipeline overview with constraints and routing.
+- Backpressure/buffering policy and retry/rollback rules.
+- Validation evidence (ordering, loss, latency) and risks.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests updated for streaming cases.
+- Ordering, retry, and rollback behaviors defined; registry and hooks validated.
+- Adversarial/COV runs captured with MCP tags; confidence ceiling stated; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["stream-chain", "workflow", "workflow"],
-  context: "user needs stream-chain capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Stream chain is complete when live runs meet SLOs, failure modes are contained, evidence is stored, and risks are owned with follow-ups.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Multi-agent coordination** requiring centralized orchestration
-- **Complex workflows** with multiple dependent tasks
-- **Parallel execution** benefiting from concurrent agent spawning
-- **Quality-controlled delivery** needing validation and consensus
-- **Production workflows** requiring audit trails and state management
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination requirements
-- **Simple sequential work** completing in <30 minutes
-- **Trivial operations** with no quality gates
-- **Exploratory work** not needing formal orchestration
-
-### Success Criteria
-- [assert|neutral] *All agents complete successfully** with 100% task completion [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Coordination overhead minimal** (<20% of total execution time) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *No orphaned agents** - All spawned agents tracked and terminated [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *State fully recoverable** - Can resume from any failure point [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Quality gates pass** - All validation checks successful [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Agent failures** - Detect and replace failed agents automatically
-- **Timeout scenarios** - Configure per-agent timeout with escalation
-- **Resource exhaustion** - Limit concurrent agents, queue excess work
-- **Conflicting results** - Implement conflict resolution strategy
-- **Partial completion** - Support incremental progress with rollback
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose orchestration state** - Persist to memory after each phase [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track all agents** - Maintain real-time agent registry [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: cleanup resources** - Terminate agents and free memory on completion [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip validation** - Run quality checks before marking complete [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: handle errors** - Every orchestration step needs error handling [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify all agent outputs** - Check actual results vs expected contracts
-- **Validate execution order** - Confirm dependencies respected
-- **Measure performance** - Track execution time vs baseline
-- **Check resource usage** - Monitor memory, CPU, network during execution
-- **Audit state consistency** - Verify orchestration state matches reality
-
-
-# Stream-Chain Skill
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Execute sophisticated multi-step workflows where each agent's output flows into the next, enabling complex data transformations and sequential processing pipelines.
-
-## Overview
-
-Stream-Chain provides two powerful modes for orchestrating multi-agent workflows:
-
-1. **Custom Chains** (`run`): Execute custom prompt sequences with full control
-2. **Predefined Pipelines** (`pipeline`): Use battle-tested workflows for common tasks
-
-Each step in a chain receives the complete output from the previous step, enabling sophisticated multi-agent coordination through streaming data flow.
-
----
-
-## Quick Start
-
-### Run a Custom Chain
-
-```bash
-claude-flow stream-chain run \
-  "Analyze codebase structure" \
-  "Identify improvement areas" \
-  "Generate action plan"
-```
-
-### Execute a Pipeline
-
-```bash
-claude-flow stream-chain pipeline analysis
-```
-
----
-
-## Custom Chains (`run`)
-
-Execute custom stream chains with your own prompts for maximum flexibility.
-
-### Syntax
-
-```bash
-claude-flow stream-chain run <prompt1> <prompt2> [...] [options]
-```
-
-**Requirements:
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/workflow/stream-chain/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "stream-chain-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>STREAM_CHAIN_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Stream-chain documentation aligned to skill-forge scaffolding and prompt-architect evidence/confidence rules.

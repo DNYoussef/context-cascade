@@ -1,181 +1,50 @@
 ---
 name: hive-mind-advanced
-description: Advanced Hive Mind collective intelligence system for queen-led multi-agent coordination with consensus mechanisms and persistent memory
+description: Coordinate collective-intelligence swarms with shared context, consensus patterns, and conflict-aware decisioning.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.2.0
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+## STANDARD OPERATING PROCEDURE
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+### Purpose
+Operate advanced hive-mind swarms that blend exploration and exploitation, maintain shared memory, and deliver consensus-backed outputs without overclaiming.
 
-[define|neutral] SKILL := {
-  name: "hive-mind-advanced",
-  category: "coordination",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Trigger Conditions
+- **Positive:** collective reasoning, divergent/convergent rounds, consensus/selection, shared-memory swarms, conflict resolution among agents.
+- **Negative:** isolated single-agent tasks, fixed pipelines without deliberation, or prompt-only edits (route to prompt-architect).
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Guardrails
+- **Skill-Forge structure-first:** maintain `SKILL.md`, `examples/`, `tests/`; provision `resources/` and `references/` or document gaps.
+- **Prompt-Architect hygiene:** collect intent, constraints, and perspectives; tag HARD/SOFT/INFERRED; output pure English with ceiling-noted confidence.
+- **Collective safety:** define roles (scouts, synthesizers, judges), prevent groupthink via adversarial reviewer, and enforce registry use plus hook latency budgets.
+- **Adversarial validation:** run dissent and tie-break drills, conflict resolution tests, and COV loops; capture evidence.
+- **MCP tagging:** persist hive runs with WHO=`hive-mind-advanced-{session}` and WHY=`skill-execution`.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Execution Playbook
+1. **Intent & framing:** clarify objective, success metrics, and diversity requirements; confirm inferred constraints.
+2. **Swarm design:** assign roles, cadence (diverge/converge), and memory layout; set evidence requirements.
+3. **Deliberation rounds:** collect proposals, adversarial reviews, and synthesis; manage quotas and timeboxes.
+4. **Decision & commit:** select outputs via criteria, record dissent, and define rollback/next-iteration triggers.
+5. **Validation loop:** stress-test consensus, latency, and bias; run COV and store telemetry.
+6. **Delivery:** summarize chosen path, dissenting views, evidence, residual risks, and confidence ceiling.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Output Format
+- Objective, constraints, and swarm roles.
+- Deliberation cadence, decision criteria, and memory approach.
+- Evidence log (supporting and dissenting), risks, and follow-ups.
+- **Confidence:** `X.XX (ceiling: TYPE Y.YY) - rationale`.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Validation Checklist
+- Structure-first assets present or ticketed; examples/tests reflect hive patterns.
+- Diversity and dissent enforced; registry and hooks verified; rollback/iteration rules documented.
+- Adversarial/COV runs stored with MCP tags; confidence ceiling stated; English-only output.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["hive-mind-advanced", "coordination", "workflow"],
-  context: "user needs hive-mind-advanced capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Completion Definition
+Swarm decision is complete when consensus is reached (or documented disagreement), evidence is stored, risks are owned, and next actions or rollbacks are clear.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
-
-## Orchestration Skill Guidelines
-
-### When to Use This Skill
-- **Queen-led coordination** requiring hierarchical multi-agent control
-- **Consensus-driven decisions** needing Byzantine fault tolerance
-- **Collective intelligence** tasks benefiting from shared memory
-- **Strategic planning** with tactical execution delegation
-- **Large-scale swarms** with 10+ specialized worker agents
-
-### When NOT to Use This Skill
-- **Single-agent tasks** with no coordination requirements
-- **Simple workflows** without consensus needs
-- **Flat topologies** where hierarchy adds no value
-- **Ephemeral tasks** not needing collective memory
-
-### Success Criteria
-- [assert|neutral] *Queen successfully coordinates** all worker agents [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Consensus achieved** using configured algorithm (majority/weighted/Byzantine) [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Collective memory shared** across all agents with <10ms access time [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *All workers complete tasks** with 100% assignment success [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] *Session state persisted** with checkpoint recovery capability [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-### Edge Cases to Handle
-- **Queen failure** - Implement queen failover and re-election
-- **Worker unresponsiveness** - Timeout detection and task reassignment
-- **Consensus deadlock** - Fallback to weighted or majority consensus
-- **Memory corruption** - Validate memory integrity with checksums
-- **Session crash** - Resume from last checkpoint with full state recovery
-
-### Guardrails (NEVER Violate)
-- [assert|emphatic] NEVER: lose collective memory** - Persist to SQLite with WAL mode [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: validate queen health** - Monitor queen heartbeat continuously [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: track worker states** - Real-time worker status in shared memory [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|emphatic] NEVER: skip consensus** - Critical decisions require configured consensus [ground:policy] [conf:0.98] [state:confirmed]
-- [assert|neutral] ALWAYS: checkpoint sessions** - Save state at key milestones [ground:policy] [conf:0.98] [state:confirmed]
-
-### Evidence-Based Validation
-- **Verify queen coordination** - Check queen issued commands to all workers
-- **Validate consensus results** - Confirm vote counts meet algorithm threshold
-- **Check memory consistency** - Query collective memory, verify no conflicts
-- **Measure worker efficiency** - Calculate task completion rate per worker
-- **Audit session recovery** - Test checkpoint restore, verify full state
-
-
-# Hive Mind Advanced Skill
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-Master the advanced Hive Mind collective intelligence system for sophisticated multi-agent coordination using queen-led architecture, Byzantine consensus, and collective memory.
-
-## Overview
-
-The Hive Mind system represents the pinnacle of multi-agent coordination in Claude Flow, implementing a queen-led hierarchical architecture where a strategic queen coordinator directs specialized worker agents through collective decision-making and shared memory.
-
-## Core Concepts
-
-### Architecture Patterns
-
-**Queen-Led Coordination**
-- Strategic queen agents orchestrate high-level objectives
-- Tactical queens manage mid-level execution
-- Adaptive queens dynamically adjust strategies based on performance
-
-**Worker Specialization**
-- Researcher agents: Analysis and investigation
-- Coder agents: Implementation and development
-- Analyst agents: Data processing and metrics
-- Tester agents: Quality assurance and validation
-- Architect agents: System design and planning
-- Reviewer agents: Code review and improvement
-- Optimi
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/coordination/hive-mind-advanced/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "hive-mind-advanced-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>HIVE_MIND_ADVANCED_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Hive-mind SOP now mirrors skill-forge rigor and prompt-architect evidence/confidence discipline.
