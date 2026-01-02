@@ -1,208 +1,95 @@
 ---
 name: cognitive-lensing
-description: Cross-lingual cognitive framing system that activates different reasoning patterns by embedding multi-lingual activation phrases. Use when facing complex tasks that benefit from specific thinking patt
+description: Apply multilingual cognitive frames to re-approach complex tasks with targeted reasoning patterns and bias checks.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Recast the lensing guide into the Skill Forge section flow with explicit guardrails, patterns, and completion checks.
+- Added prompt-architect style constraint extraction and confidence ceilings to prevent overclaiming from speculative frames.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "cognitive-lensing",
-  category: "foundry",
-  version: "1.0.1",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Switch reasoning frames (linguistic, disciplinary, or persona-based) to unlock alternative solution paths and mitigate bias in complex tasks.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: stalled reasoning, need for alternative perspectives, bias detection, or creative exploration.
+- Negative/reroute: straightforward prompt rewrites (prompt-architect) or agent creation (agent-creator/agent-creation).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Keep outputs in English; cite which lens was applied and why.
+- Do not fabricate expertise—ground lens choice in task constraints and evidence.
+- Limit to 2-3 focused lenses per pass to avoid fragmentation.
+- State confidence ceilings explicitly, especially when using speculative or research lenses.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Assessment**: Capture task intent, constraints, and observed failure modes; classify hard/soft/inferred constraints.
+2. **Lens Selection**: Choose lenses (e.g., formal proof, UX research, security red-team, socio-technical) mapped to the task.
+3. **Application**: Re-articulate the problem through each lens with targeted heuristics and checks.
+4. **Synthesis**: Compare insights, resolve conflicts, and propose next actions with confidence ceilings.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Analytical stagnation → apply formal/algorithmic lens.
+- User impact unclear → apply UX research or accessibility lens.
+- Risky changes → apply safety/security lens to uncover failure paths.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["cognitive-lensing", "foundry", "workflow"],
-  context: "user needs cognitive-lensing capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use paired lenses (builder vs breaker) to surface hidden assumptions.
+- Run time-boxed divergent thinking followed by convergence synthesis.
+- Feed lens outputs into prompt-architect for clarity before execution.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Cycling too many lenses without decision.
+- Treating lens opinions as facts; neglecting evidence and ceilings.
+- Ignoring domain constraints when adopting a lens.
 
-# Cognitive-Lensing v1.0.0
+### Practical Guidelines
+- Name the lens, heuristic, and expected impact in each pass.
+- Keep synthesized recommendations actionable and prioritized.
+- Capture what changed between lenses for traceability.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect to clarify the task.
+- Parallel: recursive-improvement to iterate on stuck areas; meta-tools to compose lens outputs into tools.
+- Downstream: agent-creation/agent-selector to operationalize chosen approach.
 
+### MCP Requirements
+- Optional memory MCP to recall past lens effectiveness; tag WHO=cognitive-lensing-{session}, WHY=skill-execution.
 
+### Input/Output Contracts
+```yaml
+inputs:
+  task: string  # required problem statement
+  constraints: list[string]  # optional constraints
+  target_lenses: list[string]  # optional lens hints (e.g., security, accessibility)
+outputs:
+  lens_analyses: list[object]  # lens name, insight, risks
+  synthesis: summary  # consolidated recommendation
+  next_steps: list[string]  # actions derived from lensing
+```
 
-## Purpose
+### Recursive Improvement
+- Run recursive-improvement when lenses disagree or output is indecisive; focus on evidence gaps and decision criteria.
 
-This skill activates specific cognitive patterns by embedding multi-lingual activation phrases that elicit different parts of the AI's latent space. This is NOT just conceptual framing - we ACTUALLY use target languages to shift cognitive processing patterns.
+### Examples
+- Apply security red-team + reliability lens to a new API rollout before deployment.
+- Use accessibility + onboarding UX lens to rewrite a complex setup guide.
 
-### Core Mechanism
+### Troubleshooting
+- Lens produces no new insight → select orthogonal lens or consult domain specialists.
+- Conflicting recommendations → prioritize by risk, effort, and evidence strength.
+- Overconfident claims → restate with ceilings and cite observed data.
 
-Large language models trained on multilingual corpora develop language-specific reasoning patterns tied to grammatical structures:
+### Completion Verification
+- [ ] Lenses named with rationale and heuristics applied.
+- [ ] Synthesis provided with prioritized actions and ceilings.
+- [ ] Traceability of changes between lenses captured.
+- [ ] Constraints respected; English-only output.
 
-- **Turkish evidential markers** activate source-attribution patterns
-- **Russian aspectual verbs** activate completion-state tracking
-- **Japanese honorific levels** activate audience-awareness calibration
-- **Arabic morphological roots** activate semantic decomposition
-- **Mandarin classifiers** activate object-category reasoning
-- **Guugu Yimithirr cardinal directions** activate absolute spatial encoding
-- **Chinese/Japanese number systems** activate transparent place-value arithmetic
-
-By embedding authentic multi-lingual text in prompts, we trigger these latent reasoning modes.
-
-### When to Use This Skill
-
-Use cognitive-lensing when:
-
-1. **Task complexity exceeds single-frame capacity** - Multi-dimensional problems requiring different cognitive modes
-2. **Quality requirements demand specific reasoning** - Audit (evidential), deployment (aspectual), documentation (hierarchical)
-3. **Standard prompting produces generic outputs** - Need to activate specialized thinking patterns
-4. **Creating new skills/agents** - Select optimal cognitive frame for the domain
-5. **Debugging AI reasoning failures** - Wrong frame may cause systematic errors
-
-### What This Skill Does
-
-1. **Analyzes task goals** (1st/2nd/3rd order) to identify required thinking patterns
-2. **Selects optimal cognitive frame(s)** from 7 available patterns
-3. **Generates multi-lingual activation text** that triggers the frame
-4. **Integrates with other foundry skills** (prompt-architect, agent-creator, skill-forge)
-5. **Stores frame selections in memory-mcp** for consistency across sessions
-
----
-
-## Goal-Based Frame Selection Checklist
-
-### Step 1: Analyze Goals
-
-Complete this for every non-trivial task:
-
-| Order | Question | Your Answer |
-|-------|----------|-------------|
-| 1st Order Goal | What is the IMMEDIATE task? | _______________ |
-| 2nd Order Goal | WHY are we doing this task? | _______________ |
-| 3rd Order Goal | What is the ULTIMATE outcome? | _______________ |
-
-**Example Analysis**:
-
-| Order | Question | Answer |
-|-------|----------|--------|
-| 1st Order | Immediate task | Write unit tests for API endpoint |
-| 2nd Order | Why | Verify endpoint behavior is correct |
-| 3rd Order | Ultimate outcome | Ensure production reliability |
-
-### Step 2: Identify Dominant Thought Process
-
-| Question | If YES, Use Frame |
-|----------|-------------------|
-| Is tracking "done vs not done" critical? | Aspectual (Russian) |
-| Is source reliability critical? | Evidential (Turkish) |
-| Is audience/formality critical? | Hierarchical (Japanese) |
-| Is semantic decomposition needed? | Morphological (Arabic/Hebrew) |
-| Is physical/visual comparison needed? | Classifier (Mandarin) |
-| Is spatial navigation needed? | Spatial-Absolute (Guugu Yimithirr) |
-| Is mathematical precision needed? | Numerical-Transparent (Chinese/Japanese) |
-
-**Example Selection**:
-
-For "Write unit tests for API endpoint":
-- Tracking done/not done: YES (need to track test coverage completion)
-- Source reliability: YES (need to verify test assertions match specs)
-
-Selected Frames:
-- Primary: Aspectual (Russian) - for completion tracking
-- Secondary: Evidential (Turkish) - for assertion verification
-
-### Step 3: Select Primary Frame
-
-Based on analysis, select:
-- **Primary Frame**: _______________
-- **Secondary Frame (optional)**: _______________
-- **Rationale**: _______________
-
----
-
-## Seven Frame Activation Protocols
-
-### Frame 1: Evidential (Turkish - Kanitsal Cerceve)
-
-**When to
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/cognitive-lensing/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "cognitive-lensing-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>COGNITIVE_LENSING_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Lensing SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

@@ -1,201 +1,97 @@
 ---
 name: recursive-improvement
-description: SKILL skill for foundry workflows
+description: Drive iterative refinement loops with evidence capture, evaluation checkpoints, and stop conditions for skills, prompts, or agents.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reworked the skill into Skill Forge required sections with explicit triggers, stop conditions, and evidence logging.
+- Added prompt-architect ceiling discipline and contract-style IO to keep iterations auditable.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "SKILL",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Manage recursive improvement cycles that collect failures, propose targeted changes, validate them, and stop when marginal gains level off.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: iterative hardening of skills/prompts/agents, regression triage, A/B comparisons, or postmortem action items.
+- Negative/reroute: net-new prompt design (prompt-architect/prompt-forge) or new skill scaffolding (skill-forge/skill-builder).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Compositional",
-  source: "German",
-  force: "Build from primitives?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Define stop criteria up front (delta threshold, timebox, risk acceptance) to avoid infinite loops.
+- Capture evidence for each iteration: inputs, changes, tests, and results with confidence ceilings.
+- Keep outputs in English; avoid hidden reasoning.
+- Do not silently discard failed experiments—record them for future avoidance.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intake**: Identify artifact to improve, goals, constraints, baseline metrics, and stop criteria; classify constraints as HARD/SOFT/INFERRED.
+2. **Hypothesis**: Propose targeted changes addressing failures or goals; prioritize by impact.
+3. **Apply & Test**: Implement changes, run validation (happy/edge/adversarial), and log results with ceilings.
+4. **Assess**: Compare metrics vs baseline; decide to continue, pivot, or stop based on delta.
+5. **Package**: Summarize iterations, residual risks, and recommended next steps.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Quality drift → focus on regression tests and schema tightening.
+- Safety issues → add guardrails, refusals, and escalation rules.
+- Performance/latency complaints → simplify prompts and reduce tool calls.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["SKILL", "foundry", "workflow"],
-  context: "user needs SKILL capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use multi-armed bandit style sampling for competing variants with limited budget.
+- Apply self-consistency or debate to stress-test high-risk changes.
+- Snapshot checkpoints so reverting is easy when metrics regress.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Iterating without baseline metrics.
+- Changing multiple variables simultaneously, making results ambiguous.
+- Ignoring ceiling discipline or failing to log evidence.
 
-# Recursive Improvement - Meta-Loop Skill
+### Practical Guidelines
+- Limit each iteration to one or two focused hypotheses.
+- Keep a changelog with timestamps, metrics, and confidence statements.
+- Escalate to domain specialists when improvements stall.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect/prompt-forge to clarify artifacts under test.
+- Parallel: cognitive-lensing to unlock new hypotheses.
+- Downstream: skill-forge/agent-creator to bake improvements into canonical docs.
 
+### MCP Requirements
+- Optional memory/vector MCP to store iteration history; tag WHO=recursive-improvement-{session}, WHY=skill-execution.
 
+### Input/Output Contracts
+```yaml
+inputs:
+  target: string  # required artifact to improve
+  goals: list[string]  # required goals/metrics
+  constraints: list[string]  # optional constraints
+  stop_conditions: object  # required thresholds/timebox
+outputs:
+  iterations: list[object]  # steps taken, tests, outcomes, ceilings
+  recommendation: summary  # continue/stop with rationale
+  artifacts: list[file]  # updated files if applicable
+```
 
----
-name: recursive-improvement
-description: Self-improving meta-loop that audits and enhances skills, prompts, and expertise files
-category: foundry
-version: 2.0.0
-triggers:
-  - "improve skill"
-  - "audit skill"
-  - "run improvement cycle"
-  - "meta-loop"
-  - "self-improve"
-mcp_servers:
-  required: [memory-mcp]
-  optional: [connascence-analyzer]
----
+### Recursive Improvement
+- Meta: apply this SOP to itself; stop when improvement delta < 2% or risks documented.
 
-## Trigger Keywords
+### Examples
+- Harden a prompt that occasionally hallucinates by tightening schema and adding refusals.
+- Improve a code-generation skill by adding edge-case tests and measuring deltas.
 
-**USE WHEN user mentions:**
-- "improve skill", "audit skill", "enhance skill", "optimize skill"
-- "run improvement cycle", "meta-loop", "self-improve"
-- "skill quality check", "documentation audit"
-- "recursive improvement", "systematic improvement"
-- "batch improve skills", "improve all skills"
-- "skill missing [section]", "incomplete documentation"
+### Troubleshooting
+- No improvement after multiple cycles → revisit hypotheses or broaden search (new lenses/tools).
+- Metrics regressing → revert to last good checkpoint and reassess constraints.
+- Timebox exceeded → summarize current best variant and open risks.
 
-**DO NOT USE when:**
-- User wants to CREATE a new skill - use skill-creator-agent or micro-skill-creator
-- User wants to CREATE an agent - use agent-creator
-- User wants to improve a PROMPT (not skill) - use prompt-architect
-- User wants one-off manual fix - direct editing faster
-- Eval-harness benchmarks failing - fix root cause first, not improve on broken baseline
-- During active feature development - finish feature, then improve
+### Completion Verification
+- [ ] Stop conditions defined and respected.
+- [ ] Iteration logs include tests, results, and ceilings.
+- [ ] Recommendation provided with residual risks.
+- [ ] Artifacts updated or explicitly unchanged.
 
-**Instead use:**
-- skill-creator-agent when creating new skills from scratch
-- agent-creator when creating new agents
-- prompt-architect when optimizing prompts
-- skill-forge when applying specific improvements (recursive-improvement coordinates it)
-
-
-## Overview
-
-The Recursive Improvement skill orchestrates the meta-loop that enables the system to improve itself. It coordinates four specialized auditors (skill-auditor, prompt-auditor, expertise-auditor, output-auditor) to detect issues, generate improvement proposals, apply changes via skill-forge, and validate results through the frozen eval-harness.
-
-**Key Constraint**: The eval-harness is FROZEN - it never self-improves. This prevents Goodhart's Law (optimizing the metric instead of the goal).
-
-## When to Use
-
-**Use When**:
-- Skill documentation is incomplete (missing Core Principles, Anti-Patterns, Conclusion)
-- Prompt quality has degraded (inconsistent outputs, missing constraints)
-- Expertise files are outdated (file locations changed, patterns stale)
-- Output quality has dropped (theater code, unvalidated claims)
-
-**Do Not Use**:
-- For one-off fixes (use direct editing)
-- When eval-harness benchmarks are failing (fix root cause first)
-- During active feature development (finish feature first)
-
-## Core Principles
-
-Recursive Improvement operates on 3 fundamental principles:
-
-### Principle 1: Frozen Eval Harness Prevents Goodhart's Law
-The evaluation harness that gates all improvements is NEVER self-improved. This ensures the system optimizes for genuine quality, not for passing corrupted benchmarks.
-
-In practice:
-- Eval-harness benchmarks are defined externally and versioned separately
-- Changes to eval-harness require human approval and audit trail
-- All improvement proposals are tested against frozen benchmarks before commit
-
-### Principle 2: Propose-Test-Compare-Commit Pipeline
-Every improvement follows a rigorous pipeline: propose changes, test against benchmarks, compare to baseline, commit only if better. No direct edits bypass this pipeline.
-
-In practice:
-- Auditors generate structured proposals with predicted improvement deltas
-- skill-forge applies proposals in sandbox before production
-- A/B comparison ensures new version outperforms baseline
-- Rollback available for 30 days if regressions discovered later
-
-### Principle 3: Documentation Completeness Is Non-Negotiable
-Skills are not production-ready until they pass documentation audit (100% Tier 1, 100% Tier 2). Missing sections are auto-generated using templates from SKILL-AUDIT-PROTOCOL.md.
-
-In practice:
-- Every skill audit checks for Core Principles, Anti-Patterns, Conclusion
-- Missing sections trigger auto-generation using domain-specific t
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/SKILL/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "SKILL-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>SKILL_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Recursive Improvement SOP rewritten with Skill Forge structure and prompt-architect ceilings.

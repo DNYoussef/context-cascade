@@ -1,237 +1,97 @@
 ---
 name: agent-selector
-description: Intelligent agent selection from 203-agent registry using semantic matching and capability analysis
+description: Select the best-fit specialist agent from the registry using semantic matching, capability scoring, and tool alignment.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: orchestration
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reframed the selector playbook to follow Skill Forge required sections with explicit routing notes and completion checks.
+- Added prompt-architect style constraint capture, confidence ceilings, and memory tagging to keep selections auditable.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "agent-selector",
-  category: "orchestration",
-  version: "2.1.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Route work to the highest-quality specialist agent by analyzing task intent, constraints, tools, and historical performance.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: choosing an agent for a task, validating an existing agent assignment, planning multi-agent workflows.
+- Negative/reroute: creating a new agent (agent-creator/agent-creation) or optimizing prompts without agent routing (prompt-architect).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Require English outputs with explicit confidence ceilings for the selection rationale.
+- Never return a generic agent when a specialized option exists; surface top alternatives with scores.
+- Avoid opaque reasoning—show matched capabilities, tools, and decision factors.
+- Respect registry integrity: only return agents that exist and are permitted for the task.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Intent & Constraint Capture**: Extract domain, phase, tools, risk level, and success criteria; mark hard vs soft constraints.
+2. **Candidate Retrieval**: Query registry/memory for agents; narrow by category, tools, and phase.
+3. **Scoring & Ranking**: Score by capability match, domain fit, tool alignment, and historical outcomes; include tie-break rules.
+4. **Recommendation & Rationale**: Provide selected agent, alternatives, reasoning, and integration notes; state confidence ceiling.
+5. **Validation Loop**: If no suitable agent, recommend creation path and log gaps for skill-forge backlog.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- Tool-constrained tasks → prioritize agents with matching tool whitelists and error-handling experience.
+- High-risk domains (security/compliance) → bias toward agents with safety guardrails and audits.
+- Multi-phase projects → pick agents aligned to current phase (planning vs build vs test).
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["agent-selector", "orchestration", "workflow"],
-  context: "user needs agent-selector capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Use semantic + rules-based scoring to avoid tool-only bias.
+- Apply cooldowns for recently failing agents and boost for proven recent runs.
+- Capture reason codes for why top alternatives were not chosen.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Selecting based solely on name similarity.
+- Ignoring tool requirements or phase context.
+- Omitting confidence ceilings or rationale in the output.
 
-# Agent Selector Micro-Skill
+### Practical Guidelines
+- Provide 1 primary and 2-3 backup agents with concise reasons and score deltas.
+- Include file paths for reproducibility and auditing.
+- Encourage small validation task before full delegation when confidence <0.85.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: prompt-architect for refined task descriptions; skill-forge for complete agent metadata.
+- Downstream: delivery/ops skills consuming the selected agent; recursive-improvement when selection fails.
 
+### MCP Requirements
+- Memory/vector search recommended for registry lookup; tag WHO=agent-selector-{session}, WHY=skill-execution.
+- Ensure access controls before suggesting agents tied to sensitive tools.
 
-
-## Phase 0: Expertise Loading
-
-Before selecting agents:
-
-1. **Detect Domain**: Identify task domain from request
-2. **Check Expertise**: Look for `.claude/expertise/agent-selection.yaml`
-3. **Load Context**: If exists, load agent performance history and preferences
-4. **Apply Configuration**: Use expertise for optimal agent matching
-
-## Purpose
-
-Intelligently selects the most appropriate specialized agent from the 203-agent registry based on:
-- Task requirements and complexity
-- Agent capabilities and specializations
-- Domain expertise (category/subcategory)
-- Tool and MCP requirements
-- Phase alignment (planning, development, testing, etc.)
-
-**Critical for Phase 4 routing** to ensure Claude Code uses specialized agents instead of generic ones.
-
-## When to Use
-
-- **Before any Task() invocation** in Phase 5 execution
-- When planning multi-agent workflows and need optimal agent assignment
-- When you're unsure which specialized agent to use for a task
-- To validate that a generic agent name has a specialized alternative
-
-## How It Works
-
-**4-Step Process:**
-
-1. **Parse Task Requirements**
-   - Extract domain (backend, frontend, database, testing, etc.)
-   - Identify key capabilities needed (Express.js, PostgreSQL, TDD, etc.)
-   - Determine phase (planning, development, testing, deployment)
-   - Note tool/MCP requirements
-
-2. **Semantic Search (Memory MCP)**
-   - Query Memory MCP with task description
-   - Get top 5-10 candidate agents ranked by similarity
-   - Filter by category/phase if known
-
-3. **Capability Matching**
-   - Score each candidate agent based on:
-     - Exact capability matches (highest priority)
-     - Domain specialization (category/subcategory)
-     - Tool/MCP alignment
-     - Phase alignment
-   - Apply fallback rules if no perfect match
-
-4. **Return Selection + Reasoning**
-   - Selected agent name
-   - Agent source (file path in registry)
-   - Capabilities that matched
-   - Alternatives considered
-   - Selection reasoning
-
-## Usage
-
-```javascript
-// Skill invocation
-Skill("agent-selector")
-
-// Agent will prompt you for:
-// 1. Task description (what needs to be done)
-// 2. Domain hint (optional: backend, frontend, testing, etc.)
-// 3. Phase hint (optional: development, testing, deployment)
-
-// Output:
-{
-  "selected_agent": "dev-backend-api",
-  "agent_source": "delivery/development/backend/dev-backend-api.md",
-  "agent_category": "delivery/development/backend",
-  "capabilities": ["Express.js", "REST APIs", "JWT", "OpenAPI"],
-  "selection_reasoning": "Specialized backend API agent with exact match for Express.js + REST requirements",
-  "alternatives_considered": [
-    {
-      "name": "backend-specialist",
-      "score": 0.82,
-      "reason": "Less API-specific, more general backend work"
-    }
-  ],
-  "confidence": 0.95
-}
+### Input/Output Contracts
+```yaml
+inputs:
+  task: string  # required description of the work
+  domain: string  # optional domain hint
+  phase: string  # optional project phase
+  tools: list[string]  # optional required tools/MCP servers
+outputs:
+  primary_agent: object  # name, path, score, capabilities, tools
+  alternatives: list[object]  # ranked backups with reasons
+  rationale: string  # key decision factors and constraints satisfied
 ```
 
-## Integration with Phase 4 Routing
+### Recursive Improvement
+- Feed mis-selections and user feedback into recursive-improvement to tune scoring weights and filters.
 
-**Automatic Integration:**
+### Examples
+- Select a backend API agent for an Express+PostgreSQL feature with OpenAPI contract checks.
+- Recommend a security review agent for dependency audit with SBOM parsing and CVE triage.
 
-When Phase 4 routing runs, it MUST use this skill (or inline equivalent) to select agents:
+### Troubleshooting
+- No match found → relax soft constraints, widen category, or trigger agent creation.
+- Multiple top ties → expose tie-break factors (tools, recency, safety posture).
+- Agent returned lacks required tool → fail selection and propose alternatives with matching tools.
 
-```javascript
-// Phase 4 Routing
-for (const task of plan.tasks) {
-  // Invoke agent-selector
-  const agentSelection = Skill("agent-selector", {
-    task: task.description,
-    domain: task.domain,
-    phase: task.phase
-  });
+### Completion Verification
+- [ ] Primary agent and backups returned with scores and reasoning.
+- [ ] Constraints and tools addressed; registry paths included.
+- [ ] Confidence ceiling stated; memory tags applied if MCP used.
+- [ ] Escalation path defined when no suitable agent exists.
 
-  // Use selected agent in Phase 5
-  task.agent = agentSelection.selected_agent;
-  task.agent_source = agentSelection.agent_source;
-  task.agent_capabilities = agentSelection.capabilities;
-  task.agent_reasoning = agentSelection.selection_reasoning;
-}
-```
-
-## Agent Selection Criteria (Priority Order)
-
-1. **Exact Capability Match** (score: 1.0)
-   - Agent metadata lists exact task requirement
-   - Example: "Express.js API development" → dev-backend-api
-
-2. **Domain Specialization** (score: 0.9)
-   - Agent is in correct category/subcategory
-   - Example: Backend task → delivery/development/backend agents
-
-3. **Tool Requirements** (score: 0.8)
-   - Agent has required tools/MCP servers
-   - Example: Needs Post
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/orchestration/agent-selector/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "agent-selector-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENT_SELECTOR_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Selector SOP aligned to Skill Forge structure with prompt-architect ceilings.

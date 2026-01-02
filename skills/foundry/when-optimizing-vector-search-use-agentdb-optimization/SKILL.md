@@ -1,228 +1,96 @@
 ---
 name: agentdb-optimization
-description: AgentDB Vector Search Optimization skill for agentdb workflows
+description: Optimize AgentDB vector search configurations for relevance, latency, and cost with structured evaluation.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: agentdb
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Reframed the optimization guidance into Skill Forge required sections with explicit evaluation and tuning loops.
+- Added prompt-architect constraint capture, confidence ceilings, and safety rails for relevance experiments.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "AgentDB Vector Search Optimization",
-  category: "agentdb",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Tune AgentDB vector search parameters (embeddings, chunking, filters, rerankers, caching) to improve relevance and latency with evidence.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: relevance issues, latency/cost concerns, or experiments on search quality.
+- Negative/reroute: initial search setup (agentdb-vector-search) or non-AgentDB search stacks.
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Evidential",
-  source: "Turkish",
-  force: "How do you know?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Run A/B or offline evaluations; do not deploy changes without evidence.
+- Avoid simultaneous changes to multiple parameters; isolate variables.
+- Keep outputs in English with explicit confidence ceilings; record configs and metrics.
+- Monitor for regressions post-change with rollback plan.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Baseline**: Capture current metrics, configs, constraints, and pain points; classify HARD/SOFT/INFERRED.
+2. **Hypotheses**: Identify candidate changes (top-k, filters, models, rerankers, chunking) and expected impact.
+3. **Experiments**: Run controlled tests (offline or shadow); collect relevance and latency metrics.
+4. **Analysis**: Compare against baseline; flag trade-offs and ceilings.
+5. **Deployment**: Roll out winning config with monitoring, rollback, and documentation.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- High latency → lower top-k, prefilter by metadata, or add caching.
+- Poor relevance on specific intents → adjust chunking and embeddings, add domain-specific rerankers.
+- Cost pressure → reduce index updates or batch processing.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["AgentDB Vector Search Optimization", "agentdb", "workflow"],
-  context: "user needs AgentDB Vector Search Optimization capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Adaptive top-k based on query difficulty or user tier.
+- Reranking with lightweight models to balance cost/perf.
+- Active learning loops to expand eval sets from misses.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Deploying untested changes directly to production.
+- Comparing results without consistent metrics or datasets.
+- Not logging configuration versions, making rollbacks hard.
 
-# AgentDB Vector Search Optimization
+### Practical Guidelines
+- Maintain a changelog with config hash, metrics, and ceilings.
+- Use representative and adversarial queries in eval sets.
+- Coordinate with caching and memory teams when changing schemas.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Cross-Skill Coordination
+- Upstream: agentdb-vector-search for baseline setup; prompt-architect for query clarity.
+- Parallel: agentdb-advanced for complex filters; recursive-improvement for iterative tuning.
+- Downstream: agent-creator embedding optimized settings into agents.
 
+### MCP Requirements
+- Requires AgentDB vector search MCP; tag WHO=agentdb-optimization-{session}, WHY=skill-execution during experiments.
 
-
-## Overview
-
-Optimize AgentDB performance with quantization (4-32x memory reduction), HNSW indexing (150x faster search), caching, and batch operations for scaling to millions of vectors.
-
-## SOP Framework: 5-Phase Optimization
-
-### Phase 1: Baseline Performance (1 hour)
-- Measure current metrics (latency, throughput, memory)
-- Identify bottlenecks
-- Set optimization targets
-
-### Phase 2: Apply Quantization (1-2 hours)
-- Configure product quantization
-- Train codebooks
-- Apply compression
-- Validate accuracy
-
-### Phase 3: Implement HNSW Indexing (1-2 hours)
-- Build HNSW index
-- Tune parameters (M, efConstruction, efSearch)
-- Benchmark speedup
-
-### Phase 4: Configure Caching (1 hour)
-- Implement query cache
-- Set TTL and eviction policies
-- Monitor hit rates
-
-### Phase 5: Benchmark Results (1-2 hours)
-- Run comprehensive benchmarks
-- Compare before/after
-- Validate improvements
-
-## Quick Start
-
-```typescript
-import { AgentDB, Quantization, QueryCache } from 'agentdb-optimization';
-
-const db = new AgentDB({ name: 'optimized-db', dimensions: 1536 });
-
-// Quantization (4x memory reduction)
-const quantizer = new Quantization({
-  method: 'product-quantization',
-  compressionRatio: 4
-});
-await db.applyQuantization(quantizer);
-
-// HNSW indexing (150x speedup)
-await db.createIndex({
-  type: 'hnsw',
-  params: { M: 16, efConstruction: 200 }
-});
-
-// Caching
-db.setCache(new QueryCache({
-  maxSize: 10000,
-  ttl: 3600000
-}));
+### Input/Output Contracts
+```yaml
+inputs:
+  baseline_metrics: object  # required
+  constraints: list[string]  # required performance/safety constraints
+  hypotheses: list[string]  # optional tuning ideas
+outputs:
+  experiment_plan: file  # tests, datasets, metrics
+  results: file  # outcomes with ceilings
+  rollout_plan: summary  # chosen config, monitoring, rollback
 ```
 
-## Optimization Techniques
+### Recursive Improvement
+- Loop through recursive-improvement with new failures/misses to refine hypotheses and configs.
 
-### Quantization
-- **Product Quantization**: 4-8x compression
-- **Scalar Quantization**: 2-4x compression
-- **Binary Quantization**: 32x compression
+### Examples
+- Reduce latency for Q&A search by adjusting top-k and adding metadata filters.
+- Improve relevance for long-form docs with new chunking and reranker tuning.
 
-### Indexing
-- **HNSW**: 150x faster, high accuracy
-- **IVF**: Fast, partitioned search
-- **LSH**: Approximate search
+### Troubleshooting
+- Metrics inconclusive → increase sample size or narrow variables.
+- Regression post-deploy → rollback to last good config and analyze logs.
+- Unexpected costs → review embedding frequency and caching strategy.
 
-### Caching
-- **Query Cache**: LRU eviction
-- **Result Cache**: TTL-based
-- **Embedding Cache**: Reuse embeddings
+### Completion Verification
+- [ ] Baseline and hypotheses documented.
+- [ ] Experiments run with metrics and ceilings recorded.
+- [ ] Deployment plan includes monitoring and rollback.
+- [ ] Changelog updated with configuration hash.
 
-## Success Metrics
-- [assert|neutral] Memory reduction: 4-32x [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Search speedup: 150x [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Accuracy maintained: > 95% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- [assert|neutral] Cache hit rate: > 70% [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-
-## MCP Requirements
-
-This skill operates using AgentDB's npm package and API only. No additional MCP servers required.
-
-All AgentDB optimization operations are performed through:
-- npm CLI: `npx agentdb@latest`
-- TypeScript/JavaScript API: `import { AgentDB, Quantization, QueryCache } from 'agentdb-optimization'`
-
-## Additional Resources
-
-- Full docs: SKILL.md
-- AgentDB Optimization: https://agentdb.dev/docs/optimization
-
-## Core Principles
-
-AgentDB Vector Search Optimization operates on 3 fundamental principles:
-
-### Principle 1: Quantization - Trade Negligible Accuracy for Massive Memory Reduction
-
-Vector databases face a fundamental constraint: high-dimensional embeddings (768-1536 dimensions) consume enormous memory at scale. Quantization techniques compress vectors by 4-32x through codebook encoding, enabling systems to hold millions of vectors in memory while maintaining 95%+ accuracy.
-
-In practice:
-- Apply product quantization (4-8x compression) for production workloads requiring high accuracy
-- Use scalar quantization (2-4x compression) when exact distances matter for ranking
-- Deploy binary quantization (32x compression) for massive-scale approximate search where recall > precision
-
-### Principle 2: HNSW Indexing - Logarithmic Search Instead of Linear Scan
-
-Brute-force vector search scales O(n) - doubling vectors doubles search time. HNSW (Hierarchical Navigable Small World) indexes create multi-layer graphs that enable O(log n) search, delivering 150x speedups with tunable accuracy trade-offs through the efSearch parameter.
-
-In practice:
-- Build HNSW indexes
-
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
-
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
-
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
-
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/agentdb/AgentDB Vector Search Optimization/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "AgentDB Vector Search Optimization-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>AGENTDB VECTOR SEARCH OPTIMIZATION_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - AgentDB optimization SOP rewritten with Skill Forge cadence and prompt-architect ceilings.

@@ -1,229 +1,96 @@
 ---
 name: meta-tools
-description: Meta-tools is a comprehensive framework for creating, validating, optimizing, and composing development tools. It provides automated workflows for tool generation, cross-tool composition, and orchestr
+description: Design, validate, and orchestrate development tools with reusable patterns, composition rules, and evidence-backed tests.
 allowed-tools: Read, Write, Edit, Bash, Glob, Grep, Task, TodoWrite
+model: sonnet
+x-version: 3.2.0
+x-category: foundry
+x-vcl-compliance: v3.1.1
+x-cognitive-frames: [HON, MOR, COM, CLS, EVD, ASP, SPC]
 ---
 
+### L1 Improvement
+- Rebuilt the meta-tools guidance with Skill Forge required sections, tool composition guardrails, and verification steps.
+- Added prompt-architect style constraint extraction plus confidence ceilings for tool recommendations.
 
----
-<!-- S0 META-IDENTITY                                                             -->
----
+## STANDARD OPERATING PROCEDURE
 
-[define|neutral] SKILL := {
-  name: "meta-tools",
-  category: "foundry",
-  version: "1.0.0",
-  layer: L1
-} [ground:given] [conf:1.0] [state:confirmed]
+### Purpose
+Create and evolve a library of development tools with clear contracts, composition patterns, and validation evidence so downstream agents can reliably orchestrate them.
 
----
-<!-- S1 COGNITIVE FRAME                                                           -->
----
+### Trigger Conditions
+- Positive: requests to design a new tool, improve an existing one, or compose multiple tools into a workflow.
+- Negative/reroute: single-use prompts (prompt-architect), agent design (agent-creator), or pure skill scaffolding (skill-builder/skill-forge).
 
-[define|neutral] COGNITIVE_FRAME := {
-  frame: "Aspectual",
-  source: "Russian",
-  force: "Complete or ongoing?"
-} [ground:cognitive-science] [conf:0.92] [state:confirmed]
+### Guardrails
+- Define explicit inputs/outputs, side effects, and failure modes for every tool.
+- Include safety and rate-limit considerations for external integrations.
+- Maintain English outputs with explicit confidence ceilings for recommendations.
+- Require tests (unit/simulation) before promoting a tool for orchestration use.
 
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
+### Execution Phases
+1. **Discovery**: Capture problem, environment, constraints, and integration surfaces; classify hard/soft/inferred constraints.
+2. **Interface Design**: Specify input/output contracts, error semantics, and idempotency expectations.
+3. **Implementation/Selection**: Build or adapt tools; ensure portability and minimal dependencies.
+4. **Validation**: Run functional, boundary, and misuse tests; record evidence and metrics.
+5. **Composition**: Document how the tool chains with others, including pre/post hooks.
 
----
-<!-- S2 TRIGGER CONDITIONS                                                        -->
----
+### Pattern Recognition
+- IO-transformer tools → emphasize deterministic formats and schema validation.
+- External-service tools → highlight auth, retries, and timeout strategies.
+- Orchestration helpers → clarify preconditions and postconditions for safe chaining.
 
-[define|neutral] TRIGGER_POSITIVE := {
-  keywords: ["meta-tools", "foundry", "workflow"],
-  context: "user needs meta-tools capability"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Advanced Techniques
+- Provide composable adapters (wrappers) to normalize outputs for downstream tools/agents.
+- Use circuit-breaker patterns for unstable integrations.
+- Capture provenance metadata so agent-selector can trust the tool pedigree.
 
----
-<!-- S3 CORE CONTENT                                                              -->
----
+### Common Anti-Patterns
+- Ambiguous side effects or undocumented environment requirements.
+- Overloaded tools that do too many things.
+- Missing validation or confidence ceilings for claims about reliability.
 
-<!-- SKILL SOP IMPROVEMENT v1.0 -->
-## Skill Execution Criteria
+### Practical Guidelines
+- Prefer small, single-purpose tools with clear naming.
+- Include example invocations and sample payloads in references/resources.
+- Version tools when contracts change; keep changelog notes.
 
-### When to Use This Skill
-- [AUTO-EXTRACTED from skill description and content]
-- [Task patterns this skill is optimized for]
-- [Workflow contexts where this skill excels]
+### Cross-Skill Coordination
+- Upstream: prompt-architect for clarity; cognitive-lensing for alternative designs.
+- Parallel: skill-builder/skill-forge for directory and documentation alignment.
+- Downstream: agent-creator/agent-selector using tool metadata; recursive-improvement for tuning reliability.
 
-### When NOT to Use This Skill
-- [Situations where alternative skills are better suited]
-- [Anti-patterns that indicate wrong skill choice]
-- [Edge cases this skill doesn't handle well]
+### MCP Requirements
+- Document required MCP servers and permissions; tag WHO=meta-tools-{session}, WHY=skill-execution for memory usage.
 
-### Success Criteria
-- primary_outcome: "[SKILL-SPECIFIC measurable result based on skill purpose]"
-- [assert|neutral] quality_threshold: 0.85 [ground:acceptance-criteria] [conf:0.90] [state:provisional]
-- verification_method: "[How to validate skill executed correctly and produced expected outcome]"
-
-### Edge Cases
-- case: "Ambiguous or incomplete input"
-  handling: "Request clarification, document assumptions, proceed with explicit constraints"
-- case: "Conflicting requirements or constraints"
-  handling: "Surface conflict to user, propose resolution options, document trade-offs"
-- case: "Insufficient context for quality execution"
-  handling: "Flag missing information, provide template for needed context, proceed with documented limitations"
-
-### Skill Guardrails
-NEVER:
-  - "[SKILL-SPECIFIC anti-pattern that breaks methodology]"
-  - "[Common mistake that degrades output quality]"
-  - "[Shortcut that compromises skill effectiveness]"
-ALWAYS:
-  - "[SKILL-SPECIFIC requirement for successful execution]"
-  - "[Critical step that must not be skipped]"
-  - "[Quality check that ensures reliable output]"
-
-### Evidence-Based Execution
-self_consistency: "After completing this skill, verify output quality by [SKILL-SPECIFIC validation approach]"
-program_of_thought: "Decompose this skill execution into: [SKILL-SPECIFIC sequential steps]"
-plan_and_solve: "Plan: [SKILL-SPECIFIC planning phase] -> Execute: [SKILL-SPECIFIC execution phase] -> Verify: [SKILL-SPECIFIC verification phase]"
-<!-- END SKILL SOP IMPROVEMENT -->
-
-# Meta-Tools - Tool Creation and Composition Framework
-
-## Kanitsal Cerceve (Evidential Frame Activation)
-Kaynak dogrulama modu etkin.
-
-
-
-## Overview
-
-Meta-tools is a comprehensive framework for creating, validating, optimizing, and composing development tools. It provides automated workflows for tool generation, cross-tool composition, and orchestration patterns that enable developers to build custom tooling ecosystems.
-
-## Purpose
-
-Enable developers to:
-- **Generate Tools**: Automatically create new tools from specifications
-- **Validate Tools**: Ensure tool correctness, security, and performance
-- **Optimize Tools**: Enhance tool efficiency and resource usage
-- **Package Tools**: Bundle tools for distribution and deployment
-- **Compose Tools**: Chain multiple tools into powerful workflows
-- **Orchestrate Tools**: Coordinate complex multi-tool operations
-
-## Capabilities
-
-### Tool Generation
-- Specification-driven tool creation
-- Template-based scaffolding
-- Auto-generated validation logic
-- Built-in error handling
-- Documentation generation
-
-### Tool Validation
-- Schema validation
-- Security scanning
-- Performance profiling
-- Integration testing
-- Compliance checking
-
-### Tool Optimization
-- Performance analysis
-- Resource optimization
-- Caching strategies
-- Parallel execution
-- Memory management
-
-### Tool Packaging
-- Dependency resolution
-- Version management
-- Distribution packaging
-- Installation scripts
-- Update mechanisms
-
-### Tool Composition
-- Pipeline creation
-- Data flow management
-- Error propagation
-- State management
-- Result aggregation
-
-### Tool Orchestration
-- Multi-tool coordination
-- Parallel execution
-- Conditional workflows
-- Event-driven triggers
-- Monitoring and logging
-
-## Usage Patterns
-
-### Quick Tool Generation
-```bash
-# Generate a new tool from specification
-python resources/tool-generator.py \
-  --spec specs/my-tool.yaml \
-  --output tools/my-tool \
-  --template resources/templates/tool-template.yaml
+### Input/Output Contracts
+```yaml
+inputs:
+  problem: string  # required problem statement
+  environment: string  # optional runtime/environment notes
+  constraints: list[string]  # optional constraints
+outputs:
+  tool_specs: list[file]  # definitions with contracts and examples
+  validation_report: file  # tests executed and results
+  composition_notes: summary  # how tools chain together
 ```
 
-### Tool Validation
-```bash
-# Validate a tool implementation
-node resou
+### Recursive Improvement
+- Use recursive-improvement when tools fail tests or integration friction is high; capture deltas between iterations.
 
----
-<!-- S4 SUCCESS CRITERIA                                                          -->
----
+### Examples
+- Build a schema-validator tool to sanitize API payloads before database writes.
+- Compose a doc-generation toolchain combining linting, formatting, and preview steps.
 
-[define|neutral] SUCCESS_CRITERIA := {
-  primary: "Skill execution completes successfully",
-  quality: "Output meets quality thresholds",
-  verification: "Results validated against requirements"
-} [ground:given] [conf:1.0] [state:confirmed]
+### Troubleshooting
+- Flaky integrations → add retries, backoff, and circuit breakers.
+- Schema drift → pin versions and add validation layers.
+- Tool overlap → consolidate or specialize with clear naming and scope.
 
----
-<!-- S5 MCP INTEGRATION                                                           -->
----
+### Completion Verification
+- [ ] Tool contracts defined with inputs/outputs and failure modes.
+- [ ] Validation evidence recorded; ceilings stated for reliability claims.
+- [ ] Composition guidance documented for orchestration use.
+- [ ] Dependencies and permissions disclosed.
 
-[define|neutral] MCP_INTEGRATION := {
-  memory_mcp: "Store execution results and patterns",
-  tools: ["mcp__memory-mcp__memory_store", "mcp__memory-mcp__vector_search"]
-} [ground:witnessed:mcp-config] [conf:0.95] [state:confirmed]
-
----
-<!-- S6 MEMORY NAMESPACE                                                          -->
----
-
-[define|neutral] MEMORY_NAMESPACE := {
-  pattern: "skills/foundry/meta-tools/{project}/{timestamp}",
-  store: ["executions", "decisions", "patterns"],
-  retrieve: ["similar_tasks", "proven_patterns"]
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
-[define|neutral] MEMORY_TAGGING := {
-  WHO: "meta-tools-{session_id}",
-  WHEN: "ISO8601_timestamp",
-  PROJECT: "{project_name}",
-  WHY: "skill-execution"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S7 SKILL COMPLETION VERIFICATION                                             -->
----
-
-[direct|emphatic] COMPLETION_CHECKLIST := {
-  agent_spawning: "Spawn agents via Task()",
-  registry_validation: "Use registry agents only",
-  todowrite_called: "Track progress with TodoWrite",
-  work_delegation: "Delegate to specialized agents"
-} [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- S8 ABSOLUTE RULES                                                            -->
----
-
-[direct|emphatic] RULE_NO_UNICODE := forall(output): NOT(unicode_outside_ascii) [ground:windows-compatibility] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_EVIDENCE := forall(claim): has(ground) AND has(confidence) [ground:verix-spec] [conf:1.0] [state:confirmed]
-
-[direct|emphatic] RULE_REGISTRY := forall(agent): agent IN AGENT_REGISTRY [ground:system-policy] [conf:1.0] [state:confirmed]
-
----
-<!-- PROMISE                                                                      -->
----
-
-[commit|confident] <promise>META_TOOLS_VERILINGUA_VERIX_COMPLIANT</promise> [ground:self-validation] [conf:0.99] [state:confirmed]
+Confidence: 0.70 (ceiling: inference 0.70) - Meta-tools SOP aligned to Skill Forge cadence with prompt-architect guardrails.
