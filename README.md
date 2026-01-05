@@ -736,7 +736,7 @@ Hierarchical (6.3x)     Mesh (8.3x)        Adaptive (7.2x)     Ring (4.5x)
 - **This README** - Quick start and plugin overview
 - **[CLAUDE-FLOW-INTEGRATION.md](CLAUDE-FLOW-INTEGRATION.md)** - How we integrate with and enhance Claude Flow ⭐
 - **[Marketplace README](.claude-plugin/README.md)** - Detailed installation guide
-- **[MIGRATION.md](MIGRATION.md)** - Migration guide from v2.x to v3.0
+- **[MIGRATION.md](docs/MIGRATION.md)** - Migration guide from v2.x to v3.0
 - **[CHANGELOG.md](CHANGELOG.md)** - Complete version history
 
 ### Plugin Documentation
