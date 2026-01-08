@@ -11,7 +11,7 @@ allowed-tools:
 - Task
 - TodoWrite
 model: claude-3-5-sonnet
-x-version: 1.0.0
+x-version: 1.1.0
 x-category: delivery
 x-vcl-compliance: v3.1.1
 binding: skill:fix-bug
@@ -45,6 +45,36 @@ category: delivery
 
 ### Memory and Tagging
 - Tag session outputs with who/when/why for traceability.
+
+### LEARNED PATTERNS (Session: 2026-01-07)
+
+#### Asset Selection Protocol
+When multiple similar assets exist (e.g., headshot.jpg vs headshot.png):
+1. List all candidates with visual inspection or metadata check
+2. Confirm correct asset with user before implementation
+3. Document reasoning for selection
+
+#### Layout Restoration Pattern
+For "restore", "add back", or "bring back" requests:
+1. FIRST: Research git history to find original implementation
+   ```bash
+   git log --all --oneline -- <file>
+   git show <commit>:<file>
+   ```
+2. Extract working implementation patterns
+3. Apply to current codebase
+4. AVOID: Trial-and-error positioning attempts without historical context
+
+#### Positioning Decision Tree
+- Hero sections with text + image -> Grid-based layout (lg:grid-cols-12)
+- Simple overlays -> Absolute positioning
+- If >3 positioning iterations needed -> STOP and research git history or ask for design reference
+
+#### User Frustration Signals
+Phrases like "this is getting sad", "stop", "reverse all changes" indicate:
+- Trigger: Immediate rollback + strategy pivot required
+- Response: Research historical solutions or ask for design reference
+- Never continue iterating after frustration signals
 
 ### Example Invocation
 - /fix-bug example

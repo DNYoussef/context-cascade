@@ -11,7 +11,7 @@ allowed-tools:
   - Task
   - TodoWrite
 model: sonnet
-x-version: 1.0.1
+x-version: 1.0.4
 x-category: tooling
 x-vcl-compliance: v3.1.1
 x-cognitive-frames:
@@ -23,8 +23,8 @@ x-cognitive-frames:
   - ASP
   - SPC
 x-loop: 1.5
-x-last-reflection: 2026-01-05T00:00:00Z
-x-reflection-count: 1
+x-last-reflection: 2026-01-08T15:25:00Z
+x-reflection-count: 4
 ---
 
 
@@ -637,7 +637,49 @@ Confidence: 0.85 (ceiling: observation 0.95) - New skill created following Skill
 
 ## LEARNED PATTERNS
 
+### High Confidence [conf:0.90] - CRITICAL
+
+#### Skill Package Format
+- Skills use `.skill` extension (NOT `.skill.zip`). The `.skill` file IS a zip archive with renamed extension.
+- Correct location: `skills/packaged/` folder (NOT `skills/dist/`)
+- [ground:user-correction:2026-01-08]
+
+#### Multi-File Update Workflow
+When updating a packaged skill with learned patterns, update ALL relevant files:
+
+| File | Update Required | Content |
+|------|-----------------|---------|
+| SKILL.md | Always | Add to LEARNED PATTERNS section |
+| CHANGELOG.md | Always | Add version entry with date and description |
+| manifest.json | Always | Increment version number |
+| quick-reference.md | If operational | Add new tips/workflows |
+| readme.md | If scope changes | Update overview |
+
+**Complete Workflow:**
+```bash
+# 1. Unzip .skill file
+unzip skills/packaged/skill-name.skill -d /tmp/skill-update/skill-name
+
+# 2. Update files: SKILL.md, CHANGELOG.md, manifest.json, quick-reference.md
+
+# 3. Rezip with PowerShell (use cygpath for Windows paths)
+WIN_PATH=$(cygpath -w /tmp/skill-update/skill-name)
+WIN_ZIP=$(cygpath -w /tmp/skill-update/skill-name.zip)
+powershell -Command "Compress-Archive -Path '$WIN_PATH\*' -DestinationPath '$WIN_ZIP' -Force"
+
+# 4. Deploy with .skill extension
+cp /tmp/skill-update/skill-name.zip skills/packaged/skill-name.skill
+```
+[ground:user-correction:2026-01-08]
+
+### Medium Confidence [conf:0.75]
+
+- Windows interop: PowerShell commands require Windows paths (C:\...). Use `cygpath -w /unix/path` to convert Git Bash paths before invoking PowerShell Compress-Archive [ground:error-correction:2026-01-08]
+- File tool fallback: When Edit tool fails repeatedly with "unexpectedly modified" errors, use Bash heredoc (`cat > file << 'EOF'`) as reliable alternative for file writes [ground:observation:pattern:2026-01-08]
+- MCP integration pattern: When integrating new components, expose in __init__.py __all__ list, document config in .env, provide standalone test script, update README with usage examples [ground:approval:successful-pattern:2026-01-08]
+
 ### Low Confidence [conf:0.55]
+
 - Self-test on creation session validates the workflow and demonstrates dogfooding [ground:observation:2026-01-05]
-  - Context: User requested immediate test after skill creation
-  - Action: Offer to run /reflect on the creation session as final validation step
+- Python standalone scripts: Use Path(__file__).parent.parent to get project root, add to sys.path, and os.chdir() to project root before imports to avoid relative import issues [ground:observation:fix:2026-01-08]
+
