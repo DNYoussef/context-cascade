@@ -1,0 +1,63 @@
+{
+  "key": "cognitive-architecture/library/governance/policy",
+  "value": {
+    "_comment": "GOVERNANCE POLICY - Defines regression thresholds, rollback windows, human gates",
+    "_schema_version": "1.0.0",
+    "regression_threshold": 0.03,
+    "rollback_window_days": 30,
+    "max_iterations": 50,
+    "monitoring_period_days": 7,
+    "harness_hash": "frozen_eval_harness_v1",
+    "human_gates": {
+      "breaking_change": {
+        "approvers": 1,
+        "timeout_hours": 24,
+        "on_timeout": "reject"
+      },
+      "high_risk": {
+        "approvers": 2,
+        "timeout_hours": 48,
+        "on_timeout": "reject"
+      },
+      "auditor_disagreement": {
+        "threshold": 3,
+        "approvers": 1,
+        "timeout_hours": 24,
+        "on_timeout": "reject"
+      },
+      "novel_pattern": {
+        "approvers": 1,
+        "timeout_hours": 12,
+        "on_timeout": "reject"
+      },
+      "threshold_crossing": {
+        "delta_threshold": 0.1,
+        "approvers": 1,
+        "timeout_hours": 24,
+        "on_timeout": "manual_review"
+      }
+    },
+    "auditor_consensus": {
+      "required_agreement": 3,
+      "total_auditors": 4
+    },
+    "immutable_bounds": {
+      "evidential_min": 0.3,
+      "require_ground_min": 0.5
+    },
+    "alert_thresholds": {
+      "error_rate_max": 0.1,
+      "performance_degradation_max": 0.2
+    }
+  },
+  "metadata": {
+    "WHO": "library-migrator:policy",
+    "WHEN": "2026-01-09T11:39:00.044918",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "governance",
+    "x-regression-threshold": "0.03",
+    "x-max-iterations": "50",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0449188
+}

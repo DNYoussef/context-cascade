@@ -1,0 +1,132 @@
+{
+  "key": "cognitive-architecture/library/evaluations/prompt-architect-cli-eval-20260101-223734",
+  "value": {
+    "skill_name": "prompt-architect",
+    "version": "3.1.1",
+    "timestamp": "2026-01-02T03:37:34.494905+00:00",
+    "evaluation_type": "cli",
+    "total_tasks": 10,
+    "passed_tasks": 10,
+    "easy_score": 0.834,
+    "medium_score": 0,
+    "hard_score": 0,
+    "intent_accuracy": 0.9400000000000001,
+    "constraint_coverage": 0.865,
+    "output_quality": 0.834,
+    "verix_compliance": 0.635,
+    "l2_purity": 1.0,
+    "overall_score": 1.0,
+    "task_results": [
+      {
+        "task_id": "PA-001",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.75,
+        "execution_time_ms": 56132,
+        "reasoning": "The skill correctly identified the primary intent as code_generation and the mathematical domain. It covered all expected constraints (single_function, mathematical, recursive_or_iterative) plus identified additional implicit constraints. Output is well-structured with clear sections but appears truncated mid-sentence. The output is pure L2 English with no VCL markers (good for user-facing content), but lacks VERIX epistemic markers entirely - no confidence levels, no evidence grounding, no illocution markers. For internal skill documentation, VERIX compliance should be higher. Despite the truncation issue, the core analysis is accurate and useful."
+      },
+      {
+        "task_id": "PA-002",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.85,
+        "execution_time_ms": 56922,
+        "reasoning": "The skill correctly identified the primary intent as 'explanation' and accurately placed it in the JavaScript/async programming domain. All three expected constraints (technical_concept, javascript, async_programming) were addressed, though they were phrased differently ('JavaScript language feature', 'asynchronous programming concepts'). The output is well-structured with clear sections for intent analysis, observations about ambiguities, and two optimized prompt options. However, the output appears truncated mid-sentence in Option B, reducing quality slightly. VERIX compliance is moderate - while the analysis shows evidence-based reasoning (identifying gaps, noting assumptions), it lacks explicit epistemic markers like confidence levels or evidence grounding that full VERIX compliance would require. L2 purity is perfect - pure English throughout with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-003",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 55646,
+        "reasoning": "The skill correctly identified the primary intent as 'debugging' and recognized the authentication context. All expected constraints (bug_fix, authentication, existing_code) were addressed, with additional useful observations about missing information. The output is well-structured with clear sections, an optimized prompt template, and actionable clarifying questions. VERIX compliance is partial - the output uses good epistemic hygiene by identifying what's known vs unknown, but lacks explicit confidence markers or evidence grounding notation. L2 purity is perfect - entirely in plain English with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-004",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 61633,
+        "reasoning": "The skill correctly identified the intent as feature implementation/code generation with validation focus, matching the expected 'feature_addition' intent. It comprehensively addressed validation and user input constraints, going beyond by identifying ambiguities (which form, what fields, what rules, what layer, what feedback). Output is well-structured with clear sections, observations, and actionable optimized prompt options. However, the output appears truncated (Option B cuts off mid-sentence), reducing quality score. VERIX compliance is moderate - while the analysis demonstrates evidential thinking (identifying unknowns, noting ambiguities), it lacks explicit epistemic markers, confidence levels, and evidence grounding that full VERIX compliance requires. L2 purity is perfect - pure English with no VCL markers visible to user."
+      },
+      {
+        "task_id": "PA-005",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.9,
+        "execution_time_ms": 60213,
+        "reasoning": "The skill correctly identified the primary intent as code_review with a security audit category, matching expectations. It addressed the security_focus and pr_review constraints well by recognizing the security dimension and PR context, though 'vulnerability_check' was implicitly covered rather than explicitly named. Output is well-structured with clear sections, actionable optimized prompt template, and practical identification of missing information. However, VERIX compliance is lower because the output lacks explicit epistemic markers, confidence levels, and evidence grounding that would be expected in L1 internal documentation - though this may be intentional for L2 user-facing output. The output is pure English with no VCL markers, achieving full L2 purity. The analysis demonstrates strong understanding of what's needed for effective security review while appropriately flagging gaps in the original request."
+      },
+      {
+        "task_id": "PA-006",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.85,
+        "execution_time_ms": 50673,
+        "reasoning": "The skill identified the intent as 'explanation' rather than 'analysis', which is close but not exact - both involve understanding the regex. It correctly identified all three constraint areas (regex, pattern_matching, explanation_needed) through its discussion of the domain and what's missing. The output is well-structured with clear sections, identifies the core problem (missing pattern), and provides actionable next steps with an optimized prompt template. However, VERIX compliance is partial - while it includes a confidence assessment (0.40), it doesn't use proper VERIX markers or evidence grounding notation in the output. L2 purity is perfect - the output is entirely in plain English with no VCL markers visible."
+      },
+      {
+        "task_id": "PA-007",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.75,
+        "execution_time_ms": 57169,
+        "reasoning": "The skill correctly identified the primary intent as code_refactoring and recognized the async pattern transformation context. It properly identified constraints around async patterns, modernization, and code transformation. The output is well-structured with clear sections but appears truncated (cuts off mid-sentence in the optimized prompt template). The skill appropriately flagged missing information (no actual code provided) and asked relevant clarifying questions. Output is in pure English with no VCL markers visible to user. VERIX compliance is moderate - while the analysis shows epistemic awareness (noting uncertainties and asking clarifications), it lacks explicit evidence markers in the internal reasoning. The truncation hurts output quality score, but the analytical approach and intent extraction are sound."
+      },
+      {
+        "task_id": "PA-008",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.8,
+        "execution_time_ms": 61871,
+        "reasoning": "The skill correctly identified the primary intent as test_creation (labeled as code_generation/test_creation) and recognized the payment domain. All three expected constraints (unit_tests, payment, coverage) were addressed - unit tests explicitly scoped, payment module identified, and coverage discussed as an undefined gap. Output is well-structured with clear sections for intent analysis, observations of gaps, and an optimized prompt. However, the output appears truncated mid-sentence which impacts quality. VERIX compliance is partial - the skill uses informal observation language rather than explicit epistemic markers, though it does indicate confidence levels implicitly through its gap analysis. Output is entirely in pure English with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-009",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 52305,
+        "reasoning": "The skill correctly identified the primary intent as code_optimization focused on database query performance, matching the expected optimization intent. It appropriately identified constraints around performance and database context. The output is well-structured with clear sections for intent analysis, observations about missing information, and a practical optimized prompt template. The skill demonstrated good epistemic practice by acknowledging what cannot be determined without the actual query. Output is in pure English with no VCL markers visible. Minor deduction on verix_compliance as the confidence levels and evidence grounding are implicit rather than explicitly stated, though the reasoning is sound."
+      },
+      {
+        "task_id": "PA-010",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.75,
+        "execution_time_ms": 55889,
+        "reasoning": "The skill correctly identified the primary intent as 'documentation' with category 'API documentation task', matching the expected intent perfectly. It addressed API documentation and endpoint documentation constraints well, identifying ambiguities around file reference, output format, scope, and destination. However, the output appears truncated (cuts off mid-sentence at 'Read the fi'), reducing output quality. The response is in pure English without VCL markers (L2 compliant), but lacks VERIX epistemic markers such as [ground:], [conf:], and [state:] that would indicate evidence basis and confidence levels for its claims. The analysis is useful but incomplete due to truncation."
+      }
+    ]
+  },
+  "metadata": {
+    "WHO": "library-migrator:evaluations",
+    "WHEN": "2026-01-09T11:39:00.051899",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "evaluation",
+    "x-skill": "prompt-architect",
+    "x-filename": "prompt-architect-cli-eval-20260101-223734",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0518994
+}

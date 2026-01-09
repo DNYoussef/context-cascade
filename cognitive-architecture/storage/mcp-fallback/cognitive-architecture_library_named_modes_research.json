@@ -1,0 +1,46 @@
+{
+  "key": "cognitive-architecture/library/named_modes/research",
+  "value": {
+    "config_vector": [
+      0.9980712682176345,
+      0.15575846898680817,
+      0.010950394594372763,
+      0.003092060989974353,
+      0.7350941306395253,
+      0.9923816170810492,
+      0.8341699526881771,
+      1.9995735915932582,
+      1.9998202260125133,
+      0.9072227888073567,
+      0.118098874274211,
+      0.9805009493312475,
+      0.9333659260969633,
+      0.9975724360220399
+    ],
+    "outcomes": {
+      "task_accuracy": 0.98,
+      "token_efficiency": 0.8242695327818257,
+      "edge_robustness": 0.95,
+      "epistemic_consistency": 0.95
+    },
+    "source": "stage2_pymoo",
+    "summary": "Frames: [evidential, honorific, classifier, spatial] | VERIX: STRICT | Compression: L2_HUMAN",
+    "active_frames": [
+      "evidential",
+      "honorific",
+      "classifier",
+      "spatial"
+    ],
+    "verix_strictness": "STRICT"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.041926",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "research",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0419261
+}

@@ -1,0 +1,40 @@
+{
+  "key": "cognitive-architecture/library/named_modes/standard",
+  "value": {
+    "config_vector": [
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      1.0,
+      0.0,
+      2.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "cluster_key": "frames:aspectual+classifier+evidential+morphological|strict:2|compress:1",
+    "summary": "Frames: [evidential, aspectual, morphological, classifier] | VERIX: STRICT | Compression: L1_AI_HUMAN",
+    "active_frames": [
+      "evidential",
+      "aspectual",
+      "morphological",
+      "classifier"
+    ],
+    "verix_strictness": "STRICT"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.040929",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "standard",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.040929
+}

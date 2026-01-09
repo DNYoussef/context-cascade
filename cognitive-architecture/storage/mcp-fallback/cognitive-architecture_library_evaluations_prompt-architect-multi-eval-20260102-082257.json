@@ -1,0 +1,110 @@
+{
+  "key": "cognitive-architecture/library/evaluations/prompt-architect-multi-eval-20260102-082257",
+  "value": {
+    "skill_name": "prompt-architect",
+    "version": "3.1.1",
+    "timestamp": "2026-01-02T08:22:57.478813",
+    "total_tasks": 5,
+    "passed_tasks": 0,
+    "models_used": [
+      "claude"
+    ],
+    "task_results": [
+      {
+        "task_id": "PA-001",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "input_text": "Write a function to calculate factorial",
+        "skill_output": "",
+        "success_criteria": "Correctly identifies code generation intent with mathematical domain",
+        "model_used": "error",
+        "intent_accuracy": 0.0,
+        "constraint_coverage": 0.0,
+        "output_quality": 0.0,
+        "verix_compliance": 0.0,
+        "l2_purity": 0.0,
+        "passed": false,
+        "judge_reasoning": "Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "execution_time_ms": 0
+      },
+      {
+        "task_id": "PA-002",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "input_text": "Explain how async/await works in JavaScript",
+        "skill_output": "",
+        "success_criteria": "Identifies explanation intent in async programming domain",
+        "model_used": "error",
+        "intent_accuracy": 0.0,
+        "constraint_coverage": 0.0,
+        "output_quality": 0.0,
+        "verix_compliance": 0.0,
+        "l2_purity": 0.0,
+        "passed": false,
+        "judge_reasoning": "Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}",
+        "execution_time_ms": 0
+      },
+      {
+        "task_id": "PA-003",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "input_text": "Fix the bug in my login function",
+        "skill_output": "",
+        "success_criteria": "Identifies debugging intent with auth context",
+        "model_used": "error",
+        "intent_accuracy": 0.0,
+        "constraint_coverage": 0.0,
+        "output_quality": 0.0,
+        "verix_compliance": 0.0,
+        "l2_purity": 0.0,
+        "passed": false,
+        "judge_reasoning": "Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "execution_time_ms": 0
+      },
+      {
+        "task_id": "PA-004",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "input_text": "Add input validation to the user form",
+        "skill_output": "",
+        "success_criteria": "Identifies feature addition with validation focus",
+        "model_used": "error",
+        "intent_accuracy": 0.0,
+        "constraint_coverage": 0.0,
+        "output_quality": 0.0,
+        "verix_compliance": 0.0,
+        "l2_purity": 0.0,
+        "passed": false,
+        "judge_reasoning": "Error: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}",
+        "execution_time_ms": 0
+      },
+      {
+        "task_id": "PA-005",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "input_text": "Review this pull request for security issues",
+        "skill_output": "",
+        "success_criteria": "Identifies review intent with security dimension",
+        "model_used": "error",
+        "intent_accuracy": 0.0,
+        "constraint_coverage": 0.0,
+        "output_quality": 0.0,
+        "verix_compliance": 0.0,
+        "l2_purity": 0.0,
+        "passed": false,
+        "judge_reasoning": "Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.",
+        "execution_time_ms": 0
+      }
+    ]
+  },
+  "metadata": {
+    "WHO": "library-migrator:evaluations",
+    "WHEN": "2026-01-09T11:39:00.048907",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "evaluation",
+    "x-skill": "prompt-architect",
+    "x-filename": "prompt-architect-multi-eval-20260102-082257",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0489073
+}

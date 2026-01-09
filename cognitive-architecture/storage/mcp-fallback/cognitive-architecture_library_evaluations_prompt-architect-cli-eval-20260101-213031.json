@@ -1,0 +1,62 @@
+{
+  "key": "cognitive-architecture/library/evaluations/prompt-architect-cli-eval-20260101-213031",
+  "value": {
+    "skill_name": "prompt-architect",
+    "version": "3.1.1",
+    "timestamp": "2026-01-02T02:30:31.160481+00:00",
+    "evaluation_type": "cli",
+    "total_tasks": 3,
+    "passed_tasks": 1,
+    "easy_score": 0,
+    "medium_score": 0.525,
+    "hard_score": 0.92,
+    "intent_accuracy": 0.7999999999999999,
+    "constraint_coverage": 0.5833333333333334,
+    "output_quality": 0.6566666666666667,
+    "verix_compliance": 0.6833333333333332,
+    "l2_purity": 0.7666666666666666,
+    "overall_score": 0.3333333333333333,
+    "task_results": [
+      {
+        "task_id": "PA-020",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.75,
+        "output_quality": 0.65,
+        "execution_time_ms": 61569,
+        "reasoning": "The skill correctly identified that 'handle errors better' is ambiguous and decomposed the missing dimensions well. However, the success criteria specifically requires 'idiomatic Go patterns' - the skill failed to recognize Go as the target language and instead listed generic languages (Python, JavaScript, Rust). The output is truncated mid-sentence ('Option B: If you want general error handl'), indicating incomplete generation. While the analysis framework is solid and L2 pure (no VCL markers), it doesn't deliver Go-specific guidance like error wrapping with %w, sentinel errors, custom error types implementing the error interface, or the errors.Is/As patterns. The constraint coverage is low because the implicit Go constraint from success criteria was not addressed."
+      },
+      {
+        "task_id": "PA-027",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.4,
+        "execution_time_ms": 73864,
+        "reasoning": "The skill correctly identified that 'add authentication' is ambiguous and needs clarification. The cognitive frame analysis is thorough. However, the output fails the success criteria: it does NOT convert the auth request into a complete JWT implementation - instead it produces a template with placeholders. The output is truncated/incomplete (cuts off mid-sentence at 'Context: - '). VCL markers like HON, MOR, COM, CLS, EVD, ASP, SPC appear directly in user-facing output, violating L2 purity rules. The skill asked clarifying questions rather than making reasonable defaults for JWT as the criteria specified."
+      },
+      {
+        "task_id": "PA-048",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 59622,
+        "reasoning": "The skill correctly identified that the user's request lacked necessary information to diagnose a bug, which is appropriate epistemic calibration - refusing to speculate without evidence. However, the success criteria specifically required 'applying inference ceiling (0.70)', meaning the output should have explicitly acknowledged that any diagnostic reasoning would be limited to 0.70 confidence due to being inference-based. The skill implicitly demonstrates epistemic humility by refusing to guess, but doesn't explicitly state the confidence ceiling constraint. The output is well-structured, provides a useful template for resubmission, and maintains pure L2 English throughout. The VERIX compliance is partial because while the behavior is epistemically sound, it lacks explicit confidence markers or acknowledgment of the inference ceiling requirement."
+      }
+    ]
+  },
+  "metadata": {
+    "WHO": "library-migrator:evaluations",
+    "WHEN": "2026-01-09T11:39:00.051899",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "evaluation",
+    "x-skill": "prompt-architect",
+    "x-filename": "prompt-architect-cli-eval-20260101-213031",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.052897
+}

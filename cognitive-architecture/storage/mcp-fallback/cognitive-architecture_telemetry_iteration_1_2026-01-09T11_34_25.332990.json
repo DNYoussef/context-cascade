@@ -1,0 +1,58 @@
+{
+  "key": "cognitive-architecture/telemetry/iteration_1_2026-01-09T11:34:25.332990",
+  "value": {
+    "task_id": "test_1",
+    "timestamp": "2026-01-09T11:34:25.332990",
+    "x-who": "ralph_loop_iteration_1",
+    "x-when": "2026-01-09T11:34:25.332990",
+    "x-project": "cognitive-architecture-integration",
+    "x-why": "loop-telemetry",
+    "x-iteration": 1,
+    "x-plane": "execution",
+    "x-timescale": "micro",
+    "x-mode": "balanced",
+    "x-vector14": [
+      0.95,
+      0.8,
+      0.65,
+      0.6,
+      0.35,
+      0.45,
+      0.4,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7
+    ],
+    "x-active-frames": [
+      "evidential",
+      "aspectual"
+    ],
+    "x-verix-strictness": "MODERATE",
+    "x-compression-level": "L1",
+    "task_accuracy": 0.85,
+    "token_efficiency": 0.9,
+    "edge_robustness": 0.75,
+    "epistemic_consistency": 0.8,
+    "overall_score": 0.82,
+    "decision": "continue",
+    "reason": "CONTINUE_ITERATION",
+    "git_head": null,
+    "_schema_version": "3.0"
+  },
+  "metadata": {
+    "WHO": "telemetry-bridge:ralph_iteration_1",
+    "WHEN": "2026-01-09T11:34:25.332990",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "loop-telemetry",
+    "x-iteration": "1",
+    "x-overall-score": "0.82",
+    "x-decision": "continue",
+    "x-evaluation-mode": "unknown",
+    "timestamp": "2026-01-09T16:34:25Z"
+  },
+  "stored_at": 1767976465.3599453
+}

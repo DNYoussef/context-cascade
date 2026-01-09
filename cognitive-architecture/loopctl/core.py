@@ -72,6 +72,8 @@ from integration.unified_bridge import (
     Plane,
     Timescale,
 )
+from integration.telemetry_bridge import TelemetryBridge
+from integration.connascence_bridge import ConnascenceBridge, ConnascenceResult
 
 
 class FrozenHarness:
@@ -80,21 +82,86 @@ class FrozenHarness:
 
     The harness is the ONLY source of truth for metrics.
     It does NOT self-improve (Goodhart prevention).
+
+    Evaluation Strategy (in order):
+    1. CLI Evaluator (real LLM-based) - preferred
+    2. Heuristic fallback - when CLI unavailable
     """
 
-    def __init__(self, loop_dir: Path, harness_version: str = "1.0.0"):
+    def __init__(
+        self,
+        loop_dir: Path,
+        harness_version: str = "1.0.0",
+        use_cli_evaluator: bool = True,
+        use_connascence: bool = True,
+    ):
         self.loop_dir = Path(loop_dir)
         self.harness_version = harness_version
+        self.use_cli_evaluator = use_cli_evaluator
+        self.use_connascence = use_connascence
         self._harness_hash = self._compute_hash()
+        self._cli_evaluator = None
+        self._connascence_bridge = None
+
+        # Try to initialize CLI evaluator
+        if use_cli_evaluator:
+            self._cli_evaluator = self._init_cli_evaluator()
+
+        # Try to initialize Connascence bridge
+        if use_connascence:
+            self._connascence_bridge = self._init_connascence_bridge()
+
+    def _init_cli_evaluator(self):
+        """Initialize CLI evaluator if available."""
+        try:
+            # Import from sibling evals module
+            eval_path = Path(__file__).parent.parent / "evals"
+            if eval_path.exists():
+                import sys
+                sys.path.insert(0, str(eval_path.parent))
+                from evals.cli_evaluator import ClaudeCLI
+                cli = ClaudeCLI()
+                if cli.is_available:
+                    return cli
+        except Exception as e:
+            pass  # Silently fall back to heuristics
+        return None
+
+    def _init_connascence_bridge(self):
+        """Initialize Connascence bridge for quality metrics."""
+        try:
+            bridge = ConnascenceBridge()
+            return bridge
+        except Exception as e:
+            pass  # Connascence analysis is optional
+        return None
 
     def _compute_hash(self) -> str:
         """Compute hash of harness for integrity verification."""
-        # In production, this would hash the actual harness code
+        # Hash actual harness code for integrity
+        import hashlib
+        harness_file = Path(__file__)
+        if harness_file.exists():
+            content = harness_file.read_bytes()
+            file_hash = hashlib.sha256(content).hexdigest()[:12]
+            return f"frozen_eval_harness_v{self.harness_version}_{file_hash}"
         return f"frozen_eval_harness_v{self.harness_version}"
 
     @property
     def current_hash(self) -> str:
         return self._harness_hash
+
+    @property
+    def evaluation_mode(self) -> str:
+        """Return current evaluation mode."""
+        return "cli_evaluator" if self._cli_evaluator else "heuristic"
+
+    @property
+    def connascence_mode(self) -> str:
+        """Return current connascence analysis mode."""
+        if self._connascence_bridge:
+            return self._connascence_bridge.mode
+        return "disabled"
 
     def verify_integrity(self, expected_hash: Optional[str]) -> bool:
         """Verify harness hasn't been modified."""
@@ -102,17 +169,18 @@ class FrozenHarness:
             return True
         return self._harness_hash == expected_hash
 
-    def grade(self, artifact_path: Path) -> Dict[str, float]:
+    def grade(self, artifact_path: Path) -> Dict[str, Any]:
         """
         Grade an artifact and return metrics.
 
-        This is a simplified implementation. In production, this would:
-        1. Run benchmark suites from eval-harness SKILL
-        2. Run regression tests
-        3. Check human gates
+        Uses CLI evaluator (real LLM) when available,
+        falls back to heuristics otherwise.
+        Optionally includes connascence quality metrics.
 
         Returns metrics dict (NOT model-reported).
         """
+        artifact_path = Path(artifact_path)
+
         if not artifact_path.exists():
             return {
                 "task_accuracy": 0.0,
@@ -120,12 +188,111 @@ class FrozenHarness:
                 "edge_robustness": 0.0,
                 "epistemic_consistency": 0.0,
                 "overall": 0.0,
+                "evaluation_mode": "none",
+                "connascence_mode": "disabled",
             }
 
         # Read artifact content
         content = artifact_path.read_text(errors="ignore")
 
-        # Simple heuristic grading (would be replaced by actual harness)
+        # Try CLI evaluator first (real LLM-based)
+        if self._cli_evaluator:
+            try:
+                metrics = self._grade_with_cli(content)
+                metrics["evaluation_mode"] = "cli_evaluator"
+            except Exception as e:
+                # Log but continue to fallback
+                metrics = self._grade_with_heuristics(content)
+                metrics["evaluation_mode"] = "heuristic"
+        else:
+            # Fallback: heuristic grading
+            metrics = self._grade_with_heuristics(content)
+            metrics["evaluation_mode"] = "heuristic"
+
+        # Add connascence quality metrics if enabled
+        if self._connascence_bridge:
+            connascence_result = self._grade_with_connascence(artifact_path)
+            metrics["connascence_mode"] = self._connascence_bridge.mode
+            metrics["connascence"] = {
+                "sigma_level": connascence_result.sigma_level,
+                "dpmo": connascence_result.dpmo,
+                "nasa_compliance": connascence_result.nasa_compliance,
+                "mece_score": connascence_result.mece_score,
+                "theater_risk": connascence_result.theater_risk,
+                "clarity_score": connascence_result.clarity_score,
+                "violations_count": connascence_result.violations_count,
+                "critical_violations": connascence_result.critical_violations,
+                "passes_strict": connascence_result.passes_gate(strict=True),
+                "passes_lenient": connascence_result.passes_gate(strict=False),
+            }
+            # Incorporate quality gate into overall score (10% weight)
+            quality_factor = 1.0 if connascence_result.passes_gate(strict=False) else 0.9
+            metrics["overall"] = metrics["overall"] * quality_factor
+        else:
+            metrics["connascence_mode"] = "disabled"
+
+        return metrics
+
+    def _grade_with_connascence(self, artifact_path: Path) -> ConnascenceResult:
+        """
+        Grade using Connascence Analyzer (7-Analyzer Suite).
+
+        Returns ConnascenceResult with quality metrics.
+        """
+        try:
+            if artifact_path.is_dir():
+                return self._connascence_bridge.analyze_directory(artifact_path)
+            else:
+                return self._connascence_bridge.analyze_file(artifact_path)
+        except Exception as e:
+            # Return empty result on failure
+            return ConnascenceResult(success=False, error=str(e))
+
+    def _grade_with_cli(self, content: str) -> Dict[str, float]:
+        """
+        Grade using CLI evaluator (real LLM-as-judge).
+
+        Sends content to Claude CLI for evaluation.
+        """
+        judge_prompt = f"""You are evaluating code/text quality. Score each dimension from 0.0 to 1.0.
+
+CONTENT TO EVALUATE:
+{content[:3000]}
+
+Score these dimensions (0.0 to 1.0):
+1. task_accuracy: Does the content accomplish the stated task correctly?
+2. token_efficiency: Is the content concise without unnecessary verbosity?
+3. edge_robustness: Does it handle edge cases and errors appropriately?
+4. epistemic_consistency: Are claims properly qualified with confidence/evidence?
+
+Respond in JSON format ONLY:
+{{"task_accuracy": 0.0, "token_efficiency": 0.0, "edge_robustness": 0.0, "epistemic_consistency": 0.0}}"""
+
+        result = self._cli_evaluator.send_message(judge_prompt, max_tokens=200)
+        response = result.get("response", "")
+
+        # Parse JSON from response
+        import json
+        start = response.find('{')
+        end = response.rfind('}') + 1
+        if start >= 0 and end > start:
+            scores = json.loads(response[start:end])
+            # Calculate overall
+            weights = {
+                "task_accuracy": 0.4,
+                "token_efficiency": 0.2,
+                "edge_robustness": 0.2,
+                "epistemic_consistency": 0.2,
+            }
+            scores["overall"] = sum(
+                scores.get(k, 0.5) * w for k, w in weights.items()
+            )
+            return scores
+
+        raise ValueError("Failed to parse CLI evaluator response")
+
+    def _grade_with_heuristics(self, content: str) -> Dict[str, float]:
+        """Grade using heuristic rules (fallback)."""
         metrics = {
             "task_accuracy": self._grade_accuracy(content),
             "token_efficiency": self._grade_efficiency(content),
@@ -345,7 +512,16 @@ def ralph_iteration_complete(
     # 9. Update history
     bridge.update_history(iteration, harness_metrics)
 
-    # 10. Make final decision
+    # 10. Store telemetry to Memory MCP
+    try:
+        telemetry_bridge = TelemetryBridge(loop_dir)
+        telemetry_result = telemetry_bridge.store_to_memory_mcp(iteration=iteration)
+        # Add telemetry storage info to event (non-blocking)
+    except Exception as e:
+        # Telemetry storage is non-blocking - log but continue
+        pass
+
+    # 11. Make final decision
     if next_config.decision_intent == DecisionIntent.HALT:
         return {
             "decision": "allow",

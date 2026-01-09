@@ -1,0 +1,31 @@
+{
+  "timestamp": "2026-01-09T11:39:00.038934",
+  "tier": 1,
+  "migrations": {
+    "named_modes": {
+      "stored_count": 11,
+      "error_count": 0
+    },
+    "metaloop_results": {
+      "stored_count": 1,
+      "error_count": 0
+    },
+    "policy": {
+      "stored_count": 1,
+      "error_count": 0
+    },
+    "pareto_frontier": {
+      "stored_count": 1,
+      "error_count": 0
+    },
+    "eval_results": {
+      "stored_count": 5,
+      "error_count": 0
+    }
+  },
+  "summary": {
+    "total_stored": 19,
+    "total_errors": 0,
+    "mcp_available": false
+  }
+}

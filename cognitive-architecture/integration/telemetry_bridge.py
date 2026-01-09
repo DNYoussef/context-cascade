@@ -15,6 +15,7 @@ INVARIANTS:
 import os
 import sys
 import json
+import logging
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, List, Any, Optional
@@ -24,6 +25,9 @@ from dataclasses import dataclass, field
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from optimization.telemetry_schema import ExecutionTelemetry, TelemetryStore
+from optimization.mcp_client import get_mcp_client, MemoryMCPClient
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -244,6 +248,85 @@ class TelemetryBridge:
             records.append(record.to_memory_mcp_format())
 
         return records
+
+    def store_to_memory_mcp(
+        self,
+        iteration: Optional[int] = None,
+        mcp_client: Optional[MemoryMCPClient] = None,
+    ) -> Dict[str, Any]:
+        """
+        Store telemetry record(s) to Memory MCP.
+
+        This is the actual storage operation that completes the telemetry pipeline.
+
+        Args:
+            iteration: Specific iteration to store (None = all)
+            mcp_client: Optional MCP client (uses default if not provided)
+
+        Returns:
+            Summary of storage operations
+        """
+        client = mcp_client or get_mcp_client(namespace="cognitive-architecture/telemetry")
+
+        events = self._load_events()
+        eval_report = self._load_json(self.loop_dir / "eval_report.json")
+        runtime_config = self._load_json(self.loop_dir / "runtime_config.json")
+
+        stored = []
+        errors = []
+
+        for event in events:
+            # Filter by iteration if specified
+            event_iteration = event.get("iteration", 0)
+            if iteration is not None and event_iteration != iteration:
+                continue
+
+            record = LoopTelemetryRecord.from_loop_state(eval_report, runtime_config, event)
+            mcp_format = record.to_memory_mcp_format()
+
+            # Build storage key
+            key = f"iteration_{event_iteration}_{record.timestamp}"
+
+            # Build WHO/WHEN/PROJECT/WHY metadata
+            metadata = {
+                "WHO": f"telemetry-bridge:ralph_iteration_{event_iteration}",
+                "WHEN": record.timestamp,
+                "PROJECT": "cognitive-architecture",
+                "WHY": "loop-telemetry",
+                "x-iteration": str(event_iteration),
+                "x-overall-score": str(record.overall_score),
+                "x-decision": record.decision,
+                "x-evaluation-mode": mcp_format.get("evaluation_mode", "unknown"),
+            }
+
+            # Store to Memory MCP
+            result = client.memory_store(
+                key=key,
+                value=mcp_format,
+                metadata=metadata,
+            )
+
+            if result.success:
+                stored.append({
+                    "iteration": event_iteration,
+                    "key": key,
+                    "location": result.data.get("location", "unknown"),
+                })
+                logger.info(f"Stored telemetry for iteration {event_iteration}")
+            else:
+                errors.append({
+                    "iteration": event_iteration,
+                    "error": result.error,
+                })
+                logger.error(f"Failed to store telemetry for iteration {event_iteration}: {result.error}")
+
+        return {
+            "stored_count": len(stored),
+            "error_count": len(errors),
+            "stored": stored,
+            "errors": errors,
+            "mcp_available": client.is_available(),
+        }
 
     def _load_json(self, path: Path) -> Dict[str, Any]:
         """Load JSON file or return empty dict."""

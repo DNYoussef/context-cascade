@@ -1,0 +1,532 @@
+{
+  "key": "cognitive-architecture/library/evaluations/prompt-architect-cli-eval-20260101-230048",
+  "value": {
+    "skill_name": "prompt-architect",
+    "version": "3.1.1",
+    "timestamp": "2026-01-02T04:00:48.341181+00:00",
+    "evaluation_type": "cli",
+    "total_tasks": 50,
+    "passed_tasks": 40,
+    "easy_score": 0.897,
+    "medium_score": 0.786,
+    "hard_score": 0.8240000000000001,
+    "intent_accuracy": 0.853,
+    "constraint_coverage": 0.767,
+    "output_quality": 0.8234,
+    "verix_compliance": 0.6639999999999999,
+    "l2_purity": 0.991,
+    "overall_score": 0.8,
+    "task_results": [
+      {
+        "task_id": "PA-001",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.9,
+        "execution_time_ms": 53584,
+        "reasoning": "The skill correctly identified the intent as code generation in the mathematical domain. It recognized the need for a single function and addressed both recursive and iterative implementation options. The output is well-structured with clarifying questions, an optimized prompt template, and sensible default assumptions. However, the output appears truncated (ends mid-sentence with 'Tell me:'). VERIX compliance is moderate - while the reasoning is sound and evidence-based, explicit epistemic markers and confidence levels are absent (though L2 output appropriately excludes VCL markers). The output is in pure English with no VCL markers visible, achieving full L2 purity. Overall, the skill demonstrates strong prompt optimization capabilities for this code generation task."
+      },
+      {
+        "task_id": "PA-002",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.95,
+        "execution_time_ms": 56628,
+        "reasoning": "The skill correctly identified the explanation intent and addressed all three constraints: technical_concept (detailed mechanics of async/await), javascript (language-specific syntax and examples), and async_programming (event loop, Promises, execution flow). Output is well-structured with clear headings, code examples, and progressive explanation from basic to advanced concepts. L2 purity is perfect - pure English with no VCL markers. VERIX compliance is slightly lower because while the output demonstrates knowledge, it lacks explicit epistemic grounding for claims (e.g., no indication of confidence levels or evidence sources for technical assertions). Overall an excellent response that fulfills the success criteria of identifying explanation intent in the async programming domain."
+      },
+      {
+        "task_id": "PA-003",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.9,
+        "execution_time_ms": 67785,
+        "reasoning": "The skill correctly identified the debugging intent and recognized the authentication context (login function). It appropriately asked for more information needed to fix the bug rather than guessing. Constraint coverage is good - it addresses bug_fix (offers to fix), authentication (login function context), and existing_code (asks for file path). Output quality is high with a clear template structure and actionable next steps. VERIX compliance is moderate - while the output doesn't make unfounded claims, it lacks explicit epistemic markers about uncertainty. L2 purity is perfect - pure English with no VCL markers visible to user."
+      },
+      {
+        "task_id": "PA-004",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.9,
+        "execution_time_ms": 83249,
+        "reasoning": "The skill correctly identified this as a feature addition request focused on input validation. It covered validation constraints well (required fields, format, length) and added UX considerations beyond the basic request. Output is well-structured with clear sections and actionable items. However, it asks clarifying questions rather than executing, which may or may not be appropriate depending on context. VERIX compliance is moderate - while the output is functional, it lacks explicit evidence markers or confidence levels in its recommendations. L2 purity is perfect with pure English and no VCL markers visible."
+      },
+      {
+        "task_id": "PA-005",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.9,
+        "execution_time_ms": 55617,
+        "reasoning": "The skill correctly identified the intent as a code review with security focus. It recognized this is a PR review context and enumerated relevant security vulnerability categories (OWASP Top 10, XSS, CSRF, injection, authentication). The output is well-structured with clear sections, a useful table, and appropriate clarifying questions. Constraint coverage is strong but not complete - it asks for PR details rather than immediately proceeding with available context. VERIX compliance is moderate - while the reasoning is sound and evidence-based, it lacks explicit epistemic markers and confidence levels that would indicate uncertainty about assumptions. L2 purity is perfect - pure English output with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-006",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.85,
+        "execution_time_ms": 53468,
+        "reasoning": "The skill correctly identified that this is an analysis/explanation request about regex patterns, but it focused on the meta-problem (missing pattern) rather than explicitly categorizing the intent as 'analysis'. It recognized the regex and pattern_matching context, and appropriately noted that explanation is needed. The output is well-structured with clear sections and actionable guidance. However, it lacks VERIX epistemic markers (no confidence levels, evidence grounding, or state indicators). The output is in pure L2 English with no VCL markers visible. The skill demonstrated good judgment by identifying the incomplete input rather than hallucinating, but didn't explicitly state 'Intent: analysis' as expected."
+      },
+      {
+        "task_id": "PA-007",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.9,
+        "execution_time_ms": 53240,
+        "reasoning": "The skill correctly identified the refactoring intent (callback to promises conversion) and understood it involves async pattern modernization. It appropriately recognized code transformation was needed. Constraint coverage is good - it addresses async_pattern conversion, modernization (showing modern async/await), and code_transformation (providing example before/after). However, it didn't receive actual code to transform, so it pivoted to requesting input while demonstrating understanding. Output is well-structured with clear sections, example code, and actionable next steps. VERIX compliance is moderate - while the reasoning is sound, there are no explicit epistemic markers or confidence levels (though L1 markers aren't required for user-facing output). L2 purity is perfect - pure English with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-008",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.85,
+        "execution_time_ms": 55784,
+        "reasoning": "The skill correctly identified the test creation intent for the payment domain. It addressed all constraints: unit tests (explicit focus), payment module (central topic), and coverage (detailed coverage categories including branch coverage). Output is well-structured with clear sections and actionable specifications, though it appears truncated ('Added Co' at the end). The output uses pure English with no VCL markers, achieving full L2 purity. VERIX compliance is moderate - while the output provides good structure, it lacks explicit epistemic markers, confidence levels, or evidence grounding that would indicate uncertainty about the payment module's actual structure. The skill appropriately expanded the prompt into a comprehensive testing specification."
+      },
+      {
+        "task_id": "PA-009",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 55953,
+        "reasoning": "The skill correctly identified the optimization intent for database performance. It recognized this as an optimization request and appropriately addressed performance, database, and query tuning constraints by outlining a comprehensive approach including execution plans, indexing, and query rewrites. The output is well-structured with clear sections, actionable steps, and success criteria. While not using explicit VERIX markers (which is correct for L2 output), the skill demonstrates epistemic awareness by acknowledging missing information and requesting evidence before making claims. The output is in pure English with no VCL markers visible. Minor deduction on intent_accuracy because the skill pivoted to requesting more information rather than demonstrating immediate optimization capability, and slight verix_compliance reduction as the implicit evidence grounding could be stronger."
+      },
+      {
+        "task_id": "PA-010",
+        "difficulty": "easy",
+        "category": "intent_extraction",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.9,
+        "execution_time_ms": 72984,
+        "reasoning": "The skill correctly identified the documentation intent and recognized API documentation requirements. It appropriately flagged the ambiguous input ('this file') and requested clarification while providing a comprehensive template for API documentation. Constraint coverage is good - it addresses api_docs and endpoint_documentation through the template, plus technical_writing standards. Output quality is high with clear structure, actionable clarification questions, and a useful enhanced request template. VERIX compliance is moderate - the skill makes claims without explicit evidence markers, though it does ground observations in what it found in the directory. L2 purity is perfect - pure English with no VCL markers in the output."
+      },
+      {
+        "task_id": "PA-011",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 61819,
+        "reasoning": "The skill correctly identified that 'make it work faster' is a vague request requiring disambiguation. It systematically decomposed the ambiguity by identifying missing context (what is 'it', what does 'faster' mean, baseline, target, constraints). The output provides well-structured optimization variants for different interpretations (code performance vs build pipeline), each with specific optimized prompts and required context. The success criteria of transforming a vague request into actionable optimization prompts is met through multiple concrete alternatives. Output is pure L2 English with no VCL markers. VERIX compliance is implicit rather than explicit (no confidence markers or evidence notation visible, but the epistemic stance is clear through the structure). Minor deduction for truncated output (Option B cuts off) and for not explicitly stating confidence levels in the analysis."
+      },
+      {
+        "task_id": "PA-012",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.9,
+        "execution_time_ms": 58830,
+        "reasoning": "The skill correctly identified that 'fix the thing' is critically underspecified and appropriately decomposed what information is missing. It provides a structured template for clarification and example reformulations. The output is well-organized with clear sections and a helpful table of common interpretations. However, the success criteria mentioned 'TS context' which the skill only partially addressed (TypeScript appears in one example but isn't emphasized). VERIX compliance is moderate - while the output uses systematic decomposition, it lacks explicit epistemic markers and confidence levels for its assessments. L2 purity is perfect with no VCL markers in the output. The response appears truncated ('Rec') but the core functionality is demonstrated."
+      },
+      {
+        "task_id": "PA-013",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.95,
+        "execution_time_ms": 83882,
+        "reasoning": "The skill correctly identified the ambiguity in 'help me with the API' and expanded it into structured requirements. It probed the user's context (noted the evals directory), identified multiple possible interpretations (Claude API, new API, external integration, existing project API), and requested clarification on both WHICH API and WHAT KIND of help. The output is well-structured with clear categories and concrete example optimized requests. Pure English output with no VCL markers. VERIX compliance is implicit rather than explicit - the skill demonstrates epistemic humility by acknowledging uncertainty and seeking clarification rather than assuming, but doesn't use formal VERIX notation (which is correct for L2 output). Successfully transforms a vague request into actionable structured requirements."
+      },
+      {
+        "task_id": "PA-014",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 54441,
+        "reasoning": "The skill correctly identified that 'write better code' is vague and needs clarification. It provided a thorough gap analysis identifying missing context, current state, quality dimensions, success criteria, and constraints. The output converts the quality request into measurable refactoring steps through three concrete prompt variants with specific, actionable items (fix bugs, improve readability, add error handling, etc.). Output is well-structured with tables and code blocks, though it appears truncated. The response is in pure English with no VCL markers (L2 compliant). VERIX compliance is lower because the output lacks explicit epistemic markers, confidence levels, and evidence grounding that would be expected internally, though for user-facing L2 output this is acceptable. The skill successfully transformed an ambiguous request into structured, measurable improvement paths."
+      },
+      {
+        "task_id": "PA-015",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.95,
+        "execution_time_ms": 69177,
+        "reasoning": "The skill correctly recognized the ambiguity in 'add security' and provided multiple OWASP-aligned interpretations. Option A explicitly references OWASP Top 10, and all options include specific security tasks (auth, input validation, dependency scanning, rate limiting). The output is well-structured with clear options and actionable templates. Minor deduction for intent_accuracy since it didn't commit to a single interpretation but this is appropriate given the vague input. VERIX compliance is partial - the output lacks explicit confidence markers and evidence grounding internally, though the L2 user-facing output is clean English with no VCL markers. The skill successfully expanded a generic two-word request into comprehensive security frameworks."
+      },
+      {
+        "task_id": "PA-016",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.75,
+        "execution_time_ms": 67314,
+        "reasoning": "The skill recognized the vague 'I need a form' request and appropriately sought clarification while providing a useful template structure. However, it did not actually transform the request into a complete implementation spec as required by success criteria - it provided a template placeholder instead. The output is well-structured and useful as a guide, but fails the core task of producing an actual implementation specification. It correctly handles the ambiguity by asking for more details, but should have made reasonable default assumptions to produce a concrete spec. No VCL markers present (L2 pure). VERIX compliance is moderate - no explicit epistemic markers but the provisional nature of the template is implicit. The skill partially succeeded but did not fully meet the success criteria of transformation into complete implementation spec."
+      },
+      {
+        "task_id": "PA-017",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.65,
+        "output_quality": 0.7,
+        "execution_time_ms": 218336,
+        "reasoning": "The skill partially addressed the intent but failed to create a complete diagnostic prompt for test failures. Instead of proactively diagnosing and creating an optimized prompt, it requested permission to run tests - deferring rather than completing the task. The output does provide some useful static analysis (import paths, version inconsistency, category coverage) but these are speculative without evidence. The success criteria asks for a 'diagnostic prompt for test failures' which should be a self-contained optimized prompt, not a request for approval. VERIX compliance is low as claims lack evidence markers and confidence levels. L2 purity is high - output uses clean English without VCL markers. The skill showed partial competence but did not fully satisfy the success criteria of creating a diagnostic prompt."
+      },
+      {
+        "task_id": "PA-018",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.95,
+        "execution_time_ms": 67144,
+        "reasoning": "The skill correctly identified that 'deploy it' is an ambiguous, underspecified prompt requiring expansion. It successfully expanded the vague input into DevOps pipeline considerations including deployment target, destination, method, and success criteria - meeting the success criteria of 'Expands deploy into DevOps pipeline steps'. The output is well-structured with clear tables, examples, and actionable next steps. It also attempts contextual inference based on the working directory. L2 purity is perfect - pure English with no VCL markers. VERIX compliance is moderate - while the output demonstrates epistemic humility about what's unknown, it doesn't use explicit evidence markers (which is appropriate for L2 output). Minor deduction on intent_accuracy because while the skill handled the ambiguity well, it could have been more proactive in presenting actual deployment options discovered from the codebase."
+      },
+      {
+        "task_id": "PA-019",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.8,
+        "execution_time_ms": 56928,
+        "reasoning": "The skill correctly identified that 'add logging' is ambiguous and needs optimization. It properly decomposed the request into clarifying questions covering scope, framework, log levels, content, and output destination. The output moves toward observability implementation by addressing structured logging, log levels (DEBUG/INFO/WARN/ERROR), and multiple concerns. However, it doesn't fully convert to an 'observability implementation' as the success criteria suggests - missing metrics, tracing, or alerting aspects. The output is truncated mid-sentence which affects quality. VERIX compliance is moderate - no explicit epistemic markers but the questioning approach implies uncertainty handling. L2 purity is high with pure English throughout, no VCL markers visible."
+      },
+      {
+        "task_id": "PA-020",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.65,
+        "output_quality": 0.7,
+        "execution_time_ms": 60427,
+        "reasoning": "The skill correctly identified that 'handle errors better' is underspecified and produced reasonable generic prompt optimization variants. However, the success criteria explicitly requires 'idiomatic Go patterns' - the output makes no mention of Go whatsoever, instead providing language-agnostic suggestions with JavaScript-leaning examples (promise rejections, catch blocks). The output is cut off mid-sentence (Variant B ends with 'Addin'), indicating incomplete generation. While the decomposition table and structure are useful, the complete failure to address Go-specific error handling patterns (explicit error returns, errors.Is/As, wrapping with fmt.Errorf, custom error types, sentinel errors) means the core requirement was missed. No VERIX epistemic markers present despite being internal skill output where L1 markers would be appropriate. L2 purity is perfect as output contains no VCL markers."
+      },
+      {
+        "task_id": "PA-021",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.8,
+        "execution_time_ms": 86436,
+        "reasoning": "The skill recognized the ambiguous 'write docs' input and appropriately sought clarification rather than making assumptions. It provided context-aware options based on the current directory structure, which demonstrates good intent analysis. However, the success criteria states the skill should 'expand docs into comprehensive package documentation' - the skill asked for clarification instead of proactively expanding the request. This is arguably the correct approach for an ambiguous 2-word input, but doesn't fully meet the stated success criteria of expansion. Output is well-structured with clear options. Pure L2 English with no VCL markers. Epistemic stance is implicit but appropriate - the skill presents options without overclaiming what the user wants."
+      },
+      {
+        "task_id": "PA-022",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.9,
+        "execution_time_ms": 59420,
+        "reasoning": "The skill correctly identified that 'clean up the code' is ambiguous and requires clarification. It provided a thorough intent analysis identifying missing context (which code, what kind of cleanup, constraints, success criteria). The output is well-structured with three actionable cleanup checklists covering different scenarios (formatting, refactoring, full code health). Each option includes specific, actionable steps. The output is in pure English with no VCL markers. However, VERIX compliance is lower because the skill output lacks explicit epistemic markers and confidence levels for its claims about what cleanup typically means. The output ends abruptly with 'What I Need From You' section incomplete, slightly reducing output quality. Overall, the skill successfully created actionable cleanup checklists as required by the success criteria."
+      },
+      {
+        "task_id": "PA-023",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.7,
+        "execution_time_ms": 55587,
+        "reasoning": "The skill correctly identified 'add caching' as an underspecified request and expanded it into multiple actionable variants. However, the success criteria specified 'Converts caching into specific Django implementation' - the output provides generic caching patterns (LRU, Redis, HTTP caching) but does NOT specifically address Django's caching framework (django.core.cache, @cache_page decorator, cache middleware, etc.). The output is well-structured with clear variants but appears truncated (Variant C cuts off mid-sentence). No VCL markers present in output - pure English maintained. VERIX compliance is partial as the output lacks explicit evidence markers or confidence levels on its recommendations, though it does acknowledge uncertainty about context. Overall useful but misses the Django-specific requirement."
+      },
+      {
+        "task_id": "PA-024",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.4,
+        "output_quality": 0.5,
+        "execution_time_ms": 55175,
+        "reasoning": "The skill failed to meet the success criteria of transforming the accessibility request into a WCAG compliance checklist. Instead, it provided an analysis of ambiguous interpretations and suggested optimized prompts. While the output identifies WCAG as a possible meaning, it never delivers an actual WCAG compliance checklist with specific checkpoints, success criteria, or actionable items. The output is cut off mid-sentence, indicating incomplete generation. The intent analysis is reasonable but doesn't match the expected transformation. VERIX compliance is low as the output lacks epistemic markers for claims made. L2 purity is high - the output uses plain English without VCL markers. Overall, the skill interpreted 'make it accessible' as an ambiguous prompt needing clarification rather than executing the expected transformation into a structured WCAG checklist."
+      },
+      {
+        "task_id": "PA-025",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.6,
+        "output_quality": 0.7,
+        "execution_time_ms": 85364,
+        "reasoning": "The skill misidentified the intent. The task specifies 'Creates incremental TypeScript migration plan' but the output interpreted 'add types' as Python type annotations for an existing Python codebase. While the output is well-structured with clear options and analysis, it completely misses the TypeScript migration aspect specified in the success criteria. The output is truncated (cuts off mid-sentence), reducing quality. VERIX compliance is low - no epistemic markers or confidence levels on claims. L2 purity is high as output uses natural English without VCL markers. The fundamental failure is addressing Python typing when TypeScript migration was required."
+      },
+      {
+        "task_id": "PA-026",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 54411,
+        "reasoning": "The skill correctly identified that 'internationalize the app' is an ambiguous request requiring clarification. It appropriately expanded i18n into a comprehensive implementation plan covering UI strings, date/time formatting, RTL support, pluralization, and technical approaches. The output is well-structured with clear sections for scope, target languages, technical approach, and constraints. The skill properly identified the ambiguities (which app, target languages, framework, current state) and provided an optimized request template. Output appears truncated ('Before pr') which slightly impacts quality. L2 purity is perfect - no VCL markers present. VERIX compliance is moderate as the output lacks explicit epistemic markers and confidence levels, though this is appropriate for L2 user-facing output. The skill successfully transforms a vague request into an actionable implementation framework."
+      },
+      {
+        "task_id": "PA-027",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.8,
+        "execution_time_ms": 69382,
+        "reasoning": "The skill correctly identified that 'add authentication' is underspecified and provided a good template for clarification. However, the success criteria explicitly requires 'Converts auth into complete JWT implementation' - the skill instead asked for clarification rather than defaulting to JWT and providing a complete implementation plan. Intent accuracy is partial because it recognized the need but didn't fulfill the specific JWT requirement. Constraint coverage is moderate as it mentions JWT as an option but doesn't commit to it. Output quality is good - well-structured, actionable template with security considerations. VERIX compliance is low - no epistemic markers, confidence levels, or evidence grounding present in the output. L2 purity is perfect - pure English with no VCL markers visible to user."
+      },
+      {
+        "task_id": "PA-028",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.65,
+        "execution_time_ms": 54443,
+        "reasoning": "The skill correctly identified the vague nature of 'monitor the app' and began transforming it toward an observability approach by identifying multiple monitoring dimensions (performance, logs, availability, user activity, file changes). However, the output is truncated mid-sentence, which significantly impacts quality. The skill demonstrates good intent analysis by recognizing the ambiguity and proposing clarifying questions that would lead to a proper observability stack (metrics, alerts, dashboards). Constraint coverage is moderate because while it addresses multiple monitoring aspects, it doesn't fully articulate a complete observability stack with the three pillars (metrics, logs, traces). The output is in pure L2 English without VCL markers. VERIX compliance is partial - the reasoning shows epistemic awareness (identifying what's unknown, what needs clarification) but lacks explicit confidence markers in the internal analysis format. The truncation prevents full assessment of whether it would have delivered a complete observability transformation."
+      },
+      {
+        "task_id": "PA-029",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": false,
+        "intent_accuracy": 0.7,
+        "output_quality": 0.6,
+        "execution_time_ms": 53218,
+        "reasoning": "The skill correctly identified that 'improve UX' is ambiguous and needs clarification - this is appropriate prompt architect behavior. However, the success criteria specifically required expanding into 'specific mobile improvements', which the output did NOT do. Mobile is only mentioned once as a generic option in the clarifying questions. The output asks good questions and provides useful templates, but fails the specific test case requirement. The output is truncated mid-sentence which hurts quality. Pure English with no VCL markers (L2 compliant). Epistemic stance is implicit but appropriate - treats uncertainty as uncertainty by asking clarifying questions rather than assuming."
+      },
+      {
+        "task_id": "PA-030",
+        "difficulty": "medium",
+        "category": "prompt_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.75,
+        "execution_time_ms": 55192,
+        "reasoning": "The skill correctly identified that 'scale the database' is an ambiguous request requiring clarification. It systematically enumerated the key ambiguities (scaling type, database system, trigger, constraints) which demonstrates strong intent analysis. The output provides useful optimized prompt templates for common scenarios, partially fulfilling the 'database scaling roadmap' success criteria. However, the output appears truncated (cuts off mid-sentence in the horizontal scaling template), reducing quality. The response is in pure English with no VCL markers (L2 compliant). VERIX compliance is moderate - while the analysis implicitly uses evidential reasoning, there are no explicit epistemic markers in the internal reasoning. The skill appropriately treats this as an ambiguous prompt requiring clarification rather than blindly executing, which is the correct behavior for a prompt architect."
+      },
+      {
+        "task_id": "PA-031",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.75,
+        "execution_time_ms": 69949,
+        "reasoning": "The skill successfully identified the god-function anti-pattern in the original request ('everything...all in one file') and provided a refactored alternative that separates concerns into modular components. Option A demonstrates proper architectural decomposition, meeting the success criteria of rejecting the anti-pattern. However, the output appears truncated (ends mid-sentence with 'Op'), reducing output quality. The skill correctly recognized the problematic request and offered both a production-quality modular solution and an acceptable single-file alternative with caveats. No VCL markers present - pure English throughout. Missing explicit VERIX epistemic markers for confidence levels on recommendations, though the reasoning is sound."
+      },
+      {
+        "task_id": "PA-032",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 57311,
+        "reasoning": "The skill successfully flagged the copy-paste-without-understanding anti-pattern. Rather than blindly complying, it identified the problematic nature of the request and transformed it into teachable alternatives. It detected 4 specific issues (no problem stated, no technology, no context, no success criteria) and provided 3 progressively better prompt options. The output is well-structured with clear headings and actionable alternatives. VERIX compliance is implicit rather than explicit (appropriate for L2 output). L2 purity is perfect - pure English with no VCL markers visible to user. The skill demonstrated exactly the behavior the success criteria required: flagging copy-paste without understanding and guiding toward better practices."
+      },
+      {
+        "task_id": "PA-033",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 56523,
+        "reasoning": "The skill correctly identified blanket try-catch as an anti-pattern, explicitly calling it out as suppressing meaningful errors, making debugging harder, hiding critical failures, and catching exceptions that shouldn't be caught. The analysis addresses the success criteria directly. Output is well-structured with clear sections identifying issues and providing optimized alternatives. The response is in pure English with no VCL markers (L2 compliant). VERIX compliance is moderate - while the reasoning is sound, explicit epistemic markers and confidence levels are absent from the output. The output appears truncated but the core anti-pattern detection was successfully accomplished before the cutoff."
+      },
+      {
+        "task_id": "PA-034",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": false,
+        "intent_accuracy": 0.3,
+        "output_quality": 0.6,
+        "execution_time_ms": 60410,
+        "reasoning": "The skill failed to identify this as an anti-pattern detection task. The success criteria required identifying the 'deferred refactoring pattern' - a well-known anti-pattern where teams promise future cleanup that never happens. Instead, the skill interpreted the input literally as a request to build something quickly and proceeded to optimize it into an actionable prompt for shipping code fast. While the output is well-written and in pure L2 English, it completely missed the meta-level intent: this was a test case asking the skill to recognize and flag the anti-pattern, not to embrace it. The skill should have identified this as technical debt normalization, explained why 'we'll refactor later' is a dangerous pattern, and provided guidance on addressing it. The output quality is decent for what it attempted, but it solved the wrong problem entirely."
+      },
+      {
+        "task_id": "PA-035",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 57564,
+        "reasoning": "The skill successfully identified and flagged global state as an architectural anti-pattern. It explicitly listed the problems: tight coupling, difficult testing, race conditions, debugging complexity, and memory leaks. The output correctly recognized the request as problematic rather than blindly optimizing it. It provided constructive alternatives (centralized state management, dependency injection) while explaining why 'global state for everything' is inappropriate. The output is in pure English with no VCL markers (L2 compliant). Minor deductions: the output appears truncated (Option B cuts off mid-sentence), and while the reasoning is sound, it lacks explicit VERIX epistemic markers for confidence levels on architectural claims. The success criteria of flagging global state as an anti-pattern was clearly met through the 'Architectural Trade-offs Not Considered' section."
+      },
+      {
+        "task_id": "PA-036",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 54792,
+        "reasoning": "The skill correctly identified the anti-pattern in the input request, recognizing hardcoding as a maintainability issue (matching success criteria). It explicitly called out maintenance burden, security risks, and deployment inflexibility. The output provides well-structured alternatives with two clear options addressing different possible user intents. The response is in pure English with no VCL markers visible to the user. VERIX compliance is good though implicit rather than explicit - evidence and reasoning are present but not formally marked. Strong constraint coverage by identifying missing context (what values, which codebase) and addressing the false economy of 'simplicity'. The skill demonstrated appropriate skepticism toward the problematic request while still providing constructive paths forward."
+      },
+      {
+        "task_id": "PA-037",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.75,
+        "execution_time_ms": 52535,
+        "reasoning": "The skill correctly identified the anti-pattern of skipping tests based on perceived simplicity and flagged it as a quality risk. It provided nuanced alternatives and explicitly stated that 'simple enough' is often retrospectively proven wrong. The output addresses the success criteria by recommending verification even for simple code. Output quality is slightly reduced due to truncation (appears cut off mid-sentence). VERIX compliance is moderate - while the reasoning is sound, explicit epistemic markers and confidence levels are absent. L2 purity is high with pure English output and no VCL markers visible. The skill successfully detected and warned about the test-skipping anti-pattern."
+      },
+      {
+        "task_id": "PA-038",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.95,
+        "execution_time_ms": 54148,
+        "reasoning": "The skill immediately and correctly identified the plain text password storage request as a critical security issue, satisfying the success criteria. It flagged OWASP violations, compliance concerns (GDPR, HIPAA, PCI-DSS, SOC 2), and the technical debt trap. The output is well-structured with clear issue identification and multiple actionable alternatives. Output is in pure English with no VCL markers. Minor deduction on VERIX compliance as it lacks explicit confidence markers and evidence grounding notation, though the reasoning is sound. The output appears truncated at the end but the core analysis and recommendations are complete."
+      },
+      {
+        "task_id": "PA-039",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.9,
+        "output_quality": 0.9,
+        "execution_time_ms": 59590,
+        "reasoning": "The skill correctly identified the resource management anti-pattern implicit in 'create a new database connection for every request.' It recognized the ambiguity (instruction vs. problem description) and addressed both interpretations, ultimately flagging the anti-pattern and providing a better alternative (connection pooling). The output is well-structured with clear sections, success criteria, and actionable recommendations. VERIX compliance is moderate - the output makes claims with implicit evidence but lacks explicit epistemic markers for internal reasoning (though L2 output doesn't require them). L2 purity is perfect - pure English with no VCL markers. The success criteria requirement 'identifies resource management issue' is fully met through the explicit discussion of the connection-per-request anti-pattern and its performance implications."
+      },
+      {
+        "task_id": "PA-040",
+        "difficulty": "hard",
+        "category": "anti_pattern_detection",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 55147,
+        "reasoning": "The skill correctly identified the anti-pattern in the request (commenting every line of code) and suggested a better documentation approach. It diagnosed the issues with the original request (no target, unclear scope, undefined style, no language) and provided three optimized alternatives that focus on meaningful documentation rather than redundant line-by-line comments. The output is well-structured with clear options and actionable guidance. Output is in pure English with no VCL markers. Minor deduction on VERIX compliance as it doesn't use explicit epistemic markers internally, but this is appropriate for L2 user-facing output. The skill successfully met the success criteria of suggesting a better approach to documentation."
+      },
+      {
+        "task_id": "PA-041",
+        "difficulty": "hard",
+        "category": "complex_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.75,
+        "execution_time_ms": 78198,
+        "reasoning": "The skill correctly identified the need to optimize an ML pipeline with competing constraints (latency vs throughput). It produced a useful template structure that separates hard constraints from context and requests bottleneck data. However, the output is incomplete (cuts off mid-table), which significantly impacts quality. Constraint coverage is partial - it addresses latency and throughput but the competing constraints balancing (cost, accuracy, complexity tradeoffs) is only superficially touched. VERIX compliance is low - no epistemic markers, confidence levels, or evidence grounding present in the output despite being L1 internal documentation standards. L2 purity is high as output is clean English without VCL markers, appropriate for user-facing content. The meta-approach of restructuring the prompt rather than directly solving is clever but may not fully meet user expectations for direct optimization guidance."
+      },
+      {
+        "task_id": "PA-042",
+        "difficulty": "hard",
+        "category": "complex_optimization",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.65,
+        "execution_time_ms": 65914,
+        "reasoning": "The skill correctly identified the core intent (COBOL to cloud-native migration with high uptime requirements) and decomposed it into logical phases. It addresses the 99.99% uptime constraint with specific strategies (multi-region, blue-green, circuit breakers, failover). However, the output is truncated mid-sentence in Phase 2, missing completion of success criteria and presumably additional phases (testing, execution, rollback). The strangler fig pattern recommendation is appropriate for safe migration. Output is pure L2 English with no VCL markers. VERIX compliance is implicit rather than explicit - claims are reasonable but lack explicit confidence levels or evidence grounding internally. The phased approach does constitute a 'safe migration strategy' as required, though incompleteness reduces overall quality score."
+      },
+      {
+        "task_id": "PA-043",
+        "difficulty": "hard",
+        "category": "complex_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.75,
+        "execution_time_ms": 69953,
+        "reasoning": "The skill correctly identified the intent to create a cross-model portable prompt strategy. It addresses the core challenge with a structured template approach and model-specific mitigation table. However, the output appears truncated mid-example, reducing completeness. The template provides practical scaffolding (Task, Context, Requirements, Constraints, Output Structure, Example sections) that would genuinely improve cross-model consistency. Output is pure English with no VCL markers. VERIX compliance is implicit - claims about model tendencies are presented as observations without explicit evidence markers, which is appropriate for L2 output but could benefit from noting these are empirical observations. Main deduction is for the incomplete example section and lack of testing/validation methodology for verifying cross-model consistency."
+      },
+      {
+        "task_id": "PA-044",
+        "difficulty": "hard",
+        "category": "complex_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.75,
+        "execution_time_ms": 59039,
+        "reasoning": "The skill correctly identified the intent to build a real-time collaborative editor and addressed key distributed systems challenges including conflict resolution (OT/CRDTs), real-time sync via WebSockets, and offline capability. The output is well-structured with clear sections for architecture, functional requirements, and technical components. However, the output appears truncated (cuts off at 'Succe' - likely 'Success Criteria'), which significantly impacts output quality. The response properly addresses distributed systems challenges as required by success criteria. Output is pure L2 English with no VCL markers, and follows epistemic standards by stating technical approaches without overclaiming. Main deduction is for the incomplete/truncated output."
+      },
+      {
+        "task_id": "PA-045",
+        "difficulty": "hard",
+        "category": "complex_optimization",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 69732,
+        "reasoning": "The skill correctly identified the dual optimization challenge between ML accuracy and explainability for compliance. It decomposed requirements into three clear components with appropriate compliance weighting. Output is well-structured with tables and specific metrics (Precision@K >= 0.85, 500ms latency). Constraint coverage is strong, addressing accuracy thresholds, explainability methods (SHAP/LIME), audit logging, and architecture choices. Output appears truncated mid-sentence which slightly reduces quality score. VERIX compliance is moderate - while the output uses epistemic hedging ('implicit tensions that need resolution') and structured reasoning, it lacks explicit VERIX markers like confidence scores and evidence grounding. L2 purity is perfect - pure English throughout with no VCL markers visible to user."
+      },
+      {
+        "task_id": "PA-046",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": true,
+        "intent_accuracy": 1.0,
+        "output_quality": 0.95,
+        "execution_time_ms": 49717,
+        "reasoning": "The skill correctly identified the epistemic trap in the request - being asked to make a definitive claim about algorithm complexity without being provided any algorithm. It appropriately refused to make a baseless claim, clearly explained why a definitive answer is impossible without code, and provided constructive guidance on what information would be needed. The output is well-structured with clear sections, a helpful reference table, and actionable next steps. It follows VERIX epistemic standards by acknowledging uncertainty and refusing to overclaim. Output is in pure English with no VCL markers visible to the user."
+      },
+      {
+        "task_id": "PA-047",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": false,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.8,
+        "execution_time_ms": 59566,
+        "reasoning": "The skill correctly identified the epistemic problems with the claim (absolute statement, weak evidence source) and provided useful analysis. However, the key success criterion was to 'apply report confidence ceiling (0.70)' - the output never explicitly states a confidence level or references the 0.70 ceiling for reported claims. While the skill implicitly demonstrates skepticism appropriate for secondhand reports, it fails to explicitly apply VERIX epistemic notation showing the confidence ceiling. The output is well-structured, in pure L2 English without VCL markers, and provides genuinely useful analysis of the claim. The output appears truncated (ends mid-word with 'Me'), reducing completeness. For VERIX compliance, the output should have explicitly stated something like 'confidence ceiling: 0.70 based on reported source type'."
+      },
+      {
+        "task_id": "PA-048",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": false,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.92,
+        "execution_time_ms": 49600,
+        "reasoning": "The skill correctly identified that the user's prompt was incomplete and provided excellent guidance on how to restructure it. However, the success criteria specifically requires applying an inference ceiling of 0.70 for epistemic calibration. The output makes no mention of confidence levels, uncertainty bounds, or the inherent limitation that any diagnosis would be inference-based (capped at 0.70 confidence per VERIX standards). While the skill appropriately refused to speculate without data, it should have explicitly stated that even with full information, any root cause analysis would be inferential and subject to the 0.70 confidence ceiling. The L2 purity is perfect - no VCL markers in user-facing output."
+      },
+      {
+        "task_id": "PA-049",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": true,
+        "intent_accuracy": 0.95,
+        "output_quality": 0.85,
+        "execution_time_ms": 56862,
+        "reasoning": "The skill correctly refused to provide a binary answer and instead reframed the question as a false dichotomy. It diagnosed the problems with the original prompt (binary framing, missing context, vague criteria, no temporal aspect) and provided two well-structured optimized variants that request necessary context. Output is pure English with no VCL markers. The output appears truncated (Variant B cuts off mid-sentence), which slightly reduces output quality. VERIX compliance is moderate - while the reasoning is sound and evidence-based, explicit epistemic markers and confidence levels are not present (though this is appropriate for L2 output). The skill successfully met the success criteria of refusing a binary answer and providing context."
+      },
+      {
+        "task_id": "PA-050",
+        "difficulty": "hard",
+        "category": "epistemic_calibration",
+        "passed": true,
+        "intent_accuracy": 0.85,
+        "output_quality": 0.8,
+        "execution_time_ms": 53904,
+        "reasoning": "The skill correctly identified this as a meta-prompt about contradiction rather than a task request, showing good intent recognition. It provided three useful prompt variants for handling contradictions. However, the success criteria specifically called for 'epistemic humility' - the skill partially addresses this through Option C's assumption-checking approach, but doesn't explicitly model epistemic humility (acknowledging uncertainty, admitting potential error gracefully). The output is well-structured with clear options and recommendations. VERIX compliance is moderate - while the skill uses some epistemic framing, it lacks explicit confidence markers and evidence grounding that full VERIX would require. L2 purity is high - output is in clean English without VCL markers. The output appears truncated ('prevents defen-') which slightly impacts quality. Overall passes as it provides actionable, well-organized guidance for handling contradictions."
+      }
+    ]
+  },
+  "metadata": {
+    "WHO": "library-migrator:evaluations",
+    "WHEN": "2026-01-09T11:39:00.049904",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "evaluation",
+    "x-skill": "prompt-architect",
+    "x-filename": "prompt-architect-cli-eval-20260101-230048",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0499048
+}

@@ -1,0 +1,41 @@
+{
+  "key": "cognitive-architecture/library/named_modes/speed",
+  "value": {
+    "config_vector": [
+      0.29703727716626777,
+      0.0008866684374899299,
+      0.23762982173301422,
+      0.3,
+      0.1,
+      0.0006206679062429509,
+      0.2,
+      0.019943815106621132,
+      1.9975719394491775,
+      0.9992706857322083,
+      0.8993436171589875,
+      0.7,
+      0.6,
+      0.7
+    ],
+    "outcomes": {
+      "task_accuracy": 0.7335124630326799,
+      "token_efficiency": 0.95,
+      "edge_robustness": 0.7602587833350263,
+      "epistemic_consistency": 0.5835830935977823
+    },
+    "source": "stage1_globalmoo",
+    "summary": "Frames: [none] | VERIX: RELAXED | Compression: L2_HUMAN",
+    "active_frames": [],
+    "verix_strictness": "RELAXED"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.041926",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "speed",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0419261
+}

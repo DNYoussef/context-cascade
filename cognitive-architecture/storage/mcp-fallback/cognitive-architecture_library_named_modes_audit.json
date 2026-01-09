@@ -1,0 +1,46 @@
+{
+  "key": "cognitive-architecture/library/named_modes/audit",
+  "value": {
+    "config_vector": [
+      0.9999413713454152,
+      0.9956139901148139,
+      0.7999530970763322,
+      0.3,
+      0.1,
+      0.6969297930803697,
+      0.2,
+      1.999921601928892,
+      1.85943216244507,
+      0.4477539275250506,
+      0.4029785347725456,
+      0.7,
+      0.6,
+      0.7
+    ],
+    "outcomes": {
+      "task_accuracy": 0.9598159426127205,
+      "token_efficiency": 0.763241422357484,
+      "edge_robustness": 0.8895351398705378,
+      "epistemic_consistency": 0.95
+    },
+    "source": "stage1_globalmoo",
+    "summary": "Frames: [evidential, aspectual, morphological, classifier] | VERIX: STRICT | Compression: L2_HUMAN",
+    "active_frames": [
+      "evidential",
+      "aspectual",
+      "morphological",
+      "classifier"
+    ],
+    "verix_strictness": "STRICT"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.041926",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "audit",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0419261
+}

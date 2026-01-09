@@ -1,0 +1,46 @@
+{
+  "key": "cognitive-architecture/library/named_modes/robust",
+  "value": {
+    "config_vector": [
+      0.9999034477461781,
+      0.9956139901148139,
+      0.7999227581969426,
+      0.3,
+      0.1,
+      0.6969297930803697,
+      0.2,
+      1.999921601928892,
+      1.9650698639891286,
+      0.8089239150900336,
+      0.7280315235810303,
+      0.7,
+      0.6,
+      0.7
+    ],
+    "outcomes": {
+      "task_accuracy": 0.959814425668751,
+      "token_efficiency": 0.7685255828506412,
+      "edge_robustness": 0.95,
+      "epistemic_consistency": 0.95
+    },
+    "source": "stage1_globalmoo",
+    "summary": "Frames: [evidential, aspectual, morphological, classifier] | VERIX: STRICT | Compression: L2_HUMAN",
+    "active_frames": [
+      "evidential",
+      "aspectual",
+      "morphological",
+      "classifier"
+    ],
+    "verix_strictness": "STRICT"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.042923",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "robust",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0429235
+}

@@ -1,0 +1,51 @@
+{
+  "key": "cognitive-architecture/library/named_modes/meta-loop",
+  "value": {
+    "config_vector": [
+      0.99,
+      0.95,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      1.95,
+      1.9,
+      0.85,
+      0.5,
+      0.9,
+      0.85,
+      0.9
+    ],
+    "outcomes": {
+      "task_accuracy": 0.97,
+      "token_efficiency": 0.78,
+      "edge_robustness": 0.92,
+      "epistemic_consistency": 0.98
+    },
+    "source": "meta_loop_bootstrap_2025-12-28",
+    "summary": "Frames: [evidential, aspectual] | VERIX: STRICT | Phase0: expertise_mandatory",
+    "active_frames": [
+      "evidential",
+      "aspectual"
+    ],
+    "verix_strictness": "STRICT",
+    "special_requirements": {
+      "phase_0_expertise": true,
+      "cognitive_frame_selection": true,
+      "sop_verification_checklist": true,
+      "eval_harness_gate": true
+    },
+    "derived_from": "Meta-loop bootstrap execution (Track A + Track B convergence)"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.043920",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "meta-loop",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.043921
+}

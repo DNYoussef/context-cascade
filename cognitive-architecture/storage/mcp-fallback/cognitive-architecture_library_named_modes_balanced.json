@@ -1,0 +1,44 @@
+{
+  "key": "cognitive-architecture/library/named_modes/balanced",
+  "value": {
+    "config_vector": [
+      0.917238584854649,
+      0.0027359093853656295,
+      0.011274989886663443,
+      0.00014343173060817494,
+      0.004955166313928741,
+      0.007722357207883241,
+      0.9123155047077108,
+      1.967399054690156,
+      1.9935735036231939,
+      0.9883266265394876,
+      0.005153897089719186,
+      0.9984070355781596,
+      0.9882994302059933,
+      0.9995372227149238
+    ],
+    "outcomes": {
+      "task_accuracy": 0.8815568715549711,
+      "token_efficiency": 0.9282338525657423,
+      "edge_robustness": 0.95,
+      "epistemic_consistency": 0.95
+    },
+    "source": "stage2_pymoo",
+    "summary": "Frames: [evidential, spatial] | VERIX: STRICT | Compression: L2_HUMAN",
+    "active_frames": [
+      "evidential",
+      "spatial"
+    ],
+    "verix_strictness": "STRICT"
+  },
+  "metadata": {
+    "WHO": "library-migrator:named_modes",
+    "WHEN": "2026-01-09T11:39:00.042923",
+    "PROJECT": "cognitive-architecture",
+    "WHY": "optimization",
+    "x-mode-name": "balanced",
+    "x-source-file": "named_modes.json",
+    "timestamp": "2026-01-09T16:39:00Z"
+  },
+  "stored_at": 1767976740.0429235
+}
