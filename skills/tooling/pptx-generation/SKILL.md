@@ -11,7 +11,7 @@ allowed-tools:
   - Task
   - TodoWrite
 model: claude-3-5-sonnet
-x-version: 3.2.0
+x-version: 3.2.1
 x-category: tooling
 x-vcl-compliance: v3.1.1
 x-cognitive-frames:
@@ -22,6 +22,8 @@ x-cognitive-frames:
   - EVD
   - ASP
   - SPC
+x-last-reflection: 2026-01-08T20:55:00Z
+x-reflection-count: 1
 ---
 
 
@@ -73,3 +75,25 @@ Produce clear, on-brand PowerPoint decks (simple to complex) with repeatable pro
 - **Memory MCP:** `skills/tooling/pptx-generation/{project}/{timestamp}`.
 
 Confidence: 0.70 (ceiling: inference 0.70) – SOP aligned to Prompt Architect sequencing and Skill Forge guardrails.
+
+---
+
+## LEARNED PATTERNS
+
+### High Confidence [conf:0.90]
+
+- ALWAYS analyze existing document templates before generating new documents - capture fonts, colors, spacing, margins, and distinctive design elements [ground:user-correction:2026-01-08]
+- When regenerating artifacts, ONLY replace the specific files with issues - do not bulk regenerate entire artifact directories [ground:user-explicit-rule:2026-01-08]
+- If user rejects initial approach ("no that will be ugly"), immediately pivot to template-matching strategy rather than defending the approach [ground:user-correction:2026-01-08]
+
+### Medium Confidence [conf:0.75]
+
+- Prefer professional typography libraries (reportlab, LaTeX) over simple HTML-to-PDF converters (weasyprint) for portfolio-quality documents [ground:user-rejection-pattern:2026-01-08]
+- Document generation workflow: Read template -> Extract style -> Generate matching output -> Verify content -> Deploy [ground:approval-pattern:2026-01-08]
+- When system dependencies fail (GTK for weasyprint), fallback to pure Python alternatives (reportlab) rather than attempting system installs [ground:error-correction:2026-01-08]
+- Content verification step using PyPDF2 or similar to confirm correctness before declaring task complete [ground:approval-pattern:2026-01-08]
+
+### Low Confidence [conf:0.55]
+
+- Build verification step should precede deployment for portfolio sites [ground:observation:2026-01-08]
+- Git commit with descriptive message helps track artifact evolution [ground:observation:2026-01-08]
