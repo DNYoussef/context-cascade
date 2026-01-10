@@ -1,6 +1,6 @@
 {
   "name": "context-cascade",
-  "description": "Context-saving nested plugin architecture for Claude Code. Playbooks contain skills, skills contain agents, agents contain commands. Only load what you need - context cascades down through layers on demand, saving 90%+ context space. Includes 224 agents, 173 skills, 249 commands, 79 hooks, SPARC methodology, Three-Loop system, and Byzantine consensus.",
+  "description": "Context-saving nested plugin architecture for Claude Code. Playbooks contain skills, skills contain agents, agents contain commands. Only load what you need - context cascades down through layers on demand, saving 90%+ context space. Includes 224 agents, 173 skills, 249 commands, 115 hooks, SPARC methodology, Three-Loop system, and Byzantine consensus.",
   "version": "3.0.1",
   "author": {
     "name": "DNYoussef",
@@ -94,8 +94,8 @@
       ]
     },
     "hooks": {
-      "count": 89,
-      "note": "Event handlers for Claude Code lifecycle (50 .sh + 39 .ps1 for Windows)",
+      "count": 115,
+      "note": "Event handlers for Claude Code lifecycle (53 .sh + 62 .ps1 for Windows)",
       "categories": [
         "enforcement",
         "memory-mcp",
@@ -128,7 +128,7 @@
     "224 AI Agents organized in 10 categories",
     "173 Skills with SKILL.md format",
     "249 Commands for slash-command invocation",
-    "79 Hooks for lifecycle automation (39 PowerShell for Windows)",
+    "115 Hooks for lifecycle automation (62 PowerShell for Windows)",
     "1 Playbook for common workflows",
     "MCP Auto-Initialization - Agents declare their MCP requirements",
     "Three-Loop Integrated Development System",
