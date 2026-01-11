@@ -1,0 +1,38 @@
+{
+  "name": "cascade-orchestrator",
+  "version": "1.0.1",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-sequential.md",
+    "examples\\example-2-parallel.md",
+    "examples\\example-3-conditional.md",
+    "graphviz\\readme.md",
+    "graphviz\\workflow.dot",
+    "references\\micro-skills.md",
+    "references\\orchestration-patterns.md",
+    "tests\\test-1-sequential.md",
+    "tests\\test-2-parallel.md",
+    "tests\\test-3-conditional-branch.md",
+    "resources\\scripts\\codex_iterate.py",
+    "resources\\scripts\\conditional_branch.sh",
+    "resources\\scripts\\parallel_exec.py",
+    "resources\\scripts\\readme.md",
+    "resources\\scripts\\workflow_executor.py",
+    "resources\\templates\\cascade-pipeline.yaml",
+    "resources\\templates\\conditional-dag.yaml",
+    "resources\\templates\\readme.md",
+    "resources\\templates\\sequential-workflow.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.245694",
+  "verix_compliant": true
+}

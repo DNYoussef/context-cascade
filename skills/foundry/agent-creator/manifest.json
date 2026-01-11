@@ -1,0 +1,42 @@
+{
+  "name": "agent-creator",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "agent-creator-process.dot",
+    "CHANGELOG.md",
+    "COGNITIVE-ARCHITECTURE-ADDENDUM.md",
+    "EXPERTISE-ADDENDUM.md",
+    "readme.md",
+    "RECURSIVE-IMPROVEMENT-ADDENDUM.md",
+    "SKILL.md",
+    "examples\\example-1-basic.md",
+    "examples\\example-2-coordinator.md",
+    "examples\\example-3-hybrid.md",
+    "graphviz\\agent-creator-gold-process.dot",
+    "graphviz\\agent-creator-process.dot",
+    "graphviz\\workflow.dot",
+    "references\\agent-types.md",
+    "references\\best-practices.md",
+    "references\\index.md",
+    "references\\integration-patterns.md",
+    "resources\\readme.md",
+    "tests\\test-1-basic-agent.md",
+    "tests\\test-2-complex-agent.md",
+    "tests\\test-3-4phase-sop.md",
+    "resources\\scripts\\4_phase_sop.py",
+    "resources\\scripts\\test_agent.py",
+    "resources\\scripts\\validate_prompt.sh",
+    "resources\\templates\\evidence-based-prompt.yaml",
+    "resources\\templates\\system-prompt-template.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.096333",
+  "verix_compliant": true
+}

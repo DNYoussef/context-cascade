@@ -1,0 +1,41 @@
+{
+  "name": "frontend-specialists",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-react-component.md",
+    "examples\\example-2-state-management.md",
+    "examples\\example-3-performance-optimization.md",
+    "react-specialist\\SKILL.md",
+    "tests\\a11y-checker.test.js",
+    "tests\\bundle-analyzer.test.js",
+    "tests\\component-generator.test.js",
+    "resources\\scripts\\a11y-checker.js",
+    "resources\\scripts\\bundle-analyzer.js",
+    "resources\\scripts\\component-generator.js",
+    "resources\\scripts\\performance-profiler.js",
+    "resources\\templates\\component.config.json",
+    "resources\\templates\\react-component.tsx",
+    "resources\\templates\\vue-component.vue"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute frontend-specialists workflow",
+    "Ensure quality and consistency",
+    "Enable systematic Frontend Development processes",
+    "frontend-specialists",
+    "Frontend Development",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.001261",
+  "verix_compliant": true
+}

@@ -1,0 +1,35 @@
+{
+  "name": "agentdb-learning",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-q-learning.md",
+    "examples\\example-2-sarsa.md",
+    "examples\\example-3-deep-rl.md",
+    "graphviz\\workflow.dot",
+    "references\\reward-design.md",
+    "references\\rl-algorithms.md",
+    "tests\\test-1-q-learning.md",
+    "tests\\test-2-policy-gradient.md",
+    "tests\\test-3-decision-transformer.md",
+    "resources\\scripts\\benchmark_9algorithms.sh",
+    "resources\\scripts\\readme.md",
+    "resources\\scripts\\test_learning.py",
+    "resources\\scripts\\train_rl_agent.py",
+    "resources\\templates\\actor-critic.json",
+    "resources\\templates\\decision-transformer.yaml",
+    "resources\\templates\\q-learning-config.yaml",
+    "resources\\templates\\readme.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.417101",
+  "verix_compliant": true
+}

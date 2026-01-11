@@ -1,0 +1,23 @@
+{
+  "name": "physics-simulation-creator",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "ai_simulation_helper.py",
+    "ERROR-DETECTION.md",
+    "EXAMPLES.md",
+    "physics-simulation-creator-process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "SOP-MATHEMATICS.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.072347",
+  "verix_compliant": true
+}

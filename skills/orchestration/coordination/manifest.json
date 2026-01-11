@@ -1,0 +1,33 @@
+{
+  "name": "coordination",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-hierarchical-swarm.md",
+    "examples\\example-2-mesh-topology.md",
+    "examples\\example-3-adaptive-scaling.md",
+    "tests\\test-consensus-mechanisms.js",
+    "tests\\test-hierarchical-topology.js",
+    "tests\\test-mesh-topology.js",
+    "resources\\scripts\\init-hierarchical-topology.js",
+    "resources\\scripts\\init-mesh-topology.js",
+    "resources\\scripts\\orchestrate-distributed-task.js",
+    "resources\\scripts\\spawn-coordinated-agents.js",
+    "resources\\scripts\\topology-selector.js",
+    "resources\\templates\\adaptive-topology.yaml",
+    "resources\\templates\\agent-roles.yaml",
+    "resources\\templates\\hierarchical-topology.yaml",
+    "resources\\templates\\mesh-topology.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.262649",
+  "verix_compliant": true
+}

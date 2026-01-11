@@ -1,0 +1,45 @@
+# Custom metadata preserved from original skill
+# This file is used by Context Cascade hooks for extended functionality
+
+skill_id: when-implementing-adaptive-learning-use-reasoningbank-agentdb
+version: 1.0.0
+category: agentdb
+subcategory: adaptive-learning
+trigger_pattern: when-implementing-adaptive-learning
+agents:
+  - ml-developer
+  - safla-neural
+  - performance-analyzer
+complexity: advanced
+estimated_duration: 8-10 hours
+prerequisites:
+  - AgentDB advanced features
+  - Reinforcement learning concepts
+  - Neural network understanding
+outputs:
+  - ReasoningBank system
+  - Trajectory tracking
+  - Verdict judgment system
+  - Memory distillation pipeline
+  - Pattern recognition
+validation_criteria:
+  - Trajectories tracked accurately
+  - Verdicts judged correctly
+  - Patterns learned and applied
+  - Decision quality improves over time
+evidence_based_techniques:
+  - Trajectory analysis
+  - Verdict evaluation
+  - Pattern mining
+  - Self-improvement loops
+metadata:
+  - agentdb
+  - reasoningbank
+  - adaptive-learning
+  - meta-learning
+  - pattern-recognition
+_migration:
+  source_path: C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills\foundry\when-implementing-adaptive-learning-use-reasoningbank-agentdb
+  category: foundry
+  migrated_at: 2025-12-28T15:56:24.486Z
+  version: 2.0.0

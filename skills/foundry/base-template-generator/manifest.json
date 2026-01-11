@@ -1,0 +1,29 @@
+{
+  "name": "base-template-generator",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-basic.md",
+    "tests\\test-1-basic-template.md",
+    "tests\\test-2-complex-project.md",
+    "tests\\test-3-validation.md",
+    "resources\\scripts\\generate_boilerplate.py",
+    "resources\\scripts\\init_project.py",
+    "resources\\scripts\\validate_structure.sh",
+    "resources\\templates\\config-template.json",
+    "resources\\templates\\gitignore-template.txt",
+    "resources\\templates\\project-structure.yaml",
+    "resources\\templates\\readme-template.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.120269",
+  "verix_compliant": true
+}

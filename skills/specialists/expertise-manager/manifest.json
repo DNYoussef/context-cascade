@@ -1,0 +1,21 @@
+{
+  "name": "expertise-manager",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory-mcp",
+    "mcp__memory-mcp",
+    "memory_mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.994946",
+  "verix_compliant": true
+}

@@ -1,0 +1,46 @@
+{
+  "name": "pptx-generation",
+  "version": "1.0.0",
+  "category": "tooling",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\board-deck-example.py",
+    "examples\\data-visualization-example.py",
+    "examples\\technical-presentation-example.py",
+    "references\\brand-integration.md",
+    "references\\complex-deck-architecture.md",
+    "references\\design-principles.md",
+    "references\\simple-deck-template.md",
+    "references\\validation-checklist.md",
+    "references\\workflow-diagram.dot",
+    "resources\\chart-config.json",
+    "resources\\chart-creator.py",
+    "resources\\pptx-builder.sh",
+    "resources\\presentation-template.pptx",
+    "resources\\slide-generator.py",
+    "resources\\slide-layout.yaml",
+    "resources\\template-engine.js",
+    "tests\\test_integration.sh",
+    "tests\\test_slide_generator.py",
+    "tests\\test_template_engine.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute pptx-generation workflow",
+    "Ensure quality and consistency",
+    "Enable systematic tooling processes",
+    "pptx-generation",
+    "tooling",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.146373",
+  "verix_compliant": true
+}

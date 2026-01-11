@@ -1,0 +1,17 @@
+{
+  "name": "reverse-engineer-debug",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.925103",
+  "verix_compliant": true
+}

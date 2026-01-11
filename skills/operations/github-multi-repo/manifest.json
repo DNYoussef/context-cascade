@@ -1,0 +1,31 @@
+{
+  "name": "github-multi-repo",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-cross-repo-sync.md",
+    "examples\\example-2-monorepo-management.md",
+    "examples\\example-3-multi-repo-coordination.md",
+    "tests\\architecture-analyzer.test.js",
+    "tests\\cross-repo-refactor.test.js",
+    "tests\\sync-repos.test.js",
+    "resources\\scripts\\architecture-analyzer.js",
+    "resources\\scripts\\cross-repo-refactor.js",
+    "resources\\scripts\\dependency-updater.js",
+    "resources\\scripts\\sync-repos.js",
+    "resources\\templates\\monorepo-config.json",
+    "resources\\templates\\turbo.json",
+    "resources\\templates\\workspace-package-template.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.063070",
+  "verix_compliant": true
+}

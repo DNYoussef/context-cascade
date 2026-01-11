@@ -1,0 +1,36 @@
+{
+  "name": "agentdb-advanced",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-quic-sync.md",
+    "examples\\example-2-multi-database.md",
+    "examples\\example-3-sharding.md",
+    "graphviz\\workflow.dot",
+    "references\\distributed-patterns.md",
+    "references\\performance-optimization.md",
+    "references\\quic-protocol.md",
+    "resources\\readme.md",
+    "tests\\test-1-quic-sync.md",
+    "tests\\test-2-multi-db.md",
+    "tests\\test-3-hybrid-search.md",
+    "resources\\scripts\\custom_metrics.py",
+    "resources\\scripts\\multi_db_manage.sh",
+    "resources\\scripts\\quic_sync.py",
+    "resources\\scripts\\readme.md",
+    "resources\\templates\\distributed-db.json",
+    "resources\\templates\\hybrid-search.yaml",
+    "resources\\templates\\quic-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.402142",
+  "verix_compliant": true
+}

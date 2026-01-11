@@ -1,0 +1,29 @@
+{
+  "name": "connascence-quality-gate",
+  "version": "1.0.0",
+  "category": "quality",
+  "description": "",
+  "files": [
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory-mcp",
+    "mcp__memory-mcp",
+    "memory_mcp"
+  ],
+  "triggers": [
+    "Execute SKILL workflow",
+    "Ensure quality and consistency",
+    "Enable systematic quality processes",
+    "SKILL",
+    "quality",
+    "1.0.0",
+    "Evidential",
+    "Turkish",
+    "How do you know?",
+    "SKILL"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.608384",
+  "verix_compliant": true
+}

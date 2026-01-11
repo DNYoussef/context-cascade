@@ -1,0 +1,46 @@
+digraph SkillBuilder {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+
+    start [shape=ellipse, label="Start:\nSkill Request", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nSkill Created", fillcolor=green, fontcolor=white];
+
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        fillcolor=lightyellow;
+        style=filled;
+        p0 [label="Load Skill\nPatterns"];
+    }
+
+    subgraph cluster_design {
+        label="Design Phase";
+        fillcolor=lightblue;
+        style=filled;
+        d1 [label="Define\nFrontmatter"];
+        d2 [label="Structure\nContent"];
+        d1 -> d2;
+    }
+
+    subgraph cluster_build {
+        label="Build Phase";
+        fillcolor=lightcoral;
+        style=filled;
+        b1 [label="Create\nSKILL.md"];
+        b2 [label="Add\nResources"];
+        b1 -> b2;
+    }
+
+    eval [shape=octagon, label="Validation\nGate", fillcolor=orange];
+
+    start -> p0;
+    p0 -> d1;
+    d2 -> b1;
+    b2 -> eval;
+    eval -> end [label="pass", color=green];
+    eval -> d1 [label="fail", color=red, style=dashed];
+
+    labelloc="t";
+    label="Skill Builder: Creation Workflow (v2.1)";
+    fontsize=16;
+}

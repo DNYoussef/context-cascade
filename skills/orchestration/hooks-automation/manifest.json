@@ -1,0 +1,32 @@
+{
+  "name": "hooks-automation",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-pre-task-automation.md",
+    "examples\\example-2-post-edit-formatting.md",
+    "examples\\example-3-session-coordination.md",
+    "resources\\readme.md",
+    "tests\\test-1-basic-hooks.md",
+    "tests\\test-2-hook-chaining.md",
+    "tests\\test-3-error-handling.md",
+    "resources\\scripts\\hook-installer.sh",
+    "resources\\scripts\\hook-manager.js",
+    "resources\\scripts\\hook-tester.sh",
+    "resources\\scripts\\hook-validator.py",
+    "resources\\templates\\post-edit-hook.json",
+    "resources\\templates\\pre-task-hook.yaml",
+    "resources\\templates\\session-hooks.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.112534",
+  "verix_compliant": true
+}

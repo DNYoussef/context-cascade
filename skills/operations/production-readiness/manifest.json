@@ -1,0 +1,30 @@
+{
+  "name": "production-readiness",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\performance-benchmarking.md",
+    "examples\\pre-launch-checklist.md",
+    "examples\\security-validation.md",
+    "resources\\audit-config.json",
+    "resources\\deployment-verifier.py",
+    "resources\\performance-validator.sh",
+    "resources\\readiness-checker.py",
+    "resources\\readiness-checklist.yaml",
+    "resources\\security-audit.js",
+    "resources\\validation-rules.yaml",
+    "tests\\test-performance-validator.sh",
+    "tests\\test-readiness-checker.py",
+    "tests\\test-security-audit.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.186946",
+  "verix_compliant": true
+}

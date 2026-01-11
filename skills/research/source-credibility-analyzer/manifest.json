@@ -1,0 +1,20 @@
+{
+  "name": "source-credibility-analyzer",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "README.md",
+    "SKILL.md",
+    "source-credibility-analyzer-process.dot",
+    "examples\\scoring-examples.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.841546",
+  "verix_compliant": true
+}

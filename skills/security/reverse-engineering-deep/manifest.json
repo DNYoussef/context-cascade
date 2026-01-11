@@ -1,0 +1,20 @@
+{
+  "name": "reverse-engineering-deep",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\angr-symbolic-exec.py",
+    "resources\\scripts\\gdb-automation.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.928425",
+  "verix_compliant": true
+}

@@ -1,0 +1,43 @@
+{
+  "name": "ml-expert",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "agents\\ml-expert-specialist.prompt",
+    "examples\\ensemble-methods-example.sh",
+    "examples\\feature-engineering-example.js",
+    "examples\\neural-architecture-example.py",
+    "resources\\architecture-template.yaml",
+    "resources\\ensemble-builder.sh",
+    "resources\\ensemble-strategy.yaml",
+    "resources\\feature-config.json",
+    "resources\\feature-engineer.js",
+    "resources\\ml-debugger.py",
+    "resources\\model-architect.py",
+    "tests\\test_ensemble_builder.py",
+    "tests\\test_feature_engineer.py",
+    "tests\\test_model_architect.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute ml-expert workflow",
+    "Ensure quality and consistency",
+    "Enable systematic specialists processes",
+    "ml-expert",
+    "specialists",
+    "1.0.0",
+    "Honorific",
+    "Japanese",
+    "Who is the audience?",
+    "ml-expert"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.049467",
+  "verix_compliant": true
+}

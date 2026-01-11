@@ -1,0 +1,40 @@
+{
+  "name": "testing-quality",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "when-auditing-code-style-use-style-audit\\process-diagram.gv",
+    "when-auditing-code-style-use-style-audit\\PROCESS.md",
+    "when-auditing-code-style-use-style-audit\\README.md",
+    "when-auditing-code-style-use-style-audit\\SKILL.md",
+    "when-detecting-fake-code-use-theater-detection\\process-diagram.gv",
+    "when-detecting-fake-code-use-theater-detection\\PROCESS.md",
+    "when-detecting-fake-code-use-theater-detection\\README.md",
+    "when-detecting-fake-code-use-theater-detection\\SKILL.md",
+    "when-reviewing-code-comprehensively-use-code-review-assistant\\process-diagram.gv",
+    "when-reviewing-code-comprehensively-use-code-review-assistant\\PROCESS.md",
+    "when-reviewing-code-comprehensively-use-code-review-assistant\\README.md",
+    "when-reviewing-code-comprehensively-use-code-review-assistant\\SKILL.md",
+    "when-validating-code-works-use-functionality-audit\\process-diagram.gv",
+    "when-validating-code-works-use-functionality-audit\\PROCESS.md",
+    "when-validating-code-works-use-functionality-audit\\README.md",
+    "when-validating-code-works-use-functionality-audit\\SKILL.md",
+    "when-verifying-quality-use-verification-quality\\process-diagram.gv",
+    "when-verifying-quality-use-verification-quality\\PROCESS.md",
+    "when-verifying-quality-use-verification-quality\\README.md",
+    "when-verifying-quality-use-verification-quality\\SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.853513",
+  "verix_compliant": true
+}

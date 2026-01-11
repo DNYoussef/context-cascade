@@ -1,0 +1,16 @@
+{
+  "name": "fix-bug",
+  "version": "1.1.0",
+  "description": "Bug fixing workflow with learned patterns for restoration tasks",
+  "category": "delivery",
+  "author": "Context Cascade",
+  "updated": "2026-01-07",
+  "vcl-compliance": "v3.1.1",
+  "learned-patterns": [
+    "asset-selection-protocol",
+    "layout-restoration-pattern",
+    "positioning-decision-tree",
+    "user-frustration-signals"
+  ],
+  "binding": "skill:fix-bug"
+}

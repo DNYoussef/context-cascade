@@ -1,0 +1,32 @@
+{
+  "name": "ml",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    ".quickstart",
+    "readme.md",
+    "SKILL.md",
+    "examples\\experiment-tracking.py",
+    "examples\\hyperparameter-optimization.js",
+    "examples\\mlops-pipeline.py",
+    "tests\\test-experiment-tracking.py",
+    "tests\\test-hyperparameter-tuning.js",
+    "tests\\test-mlops-pipeline.py",
+    "resources\\scripts\\experiment-tracker.py",
+    "resources\\scripts\\hyperparameter-tuner.js",
+    "resources\\scripts\\ml-ops.py",
+    "resources\\scripts\\model-registry.sh",
+    "resources\\templates\\experiment-config.yaml",
+    "resources\\templates\\hyperparameter-space.json",
+    "resources\\templates\\model-card.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.038496",
+  "verix_compliant": true
+}

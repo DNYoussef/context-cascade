@@ -1,0 +1,43 @@
+{
+  "name": "meta-tools",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\create-tool.js",
+    "examples\\tool-composition.js",
+    "examples\\tool-orchestration.js",
+    "tests\\test-generator.test.js",
+    "tests\\test-orchestrator.test.js",
+    "tests\\test-validator.test.js",
+    "when-analyzing-skill-gaps-use-skill-gap-analyzer\\process-diagram.gv",
+    "when-analyzing-skill-gaps-use-skill-gap-analyzer\\process.md",
+    "when-analyzing-skill-gaps-use-skill-gap-analyzer\\readme.md",
+    "when-analyzing-skill-gaps-use-skill-gap-analyzer\\SKILL.md",
+    "when-managing-token-budget-use-token-budget-advisor\\process-diagram.gv",
+    "when-managing-token-budget-use-token-budget-advisor\\process.md",
+    "when-managing-token-budget-use-token-budget-advisor\\readme.md",
+    "when-managing-token-budget-use-token-budget-advisor\\SKILL.md",
+    "when-optimizing-prompts-use-prompt-optimization-analyzer\\process-diagram.gv",
+    "when-optimizing-prompts-use-prompt-optimization-analyzer\\process.md",
+    "when-optimizing-prompts-use-prompt-optimization-analyzer\\readme.md",
+    "when-optimizing-prompts-use-prompt-optimization-analyzer\\SKILL.md",
+    "resources\\scripts\\tool-generator.py",
+    "resources\\scripts\\tool-optimizer.sh",
+    "resources\\scripts\\tool-packager.py",
+    "resources\\scripts\\tool-validator.js",
+    "resources\\templates\\meta-config.json",
+    "resources\\templates\\tool-manifest.yaml",
+    "resources\\templates\\tool-template.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.138221",
+  "verix_compliant": true
+}

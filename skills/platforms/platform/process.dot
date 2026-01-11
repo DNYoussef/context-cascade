@@ -1,0 +1,38 @@
+digraph Platform {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+
+    start [shape=ellipse, label="Start:\nPlatform Request", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nService Ready", fillcolor=green, fontcolor=white];
+
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        fillcolor=lightyellow;
+        style=filled;
+        p0 [label="Load Platform\nExpertise"];
+    }
+
+    routing [shape=diamond, label="Service\nType?", fillcolor=yellow];
+
+    neural [shape=cylinder, label="flow-nexus\nneural", fillcolor=lightcoral];
+    platform [shape=cylinder, label="flow-nexus\nplatform", fillcolor=lightcoral];
+    swarm [shape=cylinder, label="flow-nexus\nswarm", fillcolor=lightcoral];
+
+    eval [shape=octagon, label="Service\nGate", fillcolor=orange];
+
+    start -> p0;
+    p0 -> routing;
+    routing -> neural [label="training"];
+    routing -> platform [label="auth/payment"];
+    routing -> swarm [label="deploy"];
+    neural -> eval;
+    platform -> eval;
+    swarm -> eval;
+    eval -> end [label="pass", color=green];
+    eval -> routing [label="fail", color=red, style=dashed];
+
+    labelloc="t";
+    label="Platform: Flow Nexus Services (v2.1)";
+    fontsize=16;
+}

@@ -1,0 +1,48 @@
+digraph Dependencies {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+
+    start [shape=ellipse, label="Start:\nDependency Analysis", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nAnalysis Report", fillcolor=green, fontcolor=white];
+
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        fillcolor=lightyellow;
+        style=filled;
+        p0 [label="Load Dependency\nExpertise"];
+    }
+
+    subgraph cluster_detect {
+        label="Detection Phase";
+        fillcolor=lightblue;
+        style=filled;
+        d1 [label="Detect Package\nEcosystem"];
+        d2 [label="Parse Lock\nFiles"];
+        d1 -> d2;
+    }
+
+    analysis [shape=diamond, label="Analysis\nType?", fillcolor=yellow];
+
+    graph [shape=box, label="Dependency\nGraph", fillcolor=lightcoral];
+    vuln [shape=box, label="Vulnerability\nScan", fillcolor=lightcoral];
+    outdated [shape=box, label="Outdated\nCheck", fillcolor=lightcoral];
+
+    eval [shape=octagon, label="Quality\nGate", fillcolor=orange];
+
+    start -> p0;
+    p0 -> d1;
+    d2 -> analysis;
+    analysis -> graph [label="graph"];
+    analysis -> vuln [label="security"];
+    analysis -> outdated [label="update"];
+    graph -> eval;
+    vuln -> eval;
+    outdated -> eval;
+    eval -> end [label="pass", color=green];
+    eval -> d1 [label="fail", color=red, style=dashed];
+
+    labelloc="t";
+    label="Dependencies: Analysis Hub (v2.1)";
+    fontsize=16;
+}

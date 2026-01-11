@@ -1,0 +1,30 @@
+{
+  "name": "parallel-swarm-implementation",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "parallel-swarm-implementation-process.dot",
+    "SKILL.md",
+    "examples\\mesh-parallel-execution.md",
+    "graphviz\\parallel-swarm-implementation-process.dot",
+    "resources\\coordination-rules.yaml",
+    "resources\\execution-strategy.json",
+    "resources\\parallel-executor.js",
+    "resources\\result-aggregator.py",
+    "resources\\swarm-config.yaml",
+    "resources\\swarm-coordinator.py",
+    "resources\\task-distributor.sh",
+    "tests\\test-integration.sh",
+    "tests\\test-parallel-executor.js",
+    "tests\\test-swarm-coordinator.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.303540",
+  "verix_compliant": true
+}

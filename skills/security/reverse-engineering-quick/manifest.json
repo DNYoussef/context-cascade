@@ -1,0 +1,22 @@
+{
+  "name": "reverse-engineering-quick",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\ghidra-headless.sh",
+    "resources\\scripts\\ioc-extractor.js",
+    "resources\\scripts\\radare2-triage.py",
+    "resources\\scripts\\strings-analyzer.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.939396",
+  "verix_compliant": true
+}

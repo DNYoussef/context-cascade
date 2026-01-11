@@ -1,0 +1,46 @@
+# Custom metadata preserved from original skill
+# This file is used by Context Cascade hooks for extended functionality
+
+skill_id: when-using-advanced-vector-search-use-agentdb-advanced
+version: 1.0.0
+category: agentdb
+subcategory: distributed-systems
+trigger_pattern: when-using-advanced-vector-search
+agents:
+  - ml-developer
+  - backend-dev
+  - performance-analyzer
+complexity: advanced
+estimated_duration: 8-12 hours
+prerequisites:
+  - Basic AgentDB knowledge
+  - Vector database concepts
+  - Distributed systems understanding
+  - TypeScript/Node.js proficiency
+outputs:
+  - Multi-database AgentDB cluster
+  - QUIC synchronization system
+  - Custom distance metrics
+  - Hybrid search implementation
+  - Performance benchmarks
+validation_criteria:
+  - 150x faster search vs baseline
+  - Multi-DB synchronization working
+  - Custom metrics functional
+  - Hybrid search accurate
+evidence_based_techniques:
+  - Self-consistency validation
+  - Program-of-thought decomposition
+  - Chain-of-verification
+  - Multi-agent consensus
+metadata:
+  - agentdb
+  - vector-search
+  - distributed-systems
+  - quic-sync
+  - hybrid-search
+_migration:
+  source_path: C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills\foundry\when-using-advanced-vector-search-use-agentdb-advanced
+  category: foundry
+  migrated_at: 2025-12-28T15:56:24.497Z
+  version: 2.0.0

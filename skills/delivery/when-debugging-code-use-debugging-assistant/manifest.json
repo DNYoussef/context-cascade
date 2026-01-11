@@ -1,0 +1,34 @@
+{
+  "name": "when-debugging-code-use-debugging-assistant",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "mcp-debugging-assistant.json",
+    "process-diagram.gv",
+    "PROCESS.md",
+    "README.md",
+    "SKILL.md",
+    "slash-command-debugging-assistant.sh",
+    "subagent-debugging-assistant.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute SKILL workflow",
+    "Ensure quality and consistency",
+    "Enable systematic delivery processes",
+    "SKILL",
+    "delivery",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?",
+    "SKILL"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.057409",
+  "verix_compliant": true
+}

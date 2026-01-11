@@ -1,0 +1,21 @@
+{
+  "name": "visual-art-composition",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "SKILL-v2.md",
+    "SKILL.md",
+    "references\\dimensional-deep-dive.md",
+    "references\\quick-start.md",
+    "references\\tradition-sequences.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.081672",
+  "verix_compliant": true
+}

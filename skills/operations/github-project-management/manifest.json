@@ -1,0 +1,32 @@
+{
+  "name": "github-project-management",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\cross-repo-projects.md",
+    "examples\\kanban-automation.md",
+    "examples\\sprint-planning.md",
+    "resources\\readme.md",
+    "tests\\board-sync.test.js",
+    "tests\\issue-management.test.js",
+    "tests\\sprint-planning.test.js",
+    "resources\\scripts\\issue-tracker.js",
+    "resources\\scripts\\milestone-manager.js",
+    "resources\\scripts\\project-board-automation.js",
+    "resources\\scripts\\sprint-planner.js",
+    "resources\\templates\\issue-template.md",
+    "resources\\templates\\project-config.yaml",
+    "resources\\templates\\sprint-template.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.075038",
+  "verix_compliant": true
+}

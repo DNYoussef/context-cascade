@@ -1,0 +1,21 @@
+{
+  "name": "academic-reading-workflow",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "academic-reading-process.dot",
+    "README.md",
+    "SKILL.md",
+    "examples\\annotation-example.md",
+    "references\\blue-methodology.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.736602",
+  "verix_compliant": true
+}

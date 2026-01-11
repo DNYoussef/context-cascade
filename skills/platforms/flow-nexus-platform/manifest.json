@@ -1,0 +1,32 @@
+{
+  "name": "flow-nexus-platform",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-sandbox-deployment.md",
+    "examples\\example-2-template-usage.md",
+    "examples\\example-3-cloud-integration.md",
+    "graphviz\\flow-nexus-platform-process.dot",
+    "resources\\readme.md",
+    "tests\\auth-manager.test.js",
+    "tests\\platform-integration.test.js",
+    "tests\\sandbox-manager.test.js",
+    "resources\\scripts\\auth-manager.js",
+    "resources\\scripts\\deployment-manager.js",
+    "resources\\scripts\\platform-health.js",
+    "resources\\scripts\\sandbox-manager.js",
+    "resources\\templates\\deployment-manifest.yaml",
+    "resources\\templates\\platform-config.json",
+    "resources\\templates\\sandbox-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.494857",
+  "verix_compliant": true
+}

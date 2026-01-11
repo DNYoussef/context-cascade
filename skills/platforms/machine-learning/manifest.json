@@ -1,0 +1,40 @@
+{
+  "name": "machine-learning",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "gold-tier-enhancement.md",
+    "readme.md",
+    "SKILL.md",
+    "examples\\data-pipeline.py",
+    "examples\\model-deployment.py",
+    "examples\\model-training.py",
+    "tests\\test_evaluator.py",
+    "tests\\test_preprocessor.py",
+    "tests\\test_trainer.py",
+    "when-debugging-ml-training-use-ml-training-debugger\\process-diagram.gv",
+    "when-debugging-ml-training-use-ml-training-debugger\\process.md",
+    "when-debugging-ml-training-use-ml-training-debugger\\readme.md",
+    "when-debugging-ml-training-use-ml-training-debugger\\SKILL.md",
+    "when-developing-ml-models-use-ml-expert\\process-diagram.gv",
+    "when-developing-ml-models-use-ml-expert\\process.md",
+    "when-developing-ml-models-use-ml-expert\\readme.md",
+    "when-developing-ml-models-use-ml-expert\\SKILL.md",
+    "resources\\scripts\\data-preprocessor.py",
+    "resources\\scripts\\ml-pipeline.sh",
+    "resources\\scripts\\model-evaluator.js",
+    "resources\\scripts\\model-trainer.py",
+    "resources\\templates\\evaluation-metrics.yaml",
+    "resources\\templates\\model-architecture.json",
+    "resources\\templates\\training-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.519587",
+  "verix_compliant": true
+}

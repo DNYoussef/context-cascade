@@ -1,0 +1,33 @@
+{
+  "name": "interactive-planner",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "gold-tier-enhancement-summary.md",
+    "interactive-planner-process.dot",
+    "readme.md",
+    "SKILL.md",
+    "examples\\architecture-decisions-example.md",
+    "examples\\feature-planning-example.md",
+    "examples\\multi-select-requirements-example.md",
+    "resources\\decision-criteria.yaml",
+    "resources\\decision-matrix.sh",
+    "resources\\plan-optimizer.py",
+    "resources\\question-generator.py",
+    "resources\\question-template.yaml",
+    "resources\\requirements-collector.js",
+    "resources\\requirements-form.json",
+    "tests\\test-plan-optimizer.py",
+    "tests\\test-question-generator.py",
+    "tests\\test-requirements-collector.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.782027",
+  "verix_compliant": true
+}

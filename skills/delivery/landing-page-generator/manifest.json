@@ -1,0 +1,23 @@
+{
+  "name": "landing-page-generator",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "SKILL.md",
+    "examples\\product-brief-template.md",
+    "graphviz\\landing-page-process.dot",
+    "resources\\scripts\\firecrawl-scraper.js",
+    "resources\\scripts\\netlify-deploy.js",
+    "resources\\scripts\\screenshot-capture.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.023500",
+  "verix_compliant": true
+}

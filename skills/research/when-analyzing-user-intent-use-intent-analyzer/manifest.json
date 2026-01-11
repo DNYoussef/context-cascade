@@ -1,0 +1,20 @@
+{
+  "name": "when-analyzing-user-intent-use-intent-analyzer",
+  "version": "1.0.0",
+  "category": "tooling",
+  "description": "",
+  "files": [
+    "process-diagram.gv",
+    "process.md",
+    "readme.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.167309",
+  "verix_compliant": true
+}

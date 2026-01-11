@@ -1,4 +1,5 @@
 {
+  "$comment": "Updated 2026-01-11: Leveraging Claude Code 2.1.3 10-minute hook timeout",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -6,22 +7,22 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/plan-mode-enhancer.ps1\"",
-            "timeout": 10000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/user-prompt-submit.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/five-phase-enforcer.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start-plugin-check.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           }
         ]
       }
@@ -33,17 +34,17 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/pre-skill-invoke.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/check-skill-mcps.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/skill-started.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           }
         ]
       },
@@ -53,32 +54,34 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/pre-task-spawn.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-mcp/pre-task-memory-check.ps1\"",
-            "timeout": 5000
+            "timeout": 120000,
+            "$comment": "2 minutes for deep triple-tier memory queries"
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/pre-task-plugin-reminder.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/guards/pre-coding-library-check.ps1\"",
-            "timeout": 5000
+            "timeout": 60000,
+            "$comment": "1 minute for full D:\\Projects scan"
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/multi-model/model-router-pretool.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/agent-spawned.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           }
         ]
       },
@@ -88,7 +91,7 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/sop-compliance-verifier.ps1\"",
-            "timeout": 3000
+            "timeout": 30000
           }
         ]
       }
@@ -100,12 +103,13 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/post-task-spawn.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-mcp/post-task-memory-store.ps1\"",
-            "timeout": 5000
+            "timeout": 60000,
+            "$comment": "1 minute for memory persistence"
           }
         ]
       },
@@ -115,7 +119,7 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/post-todowrite.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           }
         ]
       },
@@ -125,17 +129,17 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/post-skill-compliance.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/skill-completion-verifier.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/command-executed.ps1\"",
-            "timeout": 5000
+            "timeout": 10000
           }
         ]
       },
@@ -145,7 +149,13 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/skill-completion-verifier.ps1\"",
-            "timeout": 3000
+            "timeout": 30000
+          },
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/connascence-audit/run-audit.ps1\"",
+            "timeout": 300000,
+            "$comment": "5 minutes for full 7-analyzer connascence suite"
           }
         ]
       }
@@ -156,12 +166,13 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/pattern-retention.ps1\"",
-            "timeout": 10000
+            "timeout": 60000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/pattern-retention-precompact.ps1\"",
-            "timeout": 10000
+            "timeout": 120000,
+            "$comment": "2 minutes for full context summarization"
           }
         ]
       }
@@ -172,37 +183,40 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/Stop/session-end-reflect.ps1\"",
-            "timeout": 30000
+            "timeout": 300000,
+            "$comment": "5 minutes for deep session reflection"
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/enforcement/session-stop.ps1\"",
-            "timeout": 10000
-          },
-          {
-            "type": "command",
-            "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/ralph-wiggum/ralph-loop-stop-hook.ps1\"",
             "timeout": 30000
           },
           {
             "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/ralph-wiggum/ralph-loop-stop-hook.ps1\"",
+            "timeout": 120000,
+            "$comment": "2 minutes for Ralph loop finalization"
+          },
+          {
+            "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-mcp/session-end-store.ps1\"",
-            "timeout": 10000
+            "timeout": 120000,
+            "$comment": "2 minutes for full memory persistence"
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/recursive-improvement-gate.ps1\"",
-            "timeout": 5000
+            "timeout": 60000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/mcp-session-cleanup.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/post-reflect-store.ps1\"",
-            "timeout": 5000
+            "timeout": 60000
           }
         ]
       }
@@ -213,12 +227,12 @@
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start-plugin-check.ps1\"",
-            "timeout": 5000
+            "timeout": 15000
           },
           {
             "type": "command",
             "command": "powershell -ExecutionPolicy Bypass -File \"${CLAUDE_PLUGIN_ROOT}/hooks/memory-mcp/memory-trigger-patterns.ps1\"",
-            "timeout": 5000
+            "timeout": 30000
           }
         ]
       }

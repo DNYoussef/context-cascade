@@ -1,0 +1,23 @@
+{
+  "name": "when-auditing-security-use-security-analyzer",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "mcp-security-analyzer.json",
+    "process-diagram.gv",
+    "process.md",
+    "readme.md",
+    "SKILL.md",
+    "slash-command-security-analyzer.sh",
+    "subagent-security-analyzer.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.974032",
+  "verix_compliant": true
+}

@@ -1,0 +1,28 @@
+{
+  "name": "when-developing-complete-feature-use-feature-dev-complete",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "skill.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute skill workflow",
+    "Ensure quality and consistency",
+    "Enable systematic delivery processes",
+    "skill",
+    "delivery",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?",
+    "skill"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.063393",
+  "verix_compliant": true
+}

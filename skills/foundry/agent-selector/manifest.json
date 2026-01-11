@@ -1,0 +1,20 @@
+{
+  "name": "agent-selector",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.113287",
+  "verix_compliant": true
+}

@@ -1,0 +1,48 @@
+digraph Documentation {
+    rankdir=TB;
+    compound=true;
+    node [shape=box, style=filled, fontname="Arial"];
+
+    start [shape=ellipse, label="Start:\nDoc Request", fillcolor=lightgreen];
+    end [shape=ellipse, label="Complete:\nDocs Generated", fillcolor=green, fontcolor=white];
+
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        fillcolor=lightyellow;
+        style=filled;
+        p0 [label="Load Doc\nStandards"];
+    }
+
+    subgraph cluster_analysis {
+        label="Analysis Phase";
+        fillcolor=lightblue;
+        style=filled;
+        a1 [label="Analyze\nCodebase"];
+        a2 [label="Identify\nDoc Gaps"];
+        a1 -> a2;
+    }
+
+    doctype [shape=diamond, label="Doc\nType?", fillcolor=yellow];
+
+    readme [shape=box, label="README\nGeneration", fillcolor=lightcoral];
+    api [shape=box, label="API\nDocumentation", fillcolor=lightcoral];
+    inline [shape=box, label="Inline\nComments", fillcolor=lightcoral];
+
+    eval [shape=octagon, label="Quality\nGate", fillcolor=orange];
+
+    start -> p0;
+    p0 -> a1;
+    a2 -> doctype;
+    doctype -> readme [label="readme"];
+    doctype -> api [label="api"];
+    doctype -> inline [label="inline"];
+    readme -> eval;
+    api -> eval;
+    inline -> eval;
+    eval -> end [label="pass", color=green];
+    eval -> a1 [label="fail", color=red, style=dashed];
+
+    labelloc="t";
+    label="Documentation: Generation Hub (v2.1)";
+    fontsize=16;
+}

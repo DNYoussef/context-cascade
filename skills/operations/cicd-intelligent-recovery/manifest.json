@@ -1,0 +1,37 @@
+{
+  "name": "cicd-intelligent-recovery",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "cicd-intelligent-recovery-process.dot",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-test-failure-recovery.md",
+    "examples\\example-2-build-failure-recovery.md",
+    "examples\\example-3-deployment-failure-recovery.md",
+    "graphviz\\cicd-intelligent-recovery-process.dot",
+    "graphviz\\workflow.dot",
+    "references\\recovery-strategies.md",
+    "references\\root-cause-analysis.md",
+    "resources\\readme.md",
+    "tests\\test-1-failure-detection.md",
+    "tests\\test-2-auto-repair.md",
+    "tests\\test-3-root-cause-analysis.md",
+    "resources\\scripts\\auto_repair.py",
+    "resources\\scripts\\failure_detect.py",
+    "resources\\scripts\\recovery_pipeline.sh",
+    "resources\\scripts\\root_cause.py",
+    "resources\\templates\\failure-patterns.json",
+    "resources\\templates\\recovery-config.yaml",
+    "resources\\templates\\repair-strategies.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.017963",
+  "verix_compliant": true
+}

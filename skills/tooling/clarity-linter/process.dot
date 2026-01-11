@@ -1,0 +1,84 @@
+// Clarity Linter Process Flow v2.1.0
+// Machine-readable code clarity auditing with cognitive load optimization
+
+digraph clarity_linter {
+    rankdir=TB;
+    node [shape=box, style="rounded,filled", fontname="Helvetica"];
+    edge [fontname="Helvetica", fontsize=10];
+
+    node [fillcolor="#E8F4FD"];
+
+    // Phase 0: Expertise Loading
+    subgraph cluster_phase0 {
+        label="Phase 0: Expertise Loading";
+        style=dashed;
+        color="#666666";
+
+        detect_lang [label="Detect Language\n& Framework", fillcolor="#FFF3E0"];
+        check_expertise [label="Check Expertise\n.claude/expertise/clarity.yaml", fillcolor="#FFF3E0"];
+        load_rubric [label="Load Clarity Rubric\n& Thresholds", fillcolor="#FFF3E0"];
+
+        detect_lang -> check_expertise -> load_rubric;
+    }
+
+    // Input
+    input [label="Source Code\nFiles/Directory", shape=ellipse, fillcolor="#C8E6C9"];
+
+    // 3-Phase SOP
+    subgraph cluster_phase1 {
+        label="Phase 1: Metrics Collection (code-analyzer)";
+        style=filled;
+        color="#E3F2FD";
+
+        parse_ast [label="Parse AST\n& Control Flow"];
+        measure_depth [label="Measure Call Chain\nDepth"];
+        count_indirection [label="Count Indirection\nLayers"];
+        analyze_names [label="Analyze Naming\nQuality"];
+        check_comments [label="Check Comment\nCoverage"];
+    }
+
+    subgraph cluster_phase2 {
+        label="Phase 2: Rubric Evaluation (reviewer)";
+        style=filled;
+        color="#F3E5F5";
+
+        apply_rubric [label="Apply Clarity\nRubric"];
+        score_metrics [label="Score Each\nMetric"];
+        identify_issues [label="Identify Clarity\nIssues"];
+        rank_severity [label="Rank by\nSeverity"];
+    }
+
+    subgraph cluster_phase3 {
+        label="Phase 3: Fix Generation (coder + analyst)";
+        style=filled;
+        color="#E8F5E9";
+
+        generate_fixes [label="Generate\nFix Suggestions"];
+        estimate_impact [label="Estimate Cognitive\nLoad Reduction"];
+        prioritize [label="Prioritize by\nImpact/Effort"];
+        output_report [label="Generate\nSARIF Report", fillcolor="#81C784"];
+    }
+
+    // Output
+    output [label="Clarity Report\n+ Fix Suggestions", shape=ellipse, fillcolor="#BBDEFB"];
+
+    // Connections
+    load_rubric -> input;
+    input -> parse_ast;
+    parse_ast -> measure_depth;
+    measure_depth -> count_indirection;
+    count_indirection -> analyze_names;
+    analyze_names -> check_comments;
+    check_comments -> apply_rubric;
+    apply_rubric -> score_metrics;
+    score_metrics -> identify_issues;
+    identify_issues -> rank_severity;
+    rank_severity -> generate_fixes;
+    generate_fixes -> estimate_impact;
+    estimate_impact -> prioritize;
+    prioritize -> output_report;
+    output_report -> output;
+
+    // Feedback
+    output -> detect_lang [style=dashed, label="Learn patterns\nfor expertise", color="#FF9800"];
+}

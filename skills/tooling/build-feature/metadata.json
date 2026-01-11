@@ -1,0 +1,16 @@
+{
+  "name": "build-feature",
+  "version": "1.1.0",
+  "description": "Feature development workflow with learned patterns for restoration tasks",
+  "category": "delivery",
+  "author": "Context Cascade",
+  "updated": "2026-01-07",
+  "vcl-compliance": "v3.1.1",
+  "learned-patterns": [
+    "asset-selection-protocol",
+    "feature-restoration-vs-new-feature",
+    "layout-implementation-strategy",
+    "user-frustration-signals"
+  ],
+  "binding": "skill:build-feature"
+}

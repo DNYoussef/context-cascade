@@ -1,0 +1,44 @@
+{
+  "name": "infrastructure",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "docker-containerization\\SKILL.md",
+    "examples\\docker-deployment-example.md",
+    "examples\\kubernetes-setup-example.md",
+    "examples\\terraform-infrastructure-example.md",
+    "terraform-iac\\SKILL.md",
+    "tests\\deployment.test.py",
+    "tests\\infrastructure.test.js",
+    "tests\\monitoring.test.sh",
+    "resources\\scripts\\config-manager.py",
+    "resources\\scripts\\deployment-automation.js",
+    "resources\\scripts\\infra-provisioner.sh",
+    "resources\\scripts\\monitoring-setup.py",
+    "resources\\templates\\docker-compose.yml",
+    "resources\\templates\\k8s-deployment.yaml",
+    "resources\\templates\\terraform-config.tf"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute SKILL workflow",
+    "Ensure quality and consistency",
+    "Enable systematic operations processes",
+    "SKILL",
+    "operations",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?",
+    "SKILL"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.125499",
+  "verix_compliant": true
+}

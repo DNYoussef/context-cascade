@@ -1,0 +1,35 @@
+{
+  "name": "agentdb-optimization",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-quantization.md",
+    "examples\\example-2-hnsw-tuning.md",
+    "examples\\example-3-batching.md",
+    "graphviz\\workflow.dot",
+    "references\\hnsw-parameters.md",
+    "references\\quantization-techniques.md",
+    "references\\readme-gold.md",
+    "tests\\test-1-quantization-4x.md",
+    "tests\\test-2-hnsw-tuning.md",
+    "tests\\test-3-batch-ops.md",
+    "resources\\scripts\\batch_ops.py",
+    "resources\\scripts\\cache_optimize.py",
+    "resources\\scripts\\hnsw_tuning.sh",
+    "resources\\scripts\\quantize_vectors.py",
+    "resources\\templates\\cache-config.json",
+    "resources\\templates\\hnsw-params.json",
+    "resources\\templates\\quantization-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.449090",
+  "verix_compliant": true
+}

@@ -1,0 +1,30 @@
+{
+  "name": "platform-integration",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-api-integration.md",
+    "examples\\example-2-webhook-automation.md",
+    "examples\\example-3-data-synchronization.md",
+    "tests\\api-connector.test.js",
+    "tests\\sync-engine.test.js",
+    "tests\\webhook-handler.test.js",
+    "resources\\scripts\\api-connector.py",
+    "resources\\scripts\\integration-tester.sh",
+    "resources\\scripts\\sync-manager.py",
+    "resources\\scripts\\webhook-handler.js",
+    "resources\\templates\\api-mappings.json",
+    "resources\\templates\\integration-config.yaml",
+    "resources\\templates\\webhook-templates.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.175976",
+  "verix_compliant": true
+}

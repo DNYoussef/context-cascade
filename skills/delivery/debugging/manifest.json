@@ -1,0 +1,35 @@
+{
+  "name": "debugging",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-null-pointer.md",
+    "examples\\example-2-race-condition.md",
+    "examples\\example-3-memory-leak.md",
+    "graphviz\\workflow.dot",
+    "references\\best-practices.md",
+    "references\\debugging-methodologies.md",
+    "references\\troubleshooting-guide.md",
+    "tests\\test-binary-search-debug.js",
+    "tests\\test-log-analyzer.py",
+    "tests\\test-stack-trace-analyzer.py",
+    "resources\\scripts\\binary-search-debug.js",
+    "resources\\scripts\\debug-session-recorder.sh",
+    "resources\\scripts\\log-analyzer.py",
+    "resources\\scripts\\stack-trace-analyzer.py",
+    "resources\\templates\\debug-checklist.template.md",
+    "resources\\templates\\debug-config.template.json",
+    "resources\\templates\\logging-config.template.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:36.983607",
+  "verix_compliant": true
+}

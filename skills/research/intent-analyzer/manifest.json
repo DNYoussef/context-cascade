@@ -1,0 +1,34 @@
+{
+  "name": "intent-analyzer",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "intent-analyzer-process.dot",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-vague-request-analysis.md",
+    "examples\\example-2-multi-step-intent.md",
+    "examples\\example-3-socratic-clarification.md",
+    "references\\intent-patterns.md",
+    "resources\\readme.md",
+    "tests\\test-1-ambiguous-requests.md",
+    "tests\\test-2-multi-intent.md",
+    "tests\\test-3-context-analysis.md",
+    "resources\\scripts\\clarification-generator.py",
+    "resources\\scripts\\intent-classifier.py",
+    "resources\\scripts\\intent-validator.sh",
+    "resources\\scripts\\pattern-extractor.js",
+    "resources\\templates\\clarification-templates.yaml",
+    "resources\\templates\\intent-analysis-config.yaml",
+    "resources\\templates\\pattern-definitions.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.764269",
+  "verix_compliant": true
+}

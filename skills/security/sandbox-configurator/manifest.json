@@ -1,0 +1,23 @@
+{
+  "name": "sandbox-configurator",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "sandbox-configurator-process.dot",
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\docker-configurator.sh",
+    "resources\\scripts\\e2b-setup.py",
+    "resources\\scripts\\network-isolation.py",
+    "resources\\scripts\\resource-limiter.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.945381",
+  "verix_compliant": true
+}

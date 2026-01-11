@@ -1,0 +1,44 @@
+{
+  "name": "ml-training-debugger",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "README.md",
+    "SKILL.md",
+    "agents\\ml-debugger-specialist.prompt",
+    "examples\\convergence-debugging.py",
+    "examples\\overfitting-detection.py",
+    "examples\\vanishing-gradients.py",
+    "resources\\readme.md",
+    "tests\\test-gradient-analysis.py",
+    "tests\\test-loss-divergence.py",
+    "tests\\test-mode-collapse.js",
+    "resources\\scripts\\gradient-debugger.py",
+    "resources\\scripts\\loss-analyzer.py",
+    "resources\\scripts\\overfitting-detector.js",
+    "resources\\scripts\\training-monitor.sh",
+    "resources\\templates\\debug-config.yaml",
+    "resources\\templates\\loss-curve-template.json",
+    "resources\\templates\\training-metrics.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute ml-training-debugger workflow",
+    "Ensure quality and consistency",
+    "Enable systematic specialists processes",
+    "ml-training-debugger",
+    "specialists",
+    "1.0.0",
+    "Honorific",
+    "Japanese",
+    "Who is the audience?",
+    "ml-training-debugger"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.061435",
+  "verix_compliant": true
+}

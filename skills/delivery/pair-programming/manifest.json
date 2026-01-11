@@ -1,0 +1,30 @@
+{
+  "name": "pair-programming",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\driver-navigator-mode.md",
+    "examples\\mob-programming.md",
+    "examples\\tdd-workflow.md",
+    "resources\\code-review-live.sh",
+    "resources\\driver-navigator.py",
+    "resources\\pair-config.yaml",
+    "resources\\pair-session.py",
+    "resources\\review-checklist.yaml",
+    "resources\\session-template.json",
+    "resources\\tdd-coordinator.js",
+    "tests\\driver-navigator.test.py",
+    "tests\\pair-session.test.py",
+    "tests\\tdd-coordinator.test.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.030481",
+  "verix_compliant": true
+}

@@ -1,0 +1,33 @@
+{
+  "name": "platform",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "when-deploying-cloud-swarm-use-flow-nexus-swarm\\process-diagram.gv",
+    "when-deploying-cloud-swarm-use-flow-nexus-swarm\\PROCESS.md",
+    "when-deploying-cloud-swarm-use-flow-nexus-swarm\\README.md",
+    "when-deploying-cloud-swarm-use-flow-nexus-swarm\\SKILL.md",
+    "when-training-neural-networks-use-flow-nexus-neural\\process-diagram.gv",
+    "when-training-neural-networks-use-flow-nexus-neural\\PROCESS.md",
+    "when-training-neural-networks-use-flow-nexus-neural\\README.md",
+    "when-training-neural-networks-use-flow-nexus-neural\\SKILL.md",
+    "when-using-flow-nexus-platform-use-flow-nexus-platform\\process-diagram.gv",
+    "when-using-flow-nexus-platform-use-flow-nexus-platform\\PROCESS.md",
+    "when-using-flow-nexus-platform-use-flow-nexus-platform\\README.md",
+    "when-using-flow-nexus-platform-use-flow-nexus-platform\\SKILL.md"
+  ],
+  "dependencies": [
+    "memory-mcp",
+    "mcp__memory-mcp",
+    "memory_mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.544053",
+  "verix_compliant": true
+}

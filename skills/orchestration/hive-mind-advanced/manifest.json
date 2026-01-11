@@ -1,0 +1,31 @@
+{
+  "name": "hive-mind-advanced",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\byzantine-consensus.js",
+    "examples\\collective-decision-making.js",
+    "examples\\queen-led-swarm.js",
+    "tests\\test-collective-memory.js",
+    "tests\\test-consensus-byzantine.js",
+    "tests\\test-queen-coordination.js",
+    "resources\\scripts\\collective-intelligence.sh",
+    "resources\\scripts\\consensus-manager.js",
+    "resources\\scripts\\hive-optimizer.py",
+    "resources\\scripts\\queen-coordinator.py",
+    "resources\\templates\\consensus-rules.yaml",
+    "resources\\templates\\hive-config.yaml",
+    "resources\\templates\\queen-protocol.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.289577",
+  "verix_compliant": true
+}

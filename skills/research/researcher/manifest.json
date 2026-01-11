@@ -1,0 +1,37 @@
+{
+  "name": "researcher",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-basic-research.md",
+    "examples\\example-1-technology-research.md",
+    "examples\\example-2-multi-source-synthesis.md",
+    "examples\\example-3-technical-deep-dive.md",
+    "graphviz\\workflow.dot",
+    "references\\research-methodologies.md",
+    "references\\source-evaluation.md",
+    "references\\synthesis-techniques.md",
+    "resources\\README.md",
+    "tests\\test-1-basic-research.md",
+    "tests\\test-2-multi-source-analysis.md",
+    "tests\\test-3-synthesis.md",
+    "resources\\scripts\\knowledge-synthesizer.py",
+    "resources\\scripts\\paper-summarizer.sh",
+    "resources\\scripts\\research-orchestrator.py",
+    "resources\\scripts\\sota-analyzer.js",
+    "resources\\templates\\findings-report.yaml",
+    "resources\\templates\\literature-review.json",
+    "resources\\templates\\research-plan.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.828580",
+  "verix_compliant": true
+}

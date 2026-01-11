@@ -1,0 +1,33 @@
+{
+  "name": "agentdb-vector-search",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-rag-basic.md",
+    "examples\\example-2-hybrid-search.md",
+    "examples\\example-3-reranking.md",
+    "graphviz\\workflow.dot",
+    "references\\embedding-models.md",
+    "references\\rag-patterns.md",
+    "tests\\test-1-semantic-search.md",
+    "tests\\test-2-rag-system.md",
+    "tests\\test-3-knowledge-base.md",
+    "resources\\scripts\\rag_pipeline.sh",
+    "resources\\scripts\\semantic_search.py",
+    "resources\\scripts\\similarity_match.py",
+    "resources\\templates\\embedding-model.json",
+    "resources\\templates\\rag-config.yaml",
+    "resources\\templates\\vector-index.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.463052",
+  "verix_compliant": true
+}

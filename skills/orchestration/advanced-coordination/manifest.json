@@ -1,0 +1,32 @@
+{
+  "name": "advanced-coordination",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-raft-consensus.md",
+    "examples\\example-2-gossip-protocol.md",
+    "examples\\example-3-byzantine-fault-tolerance.md",
+    "graphviz\\workflow.dot",
+    "references\\coordination-strategies.md",
+    "references\\fault-tolerance.md",
+    "resources\\readme.md",
+    "tests\\test-1-basic.md",
+    "tests\\test-2-edge-cases.md",
+    "tests\\test-3-integration.md",
+    "resources\\scripts\\deploy_swarm.sh",
+    "resources\\scripts\\validate_topology.py",
+    "resources\\templates\\hierarchical-topology.yaml",
+    "resources\\templates\\mesh-topology.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.224974",
+  "verix_compliant": true
+}

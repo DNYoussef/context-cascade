@@ -1,0 +1,19 @@
+{
+  "name": "deep-research-orchestrator",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "deep-research-orchestrator-process.dot",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory-mcp",
+    "mcp__memory-mcp",
+    "memory_mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.752065",
+  "verix_compliant": true
+}

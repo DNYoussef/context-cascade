@@ -1,0 +1,41 @@
+{
+  "name": "micro-skill-creator",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-create-atomic-skill.md",
+    "examples\\example-2-specialized-micro-skill.md",
+    "examples\\example-3-skill-composition.md",
+    "resources\\readme.md",
+    "tests\\test-1-skill-generation.md",
+    "tests\\test-2-validation.md",
+    "tests\\test-3-optimization.md",
+    "resources\\scripts\\skill-generator.py",
+    "resources\\scripts\\skill-optimizer.js",
+    "resources\\scripts\\skill-packager.py",
+    "resources\\scripts\\skill-validator.sh",
+    "resources\\templates\\atomic-skill-template.yaml",
+    "resources\\templates\\micro-skill-frontmatter.json",
+    "resources\\templates\\skill-metadata.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute micro-skill-creator workflow",
+    "Ensure quality and consistency",
+    "Enable systematic foundry processes",
+    "micro-skill-creator",
+    "foundry",
+    "2.0.0",
+    "Evidential",
+    "Turkish",
+    "How do you know?"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.168820",
+  "verix_compliant": true
+}

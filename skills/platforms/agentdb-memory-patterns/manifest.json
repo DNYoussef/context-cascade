@@ -1,0 +1,35 @@
+{
+  "name": "agentdb-memory-patterns",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-short-term.md",
+    "examples\\example-2-long-term.md",
+    "examples\\example-3-episodic.md",
+    "graphviz\\workflow.dot",
+    "references\\gold-tier-overview.md",
+    "references\\memory-patterns.md",
+    "references\\performance-tuning.md",
+    "references\\retention-policies.md",
+    "tests\\test-1-session-memory.md",
+    "tests\\test-2-long-term-storage.md",
+    "tests\\test-3-pattern-learning.md",
+    "resources\\scripts\\context_manager.sh",
+    "resources\\scripts\\pattern_learning.py",
+    "resources\\scripts\\session_memory.py",
+    "resources\\templates\\memory-layers.yaml",
+    "resources\\templates\\retention-policy.json",
+    "resources\\templates\\session-config.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.433132",
+  "verix_compliant": true
+}

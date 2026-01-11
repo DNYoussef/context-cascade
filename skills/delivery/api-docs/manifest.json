@@ -1,0 +1,33 @@
+{
+  "name": "api-docs",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-rest-api-docs.md",
+    "examples\\example-2-graphql-docs.md",
+    "examples\\example-3-api-versioning.md",
+    "graphviz\\workflow.dot",
+    "references\\best-practices.md",
+    "references\\openapi-standards.md",
+    "tests\\test-1-openapi-generation.md",
+    "tests\\test-2-spec-validation.md",
+    "tests\\test-3-documentation.md",
+    "resources\\scripts\\create_docs.py",
+    "resources\\scripts\\generate_openapi.py",
+    "resources\\scripts\\validate_spec.sh",
+    "resources\\templates\\endpoint-template.json",
+    "resources\\templates\\openapi-3.0.yaml",
+    "resources\\templates\\schema-template.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:36.968647",
+  "verix_compliant": true
+}

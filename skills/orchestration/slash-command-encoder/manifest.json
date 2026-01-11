@@ -1,0 +1,20 @@
+{
+  "name": "slash-command-encoder",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\argument-parser.js",
+    "resources\\scripts\\command-generator.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.320494",
+  "verix_compliant": true
+}

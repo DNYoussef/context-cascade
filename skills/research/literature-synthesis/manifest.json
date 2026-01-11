@@ -1,0 +1,18 @@
+{
+  "name": "literature-synthesis",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "literature-synthesis-process.dot",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.792997",
+  "verix_compliant": true
+}

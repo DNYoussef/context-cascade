@@ -1,0 +1,27 @@
+{
+  "name": "dependencies",
+  "version": "1.0.0",
+  "category": "tooling",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "when-mapping-dependencies-use-dependency-mapper\\mcp-dependency-mapper.json",
+    "when-mapping-dependencies-use-dependency-mapper\\process-diagram.gv",
+    "when-mapping-dependencies-use-dependency-mapper\\PROCESS.md",
+    "when-mapping-dependencies-use-dependency-mapper\\README.md",
+    "when-mapping-dependencies-use-dependency-mapper\\SKILL.md",
+    "when-mapping-dependencies-use-dependency-mapper\\slash-command-dep-map.sh",
+    "when-mapping-dependencies-use-dependency-mapper\\subagent-dependency-mapper.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.107046",
+  "verix_compliant": true
+}

@@ -1,0 +1,43 @@
+# Custom metadata preserved from original skill
+# This file is used by Context Cascade hooks for extended functionality
+
+skill_id: when-optimizing-vector-search-use-agentdb-optimization
+version: 1.0.0
+category: agentdb
+subcategory: performance-optimization
+trigger_pattern: when-optimizing-vector-search
+agents:
+  - performance-analyzer
+  - ml-developer
+  - backend-dev
+complexity: intermediate
+estimated_duration: 5-7 hours
+prerequisites:
+  - AgentDB basics
+  - Vector search concepts
+  - Performance profiling skills
+outputs:
+  - Optimized vector database
+  - 4-32x memory reduction
+  - 150x faster search
+  - Performance benchmarks
+validation_criteria:
+  - Memory usage reduced by 4x minimum
+  - Search latency < 10ms (p95)
+  - Throughput > 50K ops/sec
+  - Accuracy maintained > 95%
+evidence_based_techniques:
+  - Quantitative benchmarking
+  - A/B comparison testing
+  - Performance profiling
+metadata:
+  - agentdb
+  - optimization
+  - quantization
+  - hnsw-indexing
+  - performance
+_migration:
+  source_path: C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills\foundry\when-optimizing-vector-search-use-agentdb-optimization
+  category: foundry
+  migrated_at: 2025-12-28T15:56:24.491Z
+  version: 2.0.0

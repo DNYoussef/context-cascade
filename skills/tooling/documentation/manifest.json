@@ -1,0 +1,28 @@
+{
+  "name": "documentation",
+  "version": "1.0.1",
+  "category": "tooling",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "when-documenting-code-use-doc-generator\\process-diagram.gv",
+    "when-documenting-code-use-doc-generator\\PROCESS.md",
+    "when-documenting-code-use-doc-generator\\README.md",
+    "when-documenting-code-use-doc-generator\\SKILL.md",
+    "when-documenting-code-use-doc-generator\\slash-command-doc-api.sh",
+    "when-documenting-code-use-doc-generator\\slash-command-doc-inline.sh",
+    "when-documenting-code-use-doc-generator\\slash-command-doc-readme.sh",
+    "when-documenting-code-use-doc-generator\\subagent-doc-generator.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.123002",
+  "verix_compliant": true
+}

@@ -1,0 +1,27 @@
+{
+  "name": "baseline-replication",
+  "version": "1.0.0",
+  "category": "research",
+  "description": "",
+  "files": [
+    "baseline-replication-process.dot",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-basic-replication.md",
+    "examples\\example-2-statistical-tests.md",
+    "examples\\example-3-ablation-studies.md",
+    "graphviz\\baseline-replication-process.dot",
+    "graphviz\\workflow.dot",
+    "references\\acm-compliance.md",
+    "references\\index.md",
+    "references\\statistical-methods.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.743584",
+  "verix_compliant": true
+}

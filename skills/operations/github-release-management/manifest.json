@@ -1,0 +1,31 @@
+{
+  "name": "github-release-management",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\automated-changelogs.md",
+    "examples\\multi-platform-releases.md",
+    "examples\\semantic-release.md",
+    "resources\\asset-packager.py",
+    "resources\\changelog-generator.py",
+    "resources\\changelog-template.md",
+    "resources\\release-automation.js",
+    "resources\\release-notes.md",
+    "resources\\semantic-versioning.sh",
+    "resources\\version-config.yaml",
+    "tests\\changelog-generator.test.py",
+    "tests\\release-automation.test.js",
+    "tests\\semantic-versioning.test.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.087701",
+  "verix_compliant": true
+}

@@ -1,0 +1,20 @@
+{
+  "name": "when-building-semantic-search-use-agentdb-vector-search",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "process-diagram.gv",
+    "PROCESS.md",
+    "README.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.982862",
+  "verix_compliant": true
+}

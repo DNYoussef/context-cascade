@@ -1,0 +1,23 @@
+{
+  "name": "smart-bug-fix",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\bug-detector.py",
+    "resources\\scripts\\fix-generator.sh",
+    "resources\\scripts\\root-cause-analyzer.js",
+    "resources\\scripts\\test_bug_detector_fixes.py",
+    "resources\\scripts\\__pycache__\\bug-detector.cpython-312.pyc"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.041452",
+  "verix_compliant": true
+}

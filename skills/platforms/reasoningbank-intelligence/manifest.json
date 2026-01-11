@@ -1,0 +1,30 @@
+{
+  "name": "reasoningbank-intelligence",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\adaptive-learning-example.js",
+    "examples\\mistake-correction-example.py",
+    "examples\\pattern-recognition-example.py",
+    "resources\\adaptive-learner.js",
+    "resources\\intelligence-analyzer.py",
+    "resources\\learning-config.yaml",
+    "resources\\optimization-engine.sh",
+    "resources\\optimization-rules.yaml",
+    "resources\\pattern-definitions.json",
+    "resources\\pattern-recognizer.py",
+    "tests\\adaptive-learner.test.js",
+    "tests\\intelligence-analyzer.test.py",
+    "tests\\pattern-recognizer.test.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.577667",
+  "verix_compliant": true
+}

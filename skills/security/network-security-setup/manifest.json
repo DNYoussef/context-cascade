@@ -1,0 +1,33 @@
+{
+  "name": "network-security-setup",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "network-security-setup-process.dot",
+    "README.md",
+    "SKILL.md",
+    "examples\\sandbox-isolation-example.js",
+    "examples\\security-policies-example.py",
+    "examples\\trusted-domains-example.sh",
+    "graphviz\\network-security-setup-process.dot",
+    "tests\\test-firewall-config.sh",
+    "tests\\test-network-scanner.js",
+    "tests\\test-ssl-setup.py",
+    "resources\\scripts\\firewall-config.sh",
+    "resources\\scripts\\network-scanner.js",
+    "resources\\scripts\\security-audit.py",
+    "resources\\scripts\\ssl-setup.py",
+    "resources\\templates\\network-rules.json",
+    "resources\\templates\\security-policy.yaml",
+    "resources\\templates\\ssl-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.915130",
+  "verix_compliant": true
+}

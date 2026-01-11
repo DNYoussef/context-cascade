@@ -1,0 +1,34 @@
+{
+  "name": "compliance",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-gdpr.md",
+    "examples\\example-2-hipaa.md",
+    "examples\\example-3-soc2.md",
+    "graphviz\\workflow.dot",
+    "references\\automated-checks.md",
+    "references\\compliance-frameworks.md",
+    "resources\\readme.md",
+    "tests\\test-1-basic.md",
+    "tests\\test-2-edge-cases.md",
+    "tests\\test-3-integration.md",
+    "wcag-accessibility\\SKILL.md",
+    "resources\\scripts\\audit_report.sh",
+    "resources\\scripts\\compliance_scan.py",
+    "resources\\scripts\\policy_check.py",
+    "resources\\templates\\audit-template.json",
+    "resources\\templates\\compliance-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.895464",
+  "verix_compliant": true
+}

@@ -1,0 +1,31 @@
+{
+  "name": "feature-dev-complete",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-auth-feature.md",
+    "examples\\example-2-payment-integration.md",
+    "examples\\example-3-search-functionality.md",
+    "tests\\quality-validation.test.js",
+    "tests\\stage-execution.test.js",
+    "tests\\workflow-integration.test.js",
+    "resources\\scripts\\feature-workflow.js",
+    "resources\\scripts\\metrics-collector.js",
+    "resources\\scripts\\quality-validator.js",
+    "resources\\scripts\\readme.md",
+    "resources\\scripts\\stage-executor.js",
+    "resources\\templates\\deployment-checklist.md",
+    "resources\\templates\\feature-specification.md",
+    "resources\\templates\\test-plan.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:36.999565",
+  "verix_compliant": true
+}

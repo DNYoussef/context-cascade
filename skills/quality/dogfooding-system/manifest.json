@@ -1,0 +1,34 @@
+{
+  "name": "dogfooding-system",
+  "version": "1.0.0",
+  "category": "quality",
+  "description": "",
+  "files": [
+    "INDEX.md",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-quality-detection.md",
+    "examples\\example-2-pattern-retrieval.md",
+    "examples\\example-3-continuous-improvement.md",
+    "graphviz\\dogfooding-system-process.dot",
+    "references\\index.md",
+    "tests\\test-continuous-improvement.js",
+    "tests\\test-pattern-retrieval.js",
+    "tests\\test-quality-detection.js",
+    "resources\\scripts\\generate-cycle-summary.js",
+    "resources\\scripts\\run-continuous-improvement.bat",
+    "resources\\scripts\\run-pattern-retrieval.bat",
+    "resources\\scripts\\run-quality-detection.bat",
+    "resources\\templates\\cycle-summary.md",
+    "resources\\templates\\fix-pattern.json",
+    "resources\\templates\\violation-report.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.614368",
+  "verix_compliant": true
+}

@@ -1,0 +1,28 @@
+{
+  "name": "when-automating-workflows-use-hooks-automation",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "skill.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute skill workflow",
+    "Ensure quality and consistency",
+    "Enable systematic orchestration processes",
+    "skill",
+    "orchestration",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?",
+    "skill"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.335454",
+  "verix_compliant": true
+}

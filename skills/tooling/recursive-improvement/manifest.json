@@ -1,0 +1,29 @@
+{
+  "name": "recursive-improvement",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory-mcp",
+    "mcp__memory-mcp",
+    "memory_mcp"
+  ],
+  "triggers": [
+    "Execute SKILL workflow",
+    "Ensure quality and consistency",
+    "Enable systematic foundry processes",
+    "SKILL",
+    "foundry",
+    "1.0.0",
+    "Compositional",
+    "German",
+    "Build from primitives?",
+    "SKILL"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.205036",
+  "verix_compliant": true
+}

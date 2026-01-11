@@ -1,0 +1,25 @@
+{
+  "name": "ai-dev-orchestration",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    ".artifacts\\Compliance-Checklist.md",
+    ".artifacts\\Do-Not-Touch-Template.md",
+    ".artifacts\\Feature-Prompt-Framework.md",
+    ".artifacts\\Foundation-Prompt-Template.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "Memory-MCP",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.236718",
+  "verix_compliant": true
+}

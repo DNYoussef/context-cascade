@@ -1,0 +1,32 @@
+{
+  "name": "i18n-automation",
+  "version": "1.0.0",
+  "category": "delivery",
+  "description": "",
+  "files": [
+    "i18n-automation-process.dot",
+    "readme.md",
+    "SKILL.md",
+    "examples\\multi-language-workflow.ts",
+    "examples\\react-i18n-setup.tsx",
+    "examples\\translation-automation.py",
+    "resources\\i18n-config.json",
+    "resources\\i18n-setup.py",
+    "resources\\key-generator.js",
+    "resources\\locale-template.json",
+    "resources\\locale-validator.sh",
+    "resources\\translation-extractor.py",
+    "resources\\translation-workflow.yaml",
+    "tests\\test-extraction.js",
+    "tests\\test-integration.js",
+    "tests\\test-validation.js"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.012542",
+  "verix_compliant": true
+}

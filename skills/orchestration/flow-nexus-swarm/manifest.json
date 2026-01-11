@@ -1,0 +1,32 @@
+{
+  "name": "flow-nexus-swarm",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-swarm-initialization.md",
+    "examples\\example-2-task-orchestration.md",
+    "examples\\example-3-agent-coordination.md",
+    "graphviz\\flow-nexus-swarm-process.dot",
+    "tests\\test-event-workflows.js",
+    "tests\\test-integration.js",
+    "tests\\test-swarm-deployment.js",
+    "resources\\scripts\\deploy-cloud-swarm.js",
+    "resources\\scripts\\event-driven-workflow.js",
+    "resources\\scripts\\swarm-monitor.js",
+    "resources\\scripts\\template-manager.js",
+    "resources\\templates\\ci-cd-pipeline-swarm.json",
+    "resources\\templates\\full-stack-dev-swarm.json",
+    "resources\\templates\\research-analysis-swarm.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.275614",
+  "verix_compliant": true
+}

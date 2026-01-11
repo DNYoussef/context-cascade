@@ -1,0 +1,34 @@
+{
+  "name": "agentdb",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-basic-vector-search.md",
+    "examples\\example-2-rag-integration.md",
+    "examples\\example-3-agent-memory.md",
+    "graphviz\\workflow.dot",
+    "references\\memory-patterns.md",
+    "references\\vector-search.md",
+    "tests\\test-1-basic-search.md",
+    "tests\\test-2-150x-performance.md",
+    "tests\\test-3-quantization.md",
+    "resources\\scripts\\benchmark_search.py",
+    "resources\\scripts\\optimize_hnsw.sh",
+    "resources\\scripts\\quantize_vectors.py",
+    "resources\\scripts\\readme.md",
+    "resources\\templates\\collection-schema.json",
+    "resources\\templates\\readme.md",
+    "resources\\templates\\vector-config.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.387903",
+  "verix_compliant": true
+}

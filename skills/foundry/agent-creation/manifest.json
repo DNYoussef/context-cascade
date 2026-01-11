@@ -1,0 +1,40 @@
+{
+  "name": "agent-creation",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "agent-identity-generation-guide.md",
+    "CHANGELOG-v3.0.md",
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-python-specialist.md",
+    "examples\\example-1-specialist.md",
+    "examples\\example-2-coordinator.md",
+    "examples\\example-3-prompt-engineering.md",
+    "graphviz\\agent-creation-process.dot",
+    "graphviz\\workflow.dot",
+    "references\\agent-creator.md",
+    "references\\agent-patterns.md",
+    "references\\evidence-based-prompting.md",
+    "references\\micro-skill-creator.md",
+    "references\\prompting-principles.md",
+    "references\\skill-creator-agent.md",
+    "references\\skill-forge.md",
+    "tests\\test-1-basic.md",
+    "tests\\test-2-specialist.md",
+    "tests\\test-3-integration.md",
+    "resources\\scripts\\generate_agent.sh",
+    "resources\\scripts\\validate_agent.py",
+    "resources\\templates\\agent-spec.yaml",
+    "resources\\templates\\capabilities.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.076387",
+  "verix_compliant": true
+}

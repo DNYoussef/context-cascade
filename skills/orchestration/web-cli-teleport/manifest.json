@@ -1,0 +1,18 @@
+{
+  "name": "web-cli-teleport",
+  "version": "1.0.0",
+  "category": "tooling",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "web-cli-teleport-process.dot"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.184378",
+  "verix_compliant": true
+}

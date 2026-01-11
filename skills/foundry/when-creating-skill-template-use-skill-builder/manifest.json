@@ -1,0 +1,30 @@
+{
+  "name": "when-creating-skill-template-use-skill-builder",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "process-diagram.gv",
+    "PROCESS.md",
+    "README.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [
+    "Execute when-creating-skill-template-use-skill-builder workflow",
+    "Ensure quality and consistency",
+    "Enable systematic utilities processes",
+    "when-creating-skill-template-use-skill-builder",
+    "utilities",
+    "1.0.0",
+    "Aspectual",
+    "Russian",
+    "Complete or ongoing?"
+  ],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.987764",
+  "verix_compliant": true
+}

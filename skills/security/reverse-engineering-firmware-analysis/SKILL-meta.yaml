@@ -1,0 +1,36 @@
+# Custom metadata preserved from original skill
+# This file is used by Context Cascade hooks for extended functionality
+
+re_level: 5
+category: IoT Security, Embedded Systems, Firmware Reverse Engineering
+timebox: 2-8 hours
+agents: RE-Firmware-Analyst, security-manager, data-steward
+difficulty: Advanced
+badges:
+  - RE Level 5
+  - Firmware Analysis
+  - \u23F1\uFE0F 2-8 hours
+keywords:
+  - firmware
+  - binwalk
+  - iot-security
+  - router-analysis
+  - embedded-systems
+  - squashfs
+  - jffs2
+  - cramfs
+  - qemu-emulation
+  - cve-scanning
+  - credential-extraction
+  - vulnerability-assessment
+version: 1.0.0
+tags:
+  - security
+  - compliance
+  - safety
+author: ruv
+_migration:
+  source_path: C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills\security\reverse-engineering-firmware
+  category: security
+  migrated_at: 2025-12-28T15:56:25.094Z
+  version: 2.0.0

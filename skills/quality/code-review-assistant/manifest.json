@@ -1,0 +1,35 @@
+{
+  "name": "code-review-assistant",
+  "version": "1.0.0",
+  "category": "quality",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "examples\\example-1-security-review.md",
+    "examples\\example-2-performance-review.md",
+    "examples\\example-3-style-review.md",
+    "graphviz\\workflow.dot",
+    "references\\best-practices.md",
+    "references\\index.md",
+    "references\\review-categories.md",
+    "tests\\test-1-basic-review.md",
+    "tests\\test-2-security-focus.md",
+    "tests\\test-3-5agent-swarm.md",
+    "resources\\scripts\\multi_agent_review.py",
+    "resources\\scripts\\performance_check.py",
+    "resources\\scripts\\security_scan.sh",
+    "resources\\scripts\\style_audit.py",
+    "resources\\templates\\performance-thresholds.json",
+    "resources\\templates\\review-checklist.yaml",
+    "resources\\templates\\security-rules.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.596457",
+  "verix_compliant": true
+}

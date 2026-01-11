@@ -1,0 +1,31 @@
+{
+  "name": "github-code-review",
+  "version": "1.0.0",
+  "category": "quality",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\example-1-pr-review-workflow.md",
+    "examples\\example-2-swarm-review.md",
+    "examples\\example-3-automated-feedback.md",
+    "resources\\readme.md",
+    "tests\\test-comment-generator.js",
+    "tests\\test-pr-analysis.js",
+    "tests\\test-swarm-coordinator.js",
+    "resources\\scripts\\comment-generator.js",
+    "resources\\scripts\\pr-analysis.js",
+    "resources\\scripts\\review-metrics.js",
+    "resources\\scripts\\swarm-coordinator.js",
+    "resources\\templates\\github-workflow.yml",
+    "resources\\templates\\pr-template.md",
+    "resources\\templates\\review-config.yml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.655258",
+  "verix_compliant": true
+}

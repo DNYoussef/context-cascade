@@ -1,0 +1,27 @@
+{
+  "name": "security",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "process.dot",
+    "QUICK-REFERENCE.md",
+    "SKILL.md",
+    "when-auditing-security-use-security-analyzer\\mcp-security-analyzer.json",
+    "when-auditing-security-use-security-analyzer\\process-diagram.gv",
+    "when-auditing-security-use-security-analyzer\\PROCESS.md",
+    "when-auditing-security-use-security-analyzer\\README.md",
+    "when-auditing-security-use-security-analyzer\\SKILL.md",
+    "when-auditing-security-use-security-analyzer\\slash-command-security-analyzer.sh",
+    "when-auditing-security-use-security-analyzer\\subagent-security-analyzer.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.952912",
+  "verix_compliant": true
+}

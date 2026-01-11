@@ -1,0 +1,41 @@
+{
+  "name": "prompt-architect",
+  "version": "1.0.0",
+  "category": "foundry",
+  "description": "",
+  "files": [
+    "CHANGELOG.md",
+    "COGNITIVE-ARCHITECTURE-ADDENDUM.md",
+    "prompt-architect-process.dot",
+    "RECURSIVE-IMPROVEMENT-ADDENDUM.md",
+    "SKILL.md",
+    "examples\\chain-of-thought-example.md",
+    "examples\\example-1-basic.md",
+    "examples\\few-shot-optimization-example.md",
+    "examples\\prompt-engineering-complete-guide.md",
+    "graphviz\\prompt-architect-process.dot",
+    "references\\anti-patterns.md",
+    "references\\meta-principles.md",
+    "references\\readme.md",
+    "references\\verification-synthesis.md",
+    "resources\\optimization-config.json",
+    "resources\\optimization-engine.js",
+    "resources\\pattern-detector.sh",
+    "resources\\pattern-library.yaml",
+    "resources\\prompt-analyzer.py",
+    "resources\\prompt-template.yaml",
+    "resources\\prompt-tester.py",
+    "resources\\readme.md",
+    "tests\\test-analyzer.py",
+    "tests\\test-optimizer.js",
+    "tests\\test-tester.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:37.185083",
+  "verix_compliant": true
+}

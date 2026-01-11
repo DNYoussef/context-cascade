@@ -1,0 +1,30 @@
+{
+  "name": "reasoningbank-agentdb",
+  "version": "1.0.0",
+  "category": "platforms",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\data-migration-example.js",
+    "examples\\pattern-learning-example.js",
+    "examples\\trajectory-optimization-example.js",
+    "resources\\agentdb-config.yaml",
+    "resources\\learning-optimizer.py",
+    "resources\\learning-params.yaml",
+    "resources\\migration-tool.py",
+    "resources\\pattern-matcher.js",
+    "resources\\pattern-schema.json",
+    "resources\\trajectory-tracker.sh",
+    "tests\\test-migration.js",
+    "tests\\test-pattern-matching.js",
+    "tests\\test-trajectory-tracking.sh"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.566755",
+  "verix_compliant": true
+}

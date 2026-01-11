@@ -1,0 +1,41 @@
+{
+  "name": "language-specialists",
+  "version": "1.0.0",
+  "category": "specialists",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "python-specialist\\SKILL.md",
+    "tests\\test-multi-language-integration.sh",
+    "tests\\test-python-specialist.py",
+    "tests\\test-typescript-specialist.ts",
+    "typescript-specialist\\SKILL.md",
+    "examples\\multi-language-repo\\polyglot-microservices\\readme.md",
+    "examples\\python-development\\fastapi-postgresql-api\\main.py",
+    "examples\\python-development\\fastapi-postgresql-api\\readme.md",
+    "examples\\typescript-project\\nestjs-typeorm-api\\readme.md",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\app.module.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\main.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\users\\user.entity.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\users\\users.controller.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\users\\users.module.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\users\\users.service.ts",
+    "examples\\typescript-project\\nestjs-typeorm-api\\src\\users\\dto\\create-user.dto.ts",
+    "resources\\scripts\\code-formatter.sh",
+    "resources\\scripts\\language-analyzer.py",
+    "resources\\scripts\\python-linter.py",
+    "resources\\scripts\\typescript-validator.js",
+    "resources\\templates\\linting-rules.yaml",
+    "resources\\templates\\python-config.yaml",
+    "resources\\templates\\typescript-config.json"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:39.019483",
+  "verix_compliant": true
+}

@@ -1,0 +1,39 @@
+{
+  "name": "cloud-platforms",
+  "version": "1.0.0",
+  "category": "operations",
+  "description": "",
+  "files": [
+    "readme.md",
+    "SKILL.md",
+    "aws-specialist\\SKILL.md",
+    "examples\\example-1-aws-lambda.md",
+    "examples\\example-2-gcp-cloud-run.md",
+    "examples\\example-3-azure-functions.md",
+    "graphviz\\workflow.dot",
+    "kubernetes-specialist\\SKILL.md",
+    "references\\aws-services.md",
+    "references\\terraform-iac.md",
+    "references\\upgrade-complete.md",
+    "resources\\readme.md",
+    "tests\\test-1-aws-deployment.md",
+    "tests\\test-2-k8s-cluster.md",
+    "tests\\test-3-multi-cloud.md",
+    "resources\\scripts\\deploy_aws.py",
+    "resources\\scripts\\deploy_k8s.sh",
+    "resources\\scripts\\gcp_deploy.sh",
+    "resources\\scripts\\terraform_apply.py",
+    "resources\\templates\\aws-infra.tf",
+    "resources\\templates\\docker-compose.yaml",
+    "resources\\templates\\gcp-config.json",
+    "resources\\templates\\k8s-deployment.yaml"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.035937",
+  "verix_compliant": true
+}

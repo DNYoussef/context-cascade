@@ -1,0 +1,20 @@
+{
+  "name": "when-chaining-workflows-use-cascade-orchestrator",
+  "version": "1.0.0",
+  "category": "orchestration",
+  "description": "",
+  "files": [
+    "process-diagram.gv",
+    "PROCESS.md",
+    "README.md",
+    "SKILL.md"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.342435",
+  "verix_compliant": true
+}

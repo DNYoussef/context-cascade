@@ -1,0 +1,30 @@
+{
+  "name": "quick-quality-check",
+  "version": "1.0.0",
+  "category": "quality",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "examples\\ci-integration.yaml",
+    "examples\\instant-validation.js",
+    "examples\\parallel-checks.py",
+    "resources\\check-config.yaml",
+    "resources\\fast-linter.sh",
+    "resources\\quality-reporter.py",
+    "resources\\quality-standards.json",
+    "resources\\report-template.yaml",
+    "resources\\security-scanner.py",
+    "resources\\test-runner.js",
+    "tests\\test-fast-linter.sh",
+    "tests\\test-quality-reporter.py",
+    "tests\\test-security-scanner.py"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.670218",
+  "verix_compliant": true
+}

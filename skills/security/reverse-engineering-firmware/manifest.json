@@ -1,0 +1,20 @@
+{
+  "name": "reverse-engineering-firmware",
+  "version": "1.0.0",
+  "category": "security",
+  "description": "",
+  "files": [
+    "SKILL.md",
+    "resources\\README.md",
+    "resources\\scripts\\binwalk-extractor.py",
+    "resources\\scripts\\qemu-emulator.sh"
+  ],
+  "dependencies": [
+    "memory_mcp",
+    "mcp__memory-mcp"
+  ],
+  "triggers": [],
+  "layer": "L1",
+  "packaged_at": "2025-12-29T09:21:38.933412",
+  "verix_compliant": true
+}
