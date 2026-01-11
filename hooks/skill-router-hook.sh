@@ -39,7 +39,7 @@ if [ -f "$COMMANDS_INDEX" ]; then
                 echo ""
                 echo "!! CASCADE ROUTER (EXPLICIT) !!"
                 echo "Trigger: \"$TRIGGER\" -> Skill: $SKILL"
-                echo "Read: skills/*/${SKILL// /-}/SKILL.md"
+                echo "Read: skills/packaged/${SKILL// /-}.skill"
                 echo ""
                 exit 0
             fi

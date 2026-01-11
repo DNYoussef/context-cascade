@@ -1,0 +1,1265 @@
+{
+  "generated_at": "2026-01-10T13:55:57.396113",
+  "format": "skill.zip v1.0",
+  "categories": {
+    "delivery": [
+      {
+        "name": "api-docs",
+        "file": "api-docs.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Generate, validate, and maintain API documentation (REST/OpenAPI and GraphQL) with reproducible stru"
+      },
+      {
+        "name": "debugging",
+        "file": "debugging.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Structured debugging protocol for rapid triage, isolation, and fix verification with evidence-backed"
+      },
+      {
+        "name": "dependencies",
+        "file": "dependencies.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Dependency intelligence for analysis, upgrades, and risk controls across delivery projects."
+      },
+      {
+        "name": "documentation",
+        "file": "documentation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Documentation lifecycle skill for API, code, and system guides with continuous validation."
+      },
+      {
+        "name": "feature-dev-complete",
+        "file": "feature-dev-complete.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "End-to-end feature delivery (discovery \u2192 design \u2192 build \u2192 test \u2192 release) with explicit quality gate"
+      },
+      {
+        "name": "i18n-automation",
+        "file": "i18n-automation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Automate internationalization and localization with safe key management, locale plumbing, and valida"
+      },
+      {
+        "name": "landing-page-generator",
+        "file": "landing-page-generator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Research-to-release SOP for high-conversion landing pages with validated copy, design, and deploymen"
+      },
+      {
+        "name": "pair-programming",
+        "file": "pair-programming.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Structured AI-assisted pairing with clear roles, cadence, and validation to keep quality and knowled"
+      },
+      {
+        "name": "smart-bug-fix",
+        "file": "smart-bug-fix.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Advanced defect eradication with hypothesis-driven RCA, guarded fixes, and comprehensive validation."
+      },
+      {
+        "name": "sop-api-development",
+        "file": "sop-api-development.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "End-to-end REST/HTTP API delivery SOP with clear contracts, TDD focus, and deployment readiness."
+      },
+      {
+        "name": "sparc-methodology",
+        "file": "sparc-methodology.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "SPARC (Specification, Pseudocode, Architecture, Refinement, Completion) delivery framework with expl"
+      }
+    ],
+    "foundry": [
+      {
+        "name": "agent-creation",
+        "file": "agent-creation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Systematically design and validate specialist agents with evidence-based prompting, tooling contract"
+      },
+      {
+        "name": "agent-creator",
+        "file": "agent-creator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Creates specialized AI agents with optimized system prompts using the official 5-phase SOP methodolo"
+      },
+      {
+        "name": "agent-selector",
+        "file": "agent-selector.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Select the best-fit specialist agent from the registry using semantic matching, capability scoring, "
+      },
+      {
+        "name": "base-template-generator",
+        "file": "base-template-generator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Generate production-ready project boilerplates with linting, testing, and minimal dependencies for c"
+      },
+      {
+        "name": "bootstrap-loop",
+        "file": "bootstrap-loop.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Orchestrates the recursive self-improvement cycle where Prompt Forge improves Skill Forge, Skill For"
+      },
+      {
+        "name": "cognitive-lensing",
+        "file": "cognitive-lensing.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Apply multilingual cognitive frames to re-approach complex tasks with targeted reasoning patterns an"
+      },
+      {
+        "name": "eval-harness",
+        "file": "eval-harness.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Frozen evaluation harness that gates all self-improvement changes. Contains benchmark suites, regres"
+      },
+      {
+        "name": "improvement-pipeline",
+        "file": "improvement-pipeline.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Executable implementation of the Propose -> Test -> Compare -> Commit -> Rollback pipeline for recur"
+      },
+      {
+        "name": "meta-tools",
+        "file": "meta-tools.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design, validate, and orchestrate development tools with reusable patterns, composition rules, and e"
+      },
+      {
+        "name": "micro-skill-creator",
+        "file": "micro-skill-creator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Rapidly craft atomic, single-purpose skills with tight contracts, examples, and validation so they c"
+      },
+      {
+        "name": "pilot-1-code-formatter",
+        "file": "pilot-1-code-formatter.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Automatically format code files using the appropriate formatter based on file type, providing clear "
+      },
+      {
+        "name": "playbook-architect",
+        "file": "playbook-architect.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design, refactor, and validate operational playbooks with clear phases, triggers, and evidence-backe"
+      },
+      {
+        "name": "prompt-architect",
+        "file": "prompt-architect.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Comprehensive framework for analyzing, creating, and refining prompts for AI systems (v2.0 adds Phas"
+      },
+      {
+        "name": "prompt-forge",
+        "file": "prompt-forge.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Meta-prompt that generates improved prompts and templates. Can improve other prompts including Skill"
+      },
+      {
+        "name": "recursive-improvement",
+        "file": "recursive-improvement.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Drive iterative refinement loops with evidence capture, evaluation checkpoints, and stop conditions "
+      },
+      {
+        "name": "skill-builder",
+        "file": "skill-builder.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Scaffold new Claude Code skills with correct frontmatter, directory layout, contracts, and validatio"
+      },
+      {
+        "name": "skill-creator-agent",
+        "file": "skill-creator-agent.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Pair skills with specialist agents, generating both the skill spec and the agent system prompt with "
+      },
+      {
+        "name": "skill-forge",
+        "file": "skill-forge.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Advanced skill creation system for Claude Code using 8-phase methodology (v2.0 adds Phase 0 expertis"
+      }
+    ],
+    "gap-reconnaissance": [
+      {
+        "name": "gap-reconnaissance",
+        "file": "gap-reconnaissance.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Systematically identify capability gaps, research solutions, and outline integration guidance."
+      }
+    ],
+    "guards": [
+      {
+        "name": "unnamed-skill",
+        "file": "library-check.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Pre-coding guard that checks library catalog, patterns documentation, and existing projects for reus"
+      }
+    ],
+    "operations": [
+      {
+        "name": "aws-specialist",
+        "file": "aws-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Deliver AWS-first architectures with secure, cost-aware operations"
+      },
+      {
+        "name": "cicd-intelligent-recovery",
+        "file": "cicd-intelligent-recovery.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Recover CI/CD pipelines safely with structured rollback and validation"
+      },
+      {
+        "name": "cloud-platforms",
+        "file": "cloud-platforms.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design and govern multi-cloud operations with validated landing zones"
+      },
+      {
+        "name": "deployment-readiness",
+        "file": "deployment-readiness.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Verify service readiness before deployment with explicit go/no-go gates"
+      },
+      {
+        "name": "docker-containerization",
+        "file": "docker-containerization.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Package applications into secure, portable Docker images with validated pipelines"
+      },
+      {
+        "name": "github-integration",
+        "file": "github-integration.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Build reliable GitHub integrations, webhooks, and automation bridges"
+      },
+      {
+        "name": "github-multi-repo",
+        "file": "github-multi-repo.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate changes across multiple GitHub repositories with traceable automation"
+      },
+      {
+        "name": "github-project-management",
+        "file": "github-project-management.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run GitHub Projects with clear governance, automation, and reporting"
+      },
+      {
+        "name": "github-release-management",
+        "file": "github-release-management.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Plan and execute GitHub-driven releases with safe rollout and rollback"
+      },
+      {
+        "name": "github-workflow-automation",
+        "file": "github-workflow-automation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design and harden GitHub Actions and workflows with safe automation"
+      },
+      {
+        "name": "hooks-automation",
+        "file": "hooks-automation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Manage event hooks and connectors with secure routing and backoff"
+      },
+      {
+        "name": "infrastructure",
+        "file": "infrastructure.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design and deliver core infrastructure with resilient operations"
+      },
+      {
+        "name": "kubernetes-specialist",
+        "file": "kubernetes-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design, operate, and troubleshoot Kubernetes clusters with guardrails"
+      },
+      {
+        "name": "opentelemetry-observability",
+        "file": "opentelemetry-observability.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Instrument services with OpenTelemetry and reliable signal pipelines"
+      },
+      {
+        "name": "performance-analysis",
+        "file": "performance-analysis.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Analyze and remediate performance bottlenecks with evidence-driven plans"
+      },
+      {
+        "name": "platform-integration",
+        "file": "platform-integration.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Integrate platforms and services with clear contracts and resilient connectors"
+      },
+      {
+        "name": "production-readiness",
+        "file": "production-readiness.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Assess and harden services for production with SLOs, resilience, and ops hygiene"
+      },
+      {
+        "name": "sop-product-launch",
+        "file": "sop-product-launch.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run product launches with coordinated go-to-market, operations, and risk controls"
+      },
+      {
+        "name": "terraform-iac",
+        "file": "terraform-iac.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Author and operate Terraform with safe plans, reviews, and drift control"
+      }
+    ],
+    "orchestration": [
+      {
+        "name": "advanced-coordination",
+        "file": "advanced-coordination.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Orchestrate complex, latency-aware multi-agent work with adaptive topologies, resilient routing, and"
+      },
+      {
+        "name": "ai-dev-orchestration",
+        "file": "ai-dev-orchestration.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate multi-agent software delivery with guardrails for planning, implementation, testing, and "
+      },
+      {
+        "name": "cascade-orchestrator",
+        "file": "cascade-orchestrator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Layered orchestration for staged workflows with gated handoffs, evidence capture, and rollback-aware"
+      },
+      {
+        "name": "coordination",
+        "file": "coordination.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate distributed agents with resilient topologies, synchronized state, and evidence-backed com"
+      },
+      {
+        "name": "flow-nexus-swarm",
+        "file": "flow-nexus-swarm.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Orchestrate cloud-ready swarms on Flow Nexus with adaptive scaling, secure messaging, and validated "
+      },
+      {
+        "name": "hive-mind-advanced",
+        "file": "hive-mind-advanced.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate collective-intelligence swarms with shared context, consensus patterns, and conflict-awar"
+      },
+      {
+        "name": "llm-council",
+        "file": "llm-council.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Facilitate council-style deliberation among specialized models with structured prompts, evidence gat"
+      },
+      {
+        "name": "meta-loop-orchestrator",
+        "file": "meta-loop-orchestrator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run nested improvement loops with guardrails for iteration planning, validation, and convergence tra"
+      },
+      {
+        "name": "parallel-swarm-implementation",
+        "file": "parallel-swarm-implementation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Launch and manage parallel swarms with synchronized milestones, resource controls, and verified aggr"
+      },
+      {
+        "name": "ralph-loop",
+        "file": "ralph-loop.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run Ralph-style iterative loops for reasoning, alignment, learning, planning, and handoff with stron"
+      },
+      {
+        "name": "ralph-multimodel",
+        "file": "ralph-multimodel.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extend RALPH loops across multiple models, coordinating roles, evidence, and confidence ceilings per"
+      },
+      {
+        "name": "unnamed-skill",
+        "file": "safe-task-spawn.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Validated wrapper around Task() calls that enforces agent registry compliance, prevents invalid spaw"
+      },
+      {
+        "name": "slash-command-encoder",
+        "file": "slash-command-encoder.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design and route slash-command workflows with clear schemas, safety rails, and validated handoffs."
+      },
+      {
+        "name": "stream-chain",
+        "file": "stream-chain.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Chain streaming workflows with deterministic routing, backpressure controls, and evidence-backed che"
+      },
+      {
+        "name": "swarm-advanced",
+        "file": "swarm-advanced.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Operate advanced swarms with adaptive routing, health-aware scaling, and validated convergence patte"
+      },
+      {
+        "name": "swarm-orchestration",
+        "file": "swarm-orchestration.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate swarms end-to-end with clear roles, routing rules, and validated delivery checkpoints."
+      }
+    ],
+    "platforms": [
+      {
+        "name": "advanced-agentdb-vector-search-implementation",
+        "file": "advanced-agentdb-vector-search-implementation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Skill guidance for advanced agentdb vector search implementation."
+      },
+      {
+        "name": "agentdb-advanced-features",
+        "file": "agentdb-advanced-features.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Master advanced AgentDB features including QUIC synchronization, multi-database management, custom d"
+      },
+      {
+        "name": "agentdb-advanced",
+        "file": "agentdb-advanced.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Advanced AgentDB deployment patterns, multi-tenant controls, and durability hardening."
+      },
+      {
+        "name": "agentdb-learning-plugins",
+        "file": "agentdb-learning-plugins.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Create AI learning plugins using AgentDBs 9 reinforcement learning algorithms. Train Decision Transf"
+      },
+      {
+        "name": "agentdb-learning",
+        "file": "agentdb-learning.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Learning loops on top of AgentDB for reinforcement, curriculum, and replay buffers."
+      },
+      {
+        "name": "agentdb-memory-patterns",
+        "file": "agentdb-memory-patterns.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Reusable memory patterns (short/long/episodic/semantic) implemented on AgentDB."
+      },
+      {
+        "name": "agentdb-optimization",
+        "file": "agentdb-optimization.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Performance tuning for AgentDB across indexing, storage, and query paths."
+      },
+      {
+        "name": "agentdb-performance-optimization",
+        "file": "agentdb-performance-optimization.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Apply quantization to reduce memory by 4-32x. Enable HNSW indexing for 150x faster search. Configure"
+      },
+      {
+        "name": "agentdb-persistent-memory-patterns",
+        "file": "agentdb-persistent-memory-patterns.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Skill guidance for agentdb persistent memory patterns."
+      },
+      {
+        "name": "agentdb-reinforcement-learning-training",
+        "file": "agentdb-reinforcement-learning-training.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Skill guidance for agentdb reinforcement learning training."
+      },
+      {
+        "name": "agentdb-semantic-vector-search",
+        "file": "agentdb-semantic-vector-search.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": ""
+      },
+      {
+        "name": "agentdb-vector-search-optimization",
+        "file": "agentdb-vector-search-optimization.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Skill guidance for agentdb vector search optimization."
+      },
+      {
+        "name": "agentdb-vector-search",
+        "file": "agentdb-vector-search.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Practical vector search design on AgentDB for production retrieval and RAG."
+      },
+      {
+        "name": "agentdb",
+        "file": "agentdb.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Vector search and semantic memory backbone for agents and RAG pipelines."
+      },
+      {
+        "name": "codex-audit",
+        "file": "codex-audit.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Codex CLI for sandboxed auditing, debugging, and autonomous prototyping"
+      },
+      {
+        "name": "codex-auto",
+        "file": "codex-auto.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Codex CLI Full Auto for unattended, sandboxed prototyping and refactors."
+      },
+      {
+        "name": "codex-iterative-fix",
+        "file": "codex-iterative-fix.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Codex CLI in full-auto mode to fix issues iteratively until tests pass. Autonomous debugging and"
+      },
+      {
+        "name": "codex-reasoning",
+        "file": "codex-reasoning.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Codex guided reasoning mode for complex fixes with explicit checkpoints."
+      },
+      {
+        "name": "codex-safe-experiment",
+        "file": "codex-safe-experiment.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Codex CLI sandbox mode to try risky changes safely. Isolated experimentation with network disabl"
+      },
+      {
+        "name": "codex-sandbox",
+        "file": "codex-sandbox.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run code in Codex fully isolated sandbox - network disabled, CWD only, Seatbelt/Docker isolation"
+      },
+      {
+        "name": "codex-zdr",
+        "file": "codex-zdr.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Zero Data Retention mode for sensitive/proprietary code - no code stored on OpenAI servers"
+      },
+      {
+        "name": "flow-nexus-neural",
+        "file": "flow-nexus-neural.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Flow Nexus neural stack for training, evaluation, and deployment of neural agents."
+      },
+      {
+        "name": "flow-nexus-platform",
+        "file": "flow-nexus-platform.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Flow Nexus platform orchestration for multi-agent services and governance."
+      },
+      {
+        "name": "gemini-codebase-onboard",
+        "file": "gemini-codebase-onboard.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Gemini CLI's 1M token context to understand entire codebases in one pass. Full architecture mapp"
+      },
+      {
+        "name": "gemini-extensions",
+        "file": "gemini-extensions.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Gemini Extensions to connect models to Google services and external tools."
+      },
+      {
+        "name": "gemini-media",
+        "file": "gemini-media.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Gemini media and multimodal workflows across image, audio, and video."
+      },
+      {
+        "name": "gemini-megacontext",
+        "file": "gemini-megacontext.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Gemini mega-context patterns for very large prompts and retrieval planning."
+      },
+      {
+        "name": "gemini-research",
+        "file": "gemini-research.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Gemini CLI for research with Google Search grounding and 1M token context"
+      },
+      {
+        "name": "gemini-search",
+        "file": "gemini-search.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Gemini search-augmented workflows for grounded answers."
+      },
+      {
+        "name": "machine-learning",
+        "file": "machine-learning.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "General machine learning delivery patterns for datasets, training, and evaluation."
+      },
+      {
+        "name": "multi-model-discovery",
+        "file": "multi-model-discovery.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Use Gemini to find existing solutions before building from scratch. Leverages Google Search groundin"
+      },
+      {
+        "name": "multi-model",
+        "file": "multi-model.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate multiple models for routing, ensembling, or fallback strategies."
+      },
+      {
+        "name": "platform",
+        "file": "platform.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Platform selection and orchestration meta-skill across Flow Nexus, Codex, Gemini, and AgentDB."
+      },
+      {
+        "name": "reasoningbank-adaptive-learning-with-agentdb",
+        "file": "reasoningbank-adaptive-learning-with-agentdb.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": ""
+      },
+      {
+        "name": "reasoningbank-agentdb",
+        "file": "reasoningbank-agentdb.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "ReasoningBank integrations that rely on AgentDB for memory and retrieval."
+      },
+      {
+        "name": "reasoningbank-intelligence",
+        "file": "reasoningbank-intelligence.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "ReasoningBank skill for structured reasoning workflows and verification."
+      },
+      {
+        "name": "reasoningbank-with-agentdb",
+        "file": "reasoningbank-with-agentdb.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Implement ReasoningBank adaptive learning with AgentDBs 150x faster vector database. Includes trajec"
+      }
+    ],
+    "projects": [
+      {
+        "name": "council",
+        "file": "council.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Open and manage the Corporate Advisor Council project - a 12-role AI advisory board with Byzantine f"
+      },
+      {
+        "name": "startup",
+        "file": "startup.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Initialize the full David Youssef development ecosystem in one command - Corporate Advisor Council, "
+      }
+    ],
+    "quality": [
+      {
+        "name": "audit-pipeline",
+        "file": "audit-pipeline.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Skill guidance for audit pipeline."
+      },
+      {
+        "name": "code-review-assistant",
+        "file": "code-review-assistant.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Comprehensive PR review that synthesizes security, performance, correctness, style, and documentatio"
+      },
+      {
+        "name": "connascence-quality-gate",
+        "file": "connascence-quality-gate.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Enforce connascence-based quality gates by detecting harmful coupling and demanding refactoring plan"
+      },
+      {
+        "name": "dogfooding-system",
+        "file": "dogfooding-system.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run continuous dogfooding loops that apply our own skills to themselves, measure deltas, and harvest"
+      },
+      {
+        "name": "functionality-audit",
+        "file": "functionality-audit.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Validate that code actually works by executing targeted tests, tracing failures, and prescribing fix"
+      },
+      {
+        "name": "gate-validation",
+        "file": "gate-validation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Validate that quality, security, and release gates are correctly defined, implemented, and enforced "
+      },
+      {
+        "name": "github-code-review",
+        "file": "github-code-review.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Execute evidence-backed GitHub PR reviews with severity tagging, references, and merge-blocking guid"
+      },
+      {
+        "name": "holistic-evaluation",
+        "file": "holistic-evaluation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Deliver a 360\u00b0 evaluation of a codebase or feature, blending architecture, correctness, performance,"
+      },
+      {
+        "name": "qa-pipeline",
+        "file": "qa-pipeline.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Self-validating QA loop extracted from AutoClaude - reviews acceptance criteria and auto-fixes issue"
+      },
+      {
+        "name": "quick-quality-check",
+        "file": "quick-quality-check.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Fast, evidence-backed quality scan for small diffs or time-boxed reviews."
+      },
+      {
+        "name": "reproducibility-audit",
+        "file": "reproducibility-audit.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Verify that results, builds, and experiments can be reproduced consistently with documented steps an"
+      },
+      {
+        "name": "sop-code-review",
+        "file": "sop-code-review.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Standardize code review execution with repeatable steps, evidence requirements, and confidence ceili"
+      },
+      {
+        "name": "sop-dogfooding-continuous-improvement",
+        "file": "sop-dogfooding-continuous-improvement.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "SOP for running continuous improvement cycles via dogfooding and adversarial validation."
+      },
+      {
+        "name": "sop-dogfooding-pattern-retrieval",
+        "file": "sop-dogfooding-pattern-retrieval.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "SOP for retrieving, curating, and applying patterns discovered through dogfooding runs."
+      },
+      {
+        "name": "sop-dogfooding-quality-detection",
+        "file": "sop-dogfooding-quality-detection.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "SOP for detecting quality regressions during dogfooding runs and turning them into actionable fixes."
+      },
+      {
+        "name": "style-audit",
+        "file": "style-audit.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Evaluate style, readability, and documentation quality with evidence-backed findings and fix guidanc"
+      },
+      {
+        "name": "theater-detection-audit",
+        "file": "theater-detection-audit.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Detect fake or placeholder code (theater) and ensure real implementations replace stubs before deepe"
+      },
+      {
+        "name": "verification-and-quality-assurance",
+        "file": "verification-and-quality-assurance.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Orchestrate verification and QA activities across requirements, design, implementation, and validati"
+      },
+      {
+        "name": "verification-quality",
+        "file": "verification-quality.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Verify outputs and claims for accuracy, grounding, and policy compliance with explicit evidence and "
+      }
+    ],
+    "research": [
+      {
+        "name": "academic-reading-workflow",
+        "file": "academic-reading-workflow.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Systematic blueprint for reading and annotating academic papers with searchable notes, explicit cons"
+      },
+      {
+        "name": "baseline-replication",
+        "file": "baseline-replication.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Run disciplined replication of published or internal baselines with provenance, controls, and valida"
+      },
+      {
+        "name": "deep-research-orchestrator",
+        "file": "deep-research-orchestrator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "End-to-end orchestration of the deep research lifecycle across discovery, experimentation, and produ"
+      },
+      {
+        "name": "general-research-workflow",
+        "file": "general-research-workflow.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Core research loop for scoping, searching, analyzing, and reporting with explicit constraints and va"
+      },
+      {
+        "name": "intent-analyzer",
+        "file": "intent-analyzer.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Determine the true user intent, constraints, and success criteria for research tasks with explicit c"
+      },
+      {
+        "name": "interactive-planner",
+        "file": "interactive-planner.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Conduct structured, interactive planning sessions for research tasks with explicit constraints and v"
+      },
+      {
+        "name": "literature-synthesis",
+        "file": "literature-synthesis.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Synthesize multiple sources into coherent narratives with explicit evidence tracking and confidence "
+      },
+      {
+        "name": "method-development",
+        "file": "method-development.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design and iterate on new research methods with structured checkpoints, baselines, and validation."
+      },
+      {
+        "name": "observability",
+        "file": "observability.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Establish observability for research systems, experiments, and data pipelines with guardrails and co"
+      },
+      {
+        "name": "opentelemetry-observability",
+        "file": "opentelemetry-observability.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": true,
+        "description": ""
+      },
+      {
+        "name": "rapid-idea-generator",
+        "file": "rapid-idea-generator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Quickly generate and triage research ideas with constraint clarity and confidence ceilings."
+      },
+      {
+        "name": "rapid-manuscript-drafter",
+        "file": "rapid-manuscript-drafter.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Draft research manuscripts quickly with structured sections, evidence links, and confidence ceilings"
+      },
+      {
+        "name": "reconnaissance",
+        "file": "reconnaissance.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Systematic technology and market reconnaissance for extracting actionable intelligence from reposito"
+      },
+      {
+        "name": "research-driven-planning",
+        "file": "research-driven-planning.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Build plans anchored in research evidence, constraints, and validation gates."
+      },
+      {
+        "name": "research-gap-visualizer",
+        "file": "research-gap-visualizer.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Identify and visualize research gaps, coverage, and conflicts with explicit constraints and evidence"
+      },
+      {
+        "name": "research-publication",
+        "file": "research-publication.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Prepare research outputs for publication with compliance to venue rules, evidence integrity, and con"
+      },
+      {
+        "name": "researcher",
+        "file": "researcher.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Execute focused research tasks end-to-end with clear constraints, evidence tracking, and confidence "
+      },
+      {
+        "name": "source-credibility-analyzer",
+        "file": "source-credibility-analyzer.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Assess credibility, bias, and reliability of sources with explicit criteria and confidence ceilings."
+      },
+      {
+        "name": "testing-quality",
+        "file": "testing-quality.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Coordinate research-focused testing and quality validation with clear constraints, gates, and confid"
+      },
+      {
+        "name": "visual-asset-generator",
+        "file": "visual-asset-generator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Generate research visuals (figures, diagrams) with constraints, evidence alignment, and confidence c"
+      }
+    ],
+    "security": [
+      {
+        "name": "compliance",
+        "file": "compliance.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Evidence-led regulatory compliance playbook for GDPR, HIPAA, SOC 2, PCI-DSS, and ISO 27001 with audi"
+      },
+      {
+        "name": "network-security-setup",
+        "file": "network-security-setup.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Network isolation, allow/deny policy design, and TLS posture for sandboxes and CI with auditable enf"
+      },
+      {
+        "name": "reverse-engineer-debug",
+        "file": "reverse-engineer-debug.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Rapid triage and debug of binaries or artifacts with static + light dynamic analysis for safe insigh"
+      },
+      {
+        "name": "reverse-engineering-deep-analysis",
+        "file": "reverse-engineering-deep-analysis.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extended deep-dive reverse engineering with advanced tracing, deobfuscation, and exploit validation."
+      },
+      {
+        "name": "reverse-engineering-deep",
+        "file": "reverse-engineering-deep.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Advanced reverse engineering with dynamic tracing, memory inspection, and symbolic execution for com"
+      },
+      {
+        "name": "reverse-engineering-firmware-analysis",
+        "file": "reverse-engineering-firmware-analysis.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extended firmware analysis for embedded/IoT images with deep extraction, emulation, and vulnerabilit"
+      },
+      {
+        "name": "reverse-engineering-firmware",
+        "file": "reverse-engineering-firmware.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Firmware-focused reverse engineering for embedded/IoT images with extraction, partition analysis, an"
+      },
+      {
+        "name": "reverse-engineering-quick-triage",
+        "file": "reverse-engineering-quick-triage.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extended quick triage for rapid IOC and capability extraction with stricter timeboxes and safety rai"
+      },
+      {
+        "name": "reverse-engineering-quick",
+        "file": "reverse-engineering-quick.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Fast IOC-focused triage for binaries/documents with minimal execution, geared toward immediate conta"
+      },
+      {
+        "name": "sandbox-configurator",
+        "file": "sandbox-configurator.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Secure sandbox policy design (filesystem, network, secrets, observability) with auditable guardrails"
+      },
+      {
+        "name": "security",
+        "file": "security.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Central hub for secure design, vulnerability assessment, and remediation routing across the security"
+      },
+      {
+        "name": "wcag-accessibility",
+        "file": "wcag-accessibility.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "WCAG 2.1 AA/AAA accessibility compliance specialist for ARIA attributes, keyboard navigation, screen"
+      }
+    ],
+    "specialists": [
+      {
+        "name": "expertise-manager",
+        "file": "expertise-manager.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Route, calibrate, and continuously improve specialist coverage across domains."
+      },
+      {
+        "name": "frontend-specialists",
+        "file": "frontend-specialists.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Deliver resilient frontend solutions with performance, accessibility, and UX guardrails."
+      },
+      {
+        "name": "health-system",
+        "file": "health-system.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": ""
+      },
+      {
+        "name": "language-specialists",
+        "file": "language-specialists.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Route language-specific engineering work to the right specialist and maintain language playbooks."
+      },
+      {
+        "name": "ml-expert",
+        "file": "ml-expert.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design, implement, and optimize production-grade ML models and training pipelines."
+      },
+      {
+        "name": "ml-training-debugger",
+        "file": "ml-training-debugger.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Diagnose and stabilize ML training runs, recover from failures, and deliver validated fixes."
+      },
+      {
+        "name": "ml",
+        "file": "ml.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "General-purpose machine learning skill for scoping, prototyping, and coordinating ML solutions."
+      },
+      {
+        "name": "python-specialist",
+        "file": "python-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Deliver production-quality Python solutions with framework-aware patterns and tests."
+      },
+      {
+        "name": "react-specialist",
+        "file": "react-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Build and optimize React applications with accessibility, performance, and DX guardrails."
+      },
+      {
+        "name": "sql-database-specialist",
+        "file": "sql-database-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Design, optimize, and migrate SQL databases with reliability and performance guardrails."
+      },
+      {
+        "name": "system-design-architect",
+        "file": "system-design-architect.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Architect scalable, reliable, and cost-aware systems with clear constraints and validation plans."
+      },
+      {
+        "name": "typescript-specialist",
+        "file": "typescript-specialist.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Build and review TypeScript applications and libraries with strong typing, tooling, and delivery qua"
+      }
+    ],
+    "tooling": [
+      {
+        "name": "clarity-linter",
+        "file": "clarity-linter.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Evaluate and improve code clarity and cognitive load with rubric-driven scoring and targeted fixes."
+      },
+      {
+        "name": "image-gen",
+        "file": "image-gen.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Generate images via local SDXL Lightning, OpenAI DALL\u00b7E, Replicate, or custom providers with structu"
+      },
+      {
+        "name": "pptx-generation",
+        "file": "pptx-generation.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Generate production-ready PowerPoint decks with structured prompts, design guardrails, and validatio"
+      },
+      {
+        "name": "recruiter-outreach-pipeline",
+        "file": "recruiter-outreach-pipeline.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "7-phase pipeline for personalized cold outreach to executive recruiters - from prospect research thr"
+      },
+      {
+        "name": "reflect",
+        "file": "reflect.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extract learnings from session corrections and patterns, update skill files with persistent memory. "
+      },
+      {
+        "name": "template-extractor",
+        "file": "template-extractor.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Extract reusable templates and patterns from source artifacts with structured prompts and validation"
+      },
+      {
+        "name": "ui-ux-excellence",
+        "file": "ui-ux-excellence.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Drive UI/UX audits and improvements with structured heuristics, user journeys, and validation gates."
+      },
+      {
+        "name": "web-cli-teleport",
+        "file": "web-cli-teleport.skill.zip",
+        "version": "1.0.0",
+        "verix_compliant": false,
+        "description": "Teleport between web and CLI contexts with synchronized actions, credentials, and safety rails."
+      }
+    ]
+  },
+  "total": 176
+}

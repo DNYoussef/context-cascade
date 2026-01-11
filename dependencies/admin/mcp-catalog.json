@@ -3,11 +3,12 @@
   "description": "Complete MCP Server Catalog for Session Manager",
   "mcpServers": {
     "memory-mcp": {
-      "command": "C:\\Users\\17175\\Desktop\\memory-mcp-triple-system\\venv-memory\\Scripts\\python.exe",
-      "args": ["-u", "-m", "src.mcp.stdio_server"],
-      "cwd": "C:\\Users\\17175\\Desktop\\memory-mcp-triple-system",
+      "command": "C:\\Python312\\python.exe",
+      "args": ["-m", "src.mcp.stdio_server"],
+      "cwd": "D:\\Projects\\memory-mcp-triple-system",
       "env": {
-        "PYTHONPATH": "C:\\Users\\17175\\Desktop\\memory-mcp-triple-system",
+        "PYTHONPATH": "D:\\Projects\\memory-mcp-triple-system",
+        "MEMORY_MCP_DATA_DIR": "C:\\Users\\17175\\.claude\\memory-mcp-data",
         "PYTHONIOENCODING": "utf-8"
       },
       "category": "core",
@@ -15,12 +16,13 @@
       "contextCost": 2000
     },
     "connascence-analyzer": {
-      "command": "cmd",
-      "args": ["/c", "python", "C:\\Users\\17175\\Desktop\\connascence\\mcp\\cli.py", "mcp-server"],
-      "cwd": "C:\\Users\\17175\\Desktop\\connascence",
+      "command": "C:\\Python312\\python.exe",
+      "args": ["D:\\Projects\\connascence\\mcp_local\\stdio_server.py"],
+      "cwd": "D:\\Projects\\connascence",
       "env": {
-        "PYTHONPATH": "C:\\Users\\17175\\Desktop\\connascence",
-        "PYTHONIOENCODING": "utf-8"
+        "PYTHONPATH": "D:\\Projects\\connascence",
+        "PYTHONIOENCODING": "utf-8",
+        "CONNASCENCE_LOG_LEVEL": "INFO"
       },
       "category": "code-quality",
       "description": "Code coupling analysis",
@@ -82,12 +84,21 @@
       "description": "Multi-agent workflow orchestration",
       "contextCost": 2500
     },
+    "claude-flow": {
+      "command": "npx",
+      "args": ["claude-flow@alpha", "mcp", "start"],
+      "category": "orchestration",
+      "description": "87-tool unified orchestration (ruv-swarm + DAA + neural)",
+      "contextCost": 2500
+    },
     "ruv-swarm": {
       "command": "cmd",
       "args": ["/c", "npx", "ruv-swarm", "mcp", "start"],
       "category": "orchestration",
-      "description": "Agent swarm coordination",
-      "contextCost": 2000
+      "description": "DEPRECATED: Use claude-flow instead (superset with 87 tools)",
+      "contextCost": 2000,
+      "deprecated": true,
+      "replacedBy": "claude-flow"
     },
     "context7": {
       "command": "npx",
@@ -192,8 +203,8 @@
     "orchestration": {
       "name": "Orchestration",
       "description": "Multi-agent workflows",
-      "mcps": ["memory-mcp", "flow-nexus", "ruv-swarm", "sequential-thinking"],
-      "estimatedTokens": 7300
+      "mcps": ["memory-mcp", "claude-flow", "sequential-thinking"],
+      "estimatedTokens": 5300
     },
     "full-power": {
       "name": "Full Power",
@@ -201,9 +212,9 @@
       "mcps": [
         "memory-mcp", "connascence-analyzer", "fetch", "sequential-thinking",
         "filesystem", "playwright", "agentic-payments", "focused-changes",
-        "toc", "flow-nexus", "ruv-swarm", "context7"
+        "toc", "claude-flow", "context7"
       ],
-      "estimatedTokens": 16100
+      "estimatedTokens": 14100
     }
   },
   "categories": {

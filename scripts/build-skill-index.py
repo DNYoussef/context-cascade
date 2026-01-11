@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
 """
-build-skill-index.py - Build searchable skill index from all SKILL.md files
+build-skill-index.py - Build searchable skill index from packaged .skill files
 
-FIX-1 from REMEDIATION-PLAN.md:
-Properly extracts TRIGGER_POSITIVE patterns from all SKILL.md files
-and outputs a comprehensive skill-index.json.
+v3.0.0: Updated to scan skills/packaged/ directory for .skill ZIP archives.
+Extracts SKILL.md content from inside each ZIP archive.
+
+Features:
+- Scans skills/packaged/*.skill files (ZIP archives containing skill folders)
+- Extracts SKILL.md content from ZIP archives using zipfile module
+- Backward compatible with supplementary skills in ~/.claude/skills/
+- Packaged skills take precedence over supplementary skills with same name
+- Properly extracts TRIGGER_POSITIVE patterns for auto-routing
 
 Usage:
-    python build-skill-index.py [--output skill-index.json]
+    python build-skill-index.py [--output skill-index.json] [--verbose]
 """
 
 import json
 import os
 import re
 import sys
+import zipfile
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 # Configuration
 
@@ -34,6 +41,7 @@ from typing import Dict, List, Optional, Set
 
 PLUGIN_DIR = Path("C:/Users/17175/claude-code-plugins/context-cascade")
 SKILLS_DIR = PLUGIN_DIR / "skills"
+PACKAGED_SKILLS_DIR = SKILLS_DIR / "packaged"
 SUPPLEMENTARY_SKILLS_DIR = Path("C:/Users/17175/.claude/skills")
 DEFAULT_OUTPUT = PLUGIN_DIR / "scripts" / "skill-index" / "skill-index.json"
 
@@ -95,7 +103,7 @@ class SkillData:
 
 
 def find_skill_files(root_dir: Path) -> List[Path]:
-    """Find all SKILL.md files recursively."""
+    """Find all SKILL.md files recursively (for backward compatibility)."""
     skill_files = []
     for skill_path in root_dir.rglob("SKILL.md"):
         # Skip backup files
@@ -103,6 +111,65 @@ def find_skill_files(root_dir: Path) -> List[Path]:
             continue
         skill_files.append(skill_path)
     return skill_files
+
+
+def find_packaged_skills(packaged_dir: Path) -> List[Path]:
+    """Find all .skill files in the packaged directory."""
+    if not packaged_dir.exists():
+        return []
+    return list(packaged_dir.glob("*.skill"))
+
+
+def read_skill_md_from_archive(skill_archive: Path) -> Optional[Tuple[str, str]]:
+    """
+    Read SKILL.md content from a .skill ZIP archive.
+
+    Returns:
+        Tuple of (content, skill_name) or None if SKILL.md not found
+    """
+    try:
+        with zipfile.ZipFile(skill_archive, 'r') as zf:
+            # List all files in the archive
+            namelist = zf.namelist()
+
+            # Look for SKILL.md - it may be at root or in a subdirectory
+            skill_md_path = None
+            for name in namelist:
+                if name.endswith('SKILL.md'):
+                    skill_md_path = name
+                    break
+
+            if not skill_md_path:
+                return None
+
+            # Read the content
+            content = zf.read(skill_md_path).decode('utf-8', errors='replace')
+
+            # Extract skill name from the archive filename (without .skill extension)
+            skill_name = skill_archive.stem
+
+            return (content, skill_name)
+    except (zipfile.BadZipFile, KeyError, IOError) as e:
+        print(f"  Error reading {skill_archive}: {e}")
+        return None
+
+
+def get_supporting_files_from_archive(skill_archive: Path) -> List[str]:
+    """Get list of supporting files from a .skill ZIP archive."""
+    files = []
+    try:
+        with zipfile.ZipFile(skill_archive, 'r') as zf:
+            for name in zf.namelist():
+                # Get just the filename without path prefixes
+                basename = Path(name).name
+                if basename and basename.endswith('.md') and basename != 'SKILL.md':
+                    files.append(basename)
+                elif 'examples/' in name:
+                    if 'examples/' not in files:
+                        files.append('examples/')
+    except (zipfile.BadZipFile, IOError):
+        pass
+    return files
 
 
 def parse_yaml_frontmatter(content: str) -> Dict:
@@ -324,16 +391,106 @@ def process_skill_file(skill_path: Path, skills_dir: Path) -> Optional[SkillData
     # Get supporting files
     files = get_supporting_files(skill_dir)
 
-    # Calculate relative path - handle both core and supplementary skills
-    try:
-        rel_path = str(skill_dir.relative_to(PLUGIN_DIR)).replace('\\', '/') + '/'
-    except ValueError:
-        # Supplementary skill - use path relative to home/.claude/skills
+    # Calculate relative path - prefer packaged skill files for efficient loading
+    # Check if a corresponding .skill file exists in packaged directory
+    packaged_file = PACKAGED_SKILLS_DIR / f"{name}.skill"
+    if packaged_file.exists():
+        rel_path = f"skills/packaged/{name}.skill"
+    else:
+        # Fall back to raw skill directory path
         try:
-            rel_path = '.claude/skills/' + str(skill_dir.relative_to(SUPPLEMENTARY_SKILLS_DIR)).replace('\\', '/') + '/'
+            rel_path = str(skill_dir.relative_to(PLUGIN_DIR)).replace('\\', '/') + '/'
         except ValueError:
-            # Standalone file (not in a subdirectory)
-            rel_path = '.claude/skills/' + skill_path.stem + '/'
+            # Supplementary skill - use path relative to home/.claude/skills
+            try:
+                rel_path = '.claude/skills/' + str(skill_dir.relative_to(SUPPLEMENTARY_SKILLS_DIR)).replace('\\', '/') + '/'
+            except ValueError:
+                # Standalone file (not in a subdirectory)
+                rel_path = '.claude/skills/' + skill_path.stem + '/'
+
+    return SkillData(
+        name=name,
+        path=rel_path,
+        category=category,
+        description=description,
+        triggers=triggers,
+        negative_triggers=negative_triggers,
+        files=files,
+        tags=tags if isinstance(tags, list) else [tags],
+        trigger_positive_raw=trigger_positive.get('raw') if trigger_positive else None
+    )
+
+
+def process_packaged_skill(skill_archive: Path) -> Optional[SkillData]:
+    """Process a .skill ZIP archive and extract data."""
+    result = read_skill_md_from_archive(skill_archive)
+    if not result:
+        return None
+
+    content, archive_name = result
+
+    # Parse frontmatter
+    frontmatter = parse_yaml_frontmatter(content)
+
+    # Get skill name - prefer frontmatter name, fallback to archive name
+    name = frontmatter.get('name', archive_name)
+    if isinstance(name, list):
+        name = name[0] if name else archive_name
+
+    # Get description
+    description = frontmatter.get('description', '')
+    if isinstance(description, list):
+        description = ' '.join(description)
+
+    # Try to determine category from frontmatter or archive name
+    category = frontmatter.get('category', 'packaged')
+    if isinstance(category, list):
+        category = category[0] if category else 'packaged'
+
+    # Extract TRIGGER_POSITIVE block
+    trigger_positive = extract_trigger_positive(content)
+
+    # Collect trigger sources
+    trigger_sources = [
+        description,
+        extract_section(content, 'When to Use'),
+        extract_section(content, 'Purpose'),
+    ]
+
+    # Add TRIGGER_POSITIVE keywords if found
+    if trigger_positive:
+        if 'keywords' in trigger_positive:
+            trigger_sources.extend(trigger_positive['keywords'])
+        if 'context' in trigger_positive:
+            trigger_sources.append(trigger_positive['context'])
+
+    # Add tags from frontmatter
+    tags = frontmatter.get('x-tags', [])
+    if isinstance(tags, str):
+        tags = [tags]
+    trigger_sources.extend(tags)
+
+    # Extract all triggers
+    triggers = extract_keywords(' '.join(str(s) for s in trigger_sources))
+
+    # Add explicit TRIGGER_POSITIVE keywords at the front
+    if trigger_positive and 'keywords' in trigger_positive:
+        explicit_kw = [k.lower() for k in trigger_positive['keywords']]
+        triggers = explicit_kw + [t for t in triggers if t not in explicit_kw]
+
+    # Extract negative triggers
+    negative_sources = [
+        extract_section(content, 'When NOT to Use'),
+        extract_section(content, 'TRIGGER_NEGATIVE'),
+        extract_section(content, 'Anti-Patterns')
+    ]
+    negative_triggers = extract_keywords(' '.join(negative_sources))
+
+    # Get supporting files from archive
+    files = get_supporting_files_from_archive(skill_archive)
+
+    # Path format: skills/packaged/{name}.skill
+    rel_path = f"skills/packaged/{skill_archive.name}"
 
     return SkillData(
         name=name,
@@ -394,15 +551,34 @@ def main():
     output_path = Path(args.output)
 
     print(f"Building skill index...")
-    print(f"Skills directory: {SKILLS_DIR}")
+    print(f"Packaged skills directory: {PACKAGED_SKILLS_DIR}")
     print(f"Supplementary directory: {SUPPLEMENTARY_SKILLS_DIR}")
     print(f"Output: {output_path}")
 
-    # Find all SKILL.md files from core skills
-    skill_files = find_skill_files(SKILLS_DIR)
-    print(f"\nFound {len(skill_files)} core SKILL.md files")
+    # Process each skill
+    skills: Dict[str, dict] = {}
+    trigger_positive_count = 0
+    supplementary_count = 0
+    packaged_count = 0
 
-    # Find supplementary skills (including standalone .md files)
+    # Find and process packaged .skill files (primary source)
+    packaged_skill_files = find_packaged_skills(PACKAGED_SKILLS_DIR)
+    print(f"\nFound {len(packaged_skill_files)} packaged .skill files")
+
+    for skill_archive in packaged_skill_files:
+        skill_data = process_packaged_skill(skill_archive)
+        if skill_data:
+            skill_data.tags.append("packaged")
+            packaged_count += 1
+            skills[skill_data.name] = skill_data.to_dict()
+            if skill_data.trigger_positive_raw:
+                trigger_positive_count += 1
+                if args.verbose:
+                    print(f"  [TRIGGER+] {skill_data.name}")
+
+    print(f"Processed {packaged_count} packaged skills")
+
+    # Find supplementary skills (backward compatibility for ~/.claude/skills/)
     supplementary_files = []
     if SUPPLEMENTARY_SKILLS_DIR.exists():
         # Find SKILL.md files in subdirectories
@@ -413,31 +589,24 @@ def main():
                 supplementary_files.append(md_file)
         print(f"Found {len(supplementary_files)} supplementary skill files")
 
-    # Combine all skill files
-    all_skill_files = skill_files + supplementary_files
-    print(f"Total: {len(all_skill_files)} skill files")
-
-    # Process each skill
-    skills: Dict[str, dict] = {}
-    trigger_positive_count = 0
-    supplementary_count = 0
-
-    for skill_path in all_skill_files:
-        is_supplementary = str(skill_path).startswith(str(SUPPLEMENTARY_SKILLS_DIR))
-        base_dir = SUPPLEMENTARY_SKILLS_DIR if is_supplementary else SKILLS_DIR
-        skill_data = process_skill_file(skill_path, base_dir)
+    # Process supplementary skills
+    for skill_path in supplementary_files:
+        skill_data = process_skill_file(skill_path, SUPPLEMENTARY_SKILLS_DIR)
         if skill_data:
             # Mark supplementary skills
-            if is_supplementary:
-                skill_data.tags.append("supplementary")
-                supplementary_count += 1
-            skills[skill_data.name] = skill_data.to_dict()
-            if skill_data.trigger_positive_raw:
-                trigger_positive_count += 1
-                if args.verbose:
-                    print(f"  [TRIGGER+] {skill_data.name}")
+            skill_data.tags.append("supplementary")
+            supplementary_count += 1
+            # Only add if not already present from packaged skills (packaged takes precedence)
+            if skill_data.name not in skills:
+                skills[skill_data.name] = skill_data.to_dict()
+                if skill_data.trigger_positive_raw:
+                    trigger_positive_count += 1
+                    if args.verbose:
+                        print(f"  [TRIGGER+] {skill_data.name}")
+            elif args.verbose:
+                print(f"  [SKIP] {skill_data.name} (already in packaged)")
 
-    print(f"Processed {len(skills)} skills ({supplementary_count} supplementary)")
+    print(f"Processed {len(skills)} total skills (packaged: {packaged_count}, supplementary: {supplementary_count})")
     print(f"Skills with TRIGGER_POSITIVE: {trigger_positive_count}")
 
     # Build indices
@@ -446,11 +615,11 @@ def main():
 
     # Build final index
     index = {
-        'version': '2.1.0',
-        'generated': datetime.utcnow().isoformat() + 'Z',
+        'version': '3.0.0',  # Bumped version for packaged skills support
+        'generated': datetime.now(tz=None).astimezone().isoformat(),
         'generator': 'build-skill-index.py',
         'total_skills': len(skills),
-        'core_skills': len(skills) - supplementary_count,
+        'packaged_skills': packaged_count,
         'supplementary_skills': supplementary_count,
         'skills_with_trigger_positive': trigger_positive_count,
         'categories': categories,
@@ -468,7 +637,7 @@ def main():
 
     # Print summary
     print("\n=== Summary ===")
-    print(f"Total skills: {index['total_skills']} (core: {index['core_skills']}, supplementary: {index['supplementary_skills']})")
+    print(f"Total skills: {index['total_skills']} (packaged: {index['packaged_skills']}, supplementary: {index['supplementary_skills']})")
     print(f"With TRIGGER_POSITIVE: {trigger_positive_count}")
     print(f"Categories: {len(categories)}")
     print(f"Keywords indexed: {len(keyword_index)}")

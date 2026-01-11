@@ -96,17 +96,7 @@ WORKFLOW INSTRUCTIONS:
 1. INTENT ANALYSIS - Understand what user wants
 2. PLANNING - Break down into tasks
 3. SKILL ROUTING - Find relevant skills in:
-   skills/delivery/     - Feature implementation
-   skills/quality/      - Testing, auditing
-   skills/security/     - Security tasks
-   skills/research/     - Research tasks
-   skills/orchestration/ - Multi-agent coordination
-   skills/operations/   - DevOps, deployment
-   skills/platforms/    - Platform-specific
-   skills/foundry/      - Creating new skills/agents
-   skills/specialists/  - Domain experts
-   skills/tooling/      - Tool integrations
-
+   skills/packaged/     - All packaged skills (.skill files)
 4. EXECUTION - Skill -> Task -> TodoWrite pattern
 5. VERIFICATION - Check outputs against requirements
 

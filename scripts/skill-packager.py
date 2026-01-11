@@ -45,9 +45,9 @@ from typing import Optional, List, Dict, Any
 # Decision: REUSE (>90%) | ADAPT (70-90%) | FOLLOW pattern | BUILD new
 # ============================================================
 
-SKILLS_DIR = Path(r"C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills")
-OUTPUT_DIR = Path(r"C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills-packaged")
-BACKUP_DIR = Path(r"C:\Users\17175\claude-code-plugins\ruv-sparc-three-loop-system\skills-backup")
+SKILLS_DIR = Path(r"C:\Users\17175\claude-code-plugins\context-cascade\skills")
+OUTPUT_DIR = Path(r"C:\Users\17175\claude-code-plugins\context-cascade\skills\packaged")
+BACKUP_DIR = Path(r"C:\Users\17175\claude-code-plugins\context-cascade\skills\backup")
 
 
 @dataclass

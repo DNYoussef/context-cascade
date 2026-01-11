@@ -124,48 +124,48 @@ Utilities and adapters.
 
 ---
 
-## Consolidated Skills (formerly supplementary)
+## Packaged Skills
 
-All skills now unified in `context-cascade/skills/`. Former supplementary skills merged.
+All skills are now packaged in `skills/packaged/` as `.skill` files for efficient loading.
 
 ### foundry/recursive-improvement/ (5 skills)
 Self-improvement and meta-optimization loops.
 
 | Skill | Purpose | Key Agents | Location |
 |-------|---------|------------|----------|
-| `recursive-improvement` | Parent skill for recursive loops | coordinator | `skills/foundry/recursive-improvement/` |
-| `bootstrap-loop` | Self-improvement bootstrap cycle | coordinator | `skills/foundry/recursive-improvement/bootstrap-loop/` |
-| `eval-harness` | Evaluation framework for skill quality | evaluator | `skills/foundry/recursive-improvement/eval-harness/` |
-| `improvement-pipeline` | Automated improvement workflow | optimizer | `skills/foundry/recursive-improvement/improvement-pipeline/` |
-| `prompt-forge` | Iterative prompt refinement | prompt-engineer | `skills/foundry/recursive-improvement/prompt-forge/` |
+| `recursive-improvement` | Parent skill for recursive loops | coordinator | `skills/packaged/recursive-improvement.skill` |
+| `bootstrap-loop` | Self-improvement bootstrap cycle | coordinator | `skills/packaged/bootstrap-loop.skill` |
+| `eval-harness` | Evaluation framework for skill quality | evaluator | `skills/packaged/eval-harness.skill` |
+| `improvement-pipeline` | Automated improvement workflow | optimizer | `skills/packaged/improvement-pipeline.skill` |
+| `prompt-forge` | Iterative prompt refinement | prompt-engineer | `skills/packaged/prompt-forge.skill` |
 
 ### guards/ (1 skill)
 Pre-execution safety checks.
 
 | Skill | Purpose | Key Agents | Location |
 |-------|---------|------------|----------|
-| `library-check` | Pre-coding library reuse guard | scanner | `skills/guards/library-check/` |
+| `library-check` | Pre-coding library reuse guard | scanner | `skills/packaged/library-check.skill` |
 
 ### specialists/health-system/ (1 skill)
 System monitoring and self-repair.
 
 | Skill | Purpose | Key Agents | Location |
 |-------|---------|------------|----------|
-| `health-system` | 7-agent health monitoring | health-agents | `skills/specialists/health-system/` |
+| `health-system` | 7-agent health monitoring | health-agents | `skills/packaged/health-system.skill` |
 
 ### security/ (1 skill)
 Security and reverse engineering.
 
 | Skill | Purpose | Key Agents | Location |
 |-------|---------|------------|----------|
-| `reverse-engineer-debug` | Binary/protocol RE debugging | reverse-engineer | `skills/security/reverse-engineer-debug/` |
+| `reverse-engineer-debug` | Binary/protocol RE debugging | reverse-engineer | `skills/packaged/reverse-engineer-debug.skill` |
 
 ### tooling/ (1 skill)
 Professional automation.
 
 | Skill | Purpose | Key Agents | Location |
 |-------|---------|------------|----------|
-| `recruiter-outreach-pipeline` | Automated recruiter response | writer, scheduler | `skills/tooling/recruiter-outreach-pipeline/` |
+| `recruiter-outreach-pipeline` | Automated recruiter response | writer, scheduler | `skills/packaged/recruiter-outreach-pipeline.skill` |
 
 ---
 
@@ -202,7 +202,8 @@ High-level workflows that chain multiple skills:
 - **Skill Index:** `discovery/SKILL-INDEX.md` (this file)
 - **Agent Registry:** `agents/foundry/registry/registry.json`
 - **Command Index:** `commands/README.md`
-- **Skill Files:** `skills/{category}/{skill-name}/SKILL.md`
+- **Packaged Skills:** `skills/packaged/{skill-name}.skill`
+- **Raw Skill Sources:** `skills/{category}/{skill-name}/SKILL.md` (used for building packaged skills)
 
 ---
 
