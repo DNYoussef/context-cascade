@@ -24,6 +24,76 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def _discover_memory_mcp_path() -> Optional[Path]:
+    """
+    Discover Memory MCP project path using multiple strategies.
+
+    Priority:
+    1. MEMORY_MCP_PATH environment variable
+    2. MCP config discovery (claude_desktop_config.json)
+    3. Sibling directory detection
+    4. Common locations
+    """
+    # Strategy 1: Environment variable
+    env_path = os.environ.get("MEMORY_MCP_PATH")
+    if env_path:
+        path = Path(env_path)
+        if path.exists():
+            return path
+        logger.warning(f"MEMORY_MCP_PATH set but path not found: {env_path}")
+
+    # Strategy 2: MCP config discovery
+    mcp_config_paths = [
+        Path.home() / "AppData" / "Roaming" / "Claude" / "claude_desktop_config.json",  # Windows
+        Path.home() / "Library" / "Application Support" / "Claude" / "claude_desktop_config.json",  # Mac
+        Path.home() / ".config" / "claude" / "claude_desktop_config.json",  # Linux
+        Path.home() / ".claude" / "claude_desktop_config.json",  # Alternative
+    ]
+
+    for config_path in mcp_config_paths:
+        if config_path.exists():
+            try:
+                with open(config_path) as f:
+                    config = json.load(f)
+                mcp_servers = config.get("mcpServers", {})
+                memory_server = mcp_servers.get("memory-mcp", mcp_servers.get("memory", {}))
+                if "cwd" in memory_server:
+                    path = Path(memory_server["cwd"])
+                    if path.exists():
+                        return path
+                # Also check args for path hints
+                args = memory_server.get("args", [])
+                for arg in args:
+                    if "memory" in str(arg).lower() and "mcp" in str(arg).lower():
+                        potential_path = Path(arg).parent if Path(arg).is_file() else Path(arg)
+                        if potential_path.exists() and (potential_path / "src" / "mcp").exists():
+                            return potential_path
+            except (json.JSONDecodeError, KeyError, IOError) as e:
+                logger.debug(f"Failed to read MCP config {config_path}: {e}")
+
+    # Strategy 3: Sibling directory detection
+    current_file = Path(__file__).resolve()
+    for parent in current_file.parents:
+        for name in ["memory-mcp-triple-system", "memory-mcp"]:
+            sibling = parent.parent / name
+            if sibling.exists() and (sibling / "src" / "mcp").exists():
+                return sibling
+
+    # Strategy 4: Common locations
+    common_paths = [
+        Path.home() / "Projects" / "memory-mcp-triple-system",
+        Path.home() / "projects" / "memory-mcp-triple-system",
+        Path.home() / "code" / "memory-mcp-triple-system",
+        Path.home() / "dev" / "memory-mcp-triple-system",
+        Path("/opt/memory-mcp-triple-system"),
+    ]
+    for path in common_paths:
+        if path.exists() and (path / "src" / "mcp").exists():
+            return path
+
+    return None
+
+
 @dataclass
 class MCPToolResult:
     """Result of an MCP tool invocation."""
@@ -48,7 +118,7 @@ class MemoryMCPClient:
 
     # Default MCP server configuration
     DEFAULT_ENDPOINT = "localhost:50051"
-    MCP_SERVER_PATH = Path("C:/Users/17175/Desktop/memory-mcp-triple-system")
+    MCP_SERVER_PATH = _discover_memory_mcp_path() or Path(".")
 
     def __init__(
         self,
